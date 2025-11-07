@@ -17,6 +17,14 @@ const __dirname = path.dirname(__filename);
 
 const documentMapping: Record<string, DocumentMapping> = {};
 
+function cleanWhitespace(text: string): string {
+    return text
+        .replace(/\n/g, ' ')      // Replace newlines with spaces
+        .replace(/\t/g, ' ')      // Replace tabs with spaces
+        .replace(/\s+/g, ' ')     // Replace multiple spaces with single space
+        .trim();                  // Remove leading/trailing whitespace
+}
+
 function removeDuplicates<T>(arr: T[], prop: keyof T): T[] {
     const unique = new Set();
     const result = arr.filter((item) => {
@@ -122,15 +130,15 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
         const headerDesc: string[] = [];
 
         headers.each((index, el) => {
-            headerNames.push($(el).text().replaceAll("\n", "").replaceAll("\t", ""));
+            headerNames.push(cleanWhitespace($(el).text()));
         });
 
         const details = $('[data-title="Details"]');
         const headerTypes: string[] = [];
         
         details.each((index, el) => {
-            headerTypes.push($(el).find('dd').first().text().replaceAll("\n", "").replaceAll("\t", ""));
-            headerDesc.push($(el).find('dd').eq(2)?.text().replaceAll("\n           ", " ").replaceAll("\t", "").replaceAll("\n", " ") || "");
+            headerTypes.push(cleanWhitespace($(el).find('dd').first().text()));
+            headerDesc.push(cleanWhitespace($(el).find('dd').eq(2)?.text() || ""));
         });
 
         const properties: Record<string, { type: string; description: string }> = {};
@@ -143,7 +151,7 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
         
         return { 
             name: data.title, 
-            description: desc?.text().replaceAll("\n", " ").replaceAll("\t", "") || '', 
+            description: cleanWhitespace(desc?.text() || ''), 
             properties, 
             module: CONFIGURATION[documentationId]?.label || '',
         };
