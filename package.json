@@ -1,15 +1,80 @@
 {
-  "name": "sf-doc-to-json",
+  "name": "@sf-explorer/salesforce-object-reference",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Generator tool to scrape Salesforce documentation and consumer library to access object schemas. See README for both usages.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
   },
+  "bin": {
+    "sf-doc-fetch": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run fix:cli",
+    "build:esm": "tsc",
+    "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "fix:cli": "node scripts/fix-cli.js",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "prepare": "npm run build",
+    "start": "npm run build && node dist/cli.js",
+    "fetch:all": "npm run build && node dist/cli.js",
+    "fetch:fsc": "npm run build && node dist/cli.js 265.0 atlas.en-us.financial_services_cloud_object_reference.meta",
+    "fetch:core": "npm run build && node dist/cli.js 264.0 atlas.en-us.object_reference.meta",
+    "fetch:health": "npm run build && node dist/cli.js 264.0 atlas.en-us.health_cloud_object_reference.meta",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prepublishOnly": "npm run build && npm test",
+    "pack:preview": "npm pack --dry-run"
+  },
+  "keywords": [
+    "salesforce",
+    "documentation",
+    "scraper",
+    "generator",
+    "object-reference",
+    "financial-services-cloud",
+    "health-cloud",
+    "schema",
+    "metadata",
+    "typescript",
+    "browser",
+    "tree-shakeable",
+    "esm"
+  ],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "node-fetch": "^3.3.2"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sf-explorer/sf-doc-to-json.git"
+  },
+  "files": [
+    "dist",
+    "doc",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.0",
+    "cheerio": "1.1.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.0"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

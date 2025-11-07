@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Object Reference - Browser Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0070d2;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        button {
+            background: #0070d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005fb2;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .result {
+            margin-top: 15px;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #c23934;
+        }
+        .success {
+            color: #04844b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Salesforce Object Reference - Browser Demo</h1>
+        <p>This demo shows how to use the Salesforce Object Reference library in the browser using ES modules.</p>
+
+        <div class="section">
+            <h2>1. Load Index</h2>
+            <button onclick="loadIndexDemo()">Load Index</button>
+            <div id="index-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Get Available Clouds</h2>
+            <button onclick="loadCloudsDemo()">Get Clouds</button>
+            <div id="clouds-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>3. Search Objects</h2>
+            <input type="text" id="search-input" placeholder="Enter search term (e.g., Account)" value="Account">
+            <button onclick="searchDemo()">Search</button>
+            <div id="search-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>4. Get Specific Object</h2>
+            <input type="text" id="object-input" placeholder="Enter object name" value="Account">
+            <button onclick="getObjectDemo()">Get Object</button>
+            <div id="object-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>5. Get Objects by Cloud</h2>
+            <select id="cloud-select">
+                <option value="">Select a cloud...</option>
+            </select>
+            <button onclick="getByCloudDemo()">Get Objects</button>
+            <div id="cloud-result" class="result"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import from the package
+        import {
+            loadIndex,
+            getObject,
+            searchObjects,
+            getObjectsByCloud,
+            getAvailableClouds
+        } from './dist/index.js';
+
+        // Make functions available globally for demo buttons
+        window.sfLib = {
+            loadIndex,
+            getObject,
+            searchObjects,
+            getObjectsByCloud,
+            getAvailableClouds
+        };
+
+        // Auto-load clouds for dropdown
+        window.addEventListener('load', async () => {
+            try {
+                const clouds = await getAvailableClouds();
+                const select = document.getElementById('cloud-select');
+                clouds.forEach(cloud => {
+                    const option = document.createElement('option');
+                    option.value = cloud;
+                    option.textContent = cloud;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Failed to load clouds:', error);
+            }
+        });
+
+        window.loadIndexDemo = async function() {
+            const result = document.getElementById('index-result');
+            result.innerHTML = '<p class="loading">Loading...</p>';
+            
+            try {
+                const index = await window.sfLib.loadIndex();
+                result.innerHTML = `
+                    <p class="success">✓ Index loaded successfully!</p>
+                    <pre>${JSON.stringify({
+                        version: index.version,
+                        totalObjects: index.totalObjects,
+                        totalClouds: index.totalClouds,
+                        generated: index.generated,
+                        sampleObjects: Object.keys(index.objects).slice(0, 5)
+                    }, null, 2)}</pre>
+                `;
+            } catch (error) {
+                result.innerHTML = `<p class="error">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        window.loadCloudsDemo = async function() {
+            const result = document.getElementById('clouds-result');
+            result.innerHTML = '<p class="loading">Loading...</p>';
+            
+            try {
+                const clouds = await window.sfLib.getAvailableClouds();
+                result.innerHTML = `
+                    <p class="success">✓ Found ${clouds.length} clouds</p>
+                    <pre>${JSON.stringify(clouds, null, 2)}</pre>
+                `;
+            } catch (error) {
+                result.innerHTML = `<p class="error">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        window.searchDemo = async function() {
+            const result = document.getElementById('search-result');
+            const searchTerm = document.getElementById('search-input').value;
+            result.innerHTML = '<p class="loading">Searching...</p>';
+            
+            try {
+                const results = await window.sfLib.searchObjects(searchTerm);
+                result.innerHTML = `
+                    <p class="success">✓ Found ${results.length} results</p>
+                    <pre>${JSON.stringify(results.slice(0, 10), null, 2)}</pre>
+                    ${results.length > 10 ? `<p>... and ${results.length - 10} more</p>` : ''}
+                `;
+            } catch (error) {
+                result.innerHTML = `<p class="error">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        window.getObjectDemo = async function() {
+            const result = document.getElementById('object-result');
+            const objectName = document.getElementById('object-input').value;
+            result.innerHTML = '<p class="loading">Loading...</p>';
+            
+            try {
+                const obj = await window.sfLib.getObject(objectName);
+                if (obj) {
+                    const fieldCount = Object.keys(obj.properties).length;
+                    const sampleFields = Object.entries(obj.properties).slice(0, 5);
+                    
+                    result.innerHTML = `
+                        <p class="success">✓ Object found!</p>
+                        <pre>${JSON.stringify({
+                            name: obj.name,
+                            module: obj.module,
+                            description: obj.description.substring(0, 100) + '...',
+                            totalFields: fieldCount,
+                            sampleFields: Object.fromEntries(sampleFields)
+                        }, null, 2)}</pre>
+                    `;
+                } else {
+                    result.innerHTML = `<p class="error">Object "${objectName}" not found</p>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<p class="error">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        window.getByCloudDemo = async function() {
+            const result = document.getElementById('cloud-result');
+            const cloudName = document.getElementById('cloud-select').value;
+            
+            if (!cloudName) {
+                result.innerHTML = '<p class="error">Please select a cloud first</p>';
+                return;
+            }
+            
+            result.innerHTML = '<p class="loading">Loading...</p>';
+            
+            try {
+                const objects = await window.sfLib.getObjectsByCloud(cloudName);
+                result.innerHTML = `
+                    <p class="success">✓ Found ${objects.length} objects in ${cloudName}</p>
+                    <pre>${JSON.stringify(
+                        objects.slice(0, 10).map(o => ({ name: o.name, fields: Object.keys(o.properties).length })),
+                        null,
+                        2
+                    )}</pre>
+                    ${objects.length > 10 ? `<p>... and ${objects.length - 10} more</p>` : ''}
+                `;
+            } catch (error) {
+                result.innerHTML = `<p class="error">✗ Error: ${error.message}</p>`;
+            }
+        };
+    </script>
+</body>
+</html>
+

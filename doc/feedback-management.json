@@ -1,0 +1,659 @@
+{
+  "Salesforce Surveys Object Model": {
+    "name": "Salesforce Surveys Object Model",
+    "description": "Learn about how Salesforce Surveys objects relate to one another in    Salesforce.",
+    "properties": {},
+    "module": "Feedback Management"
+  },
+  "Survey": {
+    "name": "Survey",
+    "description": "Represents a survey.",
+    "properties": {
+      "ActiveVersionID": {
+        "type": "reference",
+        "description": "The ID of the survey version currently activated."
+      },
+      "Description": {
+        "type": "string",
+        "description": "The description of the survey. This field isn’t visible in the UI."
+      },
+      "DeveloperName": {
+        "type": "string",
+        "description": "The survey’s unique API name."
+      },
+      "IsPartialSaveEnabled": {
+        "type": "boolean",
+        "description": "Indicates whether to save the partial responses for the survey (true) or not (false)."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The date and time that the current user last viewed a record related to the survey."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed the survey."
+      },
+      "LatestVersionId": {
+        "type": "reference",
+        "description": "The ID of the most recent version of this survey."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the survey that appears in the UI. This field is read-only from API version 50.0."
+      },
+      "NamespacePrefix": {
+        "type": "string",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values.  In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer.  In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.   "
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The ID of the user who created the survey."
+      },
+      "SurveyType": {
+        "type": "string",
+        "description": "Type of the survey. The default value is Survey. Possible values are:   ASSESSMENT — Survey type for sales enablement teams. Available from API version 58.0 and later.   BASIC — Survey with a question page with like or dislike, long text, multiple selection, NPS, rating, short text, and single selection questions, and without inserted participant responses, display logic, and page branching logic.   SURVEY — Survey with all the available features.   "
+      },
+      "TotalVersionsCount": {
+        "type": "int",
+        "description": "The number of versions of the survey."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyEmailBranding": {
+    "name": "SurveyEmailBranding",
+    "description": "Represents the configuration settings for invitation emails sent to survey participants for a particular survey.",
+    "properties": {
+      "Body": {
+        "type": "textarea",
+        "description": "The body text of the invitation email."
+      },
+      "DeveloperName": {
+        "type": "string",
+        "description": "The unique API name of the email branding configuration."
+      },
+      "FooterImageId": {
+        "type": "reference",
+        "description": "The ID of the content asset that appears in the footer of the invitation email."
+      },
+      "FromEmailAddress": {
+        "type": "email",
+        "description": " The email address that appears in the “From” field when the invitation is sent to participants.  "
+      },
+      "HeaderImageId": {
+        "type": "reference",
+        "description": "The ID of the content asset that appears in the header of the invitation email."
+      },
+      "Language": {
+        "type": "picklist",
+        "description": "The language of the emails. Available languages include:  Chinese (Simplified)  Chinese (Traditional)  Danish  Dutch  English  Finnish  French  German  Italian  Japanese  Korean  Norwegian  Portuguese (Brazilian)  Russian  Spanish  Spanish (Mexican)  Swedish  Thai   "
+      },
+      "MasterLabel": {
+        "type": "string",
+        "description": "The label for these email configuration settings."
+      },
+      "Subject": {
+        "type": "string",
+        "description": " The subject of the invitation email.  "
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyEngagementContext": {
+    "name": "SurveyEngagementContext",
+    "description": "Represents the context based on which a survey invitation was sent or a survey       response was received.",
+    "properties": {
+      "ContextType": {
+        "type": "string",
+        "description": "Context type based on which the survey invitation was sent or the response            was received."
+      },
+      "ContextValue": {
+        "type": "string",
+        "description": "Context based on which the survey invitation was sent or the response was            received."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Name of the record."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "ID of the record's owner."
+      },
+      "SurveyInvitationId": {
+        "type": "reference",
+        "description": "ID of the survey invitation."
+      },
+      "SurveyResponseId": {
+        "type": "reference",
+        "description": "ID of the survey response."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyInvitation": {
+    "name": "SurveyInvitation",
+    "description": "Represents the invitation sent to a participant to complete the survey.",
+    "properties": {
+      "CommunityId": {
+        "type": "reference",
+        "description": "The ID of the Experience Cloud site that you want to send the survey to."
+      },
+      "ContactId": {
+        "type": "reference",
+        "description": "ID of the contact who received the invitation. This field is available in API v49.0 and later."
+      },
+      "EmailBrandingId": {
+        "type": "reference",
+        "description": "The ID of the survey email branding object that’s associated with this invitation."
+      },
+      "InvitationLink": {
+        "type": "url",
+        "description": "The URL to the survey that is sent to participants. To query on this field, you need access to the associated Survey record."
+      },
+      "InviteExpiryDateTime": {
+        "type": "dateTime",
+        "description": "The date and time that the survey invitation expires."
+      },
+      "IsDefault": {
+        "type": "boolean",
+        "description": "Determines whether this is the default survey invitation to use when the survey is sent to participants."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this survey invitation."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this survey invitation."
+      },
+      "LeadId": {
+        "type": "reference",
+        "description": "ID of the lead who received the invitation. This field is available in API v49.0 and later."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the survey invitation that appears in the UI."
+      },
+      "OptionsAllowGuestUserResponse": {
+        "type": "boolean",
+        "description": "Determines whether participants who don’t have a Salesforce account can complete the survey."
+      },
+      "OptionsAllowParticipantAccessTheirResponse": {
+        "type": "boolean",
+        "description": "Determines whether participants can access a copy of their responses after they complete the survey."
+      },
+      "OptionsCollectAnonymousResponse": {
+        "type": "boolean",
+        "description": "Determines whether participants can complete the survey anonymously."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "ID of the user who created the survey invitation."
+      },
+      "ParticipantId": {
+        "type": "reference",
+        "description": "ID of the participant if the participant is a Salesforce contact, user, or lead."
+      },
+      "ResponseStatus": {
+        "type": "picklist",
+        "description": "The status of a participant’s response to the survey that’s associated with the survey invitation. Possible values include:  NotStarted — For an invitation with a ParticipantID, it means that the recipient hasn’t opened the survey. For an invitation without the ParticipantID, it means that none of the recipients have opened the survey.   Started — For an invitation with a ParticipantID, it means that the recipient opened the survey. For an invitation without the ParticipantID, it means that the survey has been opened by at least one recipient.   Paused — For an invitation with a ParticipantID, it means that the recipient has paused the survey. For an invitation without the ParticipantID, it means that the survey has been paused by any one of the recipients. Paused isn't available for invitations in which either OptionsAllowParticipantAccessTheirResponse or OptionsCollectAnonymousResponse is true.   PartiallyCompleted— For an invitation with a ParticipantID field, it means that the recipient has partially completed the survey. For an invitation without the ParticipantID field, it means that at least one recipient has partially completed the survey. Available in API version 63.0 and later.   Completed — For an invitation with a ParticipantID, it means that the recipient has submitted the survey. For an invitation without the ParticipantID, it means that the invitation has been submitted by at least one recipient.   "
+      },
+      "SurveyId": {
+        "type": "reference",
+        "description": "ID of the survey that’s sent in the invitation."
+      },
+      "UUID": {
+        "type": "string",
+        "description": "A unique user ID that's added to a survey invitation generated for a contact, lead,or user."
+      },
+      "UserId": {
+        "type": "reference",
+        "description": "ID of the user who received the invitation. This field is available in API v49.0 and later."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyPage": {
+    "name": "SurveyPage",
+    "description": "Represents a page, such as the title page or a question page, in a          survey.",
+    "properties": {
+      "DeveloperName": {
+        "type": "string",
+        "description": "The unique API name of this SurveyPage object."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the survey page that appears in the UI."
+      },
+      "SurveyVersionId": {
+        "type": "reference",
+        "description": "The version of the survey that the page belongs to."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyQuestion": {
+    "name": "SurveyQuestion",
+    "description": "Represents a question in a survey.",
+    "properties": {
+      "                        DeveloperName                     ": {
+        "type": "string",
+        "description": "The API name of the SurveyQuestion. The API name must be unique                       within a particular version of the survey."
+      },
+      "                        IsDeprecated                     ": {
+        "type": "boolean",
+        "description": "Indicates whether the question was deleted from the survey."
+      },
+      "                        Name                     ": {
+        "type": "string",
+        "description": "Up to the first 250 characters of the label for the question."
+      },
+      "PageDisplayOrder": {
+        "type": "int",
+        "description": "The order in which the page is displayed. This field is available                       in API version 54.0 and later."
+      },
+      "PageName": {
+        "type": "string",
+        "description": "The label for the page. This field is available in API version                       52.0 and later."
+      },
+      "QuestionChoiceCount": {
+        "type": "int",
+        "description": "The number of choices for the question. This field is available in                       API version 62.0 and later."
+      },
+      "                        QuestionName                     ": {
+        "type": "textarea",
+        "description": "The label for the question."
+      },
+      "QuestionOrder": {
+        "type": "int",
+        "description": "The order in which the question is displayed."
+      },
+      "                        QuestionType                     ": {
+        "type": "picklist",
+        "description": "The type of question. Possible values include:                           Boolean—This                             value is available in API v49.0 and later.                           CSAT                           Currency                           Date                           DateTime                           FreeText                           Image                            Matrix—This                             value is available in API v55.0 and later.                           MultipleChoice                           MultiSelectPicklist                           NPS                           Number                           Picklist                           RadioButton                           StackRank                           Rating                            ShortText—This                             value is available in API v49.0 and later.                           Slider                           Toggle                         "
+      },
+      "RelatedQuestionId": {
+        "type": "reference",
+        "description": "The ID of the parent question. This field is blank when the                       question itself is the parent question. This field is available in                       API v55.0 and later, with Feedback Management - Starter and                       Feedback Management - Growth licenses."
+      },
+      "SubQuestionDisplayOrder": {
+        "type": "int",
+        "description": "The order in which the question is displayed within the parent                       question. This field is available in API v55.0 and later, with                       Feedback Management - Starter and Feedback Management - Growth                       licenses."
+      },
+      "                        SurveyPageId                     ": {
+        "type": "reference",
+        "description": "Lookup to the SurveyPage that contains the question."
+      },
+      "                        SurveyVersionId                     ": {
+        "type": "reference",
+        "description": "The ID of the SurveyVersion that the question belongs to."
+      },
+      "ValidationType": {
+        "type": "picklist",
+        "description": "The validations available for the short-text question. Possible                       values include:                          Custom - Cu                           Number - Nu                         "
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyQuestionChoice": {
+    "name": "SurveyQuestionChoice",
+    "description": "Represents an answer choice that a participant can select for a          survey question.",
+    "properties": {
+      "DeveloperName": {
+        "type": "string",
+        "description": "The unique API name of the SurveyQuestionChoice object."
+      },
+      "DisplayOrder": {
+        "type": "int",
+        "description": "The order in which the question choice is displayed within the                       parent question. This field is available in API v55.0 and later,                       with Feedback Management - Starter and Feedback Management - Growth                       licenses."
+      },
+      "IsDeprecated": {
+        "type": "boolean",
+        "description": "Indicates whether a question choice was deleted from the                       survey."
+      },
+      "Name": {
+        "type": "string",
+        "description": "A label for the question choice that appears in the UI."
+      },
+      "QuestionId": {
+        "type": "reference",
+        "description": "The ID of the SurveyQuestion object that this choice belongs                       to."
+      },
+      "SurveyVersionId": {
+        "type": "reference",
+        "description": "The version of the survey that this question choice belongs                       to."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyQuestionResponse": {
+    "name": "SurveyQuestionResponse",
+    "description": "Represents a participant’s answer to a specific question.       ",
+    "properties": {
+      "                        ChoiceValue                     ": {
+        "type": "textarea",
+        "description": "Response provided by a participant for the following question                       types:                           Multiple choice                           Picklist                           Radio                           Ranking                         "
+      },
+      "                        Datatype                     ": {
+        "type": "Filter, Group, Nillable, Restricted picklist, Sort",
+        "description": ""
+      },
+      "                        DateTimeValue                     ": {
+        "type": "dateTime",
+        "description": "Response provided by a participant for a question of the type date                       time."
+      },
+      "                        DateValue                     ": {
+        "type": "date",
+        "description": "Response provided by a participant for a question of the type                       date."
+      },
+      "                        InvitationId                     ": {
+        "type": "reference",
+        "description": "The ID of the SurveyInvitation that was sent to the survey                       participant."
+      },
+      "                        IsTrueOrFalse                     ": {
+        "type": "boolean",
+        "description": "Response provided by a participant for a question type which has                       only two possible values: True and False."
+      },
+      "                        NumberValue                     ": {
+        "type": "int",
+        "description": "Response provided by a participant for the following question                       types:                           Net Promoter Score (NPS)                           Rating                           Score                           Slider                         "
+      },
+      "                        QuestionChoiceId                     ": {
+        "type": "reference",
+        "description": "The ID of SurveyQuestionChoice that a participant chose in                       response to a question."
+      },
+      "                        QuestionId                     ": {
+        "type": "reference",
+        "description": "The ID of the SurveyQuestion that a participant provided an answer                       for."
+      },
+      "                        Rank                     ": {
+        "type": "int",
+        "description": "Rank provided by a participant for an answer choice for the                       ranking question type."
+      },
+      "                        ResponseId                     ": {
+        "type": "reference",
+        "description": "The ID of the SurveyResponse that is the parent of this                       SurveyQuestionResponse."
+      },
+      "                        ResponseShortText                     ": {
+        "type": "string",
+        "description": "Up to the first 250 characters of the response provided by a                       participant for a text type question."
+      },
+      "                        ResponseValue                     ": {
+        "type": "textarea",
+        "description": "Response provided by a participant for a question."
+      },
+      "                        SurveyVersionId                     ": {
+        "type": "reference",
+        "description": "The ID of the SurveyVersion that the response belongs to."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyQuestionScore": {
+    "name": "SurveyQuestionScore",
+    "description": "Represents the aggregate of responses for the following question types: date,       multiple choice, picklist, radio, ranking, rating, scoring, slider, and Net Promoter Score® (NPS®).",
+    "properties": {
+      "                CumulativeScore              ": {
+        "type": "double",
+        "description": "Sum of the responses provided by all the participants for a question of the            following types: rating, scoring, and slider. For a question of the type            ranking, sum of the weights provided by all the participants for each            item."
+      },
+      "                DateResponse              ": {
+        "type": "date",
+        "description": "The date selected by one or more participants for a question of the type            date."
+      },
+      "                Name              ": {
+        "type": " string ",
+        "description": "For an overall score type record:               Name of a question.               Name of an item in a question of the type ranking.              "
+      },
+      "                QuestionChoiceId              ": {
+        "type": " reference ",
+        "description": "Unique identifier of the answer choice selected by one or more participants.            For an individual score type record, this field is applicable for questions of            the following types: picklist, radio, multi choice, ranking and rating.  For            an overall score type record, this field is applicable for questions of the            type ranking."
+      },
+      "                QuestionDeveloperName              ": {
+        "type": "string",
+        "description": "The API name of the question for which response is recorded. The API name            must be unique within a particular version of the survey."
+      },
+      "                QuestionId              ": {
+        "type": " reference ",
+        "description": "Unique identifier of the question for which response is recorded."
+      },
+      "                QuestionName              ": {
+        "type": "                      textarea                    ",
+        "description": "Name of the question for which response is recorded."
+      },
+      "                QuestionSkippedCount              ": {
+        "type": "                      int                    ",
+        "description": "Number of participants who didn’t respond to the question."
+      },
+      "                ResponseCount              ": {
+        "type": "                      int                    ",
+        "description": "For an overall score type record, number of participants who responded to            the question. For an individual score type record, number of participants who            selected a particular answer choice."
+      },
+      "                ResponseValue              ": {
+        "type": "                      double                    ",
+        "description": "Answer choice selected by one or more participants for a question of the            following types: rating, slider, score, NPS. Rank provided by the participant            for an item in a question of the type ranking."
+      },
+      "                Score              ": {
+        "type": "                      double                    ",
+        "description": "For an individual score type record, percentage of participants who selected            a particular answer choice.  Note For questions of the type ranking, the              percentage of participants who have provided the same rank to an              item.   "
+      },
+      "                ScoreType              ": {
+        "type": " picklist ",
+        "description": "Type of the score calculated for a record. Possible values are:               Individual               Overall              "
+      },
+      "                SurveyId              ": {
+        "type": " reference ",
+        "description": "Unique identifier of the survey that contains the question for which scores            are calculated."
+      },
+      "                SurveyInvitationId              ": {
+        "type": " reference ",
+        "description": "Unique identifier of the survey invitation for which scores are            calculated."
+      },
+      "                SurveyVersionId              ": {
+        "type": " reference ",
+        "description": "Unique identifier of the survey version for which scores are            calculated."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyResponse": {
+    "name": "SurveyResponse",
+    "description": "Represents information about a participant’s response to a survey, such as the status of the response, the participant’s location, and when the survey was completed.",
+    "properties": {
+      "CompletionDateTime": {
+        "type": "dateTime",
+        "description": "The date and time that the participant completed the survey."
+      },
+      "DataMapperExecutionStatus": {
+        "type": "picklist",
+        "description": "Status of all the survey data maps after a response is received. This field is available in API v49.0 and later, with Feedback Management - Starter and Feedback Management - Growth licenses."
+      },
+      "InterviewGuid": {
+        "type": "string",
+        "description": "An automatically-generated, unique ID for a saved survey response. "
+      },
+      "InterviewId": {
+        "type": "reference",
+        "description": "The ID of the FlowInterview object that’s associated with this response."
+      },
+      "InvitationId": {
+        "type": "reference",
+        "description": "The ID of the SurveyInvitation object that’s associated with this response."
+      },
+      "IpAddress": {
+        "type": "string",
+        "description": "The IP address of the device the participant used to take the survey."
+      },
+      "Language": {
+        "type": "picklist",
+        "description": "The language that the participant used to complete the survey."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The date and time that another Salesforce object last referenced this SurveyResponse object."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The date and time that someone last viewed this SurveyResponse object."
+      },
+      "Latitude": {
+        "type": "double",
+        "description": "The latitude of the participant’s location."
+      },
+      "Location": {
+        "type": "location",
+        "description": "The latitude and longitude coordinates of the participant’s location."
+      },
+      "Longitude": {
+        "type": "double",
+        "description": "The longitude of the participant’s location."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the participant."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of the survey. Possible values include: NotStarted — The participant hasn't opened the survey.  Started — The participant has opened the survey.  Paused — The participant has paused the survey. Paused isn't available for invitations in which either OptionsAllowParticipantAccessTheirResponse or OptionsCollectAnonymousResponse is true.  PartiallyCompleted — The participant has partially completed the survey. Available in API version 63.0 and later.  Completed — The participant has completed the survey.   "
+      },
+      "SubmitterId": {
+        "type": "reference",
+        "description": "The ID of the Salesforce user, contact, or lead who completed the survey."
+      },
+      "SurveyId": {
+        "type": "reference",
+        "description": "The ID of the survey that the participant completed."
+      },
+      "SurveyVersionId": {
+        "type": "reference",
+        "description": "The ID of the version of the survey that the participant completed."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveySubject": {
+    "name": "SurveySubject",
+    "description": "Represents a relationship between a survey and another object, such as an account or a case.",
+    "properties": {
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the SurveySubject record was last referenced by another object."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed the SurveySubject record."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the SurveySubject record."
+      },
+      "ParentId": {
+        "type": "reference",
+        "description": "Unique identifier of the SurveyInvitation object or SurveyResponse object that is associated with this survey-object relationship."
+      },
+      "SubjectEntityType": {
+        "type": "picklist",
+        "description": "Object that the survey is associated with. Possible values include: Account  Asset  Banker  BranchUnit  BranchUnitBusinessMember  BranchUnitCustomer   BusinessLicenseApplication   BusinessMilestone  Campaign  CareProgram  Case  Claim  ClaimParticipant  Contact   Employee   Event   Incident   IndividualApplication  InsurancePolicy  InsurancePolicyParticipant  Lead   LearningItemSubmission—Available in API version 58.0 and later.  LiveChatTranscript  LoyaltyProgram  LoyaltyProgramMember  LoyaltyProgramPartner   MaterialityStakeholder   MessagingSession  Opportunity  Order  PersonalLifeEvent  Producer  Product2  Promotion  RebateProgram  RetailStore  ServiceAppointment  ServiceResource  Solution  Task  TransactionJournal  User   VideoCall   Visit  VoiceCall  VolunteerProject  WorkOrder  Custom Objects   "
+      },
+      "SubjectId": {
+        "type": "reference",
+        "description": "The ID of the object that’s associated with the survey."
+      },
+      "SurveyId": {
+        "type": "reference",
+        "description": "Unique identifier of the survey that’s associated with the record that’s represented by SubjectId."
+      },
+      "SurveyInvitationId": {
+        "type": "reference",
+        "description": "Unique identifier of the survey invitation that's associated with another object."
+      },
+      "SurveyResponseId": {
+        "type": "reference",
+        "description": "Unique identifier of the survey response that's associated with another object."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyVersion": {
+    "name": "SurveyVersion",
+    "description": "Represents a version of a survey.",
+    "properties": {
+      "BrandingSetId": {
+        "type": "reference",
+        "description": "The ID of the branding set associated with the survey version."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "The description of this survey version."
+      },
+      "IsTemplate": {
+        "type": "boolean",
+        "description": "Indicates whether the survey version is a template. Template surveys are automatically shared with all users in your Salesforce org."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The date and time that the current user last viewed a record related to the survey version."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed the survey version."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Filter, Group, Sort"
+      },
+      "SurveyId": {
+        "type": "reference",
+        "description": "The ID of the survey associated with the survey version."
+      },
+      "SurveyStatus": {
+        "type": "picklist",
+        "description": "The status of the survey. Possible values include:  Active  Draft  Obsolete  InvalidDraft   "
+      },
+      "VersionNumber": {
+        "type": "int",
+        "description": "The version number of the survey."
+      }
+    },
+    "module": "Feedback Management"
+  },
+  "SurveyVersionAddlInfo": {
+    "name": "SurveyVersionAddlInfo",
+    "description": "Represents additional information about a survey version. This information       defines the default settings of a survey version.",
+    "properties": {
+      "EmailSender": {
+        "type": "textarea",
+        "description": "The organization-wide email address used to send a survey invitation."
+      },
+      "EmailTemplateId": {
+        "type": "reference",
+        "description": "ID of the email template that's used to send an automated survey            invitation."
+      },
+      "EngagementContextMetadata": {
+        "type": "string",
+        "description": "The custom metadata created to get the engagement context from the            participants."
+      },
+      "InvitationSharingRole": {
+        "type": "picklist",
+        "description": "Indicates the users that share edit access to a survey invitation."
+      },
+      "Language": {
+        "type": "picklist",
+        "description": "Language used to create the survey."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Name of the record."
+      },
+      "SurveyQuestionId": {
+        "type": "reference",
+        "description": "ID of the survey question embedded in the email template used to send            automated survey invitations."
+      },
+      "SurveyVersionId": {
+        "type": "reference",
+        "description": "ID of the survey version. This field is unique within your organization"
+      }
+    },
+    "module": "Feedback Management"
+  }
+}
