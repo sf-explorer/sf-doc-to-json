@@ -1,0 +1,41 @@
+{
+  "OrderSummaryRoutingSchedule": {
+    "name": "OrderSummaryRoutingSchedule",
+    "description": "Represents an attempt to route an order summary to one or more inventory locations for fulfillment. You can use it to schedule future attempts and to record completed attempts.",
+    "properties": {
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the order summary routing schedule."
+      },
+      "OrderSummaryId": {
+        "type": "reference",
+        "description": "(Master-Detail) The order summary associated with the routing schedule."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "ID of the User who currently owns this order summary routing schedule. Default value is the User logged in to the API to perform the create."
+      },
+      "Reason": {
+        "type": "picklist",
+        "description": "Reason for the routing attempt. You can customize this list."
+      },
+      "ScheduleStatus": {
+        "type": "picklist",
+        "description": "Identifies whether this routing attempt has already run or is scheduled to run."
+      },
+      "ScheduledDatetime": {
+        "type": "dateTime",
+        "description": "Identifies when this routing attempt was run or is scheduled to run. If the ScheduleStatus is ABANDONED or COMPLETED, then you can’t modify this value."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

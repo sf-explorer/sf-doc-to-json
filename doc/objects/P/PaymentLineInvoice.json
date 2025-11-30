@@ -1,0 +1,81 @@
+{
+  "PaymentLineInvoice": {
+    "name": "PaymentLineInvoice",
+    "description": "Represents a payment allocated to or unallocated from an invoice.",
+    "properties": {
+      "Amount": {
+        "type": "currency",
+        "description": "Total amount applied or unapplied by this payment line."
+      },
+      "AppliedDate": {
+        "type": "dateTime",
+        "description": "The date that this line was applied to an invoice or payment. If this field is null, it inherits the value of the payment line invoice’s Date field."
+      },
+      "AssociatedAccountId": {
+        "type": "reference",
+        "description": "The account for this payment line’s target invoice."
+      },
+      "AssociatedPaymentLineId": {
+        "type": "reference",
+        "description": "The paymentLine that was unapplied. Populated only when PaymentLineInvoice’s Type field has a value of Unapplied."
+      },
+      "Comments": {
+        "type": "textarea",
+        "description": "Users can add comments to provide additional details about a record. Maximum of 1000 characters."
+      },
+      "Date": {
+        "type": "dateTime",
+        "description": "The date and time that this payment line was created."
+      },
+      "EffectiveDate": {
+        "type": "dateTime",
+        "description": "Defines the date and time when the payment line application or unapplication becomes effective."
+      },
+      "EffectiveImpactAmount": {
+        "type": "currency",
+        "description": "Shows how this payment invoice line impacts a customer’s accounts receivable. This value is positive when PaymentLineInvoice’s Type field is Applied, and negative when PaymentLineInvoice’s Type is Unapplied. If there’s an unapplied line related to this record, EffectiveImpactAmount has a value of 0."
+      },
+      "HasBeenUnapplied": {
+        "type": "picklist",
+        "description": "Defines whether this payment line has been unapplied from the target invoice. Has a value of NA when PaymentInvoiceLine’s Type field has a value of Unapplied. Can be No or Yes if Type has a value of Applied."
+      },
+      "ImpactAmount": {
+        "type": "currency",
+        "description": "Shows the payment’s financial impact against the customer’s accounts receivable. If PaymentLineInvoice has a Type of Applied, the ImpactAmount is the negative equivalent of the line’s Amount field. Otherwise, ImpactAmount equals Amount."
+      },
+      "InvoiceId": {
+        "type": "reference",
+        "description": "Target invoice for this payment line."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly."
+      },
+      "PaymentBalance": {
+        "type": "currency",
+        "description": "Total balance of this line’s parent payment record following the application or unapplication of this payment line."
+      },
+      "PaymentId": {
+        "type": "reference",
+        "description": "Parent payment for this payment line."
+      },
+      "PaymentLineInvoiceNumber": {
+        "type": "string",
+        "description": "System-defined unique ID for this payment line."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "Defines whether this payment line has been applied or unapplied to the target invoice."
+      },
+      "UnappliedDate": {
+        "type": "dateTime",
+        "description": "The date that this payment line was unapplied from the target invoice. Populated only when the Type field equals Unapplied. Inherits the value of the Date field."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "ForecastingItem": {
+    "name": "ForecastingItem",
+    "description": "This object is read-only used for individual forecast amounts. Users see amounts based on their perspectives and forecast roles.",
+    "properties": {
+      "AmountWithoutAdjustments": {
+        "type": "double",
+        "description": "The sum of a person’s owned revenue opportunities and the person's subordinates’ and child territories’ opportunities, without adjustments. Subordinates include everyone reporting up to a person in the role-based forecast hierarchy. This amount is visible only on reports."
+      },
+      "AmountWithoutManagerAdjustment": {
+        "type": "double",
+        "description": "The forecast number as seen by the forecast owner. This number is the sum of the owner’s revenue opportunities and the owner’s subordinates’ and child territories’ opportunities, including adjustments made by the forecast owner on the owner's or subordinates’ and child territories’ forecasts. It doesn’t include adjustments made by forecast managers above the owner in the forecast hierarchy."
+      },
+      "AmountWithoutOwnerAdjustment": {
+        "type": "double",
+        "description": "The forecast amount as seen by the forecast owner without the owner's adjustment. This amount is the sum of the subordinate's and child territories’ opportunities, including adjustments made by their manager or by the subordinate themselves, plus the rollup of the owner's own opportunities. It doesn’t include adjustments made by the forecast owner."
+      },
+      "ForecastAmount": {
+        "type": "double",
+        "description": "The revenue forecast from the forecast manager’s perspective and the sum of the owner’s and subordinates’ and child territories’ opportunities, including all forecast adjustments."
+      },
+      "ForecastCategoryName": {
+        "type": "picklist",
+        "description": "A forecast category is the category within the sales cycle to which an opportunity is assigned based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted (not included in forecasts), and Closed. Salesforce admins can add a Most Likely category and can customize the forecast category names in single category rollups. Change the forecast category name only. Changing a forecast category’s API name can have unintended results."
+      },
+      "ForecastQuantity": {
+        "type": "double",
+        "description": "The quantity forecast from the forecast manager’s perspective and the sum of the owner’s and subordinates’ opportunities, including all forecast adjustments. This field is available in API version 28 and later."
+      },
+      "ForecastingGroupItemId": {
+        "type": "reference",
+        "description": "If a forecast group is assigned to the forecast type, the ID of the group value that the forecast total belongs to. This field is a relationship field. Available in API version 60.0 and later."
+      },
+      "ForecastingItemCategory": {
+        "type": "picklist",
+        "description": "This field indicates which type of forecast rollup the forecasting item belongs to. Depending on whether your organization uses individual forecast category rollups or cumulative forecast rollups, you have these possible values for the ForecastingItemCategory field. Individual forecast category rollups: PipelineOnly - Rollup from Pipeline opportunities only. BestCaseOnly - Rollup from Best Case opportunities only. Adjustable. MostLikelyOnly - Rollup from Most Likely opportunities only. Adjustable. CommitOnly - Rollup from Commit opportunities only. Adjustable. Cumulative forecast rollups: OpenPipeline - Rollup from Pipeline + Best Case + Most Likely + Commit opportunities. BestCaseForecast - Rollup from Best Case + Most Likely + Commit + Closed opportunities. Adjustable. MostLikelyForecast - Rollup from Most Likely + Commit + Closed opportunities. Adjustable. CommitForecast - Rollup from Commit + Closed opportunities. Adjustable. Either cumulative or individual forecast category rollups: ClosedOnly - Rollup from Closed opportunities only. The ForecastingItemCategory field differs from the ForecastCategoryName field. The ForecastCategoryName field represents the forecast category of the underlying opportunities rolling up to forecast amounts. In organizations using cumulative forecast rollups, the ForecastCategoryName field can be null because the cumulative forecast amounts include opportunities from multiple forecast categories. The new ForecastingItemCategory field represents the type of rollup a forecast amount or adjustment is from. In organizations using individual forecast category columns, it contains the individual forecast rollup categories. In organizations using cumulative forecast rollups, it contains the cumulative rollup categories."
+      },
+      "ForecastingTypeId": {
+        "type": "reference",
+        "description": "The ID of the related ForecastingType."
+      },
+      "HasAdjustment": {
+        "type": "boolean",
+        "description": "A flag that indicates the forecasting item includes a manager adjustment. This flag is true only when the item includes an adjustment and the user performing the query has read access to the adjustment."
+      },
+      "HasOwnerAdjustment": {
+        "type": "boolean",
+        "description": "A flag that indicates the forecasting item includes an owner adjustment. This flag is true only when the item includes an adjustment and the user performing the query has read access to the adjustment. Available in API version 33.0 and later."
+      },
+      "IsAmount": {
+        "type": "boolean",
+        "description": "True indicates that the adjustment is made in a revenue amount. If false, then IsQuantity must be true. This field is available in API version 28.0 and later."
+      },
+      "IsQuantity": {
+        "type": "boolean",
+        "description": "True indicates that the adjustment is made in a quantity amount. If false, then IsAmount must be true. This field is available in API version 28.0 and later."
+      },
+      "IsUpToDate": {
+        "type": "boolean",
+        "description": "A flag indicating whether a specific forecasting item reflects current information. For example, if users are making adjustments that are in process, the item isn’t up to date."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The ID of the forecast owner."
+      },
+      "OwnerOnlyAmount": {
+        "type": "double",
+        "description": "The sum of a person’s revenue opportunities, without adjustments."
+      },
+      "OwnerOnlyQuantity": {
+        "type": "double",
+        "description": "The sum of a person’s quantity opportunities, without adjustments. This field is available in API version 28.0 and later."
+      },
+      "ParentForecastingItemId": {
+        "type": "reference",
+        "description": "The ID of the ForecastingItem that the current item rolls up to."
+      },
+      "PeriodId": {
+        "type": "reference",
+        "description": "Period ID for the forecast."
+      },
+      "ProductFamily": {
+        "type": "picklist",
+        "description": "The product family of the forecast item. This field is available in API version 29.0 and later. Read only."
+      },
+      "QuantityWithoutAdjustments": {
+        "type": "double",
+        "description": "The sum of a person’s owned quantity opportunities and also his or her subordinates’ opportunities, without adjustments. Subordinates include everyone reporting up to a person in the forecast hierarchy. This field is available in API version 28.0 and later."
+      },
+      "QuantityWithoutManagerAdjustment": {
+        "type": "double",
+        "description": "The forecast number as seen by the forecast owner. This number is the sum of the owner’s quantity opportunities and subordinates’ opportunities, including adjustments made on the subordinates’ forecasts. It doesn’t include adjustments made by forecast managers above the owner in the forecast hierarchy. This field is available in API version 28 and later."
+      },
+      "QuantityWithoutOwnerAdjustment": {
+        "type": "double",
+        "description": "The forecast quantity as seen by the forecast owner without the owner's adjustment. This number is the sum of the subordinate's opportunities, including adjustments made by their manager or by the subordinate themselves, plus the rollup of the owner's own opportunities. It doesn’t include adjustments made by the forecast owner. This field is available in API version 38.0 and later."
+      },
+      "SubordinateOverrides": {
+        "type": "int",
+        "description": "The total number of adjustments made to a forecast down the hierarchical chain. For example, User A has a forecast without adjustments. If User A adjusts User B’s forecast, User A’s SubordinateOverrides value is 1. Then if User B adjusts User C’s forecast, User A’s SubordinateOverrides value is 2. If User A removes his adjustment from User B’s forecast, User A’s SubordinateOverrides value is 1. This field is available in API version 38.0 and later."
+      },
+      "Territory2Id": {
+        "type": "reference",
+        "description": "The ID of the territory to forecast on. Available in API version 43.0 and later."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

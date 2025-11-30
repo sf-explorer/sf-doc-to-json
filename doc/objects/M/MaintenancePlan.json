@@ -1,0 +1,113 @@
+{
+  "MaintenancePlan": {
+    "name": "MaintenancePlan",
+    "description": "",
+    "properties": {
+      "AccountId": {
+        "type": "reference",
+        "description": "The associated account, which typically represents the customer receiving the maintenance service."
+      },
+      "ContactId": {
+        "type": "reference",
+        "description": "The associated contact."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "A brief description of the plan."
+      },
+      "DoesAutoGenerateWorkOrders": {
+        "type": "boolean",
+        "description": "Turns on auto-generation of work order batches for a maintenance plan and prohibits the manual generation of work orders via the Generate Work Orders action. If this option is selected, a new batch of work orders is generated for the maintenance plan on the NextSuggestedMaintenanceDate listed on each maintenance asset, or on the maintenance plan if no assets are included. If a GenerationHorizon is specified, the date of generation is that many days earlier."
+      },
+      "DoesGenerateUponCompletion": {
+        "type": "boolean",
+        "description": "If both this option and DoesAutoGenerateWorkOrders are set to true, a new batch of work orders isn’t generated until the last work order generated from the maintenance plan is completed. A work order is considered completed when its status falls into one of the following status categories: Cannot Complete, Canceled, Completed, or Closed.If a maintenance plan covers multiple assets, work orders are generated per asset. If a maintenance asset’s final work order is completed late, its work order generation is delayed, which may cause a staggered generation schedule between maintenance assets."
+      },
+      "EndDate": {
+        "type": "date",
+        "description": "The last day the maintenance plan is valid."
+      },
+      "Frequency": {
+        "type": "int",
+        "description": "(Optional) Amount of time between work orders. The unit is specified in the FrequencyType field."
+      },
+      "FrequencyType": {
+        "type": "picklist",
+        "description": "(Optional) The unit of frequency: Days Weeks Months Years For example, to perform monthly maintenance visits you need a work order for each visit, so enter 1 as the Frequency and select Months."
+      },
+      "GenerationHorizon": {
+        "type": "int",
+        "description": "Moves up the timing of batch generation if DoesAutoGenerateWorkOrders is set to true. A generation horizon of 5 means the new batch of work orders is generated 5 days before the maintenance asset’s (or maintenance plan’s, if there are no assets) NextSuggestedMaintenanceDate. The generation horizon must be a whole number."
+      },
+      "GenerationTimeframe": {
+        "type": "int",
+        "description": "(Required) How far in advance work orders are generated in each batch. The unit is specified in the GenerationTimeframeType field."
+      },
+      "GenerationTimeframeType": {
+        "type": "picklist",
+        "description": "(Required) The generation timeframe unit: Days Weeks Months Years For example, if you need work orders for six months, enter 6 and select Months."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
+      },
+      "LocationId": {
+        "type": "reference",
+        "description": "Where the service takes place."
+      },
+      "MaintenancePlanNumber": {
+        "type": "string",
+        "description": "(Read Only) An auto-assigned number that identifies the maintenance plan."
+      },
+      "MaintenancePlanTitle": {
+        "type": "string",
+        "description": "A name for the maintenance plan."
+      },
+      "MaintenanceWindowEndDays": {
+        "type": "int",
+        "description": "Days after the suggested service date on the work order that its service appointment can be scheduled."
+      },
+      "MaintenanceWindowStartDays": {
+        "type": "int",
+        "description": "Days before the suggested service date on the work order that its service appointment can be scheduled.The maintenance window start and end fields affect the Earliest Start Permitted and Due Date fields on the maintenance plan’s work orders’ service appointments. For example, if you enter 3 for both the maintenance window start and end, the Earliest Start Permitted and the Due Date will be 3 days before and 3 days after, respectively, the Suggested Maintenance Date on each work order. If the maintenance window fields are left blank, the service appointment date fields list their work order’s suggested maintenance date."
+      },
+      "NextSuggestedMaintenanceDate": {
+        "type": "date",
+        "description": "The suggested date of service for the first work order (not the date the work order is created). This corresponds to the work order’s SuggestedMaintenanceDate. You can use this field to enforce a delay before the first maintenance visit (for example, if monthly maintenance should begin one year after the purchase date). Its label in the user interface is Date of the first work order in the next batch.For example, if you want the first maintenance visit to take place on May 1, enter May 1. When you generate work orders, the earliest work order will list a suggested maintenance date of May 1, and the dates on the later work orders will be based on the GenerationTimeframe and Frequency. Important Maintenance assets also list a NextSuggestedMaintenanceDate, which is initially inherited from the maintenance plan. If the plan has maintenance assets, this date auto-updates on the maintenance assets after each batch is generated, but doesn’t update on the maintenance plan itself because batch timing is calculated at the maintenance asset level. If the plan doesn’t have maintenance assets, this date auto-updates on the maintenance plan after each batch is generated."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The owner of the maintenance plan."
+      },
+      "ServiceContractId": {
+        "type": "reference",
+        "description": "The service contract associated with the maintenance plan. The service contract can’t be updated if any child maintenance asset is associated with a contract line item from the service contract."
+      },
+      "StartDate": {
+        "type": "date",
+        "description": "The first day the maintenance plan is valid."
+      },
+      "SvcApptGenerationMethod": {
+        "type": "picklist",
+        "description": "The service appointment generation method. One service appointment per work order One service appointment per work order line item If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method. If Work Order Generation Method is set to One work order line item per asset, you must select a Service Appointment Generation Method."
+      },
+      "WorkOrderGenerationMethod": {
+        "type": "picklist",
+        "description": "The work order generation method. One work order per asset One work order line item per asset If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is left as None, the generation is defaulted to one work order per asset. When One work order line item per asset is set, and all maintenance assets have the same Next Suggested Maintenance Date on the maintenance plan, they are grouped in one work order. However, if maintenance assets have different Next Suggested Maintenance Dates, multiple work orders are created for each date. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method."
+      },
+      "WorkOrderGenerationStatus": {
+        "type": "picklist",
+        "description": "(Read Only) Indicates the status of work order generation: NotStarted—the default value, work order generation has not started InProgress—work order generation is underway Completed—work order generation is complete Unsuccessful—it was not possible to generate work orders You can generate only one batch at a time."
+      },
+      "WorkTypeId": {
+        "type": "reference",
+        "description": "The associated work type. Work orders generated from the maintenance plan inherit its work type’s duration, required skills and products, and linked articles. Maintenance assets covered by the plan use the same work type, though you can update them to use a different one."
+      }
+    },
+    "module": "Field Service Lightning"
+  }
+}

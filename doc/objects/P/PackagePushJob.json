@@ -1,0 +1,33 @@
+{
+  "PackagePushJob": {
+    "name": "PackagePushJob",
+    "description": "Represents an individual push job for upgrading a package in an org from one version to another version. There can be multiple push jobs created for one push request. For example, if you want to upgrade five orgs as part of one push, you have one PackagePushRequest record and five PackagePushJob records.",
+    "properties": {
+      "DurationSeconds": {
+        "type": "int",
+        "description": "The length of time in seconds, that the push upgrade took to complete. This field is new in API version 51.0."
+      },
+      "EndTime": {
+        "type": "dateTime",
+        "description": "The date and time (UTC) at which the push upgrade ended, in ISO 8601 format. This field is new in API version 51.0."
+      },
+      "PackagePushRequestId": {
+        "type": "reference",
+        "description": "Required. The ID of the parent push request record that must have been created."
+      },
+      "StartTime": {
+        "type": "dateTime",
+        "description": "The date and time (UTC) at which the push upgrade started, in ISO 8601 format. This field is new in API version 51.0."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of the job. Valid values are: Canceled Created (default) Failed In Progress Pending Succeeded Don’t specify this value when you create the push job. The default value of Created is used."
+      },
+      "SubscriberOrganizationKey": {
+        "type": "string",
+        "description": "Required. The organization key of the org where the package is upgraded. This references orgKey in PackageSubscriber."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

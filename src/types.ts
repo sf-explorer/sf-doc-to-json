@@ -12,6 +12,7 @@ export interface SalesforceObject {
 
 export interface CloudConfiguration {
     label: string;
+    description?: string;
 }
 
 export interface ObjectIndexEntry {

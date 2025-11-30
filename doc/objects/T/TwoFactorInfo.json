@@ -1,0 +1,21 @@
+{
+  "TwoFactorInfo": {
+    "name": "TwoFactorInfo",
+    "description": "Stores a user’s secret for multi-factor operations. Use this object when customizing multi-factor authentication in your organization. (Note that multi-factor authentication was formerly called two-factor authentication.)",
+    "properties": {
+      "SharedKey": {
+        "type": "string",
+        "description": "This field is never read-enabled, though it is write-enabled. A request for this value always returns null. The value must be a base32-encoded string of a 20-byte secret. You can use the Apex method Auth.SessionManagement.getQrCode() to get a value to write to this field. Note If you write a secret to this field, in API version 37.0 and later the user gets an email notification that a new identity verification method was added to the user’s account."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "The multi-factor method. TOTP—The time-based one-time password."
+      },
+      "UserId": {
+        "type": "reference",
+        "description": "The ID for the user who’s associated with the authentication secret."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

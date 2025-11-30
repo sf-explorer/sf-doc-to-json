@@ -1,0 +1,69 @@
+{
+  "ActionCadenceTracker": {
+    "name": "ActionCadenceTracker",
+    "description": "Represents an active cadence target.",
+    "properties": {
+      "ActionCadenceId": {
+        "type": "reference",
+        "description": "The ID of the related ActionCadence."
+      },
+      "CompletionDisposition": {
+        "type": "picklist",
+        "description": "The target’s disposition when it exited the action cadence. This field contains a value if the target’s State is Complete. Sales reps can set this value when removing a target from a cadence. This field is available in API version 51.0 and later. Possible values are: Bad Data — some of the target’s data is incorrect or invalid. Contact Later — the target asked to be contacted at a later date. Customer Connected — the sales rep contacted the target. Customer Engaged — the target engaged with an email. Disqualified— a sales rep determined that the target isn’t qualified. Duplicate — the target has a duplicate lead, contact, or person account record. No Response — the target didn’t reply to any outreach. Not Interested — the target stated a lack of interest. Success — the cadence outreach was successful."
+      },
+      "CompletionReason": {
+        "type": "picklist",
+        "description": "The reason that the target completed the cadence. This field contains a value if the target’s State is Complete. Possible values are: AutomaticallyExited — the target completed because a global exit condition occurred. This value is available in API version 49.0 and later. AutomaticallyExitedDeletedStep AutomaticallyExitedInvalidParentStep DaisyChained — the target completed because it’s connected to another action cadence. LeadConverted — the target completed because the lead converted. ManuallyRemoved — the target completed because the sales rep removed it from the cadence. ManuallyRemovedNoAccess— reserved for future use. NoMoreSteps — the target completed the action cadence because all the action cadence steps were completed."
+      },
+      "CurrentStepId": {
+        "type": "reference",
+        "description": "The ID of the current ActionCadenceStepTracker."
+      },
+      "DaisyChainIteration": {
+        "type": "int",
+        "description": "The number of this action cadence in a sequence of linked action cadences followed by this target. This value starts at 1 with the initial action cadence. A target can follow a sequence of up to 10 linked action cadences. Available in API version 53.0 and later."
+      },
+      "ErrorMessage": {
+        "type": "string",
+        "description": "If an error occurs while this target is being completed, this field contains the error message."
+      },
+      "ExitGlobalRuleId": {
+        "type": "reference",
+        "description": "If a global exit condition occurs, a target completes. One example of a global exit condition is an email returned because of an invalid address. If the target completed because a global exit condition occurred, this field contains the ID of the ActionCadenceRule record that evaluated as true. This field is available in API version 49.0 and later."
+      },
+      "IsTrackerActive": {
+        "type": "boolean",
+        "description": "Indicates whether the action cadence target is active (true) or not (false). The default value is false. An action cadence target is active if the state is Running, Paused, Processing, or Initializing. Only active targets count against the org limit of 150,000 trackers.This field is available in API version 50.0 and later."
+      },
+      "LastCompletedStepId": {
+        "type": "reference",
+        "description": "The ID of the last completed ActionCadenceStepTracker."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The ID of the user who is assigned to complete the cadence steps for the target."
+      },
+      "RelatedToAttributionType": {
+        "type": "picklist",
+        "description": "Defines when the cadence is related to an opportunity or invoice. Available in API version 51.0 and later."
+      },
+      "RelatedToId": {
+        "type": "reference",
+        "description": "The ID of the related opportunity if there’s one. Available in API version 51.0 and later."
+      },
+      "ScheduledResumeDateTime": {
+        "type": "dateTime",
+        "description": "The date and time when the action cadence tracker is going to resume after it’s paused or on a wait step. Available in API version 53.0 and later."
+      },
+      "State": {
+        "type": "picklist",
+        "description": "The state of the current action cadence tracker. Possible values are: Complete Error Initializing Paused Processing—Salesforce is working on changing the state of this action cadence tracker. We recommend that you filter out steps that have this state from your dashboards. Running"
+      },
+      "TargetId": {
+        "type": "reference",
+        "description": "The ID of the target that is assigned to this action cadence."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

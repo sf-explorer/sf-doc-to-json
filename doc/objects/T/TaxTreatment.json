@@ -1,0 +1,49 @@
+{
+  "TaxTreatment": {
+    "name": "TaxTreatment",
+    "description": "A tax treatment contains details about how Salesforce and external engines calculate taxes, and the tax engine to use for tax calculation. The IsTaxable field determines whether tax is calculated for the product in the transaction. The tax code, tax engine, and product code are sent via API to the external tax calculation service. When you invoice an order item that has a tax treatment, the invoice line inherits the tax treatment from the order item’s related billing schedule. The invoice line’s TaxCode field is populated based on the code that the tax engine used for calculation.",
+    "properties": {
+      "Description": {
+        "type": "textarea",
+        "description": "Optional user-defined description for providing more information about the tax treatment."
+      },
+      "IsTaxable": {
+        "type": "boolean",
+        "description": "Determines whether Subscription Management calculates tax for order items covered by the tax treatment. When this value is True, Subscription Management calls the CalculateTax API for the order item during order item creation."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Optional user-defined name for the tax treatment."
+      },
+      "ProductCode": {
+        "type": "string",
+        "description": "Code of the product that the tax treatment applies to."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Status of the tax treatment."
+      },
+      "TaxCode": {
+        "type": "string",
+        "description": "Reference code used when tax is calculated in an external tax engine."
+      },
+      "TaxEngineId": {
+        "type": "reference",
+        "description": "The tax engine for the tax treatment. A tax engine represents both an instance of a tax engine provider as well as the merchant credentials for that specific instance. When Subscription Management begins the tax calculation process for an order item, it uses the tax engine from the order item’s tax treatment."
+      },
+      "TaxPolicyId": {
+        "type": "reference",
+        "description": "The tax treatment’s parent tax policy. A tax policy is a group of tax treatments, where each treatment represents a rule for how to invoice a customer for an order item. Tax policies are related to products, which pass the policy on to the resulting order items. When you activate an order, Subscription Management assigns a tax treatment to each order item based on the tax policy's DefaultTaxTreatmentId, then uses the tax treatment to calculate tax."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

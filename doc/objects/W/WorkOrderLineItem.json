@@ -1,0 +1,225 @@
+{
+  "WorkOrderLineItem": {
+    "name": "WorkOrderLineItem",
+    "description": "Represents a subtask on a work order in field service.",
+    "properties": {
+      "Address": {
+        "type": "address",
+        "description": "The compound form of the address where the line item is completed."
+      },
+      "AssetId": {
+        "type": "reference",
+        "description": "The asset associated with the work order line item. The asset is not automatically inherited from the parent work order."
+      },
+      "AssetWarrantyId": {
+        "type": "reference",
+        "description": "The asset warranty term associated with the work order line item. This field is available in API version 50.0 and above."
+      },
+      "City": {
+        "type": "string",
+        "description": "The city where the line item is completed. Maximum length is 40 characters."
+      },
+      "Country": {
+        "type": "string",
+        "description": "The country where the line item is completed. Maximum length is 80 characters."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "The description of the work order line item. Try to describe the steps needed to mark the line item Completed."
+      },
+      "Discount": {
+        "type": "percent",
+        "description": "The percent discount to apply to the line item. You can enter a number with or without the percent symbol, and you can use up to two decimal places."
+      },
+      "Duration": {
+        "type": "double",
+        "description": "The estimated time required to complete the line item. Specify the duration unit in the Duration Type field. If the Duration field on a Work Order is null, it adopts the duration value from the Work Type object when the work type is updated or inserted. Note Work order duration and work order line item duration are independent of each other. If you want work order duration to automatically show the sum of the work order line items’ duration, replace the Duration field on work orders with a custom roll-up summary field."
+      },
+      "DurationInMinutes": {
+        "type": "double",
+        "description": "The estimated duration in minutes. For internal use only."
+      },
+      "DurationType": {
+        "type": "picklist",
+        "description": "The unit of the duration: Minutes or Hours."
+      },
+      "EndDate": {
+        "type": "dateTime",
+        "description": "The date on which the line item is completed. This field is blank unless you set up an Apex trigger or quick action to populate it. For example, you can create a quick action that sets the EndDate to 365 days after the StartDate."
+      },
+      "GeocodeAccuracy": {
+        "type": "picklist",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only."
+      },
+      "IsClosed": {
+        "type": "boolean",
+        "description": "Indicates whether the line item has been closed. Changing the line item’s status to Closed causes this checkbox to be selected in the user interface (sets IsClosed to true). Tip Use this field to report on closed versus open work order line items."
+      },
+      "IsGeneratedFromMaintenancePlan": {
+        "type": "boolean",
+        "description": "Identifies whether the work order line item is generated from a maintenance plan."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The date when the line item was last modified. Its label in the user interface is Last Modified Date."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The date when the line item was last viewed."
+      },
+      "Latitude": {
+        "type": "double",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the line item is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. Note This field is available in the API only."
+      },
+      "LineItemNumber": {
+        "type": "string",
+        "description": "An auto-generated number that identifies the work order line item. Each work order’s line items start at 1."
+      },
+      "ListPrice": {
+        "type": "currency",
+        "description": "The price of the line item (product) as listed in its corresponding price book entry. If a price book entry isn’t specified, the list price defaults to zero."
+      },
+      "LocationId": {
+        "type": "reference",
+        "description": "A location associated with the work order line item. For example, a work site."
+      },
+      "Longitude": {
+        "type": "double",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the line item is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. Note This field is available in the API only."
+      },
+      "MaintenancePlanId": {
+        "type": "reference",
+        "description": "The maintenance plan associated with the work order line item."
+      },
+      "MaintenanceWorkRuleId": {
+        "type": "reference",
+        "description": "ID of the maintenance work rule that generated this line item. This field is available in API version 50.0 and above."
+      },
+      "MinimumCrewSize": {
+        "type": "int",
+        "description": "The minimum crew size allowed for a crew assigned to the line item. If you’re not using the Field Service managed package, this field serves as a suggestion rather than a rule. If you are using the managed package, the scheduling optimizer counts the number of service crew members on a service crew to determine whether it fits a work order line item’s minimum crew size requirement."
+      },
+      "OrderId": {
+        "type": "reference",
+        "description": "The order associated with the line item. For example, you may need to order replacement parts before you can complete the line item."
+      },
+      "ParentWorkOrderLineItemId": {
+        "type": "reference",
+        "description": "The line item’s parent work order line item, if it has one. Tip Create a custom report to view a line item’s child line items."
+      },
+      "PostalCode": {
+        "type": "string",
+        "description": "The postal code where the line item is completed. Maximum length is 20 characters."
+      },
+      "PricebookEntryId": {
+        "type": "reference",
+        "description": "The price book entry (product) associated with the line item. The label in the user interface is Product. This field’s lookup search only returns products that are included in the work order’s price book."
+      },
+      "Priority": {
+        "type": "picklist",
+        "description": "The priority of the line item. The picklist includes the following values, which can be customized: Low Medium High Critical"
+      },
+      "Product2Id": {
+        "type": "reference",
+        "description": "(Read only) The product associated with the price book entry. This field is not available in the user interface. For best results, use the PricebookEntryId field in any custom code or layouts."
+      },
+      "ProductServiceCampaignId": {
+        "type": "reference",
+        "description": "The product service campaign associated with the work order line item."
+      },
+      "ProductServiceCampaignItemId": {
+        "type": "reference",
+        "description": "The product service campaign item associated with the work order line item."
+      },
+      "Quantity": {
+        "type": "double",
+        "description": "Number of units of the line item included in the associated work order."
+      },
+      "RecommendedCrewSize": {
+        "type": "int",
+        "description": "The recommended number of people on the service crew assigned to the line item. For example, you might have a Minimum Crew Size of 2 and a Recommended Crew Size of 3."
+      },
+      "ReturnOrderId": {
+        "type": "reference",
+        "description": "The return order associated with the work order line item."
+      },
+      "ReturnOrderLineItemId": {
+        "type": "reference",
+        "description": "The return order line item associated with the work order line item."
+      },
+      "RootWorkOrderLineItemId": {
+        "type": "reference",
+        "description": "(Read only) The top-level line item in a work order line item hierarchy. Depending on where a line item lies in the hierarchy, its root could be the same as its parent. Note View a line item’s child line items in the Child Work Order Line Items related list."
+      },
+      "ServiceAppointmentCount": {
+        "type": "int",
+        "description": "The number of service appointments on the work order line item."
+      },
+      "ServiceDocumentTemplate": {
+        "type": "string",
+        "description": "The template ID which sets the template for each service document for the Document Builder feature."
+      },
+      "ServiceReportTemplateId": {
+        "type": "reference",
+        "description": "The service report template that the line item uses. If you don’t specify a service report template on a work order line item, it uses the service report template listed on its work type. If the work type doesn’t list a template or no work type is specified, the line item uses the default service report template."
+      },
+      "ServiceTerritoryId": {
+        "type": "reference",
+        "description": "The service territory where the line item is completed."
+      },
+      "StartDate": {
+        "type": "dateTime",
+        "description": "The date on which the line item goes into effect. This field is blank unless you set up an Apex trigger or quick action to populate it. For example, you can create a quick action that sets the StartDate to the date when the Status changes to In Progress."
+      },
+      "State": {
+        "type": "string",
+        "description": "The state where the line item is completed. Maximum length is 80 characters."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of the line item. The picklist includes the following values, which can be customized: New—Line item was created, but there hasn’t yet been any activity. In Progress—Work has begun. On Hold—Work is paused. Completed—Work is complete. Cannot Complete—Work could not be completed. Closed—All work and associated activity is complete. Canceled—Work is canceled, typically before any work began."
+      },
+      "StatusCategory": {
+        "type": "picklist",
+        "description": "The category that each Status value falls into. The Status Category field has eight default values: seven values which are identical to the default Status values, and a None value for statuses without a status category.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Waiting for Response value, you may decide that it belongs in the On Hold category. To learn which processes reference StatusCategory, see How are Status Categories Used?"
+      },
+      "Street": {
+        "type": "textarea",
+        "description": "The street number and name where the line item is completed."
+      },
+      "Subject": {
+        "type": "string",
+        "description": "A word or phrase describing the line item."
+      },
+      "Subtotal": {
+        "type": "currency",
+        "description": "(Read only) The line item’s unit price multiplied by the quantity."
+      },
+      "SuggestedMaintenanceDate": {
+        "type": "date",
+        "description": "Date when maintenance work is planned."
+      },
+      "TotalPrice": {
+        "type": "currency",
+        "description": "Read only. The line item’s subtotal with discounts applied."
+      },
+      "UnitPrice": {
+        "type": "currency",
+        "description": "Initially, the unit price for a work order line item is the line item’s list price from the price book, but you can change it."
+      },
+      "WorkOrderId": {
+        "type": "reference",
+        "description": "The line item’s parent work order. Because work order line items must be associated with a work order, this is a required field."
+      },
+      "WorkTypeId": {
+        "type": "reference",
+        "description": "The work type associated with the line item. When a work type is selected, the line item automatically inherits the work type’s Duration, Duration Type, and required skills. If the Duration field for the work type is null, enter the duration value."
+      }
+    },
+    "module": "Field Service Lightning"
+  }
+}

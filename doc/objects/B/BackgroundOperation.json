@@ -1,0 +1,89 @@
+{
+  "BackgroundOperation": {
+    "name": "BackgroundOperation",
+    "description": "Represents a background operation in an asynchronous job queue.",
+    "properties": {
+      "Error": {
+        "type": "string",
+        "description": "The error message for the operation. Applies only if the operation has an error status."
+      },
+      "ExecutionGroup": {
+        "type": "string",
+        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the execution group."
+      },
+      "ExpiresAt": {
+        "type": "dateTime",
+        "description": "After this time, the operation is removed from the asynchronous job queue. Applies only if the operation has a status of complete, canceled, error, or merged."
+      },
+      "FinishedAt": {
+        "type": "dateTime",
+        "description": "When the operation reached the status of completed or error."
+      },
+      "GroupLeaderId": {
+        "type": "reference",
+        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the operation that’s selected as the leader of the execution group."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Identifies the background operation."
+      },
+      "NumFollowers": {
+        "type": "int",
+        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Number of other operations that are in the execution group."
+      },
+      "ParentKey": {
+        "type": "string",
+        "description": "Tag that identifies related sets of operations, if any."
+      },
+      "ProcessAfter": {
+        "type": "dateTime",
+        "description": "The operation is scheduled to be processed after this time."
+      },
+      "RetryBackoff": {
+        "type": "int",
+        "description": "Applies only if the operation has an error status. The first retry is attempted immediately. Each subsequent retry is increasingly delayed according to an exponential expression that’s multiplied by the RetryBackoff, in milliseconds.Specifically, the delay time is (2n-1)×R, where n is the RetryCount, and R is the RetryBackoff. The default value for RetryBackoff depends on the type of operation. For example, the RetryBackoff default for write operations on external objects is 1,000 milliseconds. For write operations, retries are attempted immediately, after 3 seconds, after 7 seconds, after 15 seconds, and so on."
+      },
+      "RetryCount": {
+        "type": "int",
+        "description": "Number of attempted retries. Applies only if the operation has an error status."
+      },
+      "RetryLimit": {
+        "type": "int",
+        "description": "Maximum number of retries to attempt. Applies only if the operation has an error status."
+      },
+      "SequenceGroup": {
+        "type": "string",
+        "description": "Identifies the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order."
+      },
+      "SequenceNumber": {
+        "type": "int",
+        "description": "Order position within the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order."
+      },
+      "StartedAt": {
+        "type": "dateTime",
+        "description": "When the operation started running."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Status of the background operation. The options are: New Scheduled Canceled Merged Waiting Running Error Complete"
+      },
+      "SubmittedAt": {
+        "type": "dateTime",
+        "description": "When the operation was added to the job queue."
+      },
+      "Timeout": {
+        "type": "int",
+        "description": "Maximum time in milliseconds to wait for results after the operation started running."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "Type of the background operation. The options are: ApiCatalogPoller BlockchainEventPoller CdpMetadataDeploy ExternalChangeDataCapture ExternalConnectivityPoller ExternalObject ExternalObjectSync ExternalServiceCallback MetadataChangesetOperation MfgBulkUpdate SingularityAutoSync SingularityMDSSubsetSync SiteTaskCreate SiteTaskPublish Sweeper WebCart XClean"
+      },
+      "WorkerUri": {
+        "type": "string",
+        "description": "URI of the worker that performed the operation.Example for a Salesforce Connect OData operation: services/data/v35.0/xds/upsert"
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

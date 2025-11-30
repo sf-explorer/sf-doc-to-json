@@ -1,0 +1,33 @@
+{
+  "Partner": {
+    "name": "Partner",
+    "description": "Represents a partner relationship between two Account records or between an Opportunity record and an Account record.",
+    "properties": {
+      "AccountFromId": {
+        "type": "reference",
+        "description": "Required if OpportunityId is null. ID of the main account in a partner relationship between two accounts. Specifying this field when creating a Partner record creates two AccountPartner records, one for each direction of the relationship. If you specify the OpportunityId field, you can’t specify this field as well."
+      },
+      "AccountToId": {
+        "type": "reference",
+        "description": "Required. ID of the Partner Account related to either an opportunity or an account. You must specify this field when creating an Opportunity Partner or an Account Partner record."
+      },
+      "IsPrimary": {
+        "type": "boolean",
+        "description": "Valid for Opportunity Partners only. Indicates that the account is the primary partner for the opportunity. Only one account can be marked as primary for an opportunity. If you set this field to 1 (true) upon insert of a new opportunity partner, this field is automatically set to 0 (false) for any other primary partners for that opportunity. Label is Primary."
+      },
+      "OpportunityId": {
+        "type": "reference",
+        "description": "Required if AccountFromId is null. ID of the opportunity in a partner relationship between an account and an opportunity. Specifying this field when creating a record creates an OpportunityPartner record. If you specify the AccountFromId field, you can’t also specify this field."
+      },
+      "ReversePartnerId": {
+        "type": "reference",
+        "description": "ID of the reciprocal Parnter record in a partner relationship."
+      },
+      "Role": {
+        "type": "picklist",
+        "description": "UserRole that the account has toward the related opportunity or account, such as consultant or distributor."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

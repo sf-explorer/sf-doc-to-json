@@ -1,0 +1,281 @@
+{
+  "Asset": {
+    "name": "Asset",
+    "description": "Represents an item of commercial value, such as a product sold by your company or a competitor, that a customer has purchased.",
+    "properties": {
+      "AccountId": {
+        "type": "reference",
+        "description": "(Required) ID of the Account associated with this asset. Must be a valid account ID. Required if ContactId isn’t specified."
+      },
+      "Address": {
+        "type": "address",
+        "description": "Represents the physical address or geolocation of the asset."
+      },
+      "AssetLevel": {
+        "type": "int",
+        "description": "The asset’s position in an asset hierarchy. If the asset has no parent or child assets, its level is 1. Assets that belong to a hierarchy have a level of 1 for the root asset, 2 for the child assets of the root asset, 3 for their children, and so forth. On assets created before the introduction of this field, the asset level defaults to –1. After the asset record is updated, the asset level is calculated and automatically updated."
+      },
+      "AssetProvidedById": {
+        "type": "reference",
+        "description": "The account that provided the asset, typically a manufacturer."
+      },
+      "AssetServicedById": {
+        "type": "reference",
+        "description": "The account in charge of servicing the asset."
+      },
+      "AssetTypeId": {
+        "type": "reference",
+        "description": "The asset type associated with the asset."
+      },
+      "Availability": {
+        "type": "percent",
+        "description": "The percentage of expected uptime where the asset was available for use."
+      },
+      "AveragetimetoRepair": {
+        "type": "double",
+        "description": "Represents the number of hours it typically takes to repair an asset after a failure."
+      },
+      "AveragetimeBetweenFailure": {
+        "type": "double",
+        "description": "Represents the number of hours that typically elapses before the asset is likely to fail again."
+      },
+      "AverageUptimePerDay": {
+        "type": "double",
+        "description": "The average number of hours per day the asset is expected to be available for use."
+      },
+      "City": {
+        "type": "string",
+        "description": "The city detail for the address."
+      },
+      "ConsequenceOfFailure": {
+        "type": "picklist",
+        "description": "The business impact associated with the asset’s failure. Using this field, you can address the asset’s health and take action using Flows. To enable this field, use Object Manager to update the field availability. Make sure that the field is visible for field-level security and for page layout. To learn more, see What Determines Field Access. The picklist values aren’t predefined in orgs created before Winter ’22 that aren’t Field Service enabled. This field is available in API version 53.0 and later."
+      },
+      "ContactId": {
+        "type": "reference",
+        "description": "Required if AccountId isn’t specified. ID of the Contact associated with this asset. Must be a valid contact ID that has an account parent (but doesn’t need to match the asset’s AccountId)."
+      },
+      "Country": {
+        "type": "String",
+        "description": "The country detail for the address."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Three-letter ISO 4217 currency code associated with the invoice. The default value is USD."
+      },
+      "CurrentAmount": {
+        "type": "currency",
+        "description": "Reserved for future use. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "CurrentLifecycleEndDate": {
+        "type": "dateTime",
+        "description": "Represents the end of the period shown as current. System-populated field inherited from the end date of the current asset state period. If that field is empty, as with an evergreen subscription, the Current Lifecycle End Date field is also empty. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "CurrentMrr": {
+        "type": "currency",
+        "description": "The asset’s monthly recurring revenue during the current asset state period. System-populated field inherited from the monthly recurring revenue on the current asset state period. If no asset state period is current, the value is 0. Label is Current Monthly Recurring Revenue. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "CurrentQuantity": {
+        "type": "double",
+        "description": "The asset’s quantity during the current asset state period. System-populated field inherited from the quantity on the current asset state period. If no asset state period is current, the value is 0. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "Description of the asset."
+      },
+      "DigitalAssetStatus": {
+        "type": "picklist",
+        "description": "Status of digital tracking of the asset. The default picklist includes the following values: On Off Warning Error"
+      },
+      "ExternalIdentifier": {
+        "type": "string",
+        "description": "The ID of the matching record in an external system. This field is available in API version 49.0 and later."
+      },
+      "GeocodeAccuracy": {
+        "type": "picklist",
+        "description": "Accuracy level of the geocode for the address."
+      },
+      "HasLifecycleManagement": {
+        "type": "boolean",
+        "description": "True if this asset is a lifecycle-managed asset, otherwise false. You can’t switch an asset to a lifecycle-managed asset or the reverse. This field is system populated."
+      },
+      "InstallDate": {
+        "type": "date",
+        "description": "Date when the asset was installed."
+      },
+      "IsCompetitorProduct": {
+        "type": "boolean",
+        "description": "Indicates whether this Asset represents a product sold by a competitor (true) or not (false). The default value is false. Its UI label is Competitor Asset."
+      },
+      "IsInternal": {
+        "type": "boolean",
+        "description": "Indicates that the asset is produced or used internally (true) or not (false). The default value is false. Its UI label is Internal Asset."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The date and time that the asset was last modified. Its UI label is Last Modified Date."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The date and time that the asset was last viewed."
+      },
+      "Latitude": {
+        "type": "double",
+        "description": "Used with Longitude to specify the precise geolocation of the address."
+      },
+      "LifecycleEndDate": {
+        "type": "dateTime",
+        "description": "Represents the end of the asset’s lifecycle. System-populated field inherited from the end date of the final asset state period. If that field is empty, as with an evergreen subscription, the lifecycle has no end date. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "LifecycleStartDate": {
+        "type": "dateTime",
+        "description": "Represents the beginning of the asset’s lifecycle. System-populated field inherited from the start date of the earliest asset state period. This field can’t be edited. When a new asset action affects the start date of an asset state period, the period is deleted and a new one is generated. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "LocationId": {
+        "type": "reference",
+        "description": "The asset’s location. Typically, this location is the place where the asset is stored, such as a warehouse or van."
+      },
+      "Longitude": {
+        "type": "double",
+        "description": "Used with Latitude to specify the precise geolocation of the address."
+      },
+      "ManufactureDate": {
+        "type": "date",
+        "description": "The date when the asset was manufactured. This field is available from API version 49.0 and later."
+      },
+      "Name": {
+        "type": "string",
+        "description": "(Required) Name of the asset. Label is Asset Name."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The asset’s owner. By default, the asset owner is the user who created the asset record. Its UI label is Asset Owner."
+      },
+      "ParentId": {
+        "type": "reference",
+        "description": "The asset’s parent asset. Its UI label is Parent Asset."
+      },
+      "PostalCode": {
+        "type": "string",
+        "description": "The postal code for the address."
+      },
+      "Price": {
+        "type": "currency",
+        "description": "Price paid for this asset."
+      },
+      "PricingSource": {
+        "type": "picklist",
+        "description": "Pricing source to use when amending or renewing an asset."
+      },
+      "Product2Id": {
+        "type": "reference",
+        "description": "(Optional) ID of the Product2 associated with this asset. Must be a valid Product2 ID. Its UI label is Product."
+      },
+      "ProductCode": {
+        "type": "string",
+        "description": "The product code of the related product."
+      },
+      "ProductDescription": {
+        "type": "string",
+        "description": "The product description of the related product."
+      },
+      "ProductFamily": {
+        "type": "picklist",
+        "description": "The product family of the related product."
+      },
+      "PurchaseDate": {
+        "type": "date",
+        "description": "Date on which this asset was purchased."
+      },
+      "Quantity": {
+        "type": "double",
+        "description": "Quantity purchased or installed. The Quantity field value isn’t set by Customer Asset Lifecycle Management. Instead, you can populate the field as you need."
+      },
+      "QuantityIncreasePricingType": {
+        "type": "picklist",
+        "description": "Specify which pricing type to use when the quantity of this asset is increased. Its UI label is Pricing Type for Quantity Increase. This field is available in API version 56.0 and later. This field is available when Subscription Management is enabled."
+      },
+      "RecordTypeId": {
+        "type": "reference",
+        "description": "The unique identifier for the asset."
+      },
+      "Reliability": {
+        "type": "percent",
+        "description": "The percentage of expected uptime where the asset wasn’t subject to unplanned downtime."
+      },
+      "RenewalPricingType": {
+        "type": "picklist",
+        "description": "The price used when renewing a subscription. Its UI label is Pricing Type for Renewal. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled."
+      },
+      "RenewalTerm": {
+        "type": "double",
+        "description": "With Renewal Term Unit, defines the default subscription term for renewal quotes. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled."
+      },
+      "RenewalTermUnit": {
+        "type": "picklist",
+        "description": "The unit of time for a subscription term. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled."
+      },
+      "RootAssetId": {
+        "type": "reference",
+        "description": "(Read only) The top-level asset in an asset hierarchy. Depending on where an asset lies in the hierarchy, its root could be the same as its parent. Its UI label is Root Asset."
+      },
+      "SalesStoreId": {
+        "type": "reference",
+        "description": "ID of the RetailStore or WebStore associated with this Asset."
+      },
+      "SerialNumber": {
+        "type": "string",
+        "description": "Serial number for this asset."
+      },
+      "State": {
+        "type": "string",
+        "description": "The state detail for the address."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Customizable picklist of values. The default picklist includes the following values: Purchased Shipped Installed Registered Obsolete"
+      },
+      "StatusReason": {
+        "type": "picklist",
+        "description": "The explanation of the device status. This field is available from API version 49.0 and later."
+      },
+      "StockKeepingUnit": {
+        "type": "string",
+        "description": "The SKU assigned to the related product."
+      },
+      "Street": {
+        "type": "textarea",
+        "description": "The street detail for the address."
+      },
+      "SumDowntime": {
+        "type": "double",
+        "description": "Accumulated downtime (planned and unplanned), determined as follows: When only UptimeRecordStart is set, the sum of all downtime from UptimeRecordStart When UptimeRecordStart and UptimeRecordEnd are set, the sum of all downtime from UptimeRecordStart to UptimeRecordEnd Otherwise, downtime isn’t accumulated."
+      },
+      "SumUnplannedDowntime": {
+        "type": "double",
+        "description": "Accumulated unplanned downtime, determined as follows: When only UptimeRecordStart is set, the sum of all unplanned downtime from UptimeRecordStart When UptimeRecordStart and UptimeRecordEnd are set, the sum of all unplanned downtime from UptimeRecordStart to UptimeRecordEnd Otherwise, unplanned downtime isn’t accumulated."
+      },
+      "TotalLifecycleAmount": {
+        "type": "currency",
+        "description": "The total amount of revenue for the asset, including revenue from each stage in the asset lifecycle. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+      },
+      "UptimeRecordEnd": {
+        "type": "dateTime",
+        "description": "The date until which SumDowntime and SumUnplannedDowntime are accumulated."
+      },
+      "UptimeRecordStart": {
+        "type": "dateTime",
+        "description": "The date from which SumDowntime and SumUnplannedDowntime are accumulated."
+      },
+      "UsageEndDate": {
+        "type": "date",
+        "description": "Date when usage for this asset ends or expires."
+      },
+      "Uuid": {
+        "type": "string",
+        "description": "The unique ID for the asset. This field is available in API version 49.0 and later."
+      }
+    },
+    "module": "Field Service Lightning"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "EventRelation": {
+    "name": "EventRelation",
+    "description": "Represents a person (a user, lead, or contact) or a resource (such as a conference room) invited to an event. This object lets you add or remove invitees from an event and use the API to manage invitees’ responses to invitations. If Shared Activities is enabled, EventRelation can also represent other objects that are related to an event. EventRelation does not support triggers, workflow, or data validation rules.",
+    "properties": {
+      "AccountId": {
+        "type": "reference",
+        "description": "Contains the Account ID of the relation. For information on IDs, see ID Field Type. AccountId is visible when Shared Activities is enabled."
+      },
+      "EventId": {
+        "type": "reference",
+        "description": "Contains the ID of the event. This value can’t be changed after it’s been specified."
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+      },
+      "IsInvitee": {
+        "type": "boolean",
+        "description": "Indicates whether the relation is an invitee. IsInvitee is visible while Shared Activities is being enabled, after it has been enabled, and while it is being disabled. IsInvitee defaults to true while Shared Activities is being enabled, after it has been enabled, and while it is being disabled if IsInvitee, IsParent, and IsWhat are not set. This configuration ensures compatibility when Shared Activities isn’t enabled and EventRelation represents event invitees only. IsInvitee defaults to false when Shared Activities is enabled if IsParent is set to true."
+      },
+      "IsParent": {
+        "type": "boolean",
+        "description": "IsParent is visible only when Shared Activities is enabled. When false, indicates that the relation is an invitee (a contact, lead, or user). When true, indicates that the relation is a Who or What, as determined by IsWhat field."
+      },
+      "IsWhat": {
+        "type": "boolean",
+        "description": "IsWhat is visible only when Shared Activities is enabled. The value is relevant only if IsParent is true. When IsWhat is true, the relation specified by RelationId is a What (an account, opportunity, custom object, etc.). When IsWhat is false, the relation specified by RelationId is a Who (a contact, lead, or user)."
+      },
+      "RelationId": {
+        "type": "reference",
+        "description": "Contains the ID of the person (User, Contact, or Lead) or the resource invited to an event. When Shared Activities is enabled, RelationId can also contain the ID of an account, opportunity, or other object related to an event."
+      },
+      "RespondedDate": {
+        "type": "dateTime",
+        "description": "Indicates the most recent date and time when the invitee responded to an invitation to an event."
+      },
+      "Response": {
+        "type": "string",
+        "description": "Contains optional text that the invitee can enter when responding to an invitation to an event."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Indicates the invitee status with one of the following values: New: Invitee has received the invitation but hasn’t yet responded. This value is the default. Declined: Invitee has declined the invitation. Accepted: Invitee has accepted the invitation. Note Uninvited and Maybe aren’t currently supported."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

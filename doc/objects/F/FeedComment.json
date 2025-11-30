@@ -1,0 +1,81 @@
+{
+  "FeedComment": {
+    "name": "FeedComment",
+    "description": "Represents a comment added to a feed by a user.",
+    "properties": {
+      "CommentBody": {
+        "type": "textarea",
+        "description": "The text in the comment."
+      },
+      "CommentType": {
+        "type": "picklist",
+        "description": "The type of comment: ContentComment—an uploaded file on a comment TextComment—a direct text entry on a comment Before API version 24.0, a text entry was required on a comment. As of version 24.0, a text entry is optional if the CommentType is ContentComment."
+      },
+      "FeedItemId": {
+        "type": "reference",
+        "description": "ID of the feed item containing the comment."
+      },
+      "HasEntityLinks": {
+        "type": "boolean",
+        "description": "Indicates whether the feed CommentBody includes at least one link to a record. Note This field is available starting in API version 43.0."
+      },
+      "InsertedById": {
+        "type": "reference",
+        "description": "ID of the user who added this item to the feed. For example, if an application migrates posts and comments from another application into a feed, the InsertedBy value is set to the ID of the context user."
+      },
+      "IsRichText": {
+        "type": "boolean",
+        "description": "Indicates whether the feed CommentBody contains rich text. If you post a rich text feed comment using SOAP API, set IsRichText to true and escape HTML entities from the body. Otherwise, the comment is rendered as plain text.Rich text supports the following HTML tags: <p> Tip Though the <br> tag isn’t supported, you can use <p>&nbsp;</p> to create lines. <a> <b> <code> <i> <u> <s> <ul> <ol> <li> <img>The <img> tag is accessible only through the API and must reference files in Salesforce similar to this example: <img src=\"sfdc://069B0000000omjh\"></img> Note This attribute is available as of API version 38.0. In API version 38.0 and later, the system replaces special characters in rich text with escaped HTML. In API version 37.0 and prior, all rich text appears as a plain-text representation."
+      },
+      "IsVerified": {
+        "type": "boolean",
+        "description": "Determines whether a comment on a question is marked as Company Verified.This field is available in API version 41.0 and later."
+      },
+      "LastEditById": {
+        "type": "reference",
+        "description": "ID of the user who last edited the feed comment."
+      },
+      "LastEditDate": {
+        "type": "datetime",
+        "description": "The date the feed comment was last edited."
+      },
+      "ParentId": {
+        "type": "reference",
+        "description": "ID of a record associated with the feed comment. For example, if you are commenting on a change to a field on Account, ParentId is set to the account ID."
+      },
+      "RelatedRecordId": {
+        "type": "reference",
+        "description": "ID of the ContentVersion record associated with a ContentComment. This field is null for all comments except ContentComment.For example, set this field to an existing ContentVersion ID and set the CommentType to ContentComment."
+      },
+      "Revision": {
+        "type": "int",
+        "description": "The number of times the comment was revised."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Specifies whether this feed comment is published and visible to all who can access the parent feed item. To change a comment’s status, the comment’s parent feed item must be in a published state. This field is available in API version 38.0 and later."
+      },
+      "SystemModstamp": {
+        "type": "datetime",
+        "description": "Date and time when a user or automated process (such as a trigger) last modified this record. In this context, \"trigger\" refers to Salesforce code that runs to implement standard functionality, and not an Apex trigger. SystemModstamp is a read-only system field, available in FeedComment as of API version 37.0."
+      },
+      "ThreadChildrenCount": {
+        "type": "int",
+        "description": "The count of comments associated with this parent feed object. The feed object can be either a Feed Item or a Feed Comment. The count shows how many comments are directly subordinate to the parent. This field is available on the object when Allow discussion threads is selected in the Administration Workspace. This field is available in API version 44.0 and later."
+      },
+      "ThreadLastUpdatedDate": {
+        "type": "dateTime",
+        "description": "The date and time the thread on this comment was last updated. This field is available on the object when Allow discussion threads is selected in the Administration Workspace. This field is available in API version 44.0 and later."
+      },
+      "ThreadLevel": {
+        "type": "int",
+        "description": "The identifier that shows the level of this Feed Comment in a thread. By default, there are a maximum of three levels in a thread. The ThreadLevel value shows in which of the three levels this comment falls. This field is available on the object when Allow discussion threads is selected in the Administration Workspace. This field is available in API version 44.0 and later."
+      },
+      "ThreadParentId": {
+        "type": "reference",
+        "description": "The identifier of the feed item that is the parent of this comment. This field is available on the object when Allow discussion threads is selected in the Administration Workspace. This field is available in API version 44.0 and later."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

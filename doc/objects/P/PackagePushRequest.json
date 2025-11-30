@@ -1,0 +1,33 @@
+{
+  "PackagePushRequest": {
+    "name": "PackagePushRequest",
+    "description": "Represents the push request for upgrading a package in one or many orgs from one version to another version.",
+    "properties": {
+      "DurationSeconds": {
+        "type": "int",
+        "description": "The length of time in seconds, that the push upgrade took to complete. This field is new in API version 51.0."
+      },
+      "EndTime": {
+        "type": "dateTime",
+        "description": "The date and time (UTC) at which the push upgrade ended, in ISO 8601 format. This field is new in API version 51.0."
+      },
+      "PackageVersionId": {
+        "type": "reference",
+        "description": "Required. The non-beta, non-deprecated package version that the package is being upgraded to."
+      },
+      "ScheduledStartTime": {
+        "type": "dateTime",
+        "description": "The date and time (UTC) at which the push request is processed, in ISO 8601 format. Set this value to the earliest time that you want Salesforce to attempt to start the push. As a best practice, schedule pushes at off-peak hours like 1:00 AM Saturday. If you don’t specify a value, the push starts when the package push request’s Status is set to Pending. Note Scheduled push upgrades begin as soon as resources are available on the Salesforce instance, which is either at or after the start time you specify. In certain scenarios, the push upgrade could start a few hours after the scheduled start time."
+      },
+      "StartTime": {
+        "type": "dateTime",
+        "description": "The date and time (UTC) at which the push upgrade actually started, in ISO 8601 format. This field is new in API version 51.0."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of the push. Valid values are: Canceled Created (default) Failed In Progress Pending Succeeded Don’t specify this value when you create the push request. The default value of Created is used. Later, change the status to Pending to schedule the push upgrade."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

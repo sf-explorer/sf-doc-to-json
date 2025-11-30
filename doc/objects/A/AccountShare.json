@@ -1,0 +1,37 @@
+{
+  "AccountShare": {
+    "name": "AccountShare",
+    "description": "Represents a sharing entry on an account.",
+    "properties": {
+      "AccountAccessLevel": {
+        "type": "picklist",
+        "description": "Level of access that the User or Group has to the Account. The possible values are: Read Edit All (This value isn't valid for create or update calls.) This field must be set to an access level that is at least equal to the organization’s default Account access level. In addition, either this field, the OpportunityAccessLevel field, or the CaseAccessLevel field must be set higher than the organization’s default access level."
+      },
+      "AccountId": {
+        "type": "reference",
+        "description": "ID of the Account associated with this sharing entry. This field can't be updated."
+      },
+      "CaseAccessLevel": {
+        "type": "picklist",
+        "description": "Level of access that the User or Group has to cases associated with the account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default CaseAccessLevel. This field can't be updated via the API if the AccountAccessLevel field is set to All. You can't update this field for the associated account owner via the API. You must update the account owner’s CaseAccessLevel via the Salesforce user interface."
+      },
+      "ContactAccessLevel": {
+        "type": "picklist",
+        "description": "Level of access that the User or Group has to contacts associated with the account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default ContactAccessLevel. This field can't be updated via the API if the ContactAccessLevel field is set to “Controlled by Parent.” You can't update this field for the associated account owner using the API. You must update the account owner’s ContactAccessLevel via the Salesforce user interface."
+      },
+      "OpportunityAccessLevel": {
+        "type": "picklist",
+        "description": "Level of access that the User or Group has to opportunities associated with the Account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default opportunity access level. This field can’t be updated via the API if the AccountAccessLevel field is set to All. You can't use the API to update this field for the associated Account owner. You must update the Account owner’s opportunityAccessLevel via the Salesforce user interface."
+      },
+      "RowCause": {
+        "type": "picklist",
+        "description": "Reason that this sharing entry exists. If you’re creating a sharing entry, the only permitted value is Manual. If no value is specified, the field defaults to Manual. All other RowCause values are read-only. After the sharing entry is created, this field can’t be edited."
+      },
+      "UserOrGroupId": {
+        "type": "reference",
+        "description": "ID of the User or Group that has been given access to the Account. This field can't be updated."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

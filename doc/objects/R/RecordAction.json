@@ -1,0 +1,53 @@
+{
+  "RecordAction": {
+    "name": "RecordAction",
+    "description": "Represents a relationship between a record and an action, such as a flow. Create a RecordAction for every action that you want to associate with a particular record.",
+    "properties": {
+      "ActionDefinition": {
+        "type": "picklist",
+        "description": "Required in Lightning Flow for Service implementations that use version 44.0 or later of the API. The API name of the action to associate with the record; for example, the API name of a flow. Use this field rather than FlowDefinition. To distinguish a quick action from a flow with the same API name, we prepend \"QuickAction\" to the API name of every quick action."
+      },
+      "ActionType": {
+        "type": "picklist",
+        "description": "Required in Lightning Flow for Service implementations that use version 46.0 or later of the API. The type of action. Possible values are: Flow (default) QuickAction For versions of the API prior to version 46.0, this field is set to Flow."
+      },
+      "FlowDefinition": {
+        "type": "picklist",
+        "description": "Optional in Lightning Flow for Service implementations using version 42.0 or 43.0 of the API. An upgrade to Winter '19 or later, which uses API version 44.0 or later, copies FlowDefinition to ActionDefinition. For versions 42.0 and 43.0, this field is the API name of the flow that’s associated with the record."
+      },
+      "FlowInterviewId": {
+        "type": "reference",
+        "description": "Optional. The flow interview ID of the paused or completed flow. This field can’t be set in Process Builder."
+      },
+      "IsMandatory": {
+        "type": "boolean",
+        "description": "Optional. Specifies whether the action is mandatory. The default value is false. Note At runtime, we show a reminder when the user closes a mandatory flow without completing it. We don't show the reminder for quick actions."
+      },
+      "IsUiRemoveHidden": {
+        "type": "boolean",
+        "description": "Optional. Specifies whether the ability to remove the action is hidden in the UI. The default value is false. If true, the UI hides the ability to remove the action. However, actions can still be deleted using the API."
+      },
+      "Order": {
+        "type": "int",
+        "description": "Required. The order of the action among all actions associated with this record."
+      },
+      "ParticipantRoleId": {
+        "type": "reference",
+        "description": "The participant role that's associated with the record action."
+      },
+      "Pinned": {
+        "type": "picklist",
+        "description": "Required. Specifies whether the action is pinned to the top or bottom of the component. If an action is pinned, users see the Remove option in the UI unless IsUiRemoveHidden is set to true. Possible values are: None (default) Top Bottom"
+      },
+      "RecordId": {
+        "type": "reference",
+        "description": "Required. Record associated with the action. In version 46.0 and above, we support most object types. To learn about supported objects, see the Lightning Flow for Service Developer’s Guide."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Required. The current state of the action. Possible values are: New (default) Paused Complete Started Unlinked—The action was unlinked because the flow was paused and the current record for the flow interview changed. Paused and unlinked statuses do not apply to quick actions. This field can’t be set in Process Builder."
+      }
+    },
+    "module": "Health Cloud"
+  }
+}

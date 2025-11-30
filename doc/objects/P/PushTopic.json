@@ -1,0 +1,53 @@
+{
+  "PushTopic": {
+    "name": "PushTopic",
+    "description": "Represents a query that is the basis for notifying Streaming API clients of changes to records in an org.",
+    "properties": {
+      "ApiVersion": {
+        "type": "double",
+        "description": "Required. API version to use for executing the query specified in Query. It must be an API version greater than 20.0. If your query applies to a custom object from a package, this value must match the package's ApiVersion.Example value:"
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description of the PushTopic. Limit: 400 characters"
+      },
+      "IsActive": {
+        "type": "boolean",
+        "description": "Indicates whether the record currently counts towards the organization's allocation."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Required. Descriptive name of the PushTopic, such as MyNewCases or TeamUpdatedContacts. Limit: 25 characters. This value identifies the channel and must be unique."
+      },
+      "NotifyForFields": {
+        "type": "picklist",
+        "description": "Specifies which fields are evaluated to generate a notification."
+      },
+      "NotifyForOperationCreate": {
+        "type": "boolean",
+        "description": "true if a create operation should generate a notification, otherwise, false. Defaults to true. This field is available in API version 29.0 and later."
+      },
+      "NotifyForOperationDelete": {
+        "type": "boolean",
+        "description": "true if a delete operation should generate a notification, otherwise, false. Defaults to true. Clients must connect using the cometd/29.0 (or later) Streaming API endpoint to receive delete and undelete event notifications. This field is available in API version 29.0 and later."
+      },
+      "NotifyForOperationUndelete": {
+        "type": "boolean",
+        "description": "true if an undelete operation should generate a notification, otherwise, false. Defaults to true. Clients must connect using the cometd/29.0 (or later) Streaming API endpoint to receive delete and undelete event notifications. This field is available in API version 29.0 and later."
+      },
+      "NotifyForOperationUpdate": {
+        "type": "boolean",
+        "description": "true if an update operation should generate a notification, otherwise, false. Defaults to true. This field is available in API version 29.0 and later."
+      },
+      "NotifyForOperations": {
+        "type": "picklist",
+        "description": "Specifies which record events may generate a notification.In API version 29.0 and later, this field is read-only, and doesn’t contain information about delete and undelete events. Use NotifyForOperationCreate, NotifyForOperationDelete, NotifyForOperationUndelete and NotifyForOperationUpdate to specify which record events should generate a notification. Possible values are: All (default) Create Extended Update A value of Extended means that neither create or update operations are set to generate events."
+      },
+      "Query": {
+        "type": "string",
+        "description": "Required. The SOQL query statement that determines which record changes trigger events to be sent to the channel. Limit: 1,300 characters"
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

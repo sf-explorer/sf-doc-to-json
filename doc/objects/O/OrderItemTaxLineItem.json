@@ -1,0 +1,57 @@
+{
+  "OrderItemTaxLineItem": {
+    "name": "OrderItemTaxLineItem",
+    "description": "The tax amount that has been applied to an order item.",
+    "properties": {
+      "Amount": {
+        "type": "currency",
+        "description": "The total amount of the tax line. The value is rounded to the nearest possible amount associated with the currency of the order item."
+      },
+      "CalculationReferenceNumber": {
+        "type": "string",
+        "description": "Reference number provided by the tax provider, such as Stripe, in the tax calculation API response."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "Users can add a custom description to the record to provide additional detail."
+      },
+      "Name": {
+        "type": "string",
+        "description": "Name of the tax line."
+      },
+      "OrderId": {
+        "type": "reference",
+        "description": "ID of the parent order for the order item related to the tax line"
+      },
+      "OrderItemAdjustmentLineItemId": {
+        "type": "reference",
+        "description": "The order item adjustment line item that the tax line applies to."
+      },
+      "OrderItemId": {
+        "type": "reference",
+        "description": "The order item that the tax line applies to."
+      },
+      "Rate": {
+        "type": "percent",
+        "description": "The percentage value of the tax. Null if the tax is a flat amount."
+      },
+      "ReferenceNumber": {
+        "type": "string",
+        "description": "Reference number provided by the tax provider (like Stripe) for each line item in the tax calculation API call. Use this unique ID to revert taxes during cancellation or return of an order."
+      },
+      "RelatedTaxLineItemId": {
+        "type": "reference",
+        "description": "The original order item tax line. Useful for reference in change order scenarios."
+      },
+      "TaxEffectiveDate": {
+        "type": "date",
+        "description": "The date used to calculate the effective tax rate. This field may require an update to accommodate different buyer time zones."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "Shows whether the amount on the tax line is an estimate or the final calculated amount. Doesn’t set a value by default. Users can define automation to set and change the value as needed."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

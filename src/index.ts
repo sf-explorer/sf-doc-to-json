@@ -23,7 +23,7 @@ export async function loadIndex(useCache = true): Promise<DocumentIndex | null> 
 
     try {
         // Dynamic import for tree-shaking - bundlers will handle this
-        const index = await import('../doc/index.json', { assert: { type: 'json' } });
+        const index = await import('../doc/index.json');
         const data = index.default || index;
         
         indexCache.data = data as DocumentIndex;
@@ -52,17 +52,71 @@ export async function loadCloud(
     }
 
     try {
-        // Dynamic import based on cloud name
-        const cloudData = await import(`../doc/${cloudFileName}.json`, { assert: { type: 'json' } });
-        const data = (cloudData.default || cloudData) as SalesforceObjectCollection;
+        // Load the cloud index file (which now contains just a list of object names)
+        const cloudIndex = await import(`../doc/${cloudFileName}.json`);
+        const cloudData = cloudIndex.default || cloudIndex;
         
-        if (useCache) {
-            cloudCache.set(cloudFileName, data);
+        // Check if this is the new format (has 'objects' array) or old format (direct object collection)
+        if (cloudData.objects && Array.isArray(cloudData.objects)) {
+            // New format: Load each object individually
+            const collection: SalesforceObjectCollection = {};
+            const cloudName = cloudData.cloud; // Get the cloud name from the index
+            
+            await Promise.all(
+                cloudData.objects.map(async (objectName: string) => {
+                    const obj = await loadObjectFromFile(objectName, cloudName);
+                    if (obj) {
+                        collection[objectName] = obj;
+                    }
+                })
+            );
+            
+            if (useCache) {
+                cloudCache.set(cloudFileName, collection);
+            }
+            
+            return collection;
+        } else {
+            // Old format: Direct object collection (backwards compatibility)
+            const data = cloudData as SalesforceObjectCollection;
+            
+            if (useCache) {
+                cloudCache.set(cloudFileName, data);
+            }
+            
+            return data;
         }
-        
-        return data;
     } catch (error) {
         console.warn(`Cloud file not found: ${cloudFileName}.json`);
+        return null;
+    }
+}
+
+/**
+ * Load a single object from its individual file
+ * @param objectName - The name of the Salesforce object
+ * @param expectedCloud - Optional cloud name to set on the object (for multi-cloud objects)
+ * @returns The object data or null if not found
+ */
+async function loadObjectFromFile(objectName: string, expectedCloud?: string): Promise<SalesforceObject | null> {
+    try {
+        const firstLetter = objectName[0].toUpperCase();
+        const objectData = await import(`../doc/objects/${firstLetter}/${objectName}.json`);
+        const data = objectData.default || objectData;
+        const obj = data[objectName];
+        
+        // If expectedCloud is provided and different from the object's module, override it
+        // This handles objects that appear in multiple clouds
+        if (obj && expectedCloud && obj.module !== expectedCloud) {
+            return {
+                ...obj,
+                module: expectedCloud
+            };
+        }
+        
+        return obj || null;
+    } catch (error) {
+        console.warn(`Object file not found: ${objectName}`);
         return null;
     }
 }
@@ -79,9 +133,21 @@ export async function loadAllClouds(useCache = true): Promise<CloudData> {
     }
     
     // Get unique cloud file names from index
-    const cloudFiles = new Set(
-        Object.values(index.objects).map(obj => obj.file.replace('.json', ''))
-    );
+    const cloudFiles = new Set<string>();
+    
+    for (const obj of Object.values(index.objects)) {
+        if (obj.file.startsWith('objects/')) {
+            // New format: derive cloud file name from cloud name
+            const cloudFileName = obj.cloud
+                .toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '');
+            cloudFiles.add(cloudFileName);
+        } else {
+            // Old format: use file name directly
+            cloudFiles.add(obj.file.replace('.json', ''));
+        }
+    }
     
     const cloudData: CloudData = {};
     
@@ -114,6 +180,13 @@ export async function getObject(
     }
     
     const entry = index.objects[objectName];
+    
+    // Check if file path points to individual object file (new format)
+    if (entry.file.startsWith('objects/')) {
+        return await loadObjectFromFile(objectName, entry.cloud);
+    }
+    
+    // Old format: Load from cloud file
     const cloudFileName = entry.file.replace('.json', '');
     const cloudData = await loadCloud(cloudFileName, useCache);
     
@@ -171,14 +244,25 @@ export async function getObjectsByCloud(
         return [];
     }
     
-    const cloudFileName = index.objects[objectsInCloud[0]].file.replace('.json', '');
-    const cloudData = await loadCloud(cloudFileName, useCache);
-    
-    if (!cloudData) {
-        return [];
+    // Check if using new format (objects/ path)
+    const firstEntry = index.objects[objectsInCloud[0]];
+    if (firstEntry.file.startsWith('objects/')) {
+        // New format: Load each object individually with the correct cloud name
+        const objects = await Promise.all(
+            objectsInCloud.map(name => loadObjectFromFile(name, cloudName))
+        );
+        return objects.filter(obj => obj !== null) as SalesforceObject[];
+    } else {
+        // Old format: Load from cloud file
+        const cloudFileName = firstEntry.file.replace('.json', '');
+        const cloudData = await loadCloud(cloudFileName, useCache);
+        
+        if (!cloudData) {
+            return [];
+        }
+        
+        return Object.values(cloudData);
     }
-    
-    return Object.values(cloudData);
 }
 
 /**

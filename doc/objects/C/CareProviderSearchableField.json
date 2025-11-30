@@ -1,0 +1,129 @@
+{
+  "CareProviderSearchableField": {
+    "name": "CareProviderSearchableField",
+    "description": "This object holds denormalized data from certain fields in the Provider Relationship Management data model.",
+    "properties": {
+      "Address": {
+        "type": "textarea",
+        "description": "Specified in Account.ShippingAddress."
+      },
+      "CertificationType": {
+        "type": "textarea",
+        "description": "Specified in BoardCertification.CertificationType. Note BoardCertification.HealthcareProvider must also be specified."
+      },
+      "Condition": {
+        "type": "textarea",
+        "description": "The conditions represented by the problem definitions that the healthcare provider offers treatment for."
+      },
+      "EducationLevel": {
+        "type": "textarea",
+        "description": "Specified in PersonEducation.EducationLevel. Not applicable for a facility. Note Degree, Status, DegreeEarner, and HealthCareProvider must also be specified."
+      },
+      "FacilityId": {
+        "type": "reference",
+        "description": "Represents the facility with which the practitioner is associated. Use for practitioner records only. If the provider is a facility, set this field value to null."
+      },
+      "FacilityName": {
+        "type": "string",
+        "description": "Specified in Account.Name."
+      },
+      "FacilityPhone": {
+        "type": "phone",
+        "description": "Facility's main contact phone number. Specified in Account.Phone."
+      },
+      "IsAcceptingNewPatients": {
+        "type": "boolean",
+        "description": "Indicates whether the practitioner is accepting new patients. Specified in HealthcareFacilityNetwork.PanelStatus, where PanelStatus = Open indicates Accepting New Patients = true. The default value is false. Note This field applies only to practitioners, not facilities."
+      },
+      "IsUpdateNeeded": {
+        "type": "boolean",
+        "description": "Indicates whether a change to data in a healthcare provider record or a related record requires a data sync (true) or not (false). The default value is false."
+      },
+      "LanguagesSpoken": {
+        "type": "textarea",
+        "description": "The languages spoken by the person. Specified in PersonLanguage.Language."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+      },
+      "LicenseJurisdictionCountry": {
+        "type": "String",
+        "description": "The country where the license of the Healthcare Provider is registered. Specified in BusinessLicense.JurisdictionCountry."
+      },
+      "LicenseJurisdictionRegion": {
+        "type": "String",
+        "description": "The region where the license of the Healthcare Provider is registered. Specified in BusinessLicense.JurisdictionRegion."
+      },
+      "LicenseJurisdictionState": {
+        "type": "String",
+        "description": "The state where the license of the Healthcare Provider is registered. Specified in BusinessLicense.JurisdictionState."
+      },
+      "LicenseName": {
+        "type": "String",
+        "description": "The name of the license associated with the Healthcare Provider. Specified in BusinessLicense.Name."
+      },
+      "LicenseStatus": {
+        "type": "String",
+        "description": "Specifies the status of the license given to the Healthcare Provider. Specified in BusinessLicense.Status."
+      },
+      "NationalProviderIdentifier": {
+        "type": "string",
+        "description": "Provider’s unique NPI number. Specified in HealthcareProviderNpi.Account for a facility, and HealthcareProviderNpi.Practitioner for a practitioner."
+      },
+      "OperatingHoursId": {
+        "type": "reference",
+        "description": "Identifies a set of operating hours for this practitioner at this facility. Specified in Account.OperatingHoursId for a facility, or in HeathcarePractitionerFacility.OperatingHoursId for a practitioner-facility combination."
+      },
+      "PhotoUrl": {
+        "type": "string",
+        "description": "The URL for a photograph of the practitioner. Field is synced based on Account-PhotoUrl or Contact.PhotoUrl."
+      },
+      "PlanType": {
+        "type": "textarea",
+        "description": "The type of plan, with the following default options: PPO HMO Medicare Medicaid Workers Comp Specified in HealthcareFacilityNetwork.Account for a facility, or HealthcareFacilityNetwork.PractitionerFacility for a practitioner-facility combination. Note HealthcareFacilityNetwork.Name and PayerNetwork.Name must also be populated."
+      },
+      "ProviderGender": {
+        "type": "string",
+        "description": "The gender of the HealthcareProvider. Specified in Contact.Gender or Account.PersonGender."
+      },
+      "ProviderId": {
+        "type": "reference",
+        "description": "Lookup to HealthcareProvider. Represents a facility or practitioner-facility combination."
+      },
+      "ProviderName": {
+        "type": "string",
+        "description": "Name of the provider. Specified in Account for a facility, or in Contact for a practitioner."
+      },
+      "ProviderType": {
+        "type": "string",
+        "description": "Type of provider or facility. For example, a pharmacist or an ambulatory care facility. Specified in HealthCareProvider.ProviderType."
+      },
+      "Service": {
+        "type": "textarea",
+        "description": "The list of services that the healthcare provider offers."
+      },
+      "ServiceCode": {
+        "type": "textarea",
+        "description": "The list of codes associated with the service that the healthcare provider offers."
+      },
+      "Specialty": {
+        "type": "textarea",
+        "description": "Specialty associated with the provider. Specified in CareSpecialty.SpecialtyType. For a facility, the Specialty is sourced from a Care Provider Facility Specialty record, which connects a facility (CareProviderFacilitySpecialty.AccountId) to a care specialty (CareProviderFacilitySpecialty.SpecialtyId). For a practitioner, the Specialty is sourced from a Care Provider Facility Specialty record, which connects a Healthcare Practitioner Facility record (CareProviderFacilitySpecialty.PractitionerFacilityId) to a care specialty (CareProviderFacilitySpecialty.SpecialtyId). The Healthcare Practitioner Facility record then connects the facility (HealthcarePractitionerFacility.AccountId) to a practitioner (HealthcarePractitionerFacility.PractitionerId). All source records must be active."
+      },
+      "SubSpecialty": {
+        "type": "textarea",
+        "description": "Provider's subspecialty. Specified in HealthcareProviderTaxonomy.TaxonomyType. Not valid for a practitioner-facility combination. Note Taxonomy.TaxonomyType must also be specified."
+      },
+      "SyncLogRecord": {
+        "type": "string",
+        "description": "The provider search sync log record that shows the data sync status of a healthcare provider record."
+      }
+    },
+    "module": "Health Cloud"
+  }
+}

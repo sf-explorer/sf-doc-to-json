@@ -1,0 +1,29 @@
+{
+  "FlowStageRelation": {
+    "name": "FlowStageRelation",
+    "description": "Represents a relationship between a paused flow interview and its stages. When a flow interview is paused, Salesforce creates a FlowStageRelation record for each stage that’s set to the $Flow.CurrentStage or $Flow.ActiveStages global variable.",
+    "properties": {
+      "Name": {
+        "type": "string",
+        "description": "The auto-generated ID of this relation."
+      },
+      "ParentId": {
+        "type": "reference",
+        "description": "The flow interview that the record is related to."
+      },
+      "StageLabel": {
+        "type": "string",
+        "description": "Label for the stage. If the stage is translated, the label respects the language of the user who is querying the label."
+      },
+      "StageOrder": {
+        "type": "int",
+        "description": "The order of this stage when the flow interview was paused. This order may differ from the order in the stage definition. If the type is Active, the order corresponds to the order of the stage in $Flow.ActiveStages. If the type is Current and corresponds to an active stage, the order matches the order of the active stage. If the type is Current and doesn't correspond to an active stage, the order is 0."
+      },
+      "StageType": {
+        "type": "picklist",
+        "description": "Type of stage. The valid values are: Current: Identifies that the stage is set to $Flow.CurrentStage. Active: Identifies that the stage is set to $Flow.ActiveStages."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "ArchivePolicyDefinition": {
+    "name": "ArchivePolicyDefinition",
+    "description": "Represents a data lifecycle policy that, in each row, defines the scope, frequency, and rules for automated archiving or purging of records from a root entity, such as Contact or Lead.",
+    "properties": {
+      "DataProtectionThreshold": {
+        "type": "int",
+        "description": "Specifies a retention buffer, in days, during which recently updated or sensitive records must not be archived or deleted. Enforces data protection compliance."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "The purpose or scope of the policy."
+      },
+      "IsActive": {
+        "type": "boolean",
+        "description": "Indicates whether the policy is active and eligible for execution. Only active policies can be executed by scheduled or manual processes."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The unique name assigned to the policy."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "Process type that the policy executes. Valid values are: Archive Import Purge"
+      },
+      "Query": {
+        "type": "string",
+        "description": "A complete SOQL or custom query defining the set of records to archive or purge, based on policy rules. Determines which records are eligible for processing."
+      },
+      "QueryLimit": {
+        "type": "int",
+        "description": "The maximum number of root records this policy can process in a single run. Used to throttle execution for scalability and control."
+      },
+      "RootEntityName": {
+        "type": "string",
+        "description": "The API name of the Salesforce object targeted by the policy. Determines which object’s records are queried and processed."
+      },
+      "RunFrequency": {
+        "type": "picklist",
+        "description": "Specifies how often the policy is executed—manually or on a regular interval. Enables automation for recurring data lifecycle operations.Valid values are: NoneThis option is specifically for manual policy runs. Daily Weekly Monthly"
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

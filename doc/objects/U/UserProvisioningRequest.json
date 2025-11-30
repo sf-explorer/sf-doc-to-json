@@ -1,0 +1,69 @@
+{
+  "UserProvisioningRequest": {
+    "name": "UserProvisioningRequest",
+    "description": "Represents an individual provisioning request to create, update, or delete a single user account in a third-party service system (or another Salesforce organization).",
+    "properties": {
+      "AppName": {
+        "type": "string",
+        "description": "The unique name of the connected app associated with the service provider."
+      },
+      "ApprovalStatus": {
+        "type": "picklist",
+        "description": "The status of the approval for the current request. If the user provisioning setup for the connected app does not have an approval process enabled, the status is Not Required. If an approval process is enabled, supported values are: Required— An approval process is enabled in the user provisioning setup for the associated connected app, but there is no response to the request yet. Not Required— An approval process is not enabled in the user provisioning setup for the associated connected app. Approved Denied"
+      },
+      "ConnectedAppId": {
+        "type": "reference",
+        "description": "The 18-digit application ID for the connected app."
+      },
+      "ExternalUserId": {
+        "type": "string",
+        "description": "The unique identifier for the user in the target system."
+      },
+      "ManagerId": {
+        "type": "reference",
+        "description": "Salesforce ID of the user who manages the user specified in the SalesforceUserId field. If an approval process is configured for the user provisioning request. this value allows the manager to approve the request. Available in API version 34.0 and later."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The unique name for this object."
+      },
+      "Operation": {
+        "type": "picklist",
+        "description": "The Apex method called by the trigger associated with the provisioning request (typically a change to the User object). Supported values are: Create Read Update Deactivate Activate Freeze Unfreeze Reconcile Linking For example, when the User object field isActive is set to false, the UPR object Operation field value is set to Deactivate."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "Salesforce ID of the Group or User who owns this object."
+      },
+      "ParentID": {
+        "type": "reference",
+        "description": "When a retry event is created, the failed UPR is cloned and resubmitted. This field contains a lookup to the failed UPR that was cloned to create the current record."
+      },
+      "Retry Count": {
+        "type": "int",
+        "description": "Number of retry attempts performed on a UPR. Retry Count enables custom business logic such as “Retry 5 times then stop and notify your admin.”"
+      },
+      "SalesforceUserId": {
+        "type": "reference",
+        "description": "Salesforce ID of the user making the request."
+      },
+      "ScheduleDate": {
+        "type": "dateTime",
+        "description": "When to send this request to the service provider. Note Scheduling is not implemented yet. Currently, provisioning changes are queued immediately to be sent to the service provider."
+      },
+      "State": {
+        "type": "picklist",
+        "description": "Status of this request. Supported values are: New Requested Completed Failed Collecting Collected Analyzing Analyzed Committing Retried Manually Completed The State goes from New to Requested to Completed or Failed, unless a reconciliation process is occurring. For details about the reconciliation process State value changes, see Usage. The State goes from Failed to Retried or Manually Completed when troubleshooting UPR failures. For details about handling failures, see State Values for Managing Provisioning Failures."
+      },
+      "UserProvAccountId": {
+        "type": "reference",
+        "description": "The ID value of the associated UserProvAccount object."
+      },
+      "UserProvConfigId": {
+        "type": "reference",
+        "description": "The ID value of the associated UserProvisioningConfig object. Available in API version 34.0 and later."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

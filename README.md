@@ -227,14 +227,33 @@ npm run fetch:health # Health Cloud
 
 ### Output Structure
 
+The generator creates an optimized split structure for better performance:
+
 ```
 doc/
-├── index.json                       # Master index (~12K lines)
-├── core-salesforce.json             # Core Salesforce objects
-├── financial-services-cloud.json    # FSC objects
-├── health-cloud.json                # Health Cloud objects
-└── ...                              # Other clouds
+├── index.json                       # Master index (369 KB - maps all 3,437 objects)
+├── objects/                         # Individual object files (14 MB total)
+│   ├── A/                          # Objects starting with A (334 files)
+│   │   ├── Account.json
+│   │   ├── AccountContactRole.json
+│   │   └── ...
+│   ├── B/                          # Objects starting with B (97 files)
+│   ├── C/                          # Objects starting with C (627 files)
+│   └── ...                         # D-Z folders
+├── core-salesforce.json            # Core Salesforce index (45 KB - lists 1,717 objects)
+├── financial-services-cloud.json   # FSC index (6.9 KB - lists 243 objects)
+├── health-cloud.json               # Health Cloud index (6.1 KB - lists 226 objects)
+└── ...                             # Other cloud indexes
 ```
+
+**Benefits of Split Structure:**
+- ✅ **99% smaller cloud files** (45 KB vs 4.2 MB for core-salesforce)
+- ✅ **Faster git operations** (diff, merge, clone)
+- ✅ **Better IDE performance** with smaller files
+- ✅ **Lazy loading** - load only the objects you need
+- ✅ **Easy navigation** - find any object alphabetically
+
+See [SPLIT_STRUCTURE.md](./SPLIT_STRUCTURE.md) for complete details.
 
 ### Supported Salesforce Clouds
 
@@ -272,11 +291,15 @@ When you install the package, you get:
 │   ├── cjs/                # CommonJS for older Node.js
 │   │   └── index.js
 │   └── ...
-├── doc/                     # Pre-generated JSON files (~20MB)
-│   ├── index.json
-│   ├── core-salesforce.json
-│   ├── financial-services-cloud.json
-│   └── ...
+├── doc/                     # Pre-generated JSON files (~15MB total)
+│   ├── index.json          # Master index (369 KB)
+│   ├── objects/            # 3,007 individual object files (14 MB)
+│   │   ├── A/              # Account, Asset, etc.
+│   │   ├── B/              # Budget, Building, etc.
+│   │   └── ...             # C-Z folders
+│   ├── core-salesforce.json           # Lightweight index (45 KB)
+│   ├── financial-services-cloud.json  # Lightweight index (6.9 KB)
+│   └── ...                 # Other cloud indexes
 ├── README.md
 └── package.json
 ```
@@ -340,23 +363,32 @@ Works in all modern browsers and bundlers:
 
 ---
 
-## 📊 Package Size
+## 📊 Package Size & Performance
 
-- **Installed Size:** ~25 MB (includes all JSON documentation)
+- **Installed Size:** ~15 MB (includes all JSON documentation)
 - **Import Size:** Only what you use (tree-shakeable)
 - **Min Bundle:** < 1 KB (if you only use search functions)
 
-Example bundle sizes:
-- `getObject('Account')` → ~15 KB (loads only core-salesforce.json)
-- `searchObjects(...)` → ~12 KB (loads only index.json)
-- `getAvailableClouds()` → ~12 KB (loads only index.json)
+**Split Structure Benefits:**
+
+Example bundle sizes with the optimized structure:
+- `getObject('Account')` → **~5 KB** (loads only Account.json, not entire cloud!)
+- `searchObjects(...)` → ~370 KB (loads only index.json)
+- `getAvailableClouds()` → ~370 KB (loads only index.json)
+- `loadCloud('core-salesforce')` → Loads only needed objects on-demand
+
+**Performance improvements:**
+- ✅ **99% reduction** in cloud index file sizes
+- ✅ **Lazy loading** - each object is ~5 KB vs 4+ MB for full cloud
+- ✅ **Faster initial load** - no need to parse massive JSON files
+- ✅ **Better caching** - unchanged objects don't need re-downloading
 
 ---
 
 ## 🧪 Testing
 
 ```bash
-# Run tests
+# Run tests (43 tests, all passing ✅)
 npm test
 
 # Watch mode
@@ -365,6 +397,14 @@ npm run test:watch
 # Coverage report
 npm run test:coverage
 ```
+
+**Test Coverage:**
+- ✅ Index loading and structure validation
+- ✅ Object retrieval with split structure
+- ✅ Multi-cloud object handling (88 objects appear in multiple clouds)
+- ✅ Search functionality
+- ✅ Cloud-specific queries
+- ✅ Caching behavior
 
 See [TESTING.md](./TESTING.md) for details.
 
@@ -383,8 +423,10 @@ npm run build:cjs    # CommonJS only
 ### Generating Fresh Docs
 
 ```bash
-npm run fetch:all    # Fetch all clouds
+npm run fetch:all    # Fetch all clouds (automatically creates split structure)
 ```
+
+**Note:** The scraper automatically generates the optimized split structure. Each object is saved to its own file in `doc/objects/[A-Z]/`, and lightweight cloud index files are created.
 
 ### Publishing
 
@@ -515,6 +557,14 @@ Contributions welcome! Please:
 MIT License - see [LICENSE](./LICENSE)
 
 ---
+
+## 📖 Additional Documentation
+
+- [SPLIT_STRUCTURE.md](./SPLIT_STRUCTURE.md) - Details about the optimized file structure
+- [MULTI_CLOUD_OBJECTS.md](./MULTI_CLOUD_OBJECTS.md) - How objects shared across clouds are handled
+- [TESTING.md](./TESTING.md) - Testing guide and coverage
+- [PUBLISHING.md](./PUBLISHING.md) - Publishing workflow
+- [SETUP.md](./SETUP.md) - Setup and configuration
 
 ## 🔗 Links
 

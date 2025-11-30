@@ -1,0 +1,97 @@
+{
+  "PaymentSchedule": {
+    "name": "PaymentSchedule",
+    "description": "The payment schedule represents a collection of payments that a customer wants to collect at different times for a certain record. A schedule contains one or more payment schedule items, where each item represents one payment to be processed. Each of a schedule’s items can have different payment configuration fields, such as payment methods, payment dates, and payment accounts. When a payment scheduler launches a payment run, the run evaluates active payment schedule items, and picks them up for payment processing if they align with the scheduler’s payment criteria.",
+    "properties": {
+      "AvailableRequestedAmount": {
+        "type": "currency",
+        "description": "The payment schedule’s remaining amount available for the creation of payment schedule items. Equals TotalRequestedAmount–TotalLineRequestedAmount."
+      },
+      "Comments": {
+        "type": "textarea",
+        "description": "Optional user-defined comments."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Three-letter ISO 4217 currency code associated with the payment group record."
+      },
+      "DefaultPaymentAccountId": {
+        "type": "reference",
+        "description": "When a payment run creates payments from a payment schedule item, it sets the payment’s account to the item’s PaymentAccountId. Upon payment schedule item creation, the item’s PaymentAccountId inherits the schedule’s DefaultPaymentAccountId. However, you can override the PaymentAccountId with a different account as needed. If you do, future payments made from the item use the new account."
+      },
+      "DefaultPaymentMethodId": {
+        "type": "reference",
+        "description": "When a payment run creates payments from a payment schedule ID, it sets the payment’s account to the item’s PaymentMethodId. Upon payment schedule item creation, the item’s PaymentMethoId inherits the schedule’s DefaultPaymentMethodId. However, you can override the PaymentMethodId with a different account as needed. If you do, future payments made from the item will use the new account."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The user who created the payment schedule."
+      },
+      "PaymentScheduleNumber": {
+        "type": "string",
+        "description": "System-generated reference number for the payment schedule."
+      },
+      "PaymentScheduleTreatmentDtlId": {
+        "type": "reference",
+        "description": "The payment schedule treatment detail associated with the payment schedule record."
+      },
+      "PaymentSource": {
+        "type": "picklist",
+        "description": "Specifies the name of the funding source that is used to fulfill a payment commitment."
+      },
+      "ReferenceEntityId": {
+        "type": "reference",
+        "description": "The object that receives payments as a result of payment schedule items processed from the payment schedule."
+      },
+      "RemainingAmountToBeProcessed": {
+        "type": "currency",
+        "description": "The total pending amount of payment schedule items that haven’t yet been processed for payment. Equals TotalLineRequestedAmount – TotalProcessedAmount."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of the payment schedule."
+      },
+      "TotalAppliedAmount": {
+        "type": "currency",
+        "description": "The amount of all payment schedule items that have been applied to payments."
+      },
+      "TotalCanceledAmount": {
+        "type": "currency",
+        "description": "The sum of all RequestedAmount values on payment schedule items with a status of Canceled."
+      },
+      "TotalPaymentsReceived": {
+        "type": "currency",
+        "description": "The cumulative sum of payments received for all payment schedule items linked to a payment schedule."
+      },
+      "TotalPaymentScheduleItemAmount": {
+        "type": "currency",
+        "description": "The total amount allocated from the payment schedule to its payment schedule items. Equals the sum of each payment schedule item’s RequestedAmount – the sum of each payment schedule item’s Canceled Amount."
+      },
+      "TotalProcessedAmount": {
+        "type": "currency",
+        "description": "The sum of ProcessedAmount values on payment schedule items with a status of Processed."
+      },
+      "TotalRequestedAmount": {
+        "type": "currency",
+        "description": "The total amount available for a payment schedule to distribute to its payment schedule items. The sum of payment schedule items can’t be greater than the TotalLineRequestedAmount of the parent payment schedule."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "The type of payment for which the payment schedule is created."
+      },
+      "UsageType": {
+        "type": "picklist",
+        "description": "Specifies the usage type for the record."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

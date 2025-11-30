@@ -1,0 +1,57 @@
+{
+  "ServiceReport": {
+    "name": "ServiceReport",
+    "description": "Represents a report that summarizes a work order, work order line item, or service appointment.",
+    "properties": {
+      "ContentVersionDocumentId": {
+        "type": "reference",
+        "description": "ID of the service report version, used for storage."
+      },
+      "DocumentBody": {
+        "type": "base64",
+        "description": "The report output. DocumentBody can’t be retrieved via REST API."
+      },
+      "DocumentContentType": {
+        "type": "picklist",
+        "description": "The type of data used for the report output.. Possible values are: audio/ogg text/calendar video/3gpp2 video/3gpp image/avif text/calendar audio/x-caf image/webp"
+      },
+      "DocumentLength": {
+        "type": "int",
+        "description": "The length of the report output."
+      },
+      "DocumentName": {
+        "type": "string",
+        "description": "The name of the report output, always set to Service Report."
+      },
+      "DocumentTemplate": {
+        "type": "string",
+        "description": "The template used to generate service documents for the Document Builder feature. Important DocumentTemplate is different from Template. The document template needs to reference a flexipage that is of type serviceDocument and must target the object used to generate the service document. For example, you can't use an Account flexipage for a service report tied to a work order."
+      },
+      "IsSigned": {
+        "type": "boolean",
+        "description": "Indicates whether the service report contains one or more signatures. This field isn’t supported for Document Builder. Tip Add this field to the Service Reports related list on work orders, work order line items, and service appointments."
+      },
+      "ParentId": {
+        "type": "reference",
+        "description": "The ID of the service appointment, work order, or work order line item that the service report summarizes. For example, if you click Create Service Report on a service appointment, this field lists the service appointment’s record ID."
+      },
+      "ServiceReportLanguage": {
+        "type": "picklist",
+        "description": "The language used for the service report. The language is selected in the ServiceReportLanguage field on the associated work order. If the work order doesn’t specify a service report language, the report is translated in the default language in Salesforce of the person generating the report."
+      },
+      "ServiceReportNumber": {
+        "type": "string",
+        "description": "An auto-generated number identifying the service report."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of the service report. Available in API version 53.0 and later."
+      },
+      "Template": {
+        "type": "string",
+        "description": "The service report template used to generate the service report. Note If the person creating the service report doesn’t have access to certain objects or fields that are included in the service report template, those fields aren’t visible in the report they create."
+      }
+    },
+    "module": "Field Service Lightning"
+  }
+}

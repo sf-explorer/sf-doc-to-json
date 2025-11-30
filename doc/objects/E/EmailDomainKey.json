@@ -1,0 +1,57 @@
+{
+  "EmailDomainKey": {
+    "name": "EmailDomainKey",
+    "description": "Represents a domain key for an organization’s domain, used to authenticate outbound email that Salesforce sends on the organization’s behalf.",
+    "properties": {
+      "AlternatePublicKey": {
+        "type": "textarea",
+        "description": "Read-only. Alternate public keys are used by Salesforce to auto-rotate domain keys. This field is available in API version 44.0 and later after activating the Critical Update."
+      },
+      "AlternateSelector": {
+        "type": "string",
+        "description": "The text used to distinguish the DKIM key from any other DKIM keys your organization uses for the specified domain. This field is available in API version 44.0 and later after activating the Critical Update."
+      },
+      "AlternateTxtRecordName": {
+        "type": "string",
+        "description": "The alternate TXT record name is used to create the CNAME record. Refer to the Usage section for more information. This field is available in API version 44.0 and later after activating the Critical Update."
+      },
+      "Domain": {
+        "type": "string",
+        "description": "The organization’s domain name that the DKIM key is generated for."
+      },
+      "DomainMatch": {
+        "type": "picklist",
+        "description": "The specificity of match required on the sending domain name before signing with this DKIM key. Valid values are: DomainOnly—Sign if sending domain matches at the domain level only (example.com but not mail.example.com) SubdomainsOnly—Sign if sending domain matches at the subdomain level only (mail.example.com but not example.com) DomainAndSubdomains—Sign if sending domain matches at the domain and subdomain levels (example.com and mail.example.com)"
+      },
+      "IsActive": {
+        "type": "boolean",
+        "description": "Indicates whether this DKIM key is active (true) or not (false)."
+      },
+      "KeySize": {
+        "type": "int",
+        "description": "Indicates the RSA key size, in bits. The possible values are: 1024 2048 This field is available in API version 45.0 and later."
+      },
+      "PrivateKey": {
+        "type": "textarea",
+        "description": "Once you activate the Critical Update, this field is no longer visible. The private portion of the DKIM key pair used to encrypt mail headers from your domain. Salesforce generates an encrypted PrivateKey if you don’t specify a value when creating the DKIM key. If you do specify a value, it must be an existing valid PrivateKey from another EmailDomainKey object. This field doesn’t contain the actual private key, but a value that represents the key in our system. Therefore: The actual private key can’t be leaked. You can’t use the value to do your own email signing."
+      },
+      "PublicKey": {
+        "type": "textarea",
+        "description": "Part of the domain key pair that mail recipients retrieve to decrypt the DKIM header and verify your domain. Add the PublicKey value to your domain’s DNS records before you start signing with this domain key."
+      },
+      "Selector": {
+        "type": "string",
+        "description": "Text used to distinguish the DKIM key from any other DKIM keys your organization uses for the specified domain."
+      },
+      "TxtRecordName": {
+        "type": "string",
+        "description": "Read-only. The TXT record name is used to create the CNAME record. Refer to the Usage section for more information. This field is available in API version 44.0 and later after activating the Critical Update."
+      },
+      "TxtRecordsPublishState": {
+        "type": "picklist",
+        "description": "The possible values are: Published Publishing in progress Publishing failed This field is available in API version 44.0 and later after activating the Critical Update."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

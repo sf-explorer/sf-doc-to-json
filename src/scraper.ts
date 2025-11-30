@@ -206,30 +206,82 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
     let totalObjects = 0;
     const objectIndex: Record<string, ObjectIndexEntry> = {};
     
-    for (const [cloudName, cloudItems] of Object.entries(resultsByCloud)) {
+    // Create common objects folder for all objects
+    const objectsFolder = path.join(docFolder, 'objects');
+    try {
+        await fs.access(objectsFolder);
+    } catch {
+        await fs.mkdir(objectsFolder, { recursive: true });
+        console.log(`Created ${objectsFolder} directory`);
+    }
+    
+    // Create alphabetical folders (A-Z)
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    for (const letter of alphabet) {
+        const letterFolder = path.join(objectsFolder, letter);
+        try {
+            await fs.access(letterFolder);
+        } catch {
+            await fs.mkdir(letterFolder, { recursive: true });
+        }
+    }
+    
+    // Track stats for each cloud
+    const cloudStats: Record<string, { objects: string[], count: number }> = {};
+    
+    // Write individual object files
+    for (const item of finalResult) {
+        if (!item.name) continue;
+        
+        const firstLetter = item.name[0].toUpperCase();
+        const objectFilePath = path.join(objectsFolder, firstLetter, `${item.name}.json`);
+        
+        const objectData = {
+            [item.name]: item
+        };
+        
+        await fs.writeFile(objectFilePath, JSON.stringify(objectData, null, 2), 'utf-8');
+        
+        const cloudName = item.module || 'Unknown';
+        if (!cloudStats[cloudName]) {
+            cloudStats[cloudName] = { objects: [], count: 0 };
+        }
+        cloudStats[cloudName].objects.push(item.name);
+        cloudStats[cloudName].count++;
+        
+        objectIndex[item.name] = {
+            cloud: cloudName,
+            file: `objects/${firstLetter}/${item.name}.json`
+        };
+        
+        totalObjects++;
+    }
+    
+    // Create cloud index files (just list of object names per cloud)
+    for (const [cloudName, stats] of Object.entries(cloudStats)) {
         const fileName = cloudName
             .toLowerCase()
             .replace(/\s+/g, '-')
             .replace(/[^a-z0-9-]/g, '');
         
-        const filePath = path.join(docFolder, `${fileName}.json`);
+        const cloudIndexPath = path.join(docFolder, `${fileName}.json`);
         
-        const formattedData: SalesforceObjectCollection = cloudItems.reduce((prev, cur) => {
-            if (cur?.name) {
-                prev[cur.name] = cur;
-                objectIndex[cur.name] = {
-                    cloud: cloudName,
-                    file: `${fileName}.json`
-                };
-            }
-            return prev;
-        }, {} as SalesforceObjectCollection);
+        // Find the description from configuration
+        const configEntry = Object.values(CONFIGURATION).find(config => config.label === cloudName);
+        const description = configEntry?.description || '';
         
-        await fs.writeFile(filePath, JSON.stringify(formattedData, null, 2), 'utf-8');
-        totalObjects += Object.keys(formattedData).length;
-        console.log(`✓ Saved ${Object.keys(formattedData).length} objects for ${cloudName} to ${filePath}`);
+        const cloudIndex = {
+            cloud: cloudName,
+            description: description,
+            objectCount: stats.count,
+            objects: stats.objects.sort()
+        };
+        
+        await fs.writeFile(cloudIndexPath, JSON.stringify(cloudIndex, null, 2), 'utf-8');
+        console.log(`✓ Created index for ${cloudName} with ${stats.count} objects: ${cloudIndexPath}`);
     }
     
+    // Create main index
     const indexPath = path.join(docFolder, 'index.json');
     const sortedIndex = Object.keys(objectIndex)
         .sort()
@@ -248,7 +300,8 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
     
     await fs.writeFile(indexPath, JSON.stringify(indexData, null, 2), 'utf-8');
     
-    console.log(`\n✓ Created index with ${totalObjects} objects: ${indexPath}`);
+    console.log(`\n✓ Created main index with ${totalObjects} objects: ${indexPath}`);
     console.log(`✓ Total: ${totalObjects} objects saved across ${Object.keys(resultsByCloud).length} cloud(s)`);
+    console.log(`✓ All objects stored in: ${objectsFolder}/[A-Z]/`);
 }
 

@@ -1,0 +1,133 @@
+{
+  "PaymentAuthorization": {
+    "name": "PaymentAuthorization",
+    "description": "Represents a single payment authorization event where users can capture or reverse a payment against a reserve of funds.",
+    "properties": {
+      "AccountId": {
+        "type": "reference",
+        "description": "Customer account."
+      },
+      "Amount": {
+        "type": "currency",
+        "description": "The amount authorized for the payment event."
+      },
+      "Balance": {
+        "type": "currency",
+        "description": "Authorized amount – total processed captured amount – total processed authorization reversal amount. Balance can be positive or negative."
+      },
+      "Comments": {
+        "type": "textarea",
+        "description": "Users can enter comments to provide additional details about the authorization."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Three-letter ISO 4217 currency code associated with the payment authorization record."
+      },
+      "Date": {
+        "type": "dateTime",
+        "description": "By default, the day the authorization record was created. Users can also enter a different date. Editable only when the payment authorization’s status is Draft."
+      },
+      "EffectiveDate": {
+        "type": "dateTime",
+        "description": "The date on which the authorization takes effect. Editable only when the payment authorization’s status is Draft."
+      },
+      "Email": {
+        "type": "email",
+        "description": "Email address of the person who initiated the payment."
+      },
+      "ExpirationDate": {
+        "type": "dateTime",
+        "description": "Authorizations can’t be captured after their expiration dates."
+      },
+      "GatewayAuthCode": {
+        "type": "string",
+        "description": "Authorization approval code from the payment gateway."
+      },
+      "GatewayDate": {
+        "type": "dateTime",
+        "description": "The date and time that of the gateway communication that leads to the successful payment authorization."
+      },
+      "GatewayRefDetails": {
+        "type": "textarea",
+        "description": "Additional data that can’t be stored in other fields on the payment record. You can use this field for transactions following the initial transaction that creates the payment record. You can use any data that isn’t normalized in financial entities. This field has a maximum length of 1000 characters and can store data as JSON or XML."
+      },
+      "GatewayRefNumber": {
+        "type": "string",
+        "description": "Unique transaction ID from the payment gateway."
+      },
+      "GatewayResultCode": {
+        "type": "string",
+        "description": "Gateway-specific result code. Must be mapped to a Salesforce-specific result code."
+      },
+      "GatewayResultCodeDescription": {
+        "type": "string",
+        "description": "Description of the gateway’s result code. This field is useful for providing more information around why the gateway returned a certain result code."
+      },
+      "IpAddress": {
+        "type": "string",
+        "description": "The IP address of the user who initiated the payment authorization."
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+      },
+      "MacAddress": {
+        "type": "string",
+        "description": "The MAC address of the person who initiated the payment."
+      },
+      "OrderPaymentSummaryId": {
+        "type": "reference",
+        "description": "Order payment summaries show the balances of each authorization, capture, and refund made against an order."
+      },
+      "PaymentAuthorizationNumber": {
+        "type": "string",
+        "description": "System-provided unique ID for a payment authorization record."
+      },
+      "PaymentGatewayId": {
+        "type": "reference",
+        "description": "The Salesforce payment gateway record that created this authorization. This gateway will be used for subsequent captures."
+      },
+      "PaymentGroupId": {
+        "type": "reference",
+        "description": "Payment groups organize all the payment transactions that have been made against a record such as an account or contract. Populated from the authorization record if there is delayed payment."
+      },
+      "PaymentIntentGuid": {
+        "type": "string",
+        "description": "Unique ID of the payment sent to Stripe or PayPal. Links the Payments Merchant Account record with the payment at the payment provider."
+      },
+      "PaymentMethodId": {
+        "type": "reference",
+        "description": "The customer payment method provided during this authorization."
+      },
+      "Phone": {
+        "type": "phone",
+        "description": "Phone number of the person who initiated the payment."
+      },
+      "ProcessingMode": {
+        "type": "picklist",
+        "description": "Defines whether the payment has been made outside of the payment platform."
+      },
+      "SfResultCode": {
+        "type": "picklist",
+        "description": "Salesforce-specific result code that can map to one or more gateway result codes. We recommend configuring the payment gateway adapter layer to map gateway result codes to the appropriate Salesforce result code."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Defines the state of this payment."
+      },
+      "TotalAuthReversalAmount": {
+        "type": "currency",
+        "description": "The sum of all processed authorization reversals against the payment authorization."
+      },
+      "TotalPaymentCaptureAmount": {
+        "type": "currency",
+        "description": "The sum of all authorization captures related to this payment authorization."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

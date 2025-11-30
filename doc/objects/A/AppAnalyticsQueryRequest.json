@@ -1,0 +1,77 @@
+{
+  "AppAnalyticsQueryRequest": {
+    "name": "AppAnalyticsQueryRequest",
+    "description": "Represents a request for AppExchange App Analytics data.",
+    "properties": {
+      "AvailableSince": {
+        "type": "dateTime",
+        "description": "An optional value used to limit the requested results file to data newly arrived in the data lake after the specified date and time. This field is always transferred in the Coordinated Universal Time (UTC) time zone. Use the AvailableSince field as part of your catch-up query strategy. AvailableSince must be later than StartTime and EndTime, if specified. AvailableSince must be earlier than now. A query must include StartTime,AvailableSince, or both. For example, to schedule a catch-up query on 2021-04-03T18:00:00Z for this date range: StartTime=2021-03-29T00:00:00Z EndTime=2021-03-30T00:00:00Z Valid AvailableSince values range from 2021-03-30T00:00:00Z to 2021-04-03T18:00:00Z. For more information on AvailableSince and catch-up queries, read AppExchange App Analytics Best Practices."
+      },
+      "DataType": {
+        "type": "picklist",
+        "description": "The type of usage data being requested. Valid values include: PackageUsageLog PackageUsageSummary SubscriberSnapshot Note In Summer ’20, we changed the enum names from CustomObjectUsageSummary and CustomObjectUsageLog to PackageUsageSummary and PackageUsageLog. If you wrote integrations using CustomObjectUsageSummary or CustomObjectUsageLog, they continue to work only with v47 and earlier. After you upgrade to v48, you must update the DataType to PackageUsageSummary and PackageUsageLog."
+      },
+      "DownloadExpirationTime": {
+        "type": "dateTime",
+        "description": "The time when the download URL is no longer valid. The expiration time is 60 minutes after the query is completed."
+      },
+      "DownloadSize": {
+        "type": "long",
+        "description": "The size of the AppExchange App Analytics results file available for download, in bytes."
+      },
+      "DownloadUrl": {
+        "type": "textarea",
+        "description": "URL that the user can download data from. Populated after the request is completed. This URL expires and is removed after the expiration time is reached."
+      },
+      "EndTime": {
+        "type": "dateTime",
+        "description": "Enter end time in format yyyy-MM-ddTHH:mm:ss. Example: 2019-04-15T12:00:00 For Package Usage Summaries, we recommend that StartTime corresponds to midnight UTC at beginning of the desired month and EndTime corresponds to midnight UTC at the beginning of the following month. For example, to retrieve the Package Usage Summary for December 2024 specify: StartTime=2024-12-01T00:00:00Z EndTime=2025-01-01T00:00:00Z"
+      },
+      "ErrorMessage": {
+        "type": "string",
+        "description": "Stores error message text that results from this query."
+      },
+      "FileCompression": {
+        "type": "picklist",
+        "description": "The file compression format of your requested results file. FileCompression and FileType must align. If FileType is csv, FileCompression defaults to none and can be none or gzip. If FileType is parquet, FileCompression is snappy by default and can be snappy, gzip, or none. Valid values include: gzip snappy none"
+      },
+      "FileType": {
+        "type": "picklist",
+        "description": "The data format of your requested results file. The default is csv. FileCompression and FileType must align. If FileType is csv, FileCompression defaults to none and can be none or gzip. If FileType is parquet, FileCompression is snappy by default and can be snappy, gzip, or none. Valid values include: csv parquet"
+      },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The auto-generated name of the App Analytics query request."
+      },
+      "OrganizationIds": {
+        "type": "string",
+        "description": "Optional. Enter up to 16 comma-separated org IDs without spaces between IDs. Or enter up to 15 comma-separated org IDs with spaces between the IDs. To request data for all the orgs the package is installed in, leave the field blank."
+      },
+      "PackageIds": {
+        "type": "string",
+        "description": "Optional. Enter up to 16 comma-separated package IDs without spaces between IDs. Or enter up to 15 comma-separated package IDs with spaces between the IDs. Use the subscriber package ID that begins with 033. To retrieve a list of your second-generation managed package IDs, run sf package list --verbose in Salesforce CLI. To request data on all packages registered to this License Management App, leave the field blank."
+      },
+      "QuerySubmittedTime": {
+        "type": "dateTime",
+        "description": "The date and time that the App Analytics query request was received for processing, in Coordinated Universal Time (UTC). QuerySubmittedTime is read only."
+      },
+      "RequestState": {
+        "type": "picklist",
+        "description": "Status of the query request. Valid values are: New Pending Complete Expired Failed NoData"
+      },
+      "StartTime": {
+        "type": "dateTime",
+        "description": "Enter start time in format yyyy-MM-ddTHH:mm:ss. All App Analytics query requests must include StartTime or AvailableSince or both.Example: 2019-04-14T12:00:00 For Package Usage Summaries, we recommend that StartTime corresponds to midnight UTC at beginning of the desired month and EndTime corresponds to midnight UTC at the beginning of the following month. For example, to retrieve the Package Usage Summary for December 2024 specify: StartTime=2024-12-01T00:00:00Z EndTime=2025-01-01T00:00:00Z"
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

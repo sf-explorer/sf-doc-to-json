@@ -1,0 +1,221 @@
+{
+  "Event": {
+    "name": "Event",
+    "description": "Represents an event in the calendar. In the user interface, event and task records are collectively referred to as activities.",
+    "properties": {
+      "AcceptedEventInviteeIds": {
+        "type": "JunctionIdList",
+        "description": "A string array of contact or lead IDs who accepted this event. This JunctionIdList is linked to the AcceptedEventRelation child relationship. Warning Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
+      },
+      "AccountId": {
+        "type": "reference",
+        "description": "Represents the ID of the related account. The AccountId is determined as follows.If the value of WhatId is any of the following objects, then Salesforce uses that object’s AccountId. Account Opportunity Contract Custom object that’s a child of Account If the value of the WhatId field is any other object, and the value of the WhoId field is a contact object, then Salesforce uses that contact’s AccountId. If your org uses Shared Activities, Salesforce uses the AccountId of the primary contact. Otherwise, Salesforce sets the value of the AccountId field to null. For information on IDs, see ID Field Type."
+      },
+      "ActivityDate": {
+        "type": "date",
+        "description": "Contains the event’s due date if the IsAllDayEvent flag is set to true. This field is a date field with a timestamp that’s always set to midnight in the Coordinated Universal Time (UTC) time zone. Don’t attempt to alter the timestamp to account for time zone differences. Label is Due Date Only.This field is required in API versions 12.0 and earlier if the IsAllDayEvent flag is set to true. The value for this field and StartDateTime must match, or one of them must be null."
+      },
+      "ActivityDateTime": {
+        "type": "dateTime",
+        "description": "Contains the event’s due date if the IsAllDayEvent flag is set to false. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate. Label is Due Date Time.This field is required in API versions 12.0 and earlier if the IsAllDayEvent flag is set to false. The value for this field and StartDateTime must match, or one of them must be null."
+      },
+      "ClientGuid": {
+        "type": "string",
+        "description": "The client globally unique identifier identifies the external API client used to create the event. Label is Client GUID."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
+      },
+      "DeclinedEventInviteeIds": {
+        "type": "JunctionIdLIst",
+        "description": "A string array of contact, lead, or user IDs who declined this event. This JunctionIdList is linked to the DeclinedEventRelation child relationship. Warning Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "Contains a text description of the event. Limit: 32,000 characters."
+      },
+      "Division": {
+        "type": "picklist",
+        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as “North America,” “Healthcare,” or “Consulting.” Available only if the organization has the Division permission enabled."
+      },
+      "DurationInMinutes": {
+        "type": "int",
+        "description": "Contains the event length, in minutes. Even though this field represents a temporal value, it’s an integer type—not a Date/Time type.Required in API versions 12.0 and earlier if IsAllDayEvent is false. In API versions 13.0 and later, this field is optional, depending on the following: If IsAllDayEvent is true, you can supply a value for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time. If both fields are null, the duration defaults to one day. If IsAllDayEvent is false, a value must be supplied for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time. If the multiday event feature is enabled, then API versions 13.0 and later support values greater than 1440 for the DurationInMinutes field. API versions 12.0 and earlier can’t access event objects whose DurationInMinutes is greater than 1440. For more information, see Multiday Events. Depending on your API version, errors with the DurationInMinutes and EndDateTime fields may appear in different places. Versions 38.0 and before—Errors always appear in the DurationInMinutes field. Versions 39.0 and later—If there’s no value for the DurationInMinutes field, errors appear in the EndDateTime field. Otherwise, they appear in the DurationInMinutes field."
+      },
+      "EndDate": {
+        "type": "date",
+        "description": "Read-only. Available in API versions 46.0 and later. This field supplies the date value that appears in the EndDateTime field. This field is a date field with a timestamp that is always set to midnight in the Coordinated Universal Time (UTC) time zone."
+      },
+      "EndDateTime": {
+        "type": "dateTime",
+        "description": "Available in API versions 13.0 and later. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate.This field is optional, depending on the following: If IsAllDayEvent is true, you can supply a value for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time. If both fields are null, the duration defaults to one day. If IsAllDayEvent is false, a value must be supplied for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time. Depending on your API version, errors with the DurationInMinutes and EndDateTime fields may appear in different places. Versions 38.0 and before—Errors always appear in the DurationInMinutes field. Versions 39.0 and later—If there’s no value for the DurationInMinutes field, errors appear in the EndDateTime field. Otherwise, they appear in the DurationInMinutes field."
+      },
+      "EventSubtype": {
+        "type": "picklist",
+        "description": "Provides standard subtypes to facilitate creating and searching for events. This field isn’t updateable."
+      },
+      "EventWhoIds": {
+        "type": "JunctionIdList",
+        "description": "A string array of contact or lead IDs used to create many-to-many relationships with a shared event. EventWhoIds is available when the shared activities setting is enabled. The first contact or lead ID in the list becomes the primary WhoId if you don’t specify a primary WhoId. If you set the EventWhoIds field to null, all entries in the list are deleted and the value of WhoId is added as the first entry. Warning Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
+      },
+      "GroupEventType": {
+        "type": "picklist",
+        "description": "Read-only. Available in API versions 19.0 and later. The possible values are: 0 (Non–group event)—An event with no invitees. 1 (Group event)—An event with invitees. 2 (Proposed event)—An event created when a user requests a meeting with a contact, lead, or person account using the Salesforce user interface. When the user confirms the meeting, the proposed event becomes a group event. You can’t create, edit, or delete proposed events in the API. This value is no longer used in API version 41.0 and later. 3 (IsRecurrence2 Series Pattern)—An event representing a template for a series recurrence pattern in Lightning Experience. You can't view, create, edit, or delete these events in the API."
+      },
+      "IsAllDayEvent": {
+        "type": "boolean",
+        "description": "Indicates whether the ActivityDate field (true) or the ActivityDateTime field (false) is used to define the date or time of the event. Label is All-Day Event. See also DurationInMinutes and EndDateTime."
+      },
+      "IsArchived": {
+        "type": "boolean",
+        "description": "Indicates whether the event has been archived."
+      },
+      "IsChild": {
+        "type": "boolean",
+        "description": "Indicates whether the event is a child of another event (true) or not (false)."
+      },
+      "IsClientManaged": {
+        "type": "boolean",
+        "description": "Indicates whether the event is managed by an external client. If the value of this field is false, the event isn’t owned or managed by an external client, and Salesforce can be used to update it. If the value is true, Salesforce can be used to change only noncritical fields on the event. Label is Is Client Managed."
+      },
+      "IsGroupEvent": {
+        "type": "boolean",
+        "description": "Indicates whether the event is a group event—that is, whether it has invitees (true) or not (false)."
+      },
+      "IsPrivate": {
+        "type": "boolean",
+        "description": "Indicates whether users other than the creator of the event can (false) or can’t (true) see the event details when viewing the event user’s calendar. However, users with the View All Data or Modify All Data permission can see private events in reports and searches, or when viewing other users’ calendars. Private events can’t be associated with opportunities, accounts, cases, campaigns, contracts, leads, or contacts. Label is Private."
+      },
+      "IsRecurrence": {
+        "type": "boolean",
+        "description": "Indicates whether a Salesforce Classic event is scheduled to repeat itself (true) or only occurs one time (false). This field is read-only when updating records, but not when creating them. If this field value is true, then RecurrenceEndDateOnly, RecurrenceStartDateTime, RecurrenceType, and any recurrence fields associated with the given recurrence type must be populated. Label is Create recurring series of events."
+      },
+      "IsRecurrence2": {
+        "type": "boolean",
+        "description": "Read-only. This field is available in API version 44.0 and later. Indicates whether a Lightning Experience event is scheduled to repeat (true) or only occurs one time (false). If this field value is true, then Recurrence2PatternText and Recurrence2PatternVersion must be populated. Label is Repeat."
+      },
+      "IsRecurrence2Exception": {
+        "type": "boolean",
+        "description": "Read-only. This field is available in API version 44.0 and later. Indicates whether an individual event in a Lightning Experience event series has a recurrence pattern that’s different from the rest of the series, making it an exception."
+      },
+      "IsRecurrence2Exclusion": {
+        "type": "boolean",
+        "description": "Read-only. This field is available in API version 44.0 and later. Indicates when updates to a Lightning Experience event series recurrence pattern have been made, but affect future event occurrences only. For past event occurrences, IsRecurrence2Exclusion is set to true, excluding past occurrences from the series recurrence pattern."
+      },
+      "IsReminderSet": {
+        "type": "boolean",
+        "description": "Indicates whether the activity is a reminder (true) or not (false)."
+      },
+      "IsVisibleInSelfService": {
+        "type": "boolean",
+        "description": "Indicates whether an event associated with an object can be viewed in the Customer Portal (true) or not (false). If your org has enabled digital experiences, events marked IsVisibleInSelfService are visible to any external user in the Experience Cloud site, as long as the user has access to the record the event was created on. This field is available when Customer Portal or partner portal is enabled OR Digital experiences is enabled and you have Customer Portal or partner portal licenses"
+      },
+      "Location": {
+        "type": "string",
+        "description": "Contains the location of the event."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "Contains the ID of the user or public calendar who owns the event. Label is Assigned to ID."
+      },
+      "Recurrence2PatternStartDate": {
+        "type": "dateTime",
+        "description": "Read-only. This field is available in API version 44.0 and later. Indicates the date and time when the Lightning Experience event series begins. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate."
+      },
+      "Recurrence2PatternText": {
+        "type": "textarea",
+        "description": "The RRULE that describes the recurrence pattern for Lightning Experience event series. Supports a subset of the RFC 5545 standard for internet calendaring and scheduling. See the Event Series section in this topic for usage examples. This field has a maximum length of 512 characters. This field is available in API version 44.0 and later, and has the Create property in API version 52.0 and later."
+      },
+      "Recurrence2PatternTimeZone": {
+        "type": "string",
+        "description": "This field is available in API version 44.0 and later. Indicates the time zone in which the Lightning Experience event series was created or updated. This field uses standard Java TimeZone IDs. For example, America/Los_Angeles."
+      },
+      "Recurrence2PatternVersion": {
+        "type": "picklist",
+        "description": "For internal use only. This field is available in API version 44.0 and later."
+      },
+      "RecurrenceActivityId": {
+        "type": "reference",
+        "description": "Read-only. Not required on create. Contains the ID of the main record of the Salesforce Classic recurring event. Subsequent occurrences have the same value in this field."
+      },
+      "RecurrenceDayOfMonth": {
+        "type": "int",
+        "description": "Indicates the day of the month on which the event repeats."
+      },
+      "RecurrenceDayOfWeekMask": {
+        "type": "int",
+        "description": "Indicates the day or days of the week on which the Salesforce Classic recurring event repeats. This field contains a bitmask. The values are as follows: Sunday = 1 Monday = 2 Tuesday = 4 Wednesday = 8 Thursday = 16 Friday = 32 Saturday = 64 Multiple days are represented as the sum of their numerical values. For example, Tuesday and Thursday = 4 + 16 = 20."
+      },
+      "RecurrenceEndDateOnly": {
+        "type": "date",
+        "description": "Indicates the last date on which the event repeats. For multiday Salesforce Classic recurring events, this date is the day on which the last occurrence starts. This field is a date field with a timestamp that is always set to midnight in the Coordinated Universal Time (UTC) time zone. Don’t attempt to alter the timestamp to account for time zone differences."
+      },
+      "RecurrenceInstance": {
+        "type": "picklist",
+        "description": "Indicates the frequency of the Salesforce Classic event’s recurrence. For example, 2nd or 3rd."
+      },
+      "RecurrenceInterval": {
+        "type": "int",
+        "description": "Indicates the interval between Salesforce Classic recurring events."
+      },
+      "RecurrenceMonthOfYear": {
+        "type": "picklist",
+        "description": "Indicates the month in which the Salesforce Classic recurring event repeats."
+      },
+      "RecurrenceStartDateTime": {
+        "type": "dateTime",
+        "description": "Indicates the date and time when the Salesforce Classic recurring event begins. The value must precede the RecurrenceEndDateOnly. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate."
+      },
+      "RecurrenceTimeZoneSidKey": {
+        "type": "picklist",
+        "description": "Indicates the time zone associated with a Salesforce Classic recurring event. For example, “UTC-8:00” for Pacific Standard Time."
+      },
+      "RecurrenceType": {
+        "type": "picklist",
+        "description": "Indicates how often the Salesforce Classic event repeats. For example, daily, weekly, or every nth month (where “nth” is defined in RecurrenceInstance)."
+      },
+      "ReminderDateTime": {
+        "type": "dateTime",
+        "description": "Represents the time when the reminder is scheduled to fire, if IsReminderSet is set to true. If IsReminderSet is set to false, then the user may have deselected the reminder checkbox in the Salesforce user interface, or the reminder has already fired at the time indicated by the value."
+      },
+      "ShowAs": {
+        "type": "picklist",
+        "description": "Indicates how this event appears when another user views the calendar: Busy, Out of Office, or Free. Label is Show Time As."
+      },
+      "StartDateTime": {
+        "type": "dateTime",
+        "description": "Indicates the start date and time of the event. Available in versions 13.0 and later.If the Event IsAllDayEvent flag is set to true (indicating that it’s an all-day Event), then the event start date information is contained in the StartDateTime field. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate. If the Event IsAllDayEvent flag is set to false (indicating that it isn’t an all-day event), then the event start date information is contained in the StartDateTime field. The time portion is always transferred in the Coordinated Universal Time (UTC) time zone. You need to translate the time portion to or from a local time zone for the user or the application, as appropriate. If this field has a value, then ActivityDate and ActivityDateTime must either be null or match the value of this field."
+      },
+      "Subject": {
+        "type": "combobox",
+        "description": "The subject line of the event, such as Call, Email, or Meeting. Limit: 255 characters."
+      },
+      "Type": {
+        "type": "picklist",
+        "description": "Indicates the event type, such as Call, Email, or Meeting."
+      },
+      "UndecidedEventInviteeIds": {
+        "type": "JunctionIdList",
+        "description": "A string array of contact, lead, or user IDs who are undecided about this event. This JunctionIdList is linked to the UndecidedEventRelation child relationship. Warning Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
+      },
+      "WhatCount": {
+        "type": "int",
+        "description": "Available if your organization has enabled Shared Activities. Represents the count of related EventRelations pertaining to the WhatId. The count of the WhatId must be 1 or less."
+      },
+      "WhatId": {
+        "type": "reference",
+        "description": "The WhatId represents nonhuman objects such as accounts, opportunities, campaigns, cases, or custom objects. WhatIds are polymorphic. Polymorphic means a WhatId is equivalent to the ID of a related object. The label is Related To ID."
+      },
+      "WhoCount": {
+        "type": "int",
+        "description": "Available to organizations that have Shared Activities enabled. Represents the count of related EventRelations pertaining to the WhoId."
+      },
+      "WhoId": {
+        "type": "reference",
+        "description": "The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID.If Shared Activities is enabled, the value of this field is the ID of the related lead or primary contact. If you add, update, or remove the WhoId field, you might encounter problems with triggers, workflows, and data validation rules that are associated with the record. The label is Name ID. If the JunctionIdList field is used, all WhoIds are included in the relationship list. Beginning in API version 37.0, if the contact or lead ID in the WhoId field isn't in the EventWhoIds list, no error occurs and the ID is added to the EventWhoIds as the primary WhoId. If WhoId is set to null, an arbitrary ID from the existing EventWhoIds list is promoted to the primary position."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}

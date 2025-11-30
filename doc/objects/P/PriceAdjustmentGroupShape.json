@@ -1,0 +1,45 @@
+{
+  "PriceAdjustmentGroupShape": {
+    "name": "PriceAdjustmentGroupShape",
+    "description": "Defines the business logic for a top-level price adjustment, for example, a discount applied to an entire order.",
+    "properties": {
+      "AdjustmentSource": {
+        "type": "picklist",
+        "description": "Indicates the source of the adjustment. This field is available with B2B Commerce."
+      },
+      "AdjustmentType": {
+        "type": "picklist",
+        "description": "Indicates whether the adjustment is a percentage, an amount, or an override."
+      },
+      "AdjustmentValue": {
+        "type": "double",
+        "description": "The value of the adjustment. To indicate a discount, use a negative number."
+      },
+      "Description": {
+        "type": "textarea",
+        "description": "User-entered description of the price adjustment group. Available in API versions 57.0."
+      },
+      "PriceAdjustmentCauseId": {
+        "type": "reference",
+        "description": "The ID of the record that is the source of the adjustment. For example, if the price adjustment is due to a promotion, this field contains the ID of the promotion record. If the price adjustment is due to a price adjustment tier, this field contains the ID of the price adjustment tier record."
+      },
+      "PriceAdjustmentGroupShapeName": {
+        "type": "string",
+        "description": "Name of the price adjustment group shape."
+      },
+      "Priority": {
+        "type": "int",
+        "description": "A positive integer indicating the order in which this price adjustment group is applied, relative to other price adjustment groups. A Priority of 1 indicates this price adjustment group is applied first.Price adjustments with a null priority are applied after price adjustments with a specified priority. If two or more price adjustments have a null priority, percentage adjustments are applied before amount adjustments. Applying a percentage adjustment before an amount adjustment results in a larger total adjustment."
+      },
+      "SalesTransactionShapeId": {
+        "type": "reference",
+        "description": "The ID of the sales transaction that the price adjustment group belongs to."
+      },
+      "TotalAmount": {
+        "type": "currency",
+        "description": "The total amount of adjustments of all related price adjustment items, inclusive of quantity, prorated for the duration of the subscription. This field is a calculated field equal to the sum of the TotalAmount fields in the related price adjustment items."
+      }
+    },
+    "module": "Core Salesforce"
+  }
+}
