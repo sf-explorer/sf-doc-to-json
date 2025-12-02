@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descriptions API - Browser Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .loading {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .object-card {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .object-name {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1em;
+        }
+        .object-meta {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        .object-description {
+            color: #333;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Descriptions API - Browser Test</h1>
+        
+        <div class="status error">
+            <strong>⚠️ Bundler Required</strong><br>
+            This package uses dynamic JSON imports which require a bundler to work in browsers.
+            <br><br>
+            <strong>To test this properly:</strong><br>
+            1. Use Vite: <code>npm create vite@latest my-test && cd my-test && npm install</code><br>
+            2. Install package: <code>npm install @sf-explorer/salesforce-object-reference</code><br>
+            3. Import in your code: <code>import { loadAllDescriptions } from '@sf-explorer/salesforce-object-reference'</code><br>
+            4. Run: <code>npm run dev</code>
+            <br><br>
+            Opening this HTML file directly won't work. Modern bundlers (Vite, Webpack, Rollup) handle JSON imports automatically. ✨
+        </div>
+
+        <h2>📝 Example Code</h2>
+        <div class="object-card">
+            <strong>main.js</strong>
+            <pre style="background:#f8f9fa; padding:15px; border-radius:4px; overflow-x:auto;">
+import { 
+  loadAllDescriptions,
+  getObjectDescription,
+  searchObjectsByDescription 
+} from '@sf-explorer/salesforce-object-reference';
+
+// Load all descriptions
+const descriptions = await loadAllDescriptions();
+console.log(`Loaded ${Object.keys(descriptions).length} objects`);
+
+// Get specific object
+const account = await getObjectDescription('Account');
+console.log(account.description);
+console.log(`${account.fieldCount} fields`);
+
+// Search
+const results = await searchObjectsByDescription('invoice');
+console.log(`Found ${results.length} objects`);
+            </pre>
+        </div>
+
+        <h2>🛠️ Supported Bundlers</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; margin:20px 0;">
+            <div class="object-card" style="border-left-color:#646cff;">
+                <strong>Vite</strong> ⚡<br>
+                <small>Recommended - Zero config</small>
+            </div>
+            <div class="object-card" style="border-left-color:#8dd6f9;">
+                <strong>Webpack 5</strong> 📦<br>
+                <small>Works out of the box</small>
+            </div>
+            <div class="object-card" style="border-left-color:#ff3e00;">
+                <strong>Rollup</strong> 📜<br>
+                <small>Native JSON support</small>
+            </div>
+            <div class="object-card" style="border-left-color:#ffcb35;">
+                <strong>esbuild</strong> ⚡<br>
+                <small>Automatic handling</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Original script commented out since it won't work without bundler -->
+    <!--
+    <script type="module">
+        // This code requires a bundler to work properly
+        import { 
+            loadAllDescriptions,
+            getObjectDescription,
+            searchObjectsByDescription,
+            getDescriptionsByCloud
+        } from './dist/index.js';
+
+        // ... rest of the code
+    </script>
+    -->
+</body>
+</html>
+

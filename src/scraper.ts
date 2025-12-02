@@ -251,7 +251,9 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         
         objectIndex[item.name] = {
             cloud: cloudName,
-            file: `objects/${firstLetter}/${item.name}.json`
+            file: `objects/${firstLetter}/${item.name}.json`,
+            description: item.description || '',
+            fieldCount: Object.keys(item.properties || {}).length
         };
         
         totalObjects++;

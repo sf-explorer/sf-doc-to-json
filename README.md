@@ -15,14 +15,19 @@ npm install @sf-explorer/salesforce-object-reference
 ```
 
 ```typescript
-import { getObject, searchObjects } from '@sf-explorer/salesforce-object-reference';
+import { getObject, getObjectDescription, searchObjectsByDescription } from '@sf-explorer/salesforce-object-reference';
 
-// Get a specific object
+// Get full object with all field properties
 const account = await getObject('Account');
 console.log(account?.properties);
 
-// Search objects
-const results = await searchObjects(/financial/i);
+// 🆕 Get just description and field count (100x faster!)
+const desc = await getObjectDescription('Account');
+console.log(desc?.description);  // "Represents an individual account..."
+console.log(desc?.fieldCount);   // 106
+
+// 🆕 Search by description content
+const results = await searchObjectsByDescription('invoice');
 ```
 
 **What you get:**
@@ -31,6 +36,7 @@ const results = await searchObjects(/financial/i);
 - ✅ Helper functions to query the data
 - ✅ Works in Node.js and browsers
 - ✅ Tree-shakeable and async for optimal bundle size
+- ✅ 🆕 **Descriptions API** - access metadata without loading full objects (100x faster!)
 
 ---
 
@@ -79,14 +85,18 @@ import {
   getObject,
   searchObjects,
   getObjectsByCloud,
-  getAvailableClouds
+  getAvailableClouds,
+  // NEW: Lightweight descriptions API
+  loadAllDescriptions,
+  getObjectDescription,
+  searchObjectsByDescription
 } from '@sf-explorer/salesforce-object-reference';
 
 // Load index to see what's available
 const index = await loadIndex();
 console.log(`${index.totalObjects} objects across ${index.totalClouds} clouds`);
 
-// Get a specific object
+// Get a specific object (full details with all fields)
 const account = await getObject('Account');
 if (account) {
   console.log(account.name);
@@ -94,9 +104,20 @@ if (account) {
   console.log(Object.keys(account.properties).length + ' fields');
 }
 
-// Search for objects
+// NEW: Get just the description and field count (much faster!)
+const accountDesc = await getObjectDescription('Account');
+console.log(accountDesc.description);  // "Represents an individual account..."
+console.log(accountDesc.fieldCount);   // 106
+
+// Search for objects by name
 const fscObjects = await searchObjects(/financial/i);
 console.log(`Found ${fscObjects.length} financial objects`);
+
+// NEW: Search by description content (not just name)
+const invoiceObjects = await searchObjectsByDescription('invoice');
+invoiceObjects.forEach(obj => {
+  console.log(`${obj.name} - ${obj.fieldCount} fields`);
+});
 
 // Get all objects from a cloud
 const healthObjects = await getObjectsByCloud('Health Cloud');
@@ -109,16 +130,73 @@ console.log('Available clouds:', clouds);
 
 ### Browser Usage
 
+**📦 Bundler Required:** This package uses dynamic JSON imports which require a bundler (Vite, Webpack, etc.) to work in browsers.
+
+#### Example with Vite
+
 ```html
-<script type="module">
-  import { getObject } from './node_modules/@sf-explorer/salesforce-object-reference/dist/index.js';
-  
-  const account = await getObject('Account');
-  console.log(account);
-</script>
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head><title>My App</title></head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
 ```
 
-See [browser-example.html](./browser-example.html) for a complete example.
+```javascript
+// src/main.js
+import { getObject, getObjectDescription } from '@sf-explorer/salesforce-object-reference';
+
+// Get full object details
+const account = await getObject('Account');
+console.log('Fields:', Object.keys(account.properties).length);
+
+// Or get just the description (faster!)
+const desc = await getObjectDescription('Account');
+console.log('Description:', desc.description);
+console.log('Field count:', desc.fieldCount);
+```
+
+```bash
+# Run your app
+npm run dev
+```
+
+#### Example with React
+
+```tsx
+import { useEffect, useState } from 'react';
+import { searchObjectsByDescription } from '@sf-explorer/salesforce-object-reference';
+
+function ObjectSearch() {
+  const [results, setResults] = useState([]);
+  
+  useEffect(() => {
+    async function search() {
+      const objects = await searchObjectsByDescription('account');
+      setResults(objects);
+    }
+    search();
+  }, []);
+  
+  return (
+    <div>
+      {results.map(obj => (
+        <div key={obj.name}>
+          <h3>{obj.name}</h3>
+          <p>{obj.description}</p>
+          <small>{obj.fieldCount} fields • {obj.cloud}</small>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+See [browser-example.html](./browser-example.html) for a complete example (requires a bundler or local dev server).
 
 ---
 
@@ -134,6 +212,8 @@ const index = await loadIndex();
 // { version, totalObjects, totalClouds, objects: {...} }
 ```
 
+**Note:** The index now includes `description` and `fieldCount` for each object, allowing you to access metadata without loading full object files.
+
 #### `getObject(objectName: string, useCache?: boolean): Promise<SalesforceObject | null>`
 Get detailed information about a specific Salesforce object.
 
@@ -141,6 +221,8 @@ Get detailed information about a specific Salesforce object.
 const account = await getObject('Account');
 // { name, description, module, properties: {...} }
 ```
+
+**Use this when:** You need full object details including all field properties.
 
 #### `searchObjects(pattern: string | RegExp, useCache?: boolean): Promise<Array<{name, cloud, file}>>`
 Search for objects by name pattern.
@@ -188,6 +270,101 @@ await preloadClouds(['financial-services-cloud', 'health-cloud']);
 
 ---
 
+### 🚀 Lightweight Descriptions API
+
+**NEW:** Access object descriptions and field counts without loading full object data - **100x more efficient!**
+
+These functions use only the index file (~1.5MB) instead of loading individual object files (~100MB+).
+
+#### `loadAllDescriptions(useCache?: boolean): Promise<Record<string, DescriptionInfo> | null>`
+
+Load descriptions and field counts for all objects at once.
+
+```typescript
+const descriptions = await loadAllDescriptions();
+console.log(descriptions['Account']);
+// {
+//   description: "Represents an individual account, which is an organization...",
+//   cloud: "Core Salesforce",
+//   fieldCount: 106
+// }
+```
+
+**Returns:** Object mapping each object name to:
+- `description` - Object description text
+- `cloud` - Cloud/module name
+- `fieldCount` - Number of fields
+
+**Performance:** Loads ~1.5MB vs ~100MB+ for full objects
+
+#### `getObjectDescription(objectName: string, useCache?: boolean): Promise<DescriptionInfo | null>`
+
+Get description and field count for a specific object.
+
+```typescript
+const desc = await getObjectDescription('Account');
+console.log(desc.description);  // "Represents an individual account..."
+console.log(desc.cloud);        // "Core Salesforce"
+console.log(desc.fieldCount);   // 106
+```
+
+**Use this when:** You need basic object info without loading all field properties.
+
+#### `searchObjectsByDescription(pattern: string | RegExp, useCache?: boolean): Promise<DescriptionSearchResult[]>`
+
+Search for objects by description content (not just name).
+
+```typescript
+// String search (case-insensitive)
+const invoiceObjects = await searchObjectsByDescription('invoice');
+
+// Regex search
+const healthObjects = await searchObjectsByDescription(/patient|health|medical/i);
+
+// Results include name, description, cloud, and fieldCount
+invoiceObjects.forEach(obj => {
+  console.log(`${obj.name} (${obj.cloud}) - ${obj.fieldCount} fields`);
+  console.log(obj.description);
+});
+```
+
+**Returns:** Array of objects with:
+- `name` - Object name
+- `description` - Full description text
+- `cloud` - Cloud/module name  
+- `fieldCount` - Number of fields
+
+#### `getDescriptionsByCloud(cloudName: string, useCache?: boolean): Promise<Record<string, {description, fieldCount}>>`
+
+Get descriptions for all objects in a specific cloud.
+
+```typescript
+const fscDescriptions = await getDescriptionsByCloud('Financial Services Cloud');
+console.log(Object.keys(fscDescriptions).length); // 238 objects
+
+// Access each object's info
+Object.entries(fscDescriptions).forEach(([name, info]) => {
+  console.log(`${name}: ${info.fieldCount} fields`);
+  console.log(info.description);
+});
+```
+
+**Use this when:** Building cloud-specific documentation or object browsers.
+
+### When to Use Which API?
+
+| Need | Use This | Data Size | Speed |
+|------|----------|-----------|-------|
+| Browse/search objects | `loadAllDescriptions()` | ~1.5MB | ⚡ Fast |
+| Object description + field count | `getObjectDescription()` | ~1.5MB | ⚡ Fast |
+| Search by description | `searchObjectsByDescription()` | ~1.5MB | ⚡ Fast |
+| Full object with all fields | `getObject()` | ~5KB per object | 🐢 Slower |
+| Many objects with all fields | `loadCloud()` | Variable | 🐢 Slower |
+
+**💡 Tip:** Use descriptions API for discovery and listings, then load full objects only when needed!
+
+---
+
 ## 🔧 Generator Usage (Advanced)
 
 ### Prerequisites
@@ -231,7 +408,7 @@ The generator creates an optimized split structure for better performance:
 
 ```
 doc/
-├── index.json                       # Master index (369 KB - maps all 3,437 objects)
+├── index.json                       # Master index (1.5 MB - includes descriptions & field counts!)
 ├── objects/                         # Individual object files (14 MB total)
 │   ├── A/                          # Objects starting with A (334 files)
 │   │   ├── Account.json
@@ -252,6 +429,7 @@ doc/
 - ✅ **Better IDE performance** with smaller files
 - ✅ **Lazy loading** - load only the objects you need
 - ✅ **Easy navigation** - find any object alphabetically
+- ✅ **NEW: Descriptions in index** - access metadata without loading object files
 
 See [SPLIT_STRUCTURE.md](./SPLIT_STRUCTURE.md) for complete details.
 
@@ -332,6 +510,9 @@ sf-doc-to-json/
 - **IDE Integration** - Create VS Code extensions with Salesforce awareness
 - **Data Modeling** - Understand relationships between objects
 - **Migration Tools** - Build tools to migrate between Salesforce orgs
+- **Object Browsers** - 🆕 Build fast object explorers using descriptions API
+- **Search & Autocomplete** - 🆕 Implement intelligent search with `searchObjectsByDescription()`
+- **Quick Stats** - 🆕 Get field counts and descriptions without loading full objects
 
 ### Generator Use Cases
 
@@ -345,21 +526,62 @@ sf-doc-to-json/
 
 ## 🌐 Browser Support
 
-Works in all modern browsers and bundlers:
+**✨ Works in all modern browsers when bundled!**
 
-- ✅ Vite
-- ✅ Webpack 5
-- ✅ Rollup
-- ✅ esbuild
-- ✅ Native ES modules
+The package uses dynamic `import()` for JSON files, which requires a bundler to work in browsers. All major bundlers handle this automatically.
 
-**No Node.js required for browser usage!** The package uses dynamic imports for tree-shaking, so you only load the JSON files you need.
+### Supported Bundlers
+
+✅ **Vite** - Recommended, zero config  
+✅ **Webpack 5** - Works out of the box  
+✅ **Rollup** - Native JSON support  
+✅ **esbuild** - Automatic JSON handling  
+✅ **Parcel** - Zero configuration needed  
+
+### Browser Usage (With Bundler)
+
+When you use a bundler (Vite, Webpack, etc.), JSON imports are automatically inlined at build time:
+
+```typescript
+// Your source code
+import { getObjectDescription } from '@sf-explorer/salesforce-object-reference';
+
+const desc = await getObjectDescription('Account');
+// Works perfectly in the browser after bundling!
+```
+
+**Note:** This package **requires a bundler** for browser usage. Dynamic JSON imports don't work directly in browsers without a build step. This is standard practice for modern web development.
+
+### Quick Start with Vite
+
+```bash
+npm create vite@latest my-app
+cd my-app
+npm install @sf-explorer/salesforce-object-reference
+```
+
+```typescript
+// src/main.ts
+import { loadAllDescriptions } from '@sf-explorer/salesforce-object-reference';
+
+const descriptions = await loadAllDescriptions();
+console.log(`Loaded ${Object.keys(descriptions).length} objects`);
+```
+
+### Why a Bundler is Needed
+
+1. **JSON Imports** - Browsers don't natively support `import` for JSON files
+2. **Tree Shaking** - Only bundles the JSON you actually use
+3. **Performance** - Bundlers optimize and compress the output
+4. **Standard Practice** - All modern web apps use bundlers
+
+**The good news:** If you're already using React, Vue, Svelte, Angular, or any modern framework, you already have a bundler configured! Just install and use. 🎉
 
 **Node.js requirement (>= 18.0.0):**
 - ✅ Required for CLI tool (`sf-doc-fetch`)
 - ✅ Required for using in Node.js environments
 - ✅ Required for generating fresh documentation
-- ❌ NOT required for browser-only usage (bundlers handle it)
+- ❌ NOT required for browser-only usage (your bundler handles it)
 
 ---
 

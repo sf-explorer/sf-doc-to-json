@@ -22,7 +22,8 @@ export async function loadIndex(useCache = true): Promise<DocumentIndex | null> 
     }
 
     try {
-        // Dynamic import for tree-shaking - bundlers will handle this
+        // Dynamic import - bundlers handle JSON automatically
+        // Works with Vite, Webpack, Rollup, esbuild
         const index = await import('../doc/index.json');
         const data = index.default || index;
         
@@ -52,7 +53,7 @@ export async function loadCloud(
     }
 
     try {
-        // Load the cloud index file (which now contains just a list of object names)
+        // Dynamic import - bundlers handle JSON automatically
         const cloudIndex = await import(`../doc/${cloudFileName}.json`);
         const cloudData = cloudIndex.default || cloudIndex;
         
@@ -60,7 +61,7 @@ export async function loadCloud(
         if (cloudData.objects && Array.isArray(cloudData.objects)) {
             // New format: Load each object individually
             const collection: SalesforceObjectCollection = {};
-            const cloudName = cloudData.cloud; // Get the cloud name from the index
+            const cloudName = cloudData.cloud;
             
             await Promise.all(
                 cloudData.objects.map(async (objectName: string) => {
@@ -101,6 +102,7 @@ export async function loadCloud(
 async function loadObjectFromFile(objectName: string, expectedCloud?: string): Promise<SalesforceObject | null> {
     try {
         const firstLetter = objectName[0].toUpperCase();
+        // Dynamic import - bundlers handle JSON automatically
         const objectData = await import(`../doc/objects/${firstLetter}/${objectName}.json`);
         const data = objectData.default || objectData;
         const obj = data[objectName];
@@ -278,6 +280,114 @@ export async function getAvailableClouds(useCache = true): Promise<string[]> {
     
     const clouds = new Set(Object.values(index.objects).map(entry => entry.cloud));
     return Array.from(clouds).sort();
+}
+
+/**
+ * Load all object descriptions without loading full object data
+ * This is much more efficient when you only need descriptions
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Object mapping object names to their descriptions and metadata
+ */
+export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number }> | null> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return null;
+    }
+
+    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number }> = {};
+    
+    for (const [name, entry] of Object.entries(index.objects)) {
+        descriptions[name] = {
+            description: entry.description,
+            cloud: entry.cloud,
+            fieldCount: entry.fieldCount
+        };
+    }
+    
+    return descriptions;
+}
+
+/**
+ * Get description for a specific object without loading the full object data
+ * @param objectName - The name of the Salesforce object
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns The object description and metadata, or null if not found
+ */
+export async function getObjectDescription(
+    objectName: string,
+    useCache = true
+): Promise<{ description: string; cloud: string; fieldCount: number } | null> {
+    const index = await loadIndex(useCache);
+    
+    if (!index || !index.objects[objectName]) {
+        return null;
+    }
+    
+    const entry = index.objects[objectName];
+    return {
+        description: entry.description,
+        cloud: entry.cloud,
+        fieldCount: entry.fieldCount
+    };
+}
+
+/**
+ * Search for objects by description pattern
+ * @param pattern - Regex pattern or string to search for in descriptions
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Array of matching objects with their descriptions
+ */
+export async function searchObjectsByDescription(
+    pattern: string | RegExp,
+    useCache = true
+): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number }>> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return [];
+    }
+    
+    const regex = typeof pattern === 'string' ? new RegExp(pattern, 'i') : pattern;
+    
+    return Object.entries(index.objects)
+        .filter(([, entry]) => regex.test(entry.description))
+        .map(([name, entry]) => ({
+            name,
+            description: entry.description,
+            cloud: entry.cloud,
+            fieldCount: entry.fieldCount
+        }));
+}
+
+/**
+ * Get all descriptions for objects in a specific cloud
+ * @param cloudName - The cloud name (e.g., "Financial Services Cloud")
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Object mapping object names to their descriptions for that cloud
+ */
+export async function getDescriptionsByCloud(
+    cloudName: string,
+    useCache = true
+): Promise<Record<string, { description: string; fieldCount: number }>> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return {};
+    }
+    
+    const result: Record<string, { description: string; fieldCount: number }> = {};
+    
+    for (const [name, entry] of Object.entries(index.objects)) {
+        if (entry.cloud === cloudName) {
+            result[name] = {
+                description: entry.description,
+                fieldCount: entry.fieldCount
+            };
+        }
+    }
+    
+    return result;
 }
 
 /**

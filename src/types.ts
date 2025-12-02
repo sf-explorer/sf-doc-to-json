@@ -18,6 +18,8 @@ export interface CloudConfiguration {
 export interface ObjectIndexEntry {
     cloud: string;
     file: string;
+    description: string;
+    fieldCount: number;
 }
 
 export interface DocumentIndex {

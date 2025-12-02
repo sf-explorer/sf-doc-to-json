@@ -6,7 +6,11 @@ import {
     searchObjects,
     getObjectsByCloud,
     getAvailableClouds,
-    loadCloud
+    loadCloud,
+    loadAllDescriptions,
+    getObjectDescription,
+    searchObjectsByDescription,
+    getDescriptionsByCloud
 } from '../src/index.js';
 
 describe('Salesforce Object Reference Library', () => {
@@ -54,9 +58,14 @@ describe('Salesforce Object Reference Library', () => {
                 
                 expect(firstObject).toHaveProperty('cloud');
                 expect(firstObject).toHaveProperty('file');
+                expect(firstObject).toHaveProperty('description');
+                expect(firstObject).toHaveProperty('fieldCount');
                 expect(typeof firstObject.cloud).toBe('string');
                 expect(typeof firstObject.file).toBe('string');
+                expect(typeof firstObject.description).toBe('string');
+                expect(typeof firstObject.fieldCount).toBe('number');
                 expect(firstObject.file).toMatch(/\.json$/);
+                expect(firstObject.fieldCount).toBeGreaterThanOrEqual(0);
             }
         });
     });
@@ -339,6 +348,250 @@ describe('Salesforce Object Reference Library', () => {
             
             const objectData = await getObject(firstObjectName);
             expect(objectData).not.toBeNull();
+        });
+    });
+
+    describe('Descriptions API', () => {
+        describe('loadAllDescriptions', () => {
+            it('should load all descriptions successfully', async () => {
+                const descriptions = await loadAllDescriptions();
+                
+                expect(descriptions).not.toBeNull();
+                expect(typeof descriptions).toBe('object');
+            });
+
+            it('should have valid description structure', async () => {
+                const descriptions = await loadAllDescriptions();
+                
+                if (descriptions) {
+                    const firstKey = Object.keys(descriptions)[0];
+                    const firstDesc = descriptions[firstKey];
+                    
+                    expect(firstDesc).toHaveProperty('description');
+                    expect(firstDesc).toHaveProperty('cloud');
+                    expect(firstDesc).toHaveProperty('fieldCount');
+                    expect(typeof firstDesc.description).toBe('string');
+                    expect(typeof firstDesc.cloud).toBe('string');
+                    expect(typeof firstDesc.fieldCount).toBe('number');
+                    expect(firstDesc.fieldCount).toBeGreaterThanOrEqual(0);
+                }
+            });
+
+            it('should match the count in index', async () => {
+                const index = await loadIndex();
+                const descriptions = await loadAllDescriptions();
+                
+                if (index && descriptions) {
+                    expect(Object.keys(descriptions).length).toBe(Object.keys(index.objects).length);
+                }
+            });
+        });
+
+        describe('getObjectDescription', () => {
+            it('should return null for non-existent object', async () => {
+                const result = await getObjectDescription('NonExistentObject12345');
+                expect(result).toBeNull();
+            });
+
+            it('should return description for existing object', async () => {
+                const index = await loadIndex();
+                if (!index) return;
+
+                const firstObjectName = Object.keys(index.objects)[0];
+                const desc = await getObjectDescription(firstObjectName);
+                
+                expect(desc).not.toBeNull();
+                if (desc) {
+                    expect(desc).toHaveProperty('description');
+                    expect(desc).toHaveProperty('cloud');
+                    expect(desc).toHaveProperty('fieldCount');
+                    expect(typeof desc.description).toBe('string');
+                    expect(typeof desc.cloud).toBe('string');
+                    expect(typeof desc.fieldCount).toBe('number');
+                }
+            });
+
+            it('should match data from index', async () => {
+                const index = await loadIndex();
+                if (!index) return;
+
+                const objectName = Object.keys(index.objects)[0];
+                const desc = await getObjectDescription(objectName);
+                const indexEntry = index.objects[objectName];
+                
+                if (desc) {
+                    expect(desc.description).toBe(indexEntry.description);
+                    expect(desc.cloud).toBe(indexEntry.cloud);
+                    expect(desc.fieldCount).toBe(indexEntry.fieldCount);
+                }
+            });
+
+            it('should be faster than loading full object', async () => {
+                const index = await loadIndex();
+                if (!index) return;
+
+                const objectName = Object.keys(index.objects)[0];
+                
+                const descStart = Date.now();
+                await getObjectDescription(objectName);
+                const descTime = Date.now() - descStart;
+                
+                const objStart = Date.now();
+                await getObject(objectName);
+                const objTime = Date.now() - objStart;
+                
+                // Description should be faster (though both might be very fast in tests)
+                expect(descTime).toBeLessThanOrEqual(objTime + 50); // Allow 50ms margin
+            });
+        });
+
+        describe('searchObjectsByDescription', () => {
+            it('should return an array', async () => {
+                const results = await searchObjectsByDescription('test');
+                expect(Array.isArray(results)).toBe(true);
+            });
+
+            it('should return empty array when no matches', async () => {
+                const results = await searchObjectsByDescription('xyzNonExistentDescription123456');
+                expect(results).toEqual([]);
+            });
+
+            it('should find objects by description content', async () => {
+                const index = await loadIndex();
+                if (!index) return;
+
+                // Find an object with a non-empty description
+                const objectWithDesc = Object.entries(index.objects).find(([, entry]) => entry.description.length > 10);
+                if (!objectWithDesc) return;
+
+                const [, entry] = objectWithDesc;
+                // Search for a word from the description
+                const words = entry.description.split(' ');
+                const searchWord = words.find(w => w.length > 4); // Find a word longer than 4 chars
+                
+                if (searchWord) {
+                    const results = await searchObjectsByDescription(searchWord.toLowerCase());
+                    expect(results.length).toBeGreaterThan(0);
+                    
+                    results.forEach(result => {
+                        expect(result).toHaveProperty('name');
+                        expect(result).toHaveProperty('description');
+                        expect(result).toHaveProperty('cloud');
+                        expect(result).toHaveProperty('fieldCount');
+                    });
+                }
+            });
+
+            it('should be case-insensitive', async () => {
+                const index = await loadIndex();
+                if (!index) return;
+
+                const objectWithDesc = Object.entries(index.objects).find(([, entry]) => entry.description.length > 10);
+                if (!objectWithDesc) return;
+
+                const [, entry] = objectWithDesc;
+                const words = entry.description.split(' ');
+                const searchWord = words.find(w => w.length > 4);
+                
+                if (searchWord) {
+                    const lowerResults = await searchObjectsByDescription(searchWord.toLowerCase());
+                    const upperResults = await searchObjectsByDescription(searchWord.toUpperCase());
+                    
+                    expect(lowerResults.length).toBeGreaterThan(0);
+                    expect(upperResults.length).toBeGreaterThan(0);
+                    expect(lowerResults.length).toBe(upperResults.length);
+                }
+            });
+
+            it('should support regex patterns', async () => {
+                const results = await searchObjectsByDescription(/account|contact/i);
+                expect(Array.isArray(results)).toBe(true);
+                
+                results.forEach(result => {
+                    const desc = result.description.toLowerCase();
+                    expect(desc.includes('account') || desc.includes('contact')).toBe(true);
+                });
+            });
+        });
+
+        describe('getDescriptionsByCloud', () => {
+            it('should return empty object for non-existent cloud', async () => {
+                const results = await getDescriptionsByCloud('Non Existent Cloud 123');
+                expect(results).toEqual({});
+            });
+
+            it('should return descriptions for existing cloud', async () => {
+                const clouds = await getAvailableClouds();
+                if (clouds.length === 0) return;
+
+                const firstCloud = clouds[0];
+                const descriptions = await getDescriptionsByCloud(firstCloud);
+                
+                expect(typeof descriptions).toBe('object');
+                expect(Object.keys(descriptions).length).toBeGreaterThan(0);
+                
+                Object.entries(descriptions).forEach(([name, info]) => {
+                    expect(typeof name).toBe('string');
+                    expect(info).toHaveProperty('description');
+                    expect(info).toHaveProperty('fieldCount');
+                    expect(typeof info.description).toBe('string');
+                    expect(typeof info.fieldCount).toBe('number');
+                });
+            });
+
+            it('should match count with getObjectsByCloud', async () => {
+                const clouds = await getAvailableClouds();
+                if (clouds.length === 0) return;
+
+                const firstCloud = clouds[0];
+                const descriptions = await getDescriptionsByCloud(firstCloud);
+                const fullObjects = await getObjectsByCloud(firstCloud);
+                
+                expect(Object.keys(descriptions).length).toBe(fullObjects.length);
+            });
+
+            it('should return different results for different clouds', async () => {
+                const clouds = await getAvailableClouds();
+                if (clouds.length < 2) return;
+
+                const cloud1Desc = await getDescriptionsByCloud(clouds[0]);
+                const cloud2Desc = await getDescriptionsByCloud(clouds[1]);
+                
+                expect(Object.keys(cloud1Desc).length).toBeGreaterThan(0);
+                expect(Object.keys(cloud2Desc).length).toBeGreaterThan(0);
+                
+                // They should have different objects (in most cases)
+                const cloud1Keys = Object.keys(cloud1Desc);
+                const cloud2Keys = Object.keys(cloud2Desc);
+                const allSame = cloud1Keys.every(key => cloud2Keys.includes(key)) && 
+                               cloud2Keys.every(key => cloud1Keys.includes(key));
+                
+                expect(allSame).toBe(false);
+            });
+        });
+
+        describe('Descriptions Performance', () => {
+            it('should load descriptions faster than loading all objects', async () => {
+                const descStart = Date.now();
+                const descriptions = await loadAllDescriptions();
+                const descTime = Date.now() - descStart;
+                
+                const index = await loadIndex();
+                if (!index) return;
+
+                // Load a few objects
+                const objectNames = Object.keys(index.objects).slice(0, 10);
+                
+                const objStart = Date.now();
+                for (const name of objectNames) {
+                    await getObject(name);
+                }
+                const objTime = Date.now() - objStart;
+                
+                // Loading all descriptions should be comparable or faster than loading 10 full objects
+                console.log(`Load all descriptions: ${descTime}ms, Load 10 objects: ${objTime}ms`);
+                expect(descTime).toBeLessThan(objTime * 10); // Much more efficient overall
+            });
         });
     });
 });

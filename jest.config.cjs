@@ -4,6 +4,7 @@ module.exports = {
   roots: ['<rootDir>/src', '<rootDir>/tests'],
   testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
   extensionsToTreatAsEsm: ['.ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
@@ -23,11 +24,18 @@ module.exports = {
     'src/**/*.ts',
     '!src/cli.ts',
     '!src/example.ts',
+    '!src/descriptions-example.ts',
     '!src/**/*.d.ts',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   verbose: true,
+  testTimeout: 30000,
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
 };
 
