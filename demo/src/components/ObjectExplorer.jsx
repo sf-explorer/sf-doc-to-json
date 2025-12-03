@@ -11,6 +11,7 @@ const ObjectExplorer = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [loadingObjectDetails, setLoadingObjectDetails] = useState(false);
+  const [cloudDescriptions, setCloudDescriptions] = useState({});
 
   useEffect(() => {
     // Load object metadata from the package
@@ -23,6 +24,7 @@ const ObjectExplorer = () => {
         
         // Convert descriptions to array format
         const allObjects = [];
+        const cloudDescMap = {};
         
         if (descriptionsData) {
           for (const [objectName, metadata] of Object.entries(descriptionsData)) {
@@ -43,6 +45,47 @@ const ObjectExplorer = () => {
           }
         }
 
+        // Load cloud descriptions from cloud JSON files
+        try {
+          const cloudFiles = [
+            'core-salesforce',
+            'financial-services-cloud',
+            'health-cloud',
+            'education-cloud',
+            'nonprofit-cloud',
+            'manufacturing-cloud',
+            'automotive-cloud',
+            'consumer-goods-cloud',
+            'energy-and-utilities-cloud',
+            'field-service-lightning',
+            'loyalty',
+            'net-zero-cloud',
+            'public-sector-cloud',
+            'scheduler',
+            'feedback-management',
+            'revenue-lifecycle-management',
+            'tooling-api'
+          ];
+
+          await Promise.all(
+            cloudFiles.map(async (cloudFile) => {
+              try {
+                const cloudModule = await import(`@sf-explorer/salesforce-object-reference/doc/${cloudFile}.json`);
+                const cloudData = cloudModule.default || cloudModule;
+                if (cloudData && cloudData.description) {
+                  cloudDescMap[cloudFile] = cloudData.description;
+                }
+              } catch (err) {
+                // Ignore if file not found
+                console.debug(`Cloud file not found: ${cloudFile}`);
+              }
+            })
+          );
+        } catch (error) {
+          console.debug('Could not load cloud descriptions:', error);
+        }
+
+        setCloudDescriptions(cloudDescMap);
         setObjects(allObjects);
         setLoading(false);
       } catch (error) {
@@ -153,6 +196,7 @@ const ObjectExplorer = () => {
               categories={categories}
               selectedCategories={selectedCategories}
               onCategoryChange={setSelectedCategories}
+              cloudDescriptions={cloudDescriptions}
             />
             <ObjectList 
               objects={filteredObjects} 
