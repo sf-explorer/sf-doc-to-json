@@ -1,15 +1,15 @@
 {
   "ServiceTerritory": {
     "name": "ServiceTerritory",
-    "description": "Represents a geographic or functional region in which work can be performed in Salesforce Scheduler.",
+    "description": "Represents a dealer location where service resources are located and service appointments are performed.",
     "properties": {
       "Address": {
         "type": "address",
-        "description": "An address to associate with the territory. You can want to list the address of the territory’s headquarters."
+        "description": "An address to associate with a dealer’s location."
       },
       "City": {
         "type": "string",
-        "description": "The city of the associated address. Maximum length is 40 characters."
+        "description": "The city of the associated address. The Automotive appointment booking flows for test drives and vehicle services use the dealer name or city name as search input for the appointment location. Maximum length is 40 characters."
       },
       "Country": {
         "type": "string",
@@ -19,33 +19,49 @@
         "type": "textarea",
         "description": "The description of the territory."
       },
+      "GeocodeAccuracy": {
+        "type": "picklist",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates."
+      },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the service territory is meant to be used. If a territory is inactive, you can’t add members to it or link it to service appointments."
+        "description": "Indicates whether the service territory is meant to be used (true) or not (false). If a territory is inactive, you can’t add members to it or link it to service appointments."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the territory was last modified. Its label in the user interface is Last Modified Date."
+        "description": "The date when the record was last modified."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when the territory was last viewed."
+        "description": "The date when the record was last viewed."
+      },
+      "Latitude": {
+        "type": "double",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the service appointments is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+      },
+      "Longitude": {
+        "type": "double",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the service appointment is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
       },
       "Name": {
         "type": "string",
-        "description": "The name of the territory."
+        "description": "The name of a dealer location. The Automotive appointment booking flows for test drives and vehicle services use the dealer name or city name as search input for the appointment location."
       },
       "OperatingHoursId": {
         "type": "reference",
-        "description": "The territory’s operating hours, which indicate when service appointments within the territory can occur. Service resources who are members of a territory automatically inherit the territory’s operating hours unless different hours are specified on the resource record."
+        "description": "The territory’s operating hours, which indicate when service appointments within the territory can occur. Service resources who are members of a territory and work types related to a territory automatically inherit the territory’s operating hours unless different hours are specified on the resource or the work type record."
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The owner of the record."
+      },
+      "ParentTerritoryId": {
+        "type": "reference",
+        "description": "The territory’s parent service territory, if it has one. A service territory hierarchy can contain up to 10,000 territories."
       },
       "PostalCode": {
         "type": "string",
         "description": "The postal code of the address associated with the territory. Maximum length is 20 characters."
-      },
-      "PricebookId": {
-        "type": "reference",
-        "description": "This field creates a foreign key relationship with the PriceBook record, storing data related to pricing."
       },
       "State": {
         "type": "string",
@@ -56,6 +72,7 @@
         "description": "The street number and name of the address associated with the territory."
       }
     },
-    "module": "Scheduler"
+    "module": "Automotive Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_serviceterritory.htm"
   }
 }

@@ -1,7 +1,7 @@
 {
   "Product2": {
     "name": "Product2",
-    "description": "Represents a product that your org sells.",
+    "description": "Represents a product that your company sells. Custom fields extend the standard Product object for use in Consumer Goods Cloud.",
     "properties": {
       "Description": {
         "type": "textarea",
@@ -21,27 +21,23 @@
       },
       "Family": {
         "type": "picklist",
-        "description": "Name of the product family associated with this record. Product families are configured as picklists in the user interface. Label is Product Family."
+        "description": "Name of the product family associated with this record."
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this record is active."
+        "description": "Indicates whether this record is active (true) or not (false). Inactive Product2 records are hidden in many areas in the user interface. You can change the IsActive flag on a Product2 object as often as necessary. Label is Active."
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicated whether the product is archived."
-      },
-      "IsSerialized": {
-        "type": "boolean",
-        "description": "Indicates whether the product supports serial numbers. If an associated product item record already exists, this boolean can’t be set to true unless the product item’s quantity is zero."
+        "description": "Indicates whether the product is archived."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "Time stamp for the last time this record was referenced."
+        "description": "The timestamp for when the current user last viewed a record related to this object."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": ""
+        "description": "The timestamp for when the current user last viewed this object."
       },
       "Name": {
         "type": "string",
@@ -53,13 +49,374 @@
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value, Each, so you may want to create your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values."
+        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value (Each) so consider creating your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values."
+      },
+      "RecordTypeId": {
+        "type": "reference",
+        "description": "Indicates the record type of the record."
       },
       "StockKeepingUnit": {
         "type": "string",
         "description": "The SKU for the product. Use in tandem with or instead of the ProductCode field. For example, you can track the manufacturer’s identifying code in the Product Code field and assign the product a SKU when you resell it."
+      },
+      "cgcloud__Asset_Template__c": {
+        "type": "reference",
+        "description": "References to asset template."
+      },
+      "cgcloud__Bill_Of_Material_Header_Code__c": {
+        "type": "string",
+        "description": "Holds the Header code of the product, if it is a BOM component. For standard products the field will be empty."
+      },
+      "cgcloud__Category__c": {
+        "type": "picklist",
+        "description": "Indicates the product category that this product record is referring to."
+      },
+      "cgcloud__Competitive_Product__c": {
+        "type": "boolean",
+        "description": "Marks a product as a competitor's product."
+      },
+      "cgcloud__Consumer_Goods_External_Product_Id__c": {
+        "type": "string",
+        "description": "Holds the unique external id."
+      },
+      "cgcloud__Consumer_Goods_Product_Code__c": {
+        "type": "string",
+        "description": "Stores the unique identification of a product."
+      },
+      "cgcloud__Container_Size_Unit__c": {
+        "type": "picklist",
+        "description": "Describes the unit of a container size."
+      },
+      "cgcloud__Container_Size__c": {
+        "type": "double",
+        "description": "Describes the numeric value for container size."
+      },
+      "cgcloud__Container_Type__c": {
+        "type": "picklist",
+        "description": "Describes the type of container of the product."
+      },
+      "cgcloud__Criteria_Text_0__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_1__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_2__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_3__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_4__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_5__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_6__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_7__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_8__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_9__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criterion_1_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_1_Product."
+      },
+      "cgcloud__Criterion_1_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_1_Product."
+      },
+      "cgcloud__Criterion_1_Product__c": {
+        "type": "reference",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Category'."
+      },
+      "cgcloud__Criterion_2_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_2_Product."
+      },
+      "cgcloud__Criterion_2_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_2_Product."
+      },
+      "cgcloud__Criterion_2_Product__c": {
+        "type": "reference",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'SubCategory'."
+      },
+      "cgcloud__Criterion_3_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_3_Product."
+      },
+      "cgcloud__Criterion_3_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_3_Product."
+      },
+      "cgcloud__Criterion_3_Product__c": {
+        "type": "reference",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Brand'."
+      },
+      "cgcloud__Criterion_4_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_4_Product."
+      },
+      "cgcloud__Criterion_4_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_4_Product."
+      },
+      "cgcloud__Criterion_4_Product__c": {
+        "type": "reference",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Flavor'."
+      },
+      "cgcloud__Criterion_5_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_5_Product."
+      },
+      "cgcloud__Criterion_5_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_5_Product."
+      },
+      "cgcloud__Criterion_5_Product__c": {
+        "type": "reference",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Package'."
+      },
+      "cgcloud__Criterion_6_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_6_Product."
+      },
+      "cgcloud__Criterion_6_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_6_Product."
+      },
+      "cgcloud__Criterion_6_Product__c": {
+        "type": "reference",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Product'."
+      },
+      "cgcloud__Custom_Sort__c": {
+        "type": "string",
+        "description": "Use to customize the sorting order of the products. Is unique."
+      },
+      "cgcloud__Delivery_Valid_From__c": {
+        "type": "date",
+        "description": "Delivery status valid from date."
+      },
+      "cgcloud__Delivery_Valid_Thru__c": {
+        "type": "date",
+        "description": "Delivery status valid thru date."
+      },
+      "cgcloud__Description_1_Language_1__c": {
+        "type": "string",
+        "description": "Holds the first description of language 1."
+      },
+      "cgcloud__Description_1_Language_2__c": {
+        "type": "string",
+        "description": "Holds the first description of language 2."
+      },
+      "cgcloud__Description_1_Language_3__c": {
+        "type": "string",
+        "description": "Holds the first description of language 3."
+      },
+      "cgcloud__Description_1_Language_4__c": {
+        "type": "string",
+        "description": "Holds the first description of language 4."
+      },
+      "cgcloud__Description_1__c": {
+        "type": "string",
+        "description": "Description 1 based on the user specific language."
+      },
+      "cgcloud__Description_2_Language_1__c": {
+        "type": "string",
+        "description": "Holds the second description of language 1."
+      },
+      "cgcloud__Description_2_Language_2__c": {
+        "type": "string",
+        "description": "Holds the second description of language 2."
+      },
+      "cgcloud__Description_2_Language_3__c": {
+        "type": "string",
+        "description": "Holds the second description of language 3."
+      },
+      "cgcloud__Description_2_Language_4__c": {
+        "type": "string",
+        "description": "Holds the second description of language 4."
+      },
+      "cgcloud__Description_2__c": {
+        "type": "string",
+        "description": "Description 2 based on the user specific language."
+      },
+      "cgcloud__Estimated_Value__c": {
+        "type": "string",
+        "description": "Holds the estimated value of the asset."
+      },
+      "cgcloud__Field_Valid_From__c": {
+        "type": "date",
+        "description": "Field status valid from date."
+      },
+      "cgcloud__Field_Valid_Thru__c": {
+        "type": "date",
+        "description": "Field status valid thru date."
+      },
+      "cgcloud__Fund_Valid_From__c": {
+        "type": "date",
+        "description": "Fund Role status valid from date."
+      },
+      "cgcloud__Fund_Valid_Thru__c": {
+        "type": "date",
+        "description": "Fund Role status valid thru date."
+      },
+      "cgcloud__GTIN__c": {
+        "type": "string",
+        "description": "Universal Product Number (UPC) number of the product."
+      },
+      "cgcloud__Height__c": {
+        "type": "string",
+        "description": "Holds the height of the asset."
+      },
+      "cgcloud__Is_Bill_Of_Material_Label__c": {
+        "type": "boolean",
+        "description": "Defines a secondary label for the Is_Bill_Of_Material__c field."
+      },
+      "cgcloud__Is_Bill_Of_Material__c": {
+        "type": "boolean",
+        "description": "Boolean flag to identify BOM products."
+      },
+      "cgcloud__KAM_Product__c": {
+        "type": "reference",
+        "description": "References to the specifics for a product on the lowest level of the product hierarchy, which is the corresponding product on planning level (Product Price Group level)."
+      },
+      "cgcloud__KAM_Valid_From__c": {
+        "type": "date",
+        "description": "KAM status valid from date."
+      },
+      "cgcloud__KAM_Valid_Thru__c": {
+        "type": "date",
+        "description": "KAM status valid thru date."
+      },
+      "cgcloud__Manufacturer_Item_Number__c": {
+        "type": "string",
+        "description": "Number assigned to the manufacturer."
+      },
+      "cgcloud__Manufacturer__c": {
+        "type": "string",
+        "description": "Name of the manufacturer."
+      },
+      "cgcloud__New_Item_Valid_From__c": {
+        "type": "date",
+        "description": "New Item status valid from date."
+      },
+      "cgcloud__New_Item_Valid_Thru__c": {
+        "type": "date",
+        "description": "New Item status valid thru date."
+      },
+      "cgcloud__Order_Ability__c": {
+        "type": "double",
+        "description": "This is an \"apex roll up summary field\" to identify the Order able products only. Order Able products are identified by the units of measure which have Order Ability set to true."
+      },
+      "cgcloud__Pack_Size_Unit__c": {
+        "type": "picklist",
+        "description": "Unit of the product pack size."
+      },
+      "cgcloud__Pack_Size__c": {
+        "type": "double",
+        "description": "Numeric value for the product pack size."
+      },
+      "cgcloud__Power_Supply_Connected__c": {
+        "type": "boolean",
+        "description": "Specifies whether the asset requires connection to a power supply."
+      },
+      "cgcloud__Product_Form__c": {
+        "type": "picklist",
+        "description": "Defines the state of the product."
+      },
+      "cgcloud__Product_Level__c": {
+        "type": "picklist",
+        "description": "Describes the Product Level."
+      },
+      "cgcloud__Product_Short_Code__c": {
+        "type": "string",
+        "description": "Additional short product identifier."
+      },
+      "cgcloud__Product_Template__c": {
+        "type": "reference",
+        "description": "References to product template."
+      },
+      "cgcloud__Product_Type__c": {
+        "type": "picklist",
+        "description": "The type of the product."
+      },
+      "cgcloud__Rounding_Rule_Validation__c": {
+        "type": "double",
+        "description": "This is an \"apex roll up summary field\". Internally required."
+      },
+      "cgcloud__Sales_Org__c": {
+        "type": "string",
+        "description": "Describes the sales org which the product belongs to."
+      },
+      "cgcloud__Sell_In_Code__c": {
+        "type": "string",
+        "description": "Holds the Sell In Code of the product."
+      },
+      "cgcloud__Sell_Out_Code__c": {
+        "type": "string",
+        "description": "Holds the Sell Out Code of the product."
+      },
+      "cgcloud__Short_Description_Language_1__c": {
+        "type": "string",
+        "description": "Holds the short description of language 1."
+      },
+      "cgcloud__Short_Description_Language_2__c": {
+        "type": "string",
+        "description": "Holds the short description of language 2."
+      },
+      "cgcloud__Short_Description_Language_3__c": {
+        "type": "string",
+        "description": "Holds the short description of language 3."
+      },
+      "cgcloud__Short_Description_Language_4__c": {
+        "type": "string",
+        "description": "Holds the short description of language 4."
+      },
+      "cgcloud__Short_Description__c": {
+        "type": "string",
+        "description": "Short description based on the user specific language."
+      },
+      "cgcloud__Size__c": {
+        "type": "string",
+        "description": "Holds the size of the asset."
+      },
+      "cgcloud__State__c": {
+        "type": "picklist",
+        "description": "State of the product."
+      },
+      "cgcloud__Tax_Classification__c": {
+        "type": "picklist",
+        "description": "Tax classification of the product."
+      },
+      "cgcloud__Transfer_Record_Identifier__c": {
+        "type": "string",
+        "description": "Identifies the products for the promotion transfer process."
+      },
+      "cgcloud__Weight__c": {
+        "type": "string",
+        "description": "Holds the weight of the asset."
       }
     },
-    "module": "Health Cloud"
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm"
   }
 }

@@ -9,18 +9,12 @@ The Object Descriptions API allows you to retrieve all Salesforce object descrip
 ### Performance Benefits
 
 - **Traditional approach**: Load all ~3,400 objects with all fields → ~100MB+ of JSON data
-- **Descriptions API**: Load only descriptions → ~700KB of JSON data (140x smaller!)
+- **Descriptions API**: Load only descriptions and field counts from index → ~1.5MB of JSON data (100x smaller!)
 - **Use cases**: Perfect for search, autocomplete, listings, object browsers, etc.
 
 ## Setup
 
-First, generate the descriptions index file:
-
-```bash
-npm run generate:descriptions
-```
-
-This creates `/doc/descriptions.json` containing all object descriptions (~700KB).
+**No setup required!** Descriptions and field counts are now included directly in the main `index.json` file (~1.5MB). The package automatically uses this data when you call the descriptions API functions.
 
 ## API Functions
 
@@ -36,7 +30,7 @@ const descriptions = await loadAllDescriptions();
 //   "Account": { 
 //     description: "Represents an individual account...",
 //     cloud: "Core Salesforce",
-//     module: "Core Salesforce"
+//     fieldCount: 106
 //   },
 //   "Contact": { ... },
 //   ...
@@ -51,11 +45,16 @@ Get description for a specific object.
 import { getObjectDescription } from '@sf-explorer/salesforce-object-reference';
 
 const accountDesc = await getObjectDescription('Account');
-console.log(accountDesc.description);
-// "Represents an individual account, which is an organization or person..."
-
-console.log(accountDesc.cloud);
-// "Core Salesforce"
+if (accountDesc) {
+  console.log(accountDesc.description);
+  // "Represents an individual account, which is an organization or person..."
+  
+  console.log(accountDesc.cloud);
+  // "Core Salesforce"
+  
+  console.log(accountDesc.fieldCount);
+  // 106
+}
 ```
 
 ### 3. `searchObjectsByDescription(pattern: string | RegExp, useCache?: boolean)`
@@ -71,9 +70,9 @@ const invoiceObjects = await searchObjectsByDescription('invoice');
 // Regex search
 const healthObjects = await searchObjectsByDescription(/health|medical/i);
 
-// Results include name, description, cloud, and module
+// Results include name, description, cloud, and fieldCount
 invoiceObjects.forEach(obj => {
-  console.log(`${obj.name} (${obj.cloud})`);
+  console.log(`${obj.name} (${obj.cloud}) - ${obj.fieldCount} fields`);
   console.log(obj.description);
 });
 ```
@@ -91,7 +90,7 @@ console.log(`Found ${Object.keys(fscObjects).length} objects`);
 // Returns: {
 //   "FinancialAccount": {
 //     description: "Represents a financial account...",
-//     module: "Financial Services Cloud"
+//     fieldCount: 42
 //   },
 //   ...
 // }
@@ -116,13 +115,18 @@ clearCache();
 ## TypeScript Types
 
 ```typescript
-interface ObjectDescription {
+interface DescriptionInfo {
   description: string;
   cloud: string;
-  module: string;
+  fieldCount: number;
 }
 
-type DescriptionsIndex = Record<string, ObjectDescription>;
+interface DescriptionSearchResult {
+  name: string;
+  description: string;
+  cloud: string;
+  fieldCount: number;
+}
 ```
 
 ## Use Cases
@@ -136,7 +140,7 @@ const objectNames = Object.keys(descriptions).sort();
 // Display list of objects with descriptions
 objectNames.forEach(name => {
   const desc = descriptions[name];
-  console.log(`${name} - ${desc.description.substring(0, 100)}...`);
+  console.log(`${name} (${desc.fieldCount} fields) - ${desc.description.substring(0, 100)}...`);
 });
 ```
 
@@ -148,7 +152,8 @@ async function autocompleteSearch(query: string) {
   return results.map(obj => ({
     label: obj.name,
     description: obj.description,
-    cloud: obj.cloud
+    cloud: obj.cloud,
+    fieldCount: obj.fieldCount
   }));
 }
 ```
@@ -168,7 +173,7 @@ for (const cloud of clouds) {
   console.log(`\n## ${cloud} (${Object.keys(objects).length} objects)\n`);
   
   for (const [name, info] of Object.entries(objects)) {
-    console.log(`- **${name}**: ${info.description}`);
+    console.log(`- **${name}** (${info.fieldCount} fields): ${info.description}`);
   }
 }
 ```
@@ -184,27 +189,27 @@ const healthObjects = await searchObjectsByDescription(/patient|health|medical/i
 
 ## Regenerating the Index
 
-If you update the object files in `/doc/objects/`, regenerate the descriptions index:
+When you regenerate documentation with the scraper, descriptions and field counts are automatically included in the index:
 
 ```bash
-npm run generate:descriptions
+npm run fetch:all
 ```
 
 This will:
-1. Scan all ~3,400 object files
-2. Extract just the descriptions
-3. Create a lightweight index file (~700KB)
+1. Scrape all Salesforce objects from documentation
+2. Extract descriptions and count fields for each object
+3. Include this metadata in `doc/index.json` (~1.5MB)
 4. Update the timestamp
 
 ## Performance Comparison
 
 | Metric | Full Objects | Descriptions Only |
 |--------|-------------|-------------------|
-| File Size | ~100MB+ | ~700KB |
-| Memory Usage | ~200MB+ | ~2MB |
+| File Size | ~100MB+ | ~1.5MB |
+| Memory Usage | ~200MB+ | ~5MB |
 | Load Time | ~5-10s | ~50ms |
-| Files Read | 3,400+ | 1 |
-| Ideal For | Full object details | Search, browse, list |
+| Files Read | 3,000+ | 1 |
+| Ideal For | Full object details with all fields | Search, browse, list, quick stats |
 
 ## Browser Support
 
@@ -221,9 +226,16 @@ The descriptions API works in both Node.js and browsers:
 
 ## Notes
 
-- The descriptions index is automatically included in the published package
+- Descriptions and field counts are automatically included in `index.json` (no separate file needed)
 - Caching is enabled by default for better performance
 - All functions are async for consistency with the rest of the API
 - Use `clearCache()` if you need to reload fresh data during runtime
+- All functions handle null cases gracefully - always check for null returns
+
+
+
+
+
+
 
 

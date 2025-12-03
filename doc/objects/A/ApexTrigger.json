@@ -1,19 +1,23 @@
 {
   "ApexTrigger": {
     "name": "ApexTrigger",
-    "description": "Represents an Apex trigger.",
+    "description": "Represents the saved copy of an Apex trigger. ApexTrigger uses the cached version of the class unless one is unavailable.",
     "properties": {
       "ApiVersion": {
         "type": "double",
         "description": "The API version for this trigger. Every trigger has an API version specified at creation."
       },
       "Body": {
-        "type": "textarea",
+        "type": "string",
         "description": "The Apex trigger definition. Limit: 1 million characters."
       },
       "BodyCrc": {
         "type": "double",
         "description": "The CRC (cyclic redundancy check) of the class or trigger file."
+      },
+      "EntityDefinitionId": {
+        "type": "string",
+        "description": "The Id of the EntityDefinition object associated with this object."
       },
       "IsValid": {
         "type": "boolean",
@@ -21,23 +25,19 @@
       },
       "LengthWithoutComments": {
         "type": "int",
-        "description": "Length of the trigger without comments"
+        "description": "Length of the trigger without comments."
       },
-      "Name": {
-        "type": "string",
-        "description": "Name of the trigger.Limit: 255 characters"
+      "ManageableState": {
+        "type": "ManageableState enumerated list",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       },
-      "NamespacePrefix": {
-        "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+      "Metadata": {
+        "type": "ApexTriggerMetadata",
+        "description": "An object that describes the version, status, and packaged versions of the corresponding Apex trigger."
       },
       "Status": {
         "type": "picklist",
-        "description": "The current status of the Apex trigger. The following string values are valid: Active—The trigger is active. Inactive—The trigger is inactive, but not deleted. Deleted—The trigger is marked for deletion. This is useful for managed packages, because it allows a class to be deleted when a managed package is updated. Note Inactive is not valid for ApexClass. For more information, see the Metadata API Developer Guide."
-      },
-      "TableEnumOrId": {
-        "type": "picklist",
-        "description": "Specifies the object associated with the trigger, such as Account or Contact."
+        "description": "The status of the Apex trigger. The following string values are valid: Active—The trigger is active. Inactive—The trigger is inactive, but not deleted. Deleted—The trigger is marked for deletion. This status is useful for managed packages, because it allows a class to be deleted when a managed package is updated. Note Apex triggers cannot be deactivated using Tooling API. You can deactivate Apex triggers using Metadata API. Consider using custom metadata records and include logic in your trigger to bypass trigger configuration logic. For more information, see the Metadata API Developer Guide."
       },
       "UsageAfterDelete": {
         "type": "boolean",
@@ -61,17 +61,18 @@
       },
       "UsageBeforeInsert": {
         "type": "boolean",
-        "description": "Specifies whether the trigger is a before insert trigger (true) or not (false)."
+        "description": "Specifies whether the trigger is an before insert trigger (true) or not (false)."
       },
       "UsageBeforeUpdate": {
         "type": "boolean",
-        "description": "Specifies whether the trigger is a before update trigger (true) or not (false)."
+        "description": "Specifies whether the trigger is an before update trigger (true) or not (false)."
       },
       "UsageIsBulk": {
         "type": "boolean",
-        "description": "Specifies whether the trigger is defined as a bulk trigger (true) or not (false). Note This field is not used for Apex triggers saved using Salesforce API version 10.0 or higher: all triggers starting with that version are automatically considered bulk, and this field will always return true."
+        "description": "Specifies whether the trigger is defined as a bulk trigger (true) or not (false)."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextrigger.htm"
   }
 }

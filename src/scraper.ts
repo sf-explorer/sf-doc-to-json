@@ -97,7 +97,8 @@ function extraDataFromJson(documentationId: string, items: any[], result: any[])
         if (x.children) {
             result = result.concat(extraDataFromJson(documentationId, x.children, []));
         } else {
-            if (itemId.startsWith('sforce_api_objects_')) {
+            // Match both standard objects and tooling API objects
+            if (itemId.startsWith('sforce_api_objects_') || itemId.startsWith('tooling_api_objects_')) {
                 result.push(x);
             }
         }
@@ -149,11 +150,17 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
             };
         });
         
+        // Build the public-facing documentation URL
+        // The contentUrl uses: /get_document_content/${deliverable}/${url}/en-us/${version}
+        // The public URL uses: /${documentationId}/${deliverable}/${url}
+        const publicUrl = `https://developer.salesforce.com/docs/${documentationId}/${header.deliverable}/${url}`;
+        
         return { 
             name: data.title, 
             description: cleanWhitespace(desc?.text() || ''), 
             properties, 
             module: CONFIGURATION[documentationId]?.label || '',
+            sourceUrl: publicUrl
         };
     } catch (e) {
         console.error(`Error fetching content for ${url}:`, (e as Error).message);
@@ -204,7 +211,19 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
 
     console.log('\n');
     let totalObjects = 0;
-    const objectIndex: Record<string, ObjectIndexEntry> = {};
+    
+    // Load existing index if it exists, otherwise create new
+    const indexPath = path.join(docFolder, 'index.json');
+    let existingIndex: DocumentIndex | null = null;
+    try {
+        const existingContent = await fs.readFile(indexPath, 'utf-8');
+        existingIndex = JSON.parse(existingContent);
+        console.log(`📂 Loaded existing index with ${existingIndex?.totalObjects || 0} objects`);
+    } catch {
+        console.log('📂 No existing index found, creating new one');
+    }
+    
+    const objectIndex: Record<string, ObjectIndexEntry> = existingIndex?.objects ? { ...existingIndex.objects } : {};
     
     // Create common objects folder for all objects
     const objectsFolder = path.join(docFolder, 'objects');
@@ -253,7 +272,8 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
             cloud: cloudName,
             file: `objects/${firstLetter}/${item.name}.json`,
             description: item.description || '',
-            fieldCount: Object.keys(item.properties || {}).length
+            fieldCount: Object.keys(item.properties || {}).length,
+            sourceUrl: item.sourceUrl
         };
         
         totalObjects++;
@@ -284,7 +304,6 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
     }
     
     // Create main index
-    const indexPath = path.join(docFolder, 'index.json');
     const sortedIndex = Object.keys(objectIndex)
         .sort()
         .reduce((acc, key) => {
@@ -292,18 +311,22 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
             return acc;
         }, {} as Record<string, ObjectIndexEntry>);
     
+    // Calculate totals from all objects in index (existing + newly scraped)
+    const allClouds = new Set(Object.values(sortedIndex).map(obj => obj.cloud));
+    const totalObjectsInIndex = Object.keys(sortedIndex).length;
+    
     const indexData: DocumentIndex = {
         generated: new Date().toISOString(),
         version: version,
-        totalObjects: totalObjects,
-        totalClouds: Object.keys(resultsByCloud).length,
+        totalObjects: totalObjectsInIndex,
+        totalClouds: allClouds.size,
         objects: sortedIndex
     };
     
     await fs.writeFile(indexPath, JSON.stringify(indexData, null, 2), 'utf-8');
     
-    console.log(`\n✓ Created main index with ${totalObjects} objects: ${indexPath}`);
-    console.log(`✓ Total: ${totalObjects} objects saved across ${Object.keys(resultsByCloud).length} cloud(s)`);
+    console.log(`\n✓ Created main index with ${totalObjectsInIndex} objects across ${allClouds.size} cloud(s): ${indexPath}`);
+    console.log(`✓ This scrape: ${totalObjects} objects saved from ${Object.keys(resultsByCloud).length} cloud(s)`);
     console.log(`✓ All objects stored in: ${objectsFolder}/[A-Z]/`);
 }
 

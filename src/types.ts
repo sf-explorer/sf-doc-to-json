@@ -8,6 +8,7 @@ export interface SalesforceObject {
     description: string;
     properties: Record<string, FieldProperty>;
     module: string;
+    sourceUrl?: string;
 }
 
 export interface CloudConfiguration {
@@ -21,6 +22,8 @@ export interface ObjectIndexEntry {
     description: string;
     fieldCount: number;
     keyPrefix?: string;
+    label?: string;
+    sourceUrl?: string;
 }
 
 export interface DocumentIndex {

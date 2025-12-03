@@ -3,17 +3,65 @@
     "name": "Shift",
     "description": "Represents a shift for service resource scheduling.",
     "properties": {
-      "AppointmentCategoryId": {
-        "type": "reference",
-        "description": "This field is a relationship field. Available in API version 61.0 and later."
-      },
       "BackgroundColor": {
         "type": "string",
-        "description": "Sets a background color for shifts shown in the UI. Use a 3- or 6-digit hexadecimal format. For example, #FF00FF. Available in API version 55.0 and later."
+        "description": "Sets a background color when shifts are displayed in the UI. Use a 3- or 6-digit hexadecimal format, for example #FF00FF. Available in API version 54.0 and later."
+      },
+      "EndLocation": {
+        "type": "location",
+        "description": "Captures the user’s geolocation at the end of the shift."
       },
       "EndTime": {
         "type": "dateTime",
         "description": "The date and time that the shift ends."
+      },
+      "GeoFnLcTypeAtShftEnd": {
+        "type": "picklist",
+        "description": "Specifies the allowed location type for geofence validation at the end of the shift."
+      },
+      "GeoFnLcTypeAtShftStart": {
+        "type": "picklist",
+        "description": "Specifies the allowed location type for geofence validation at the start of the shift."
+      },
+      "GeoFnNotificationType": {
+        "type": "picklist",
+        "description": "Specifies the notification type for geofence validation at the start and end of the shift."
+      },
+      "IsGeoFnRqrAtShftEnd": {
+        "type": "boolean",
+        "description": "Indicates whether geofencing was enabled at the end of the shift."
+      },
+      "IsGeoFnRqrAtShftStart": {
+        "type": "boolean",
+        "description": "Indicates whether geofencing was enabled at the start of the shift."
+      },
+      "IsGeoLcRqrAtShftEnd": {
+        "type": "boolean",
+        "description": "Indicates whether user's geolocation was captured at the end of the shift."
+      },
+      "IsGeoLcRqrAtShftStart": {
+        "type": "boolean",
+        "description": "Indicates whether user's geolocation was captured at the start of the shift."
+      },
+      "IsHolidayShift": {
+        "type": "boolean",
+        "description": "Indicates a shift that overlaps with holiday hours. The default value is false. Available in API version 55.0 and later."
+      },
+      "IsNonStandard": {
+        "type": "boolean",
+        "description": "Indicates whether the shift is nonstandard, such as overtime or on-call shifts."
+      },
+      "IsOsidGeoFnRngAtShftEnd": {
+        "type": "boolean",
+        "description": "Indicates whether the shift was ended outside the allowed distance between the user's GPS location and the geofence end location (true) or not (false)."
+      },
+      "IsOsidGeoFnRngAtShftStart": {
+        "type": "boolean",
+        "description": "Indicates whether the shift was started outside the allowed distance between the user's GPS location and the geofence start location (true) or not (false)."
+      },
+      "JobProfileId": {
+        "type": "reference",
+        "description": "The job profile associated with the shift. Available in API versions 47.0 and later."
       },
       "Label": {
         "type": "string",
@@ -27,21 +75,17 @@
         "type": "dateTime",
         "description": "The date and time when the current user last viewed this record."
       },
+      "NotificationTypeAtShftEnd": {
+        "type": "picklist",
+        "description": "Specifies the notification type for open tours at the end of the shift."
+      },
       "OwnerId": {
         "type": "reference",
         "description": "The owner of the shift."
       },
-      "RecurrenceEndDate": {
-        "type": "date",
-        "description": "The date when the recurrence period ends. The date must be after the Recurrence Start Date. The value for this field is retrieved from the pattern defined in the RecurrencePattern field. You can define the end date by using the COUNT or UNTIL parameter in the RecurrencePattern field. If you specify a value in this field and define a recurrence pattern, Salesforce Scheduler overrides the value with the end date in the recurrence pattern.The recurrence period is limited to 180 days. This field is available in API version 56.0 and later."
-      },
-      "RecurrencePattern": {
-        "type": "string",
-        "description": "The RRULE that describes the recurrence pattern for recurring shifts. Supports a subset of the RFC 5545 standard for internet calendaring and scheduling. See the Salesforce Scheduler Recurring Shifts section in this topic for usage examples. The period for the recurrence pattern is limited to 180 days. This field is available in API version 56.0 and later."
-      },
-      "RecurrenceStartDate": {
-        "type": "date",
-        "description": "The date when the recurrence period begins. The date must be before the Recurrence End Date. The value for this field is retrieved from the StartTime field. Don’t modify the value for this field.This field is available in API version 56.0 and later."
+      "RecordsetFilterCriteriaId": {
+        "type": "reference",
+        "description": "The ID of the recordset filter criteria selected for the shift. Available in API version 49.0 and later."
       },
       "ServiceResourceId": {
         "type": "reference",
@@ -55,31 +99,44 @@
         "type": "string",
         "description": "The number automatically given to the shift upon creation."
       },
+      "ShiftTemplateId": {
+        "type": "reference",
+        "description": "The shift template ID, if the shift was created from a shift template. Available in API version 53.0 and later."
+      },
+      "ShouldAutoEnd": {
+        "type": "boolean",
+        "description": "Indicates whether the shift was automatically ended when the tour was completed."
+      },
+      "ShouldAutoStart": {
+        "type": "boolean",
+        "description": "Indicates whether the shift was automatically started when the tour began."
+      },
+      "StartLocation": {
+        "type": "location",
+        "description": "Captures the user’s geolocation at the start of the shift."
+      },
       "StartTime": {
         "type": "dateTime",
         "description": "The date and time that the shift starts."
       },
       "Status": {
         "type": "picklist",
-        "description": "Describes the status of the shift. Users can create custom values."
+        "description": "The current status of the shift."
       },
       "StatusCategory": {
         "type": "picklist",
-        "description": "Describes the status of the shift using static values. This field is derived from Status using the mapping defined in setup."
+        "description": "Specifies the status of the shift using static values. This field is derived from Status using the mapping defined in setup."
       },
       "TimeSlotType": {
         "type": "picklist",
         "description": "Type of time slot for the shift. The same setup values as the TimeSlot field in the OperatingHours object."
       },
-      "Type": {
-        "type": "picklist",
-        "description": "Type of shift."
-      },
-      "WorkTypeGroupId": {
+      "UserId": {
         "type": "reference",
-        "description": "The ID of the work type group the shift belongs to. Available in API versions 54.0 and later."
+        "description": "The user assigned to the shift."
       }
     },
-    "module": "Scheduler"
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_shift.htm"
   }
 }

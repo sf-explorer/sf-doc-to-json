@@ -1,33 +1,50 @@
 {
   "AIApplication": {
     "name": "AIApplication",
-    "description": "Represents an AI application such as Einstein Prediction Builder.",
+    "description": "Represents an instance of a machine learning (ML) application.",
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. This field is automatically generated, but you can supply your own value if you create the record using the API."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated AIApplication type in Metadata API. The full name can include a namespace prefix."
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the application. Possible values are: da—Danish de—German en_US—English es—Spanish es_MX—Spanish (Mexico) fi—Finnish fr—French it—Italian ja—Japanese ko—Korean nl_NL—Dutch no—Norwegian pt_BR—Portuguese (Brazil) ru—Russian sv—Swedish th—Thai zh_CN—Chinese (Simplified) zh_TW—Chinese (Traditional)"
+        "description": "The language of the AIApplication."
+      },
+      "ManageableState": {
+        "type": "ManageableState enumerated list",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label that identifies the AI application throughout the Salesforce user interface."
+        "description": "Label that identifies the AIApplication throughout the Salesforce user interface."
+      },
+      "Metadata": {
+        "type": "AIApplication",
+        "description": "The AIApplication’s metadata."
+      },
+      "MLPredictionDefinitions": {
+        "type": "QueryResult",
+        "description": "A list of machine learning (ML) prediction definition records associated with an ML application record."
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Specifies the namespace of the application if installed with a managed package."
+        "description": "The namespace prefix associated with this object. Each Developer Edition organization that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values: In Developer Edition organizations, the namespace prefix is set to the namespace prefix of the organization for all objects that support it. There is an exception if an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition organization of the package developer. In organizations that are not Developer Edition organizations, NamespacePrefix is only set for objects that are part of an installed managed package. There is no namespace prefix for all other objects."
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the AI application. Possible values are: Disabled Enabled Migrated"
+        "description": "The status of the application. Valid values are: Disabled—0 Draft—3 Enabled—1 Migrated—2"
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of application. Possible values are: PredictionBuilder"
+        "description": "The type of application. Valid values are: PredictionBuilder—5 RecommendationBuilder—14"
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_aiapplication.htm"
   }
 }

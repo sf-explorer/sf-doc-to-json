@@ -26,7 +26,9 @@ Returns: {
       file: "objects/A/Account.json",
       description: "An organization or individual involved...",
       fieldCount: 76,
-      keyPrefix: "001"  // 3-character ID prefix for records
+      keyPrefix: "001",  // 3-character ID prefix for records
+      label: "Account",   // User-friendly display name
+      sourceUrl: "https://developer.salesforce.com/docs/..."  // Official doc link
     },
     ...
   }
@@ -136,7 +138,9 @@ Returns: {
     description: "An organization or individual involved...",
     cloud: "Core Salesforce",
     fieldCount: 76,
-    keyPrefix: "001"
+    keyPrefix: "001",
+    label: "Account",
+    sourceUrl: "https://developer.salesforce.com/docs/..."
   },
   ...
 }
@@ -149,7 +153,9 @@ Returns: {
   description: "An organization or individual involved...",
   cloud: "Core Salesforce",
   fieldCount: 76,
-  keyPrefix: "001"
+  keyPrefix: "001",
+  label: "Account",
+  sourceUrl: "https://developer.salesforce.com/docs/..."
 }
 */
 
@@ -167,7 +173,8 @@ Returns: [
     description: "A financial account...",
     cloud: "Financial Services Cloud",
     fieldCount: 45,
-    keyPrefix: "01k"
+    keyPrefix: "01k",
+    label: "Financial Account"
   },
   ...
 ]
@@ -180,7 +187,8 @@ Returns: {
   "FinancialAccount": {
     description: "A financial account...",
     fieldCount: 45,
-    keyPrefix: "01k"
+    keyPrefix: "01k",
+    label: "Financial Account"
   },
   ...
 }
@@ -215,7 +223,7 @@ function example() {
   // 4. Get object description (fast, no field data)
   const accountDesc = getObjectDescription('Account');
   if (accountDesc) {
-    console.log(`${accountDesc.description}`);
+    console.log(`${accountDesc.label}: ${accountDesc.description}`);
     console.log(`Key Prefix: ${accountDesc.keyPrefix}`);
     console.log(`Fields: ${accountDesc.fieldCount}`);
   }
@@ -269,13 +277,15 @@ const myObject: SalesforceObject = {
   }
 };
 
-// ObjectIndexEntry includes keyPrefix field
+// ObjectIndexEntry includes keyPrefix, label, and sourceUrl fields
 const indexEntry: ObjectIndexEntry = {
   cloud: 'Core Salesforce',
   file: 'objects/A/Account.json',
   description: 'An organization or individual involved...',
   fieldCount: 76,
-  keyPrefix: '001'  // Optional: 3-character Salesforce ID prefix
+  keyPrefix: '001',  // Optional: 3-character Salesforce ID prefix
+  label: 'Account',   // Optional: User-friendly display name
+  sourceUrl: 'https://developer.salesforce.com/docs/...'  // Optional: Official documentation link
 };
 
 // ============================================

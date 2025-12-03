@@ -1,41 +1,30 @@
 {
   "Profile": {
     "name": "Profile",
-    "description": "Represents a profile, which defines a set of permissions to perform different operations. Operations can include creating a custom profile or querying, adding, updating, or deleting information.",
+    "description": "Represents a user profile. A profile defines a user’s permission to perform different functions within Salesforce. This type extends the Metadata metadata type and inherits its fullName field.",
     "properties": {
       "Description": {
         "type": "string",
-        "description": "Description of the profile."
+        "description": "The profile description, limited to 255 characters."
       },
-      "IsSsoEnabled": {
-        "type": "boolean",
-        "description": "If true, users assigned to this profile can delegate username and password authentication to a corporate database instead of the user database."
+      "FullName": {
+        "type": "string",
+        "description": "The unique profile name. Use this name when creating the profile, before you have an ID. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores."
       },
-      "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this profile. Available in API version 29.0 and later."
-      },
-      "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this profile. Available in API version 29.0 and later."
+      "Metadata": {
+        "type": "ProfileMetadata",
+        "description": "The profile metadata."
       },
       "Name": {
         "type": "string",
-        "description": "The name of the profile."
+        "description": "The profile name."
       },
-      "PermissionsPermissionName": {
-        "type": "boolean",
-        "description": "One field for each permission. If true, users assigned to this profile have the named permission. The number of fields varies depending on the permissions for the org and license type. Tip To get a list of available permissions in SOAP API, use describeSObjects()."
-      },
-      "UserLicenseId": {
-        "type": "reference",
-        "description": "ID of the UserLicense associated with this profile."
-      },
-      "UserType": {
-        "type": "picklist",
-        "description": "The category of user license. Each UserType is associated with one or more UserLicense records. Each UserLicense is associated with one or more profiles. In API version 10.0 and later, valid values include: Standard: user license. This user type also includes Salesforce Platform and Salesforce Platform One user licenses. Label is Standard. PowerPartner: User whose access is limited because they’re a partner and typically access the application through a partner portal or Experience Cloud site. Label is Partner. CspLitePortal: user whose access is limited because they’re an org's customer and access the application through a Customer Portal or Experience Cloud site. Label is High Volume Portal. CustomerSuccess: user whose access is limited because they’re an org's customer and access the application through a Customer Portal. Label is Customer Portal User. PowerCustomerSuccess: user whose access is limited because they’re an org's customer and access the application through a Customer Portal. Label is Customer Portal Manager. Users with this license type can view and edit data they directly own or data owned by or shared with users below them in the Customer Portal role hierarchy. CsnOnly: user whose access to the application is limited to Chatter. This user type includes Chatter Free and Chatter moderator users. Label is Chatter Free. Guest: user whose access is limited because they’re an unauthenticated user without login credentials. Label is Guest. UserType replaces LicenseType, which is unavailable as of API version 10.0. In API versions 8.0 and 9.0 LicenseType is still available with the following valid values: AUL: Lightning Platform user license. Label is Apex Platform. AUL1: Lightning Platform user license with only one user. Label is Apex Platform One. Salesforce: Salesforce user license. Label is Salesforce. PackageManager: user who can create and work with managed packages for AppExchange. Label is Package Manager. PRM: user whose access is limited because they’re a partner and typically accesses the application through a partner portal. Label is Partner. CustomerUser: user whose access is limited because they’re an org's customer and accesses the application through a Customer Portal. Label is Customer Portal User. CustomerManager: user whose access is limited because they’re an org's customer and accesses the application through a Customer Portal. Label is Customer Portal Manager. Users with this license type can view and edit data they directly own or data owned by or shared with users below them in the Customer Portal role hierarchy. In API version 53.0 and later, you can’t set the value of UserType using Apex."
+      "TimeSheetTemplateAssignments": {
+        "type": "tns:QueryResult",
+        "description": "The time sheet template that you assign to a particular profile. Because this field represents a relationship, use it only in subqueries. This field is available in Tooling API version 46.0 and later."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_profile.htm"
   }
 }

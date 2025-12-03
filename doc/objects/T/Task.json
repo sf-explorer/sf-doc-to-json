@@ -1,165 +1,150 @@
 {
   "Task": {
     "name": "Task",
-    "description": "Represents a business activity such as making a phone call or other to-do items. In the user interface, Task and Event records are collectively referred to as activities.",
+    "description": "Standard and custom fields extend the standard Task object in Consumer Goods Cloud to represent business activities, which are Task and Event records, such as making a phone call.",
     "properties": {
       "AccountId": {
-        "type": "",
-        "description": ""
+        "type": "reference",
+        "description": "ID of the related Account."
       },
       "ActivityDate": {
-        "type": "",
-        "description": ""
+        "type": "date",
+        "description": "Due date of the task. Has a timestamp that’s always set to midnight in the Coordinated Universal Time (UTC) time zone. The timestamp is irrelevant. Don’t alter the time zone to accommodate time zone differences. Note You can’t set or update the field for a recurring task (IsRecurrence is true)."
       },
       "CallDisposition": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "Result of a given call. For example, call unsuccessful. Can have up to 255 characters."
       },
       "CallDurationInSeconds": {
-        "type": "",
-        "description": ""
+        "type": "int",
+        "description": "Duration of the call in seconds."
       },
       "CallObject": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "Name of a call center. Can have up to 255 characters."
       },
       "CallType": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Type of call that’s being answered:"
       },
       "CompletedDateTime": {
-        "type": "",
-        "description": ""
-      },
-      "ConnectionReceivedId": {
-        "type": "",
-        "description": ""
-      },
-      "ConnectionSentId": {
-        "type": "",
-        "description": ""
+        "type": "dateTime",
+        "description": "Date and time that the task was saved with a Closed status: For insert, if the task is saved with a Closed status, the field is set. If the task is saved with an Open status, the field is set to NULL. For update, if the task is saved with a new Closed status, the field is reset."
       },
       "Description": {
-        "type": "",
-        "description": ""
+        "type": "textarea",
+        "description": "Text description of the task."
       },
       "IsArchived": {
-        "type": "",
-        "description": ""
+        "type": "boolean",
+        "description": "Indicates whether the event has been archived."
       },
       "IsClosed": {
-        "type": "",
-        "description": ""
+        "type": "boolean",
+        "description": "Indicates whether the task has been completed (true) or not (false)."
       },
       "IsHighPriority": {
-        "type": "",
-        "description": ""
+        "type": "boolean",
+        "description": "Indicates a high-priority task. The field is derived from the Priority field."
       },
       "IsRecurrence": {
-        "type": "",
-        "description": ""
+        "type": "boolean",
+        "description": "Indicates whether the task is scheduled to repeat itself (true) or only occurs one time (false). Read-only on update, but not on create. If this field value is true, then always populate RecurrenceStartDateOnly, RecurrenceEndDateOnly, RecurrenceType, and any recurrence fields related to the given recurrence type. See Recurring Tasks."
       },
       "IsReminderSet": {
-        "type": "",
-        "description": ""
-      },
-      "IsVisibleInSelfService": {
-        "type": "",
-        "description": ""
+        "type": "boolean",
+        "description": "Indicates whether a pop-up reminder has been set for the task (true) or not (false)."
       },
       "OwnerId": {
-        "type": "",
-        "description": ""
+        "type": "reference",
+        "description": "ID of the User or Group who owns the record."
       },
       "Priority": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Required. Indicates the importance or urgency of a task:"
+      },
+      "RecordTypeId": {
+        "type": "reference",
+        "description": "Type of the record."
       },
       "RecurrenceActivityId": {
-        "type": "",
-        "description": ""
+        "type": "reference",
+        "description": "Read-only. Not required on create. ID of the main record of the recurring task. Subsequent occurrences have the same value in the field."
       },
       "RecurrenceDayOfMonth": {
-        "type": "",
-        "description": ""
+        "type": "int",
+        "description": "Day of the month in which the task repeats."
       },
       "RecurrenceDayOfWeekMask": {
-        "type": "",
-        "description": ""
+        "type": "int",
+        "description": "Day or days of the week on which the task repeats:"
       },
       "RecurrenceEndDateOnly": {
-        "type": "",
-        "description": ""
+        "type": "date",
+        "description": "Indicates the last date on which the event repeats. For multiday Salesforce Classic recurring events, this date is the day on which the last occurrence starts. This field is a date field with a timestamp that’s always set to midnight in the Coordinated Universal Time (UTC) time zone. Don’t attempt to alter the timestamp to accommodate time zone differences."
       },
       "RecurrenceInstance": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Indicates the frequency of the Salesforce Classic event’s recurrence:"
       },
       "RecurrenceInterval": {
-        "type": "",
-        "description": ""
+        "type": "int",
+        "description": "Indicates the interval between Salesforce Classic recurring events."
       },
       "RecurrenceMonthOfYear": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Indicates the month in which the Salesforce Classic recurring event repeats:"
       },
       "RecurrenceRegeneratedType": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Initiates the repetition of a repeating task:"
       },
       "RecurrenceStartDateOnly": {
-        "type": "",
-        "description": ""
+        "type": "date",
+        "description": "Date when the recurring task begins. Must be a date and time before RecurrenceEndDateOnly."
       },
       "RecurrenceTimeZoneSidKey": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Time zone associated with the recurring task."
       },
       "RecurrenceType": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Indicates how often the task repeats:"
       },
       "ReminderDateTime": {
-        "type": "",
-        "description": ""
+        "type": "dateTime",
+        "description": "Time when the reminder is scheduled to initiate, if IsReminderSet is set to true. If IsReminderSet is set to false, then the user probably deselected the reminder option in the Salesforce user interface, or the reminder was already initiated at the time indicated by the value."
       },
       "Status": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Required. Indicates the status of the task:"
       },
       "Subject": {
-        "type": "",
-        "description": ""
+        "type": "combobox",
+        "description": "Subject line of the task, such as Call or Send Quote. Can have up to 255 characters."
       },
       "TaskSubtype": {
-        "type": "",
-        "description": ""
-      },
-      "TaskWhoIds": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "Standard subtypes to facilitate creating and searching for specific task subtypes:"
       },
       "Type": {
-        "type": "",
-        "description": ""
-      },
-      "WhatCount": {
-        "type": "",
-        "description": ""
+        "type": "picklist",
+        "description": "The type of task:"
       },
       "WhatId": {
-        "type": "",
-        "description": ""
-      },
-      "WhoCount": {
-        "type": "",
-        "description": ""
+        "type": "reference",
+        "description": "Represents nonhuman objects, such as accounts, opportunities, campaigns, cases, or custom objects. Polymorphic (equivalent to the ID of a related object) relationship field."
       },
       "WhoId": {
-        "type": "",
-        "description": ""
+        "type": "reference",
+        "description": "Represents a human, such as a lead or a contact. Polymorphic (equivalent to a contact’s ID or a lead’s ID) relationship field."
+      },
+      "cgcloud__Check_Overlap__c": {
+        "type": "boolean",
+        "description": "Indicates whether to check for overlaps while creating calls. If this option is selected, the system checks if a current visit overlaps with other visits. Only visits in Planned state are considered."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_task_cg.htm"
   }
 }

@@ -3,41 +3,41 @@
     "name": "ConversationVendorInfo",
     "description": "This setup object connects the partner vendor system to the Service Cloud feature.",
     "properties": {
-      "AwsAccountKey": {
-        "type": "string",
-        "description": "The 12-digit AWS subaccount ID that’s automatically provisioned for you when Service Cloud Voice was turned on. Available in API version 55.0 and later."
-      },
-      "AwsRootEmail": {
-        "type": "email",
-        "description": "The email address used by Salesforce to create the root user for the provisioned AWS subaccount when Service Cloud Voice was turned on. Available in API version 55.0 and later."
-      },
-      "AwsTenantVersion": {
-        "type": "double",
-        "description": "The version number of the SVCTenantStack AWS CloudFormation stack that’s deployed. The stack is deployed in AWS region \"us-east-1\". Available in API version 55.0 and later."
-      },
-      "agentSSOSupported": {
-        "type": "boolean",
-        "description": "If set to true, agents can single sign-on (SSO) into their contact center using Salesforce as the identity provider (IdP). Behind the scenes, Salesforce is used as the SAML IdP in the Single Sign-On connected app for the contact center. If set to false, an IdP other than Salesforce is used or an IdP isn’t used at all. The default value is false."
-      },
       "BridgeComponent": {
         "type": "string",
         "description": "The Lightning component used to communicate between the telephony or messaging system and other Lightning components."
       },
+      "CapabilitiesSupportsAgentSSO": {
+        "type": "boolean",
+        "description": "If set to true, agents can single sign-on (SSO) into their contact center using Salesforce as the identity provider (IdP). Behind the scenes, Salesforce is used as the SAML IdP in the Single Sign-On connected app for the contact center. If set to false, an IdP other than Salesforce is used or an IdP isn’t used at all. The default value is false."
+      },
+      "CapabilitiesSupportsEinsteinConversationInsights": {
+        "type": "boolean",
+        "description": "If set to true, Einstein Conversation Insights is turned on. The default value is false. Available in API version 53.0 and later."
+      },
       "CapabilitiesSupportsIntelligence": {
         "type": "boolean",
-        "description": "If set to true, Salesforce ingests real-time signals sent from a partner telephony system. If set to false, Salesforce doesn't ingest real-time intelligence signals from a partner telephony system. The default value is false. Available in API version 59.0 and later."
+        "description": "If set to true, Salesforce ingests real-time signals sent from a partner telephony system. If set to false, Salesforce won't ingest real-time intelligence signals from a partner telephony system. The default value is false. Available in API version 59.0 and later."
       },
       "CapabilitiesSupportsKeyProvisioning": {
         "type": "boolean",
-        "description": "If set to true, Salesforce has permission to automatically provision public keys to contact centers. The default value is false."
+        "description": "If set to true, key provisioning and renewal are automated. The default value is false. Available in API version 54.0 and later."
       },
-      "CapabiltiesSupportsMultiVendorConfig": {
+      "CapabilitiesSupportsNamedCredential": {
         "type": "boolean",
-        "description": "Indicates whether multiple Connector URLs are supported (true) or not supported (false) for contact centers. The default value is false."
+        "description": "A sample-named credential that can be used for Apex callouts to the partner system. Available in API version 53.0 and later."
+      },
+      "CapabilitiesSupportsPartnerContactCenterList": {
+        "type": "boolean",
+        "description": "If set to true, enables the customer to select one contact center from a list of multiple contact centers to connect with Salesforce. The default value is false. Available in API version 53.0 and later."
       },
       "CapabilitiesSupportsPartnerPhoneNumbers": {
         "type": "boolean",
-        "description": "If set to true, Salesforce has permission to access relevant agents’ phone numbers while configuring contact center channels. The default value is false."
+        "description": "If set to true, displays a list of phone numbers used to create contact center channels. The default value is false. Available in API version 54.0 and later."
+      },
+      "CapabilitiesSupportsPartnerTransferDestinations": {
+        "type": "boolean",
+        "description": "If set to true, allows Salesforce to fetch contact center queues so that Salesforce and contact center queues can be mapped. The default value is false. Available in API version 53.0 and later."
       },
       "CapabilitiesSupportsQueueManagement": {
         "type": "boolean",
@@ -45,18 +45,22 @@
       },
       "CapabilitiesSupportsUnifiedRouting (Beta)": {
         "type": "boolean",
-        "description": "Indicates whether unified routing is supported (true) or not supported (false) for inbound voice calls in voice channels. The default value is false. Once this value is set to true, it can’t be changed to false."
+        "description": "Indicates whether unified routing is supported (true) or not supported (false) for voice calls in voice channels. The default value is false. Once this value is set to true, it can’t be changed to false."
       },
-      "ClientAuthMode": {
-        "type": "picklist",
-        "description": "The client authentication mode."
+      "CapabilitiesSupportsUniversalCallRecordingAccess": {
+        "type": "boolean",
+        "description": "If set to true, Universal Call Recording Access is turned on. The default value is false."
+      },
+      "CapabilitiesSupportsUserSyncing": {
+        "type": "boolean",
+        "description": "If set to true, supports automated user syncing whenever a user is added to or removed from a contact center. The default value is false. Available in API version 53.0 and later."
       },
       "ConnectorUrl": {
         "type": "url",
         "description": "The URL that hosts your Service Cloud Voice or Bring Your Own Channel for CCaaS connector. This value could be a Visualforce page or a public URL."
       },
-      "customConfig": {
-        "type": "CustomEntityDefinition",
+      "CustomConfigId": {
+        "type": "reference",
         "description": "The foreign key to the CustomEntityDefinition, which contains partner-specific custom settings. Available in API version 53.0 and later."
       },
       "CustomIconId": {
@@ -69,81 +73,50 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API."
+        "description": "The unique name of the object in the API. This field is automatically generated, but you can supply your own value if you create the record using the API."
       },
-      "IsTaxCompliant": {
+      "FullName": {
         "type": "string",
-        "description": "Indicates whether the Amazon tax settings for the AWS subaccount provisioned for Service Cloud Voice have been confirmed (true). The default value is false. Available in API version 55.0 and later.Applies to the following implementation: Service Cloud Voice with Amazon Connect"
+        "description": "The full name of the associated ConversationVendorInfo type in Metadata API. The full name can include a namespaceprefix. Query this field only if the query result contains no more than one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
       },
-      "einsteinConversationInsights Supported": {
-        "type": "boolean",
-        "description": "If set to true, Einstein Conversation Insights is turned on. The default value is false. Available in API version 53.0 and later."
-      },
-      "integrationClass": {
-        "type": "ApexClass",
+      "IntegrationClassId": {
+        "type": "reference",
         "description": "The foreign key to the partner Apex class implementing supported interfaces. Available in API version 53.0 and later."
-      },
-      "IntegrationClassName": {
-        "type": "string",
-        "description": "Deprecated in API version 53.0. Don't set this field. Instead, use integrationClass."
-      },
-      "keyProvisioningSupported": {
-        "type": "boolean",
-        "description": "If set to true, key provisioning and renewal are automated. The default value is false. Available in API version 54.0 and later."
       },
       "Language": {
         "type": "picklist",
         "description": "The language of the master label (MasterLabel) in the user interface."
       },
+      "ManageableState": {
+        "type": "ManageableState enumerated list",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
       "MasterLabel": {
         "type": "string",
         "description": "The partner vendor's display name as it appears in the UI. This name appears in several places in the UI, so include the partner vendor name for easy identification. For Service Cloud Voice, this label also represents the telephony provider name in the contact center record."
       },
-      "namedCredential": {
-        "type": "Named Credential",
-        "description": "A sample-named credential that can be used for Apex callouts to the partner system. Available in API version 53.0 and later."
+      "Metadata": {
+        "type": "ConversationVendorInfo",
+        "description": "The ConversationVendorInfo's metadata."
       },
-      "namedCredentialSupported": {
-        "type": "boolean",
-        "description": "If set to true and if supported by the partner telephony, then prescriptive setup through a named credential is enabled allowing server-to-server communication with a named credential. Available in API version 53.0 and later."
+      "NamedCredentialId": {
+        "type": "reference",
+        "description": "A sample-named credential that can be used for Apex callouts to the partner system. Available in API version 53.0 and later."
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that’s associated with this object."
-      },
-      "partnerContactCenterList Supported": {
-        "type": "boolean",
-        "description": "If set to true, enables the customer to select one contact center from a list of multiple contact centers to connect with Salesforce. The default value is false. Available in API version 53.0 and later."
-      },
-      "partnerPhoneNumbersSupported": {
-        "type": "boolean",
-        "description": "If set to true, displays a list of phone numbers used to create contact center channels. The default value is false. Available in API version 54.0 and later."
-      },
-      "partnerTransfer DestinationsSupported": {
-        "type": "boolean",
-        "description": "If set to true, allows Salesforce to fetch contact center queues so that Salesforce and contact center queues can be mapped. The default value is false. Available in API version 53.0 and later."
-      },
-      "ServerAuthMode": {
-        "type": "picklist",
-        "description": "Deprecated in API 53.0. Server authentication mode. Set this value to None."
+        "description": "The namespace prefix associated with this object. Each Developer Edition organization that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values: In Developer Edition organizations, the namespace prefix is set to the namespace prefix of the organization for all objects that support it. There is an exception if an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition organization of the package developer. In organizations that are not Developer Edition organizations, NamespacePrefix is only set for objects that are part of an installed managed package. There is no namespace prefix for all other objects."
       },
       "TelephonySettingsComponent": {
         "type": "string",
         "description": "The name of the Lightning Web Component (LWC) that is used to display additional agent settings in the Omni-Channel widget. This value is in the format mynamespace:componentName, where mynamespace is the namespace associated with the Service Cloud Voice package that was created, and componentName is the FQDN of the Lightning component."
       },
-      "​​universalCallRecording AccessSupported​​​​​​​​": {
-        "type": "boolean",
-        "description": "If set to true, Universal Call Recording Access is turned on. The default value is false."
-      },
-      "userSyncingSupported": {
-        "type": "boolean",
-        "description": "If set to true, supports automated user syncing whenever a user is added to or removed from a contact center. The default value is false. Available in API version 53.0 and later."
-      },
-      "vendorType": {
+      "VendorType": {
         "type": "picklist",
-        "description": "The Service Cloud feature the partner vendor supports.Possible values are: Amazon_Connect — For Service Cloud Voice with Amazon Connect. BringYourOwnChannelPartner — For Bring Your Own Channel for Messaging. Available in API version 60.0 and later. BringYourOwnContactCenter — For Bring Your Own Channel for Contact Center as a Service (CCaaS). Available in API version 60.0 and later. ServiceCloudVoicePartner — For Service Cloud Voice with Partner Telephony or Service Cloud Voice with Partner Telephony from Amazon Connect. If you're inserting or updating the record, this field must be set. Available in API version 53.0 and later."
+        "description": "The Service Cloud feature the partner vendor supports.Possible values are: Amazon_Connect — For Service Cloud Voice with Amazon Connect. BringYourOwnChannelPartner — For Bring Your Own Channel for Messaging. Available in API version 60.0 and later. BringYourOwnContactCenter — For Bring Your Own Channel for Contact Center as a Service (CCaaS). Available in API version 60.0 and later. ServiceCloudVoicePartner — For Service Cloud Voice with Partner Telephony or Service Cloud Voice with Partner Telephony from Amazon Connect."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_conversationvendorinfo.htm"
   }
 }

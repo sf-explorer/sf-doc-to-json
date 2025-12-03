@@ -7,6 +7,10 @@ export const CONFIGURATION: Record<string, CloudConfiguration> = {
         label: 'Core Salesforce',
         description: 'Standard Salesforce objects including Account, Contact, Opportunity, Case, Lead, and other core CRM functionality.'
     },
+    'atlas.en-us.api_tooling.meta': {
+        label: 'Tooling API',
+        description: 'Salesforce Tooling API objects for metadata management, deployment, and development operations.'
+    },
     'atlas.en-us.salesforce_feedback_management_dev_guide.meta': {
         label: 'Feedback Management',
         description: 'Objects for collecting, managing, and analyzing customer feedback and survey responses.'

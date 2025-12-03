@@ -9,19 +9,31 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. This field is automatically generated, but you can supply your own value if you create the record using the API."
+        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record."
       },
       "EventChannel": {
         "type": "picklist",
         "description": "The full name of the event channel used in the event relay. For example: MyRelayChannel__chn"
       },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated EventRelayConfig in Metadata API. The full name can include a namespace prefix."
+      },
       "Language": {
         "type": "picklist",
         "description": "The language of the EventRelayConfig."
       },
+      "ManageableState": {
+        "type": "picklist",
+        "description": "Type ManageableState enumerated list Properties Filter, Group, Nillable, Restricted picklist, Sort Description Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
       "MasterLabel": {
         "type": "string",
-        "description": "Label for the EventRelayConfig. In the UI, this field is Event Relay Config."
+        "description": "The label for the event relay, which corresponds to the label of the EventRelayConfig metadata type. The label is displayed in the user interface."
+      },
+      "Metadata": {
+        "type": "EventRelayConfig",
+        "description": "The EventRelayConfig’s metadata."
       },
       "NamespacePrefix": {
         "type": "string",
@@ -33,13 +45,14 @@
       },
       "State": {
         "type": "picklist",
-        "description": "The execution state of the event relay. Possible values are: RUN—The event relay is running and actively relaying event messages from Salesforce to Amazon EventBridge. PAUSE—An administrator paused the event relay. No events are relayed to Amazon EventBridge during this status. All current state information is saved. STOP—(Default) The event relay is stopped and no events are relayed to Amazon EventBridge. All current state information is deleted."
+        "description": "The execution state of the event relay. Possible values are: RUN—The event relay is running and actively relaying event messages from Salesforce to Amazon EventBridge. PAUSE—An administrator paused the event relay. No events are relayed to Amazon EventBridge during this status. All current state information is saved. STOP—(Default) The event relay is stopped and no events are relayed to Amazon EventBridge. All current state information is deleted. DELETE—Reserved for future use."
       },
       "UsageType": {
         "type": "picklist",
         "description": "Reserved for future use."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_eventrelayconfig.htm"
   }
 }

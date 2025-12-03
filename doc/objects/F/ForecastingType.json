@@ -1,81 +1,54 @@
 {
   "ForecastingType": {
     "name": "ForecastingType",
-    "description": "Used to identify the forecast type associated with ForecastingAdjustment, ForecastingOwnerAdjustment, ForecastingQuota, ForecastingFact, and ForecastingItem objects.",
+    "description": "Represents a forecast type.",
     "properties": {
-      "CanDisplayQuotas": {
-        "type": "boolean",
-        "description": "Indicates whether a forecast type can show quota information. The default value is false. Available in API version 38.0 and later."
-      },
       "DateType": {
         "type": "picklist",
-        "description": "The date type that forecast amounts are based on. These values are available for forecast types that were available before Summer ’21. OpportunityCloseDate: Base forecasts on opportunity close dates. ProductDate: Base forecasts on opportunity product line item dates, if available. ScheduleDate: Base forecasts on opportunity product schedule dates, if available. These values are available in API version 52.0 and later in Performance Edition and in Unlimited Edition with the Sales Cloud. OLIMeasureCloseDateOnly: Base forecasts on opportunity close dates. ProductDateOnly: Base forecasts on opportunity product line item dates, if available. ScheduleDateOnly: Base forecasts on opportunity product schedule dates, if available. These values to create forecasts on custom date fields are available in API version 57.0 and later in Performance, Professional, Enterprise, and Unlimited Edition with the Sales Cloud. OLIMeasureOppCustomDateOnly: Base forecasts on custom opportunity dates, if available. OpportunityCustomDate: Base forecasts on custom opportunity dates. The custom date field used must be on the opportunity object and based on the date type."
+        "description": "Required. The date type that forecast amounts are based on."
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The name of the forecasting type. The DeveloperName is called name in the Metadata API and Forecasting Type in custom reports."
+        "description": "Required. The name of the forecast type."
       },
-      "ForecastingGroupID": {
-        "type": "reference",
-        "description": "Indicates whether the forecasting type has a group assignment, and if so, the name of the group. This field is a relationship field. Available in API version 60.0 and later."
-      },
-      "HasAdjustments": {
-        "type": "boolean",
-        "description": "Indicates whether forecast managers can adjust forecasts of their immediate subordinates and child territories. The default value is false. Available in API version 60.0 and later."
-      },
-      "HasOwnerAdjustments": {
-        "type": "boolean",
-        "description": "Indicates whether all forecast users can adjust their own forecasts, including the territory forecasts that they own. The default value is false. Available in API version 60.0 and later."
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the forecast type."
       },
       "HasProductFamily": {
         "type": "boolean",
-        "description": "Indicates whether a forecasts view includes product families. The default value is false. Available in API version 40.0 and later."
-      },
-      "IsActive": {
-        "type": "boolean",
-        "description": "Indicates whether the forecasting type is enabled. The default value is false."
-      },
-      "IsAmount": {
-        "type": "boolean",
-        "description": "Indicates whether the forecasting type is based on the revenue measure. The default value is false."
-      },
-      "IsPlatformType": {
-        "type": "boolean",
-        "description": "Indicates a legacy forecast type that wasn’t available before Summer ’21. The default value is false. Available in API version 52.0 and later."
-      },
-      "IsQuantity": {
-        "type": "boolean",
-        "description": "Indicates whether the forecasting type is based on the quantity measure. The default value is false."
+        "description": "Required. Indicates whether the forecast type includes product families (true) or not (false). The default value is false."
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the forecasting type."
-      },
-      "LastActivatedDate": {
-        "type": "dateTime",
-        "description": "The date when a forecast type was activated. Read only. Available in API version 53.0 and later."
+        "description": "The language of the forecast type."
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Controlling label for this forecasting type value. This display value is the internal label that doesn’t get translated."
+        "description": "Required. Controlling label for this forecast type. This display value is the internal label that doesn’t get translated."
+      },
+      "Metadata": {
+        "type": "ForecastingType",
+        "description": "The metadata of the forecast type."
       },
       "OpportunitySplitTypeId": {
         "type": "reference",
-        "description": "Indicates whether the forecasting type has a split type, and if so, the name of the split type. This field is a relationship field. Available in API version 41.0 and later."
+        "description": "For a forecast type based on a split, the ID of the opportunity split type."
       },
       "OpptyLineItemSplitTypeId": {
         "type": "reference",
-        "description": "Indicates whether the forecasting type has a product split type, and if so, the name of the product split type. This field is a relationship field. Available in API version 58.0 and later."
+        "description": "For a forecast type based on an opportunity product split, the ID of the opportunity line item split type."
       },
       "RoleType": {
         "type": "picklist",
-        "description": "Indicates whether the role type has a forecasting type, and if so, which forecasting type. Available in API version 41.0 and later."
+        "description": "Required. Indicates whether the role type has a ForecastingType, and if so, which ForecastingType."
       },
       "Territory2ModelId": {
-        "type": "reference",
-        "description": "Indicates whether the forecasting type has a Territory2 model, and if so, the name of the Territory2 model. Available in API version 41.0 and later."
+        "type": "string",
+        "description": "For a territory-based forecast type, the ID of the Territory2 model."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_forecastingtype.htm"
   }
 }

@@ -1,11 +1,15 @@
 {
   "CareProviderSearchConfig": {
     "name": "CareProviderSearchConfig",
-    "description": "Represents fields that can appear in provider search results.",
+    "description": "Represents fields that can appear in provider search results. Use this object to specify fields in arbitrary objects (source) that are made available in the search object (target).",
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow as a DeveloperName is generated for each record."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated CareProviderSearchConfig type in Metadata API. The full name can include a namespace prefix."
       },
       "IsActive": {
         "type": "boolean",
@@ -13,15 +17,19 @@
       },
       "Language": {
         "type": "picklist",
-        "description": "The language that the care provider search uses."
+        "description": "The language of the CareProviderSearchConfig."
       },
       "MappedObject": {
         "type": "picklist",
-        "description": "Indicates mapped objects."
+        "description": "Specifies the mapped objects where searches for providers are run."
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label for the care provider."
+        "description": "Label that identifies the CareProviderSearchConfig throughout the Salesforce user interface."
+      },
+      "Metadata": {
+        "type": "complexvalue",
+        "description": "The CareProviderSearchConfig’s metadata."
       },
       "SourceField": {
         "type": "string",
@@ -29,9 +37,10 @@
       },
       "TargetField": {
         "type": "string",
-        "description": "The API name of the field to copy the data to."
+        "description": "The API name of the field in the target object where data copied from SourceField is pasted."
       }
     },
-    "module": "Health Cloud"
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/tooling_api_objects_careprovidersearchconfig.htm"
   }
 }

@@ -1,77 +1,62 @@
 {
   "SvcCatalogItemDef": {
     "name": "SvcCatalogItemDef",
-    "description": "Represents a service catalog item that can be requested by a service catalog user.",
+    "description": "Represents the grouping of individual catalog items in Service Catalog.",
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "The definition of the catalog item. This field is visible on the Service Catalog page."
+        "description": "Free-text description of the catalog item."
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique developer name for the catalog item."
+        "description": "Developer name for this catalog item."
       },
-      "FlowName": {
-        "type": "string",
-        "description": "The flow called when the user navigates to the request page for the catalog item. Available in API version 55.0 and later."
+      "FlowId": {
+        "type": "reference",
+        "description": "The screen flow associated with the catalog item."
       },
       "FulfillmentFlowId": {
         "type": "reference",
-        "description": "The ID of the fulfillment flow. Available in API version 56.0 and later."
+        "description": "This field is a relationship field."
       },
-      "ImageId": {
-        "type": "reference",
-        "description": "The image ID used for the catalog item."
-      },
-      "ImageReference": {
+      "FullName": {
         "type": "string",
-        "description": "Derived field from ImageId to expose ContentAssetId on item definitions. Available in API version 61.0 and later."
+        "description": "The full name of the catalog item. This name has the following requirements: It must be unique across the org. It must contain only alphanumeric characters and underscores. It must begin with a letter. It must not include spaces. It must not end with an underscore. It must not contain two consecutive underscores. Query this field only if the query result contains up to one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
       },
       "InternalNotes": {
         "type": "textarea",
-        "description": "A place for the Service Catalog Builder to leave internal notes about the catalog item."
-      },
-      "IsActive": {
-        "type": "boolean",
-        "description": "Derived field from Status to indicate whether the service catalog item is active."
-      },
-      "IsAvailableToAllCustomers": {
-        "type": "boolean",
-        "description": "Indicates whether the Service Catalog item is available to all customers. The default value is false."
+        "description": "Describes what the catalog item does and its implementation. This value is meant for other catalog builders."
       },
       "IsFeatured": {
         "type": "boolean",
-        "description": "Specifies whether a catalog item is marked as a favorite for the org. Favorites display as a featured item on the Service Catalog home page."
-      },
-      "IsGuestAccessible": {
-        "type": "boolean",
-        "description": "Indicates whether the Service Catalog item can be accessed by guest users. The default value is false."
-      },
-      "IsOutOfSync": {
-        "type": "boolean",
-        "description": "Indicates whether the fulfillment flow that the Service Catalog item is based on has been updated. Available in API version 58.0 and later."
+        "description": "Determines if the catalog item is part of the featured catalog items."
       },
       "Language": {
         "type": "picklist",
-        "description": "Supported languages for catalog items."
+        "description": "Possible values are: da - Danish de - German en_US - English es - Spanish es_MX - Spanish (Mexico) fi - Finnish fr - French it - Italian ja - Japanese ko - Korean nl_NL - Dutch no - Norwegian pt_BR - Portuguese (Brazil) ru - Russian sv - Swedish th - Thai zh_CN - Chinese (Simplified) zh_TW - Chinese (Traditional)"
       },
-      "Product": {
+      "ManageableState": {
         "type": "picklist",
-        "description": "The product associated with the Service Catalog item. The value is derived from UsageType. Available in API version 59.0 and later."
+        "description": "Describes the manageable state of a catalog item that is contained in a package."
       },
-      "ShortDescription": {
+      "MasterLabel": {
         "type": "string",
-        "description": "The short description of the catalog item."
+        "description": "The primary label for the catalog item record."
+      },
+      "Metadata": {
+        "type": "complexvalue",
+        "description": "The catalog item’s metadata. Query this field only if the query result contains up to one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
+      },
+      "NamespacePrefix": {
+        "type": "string",
+        "description": "The namespace associated with this catalog item."
       },
       "Status": {
         "type": "picklist",
-        "description": "Allows the Service Catalog Builder to control whether the flow is displayed to users within the Service Catalog."
-      },
-      "UsageType": {
-        "type": "picklist",
-        "description": "The business type for which the Service Catalog is used. Available in API version 57.0 and later."
+        "description": "Displays the publishing status of a catalog item."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_svccatalogitemdef.htm"
   }
 }

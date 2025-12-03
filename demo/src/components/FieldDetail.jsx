@@ -230,6 +230,27 @@ const FieldDetail = ({ object }) => {
             </Typography>
           </Box>
         )}
+        {object.sourceUrl && (
+          <Box sx={{ mt: 1 }}>
+            <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
+              Documentation:
+            </Typography>
+            <Typography variant="body2" sx={{ mt: 0.5 }}>
+              <a 
+                href={object.sourceUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0176d3',
+                  textDecoration: 'none',
+                  fontWeight: 500
+                }}
+              >
+                View Official Salesforce Documentation →
+              </a>
+            </Typography>
+          </Box>
+        )}
       </Box>
 
       {/* Fields Table */}

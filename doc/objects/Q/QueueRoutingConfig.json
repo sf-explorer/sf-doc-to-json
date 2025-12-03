@@ -1,69 +1,58 @@
 {
   "QueueRoutingConfig": {
     "name": "QueueRoutingConfig",
-    "description": "Represents the settings that determine how work items are routed to agents.",
+    "description": "Represents configuration settings that determine how work items are routed to agents. This object is available in API version 65.0 and later.",
     "properties": {
       "CapacityPercentage": {
         "type": "percent",
-        "description": "The percentage of an agent’s capacity for work items that’s consumed by a specific type of work item from this service channel.Voice calls must have a capacity percentage of 100. If an agent receives a voice call, the agent won’t receive new work items until the call ends, because at that point the agent’s capacity will have reached 100%. This field is available in API version 33.0 and later."
+        "description": "The percentage of an agent’s capacity for work items that’s consumed by a specific type of work item from the service channel. For example, capacity percentage for phone call is 100. If the configured limit is reached, the call isn't routed to the agent."
       },
       "CapacityWeight": {
         "type": "double",
-        "description": "The amount of an agent’s capacity for work items that’s consumed by a work item from this service channel.For example, if an agent has a capacity of 6, and cases are assigned a capacity weight of 2, an agent can be assigned up to 3 cases before the agent is at capacity and can’t receive new work items. Voice calls must use the entire capacity weight. This field is available in API version 33.0 and later."
+        "description": "The amount of an agent’s capacity for work items that’s consumed by a work item from the service channel. For example, if an agent has a capacity of 6, and cases are assigned a capacity weight of 2, an agent can be assigned up to 3 cases before the agent is at capacity and can’t receive new work items."
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization.When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record. Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field."
+        "description": "The unique name of the object in the API."
       },
       "DropAdditionalSkillsTimeout": {
         "type": "int",
-        "description": "The number of seconds to wait before a skill marked as Additional Skill is dropped from Omni-Channel routing. The case is then routed to the best-matched agent even if they don’t have all the skills."
+        "description": "The number of seconds to wait before additional skills are dropped from Omni-Channel routing. In skills-based routing, you can set some skills to Additional Skill. After the timeout elapses, a skill marked as Additional Skill is dropped from Omni-Channel routing and the case is routed to the best-matched agent, even if the agent doesn’t have all the skills. If CustomRequestedDateTime is set in the PendingServiceRouting object, DropAdditionalSkillsTimeout uses CustomRequestedDateTime as the start time. If CustomRequestedDateTime and DropAdditionalSkillsTimeout have already passed, Omni-Channel drops the additional skills."
       },
       "IsAttributeBased": {
         "type": "boolean",
-        "description": "Indicates whether this routing is attribute-based. Available in API version 45.0 and later."
+        "description": "Indicates whether the routing configuration is used with skills-based routing rules (true) or not (false)."
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the presence status."
+        "description": "The language of the queue routing configuration."
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the presence status."
-      },
-      "OverflowAssigneeId": {
-        "type": "reference",
-        "description": "The ID of the user or queue that’s set as the Overflow Assignee."
-      },
-      "": {
-        "type": "",
-        "description": ""
+        "description": "The label of the queue routing configuration."
       },
       "PausedCapacityPercentage": {
         "type": "percent",
-        "description": "The percentage of an agent’s capacity for work items that’s consumed by a paused work item from this service channel. The paused capacity feature is available with status-based capacity and Enhanced Omni-Channel only."
+        "description": "The percentage of an agent's capacity that’s consumed when a work item is paused. This field is available only with status-based capacity and Enhanced Omni-Channel."
       },
       "PausedCapacityWeight": {
         "type": "double",
-        "description": "The amount of an agent’s capacity for work items that’s consumed by a paused work item from this service channel. The paused capacity feature is available with status-based capacity and Enhanced Omni-Channel only."
+        "description": "The amount of an agent's capacity that’s consumed when a work item is paused. This field is available only with status-based capacity and Enhanced Omni-Channel."
       },
       "PushTimeout": {
         "type": "int",
-        "description": "The number of seconds set for push timeout. 0 is returned when push timeout isn’t enabled. Available in API version 36.0 and later."
+        "description": "The time limit set for an agent to respond to an item before it’s pushed to another agent. The time limit is measured in seconds."
       },
       "RoutingModel": {
         "type": "picklist",
-        "description": "The routing type that determines how work items are routed (pushed) to agents. Possible values are Least Active and Most Available."
+        "description": "The routing type that determines how work items are routed to agents."
       },
       "RoutingPriority": {
         "type": "int",
-        "description": "The priority in which work items from the service channels that are related to this routing configuration are routed to agents. Work items from routing configurations that have lower priority values (for example, 0) are routed to agents first."
-      },
-      "ServiceChannelId": {
-        "type": "reference",
-        "description": "The ID of the service channel that’s associated with this configuration. This field is available in API version 32.0 and earlier."
+        "description": "The priority in which work items from the service channels are routed to agents. Work items that have lower values (for example, 0) are routed to agents first."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_queueroutingconfig.htm"
   }
 }

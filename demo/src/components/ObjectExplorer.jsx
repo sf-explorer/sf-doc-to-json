@@ -28,7 +28,7 @@ const ObjectExplorer = () => {
           for (const [objectName, metadata] of Object.entries(descriptionsData)) {
             allObjects.push({
               apiName: objectName,
-              label: objectName,
+              label: metadata.label || objectName,
               pluralLabel: objectName,
               keyPrefix: metadata.keyPrefix || '',
               isCustom: objectName.endsWith('__c') || objectName.includes('__'),
@@ -37,7 +37,8 @@ const ObjectExplorer = () => {
               fields: null, // Fields not loaded until object is selected
               fieldCount: metadata.fieldCount,
               module: metadata.cloud,
-              cloud: metadata.cloud
+              cloud: metadata.cloud,
+              sourceUrl: metadata.sourceUrl
             });
           }
         }

@@ -1,95 +1,95 @@
 {
   "Location": {
     "name": "Location",
-    "description": "Represents a warehouse, service vehicle, work site, or other element of the region where your team performs field service work. In API version 49.0 and later, you can associate activities with specific locations. Activities, such as the tasks and events related to a location, appear in the activities timeline when you view the location detail page. Also in API version 49.0 and later, Work.com users can view Employees as a related list on Location records. In API version 51.0 and later, this object is available for Omnichannel Inventory and represents physical locations where inventory is available for fulfilling orders.",
+    "description": "",
     "properties": {
-      "AssignedFoCount": {
+      "ActivationDate": {
+        "type": "date",
+        "description": "The date on which service was started at this location."
+      },
+      "BusinessHoursId": {
+        "type": "reference",
+        "description": "The Business Hours object associated with the Location"
+      },
+      "DistributionArea": {
+        "type": "string",
+        "description": "The electricity, gas, or water distribution area this location belongs to."
+      },
+      "GrossFloorArea": {
         "type": "int",
-        "description": "The number of fulfillment orders assigned to the location. Confirming held fulfillment order capacity increments this value. To reset the location’s capacity, set this value to 0."
+        "description": "The value of the sum of the floor area of the spaces within the location"
       },
-      "CloseDate": {
-        "type": "date",
-        "description": "Date the location closed or went out of service."
-      },
-      "ConstructionEndDate": {
-        "type": "date",
-        "description": "Date construction ended at the location."
-      },
-      "ConstructionStartDate": {
-        "type": "date",
-        "description": "Date construction began at the location."
-      },
-      "DefaultPickupTime": {
-        "type": "time",
-        "description": "Default pickup time at the location."
-      },
-      "DefaultProcessingTime": {
-        "type": "int",
-        "description": "Default processing time at the location."
-      },
-      "DefaultProcessingTimeUnit": {
+      "GrossFloorAreaUom": {
         "type": "picklist",
-        "description": "Default processing time unit at the location. Possible values are: Hours Days Weeks"
+        "description": "Specifies the unit of measure for Gross Floor Area of the location"
       },
-      "Description": {
+      "HasLifeSupport": {
+        "type": "boolean",
+        "description": "Indicates whether the location has life-support equipment."
+      },
+      "HasSensitiveLoad": {
+        "type": "boolean",
+        "description": "Indicates whether the location has sensitive load equipment."
+      },
+      "IsKeyAtPremises": {
+        "type": "boolean",
+        "description": "Indicates whether the key is available at the location"
+      },
+      "IsOkToEnter": {
+        "type": "boolean",
+        "description": "Indicates whether the field service representative has permission to enter the location"
+      },
+      "IsSupplyGuaranteed": {
+        "type": "boolean",
+        "description": "Indicates whether supply is guaranteed at the location"
+      },
+      "MeterReadInstructions": {
         "type": "string",
-        "description": "A brief description of the location."
+        "description": "The instructions for the field service representative on where to find the meter in this location"
       },
-      "DrivingDirections": {
+      "MeterReadWarning": {
         "type": "string",
-        "description": "Directions to the location."
+        "description": "The warnings for the field service representative of potentially dangerous situations or conditions at this location"
       },
-      "EarliestPickupTimeOffset": {
-        "type": "integer",
-        "description": "The earliest pickup time for BOPIS. This value is measured in minutes after the start of business hours."
+      "NumberOfOccupants": {
+        "type": "int",
+        "description": "The number of occupants at this location."
+      },
+      "PrimaryPropertyFunction": {
+        "type": "picklist",
+        "description": "Specifies the primary use of the location"
+      },
+      "PropertyOwnerAccountId": {
+        "type": "reference",
+        "description": "The Account object associated with the Location"
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "Specifies the status of the location."
+      },
+      "SupplyGuaranteeReason": {
+        "type": "string",
+        "description": "The reason for which supply is guaranteed at the location"
       },
       "ExternalReference": {
         "type": "string",
         "description": "Identifier of a location."
       },
-      "FoCapacity": {
-        "type": "int",
-        "description": "The maximum number of fulfillment orders that can be assigned to the location per time period. If this value is null, then this location’s capacity isn’t limited."
-      },
-      "FulfillingBusinessHours": {
-        "type": "reference",
-        "description": "Fulfilling business hours at the location."
-      },
-      "IsEligibleForPickup": {
-        "type": "boolean",
-        "description": "Indicates whether the location supports BOPIS"
-      },
       "IsInventoryLocation": {
         "type": "boolean",
-        "description": "Indicates whether the location stores parts. Note This field must be selected if you want to associate the location with product items."
+        "description": "Indicates whether the location stores parts. This field must be selected if you want to associate the location with product items."
       },
       "IsMobile": {
         "type": "boolean",
         "description": "Indicates whether the location moves. For example, a truck or tool box."
       },
       "LastReferencedDate": {
-        "type": "datetime",
+        "type": "dateTime",
         "description": "The date when the location was last modified. Its label in the user interface is Last Modified Date."
       },
       "LastViewedDate": {
-        "type": "datetime",
+        "type": "dateTime",
         "description": "The date the location was last viewed."
-      },
-      "LatestPickupTimeOffset": {
-        "type": "integer",
-        "description": "The latest pickup time for BOPIS. This value is measured in minutes before the end of business hours."
-      },
-      "Latitude": {
-        "type": "double",
-        "description": "The latitude of the location."
-      },
-      "Location": {
-        "type": "location",
-        "description": "The geographic location."
-      },
-      "LocationLevel": {
-        "type": "int",
-        "description": "The location’s position in a location hierarchy. If the location has no parent or child locations, its level is 1. Locations that belong to a hierarchy have a level of 1 for the root location, 2 for the child locations of the root location, 3 for their children, and so forth."
       },
       "LocationType": {
         "type": "picklist",
@@ -99,67 +99,20 @@
         "type": "reference",
         "description": "A ContentAsset representing a logo for the location."
       },
-      "Longitude": {
-        "type": "double",
-        "description": "The longitude of the location."
-      },
       "Name": {
         "type": "string",
         "description": "The name of the location. For example, Service Van #4."
-      },
-      "OpenDate": {
-        "type": "date",
-        "description": "Date the location opened or came into service."
       },
       "OwnerId": {
         "type": "reference",
         "description": "The location’s owner or driver."
       },
-      "ParentLocationId": {
-        "type": "reference",
-        "description": "The location’s parent location. For example, if vans are stored at a warehouse when not in service, the warehouse is the parent location."
-      },
-      "PickupProcessingTime": {
-        "type": "integer",
-        "description": ""
-      },
-      "PossessionDate": {
-        "type": "date",
-        "description": "The date the location was purchased."
-      },
-      "Priority": {
-        "type": "picklist",
-        "description": "The priority of the location when routing orders. No default values are included. Add values to the picklist and reference them in your custom routing logic."
-      },
-      "RemodelEndDate": {
-        "type": "date",
-        "description": "Date when remodel construction ended at the location."
-      },
-      "RemodelStartDate": {
-        "type": "date",
-        "description": "Date when remodel construction started at the location."
-      },
       "RootLocationId": {
         "type": "reference",
         "description": "(Read Only) The top-level location in the location’s hierarchy."
-      },
-      "ShouldSyncWithOci": {
-        "type": "boolean",
-        "description": "Indicates whether the location should sync its data with Omnichannel Inventory. The default value is false."
-      },
-      "ShouldTrackFoCapacity": {
-        "type": "boolean",
-        "description": "Indicates whether the location should track its fulfillment order capacity. The default value is false."
-      },
-      "TimeZone": {
-        "type": "picklist",
-        "description": "Picklist of available time zones."
-      },
-      "VisitorAddressId": {
-        "type": "reference",
-        "description": "Lookup to an account’s or client’s address."
       }
     },
-    "module": "Field Service Lightning"
+    "module": "Energy and Utilities Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_location.htm"
   }
 }

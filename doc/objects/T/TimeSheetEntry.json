@@ -3,67 +3,52 @@
     "name": "TimeSheetEntry",
     "description": "Represents a span of time that a service resource spends on a field service task.",
     "properties": {
-      "CurrencyIsoCode": {
+      "Category": {
         "type": "picklist",
-        "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code.Time sheet entries inherit their time sheet’s currency code. Updates to a time sheet’s currency code aren’t reflected in existing time sheet entries’ currency code."
+        "description": "The time sheet entry category associated with a work order, work order line item, or a time sheet record."
       },
-      "Description": {
-        "type": "textarea",
-        "description": "Notes on how the time was spent. For example, “This service took longer than normal because the machine was jammed.”"
+      "CostCenterId": {
+        "type": "reference",
+        "description": "The cost center associated with the time sheet entry, if work order and work order line items are not available."
       },
-      "DurationInMinutes": {
-        "type": "int",
-        "description": "Minutes recorded on the time sheet entry."
+      "JobExpenseTypeId": {
+        "type": "reference",
+        "description": "The job expense type associated with the time sheet entry."
       },
-      "EndTime": {
-        "type": "dateTime",
-        "description": "The date and time the activity finished."
-      },
-      "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
-      },
-      "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
-      },
-      "LocationTimeZone": {
+      "UnavailableReason": {
         "type": "picklist",
-        "description": "Time zone of the location where the activity occurred."
+        "description": "Specifies the reason that the service resource is unavailable."
       },
-      "StartTime": {
-        "type": "dateTime",
-        "description": "The date and time the activity began."
+      "VacationType": {
+        "type": "picklist",
+        "description": "Specifies the type of vacation time."
+      },
+      "VehicleDefinitionId": {
+        "type": "reference",
+        "description": "The type of vehicle used by the field service technician, if it is different from the one in the Time Sheet record."
+      },
+      "VehicleId": {
+        "type": "reference",
+        "description": "The service resource's vehicle associated with the time sheet entry."
+      },
+      "": {
+        "type": "",
+        "description": ""
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the time sheet entry. The picklist includes the following values, which can be customized: New Submitted Approved"
+        "description": ""
       },
-      "Subject": {
+      "StatusComment": {
         "type": "string",
-        "description": "Activity performed; for example, repair, lunch, or travel."
+        "description": "The comment added with a status change to a time sheet entry."
       },
-      "TimeSheetEntryNumber": {
-        "type": "string",
-        "description": "An auto-generated number identifying the time sheet entry."
-      },
-      "TimeSheetId": {
-        "type": "reference",
-        "description": "The time sheet associated with the time sheet entry."
-      },
-      "Type": {
-        "type": "picklist",
-        "description": "The type of work performed. The picklist includes the following values, which can be customized: Direct Indirect"
-      },
-      "WorkOrderId": {
-        "type": "reference",
-        "description": "The work order related to the time sheet entry. Work orders are searchable by their content."
-      },
-      "WorkOrderLineItemId": {
-        "type": "reference",
-        "description": "The work order line item related to the time sheet entry. Work order line items are searchable by their content."
+      "TimeBlockSequence": {
+        "type": "int",
+        "description": "The order number of the time sheet entry relative to other time sheet entries, determining the sequence in which the entries are processed or displayed."
       }
     },
-    "module": "Field Service Lightning"
+    "module": "Energy and Utilities Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_timesheetentry.htm"
   }
 }

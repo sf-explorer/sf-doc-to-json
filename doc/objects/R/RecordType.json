@@ -1,41 +1,50 @@
 {
   "RecordType": {
     "name": "RecordType",
-    "description": "Represents a record type.",
+    "description": "Represents a custom record type.",
     "properties": {
       "BusinessProcessId": {
-        "type": "reference",
-        "description": "Required for Opportunity and Lead record types in API version 17.0 and later. ID of an associated BusinessProcess."
+        "type": "ID",
+        "description": "ID of an associated BusinessProcess."
       },
       "Description": {
         "type": "string",
-        "description": "A description of this record. Limit: 255 characters."
+        "description": "The record type description, limited to 255 characters."
       },
-      "DeveloperName": {
+      "EntityDefinitionId": {
         "type": "string",
-        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
+        "description": "The ID of the entity containing the record."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated metadata object in Metadata API."
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this record is active (true) or not (false). Only active record types can be applied to records. Label is Active."
+        "description": "Indicates whether this record is active (true) or not (false). Only active record types can be applied to records."
       },
-      "IsPersonType": {
-        "type": "boolean",
-        "description": "Indicates whether this record has been designated as a person account (true) or not (false). Visible only if the organization has the person account feature enabled."
+      "ManageableState": {
+        "type": "ManageableState enumerated list",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
+      "Metadata": {
+        "type": "RecordTypeMetadata",
+        "description": "Record metadata."
       },
       "Name": {
         "type": "string",
-        "description": "Required. Label of the record type in the user interface. Limit: 80 characters. Label is Record Type Label."
+        "description": "The record type name."
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "A unique string to distinguish this type from any others."
       },
       "SobjectType": {
-        "type": "picklist",
-        "description": "Object to which this record type applies, including custom objects."
+        "type": "string",
+        "description": "The type of standard object that this record type is derived from."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_recordtype.htm"
   }
 }

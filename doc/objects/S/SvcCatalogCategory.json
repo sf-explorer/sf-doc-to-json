@@ -1,33 +1,46 @@
 {
   "SvcCatalogCategory": {
     "name": "SvcCatalogCategory",
-    "description": "Represents a group of Service Catalog items by functional area.",
+    "description": "Represents the grouping of individual catalog items in Service Catalog.",
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "Unique developer name for the catalog item category."
+        "description": "Developer name for this category."
       },
-      "ImageId": {
-        "type": "reference",
-        "description": "Allows a builder to pick an image displayed in the catalog."
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the category. This name has the following requirements: It must be unique across the org. It must contain only alphanumeric characters and underscores. It must begin with a letter. It must not include spaces. It must not end with an underscore. It must not contain two consecutive underscores. Query this field only if the query result contains up to one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Allows service catalog builders to deprecate categories or create in-draft categories."
+        "description": "Indicates if a catalog category is active."
       },
-      "Language": {
+      "ManageableState": {
         "type": "picklist",
-        "description": "Possible values are: da—Danish de—German en_US—English es—Spanish es_MX—Spanish (Mexico) fi—Finnish fr—French it—Italian ja—Japanese ko—Korean nl_NL—Dutch no—Norwegian pt_BR—Portuguese (Brazil) ru—Russian sv—Swedish th—Thai zh_CN—Chinese (Simplified) zh_TW—Chinese (Traditional)"
+        "description": "Describes the manageable state of a category that is contained in a package."
+      },
+      "MasterLabel": {
+        "type": "string",
+        "description": "The primary label for the catalog category record."
+      },
+      "Metadata": {
+        "type": "complexvalue",
+        "description": "The category’s metadata. Query this field only if the query result contains up to one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
+      },
+      "NamespacePrefix": {
+        "type": "string",
+        "description": "The namespace associated with this category."
       },
       "ParentCategoryId": {
         "type": "reference",
-        "description": "Parent category of this category. Allows categories to be grouped up to a max depth of 3."
+        "description": "If provided, the name of another SvcCatalogCategory that this category appears under. The parent category in this field can’t have its own parent category. Categories can’t have more than one level of nesting."
       },
       "SortOrder": {
         "type": "int",
-        "description": "Determines the order that the category is displayed to the end user."
+        "description": "Displays a set order for catalog category entities."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_svccatalogcategory.htm"
   }
 }

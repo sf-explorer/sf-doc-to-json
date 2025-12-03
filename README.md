@@ -1,5 +1,10 @@
 # Salesforce Object Reference
 
+[![npm version](https://img.shields.io/npm/v/@sf-explorer/salesforce-object-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference)
+[![npm downloads](https://img.shields.io/npm/dm/@sf-explorer/salesforce-object-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference)
+[![license](https://img.shields.io/npm/l/@sf-explorer/salesforce-object-reference.svg)](https://github.com/sf-explorer/sf-doc-to-json/blob/main/LICENSE)
+[![node version](https://img.shields.io/node/v/@sf-explorer/salesforce-object-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference)
+
 A dual-purpose npm package that:
 1. **Generates** - Scrapes Salesforce documentation to create structured JSON files
 2. **Exposes** - Provides programmatic access to Salesforce object schemas
@@ -26,9 +31,11 @@ if (account) {
 // 🆕 Get just description and field count (100x faster!)
 const desc = await getObjectDescription('Account');
 if (desc) {
+  console.log(desc.label);        // "Account" - display name
   console.log(desc.description);  // "Represents an individual account..."
   console.log(desc.fieldCount);   // 106
   console.log(desc.keyPrefix);    // "001" - 3-char ID prefix
+  console.log(desc.sourceUrl);    // Official documentation link
 }
 
 // 🆕 Search by description content
@@ -43,6 +50,8 @@ const results = await searchObjectsByDescription('invoice');
 - ✅ Tree-shakeable and async for optimal bundle size
 - ✅ 🆕 **Descriptions API** - access metadata without loading full objects (100x faster!)
 - ✅ 🆕 **Key Prefixes** - 3-character Salesforce record ID prefixes for 1,648+ objects
+- ✅ 🆕 **Object Labels** - User-friendly display names for 1,757+ objects
+- ✅ 🆕 **Source URLs** - Direct links to official Salesforce documentation
 
 ---
 
@@ -113,9 +122,11 @@ if (account) {
 // NEW: Get just the description and field count (much faster!)
 const accountDesc = await getObjectDescription('Account');
 if (accountDesc) {
+  console.log(accountDesc.label);        // "Account"
   console.log(accountDesc.description);  // "Represents an individual account..."
   console.log(accountDesc.fieldCount);   // 106
   console.log(accountDesc.keyPrefix);    // "001"
+  console.log(accountDesc.sourceUrl);    // Official doc link
 }
 
 // Search for objects by name
@@ -320,7 +331,8 @@ if (descriptions) {
 //     description: "Represents an individual account, which is an organization...",
 //     cloud: "Core Salesforce",
 //     fieldCount: 106,
-//     keyPrefix: "001"
+//     keyPrefix: "001",
+//     label: "Account"
 //   },
 //   ...
 // }
@@ -331,6 +343,8 @@ if (descriptions) {
 - `cloud` - Cloud/module name
 - `fieldCount` - Number of fields
 - `keyPrefix` - Optional 3-character Salesforce ID prefix (e.g., "001" for Account)
+- `label` - Optional user-friendly display name
+- `sourceUrl` - Optional link to official Salesforce documentation
 
 **Performance:** Loads ~1.5MB vs ~100MB+ for full objects
 
@@ -343,10 +357,12 @@ Get description and field count for a specific object.
 ```typescript
 const desc = await getObjectDescription('Account');
 if (desc) {
+  console.log(desc.label);        // "Account"
   console.log(desc.description);  // "Represents an individual account..."
   console.log(desc.cloud);        // "Core Salesforce"
   console.log(desc.fieldCount);   // 106
   console.log(desc.keyPrefix);    // "001"
+  console.log(desc.sourceUrl);    // "https://developer.salesforce.com/docs/..."
 }
 ```
 
@@ -365,22 +381,24 @@ const invoiceObjects = await searchObjectsByDescription('invoice');
 // Regex search
 const healthObjects = await searchObjectsByDescription(/patient|health|medical/i);
 
-// Results include name, description, cloud, fieldCount, and keyPrefix
+// Results include name, description, cloud, fieldCount, keyPrefix, and label
 invoiceObjects.forEach(obj => {
-  console.log(`${obj.name} (${obj.cloud}) - ${obj.fieldCount} fields`);
+  console.log(`${obj.label || obj.name} (${obj.cloud}) - ${obj.fieldCount} fields`);
   console.log(`Key Prefix: ${obj.keyPrefix || 'N/A'}`);
   console.log(obj.description);
 });
 ```
 
 **Returns:** Array of objects with:
-- `name` - Object name
+- `name` - Object API name
 - `description` - Full description text
 - `cloud` - Cloud/module name  
 - `fieldCount` - Number of fields
 - `keyPrefix` - Optional 3-character Salesforce ID prefix
+- `label` - Optional user-friendly display name
+- `sourceUrl` - Optional link to official Salesforce documentation
 
-#### `getDescriptionsByCloud(cloudName: string, useCache?: boolean): Promise<Record<string, {description, fieldCount, keyPrefix?}>>`
+#### `getDescriptionsByCloud(cloudName: string, useCache?: boolean): Promise<Record<string, {description, fieldCount, keyPrefix?, label?}>>`
 
 Get descriptions for all objects in a specific cloud.
 
@@ -390,7 +408,7 @@ console.log(Object.keys(fscDescriptions).length); // 238 objects
 
 // Access each object's info
 Object.entries(fscDescriptions).forEach(([name, info]) => {
-  console.log(`${name}: ${info.fieldCount} fields, prefix: ${info.keyPrefix || 'N/A'}`);
+  console.log(`${info.label || name}: ${info.fieldCount} fields, prefix: ${info.keyPrefix || 'N/A'}`);
   console.log(info.description);
 });
 ```

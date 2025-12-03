@@ -1,33 +1,50 @@
 {
   "AssignedResource": {
     "name": "AssignedResource",
-    "description": "Represents a service resource who is assigned to a service appointment in Salesforce Scheduler. Assigned resources appear in the Assigned Resources related list on service appointments.",
+    "description": "Represents a service resource who is assigned to a service appointment in Field Service and Lightning Scheduler. Assigned resources appear in the Assigned Resources related list on service appointments.",
     "properties": {
+      "ActualTravelTime": {
+        "type": "double",
+        "description": "The number of minutes that the service resource needs to travel to the assigned service appointment. You can enter a value with up to two decimal places."
+      },
+      "ApptAssistantInfoUrl": {
+        "type": "textarea",
+        "description": "The URL that contains the status of the mobile worker approaching the service appointment, the Community URL, and the expiry of the URL. Available in version 51.0 and later."
+      },
       "AssignedResourceNumber": {
         "type": "string",
         "description": "An auto-generated number identifying the resource assignment."
       },
-      "EventId": {
-        "type": "reference",
-        "description": "The ID of the event that is added to the assigned resources calendar when the service appointment is created."
+      "EstimatedTravelTime": {
+        "type": "double",
+        "description": "The estimated number of minutes needed for the service resource to travel to the service appointment they’re assigned to. You can enter a value with up to two decimal places."
+      },
+      "LocationStatus": {
+        "type": "picklist",
+        "description": "The status of the mobile worker approaching the service appointment. When the location status changes to one of these values, a status update containing ApptAssistantInfoUrl is sent to the customer. Available in version 51.0 and later."
       },
       "IsPrimaryResource": {
         "type": "boolean",
         "description": "Indicates whether the service resource is a primary resource or not. The default value is false. Available in API version 47.0 and later."
       },
-      "IsRequiredResource": {
-        "type": "boolean",
-        "description": "Indicates whether the service resource is a required resource or not."
-      },
       "ServiceAppointmentId": {
         "type": "reference",
         "description": "The service appointment that the resource is assigned to."
       },
+      "ServiceCrewId": {
+        "type": "reference",
+        "description": "The service crew that the resource is assigned to. Note Since service resources can represent crews or individuals, appointments are typically assigned to crews in the following way: Create a service resource of the Crew type that represent the crew. Create an assigned resource on the service appointment and select the crew resource in the ServiceResourceId field. As an alternative, you can assign appointments to crew members separately. This lets you track each member’s travel time and see a list of the crew members in the Assigned Resources related list. To take this approach, create an assigned resource for each crew member. List the crew member in the ServiceResourceId field and the crew they belong to in the ServiceCrewId field."
+      },
       "ServiceResourceId": {
         "type": "reference",
         "description": "The resource who is assigned to the service appointment."
+      },
+      "Transaction": {
+        "type": "string",
+        "description": "The last transaction ID of the scheduling and optimization request that updated this object. The transaction ID is automatically generated and populated by the Enhanced Scheduling and Optimization engine. Available in API version 63.0 and later."
       }
     },
-    "module": "Scheduler"
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_assignedresource.htm"
   }
 }

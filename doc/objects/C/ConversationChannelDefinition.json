@@ -39,9 +39,9 @@
         "type": "picklist",
         "description": "The system the customer uses to manage consent levels."
       },
-      "ConversationVendorInfoId": {
-        "type": "reference",
-        "description": "The ConversationChannelDefinition.ConversationVendorInfoId value used to link this record to the ConversationVendorInfo record. For example, 0m8000000000000123."
+      "ConversationVendorInfo": {
+        "type": "string",
+        "description": "The ConversationVendorInfo.developerName used to link this record to the ConversationVendorInfo record. For example, PartnerName."
       },
       "customEventChnlAddrIdField": {
         "type": "picklist",
@@ -63,13 +63,13 @@
         "type": "reference",
         "description": "For Bring Your Own Channel for Messaging and Bring Your Own Channel for CCaaS, this field represents the name of the status resource image used to identify the channel integration, such as a channel logo. For the best results, set the image size to 50px x 50px and save the image in SVG file format. This field is optional. Available in API version 61.0 and later."
       },
-      "CustomPlatformEvent": {
-        "type": "picklist",
-        "description": "The API name of the custom platform event created for the Interaction Service API in the format <orgNamespace>__<CustomPlatformEventName>__e. For example, devorg__TestEvent__e."
-      },
       "CustomerConnectedAppOauthLink": {
         "type": "string",
         "description": "DO NOT SET OR CHANGE THIS VALUE. This value is automatically generated. This field represents the OAuth link for the connected app created by an admin if the ConnectedAppType is Customer. Available in API version 62.0."
+      },
+      "CustomPlatformEvent": {
+        "type": "picklist",
+        "description": "The API name of the custom platform event created for the Interaction Service API in the format <orgNamespace>__<CustomPlatformEventName>__e. For example, devorg__TestEvent__e."
       },
       "DeveloperName": {
         "type": "string",
@@ -81,7 +81,7 @@
       },
       "EventCapabilitiesIsProgressIndicatorOptExposed": {
         "type": "boolean",
-        "description": "Reserved for future use."
+        "description": "Indicates whether the partner supports progress indicators for AI agents (true) or whether the partner doesn’t support them and the functionality is hidden from the Salesforce admin in the Messaging settings (false). The default value is false."
       },
       "EventCapabilitiesIsRoutingWorkResultSupported": {
         "type": "boolean",
@@ -91,9 +91,13 @@
         "type": "boolean",
         "description": "Indicates whether the partner doesn’t support typing indicators for outbound messages and the functionality is hidden from the Salesforce admin in the Messaging settings (true) or whether outbound typing indicators are supported by the partner (false). The default value is false, meaning the outbound typing indicator feature is supported by default. To disable the outbound typing indicator feature, set this value to true."
       },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated ConversationChannelDefinition object in Metadata API. The full name is in the format ???_??? and can include a namespace prefix."
+      },
       "IsConferenceSupported": {
         "type": "boolean",
-        "description": "Indicates whether the partner supports conferencing for Bring Your Own Channel (true), or not (false). With conferencing, more than two participants are allowed in a Messaging session. The default is false."
+        "description": "Indicates whether the partner supports conferencing for Bring Your Own Channel (true), or not (false). With conferencing, more than two participants are allowed in a messaging session. The default is false."
       },
       "IsInboundReceiptsEnabled": {
         "type": "boolean",
@@ -107,13 +111,21 @@
         "type": "boolean",
         "description": "Indicates whether the partner doesn’t support typing indicators for outbound messages and the functionality is hidden from the Salesforce admin in the Messaging settings (true) or whether outbound typing indicators are supported by the partner (false). The default value is false, meaning the outbound typing indicator feature is supported by default. To disable the outbound typing indicator feature, set this value to true."
       },
+      "ManageableState": {
+        "type": "ManageableState enumerated list",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta—Managed-Beta deleted—Managed-Proposed-Deleted deprecated—Managed-Proposed-Deprecated deprecatedEditable—SecondGen-Installed-Deprecated installed—Managed-Installed installedEditable—SecondGen-Installed-Editable released—Managed-Released unmanaged—Unmanaged"
+      },
       "MasterLabel": {
         "type": "string",
         "description": "The UI label name for the custom metadata type object in the API. This name appears in several places in the UI, so include the partner channel name for easy identification. For example, Channel Definition 1."
       },
       "MaxParticipantsForCnfrOverride": {
         "type": "int",
-        "description": "Specifies the limit for how many participants can be in a messaging conference. If set, this field overrides the platform limit for the number of participants in a conference. If not set or if set to a value higher than the messaging platform limit, the limit defaults to the messaging platform limit of how many participants can be in a messaging conference at one time."
+        "description": "Specifies the limit for how many participants can be in a messaging conference. If set, this field overrides the platform limit for the number of participants in a conference. If not set, the limit defaults to the messaging platform limit of how many participants can be in a messaging conference at one time."
+      },
+      "Metadata": {
+        "type": "complexvalue",
+        "description": "Metadata about the standard or custom object. Details are available in the CustomObject entry in the metadata namespace in the Tooling API WSDL."
       },
       "NamespacePrefix": {
         "type": "string",
@@ -124,6 +136,7 @@
         "description": "The system the customer uses to manage routing for Bring Your Own Channel for Messaging or Bring Your Own Channel for CCaaS."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_conversationchanneldefinition.htm"
   }
 }

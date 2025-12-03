@@ -1,11 +1,11 @@
 {
   "TransactionSecurityPolicy": {
     "name": "TransactionSecurityPolicy",
-    "description": "Represents a transaction security policy definition.",
+    "description": "",
     "properties": {
       "ActionConfig": {
         "type": "textarea",
-        "description": "Describes the action to take when the matching Transaction Security policy is triggered. Also indicates the type of notifications selected and the ID of the intended recipient. The recipient must be active and assigned the Modify All Data and View Setup user permissions. Multiple actions can be taken. The actions available depend on the Event Type field."
+        "description": "Describes the action to take when the matching Transaction Security policy is triggered. Also indicates the type of notifications selected and the ID of the intended recipient. The recipient must be active and assigned the Modify All Data and View Setup user permissions. Multiple actions can be taken. The actions available depend on the EventType field."
       },
       "ApexPolicyId": {
         "type": "reference",
@@ -13,15 +13,15 @@
       },
       "BlockMessage": {
         "type": "string",
-        "description": "The custom message sent to a user when a policy blocks their action. Used in Real-Time Event Monitoring only. Maximum of 1000 characters. This field is null when the default message option is selected in the UI. Available only when EventName is set to ApiEvent, ListViewEvent, BulkApiResultEventStore, or ReportEvent. Available in API version 49.0 and later.Include org- or policy-specific information in your custom message, such as the name of the responsible administrator or the business unit. Be careful about what you include. Too much information on how the policy was designed. can aid a malicious user. Two-factor authentication (2FA) isn’t supported in Lightning Experience, so events like ListView and ReportEvent are upgraded to Block in Lightning. Custom messages aren’t translatable."
+        "description": "The custom message a user receives when their action is blocked by a policy. Used in Real-Time Event Monitoring only. Maximum of 1000 characters. This field appears as null when the default message option is selected and is available only when EventName is set to ApiEvent, ListViewEvent, and ReportEvent. Available in API version 49.0 and later."
       },
       "CustomEmailContent": {
         "type": "string",
-        "description": "The administrator-created custom email content sent when a policy is triggered. Used in Real-Time Event Monitoring only. Maximum of 1333 characters. This field is null when the Custom Email Content setting is selected in the UI but no message content is entered. This field is available in API version 54.0 and later.Custom messages aren’t translatable."
+        "description": "The administrator-created custom email content sent when a policy is triggered. Used in Real-Time Event Monitoring only. Maximum of 1333 characters. This field is null when the Custom Email Content setting is selected in the UI but no message content is entered. Available in API version 54.0 and later.Custom messages aren’t translatable."
       },
       "Description": {
         "type": "string",
-        "description": "The description entered for this policy."
+        "description": "The description entered for this policy. This field available in API 39.0 and later."
       },
       "DeveloperName": {
         "type": "string",
@@ -29,19 +29,31 @@
       },
       "EventName": {
         "type": "picklist",
-        "description": "Used in Real-Time Event Monitoring only. Indicates the name of the event the policy monitors. Valid values are: ApiEvent—Tracks these user-initiated read-only API calls: query(), queryMore(), and count(). Captures API requests through SOAP API and Bulk API for the Enterprise and Partner WSDLs. Tooling API calls and API calls originating from a Salesforce mobile app aren’t captured. ApiAnomalyEventStore—Tracks anomalies in how users make API calls. ApiAnomalyEventStore is an object that stores the event data of ApiAnomalyEvent. This object is available in API version 50.0 and later. BulkApiResultEventStore—Tracks when a user downloads the results of a Bulk API request. BulkApiResultEventStore is a big object that stores the event data of BulkApiResultEvent. This object is available in API version 50.0 and later. CredentialStuffingEventStore—Tracks when a user successfully logs into Salesforce during an identified credential stuffing attack. Credential stuffing refers to large-scale automated login requests using stolen user credentials.This value is available in API 49.0 and later. FileEventStore—Tracks when a user downloads, previews, or uploads a file. FileEventStore is a big object that stores the event data of FileEvent. This object is available in API version 57.0 and later. GuestUserAnomalyEventStore—Tracks data access anomalies that are caused by guest user permission misconfiguration. GuestUserAnomalyEventStore is an object that stores the event data of GuestUserAnomalyEvent.This object is available in API version 60.0 and later. ListViewEvent—Tracks when users access data with list views using Lightning Experience, Salesforce Classic, or the API. It doesn’t track list views of Setup entities. LoginAnomalyEventStore—Stores the records of data access anomalies that are caused by potentially malicious login actions.This object is available in API version 64.0 and later. LoginAsEvent—Tracks the login activity of admins who log in to Salesforce as other users.This object is available in API version 46.0 and later. LoginEvent—LoginEvent tracks the login activity of users who log in to Salesforce. PermissionSetEventStore—Tracks changes to permission sets and permission set groups. ReportAnomalyEventStore—Tracks anomalies in how users run or export reports, including unsaved reports. This value is available in API 49.0 and later. ReportEvent—Tracks when reports are run in your org. SessionHijackingEventStore—Tracks when unauthorized users gain ownership of a Salesforce user’s session with a stolen session identifier. To detect such an event, Salesforce evaluates how significantly a user’s current browser fingerprint diverges from the previously known fingerprint using a probabilistically inferred significance of change. This value is available in API 49.0 and later."
+        "description": "Used in Real-Time Event Monitoring only. Indicates the name of the event the policy monitors. This field is available in API 31.0 and later. Valid values are: ApiEvent—Tracks these user-initiated read-only API calls: query(), queryMore(), and count(). Captures API requests through SOAP API and Bulk API for the Enterprise and Partner WSDLs. Tooling API calls and API calls originating from a Salesforce mobile app aren’t captured. CredentialStuffingEventStore—Tracks when a user successfully logs into Salesforce during an identified credential stuffing attack. Credential stuffing refers to large-scale automated login requests using stolen user credentials.This value is available in API 49.0 and later. FileEventStore (beta)—Tracks when a user downloads, previews, or uploads a file. FileEventStore is a big object that stores the event data of FileEvent. This object is available in API version 57.0 and later. ListViewEvent—Tracks when users access data with list views using Lightning Experience, Salesforce Classic, or the API. It doesn’t track list views of Setup entities. LoginAnomalyEventStore—Stores the records of data access anomalies that are caused by potentially malicious login actions. LoginAsEvent—Tracks the login activity of admins who log in to Salesforce as other users. This object is available in API version 46.0 and later. LoginEvent—LoginEvent tracks the login activity of users who log in to Salesforce. PermissionSetEventStore—Tracks changes to permission sets and permission set groups. ReportAnomalyEventStore—Tracks anomalies in how users run or export reports, including unsaved reports. This value is available in API 49.0 and later. ReportEvent—Tracks when reports are run in your org. SessionHijackingEventStore—Tracks when unauthorized users gain ownership of a Salesforce user’s session with a stolen session identifier. To detect such an event, Salesforce evaluates how significantly a user’s current browser fingerprint diverges from the previously known fingerprint using a probabilistically inferred significance of change. This value is available in API 49.0 and later."
       },
       "EventType": {
         "type": "picklist",
-        "description": "Used in Legacy Transaction Security only. Indicates the type of event the policy monitors. Valid values are: AccessResource—Notifies you when the selected resource has been accessed. AuditTrail—Reserved for future use. DataExport—Notifies you when any API query is made, such as from the Data Loader API client, or when a Report export occurs. Entity—Notifies you on use of an object type such as an authentication provider or chatter post. Login—Notifies you when a user logs in."
+        "description": "Used in Legacy Transaction Security only. Indicates the type of event the policy monitors. Valid values are: AccessResource—Notifies you when the selected resource has been accessed. AuditTrail—Reserved for future use. DataExport—Notifies you when any API query is made, such as from the Data Loader API client, or when a Report export occurs. Entity—Notifies you on use of an object type such as an authentication provider or chatter post. Login—Notifies you when a user logs in. Note As of Summer '20, Legacy Transaction Security is a retired feature in all Salesforce orgs."
       },
       "ExecutionUserId": {
         "type": "reference",
-        "description": "Used in Legacy Transaction Security only. The ID of an active user who is assigned the Modify All Data and View Setup user permissions. As of Summer '20, Legacy Transaction Security is a retired feature in all Salesforce orgs."
+        "description": "Used in Legacy Transaction Security only. The ID of an active user who is assigned the Modify All Data and View Setup user permissions. Note As of Summer '20, Legacy Transaction Security is a retired feature in all Salesforce orgs."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated object in the Metadata API. Use to avoid race conditions on create, before you have IDs."
+      },
+      "ManageableState": {
+        "type": "ManageableState enumerated list",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       },
       "MasterLabel": {
         "type": "string",
         "description": "The policy’s name. Important Where possible, we changed noninclusive terms to align with our company value of Equality. We maintained certain terms to avoid any effect on customer implementations."
+      },
+      "Metadata": {
+        "type": "mns:TransactionSecurityPolicy",
+        "description": "The policy’s metadata. See the Metadata API Developer Guide for details."
       },
       "NamespacePrefix": {
         "type": "string",
@@ -49,7 +61,7 @@
       },
       "ResourceName": {
         "type": "string",
-        "description": "Used in Legacy Transaction Security only. A resource used to narrow down the conditions under which the policy triggers. For example, with a DataExport event, you can select a resource Lead to specifically monitor export activity occurring on your Lead entities. The resources available depend on the EventType field."
+        "description": "Used in Legacy Transaction Security only. A resource used to narrow down the conditions under which the policy triggers. For example, with a DataExport event, you can select a resource Lead to specifically monitor export activity occurring on your Lead entities. The resources available depend on the EventType field. Note As of Summer '20, Legacy Transaction Security is a retired feature in all Salesforce orgs."
       },
       "State": {
         "type": "picklist",
@@ -57,9 +69,10 @@
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of validation that the policy uses. The valid values are: CustomApexPolicy— Created with Apex editor. CustomConditionBuilderPolicy— Created with Condition Builder ."
+        "description": "The type of validation that the policy uses. The valid values are: CustomApexPolicy— Created with Apex editor. CustomConditionBuilderPolicy— Created with Condition Builder The default value is CustomApexPolicy."
       }
     },
-    "module": "Core Salesforce"
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_transactionsecurity.htm"
   }
 }
