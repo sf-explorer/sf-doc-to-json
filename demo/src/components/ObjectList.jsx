@@ -1,10 +1,13 @@
 import React, { useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import { Box, Chip } from '@mui/material';
+import { Box, Chip, useMediaQuery, useTheme } from '@mui/material';
 import SalesforceIcon from './SalesforceIcon';
 import CloudIcon from './CloudIcon';
 
 const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMetadata = {} }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  
   const columns = useMemo(
     () => [
       {
@@ -32,6 +35,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         accessorKey: 'keyPrefix',
         header: 'Prefix',
         size: 80,
+        enableHiding: true,
         Cell: ({ cell }) => {
           const prefix = cell.getValue();
           return prefix ? (
@@ -67,6 +71,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         accessorKey: 'description',
         header: 'Description',
         size: 300,
+        enableHiding: true,
         Cell: ({ cell }) => {
           const description = cell.getValue();
           return description ? (
@@ -120,6 +125,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         accessorKey: 'fieldCount',
         header: 'Fields',
         size: 80,
+        enableHiding: true,
         Cell: ({ cell }) => (
           <Box sx={{ textAlign: 'center', fontWeight: 600 }}>
             {cell.getValue()}
@@ -130,6 +136,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         accessorKey: 'cloud',
         header: 'Cloud',
         size: 150,
+        enableHiding: true,
         Cell: ({ cell }) => {
           const cloudName = cell.getValue();
           const friendlyName = cloudName
@@ -153,7 +160,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         },
       },
     ],
-    []
+    [isMobile]
   );
 
   return (
@@ -162,7 +169,13 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
       data={objects}
       state={{ 
         isLoading: loading,
-        rowSelection: selectedObject ? { [objects.indexOf(selectedObject)]: true } : {}
+        rowSelection: selectedObject ? { [objects.indexOf(selectedObject)]: true } : {},
+        columnVisibility: isMobile ? {
+          keyPrefix: false,
+          description: false,
+          fieldCount: false,
+          cloud: false,
+        } : {}
       }}
       enableRowSelection={false}
       enableColumnActions={true}
@@ -170,11 +183,12 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
       enablePagination={true}
       enableSorting={true}
       enableGlobalFilter={true}
-      enableGrouping={true}
-      enableColumnDragging={true}
+      enableGrouping={false}
+      enableColumnDragging={!isMobile}
+      enableHiding={true}
       initialState={{ 
-        density: 'compact',
-        pagination: { pageSize: 15, pageIndex: 0 }
+        density: isMobile ? 'compact' : 'comfortable',
+        pagination: { pageSize: isMobile ? 10 : 15, pageIndex: 0 }
       }}
       muiTableBodyRowProps={({ row }) => ({
         onClick: () => onObjectSelect(row.original),
@@ -184,11 +198,21 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
           '&:hover': {
             backgroundColor: '#f3f2f2',
           },
+          // Better touch targets on mobile
+          '@media (max-width: 900px)': {
+            '& td': {
+              padding: '12px 8px !important',
+            }
+          }
         },
       })}
       muiTableProps={{
         sx: {
           tableLayout: 'fixed',
+          // Improve horizontal scrolling on mobile
+          '@media (max-width: 900px)': {
+            minWidth: '100%',
+          }
         },
       }}
       muiTableHeadCellProps={{
@@ -208,16 +232,44 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         },
       }}
       muiSearchTextFieldProps={{
-        placeholder: 'Search objects...',
+        placeholder: isMobile ? 'Search...' : 'Search objects...',
         variant: 'outlined',
         size: 'small',
+        sx: {
+          '@media (max-width: 900px)': {
+            minWidth: '100px',
+            '& input': {
+              fontSize: '14px',
+            }
+          }
+        }
       }}
       muiTopToolbarProps={{
         sx: {
           backgroundColor: '#fafaf9',
           borderRadius: '4px',
           marginBottom: '1rem',
+          '@media (max-width: 900px)': {
+            padding: '8px',
+            marginBottom: '0.5rem',
+            flexWrap: 'wrap',
+            gap: '8px',
+          }
         },
+      }}
+      muiBottomToolbarProps={{
+        sx: {
+          '@media (max-width: 900px)': {
+            padding: '8px',
+            '& .MuiTablePagination-root': {
+              fontSize: '0.75rem',
+            },
+            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+              fontSize: '0.75rem',
+              marginBottom: 0,
+            }
+          }
+        }
       }}
     />
   );

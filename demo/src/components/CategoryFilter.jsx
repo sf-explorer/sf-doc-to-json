@@ -100,9 +100,25 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
   };
 
   return (
-    <Box sx={{ mb: 2, p: 2, backgroundColor: '#fafaf9', borderRadius: '4px' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#080707' }}>
+    <Box sx={{ 
+      mb: 2, 
+      p: { xs: 1, sm: 2 }, 
+      backgroundColor: '#fafaf9', 
+      borderRadius: '4px' 
+    }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        mb: 1,
+        flexWrap: 'wrap',
+        gap: 1
+      }}>
+        <Typography variant="subtitle2" sx={{ 
+          fontWeight: 700, 
+          color: '#080707',
+          fontSize: { xs: '0.875rem', sm: '1rem' }
+        }}>
           Filter by Cloud / Category
         </Typography>
         {selectedCategories.length > 0 && (
@@ -113,12 +129,13 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
             sx={{ 
               cursor: 'pointer',
               fontSize: '0.75rem',
-              fontWeight: 600
+              fontWeight: 600,
+              minHeight: '32px', // Better touch target
             }}
           />
         )}
       </Box>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 0.5, sm: 0.75 } }}>
         {categories.map((category) => {
           const isSelected = selectedCategories.includes(category);
           return (

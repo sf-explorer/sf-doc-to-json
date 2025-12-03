@@ -4,8 +4,11 @@ import ObjectExplorer from './components/ObjectExplorer';
 import './App.css';
 
 function App() {
+  // Get the base URL from Vite's environment
+  const baseUrl = import.meta.env.BASE_URL;
+  
   return (
-    <ComponentSettings assetRoot="/assets">
+    <ComponentSettings assetRoot={`${baseUrl}assets`}>
       <div className="slds-scope">
       <div className="slds-page-header">
         <div className="slds-page-header__row">
@@ -14,7 +17,7 @@ function App() {
               <div className="slds-media__figure">
                 <span className="slds-icon_container slds-icon-standard-dataset">
                   <svg className="slds-icon slds-page-header__icon" aria-hidden="true">
-                    <use xlinkHref="/assets/icons/standard-sprite/svg/symbols.svg#dataset"></use>
+                    <use xlinkHref={`${baseUrl}assets/icons/standard-sprite/svg/symbols.svg#dataset`}></use>
                   </svg>
                 </span>
               </div>
