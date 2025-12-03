@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box, Chip, Typography, Tooltip } from '@mui/material';
+import CloudIcon from './CloudIcon';
 
-const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, cloudDescriptions = {} }) => {
+const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, cloudMetadata = {} }) => {
   const handleToggle = (category) => {
     const currentIndex = selectedCategories.indexOf(category);
     const newSelected = [...selectedCategories];
@@ -47,11 +48,11 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
     return nameMap[cloudName] || cloudName;
   };
 
-  // Get cloud description - use prop if available, otherwise fallback to hardcoded
+  // Get cloud description - use metadata prop if available
   const getCloudDescription = (cloudName) => {
-    // Try to get from prop first
-    if (cloudDescriptions[cloudName]) {
-      return cloudDescriptions[cloudName];
+    // Try to get from metadata first
+    if (cloudMetadata[cloudName]?.description) {
+      return cloudMetadata[cloudName].description;
     }
     
     // Fallback to hardcoded descriptions
@@ -137,6 +138,7 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
               }}
             >
               <Chip
+                icon={<CloudIcon cloudName={category} size={16} metadata={cloudMetadata[category]} />}
                 label={getFriendlyName(category)}
                 onClick={() => handleToggle(category)}
                 color={isSelected ? getCategoryColor(category) : 'default'}

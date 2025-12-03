@@ -14,6 +14,8 @@ export interface ExistingObject {
   sourceUrl?: string;
   keyPrefix?: string;
   label?: string;
+  iconUrl?: string;
+  iconColor?: string;
 }
 
 export interface ExistingProperty {
@@ -49,6 +51,8 @@ export function mergeWithExisting(
         module: 'N/A',
         ...(newSchema['x-salesforce']?.keyPrefix && { keyPrefix: newSchema['x-salesforce'].keyPrefix }),
         ...(newSchema['x-salesforce']?.label && { label: newSchema['x-salesforce'].label }),
+        ...(newSchema['x-salesforce']?.iconUrl && { iconUrl: newSchema['x-salesforce'].iconUrl }),
+        ...(newSchema['x-salesforce']?.iconColor && { iconColor: newSchema['x-salesforce'].iconColor }),
         ...(newSchema['x-salesforce']?.custom !== undefined && { 
           sourceUrl: newSchema['x-salesforce'].custom 
             ? undefined 
@@ -138,6 +142,9 @@ export function mergeWithExisting(
       sourceUrl: existing.sourceUrl, // Keep existing sourceUrl
       ...(newSchema['x-salesforce']?.keyPrefix && { keyPrefix: newSchema['x-salesforce'].keyPrefix }),
       ...(existing.label && { label: existing.label }),
+      // Add icon metadata from UI API
+      ...(newSchema['x-salesforce']?.iconUrl && { iconUrl: newSchema['x-salesforce'].iconUrl }),
+      ...(newSchema['x-salesforce']?.iconColor && { iconColor: newSchema['x-salesforce'].iconColor }),
       // Add Salesforce metadata
       ...(newSchema['x-salesforce'] && {
         createable: newSchema['x-salesforce'].createable,

@@ -24,6 +24,7 @@ export interface ObjectIndexEntry {
     keyPrefix?: string;
     label?: string;
     sourceUrl?: string;
+    icon?: string;
 }
 
 export interface DocumentIndex {

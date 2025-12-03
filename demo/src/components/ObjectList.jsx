@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import { Box, Chip } from '@mui/material';
 import SalesforceIcon from './SalesforceIcon';
+import CloudIcon from './CloudIcon';
 
-const ObjectList = ({ objects, loading, onObjectSelect, selectedObject }) => {
+const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMetadata = {} }) => {
   const columns = useMemo(
     () => [
       {
@@ -13,8 +14,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject }) => {
         enableSorting: false,
         Cell: ({ row }) => (
           <SalesforceIcon 
-            category={row.original.category}
-            objectName={row.original.apiName}
+            objectData={row.original}
           />
         ),
       },
@@ -73,13 +73,15 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject }) => {
             <Box 
               sx={{ 
                 fontSize: '0.813rem',
+                whiteSpace: 'normal',
                 color: '#3e3e3c',
-                lineHeight: 1.4,
+                lineHeight: 1.5,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 display: '-webkit-box',
-                WebkitLineClamp: 2,
+                WebkitLineClamp: 3,
                 WebkitBoxOrient: 'vertical',
+                wordBreak: 'break-word'
               }}
             >
               {description}
@@ -134,16 +136,19 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject }) => {
             .replace(/-/g, ' ')
             .replace(/\b\w/g, l => l.toUpperCase());
           return (
-            <Chip 
-              label={friendlyName} 
-              size="small"
-              variant="outlined"
-              sx={{ 
-                borderRadius: '4px',
-                fontWeight: 500,
-                fontSize: '0.7rem'
-              }}
-            />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <CloudIcon cloudName={cloudName} metadata={cloudMetadata[cloudName]} size={20} />
+              <Chip 
+                label={friendlyName} 
+                size="small"
+                variant="outlined"
+                sx={{ 
+                  borderRadius: '4px',
+                  fontWeight: 500,
+                  fontSize: '0.7rem'
+                }}
+              />
+            </Box>
           );
         },
       },
@@ -198,6 +203,8 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject }) => {
         sx: {
           fontSize: '0.875rem',
           borderBottom: '1px solid #f3f2f2',
+          overflow: 'hidden',
+          padding: '8px 16px',
         },
       }}
       muiSearchTextFieldProps={{

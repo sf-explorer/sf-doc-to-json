@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import { Box, Chip, Typography } from '@mui/material';
 import NestedSchemaDisplay from './NestedSchemaDisplay';
+import CloudIcon from './CloudIcon';
 
-const FieldDetail = ({ object, onObjectSelect, availableObjects }) => {
+const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata = {} }) => {
   // Check if this is a metadata object (has nested schemas)
   const isMetadataObject = useMemo(() => {
     return object?.cloud === 'Metadata API' || object?.module === 'Metadata API';
@@ -242,7 +243,13 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects }) => {
               sx={{ 
                 fontSize: '0.813rem',
                 color: '#3e3e3c',
-                lineHeight: 1.4
+                lineHeight: 1.6,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                wordBreak: 'break-word'
               }}
             >
               {description}
@@ -363,9 +370,16 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects }) => {
             <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
               Cloud:
             </Typography>
-            <Typography variant="body2">
-              {object.cloud ? object.cloud.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'N/A'}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
+              <CloudIcon 
+                cloudName={object.cloud} 
+                metadata={cloudMetadata[object.cloud]} 
+                size={18} 
+              />
+              <Typography variant="body2">
+                {object.cloud ? object.cloud.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'N/A'}
+              </Typography>
+            </Box>
           </Box>
           <Box>
             <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
@@ -391,7 +405,16 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects }) => {
             <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
               Description:
             </Typography>
-            <Typography variant="body2" sx={{ mt: 0.5 }}>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                mt: 0.5,
+                lineHeight: 1.6,
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+                maxWidth: '100%'
+              }}
+            >
               {object.description}
             </Typography>
           </Box>

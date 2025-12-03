@@ -11,7 +11,7 @@ const ObjectExplorer = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [loadingObjectDetails, setLoadingObjectDetails] = useState(false);
-  const [cloudDescriptions, setCloudDescriptions] = useState({});
+  const [cloudMetadata, setCloudMetadata] = useState({});
   const [navigationHistory, setNavigationHistory] = useState([]);
 
   useEffect(() => {
@@ -19,18 +19,27 @@ const ObjectExplorer = () => {
     const loadObjects = async () => {
       try {
         // Import the salesforce object reference package
-        // Use loadAllDescriptions() instead of loadAllClouds() to avoid loading full object data
-        const { loadAllDescriptions } = await import('@sf-explorer/salesforce-object-reference');
+        const { loadAllDescriptions, getAllCloudMetadata } = await import('@sf-explorer/salesforce-object-reference');
+        
+        // Load cloud metadata (includes emoji and iconFile)
+        const clouds = await getAllCloudMetadata();
+        const cloudMap = {};
+        clouds.forEach(cloud => {
+          cloudMap[cloud.cloud] = cloud;
+        });
+        setCloudMetadata(cloudMap);
+        
+        // Load object descriptions
         const descriptionsData = await loadAllDescriptions();
         
         // Convert descriptions to array format
         const allObjects = [];
-        const cloudDescMap = {};
         
         if (descriptionsData) {
           for (const [objectName, metadata] of Object.entries(descriptionsData)) {
             allObjects.push({
               apiName: objectName,
+              name: objectName, // Add name property for icon matching
               label: metadata.label || objectName,
               pluralLabel: objectName,
               keyPrefix: metadata.keyPrefix || '',
@@ -41,55 +50,12 @@ const ObjectExplorer = () => {
               fieldCount: metadata.fieldCount,
               module: metadata.cloud,
               cloud: metadata.cloud,
-              sourceUrl: metadata.sourceUrl
+              sourceUrl: metadata.sourceUrl,
+              icon: metadata.icon // Add icon property
             });
           }
         }
 
-        // Load cloud descriptions from cloud JSON files
-        try {
-          const cloudFiles = [
-            'core-salesforce',
-            'financial-services-cloud',
-            'health-cloud',
-            'education-cloud',
-            'nonprofit-cloud',
-            'manufacturing-cloud',
-            'automotive-cloud',
-            'consumer-goods-cloud',
-            'energy-and-utilities-cloud',
-            'field-service-lightning',
-            'loyalty',
-            'net-zero-cloud',
-            'public-sector-cloud',
-            'sales-cloud',
-            'service-cloud',
-            'scheduler',
-            'feedback-management',
-            'revenue-lifecycle-management',
-            'tooling-api',
-            'metadata'
-          ];
-
-          await Promise.all(
-            cloudFiles.map(async (cloudFile) => {
-              try {
-                const cloudModule = await import(/* @vite-ignore */ `@sf-explorer/salesforce-object-reference/doc/${cloudFile}.json`);
-                const cloudData = cloudModule.default || cloudModule;
-                if (cloudData && cloudData.description) {
-                  cloudDescMap[cloudFile] = cloudData.description;
-                }
-              } catch (err) {
-                // Ignore if file not found
-                console.debug(`Cloud file not found: ${cloudFile}`);
-              }
-            })
-          );
-        } catch (error) {
-          console.debug('Could not load cloud descriptions:', error);
-        }
-
-        setCloudDescriptions(cloudDescMap);
         setObjects(allObjects);
         setLoading(false);
       } catch (error) {
@@ -228,13 +194,14 @@ const ObjectExplorer = () => {
               categories={categories}
               selectedCategories={selectedCategories}
               onCategoryChange={setSelectedCategories}
-              cloudDescriptions={cloudDescriptions}
+              cloudMetadata={cloudMetadata}
             />
             <ObjectList 
               objects={filteredObjects} 
               loading={loading}
               onObjectSelect={handleObjectSelect} 
               selectedObject={selectedObject}
+              cloudMetadata={cloudMetadata}
             />
           </>
         ) : loadingObjectDetails ? (
@@ -253,6 +220,7 @@ const ObjectExplorer = () => {
             object={selectedObject} 
             onObjectSelect={handleObjectSelect}
             availableObjects={objects}
+            cloudMetadata={cloudMetadata}
           />
         )}
       </div>

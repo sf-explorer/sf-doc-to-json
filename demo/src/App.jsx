@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { ComponentSettings } from 'react-lightning-design-system';
 import ObjectExplorer from './components/ObjectExplorer';
 import './App.css';
 
 function App() {
   return (
-    <div className="slds-scope">
+    <ComponentSettings assetRoot="/assets">
+      <div className="slds-scope">
       <div className="slds-page-header">
         <div className="slds-page-header__row">
           <div className="slds-page-header__col-title">
@@ -52,6 +54,7 @@ function App() {
         <ObjectExplorer />
       </div>
     </div>
+    </ComponentSettings>
   );
 }
 

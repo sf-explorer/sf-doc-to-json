@@ -55,6 +55,19 @@ export interface PicklistValue {
   value: string;
 }
 
+export interface IconInfo {
+  contentType?: string;
+  height?: number;
+  width?: number;
+  theme?: string;
+  url?: string;
+}
+
+export interface ThemeInfo {
+  color?: string;
+  iconUrl?: string;
+}
+
 export interface DescribeSObjectResult {
   name: string;
   label: string;
@@ -71,6 +84,8 @@ export interface DescribeSObjectResult {
   searchable: boolean;
   activateable: boolean;
   deprecatedAndHidden: boolean;
+  // Icon metadata (from UI API)
+  themeInfo?: ThemeInfo;
 }
 
 export interface ChildRelationship {
@@ -123,6 +138,9 @@ export interface JsonSchema {
     deletable: boolean;
     queryable: boolean;
     searchable: boolean;
+    // Icon metadata
+    iconUrl?: string;
+    iconColor?: string;
   };
   'x-child-relations'?: Array<{
     childObject: string;

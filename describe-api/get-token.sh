@@ -49,12 +49,25 @@ if [ $? -ne 0 ]; then
 fi
 
 # Extract access token and instance URL
-ACCESS_TOKEN=$(echo "$ORG_INFO" | grep -o '"accessToken":"[^"]*"' | cut -d'"' -f4)
-INSTANCE_URL=$(echo "$ORG_INFO" | grep -o '"instanceUrl":"[^"]*"' | cut -d'"' -f4)
+# Try parsing JSON with jq if available, otherwise use grep
+if command -v jq &> /dev/null; then
+    ACCESS_TOKEN=$(echo "$ORG_INFO" | jq -r '.result.accessToken // empty')
+    INSTANCE_URL=$(echo "$ORG_INFO" | jq -r '.result.instanceUrl // empty')
+else
+    # Fallback to grep (less reliable but works without jq)
+    ACCESS_TOKEN=$(echo "$ORG_INFO" | grep -o '"accessToken"\s*:\s*"[^"]*"' | sed 's/.*"\([^"]*\)".*/\1/')
+    INSTANCE_URL=$(echo "$ORG_INFO" | grep -o '"instanceUrl"\s*:\s*"[^"]*"' | sed 's/.*"\([^"]*\)".*/\1/')
+fi
 
 if [ -z "$ACCESS_TOKEN" ] || [ -z "$INSTANCE_URL" ]; then
     echo "❌ Could not extract access token or instance URL"
+    echo ""
+    echo "Raw JSON response:"
     echo "$ORG_INFO"
+    echo ""
+    echo "💡 Tip: Install jq for better JSON parsing:"
+    echo "  brew install jq  # macOS"
+    echo "  apt install jq   # Linux"
     exit 1
 fi
 

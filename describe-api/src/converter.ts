@@ -174,6 +174,16 @@ export function convertToJsonSchema(
       searchable: describe.searchable,
     };
 
+    // Add icon metadata from UI API if available
+    if (describe.themeInfo) {
+      if (describe.themeInfo.iconUrl) {
+        schema['x-salesforce'].iconUrl = describe.themeInfo.iconUrl;
+      }
+      if (describe.themeInfo.color) {
+        schema['x-salesforce'].iconColor = describe.themeInfo.color;
+      }
+    }
+
     // Add child relationships if present
     if (describe.childRelationships && describe.childRelationships.length > 0) {
       schema['x-child-relations'] = describe.childRelationships

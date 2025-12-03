@@ -6,6 +6,7 @@ import { Connection } from 'jsforce';
 import type {
   SalesforceConnection,
   DescribeSObjectResult,
+  ThemeInfo,
 } from './types.js';
 
 /**
@@ -91,6 +92,57 @@ export class SalesforceDescribeClient {
 
     const describe = await this.conn.sobject(objectName).describe();
     return describe as DescribeSObjectResult;
+  }
+
+  /**
+   * Get UI API object info including icon metadata
+   * Uses the UI API which provides theme and icon information
+   */
+  async getObjectInfoWithIcons(objectName: string): Promise<DescribeSObjectResult> {
+    if (!this.conn) {
+      throw new Error('Not connected to Salesforce. Call connect() first.');
+    }
+
+    try {
+      // First get standard describe info
+      const describe = await this.describeObject(objectName);
+      
+      // Then try to get UI API data for icon info
+      try {
+        const uiApiUrl = `/services/data/v${this.conn.version || '60.0'}/ui-api/object-info/${objectName}`;
+        const uiResponse = await this.conn.request<any>(uiApiUrl);
+        
+        // Add theme info (includes icon data)
+        if (uiResponse.themeInfo) {
+          describe.themeInfo = {
+            color: uiResponse.themeInfo.color,
+            iconUrl: uiResponse.themeInfo.iconUrl,
+          };
+        }
+      } catch (uiError) {
+        // UI API might not be available or object might not support it
+        // This is not a fatal error - we still have the basic describe data
+        console.warn(`Could not fetch UI API data for ${objectName}:`, (uiError as Error).message);
+      }
+      
+      return describe;
+    } catch (error) {
+      throw new Error(`Failed to describe ${objectName}: ${(error as Error).message}`);
+    }
+  }
+
+  /**
+   * Get describe information for multiple objects with icon data
+   */
+  async describeObjectsWithIcons(objectNames: string[]): Promise<DescribeSObjectResult[]> {
+    if (!this.conn) {
+      throw new Error('Not connected to Salesforce. Call connect() first.');
+    }
+
+    const results = await Promise.all(
+      objectNames.map(name => this.getObjectInfoWithIcons(name))
+    );
+    return results;
   }
 
   /**
@@ -212,7 +264,7 @@ export class SalesforceDescribeClient {
       }
 
       try {
-        const describe = await this.describeObject(obj.name);
+        const describe = await this.getObjectInfoWithIcons(obj.name);
         
         // Convert to JSON Schema immediately
         const schema = convertToJsonSchema(describe, includeMetadata);

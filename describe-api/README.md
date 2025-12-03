@@ -10,6 +10,7 @@ This package connects directly to your Salesforce org to get accurate, up-to-dat
 - ✅ **Real picklist values** (as `enum` arrays)
 - ✅ **Relationship fields** (`x-object` for lookups, `x-objects` for polymorphic)
 - ✅ **Field constraints** (maxLength, nullable, readOnly, etc.)
+- ✅ **Icon metadata** (icon URLs and theme colors from UI API)
 - ✅ **JSON Schema standard** format for easy integration
 
 Unlike documentation scraping, this gives you the **exact configuration** of your org.
@@ -283,6 +284,13 @@ for (const [field, prop] of Object.entries(account.properties)) {
     console.log(`  ${field}: ${prop.enum.join(', ')}`);
   }
 }
+
+// Show icon metadata
+if (account['x-salesforce']?.iconUrl) {
+  console.log('\nIcon:');
+  console.log(`  URL: ${account['x-salesforce'].iconUrl}`);
+  console.log(`  Color: #${account['x-salesforce'].iconColor}`);
+}
 ```
 
 ### Example 3: Save All Objects
@@ -376,6 +384,27 @@ If you hit rate limits:
 - Reduce `batchSize` to fetch fewer objects at once
 - Increase delays between requests
 - Fetch specific objects instead of all objects
+
+## Icon Metadata
+
+The tool now captures icon information from the Salesforce UI API, including:
+- **Icon URL**: Full URL to the object's icon image
+- **Icon Color**: Hex color code for the object's theme
+
+See [ICON_METADATA.md](./ICON_METADATA.md) for detailed documentation including:
+- How icon capture works
+- Usage examples with React and vanilla JavaScript
+- Fallback strategies when icons are unavailable
+- Troubleshooting guide
+
+Quick example:
+```typescript
+const account = schemas.Account;
+if (account['x-salesforce']?.iconUrl) {
+  console.log(`Icon: ${account['x-salesforce'].iconUrl}`);
+  console.log(`Color: #${account['x-salesforce'].iconColor}`);
+}
+```
 
 ## License
 

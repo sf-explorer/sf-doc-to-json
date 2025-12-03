@@ -292,19 +292,112 @@ export async function getAvailableClouds(useCache = true): Promise<string[]> {
 }
 
 /**
+ * Cloud metadata including description, emoji, and icon file
+ */
+export interface CloudMetadata {
+    cloud: string;
+    description: string;
+    emoji?: string;
+    iconFile?: string | null;
+    objectCount: number;
+}
+
+/**
+ * Get metadata for all clouds including emoji and iconFile
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Array of cloud metadata objects
+ */
+export async function getAllCloudMetadata(useCache = true): Promise<CloudMetadata[]> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return [];
+    }
+    
+    // Get unique cloud names
+    const cloudNames = new Set(Object.values(index.objects).map(entry => entry.cloud));
+    
+    // Load metadata for each cloud
+    const cloudMetadata: CloudMetadata[] = [];
+    
+    for (const cloudName of cloudNames) {
+        // Convert cloud name to file name (lowercase with dashes)
+        const cloudFileName = cloudName
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '');
+        
+        try {
+            // Load the cloud file to get its metadata
+            const cloudFile = await import(`../doc/${cloudFileName}.json`);
+            const cloudData = cloudFile.default || cloudFile;
+            
+            cloudMetadata.push({
+                cloud: cloudData.cloud,
+                description: cloudData.description || '',
+                emoji: cloudData.emoji,
+                iconFile: cloudData.iconFile,
+                objectCount: cloudData.objectCount || 0
+            });
+        } catch (error) {
+            // If cloud file not found, just include the name
+            cloudMetadata.push({
+                cloud: cloudName,
+                description: '',
+                objectCount: 0
+            });
+        }
+    }
+    
+    return cloudMetadata.sort((a, b) => a.cloud.localeCompare(b.cloud));
+}
+
+/**
+ * Get metadata for a specific cloud
+ * @param cloudName - The cloud name (e.g., "Financial Services Cloud")
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Cloud metadata or null if not found
+ */
+export async function getCloudMetadata(
+    cloudName: string,
+    useCache = true
+): Promise<CloudMetadata | null> {
+    // Convert cloud name to file name
+    const cloudFileName = cloudName
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '');
+    
+    try {
+        const cloudFile = await import(`../doc/${cloudFileName}.json`);
+        const cloudData = cloudFile.default || cloudFile;
+        
+        return {
+            cloud: cloudData.cloud,
+            description: cloudData.description || '',
+            emoji: cloudData.emoji,
+            iconFile: cloudData.iconFile,
+            objectCount: cloudData.objectCount || 0
+        };
+    } catch (error) {
+        return null;
+    }
+}
+
+/**
  * Load all object descriptions without loading full object data
  * This is much more efficient when you only need descriptions
  * @param useCache - Whether to use cached data (default: true)
  * @returns Object mapping object names to their descriptions and metadata
  */
-export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string }> | null> {
+export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string }> | null> {
     const index = await loadIndex(useCache);
     
     if (!index) {
         return null;
     }
 
-    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string }> = {};
+    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
         descriptions[name] = {
@@ -313,7 +406,8 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
             fieldCount: entry.fieldCount,
             keyPrefix: entry.keyPrefix,
             label: entry.label,
-            sourceUrl: entry.sourceUrl
+            sourceUrl: entry.sourceUrl,
+            icon: entry.icon
         };
     }
     
