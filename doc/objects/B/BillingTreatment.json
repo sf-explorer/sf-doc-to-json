@@ -1,42 +1,46 @@
 {
   "BillingTreatment": {
     "name": "BillingTreatment",
-    "description": "Defines how Subscription Management bills an order item. The Exclude From Billing field controls whether the order item is invoiced. Child billing treatment items control how much of the order item's balance is invoiced for each invoice across the subscription's lifecycle. Billing treatments are assigned to order items based on the parent billing policy's Billing Treatment Selection field.",
+    "description": "Represents information about the billing of an order item.",
     "properties": {
       "BillingPolicyId": {
         "type": "reference",
-        "description": "The ID of the billing policy for the billing treatment."
+        "description": "The billing policy that's related to the billing treatment."
       },
       "Description": {
         "type": "textarea",
-        "description": "Optional user-defined description of the billing treatment."
+        "description": "Additional details about the billing treatment."
       },
       "ExcludeFromBilling": {
         "type": "picklist",
-        "description": "Excludes any order items assigned to the treatment from creating billing schedules."
+        "description": "Required. Specifies whether any order items assigned to the treatment are excluded from billing."
+      },
+      "IsMilestoneBilling": {
+        "type": "boolean",
+        "description": "Required. Indicates whether the billing treatment is for milestone billing (true) or not (false)."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed a billing treatment indirectly, for example, through a list view or related record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed a billing treatment. If this value is null, it’s possible that the user only accessed the billing treatment or a related list view (LastReferencedDate), but not viewed the billing treatment itself."
       },
       "LegalEntityId": {
         "type": "reference",
-        "description": "The ID of the legal entity used to assign the treatment to order items when the parent billing policy's BillingTreatmentSelection is LegalEntity."
+        "description": "The legal entity that's used to assign the treatment to order items when the parent billing policy's BillingTreatmentSelection field value is LegalEntity."
       },
       "Name": {
         "type": "string",
-        "description": "Optional user-defined name for the billing treatment."
+        "description": "Required. The name of the billing treatment."
       },
       "Status": {
         "type": "picklist",
-        "description": "Draft or inactive billing treatments can't be assigned to order items."
+        "description": "Required. The status of the billing treatment."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_billingtreatment.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_billingtreatment.htm"
   }
 }

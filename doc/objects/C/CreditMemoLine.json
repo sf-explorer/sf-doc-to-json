@@ -1,63 +1,95 @@
 {
   "CreditMemoLine": {
     "name": "CreditMemoLine",
-    "description": "Represents product, service, adjustment, or tax line items that were included in a credit memo.",
+    "description": "Represents the product, service, adjustment, or tax line items included in a credit memo.",
     "properties": {
       "AdjustmentAmount": {
         "type": "currency",
-        "description": "Amount of this credit memo line item if its type is Adjustment."
+        "description": "The amount of this credit memo line item if its type is Adjustment."
       },
       "AdjustmentAmountWithTax": {
         "type": "currency",
-        "description": "Sum of the adjustment amount and the adjustment tax amount."
+        "description": "The sum of the adjustment amount and the adjustment tax amount. Available in API versions 62.0 and 63.0."
       },
       "AdjustmentTaxAmount": {
         "type": "currency",
-        "description": "Amount of the tax related to the adjustment amount."
+        "description": "The amount of the tax related to the adjustment amount. Available in API versions 62.0 and 63.0."
+      },
+      "Balance": {
+        "type": "currency",
+        "description": "The amount of the credit memo line available for allocation."
       },
       "BillingAddressId": {
         "type": "reference",
-        "description": "ID of the billing address related to this credit memo line."
+        "description": "The ID of the billing address related to this credit memo line."
       },
       "ChargeAmount": {
         "type": "currency",
-        "description": "Amount of this credit memo line item if its type is Charge."
+        "description": "The amount of this credit memo line item if its type is Charge."
       },
       "ChargeAmountWithTax": {
         "type": "currency",
-        "description": "Sum of the adjustment amount and the adjustment tax amount."
+        "description": "The sum of the charge amount and the charge tax amount. Available in API versions 62.0 and 63.0."
       },
       "ChargeTaxAmount": {
         "type": "currency",
-        "description": "Amount of the tax related to the charge amount."
+        "description": "The amount of the tax related to the charge amount. Available in API versions 62.0 and 63.0."
+      },
+      "CorpCurrencyCnvChargeAmt": {
+        "type": "double",
+        "description": "The amount of the credit memo line item if its type is Charge in corporate currency. Available in API version 63.0 and later."
+      },
+      "CorpCurrencyCnvTotalTaxAmt": {
+        "type": "double",
+        "description": "The sum of the total amount with the tax on the credit memo line in corporate currency. Available in API version 63.0 and later."
+      },
+      "CorporateCurrencyCvsnDate": {
+        "type": "date",
+        "description": "The date on which the credit memo line amounts are converted to the corporate currency. Available in API version 63.0 and later."
+      },
+      "CorporateCurrencyCvsnRate": {
+        "type": "double",
+        "description": "The exchange rate that's used to convert the credit memo line amounts to the corporate currency. Available in API version 63.0 and later."
+      },
+      "CorporateCurrencyIsoCode": {
+        "type": "string",
+        "description": "The currency ISO code of the corporate currency. Available in API version 63.0 and later."
       },
       "CreditMemoId": {
         "type": "reference",
-        "description": "ID of the parent credit memo."
-      },
-      "CurrencyIsoCode": {
-        "type": "picklist",
-        "description": "Three-letter ISO 4217 currency code associated with the credit memo line."
+        "description": "Required. The ID of the parent credit memo."
       },
       "Description": {
         "type": "string",
-        "description": "Description of the credit memo line."
+        "description": "Additional details about the credit memo line."
       },
       "EndDate": {
         "type": "date",
-        "description": "For credit memos made from a time-based service, the end date of the line item being credited."
+        "description": "The description of the credit memo line."
+      },
+      "LegalEntityAccountingPeriodId": {
+        "type": "reference",
+        "description": "The ID of the legal entity accounting period record of the credit memo line."
+      },
+      "LegalEntityId": {
+        "type": "reference",
+        "description": "The ID of the legal entity record related to the credit memo line."
       },
       "LineAmount": {
         "type": "currency",
-        "description": "Amount of the credit memo line."
+        "description": "The amount of the credit memo line."
       },
       "Name": {
         "type": "string",
-        "description": "Name of the credit memo line."
+        "description": "Required. The name of the credit memo line."
+      },
+      "NetCreditsApplied": {
+        "type": "currency",
+        "description": "The total amount applied to invoice lines from the credit memo. This amount is calculated by subtracting the total unapplied credit amount from the total applied credit amount."
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The product or service being credited in the credit memo line."
+        "description": "The ID of the product or service being credited in the credit memo line."
       },
       "ReferenceEntityItemId": {
         "type": "reference",
@@ -71,9 +103,9 @@
         "type": "picklist",
         "description": "The type of object that generated the credit memo line."
       },
-      "RelatedLineId": {
+      "ShipFromAddressId": {
         "type": "reference",
-        "description": "The credit memo line related to this line item."
+        "description": "The address from which the product in the credit memo line is shipped. Available in API version 64.0 and later."
       },
       "ShippingAddressId": {
         "type": "reference",
@@ -81,62 +113,22 @@
       },
       "StartDate": {
         "type": "date",
-        "description": "For credit memo lines generated from a time-based service, the first date of the billing for the service."
+        "description": "The first date of the billing for the service for credit memo lines generated from a time-based service."
       },
       "Status": {
         "type": "string",
-        "description": "State of the credit memo line. Inherited from the credit memo."
+        "description": "The status of the credit memo line. This field is inherited from the credit memo."
       },
       "TaxAmount": {
         "type": "currency",
-        "description": "Total tax for the credit memo."
-      },
-      "TaxCode": {
-        "type": "string",
-        "description": "The code used to calculate the tax rate for the invoice line."
-      },
-      "TaxDocumentNumber": {
-        "type": "string",
-        "description": "The document number that tracks taxes calculated for this credit memo line."
-      },
-      "TaxEffectiveDate": {
-        "type": "date",
-        "description": "The date used to calculate the credit memo line’s TaxAmount."
-      },
-      "TaxName": {
-        "type": "string",
-        "description": "User-defined name for applied tax."
-      },
-      "TaxRate": {
-        "type": "percent",
-        "description": "Percentage value used for calculating tax."
-      },
-      "TotalAmount": {
-        "type": "currency",
-        "description": "The total amount of the credit memo line before any applicable tax."
-      },
-      "TotalAmountWithTax": {
-        "type": "currency",
-        "description": "Total amount of tax for this credit memo line, with tax included. Sum of TotalAmount and TaxAmount."
-      },
-      "TaxStatus": {
-        "type": "picklist",
-        "description": "Tracks whether the taxes were calculated for this credit memo line."
-      },
-      "TaxTransactionNumber": {
-        "type": "string",
-        "description": "Tracks the transaction number of the tax calculated for this credit memo line. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled."
+        "description": "The total tax amount for the credit memo."
       },
       "TaxTreatmentId": {
         "type": "reference",
-        "description": "The ID of the tax treatment for the credit memo line."
-      },
-      "Type": {
-        "type": "picklist",
-        "description": "The type of transaction for the invoice line."
+        "description": "The ID of the tax treatment record for the credit memo line."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_creditmemoline.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoline.htm"
   }
 }

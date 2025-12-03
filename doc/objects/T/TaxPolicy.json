@@ -1,38 +1,38 @@
 {
   "TaxPolicy": {
     "name": "TaxPolicy",
-    "description": "A tax policy contains a group of tax treatments, where each treatment represents parameters to determine how a particular product is taxed for a transaction line item. Tax policies are related to products, which pass the policy on to the resulting order items. When you activate an order, Subscription Management assigns a tax treatment to each order item based on the tax policy's DefaultTaxTreatmentId, then uses the tax treatment to calculate tax.",
+    "description": "Represents information about a group of tax treatments, where each treatment represents parameters to determine how a particular product is taxed for a transaction line item. Tax policies are related to products, which pass the policy on to the resulting order items and in turn the billing schedules.",
     "properties": {
       "DefaultTaxTreatmentId": {
         "type": "reference",
-        "description": "When you order a product, the order product receives this tax treatment."
+        "description": "The ID of the default tax treatment record. When you order a product, the order product, and in turn the billing schedule receives this tax treatment."
       },
       "Description": {
         "type": "textarea",
-        "description": "Optional user-defined description for providing more information about the tax policy."
+        "description": "Additional details about the tax policy."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed an invoice batch draft to posted run record indirectly, for example, through a list view or related record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed a tax policy record. If this value is null, it’s possible that the user only accessed the tax policy record or a related list view (LastReferencedDate), but not viewed the tax policy record itself."
       },
       "Name": {
         "type": "string",
-        "description": "Optional user-defined name for the tax policy."
+        "description": "Required. The name of the tax policy."
       },
       "Status": {
         "type": "picklist",
-        "description": "To calculate tax for order products, products must have an active tax policy. Tax policies are created with a Draft status before being assigned to a product or order product. After activating a tax policy, you can't edit certain policy fields."
+        "description": "Required. The status of the tax policy. To calculate tax for order products, products must have an active tax policy. Tax policies are created with a Draft status before being assigned to a product or order product. After activating a tax policy, you can't edit certain policy fields."
       },
       "TreatmentSelection": {
         "type": "picklist",
-        "description": "Defines how Subscription Management chooses a tax treatment to assign to order products related to this tax policy. In API version 55.0, only Default is supported."
+        "description": "Required. Specifies the selection of tax treatments to billing schedules that are related to the tax policy."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_taxpolicy.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_taxpolicy.htm"
   }
 }

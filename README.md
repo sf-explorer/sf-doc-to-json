@@ -464,6 +464,7 @@ node dist/cli.js 265.0 atlas.en-us.financial_services_cloud_object_reference.met
 npm run fetch:fsc    # Financial Services Cloud
 npm run fetch:core   # Core Salesforce
 npm run fetch:health # Health Cloud
+npm run fetch:rlm    # Revenue Lifecycle Management
 ```
 
 ### Output Structure
@@ -512,6 +513,7 @@ The generator supports fetching documentation from:
 - **Nonprofit Cloud** - Nonprofit organizations
 - **Public Sector Cloud** - Government and public sector
 - **Net Zero Cloud** - Sustainability and carbon management
+- **Revenue Lifecycle Management** - Product configuration, pricing, and billing
 - **Field Service Lightning** - Field service management
 - **Loyalty** - Loyalty programs
 - **Scheduler** - Scheduling and appointments

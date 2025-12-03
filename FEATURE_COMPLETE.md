@@ -101,3 +101,9 @@ npm install --save-dev jest@latest ts-jest@latest @jest/test-sequencer@latest
 The descriptions API is production-ready and provides 100x performance improvement for use cases that only need object metadata! 🎉
 
 
+
+
+
+
+
+

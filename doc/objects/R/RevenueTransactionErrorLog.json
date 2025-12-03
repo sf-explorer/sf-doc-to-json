@@ -1,50 +1,58 @@
 {
   "RevenueTransactionErrorLog": {
     "name": "RevenueTransactionErrorLog",
-    "description": "Contains information about errors that occurred while processing a request. The error record persists until another error with the same category, primary record, and (optionally) related record occurs.",
+    "description": "Represents the details of errors that occurred during the processing of a request. The error record persists until a new error with the same category, primary record, and, if necessary, related record occurs.",
     "properties": {
       "AsyncOperationTrackerId": {
         "type": "reference",
-        "description": "The ID of the async operation tracker record created by the request. Async operation tracker records contain information about the status of the asynchronous process initiated by the request. This field is available in API version 60.0 and later."
+        "description": "The ID of the async operation tracker record created by the request. Async operation tracker records contain information about the status of the asynchronous process initiated by the request."
       },
       "Category": {
         "type": "picklist",
-        "description": "Provides context about the source of error. For example, if an error occurs while processing an /assets/collection/actions/initiate-cancellation request, the category is InitiateCancel."
+        "description": "Specifies the context of the source of error."
       },
       "ErrorCode": {
         "type": "string",
-        "description": "The error code; for example, INVALID_INPUT."
+        "description": "The error code shown during the request processing, such as INVALID_INPUT."
       },
       "ErrorLogNumber": {
         "type": "string",
-        "description": "An auto-generated unique ID that identifies the error."
+        "description": "Required. An auto-generated unique ID that identifies the error."
       },
       "ErrorMessage": {
         "type": "textarea",
-        "description": ""
+        "description": "This field contains information about the error and how to resolve it."
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who made the request that resulted in the creation of the error log."
+        "description": "Required. The ID of the user who made the request that resulted in the creation of the error log."
+      },
+      "PrimaryRecord2Id": {
+        "type": "reference",
+        "description": "The ID of the record that’s associated with this error."
       },
       "PrimaryRecordId": {
         "type": "reference",
         "description": "The ID of the record that’s associated with this error. For example, if the error occurred while creating an invoice from an order, the primary ID is the ID of the order."
       },
+      "PrimaryTextRecord": {
+        "type": "string",
+        "description": "The identifier of the primary record associated with the error log. Available in API version 63.0 and later."
+      },
+      "RelatedRecord2Id": {
+        "type": "reference",
+        "description": "The ID of a record that can provide additional context about the error. For example, if PrimaryRecordId is the ID of an order, this field could be the ID of an invoice line."
+      },
       "RelatedRecordId": {
         "type": "reference",
-        "description": "Optional. The ID of a record that can provide additional context about the error. For example, if PrimaryRecordId is the ID of an order, this field could be the ID of an order item."
+        "description": "The ID of a record that can provide additional context about the error. For example, if PrimaryRecordId is the ID of an order, this field could be the ID of an order item."
       },
       "RequestIdentifier": {
         "type": "string",
-        "description": "The unique ID returned by the request. Use this ID to identify the revenue transaction error log records for a specific request. This field is available in API version 57.0 and later."
-      },
-      "RevenueAsyncOperationId": {
-        "type": "reference",
-        "description": "The ID of the revenue async operation record created by the request. Revenue async operation records contain information about the status of the asynchronous process initiated by the request. This field is available in API version 57.0 and later."
+        "description": "A unique ID returned by the request. Use this ID to identify the revenue transaction error log records for a specific request."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_revenuetransactionerrorlog.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_revenuetransactionerrorlog.htm"
   }
 }

@@ -1,42 +1,58 @@
 {
-  "Pricebookentry": {
-    "name": "Pricebookentry",
-    "description": "Represents a product entry (an association between a price book and product) in a price book.",
+  "PriceBookEntry": {
+    "name": "PriceBookEntry",
+    "description": "Represents a product entry (an association between a Pricebook2 and Product2) in a price book.",
     "properties": {
+      "ActivePriceAdjustmentQuantity": {
+        "type": "int",
+        "description": "The count of active price adjustment schedules associated with the price book entry."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
+      },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this price book entry is active."
+        "description": "Indicates whether this price book entry is active (true) or not (false). Although you can never delete PricebookEntry records, your client application can set this flag to false. Inactive PricebookEntry records are hidden in many areas in the user interface. You can change this flag on a PricebookEntry record as often as necessary."
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicates whether the price book entry has been archived (true) or not (false). This is set to true when the product record it’s associated with is archived, or when the price book record is archived. This field is read only. Available in API version 45.0 and later. Label is Archived."
+        "description": "Indicates whether the PricebookEntry has been archived (true) or not (false). This field is set to true when the Product2 record it’s associated with is archived, or when the Pricebook2 record is archived. This field is read only."
+      },
+      "IsDerived": {
+        "type": "boolean",
+        "description": "Indicates whether the product's price was derived (yes) or not (no)."
       },
       "Name": {
         "type": "string",
-        "description": "Name of this price book entry record. This read-only field references the value in the Name field of the product record. Label is Product Name."
+        "description": "Name of this price book entry record. This read-only field references the value in the Name field of the Product2 record."
       },
       "Pricebook2Id": {
         "type": "reference",
-        "description": "Required. ID of the price book record with which this record is associated. This field must be specified when creating price book records. It can’t be changed in an update."
+        "description": "Required. ID of the Pricebook2 record with which this record is associated. This field must be specified when creating Pricebook2 records. It can’t be changed in an update."
       },
       "Product2Id": {
         "type": "reference",
-        "description": "Required. ID of the product record with which this record is associated. This field must be specified when creating product records. It can’t be changed in an update."
+        "description": "Required. ID of the Product2 record with which this record is associated. This field must be specified when creating Product2 records. It can’t be changed in an update."
       },
       "ProductCode": {
         "type": "string",
-        "description": "Product code for this record. This read-only field references the value in the ProductCode field of the associated product record."
+        "description": "Product code for this record. This read-only field references the value in the ProductCode field of the associated Product2 record."
+      },
+      "ProductSellingModelId": {
+        "type": "reference",
+        "description": "The ID of the related product selling model."
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "Required. Unit price for this price book entry. You can specify a value only if UseStandardPrice is set to false. Label is List Price."
+        "description": "Required. Unit price for this price book entry. You can specify a value only if UseStandardPrice is set to false."
       },
       "UseStandardPrice": {
         "type": "boolean",
-        "description": "Indicates whether this price book entry uses the standard price defined in the standard price book record."
+        "description": "Indicates whether this price book entry uses the standard price defined in the standard Pricebook2 record (true) or not (false). If set to true, then the UnitPrice field is read-only, and the value is the same as the UnitPrice value in the corresponding PricebookEntry in the standard price book (that is, the PricebookEntry record whose Pricebook2Id refers to the standard price book and whose Product2Id and CurrencyIsoCode are the same as this record). For PricebookEntry records associated with the standard Pricebook2 record, this field must be set to true."
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_pricebookentry.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_pricebookentry.htm"
   }
 }

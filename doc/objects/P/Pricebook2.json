@@ -1,8 +1,12 @@
 {
-  "Pricebook2": {
-    "name": "Pricebook2",
+  "PriceBook2": {
+    "name": "PriceBook2",
     "description": "Represents a price book that contains the list of products that your org sells.",
     "properties": {
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization."
+      },
       "Description": {
         "type": "string",
         "description": "Text description of the price book."
@@ -15,20 +19,32 @@
         "type": "boolean",
         "description": "Indicates whether the price book has been archived (true) or not (false). This field is read only."
       },
-      "IsDeleted": {
-        "type": "boolean",
-        "description": "Indicates whether the price book has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
-      },
       "IsStandard": {
         "type": "boolean",
         "description": "Indicates whether the price book is the standard price book for the org (true) or not (false). Every org has one standard price book—all other price books are custom price books."
       },
+      "LastReferencedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record."
+      },
+      "LastViewedDate": {
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+      },
       "Name": {
         "type": "string",
-        "description": "Required. Name of this object. This field is read-only for the standard price book. Label is Price Book Name."
+        "description": "Required. Name of this object. This field is read-only for the standard price book."
+      },
+      "ValidFrom": {
+        "type": "dateTime",
+        "description": "The date and time when a price book is initially valid. If this field is null, the price book is valid immediately when active."
+      },
+      "ValidTo": {
+        "type": "dateTime",
+        "description": "The date and time when a price book is valid to. If this field is null, the price book is valid until it’s deactivated."
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_pricebook2.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_pricebook2.htm"
   }
 }

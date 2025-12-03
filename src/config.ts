@@ -66,5 +66,9 @@ export const CONFIGURATION: Record<string, CloudConfiguration> = {
     'atlas.en-us.nonprofit_cloud.meta': {
         label: 'Nonprofit Cloud',
         description: 'Objects for nonprofit organizations including fundraising, donor management, grant tracking, and program management.'
+    },
+    'atlas.en-us.revenue_lifecycle_management_dev_guide.meta': {
+        label: 'Revenue Lifecycle Management',
+        description: 'Objects for revenue lifecycle management including product configuration, pricing, billing, and revenue recognition.'
     }
 };

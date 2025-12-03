@@ -1,19 +1,19 @@
 {
   "BillingBatchScheduler": {
     "name": "BillingBatchScheduler",
-    "description": "Represents a scheduled processing job that triggers recurring invoice batch runs and payment batch runs in Subscription Management.",
+    "description": "Represents a scheduled processing job that triggers recurring invoice batch runs.",
     "properties": {
       "BillingSchedulerName": {
         "type": "string",
-        "description": "Name of the scheduler."
+        "description": "Required. The name of the scheduler."
       },
       "Comments": {
         "type": "textarea",
-        "description": "Optional field for comments about the scheduler."
+        "description": "Additional details about the billing batch scheduler."
       },
       "CronExpression": {
         "type": "string",
-        "description": "Determines how often the scheduler recurs."
+        "description": "Required. This field determines how often the scheduler recurs."
       },
       "EndDate": {
         "type": "date",
@@ -21,74 +21,82 @@
       },
       "FrequencyCadence": {
         "type": "picklist",
-        "description": "Indicates how often the scheduler triggers the invoice batch run or the payment batch run."
+        "description": "Required. The frequency of the scheduler triggering the invoice batch run."
       },
       "FrequencyOptions": {
         "type": "textarea",
-        "description": "Derived field that stores the scheduler configuration."
+        "description": "This field is a derived field that stores the scheduler configuration."
       },
       "JobType": {
         "type": "picklist",
-        "description": "Indicates the type of batch processing job that the scheduler triggers."
+        "description": "Required. The type of batch processing job that the scheduler triggers."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed a billing batch scheduler record indirectly, for example, through a list view or related record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed a billing batch scheduler record. If this value is null, it’s possible that the user only accessed the billing batch scheduler record or a related list view (LastReferencedDate), but not viewed the billing batch scheduler record itself."
       },
       "NextRunTime": {
         "type": "dateTime",
-        "description": "The date and timestamp of the next scheduled batch invoice run or batch payment run are shown in the user's time zone."
+        "description": "The date and timestamp of the next scheduled batch invoice run in the user's time zone."
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who created the scheduler."
+        "description": "Required. The ID of the user who created the scheduler."
       },
       "RecurringSubType": {
         "type": "picklist",
-        "description": "Specifies the frequency at which the batch processing job recurs when the FrequencyCadence is set to Monthly."
+        "description": "The frequency at which the batch processing job recurs when the FrequencyCadence field value is set to Monthly."
       },
       "RecurringType": {
         "type": "picklist",
-        "description": "Specifies the frequency at which the batch processing job is repeated when the FrequencyCadence is set to Weekly."
+        "description": "The frequency at which the batch processing job is repeated when the FrequencyCadence field value is set to Weekly."
       },
       "RecursOn": {
         "type": "picklist",
-        "description": "Specifies the interval at which the scheduler triggers a batch processing job."
+        "description": "The interval at which the scheduler triggers a batch processing job."
       },
       "RecursOnDate": {
         "type": "string",
-        "description": "Specifies the date on which the scheduler triggers a batch processing job."
+        "description": "The date on which the scheduler triggers a batch processing job."
       },
       "RecursOnDay": {
         "type": "picklist",
-        "description": "Specifies the day on which the scheduler triggers a batch processing job."
+        "description": "The day on which the scheduler triggers a batch processing job."
       },
       "RunCriteriaId": {
         "type": "reference",
-        "description": "The ID of the filter criteria that’s defined for the invoice batch run or the payment batch run."
+        "description": "Required. The ID of the filter criteria that’s defined for the invoice batch run or the payment batch run."
+      },
+      "ShouldExcludeWkendAndHldy": {
+        "type": "boolean",
+        "description": "Required. Indicates whether weekends and holidays are excluded from the billing schedule (true) or not (false)."
+      },
+      "ShouldStartRunImmediately": {
+        "type": "boolean",
+        "description": "Required. Indicates whether the invoice scheduler must start the run immediately (true) or not (false)."
       },
       "StartDate": {
         "type": "date",
-        "description": "The date when the scheduler triggers its first batch processing job."
+        "description": "Required. The date when the scheduler triggers its first batch processing job."
       },
       "StartTime": {
         "type": "time",
-        "description": "The time when the scheduler triggers the batch processing job."
+        "description": "Required. The time when the scheduler triggers the batch processing job."
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the scheduler. Only Active schedulers can trigger batch processing jobs."
+        "description": "Required. The status of the scheduler. Only active schedulers can trigger batch processing jobs."
       },
       "TimeZone": {
         "type": "picklist",
         "description": "The time zone is either the value selected when the run was configured, or it's the user's time zone. The time zone is shown in Greenwich Mean Time (GMT)."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_billingbatchscheduler.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_billingbatchscheduler.htm"
   }
 }

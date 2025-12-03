@@ -1,19 +1,19 @@
 {
   "InvoiceBatchRunCriteria": {
     "name": "InvoiceBatchRunCriteria",
-    "description": "Represents a batch processing job and its required criteria in Subscription Management. During an invoice batch run, all billing schedules that meet the specified criteria are processed, resulting in the generation of invoices.",
+    "description": "Represents a batch processing job and its required criteria in Billing. During an invoice batch run, all billing schedules that meet the specified criteria are processed, resulting in the generation of invoices.",
     "properties": {
       "Comments": {
         "type": "textarea",
-        "description": "Optional user-defined information about the batch run criteria."
+        "description": "Additional notes or comments for the invoice batch run criteria."
       },
       "CriteriaExpression": {
         "type": "textarea",
-        "description": "The formula that specifies criteria for filtering the billing schedules. For example, we can filter billing schedules by currency code."
+        "description": "The formula that specifies criteria for filtering the billing schedules. For example, you can filter billing schedules by the currency code."
       },
       "CriteriaMatchType": {
         "type": "picklist",
-        "description": "The type of matching criteria required for the batch."
+        "description": "Required. The type of matching criteria required for the batch."
       },
       "ExpectedInvoiceStatus": {
         "type": "picklist",
@@ -21,14 +21,34 @@
       },
       "InvoiceBatchRunCriteriaNumber": {
         "type": "string",
-        "description": "System-generated sequential number."
+        "description": "Required. The auto-generated reference number for the invoice batch run criteria."
+      },
+      "InvoiceDate": {
+        "type": "date",
+        "description": "The date displayed on the invoice. This date is also used for tax calculations."
+      },
+      "InvoiceDateOffset": {
+        "type": "int",
+        "description": "The offset that's applied to the target date to calculate the invoice date."
+      },
+      "IsInvoiceDateFromRunDate": {
+        "type": "boolean",
+        "description": "Required. Indicates whether the invoice date is derived from the run date (true) or not (false)."
       },
       "OwnerId": {
         "type": "reference",
-        "description": "System-generated field. The ID of the user who created the BillingBatchScheduler record. Its UI label is Owner."
+        "description": "Required. The ID of the user who created the invoice batch run criteria."
+      },
+      "TargetDate": {
+        "type": "date",
+        "description": "The target date for the invoice run. Billing schedules having the next billing date before this date are picked up for invoicing."
+      },
+      "TargetDateOffset": {
+        "type": "int",
+        "description": "The offset that's applied to the next run date to calculate the target date."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_invoicebatchruncriteria.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_invoicebatchruncriteria.htm"
   }
 }

@@ -1,90 +1,58 @@
 {
   "TaxEngine": {
     "name": "TaxEngine",
-    "description": "A tax engine represents both an instance of a tax engine provider as well as the merchant credentials for that specific instance. When Subscription Management calculates tax on an order item, it sends a request through Subscription Management Tax Calculation API to an external tax engine. The Salesforce tax engine record contains information passed to the external tax engine, such as",
+    "description": "Represents information about an instance of a tax engine provider as well as the merchant credentials for that specific instance.",
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "The description of the tax engine provider and merchant credential."
+        "description": "The description of an instance of the tax engine provider and merchant credential."
       },
       "ExternalReference": {
         "type": "string",
-        "description": "Shows information about the external platform used for the tax engine."
+        "description": "Information about the external platform used for the tax engine."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed a tax engine record indirectly, for example, through a list view or related record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last viewed a tax engine record. If this value is null, it’s possible that the user only accessed the tax engine record or a related list view (LastReferencedDate), but not viewed the tax engine record itself."
       },
       "MerchantCredentialId": {
         "type": "reference",
-        "description": "Looks up to the merchant credential setup entity in Salesforce. CommerceTax Tax Calculation API sends this information to the external tax engine for use in the tax calculation process."
+        "description": "Required. The merchant credential setup object in Salesforce. The Tax Calculation API sends the merchant credential's information to the external tax engine that's used for tax calculation."
       },
       "SellerCode": {
         "type": "string",
-        "description": "Seller code of the transaction for which the tax engine integration log was captured."
+        "description": "Required. The seller code of the transaction for which the tax engine integration log was captured."
       },
       "Status": {
         "type": "picklist",
-        "description": "Shows the status of the tax engine."
+        "description": "Required. The status of the tax engine record."
       },
       "TaxEngineAddress": {
         "type": "address",
-        "description": "The compound form of the tax engine address. Read-only. See Address Compound Fields for details on compound address fields. Used in case the request doesn’t contain a Ship To address."
-      },
-      "TaxEngineCity": {
-        "type": "string",
-        "description": "Details for the tax engine address. Maximum size is 40 characters."
-      },
-      "TaxEngineCountry": {
-        "type": "string",
-        "description": "Details for the tax engine address. Maximum size is 80 characters."
-      },
-      "TaxEngineGeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy level of the geocode for the tax engine address. See Compound Field Considerations and Limitations for details on geolocation compound fields."
-      },
-      "TaxEngineLatitude": {
-        "type": "double",
-        "description": "Used with TaxEngineLongitude to specify the precise geolocation of a tax engine address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields."
-      },
-      "TaxEngineLongitude": {
-        "type": "double",
-        "description": "Used with TaxEngineLatitude to specify the precise geolocation of a tax engine address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "description": "Required. The compound form of the tax engine address. This field is used when the request doesn’t contain a Ship To address. See Address Compound Fields for details on compound address fields."
       },
       "TaxEngineName": {
         "type": "string",
-        "description": "The name of the tax engine."
-      },
-      "TaxEnginePostalCode": {
-        "type": "string",
-        "description": "Details for the tax engine address. Postal code maximum size is 20 characters."
+        "description": "Required. The name of the tax engine record."
       },
       "TaxEngineProviderId": {
         "type": "reference",
-        "description": "The Id of the tax engine provider."
-      },
-      "TaxEngineState": {
-        "type": "string",
-        "description": "Details for the tax engine address. State maximum size is 80 characters."
-      },
-      "TaxEngineStreet": {
-        "type": "textarea",
-        "description": "Details for the tax engine address. Maximum of 255 characters."
+        "description": "Required. The tax engine provider that's related to the tax engine record."
       },
       "TaxPrvdAccountIdentifier": {
         "type": "string",
-        "description": "The unique identifier of the external tax provider’s account. This field is only available if Commerce Subscriptions is enabled for your org. Available in API version 63.0 and later."
+        "description": "The unique identifier of the external tax provider's account. Available in API version 63.0 and later."
       },
       "Type": {
         "type": "picklist",
-        "description": "Specifies the tax engine used to calculate tax. This field is only available if Commerce Subscriptions is enabled for your org. Available in API version 63.0 and later."
+        "description": "The type of the tax engine that's used to calculate tax."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_taxengine.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_taxengine.htm"
   }
 }

@@ -1,27 +1,43 @@
 {
   "CreditMemo": {
     "name": "CreditMemo",
-    "description": "Represents a document that is used to reduce the amount that a buyer owes a seller under the terms of an earlier invoice.",
+    "description": "Represents a document that’s used to reduce the amount that a buyer owes a seller under the terms of an earlier invoice.",
     "properties": {
-      "AppType": {
-        "type": "picklist",
-        "description": "Read-only field that indicates which Salesforce application generated the credit memo."
-      },
       "Balance": {
         "type": "currency",
-        "description": "Amount of the credit memo that's available for allocation."
+        "description": "The amount of the credit memo that's available for allocation."
       },
       "BillToContactId": {
         "type": "reference",
-        "description": "Inherited from the account’s Bill to Account field."
+        "description": "This field is inherited from the account’s Bill to Account field."
       },
       "BillingAccountId": {
         "type": "reference",
-        "description": "The customer account associated with this credit memo."
+        "description": "Required. The ID of the customer account associated with this credit memo."
+      },
+      "Category": {
+        "type": "picklist",
+        "description": "Specifies whether the credit memo is created due to writing off an invoice, converting negative invoice lines, or referencing an existing record."
+      },
+      "CorpCrcyCnvTotAmtWithTax": {
+        "type": "double",
+        "description": "The sum of the total amount with tax on the credit memo in corporate currency. Available in API version 63.0 and later."
+      },
+      "CorporateCurrencyCvsnDate": {
+        "type": "date",
+        "description": "The date on which the credit memo amounts are converted to the corporate currency. Available in API version 63.0 and later."
+      },
+      "CorporateCurrencyCvsnRate": {
+        "type": "double",
+        "description": "The exchange rate that's used to convert credit memo amounts to the corporate currency. Available in API version 63.0 and later."
+      },
+      "CorporateCurrencyIsoCode": {
+        "type": "string",
+        "description": "The currency ISO code of the corporate currency. Available in API version 63.0 and later."
       },
       "CreationMode": {
         "type": "picklist",
-        "description": "Indicates whether the credit memo originated in Salesforce or an external system."
+        "description": "Specifies whether the credit memo originated in Salesforce or an external system."
       },
       "CreditDate": {
         "type": "date",
@@ -29,106 +45,110 @@
       },
       "CreditMemoNumber": {
         "type": "string",
-        "description": "A credit memo numbering alternative to DocumentNumber, containing a number in a format of your choice. Credit memo numbering is optional."
-      },
-      "CurrencyIsoCode": {
-        "type": "picklist",
-        "description": "Three-letter ISO 4217 currency code associated with the credit memo."
+        "description": "The number of the credit memo."
       },
       "Description": {
         "type": "string",
-        "description": "Description of the credit memo."
+        "description": "Additional details about the credit memo."
       },
       "DocumentNumber": {
         "type": "string",
-        "description": "System-generated number for organizing financial documents, for example DOC-0000123."
+        "description": "Required. The auto-generated reference number for the credit memo."
       },
       "EffectiveDate": {
         "type": "date",
-        "description": "Represents the effective date of the credit memo. If this field is empty, the credit date is used. For reporting purposes only; this field drives no other logic."
+        "description": "The effective date of the credit memo. If this field is empty, the credit date is used. For reporting purposes only; this field drives no other logic."
       },
       "ExternalReference": {
         "type": "string",
-        "description": "Contains an external system’s ID for the credit memo."
+        "description": "An external system’s ID for the credit memo."
       },
       "ExternalReferenceDataSource": {
         "type": "string",
-        "description": "Contains the name of the external system that also contains the credit memo."
+        "description": "The name of the external system that also contains the credit memo."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp when the current user last accessed a credit memo record indirectly, for example, through a list view or related record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it's possible that this record was only referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp when the current user last viewed a credit memo record. If this value is null, it’s possible that the user only accessed the credit memo record or a related list view (LastReferencedDate), but not viewed the credit memo record itself."
+      },
+      "LegalEntityAccountingPeriodId": {
+        "type": "reference",
+        "description": "The legal entity accounting period record that’s related to the credit memo. This field is available in API version 65.0 and later."
+      },
+      "LegalEntityId": {
+        "type": "reference",
+        "description": "The legal entity related to the credit memo. This field is available in API version 65.0 and later."
       },
       "NetCreditsApplied": {
         "type": "currency",
-        "description": "Represents the total difference between the credit applied to and credit unapplied from the invoice."
+        "description": "The total difference between the credit applied to and credit unapplied from the invoice."
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The user who owns a credit memo record."
+        "description": "Required. The ID of the user who owns a credit memo record."
+      },
+      "ReasonCode": {
+        "type": "picklist",
+        "description": "The reason code for the credit memo's category. For example, BD can be the reason code when the credit memo's category is InvoiceWriteOff and the reason for the invoice write-off is bad debt. This field is available in API version 64.0 and later."
       },
       "ReferenceEntityId": {
         "type": "reference",
         "description": "The ID of the record that this credit memo was generated from. For example, the order, order summary, or invoice."
       },
+      "SettlementLevel": {
+        "type": "picklist",
+        "description": "Specifies whether the credit memo amount was applied to an invoice or an invoice line."
+      },
       "SourceAction": {
         "type": "picklist",
-        "description": "Indicates which Salesforce API created the credit memo."
+        "description": "Specifies which Salesforce API created the credit memo."
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the credit memo."
+        "description": "Required. The status of the credit memo."
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
-        "description": "Sum of TotalAmount values for the credit memo’s adjustment lines."
+        "description": "The sum of the TotalAmount field values for the credit memo’s adjustment lines."
       },
       "TotalAdjustmentAmountWithTax": {
         "type": "currency",
-        "description": "The sum of the credit memo’s adjustment line amounts, including tax."
+        "description": "The sum of the credit memo’s adjustment line amounts, including tax. Available in API versions 62.0 and 63.0."
       },
       "TotalAdjustmentTaxAmount": {
         "type": "currency",
-        "description": "The sum of the credit memo’s adjustment line tax. Adjustment line balances are excluded."
+        "description": "The sum of the credit memo’s adjustment line tax. Adjustment line balances are excluded. Available in API versions 62.0 and 63.0."
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "Sum of the credit memo’s TotalLineAmount and TotalAdjustmentAmount."
+        "description": "The sum of the credit memo’s TotalLineAmount and TotalAdjustmentAmount field values."
       },
       "TotalAmountWithTax": {
         "type": "currency",
-        "description": "Total credit memo amount, with tax included."
+        "description": "The total credit memo amount, with tax included."
       },
       "TotalChargeAmount": {
         "type": "currency",
-        "description": "Sum of TotalAmount values for the credit memo’s charge lines."
+        "description": "The sum of the TotalAmount field values for the credit memo’s charge lines."
       },
       "TotalChargeAmountWithTax": {
         "type": "currency",
-        "description": "The sum of the credit memo’s charge line amounts, including tax."
+        "description": "The sum of the credit memo’s charge line amounts, including tax. Available in API versions 62.0 and 63.0."
       },
       "TotalChargeTaxAmount": {
         "type": "currency",
-        "description": "This field is available in API version 49.0 and later."
-      },
-      "TotalCreditAmountApplied": {
-        "type": "currency",
-        "description": "Credit memo amount that's been applied to invoices."
-      },
-      "TotalCreditAmountUnapplied": {
-        "type": "currency",
-        "description": "Credit memo amount that's been unapplied from invoices."
+        "description": "The sum of the credit memo’s charge tax amount. Available in API versions 62.0 and 63.0."
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Sum of TotalAmount values for the credit memo’s tax lines."
+        "description": "The sum of the TotalAmount field values for the credit memo’s tax lines."
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_creditmemo.htm"
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemo.htm"
   }
 }
