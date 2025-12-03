@@ -5,19 +5,30 @@
     "properties": {
       "Handle": {
         "type": "string",
-        "description": "The username in the third-party system."
+        "description": "The username in the third-party system.",
+        "maxLength": 375,
+        "nullable": true,
+        "readOnly": true
       },
       "IsNotSsoUsable": {
         "type": "boolean",
-        "description": "Support for single sign-on.If true, the link can't be used for a single sign-on flow. It's only available OAuth access and refresh tokens."
+        "description": "Support for single sign-on.If true, the link can't be used for a single sign-on flow. It's only available OAuth access and refresh tokens.",
+        "nullable": false,
+        "readOnly": true
       },
       "Provider": {
         "type": "string",
-        "description": "The third-party account provider name."
+        "description": "The third-party account provider name.",
+        "maxLength": 128,
+        "nullable": true,
+        "readOnly": true
       },
       "RemoteIdentifier": {
         "type": "string",
-        "description": "The unique ID for the user in the third-party system."
+        "description": "The unique ID for the user in the third-party system.",
+        "maxLength": 128,
+        "nullable": true,
+        "readOnly": true
       },
       "SsoProvider": {
         "type": "AuthProvider",
@@ -25,22 +36,52 @@
       },
       "SsoProviderId": {
         "type": "reference",
-        "description": "The ID associated with the SsoProvider value."
+        "description": "The ID associated with the SsoProvider value.",
+        "format": "salesforce-id",
+        "x-object": "AuthProvider",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SsoProviderName": {
         "type": "string",
-        "description": "The name associated with the AuthProvider of the third-party system, in case the user has no access to the provider foreign key (the SsoProvider value)."
+        "description": "The name associated with the AuthProvider of the third-party system, in case the user has no access to the provider foreign key (the SsoProvider value).",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ThirdPartyAccountLinkKey": {
         "type": "string",
-        "description": "A concatenated string including the organization ID, the SsoProviderId value, the SsoProvider value, and the RemoteIdentifier value."
+        "description": "A concatenated string including the organization ID, the SsoProviderId value, the SsoProvider value, and the RemoteIdentifier value.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The Salesforce user associated with this third-party account link."
+        "description": "The Salesforce user associated with this third-party account link.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Third Party Account Link ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_thirdpartyaccountlink.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_thirdpartyaccountlink.htm",
+    "keyPrefix": "0Jr",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

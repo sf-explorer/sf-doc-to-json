@@ -5,26 +5,110 @@
     "properties": {
       "EmailMessageId": {
         "type": "reference",
-        "description": "The ID of the EmailMessage record."
+        "description": "The ID of the EmailMessage record.",
+        "format": "salesforce-id",
+        "x-object": "EmailMessage",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RelationAddress": {
         "type": "string",
-        "description": "The email address of the sender or recipient. Note If a record relates an email to an existing contact, lead, or user record in Salesforce, the value of RelationAddress is the current value of the email address. If the value is not set, it is auto-populated from RelationId."
+        "description": "The email address of the sender or recipient. Note If a record relates an email to an existing contact, lead, or user record in Salesforce, the value of RelationAddress is the current value of the email address. If the value is not set, it is auto-populated from RelationId.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "RelationId": {
         "type": "reference",
-        "description": "The RecordId of the sender or recipient. Note If a record relates an email to an email address that’s not associated with an existing contact, lead, or user record in Salesforce, the value of RelationId is null."
+        "description": "The RecordId of the sender or recipient. Note If a record relates an email to an email address that’s not associated with an existing contact, lead, or user record in Salesforce, the value of RelationId is null.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Contact",
+          "Lead",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "RelationObjectType": {
         "type": "string",
-        "description": "The API name of the object type of the RecordId in the RelationId field. It can be a contact, lead, or user."
+        "description": "The API name of the object type of the RecordId in the RelationId field. It can be a contact, lead, or user.",
+        "maxLength": 50,
+        "nullable": true,
+        "readOnly": true
       },
       "RelationType": {
         "type": "picklist",
-        "description": "The type of relationship the contact, lead, or user has with the email message. Possible values include: ToAddress CcAddress BccAddress FromAddress OtherAddress For an Experience Cloud site user who is not the sender of the email, no BccAddress relations are returned."
+        "description": "The type of relationship the contact, lead, or user has with the email message. Possible values include: ToAddress CcAddress BccAddress FromAddress OtherAddress For an Experience Cloud site user who is not the sender of the email, no BccAddress relations are returned.",
+        "format": "enum",
+        "enum": [
+          "ToAddress",
+          "CcAddress",
+          "BccAddress",
+          "FromAddress",
+          "OtherAddress"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Email Message Relation ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailmessagerelation.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailmessagerelation.htm",
+    "keyPrefix": "0CZ",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

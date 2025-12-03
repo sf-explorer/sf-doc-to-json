@@ -5,19 +5,28 @@
     "properties": {
       "Details": {
         "type": "textarea",
-        "description": "The value of this field depends on the log entry. For example, if the target system returns an error, the error message may be recorded in this field."
+        "description": "The value of this field depends on the log entry. For example, if the target system returns an error, the error message may be recorded in this field.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "ExternalUserId": {
         "type": "string",
-        "description": "The unique identifier for the user in the target system."
+        "description": "The unique identifier for the user in the target system.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ExternalUsername": {
         "type": "string",
-        "description": "The username set in the target system for the associated user account."
+        "description": "The username set in the target system for the associated user account.",
+        "maxLength": 150,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The unique name for this object."
+        "description": "The unique name for this object.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
@@ -25,18 +34,113 @@
       },
       "Status": {
         "type": "string",
-        "description": "The status of the user provisioning request. Based on the context of the log, it can contain different values, such as an HttpStatusCode."
+        "description": "The status of the user provisioning request. Based on the context of the log, it can contain different values, such as an HttpStatusCode.",
+        "maxLength": 150,
+        "nullable": true
       },
       "UserId": {
         "type": "reference",
-        "description": "Salesforce ID of the user making the request."
+        "description": "Salesforce ID of the user making the request.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "UserProvisioningRequestId": {
         "type": "reference",
-        "description": "A unique identifier for the user provisioning request."
+        "description": "A unique identifier for the user provisioning request.",
+        "format": "salesforce-id",
+        "x-object": "UserProvisioningRequest",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "UserProvisioningLog ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovisioninglog.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovisioninglog.htm",
+    "keyPrefix": "0Hs",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

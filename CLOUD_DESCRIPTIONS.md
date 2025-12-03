@@ -46,8 +46,20 @@ Objects for loyalty program management including member enrollment, points, rewa
 ### Scheduler
 Objects for scheduling appointments, managing availability, and coordinating resources.
 
+### Tooling API
+Objects for metadata management, deployment, and development operations.
+
+### Metadata API
+Salesforce metadata types including ApexClass, CustomObject, Flow, and other components used in deployments and package development.
+
 ### Feedback Management
 Objects for collecting, managing, and analyzing customer feedback and survey responses.
+
+### Sales Cloud
+Objects for sales operations including leads, opportunities, quotes, forecasts, and sales performance management.
+
+### Service Cloud
+Objects for customer service and support including cases, knowledge articles, service contracts, and omnichannel routing.
 
 ## Accessing Descriptions Programmatically
 

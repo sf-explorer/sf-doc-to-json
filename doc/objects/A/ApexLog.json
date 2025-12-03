@@ -5,35 +5,66 @@
     "properties": {
       "Application": {
         "type": "textarea",
-        "description": "This value depends on the client type that triggered the log or heap dump. For API clients, this value is the client ID. For browser clients, this value is Browser. This field is required."
+        "description": "This value depends on the client type that triggered the log or heap dump. For API clients, this value is the client ID. For browser clients, this value is Browser. This field is required.",
+        "maxLength": 64,
+        "nullable": false,
+        "readOnly": true
       },
       "DurationMilliseconds": {
         "type": "int",
-        "description": "The duration of the transaction in milliseconds. This field is required."
+        "description": "The duration of the transaction in milliseconds. This field is required.",
+        "nullable": false,
+        "readOnly": true
       },
       "Location": {
         "type": "picklist",
-        "description": "Specifies the location of the origin of the log or heap dump. Values are: Monitoring—Generated as part of debug log monitoring, and visible to all administrators. These types of logs are maintained for seven days or until a user deletes them. SystemLog—Generated as part of system log monitoring, and visible only to you. These types of logs are maintained for 24 hours or until the user clears them."
+        "description": "Specifies the location of the origin of the log or heap dump. Values are: Monitoring—Generated as part of debug log monitoring, and visible to all administrators. These types of logs are maintained for seven days or until a user deletes them. SystemLog—Generated as part of system log monitoring, and visible only to you. These types of logs are maintained for 24 hours or until the user clears them.",
+        "format": "enum",
+        "enum": [
+          "Monitoring",
+          "Profiling",
+          "SystemLog",
+          "Preserved"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "LogLength": {
         "type": "int",
-        "description": "Length of the log or heap dump in bytes. This field is required."
+        "description": "Length of the log or heap dump in bytes. This field is required.",
+        "nullable": false,
+        "readOnly": true
       },
       "LogUserId": {
         "type": "reference",
-        "description": "ID of the user whose actions triggered the debug log or heap dump."
+        "description": "ID of the user whose actions triggered the debug log or heap dump.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Operation": {
         "type": "string",
-        "description": "Name of the operation that triggered the debug log or heap dump, such as APEXSOAP, Apex Sharing Recalculation, and so on. This field is required."
+        "description": "Name of the operation that triggered the debug log or heap dump, such as APEXSOAP, Apex Sharing Recalculation, and so on. This field is required.",
+        "maxLength": 128,
+        "nullable": false,
+        "readOnly": true
       },
       "Request": {
         "type": "string",
-        "description": "Request type. Values are: API—Request came from an API. Application—Request came from the Salesforce user interface. This field is required."
+        "description": "Request type. Values are: API—Request came from an API. Application—Request came from the Salesforce user interface. This field is required.",
+        "maxLength": 16,
+        "nullable": false,
+        "readOnly": true
       },
       "RequestIdentifier": {
         "type": "string",
-        "description": "The unique identifier of the request that triggered the debug log. Use this request identifier to correlate multiple debug logs triggered by the same request."
+        "description": "The unique identifier of the request that triggered the debug log. Use this request identifier to correlate multiple debug logs triggered by the same request.",
+        "maxLength": 84,
+        "nullable": true,
+        "readOnly": true
       },
       "": {
         "type": "",
@@ -41,14 +72,42 @@
       },
       "StartTime": {
         "type": "dateTime",
-        "description": "Start time of the transaction. This field is required."
+        "description": "Start time of the transaction. This field is required.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "string",
-        "description": "Status of the transaction. This value is either Success, or the text of an unhandled Apex exception. This field is required."
+        "description": "Status of the transaction. This value is either Success, or the text of an unhandled Apex exception. This field is required.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Log ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexlog.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexlog.htm",
+    "keyPrefix": "07L"
   }
 }

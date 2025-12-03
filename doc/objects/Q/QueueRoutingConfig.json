@@ -1,58 +1,194 @@
 {
   "QueueRoutingConfig": {
     "name": "QueueRoutingConfig",
-    "description": "Represents configuration settings that determine how work items are routed to agents. This object is available in API version 65.0 and later.",
+    "description": "Routing Configurations - QueueRoutingConfig",
     "properties": {
-      "CapacityPercentage": {
-        "type": "percent",
-        "description": "The percentage of an agent’s capacity for work items that’s consumed by a specific type of work item from the service channel. For example, capacity percentage for phone call is 100. If the configured limit is reached, the call isn't routed to the agent."
+      "Id": {
+        "type": "string",
+        "description": "Routing Configuration ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "CapacityWeight": {
-        "type": "double",
-        "description": "The amount of an agent’s capacity for work items that’s consumed by a work item from the service channel. For example, if an agent has a capacity of 6, and cases are assigned a capacity weight of 2, an agent can be assigned up to 3 cases before the agent is at capacity and can’t receive new work items."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API."
-      },
-      "DropAdditionalSkillsTimeout": {
-        "type": "int",
-        "description": "The number of seconds to wait before additional skills are dropped from Omni-Channel routing. In skills-based routing, you can set some skills to Additional Skill. After the timeout elapses, a skill marked as Additional Skill is dropped from Omni-Channel routing and the case is routed to the best-matched agent, even if the agent doesn’t have all the skills. If CustomRequestedDateTime is set in the PendingServiceRouting object, DropAdditionalSkillsTimeout uses CustomRequestedDateTime as the start time. If CustomRequestedDateTime and DropAdditionalSkillsTimeout have already passed, Omni-Channel drops the additional skills."
-      },
-      "IsAttributeBased": {
-        "type": "boolean",
-        "description": "Indicates whether the routing configuration is used with skills-based routing rules (true) or not (false)."
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language of the queue routing configuration."
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the queue routing configuration."
+        "description": "Routing Configuration Name",
+        "maxLength": 80,
+        "nullable": false
       },
-      "PausedCapacityPercentage": {
-        "type": "percent",
-        "description": "The percentage of an agent's capacity that’s consumed when a work item is paused. This field is available only with status-based capacity and Enhanced Omni-Channel."
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "PausedCapacityWeight": {
-        "type": "double",
-        "description": "The amount of an agent's capacity that’s consumed when a work item is paused. This field is available only with status-based capacity and Enhanced Omni-Channel."
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "PushTimeout": {
-        "type": "int",
-        "description": "The time limit set for an agent to respond to an item before it’s pushed to another agent. The time limit is measured in seconds."
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "RoutingModel": {
-        "type": "picklist",
-        "description": "The routing type that determines how work items are routed to agents."
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "RoutingPriority": {
-        "type": "int",
-        "description": "The priority in which work items from the service channels are routed to agents. Work items that have lower values (for example, 0) are routed to agents first."
+        "type": "integer",
+        "nullable": false
+      },
+      "RoutingModel": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "LeastActive",
+          "MostAvailable",
+          "ExternalRouting"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "CapacityWeight": {
+        "type": "number",
+        "description": "Units of Capacity",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "CapacityPercentage": {
+        "type": "number",
+        "description": "Percentage of Capacity",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "PushTimeout": {
+        "type": "integer",
+        "description": "Push Time-Out (seconds)",
+        "nullable": true
+      },
+      "OverflowAssigneeId": {
+        "type": "string",
+        "description": "OverflowAssignee ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true
+      },
+      "IsAttributeBased": {
+        "type": "boolean",
+        "description": "Use with Skills-Based Routing Rules",
+        "nullable": false
+      },
+      "DropAdditionalSkillsTimeout": {
+        "type": "integer",
+        "description": "Drop Additional Skills Time-Out (seconds)",
+        "nullable": true
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_queueroutingconfig.htm"
+    "module": "N/A",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "keyPrefix": "0K9",
+    "label": "Routing Configuration",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "Group",
+        "field": "QueueRoutingConfigId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatButton",
+        "field": "RoutingConfigurationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingChannel",
+        "field": "RoutingConfigurationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

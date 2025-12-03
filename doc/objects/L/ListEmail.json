@@ -9,107 +9,200 @@
       },
       "CampaignId": {
         "type": "reference",
-        "description": "The ID of the related campaign. This field is available in API version 42.0 and later."
+        "description": "The ID of the related campaign. This field is available in API version 42.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "Campaign",
+        "maxLength": 18,
+        "nullable": true
       },
       "ClickThroughRate": {
         "type": "percent",
-        "description": "The percentage of visitors who click links contained in emails delivered (sent minus bounces) to them. Multiple clicks for a same link are counted. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The percentage of visitors who click links contained in emails delivered (sent minus bounces) to them. Multiple clicks for a same link are counted. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ClickToOpenRatio": {
         "type": "percent",
-        "description": "The number of unique clicks divided by unique HTML opens. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The number of unique clicks divided by unique HTML opens. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "DeliveryRate": {
         "type": "percent",
-        "description": "The percentage of the emails that were delivered compared to the number that bounced (soft and hard). Note: this data includes emails that were delivered to the recipient's spam folder. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The percentage of the emails that were delivered compared to the number that bounced (soft and hard). Note: this data includes emails that were delivered to the recipient's spam folder. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "EmailContentId": {
         "type": "reference",
-        "description": "The ID of the email content record associated with the list email.This field is available in API version 50.0 or later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The ID of the email content record associated with the list email.This field is available in API version 50.0 or later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "salesforce-id",
+        "x-object": "EmailContent",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "FromAddress": {
         "type": "textarea",
-        "description": "Read-only except when the list email is in a draft state. Validated against user’s addresses."
+        "description": "Read-only except when the list email is in a draft state. Validated against user’s addresses.",
+        "maxLength": 320,
+        "nullable": false
       },
       "FromName": {
         "type": "string",
-        "description": "Read-only except when the list email is in a draft state. Validated against user’s addresses. This field is null for emails sent from Account Engagement."
+        "description": "Read-only except when the list email is in a draft state. Validated against user’s addresses. This field is null for emails sent from Account Engagement.",
+        "maxLength": 121,
+        "nullable": true
       },
       "HasAttachment": {
         "type": "boolean",
-        "description": "Read-only. Defaulted on create and update. Value is true if the list email has an attachment. This field is null for emails sent from Account Engagement."
+        "description": "Read-only. Defaulted on create and update. Value is true if the list email has an attachment. This field is null for emails sent from Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HtmlBody": {
         "type": "textarea",
-        "description": "The body of the list email. This field is null for emails sent from Account Engagement."
+        "description": "The body of the list email. This field is null for emails sent from Account Engagement.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "IsTracked": {
         "type": "boolean",
-        "description": "Indicates if email tracking was on when the list email was sent. This field is blank for emails sent from Account Engagement and synced to Salesforce. This field is null for emails sent from Account Engagement."
+        "description": "Indicates if email tracking was on when the list email was sent. This field is blank for emails sent from Account Engagement and synced to Salesforce. This field is null for emails sent from Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp that indicates when the current user last viewed a record that is related to this list email. This field is null for emails sent from Account Engagement."
+        "description": "The timestamp that indicates when the current user last viewed a record that is related to this list email. This field is null for emails sent from Account Engagement.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed. This field is null for emails sent from Account Engagement."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed. This field is null for emails sent from Account Engagement.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Read-only except when the list email is in a draft state."
+        "description": "Read-only except when the list email is in a draft state.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OpenRate": {
         "type": "percent",
-        "description": "The percentage of unique HTML opens compared to the total number of emails delivered (sent minus bounces). This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The percentage of unique HTML opens compared to the total number of emails delivered (sent minus bounces). This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "OptOutRate": {
         "type": "percent",
-        "description": "The percentage of users that have opted out compared to the total number of emails sent. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The percentage of users that have opted out compared to the total number of emails sent. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "OwnerId": {
         "type": "reference",
-        "description": "References Group and User. This field is null for emails sent from Account Engagement."
+        "description": "References Group and User. This field is null for emails sent from Account Engagement.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ProgramName": {
         "type": "string",
-        "description": "The name of an Engagement Studio program where an automated email originates. Reserved for future use. This field is available in API version 46.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The name of an Engagement Studio program where an automated email originates. Reserved for future use. This field is available in API version 46.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ScheduledDate": {
         "type": "dateTime",
-        "description": "Read-only. If null and Status is set to Scheduled` defaults to created time."
+        "description": "Read-only. If null and Status is set to Scheduled` defaults to created time.",
+        "format": "date-time",
+        "nullable": true
       },
       "SentVia": {
         "type": "picklist",
-        "description": "Indicates whether the email was sent from Salesforce or Account Engagement. The allowed values are Salesforce or Pardot or MessagingService. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "Indicates whether the email was sent from Salesforce or Account Engagement. The allowed values are Salesforce or Pardot or MessagingService. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "enum",
+        "enum": [
+          "Pardot",
+          "Salesforce",
+          "MessagingService"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SpamComplaintRate": {
         "type": "percent",
-        "description": "The percentage of spam complaints compared to the total number of emails sent. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The percentage of spam complaints compared to the total number of emails sent. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Status": {
         "type": "picklist",
-        "description": "Read-only except when the list email is in a draft state."
+        "description": "Read-only except when the list email is in a draft state.",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Scheduled",
+          "Sent",
+          "LimitError",
+          "Cancelled",
+          "Running"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Subject": {
         "type": "textarea",
-        "description": "Read-only except when the list email is in a draft state. This field is null for emails sent from Account Engagement."
+        "description": "Read-only except when the list email is in a draft state. This field is null for emails sent from Account Engagement.",
+        "maxLength": 3000,
+        "nullable": true
       },
       "TextBody": {
         "type": "textarea",
-        "description": "Read-only except when the list email is in a draft state. This field is null for emails sent from Account Engagement."
+        "description": "Read-only except when the list email is in a draft state. This field is null for emails sent from Account Engagement.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "TotalDelivered": {
         "type": "int",
-        "description": "The total number of emails minus hard and soft bounces. Note: this data includes emails that were delivered to the recipient's spam folder. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The total number of emails minus hard and soft bounces. Note: this data includes emails that were delivered to the recipient's spam folder. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalHardBounced": {
         "type": "int",
-        "description": "The total number of emails that permanently bounced back to the sender because the address is invalid. A hard bounce can occur because the domain name doesn't exist or because the recipient is unknown. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The total number of emails that permanently bounced back to the sender because the address is invalid. A hard bounce can occur because the domain name doesn't exist or because the recipient is unknown. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalOpens": {
         "type": "int",
-        "description": "The total number of times a prospect’s email client loaded the images in the HTML version of the email. We also record an open if the prospect clicks a link within the HTML or text email without downloading images. A click indicates that they viewed the message. Some email clients (Outlook, Apple Mail, Thunderbird) don’t display images by default. Account Engagement counts an open each time the images load. This field is available in API version 41.0 and later. To access this field. users need the Sales Engagement User permission set or your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The total number of times a prospect’s email client loaded the images in the HTML version of the email. We also record an open if the prospect clicks a link within the HTML or text email without downloading images. A click indicates that they viewed the message. Some email clients (Outlook, Apple Mail, Thunderbird) don’t display images by default. Account Engagement counts an open each time the images load. This field is available in API version 41.0 and later. To access this field. users need the Sales Engagement User permission set or your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalOutOfOffice": {
         "type": "int",
@@ -121,35 +214,59 @@
       },
       "TotalSent": {
         "type": "int",
-        "description": "Read-only. The total number of list emails sent, including bounced, opted-out, and invalid To: addresses."
+        "description": "Read-only. The total number of list emails sent, including bounced, opted-out, and invalid To: addresses.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalSoftBounced": {
         "type": "int",
-        "description": "The total number of times a recipient’s mail server acknowledged the email, but returned it to the sender. Sometimes it is because the recipient's mailbox is full or the mail server is temporarily unavailable. A soft bounce message can sometimes be deliverable at another time. After 5 soft bounces, Account Engagement opts the prospect out of emails. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The total number of times a recipient’s mail server acknowledged the email, but returned it to the sender. Sometimes it is because the recipient's mailbox is full or the mail server is temporarily unavailable. A soft bounce message can sometimes be deliverable at another time. After 5 soft bounces, Account Engagement opts the prospect out of emails. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalSpamComplaints": {
         "type": "int",
-        "description": "The total number of prospects that reported the email as spam. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The total number of prospects that reported the email as spam. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalTrackedLinkClicks": {
         "type": "int",
-        "description": "The number of times prospects clicked a link in the email. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The number of times prospects clicked a link in the email. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of email sent: list email or automated email. Reserved for future use. This field is available in API version 46.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The type of email sent: list email or automated email. Reserved for future use. This field is available in API version 46.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "enum",
+        "enum": [
+          "List Email",
+          "Automated Email"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "UniqueClickThroughRate": {
         "type": "percent",
-        "description": "The percentage of visitors who clicked a link contained in an email. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The percentage of visitors who clicked a link contained in an email. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "UniqueOpens": {
         "type": "int",
-        "description": "The number of prospects who loaded the images in the HTML version of the email. The Unique Opens category counts each recipient one time only, even if the prospect loaded images several times. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The number of prospects who loaded the images in the HTML version of the email. The Unique Opens category counts each recipient one time only, even if the prospect loaded images several times. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "UniqueOptOuts": {
         "type": "int",
-        "description": "Unique opt-outs represent the total number of prospects that have clicked the link to unsubscribe or opted out of all emails in the Email Preference Center. These prospects are removed from future email sends. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "Unique opt-outs represent the total number of prospects that have clicked the link to unsubscribe or opted out of all emails in the Email Preference Center. These prospects are removed from future email sends. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
       },
       "UniqueReplies": {
         "type": "int",
@@ -157,10 +274,239 @@
       },
       "UniqueTrackedLinkClicks": {
         "type": "int",
-        "description": "The number of times a prospect clicked a link in the email. This metric doesn’t include multiple clicks of the same link. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set."
+        "description": "The number of times a prospect clicked a link in the email. This metric doesn’t include multiple clicks of the same link. This field is available in API version 41.0 and later. To access this field, your org must use Account Engagement and users need the CRM User or Sales User permission set.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "List Email ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ReplyToAddress": {
+        "type": "string",
+        "maxLength": 320,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listemail.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listemail.htm",
+    "keyPrefix": "0XB",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignInsight",
+        "field": "MarketingAssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignInsightRationale",
+        "field": "MarketingAssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDistribution",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ListEmailIndividualRecipient",
+        "field": "ListEmailId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ListEmailRecipientSource",
+        "field": "ListEmailId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ListEmailShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

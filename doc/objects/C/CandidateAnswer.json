@@ -1,0 +1,225 @@
+{
+  "CandidateAnswer": {
+    "name": "CandidateAnswer",
+    "description": "Candidate Answers - CandidateAnswer",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Candidate Answer ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Name": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "QuestionId": {
+        "type": "string",
+        "description": "Question Entity ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Case",
+          "ConversationEntry",
+          "FeedItem",
+          "LiveChatTranscript",
+          "MessagingSession",
+          "VoiceCall"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "AnswerEntityId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-objects": [
+          "FAQ__ka",
+          "FeedComment",
+          "FeedItem",
+          "Knowledge__ka",
+          "QuickText",
+          "ReplyText"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "AnswerSummary": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PublishedAnswerId": {
+        "type": "string",
+        "description": "Feed Comment ID",
+        "format": "salesforce-id",
+        "x-object": "FeedComment",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "NetworkId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "AnswerMetadata": {
+        "type": "string",
+        "maxLength": 131072,
+        "nullable": true,
+        "readOnly": true
+      },
+      "RankingScore": {
+        "type": "number",
+        "nullable": true,
+        "readOnly": true
+      },
+      "RankingPosition": {
+        "type": "integer",
+        "nullable": true,
+        "readOnly": true
+      },
+      "CandidateVersion": {
+        "type": "string",
+        "nullable": true,
+        "readOnly": true
+      },
+      "IsRelevantCandidate": {
+        "type": "boolean",
+        "description": "Is this Candidate Relevant",
+        "nullable": false
+      },
+      "AppSourceType": {
+        "type": "string",
+        "description": "Application Source Type",
+        "format": "enum",
+        "enum": [
+          "REPLY_RECOMMENDATION",
+          "ARTICLE_RECOMMENDATION",
+          "UTTERANCE_RECOMMENDATION",
+          "FAQ",
+          "EAR_FOR_CONVERSATION",
+          "USE_CASE_EXPLORER",
+          "EAR_FOR_VOICE",
+          "COPILOT_UTTERANCE_ANALYSIS",
+          "COPILOT_UTTERANCE_ANALYSIS_AGGREGATION",
+          "COPILOT_UTTERANCE_ANALYSIS_PROCESSING",
+          "AGENTFORCE_INTERACTION_EXPLORER_MOMENT_GENERATION",
+          "AGENTFORCE_INTERACTION_EXPLORER_CLUSTERING"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "QuestionSummary": {
+        "type": "string",
+        "maxLength": 8092,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ExternalRequestIdentifier": {
+        "type": "string",
+        "maxLength": 36,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ExternalAiModelId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "ExternalAIModel",
+        "maxLength": 18,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "keyPrefix": "0QA",
+    "label": "Candidate Answer",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "EinsteinAnswerFeedback",
+        "field": "FeedbackEntityId",
+        "relationshipName": "SuggestionFeedbackEntities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EinsteinAnswerFeedbackChangeEvent",
+        "field": "FeedbackEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
+  }
+}

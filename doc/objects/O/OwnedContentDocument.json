@@ -5,42 +5,146 @@
     "properties": {
       "ContentDocumentId": {
         "type": "reference",
-        "description": "ID of the document."
+        "description": "ID of the document.",
+        "format": "salesforce-id",
+        "x-object": "ContentDocument",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ContentSize": {
         "type": "int",
-        "description": "Size of the document in bytes."
+        "description": "Size of the document in bytes.",
+        "nullable": true,
+        "readOnly": true
       },
       "ContentUrl": {
         "type": "url",
-        "description": "URL for links and Google Docs. This field is set only for links and Google Docs, and is one of the fields that determine the FileType. This field is available in API version 31.0 and later."
+        "description": "URL for links and Google Docs. This field is set only for links and Google Docs, and is one of the fields that determine the FileType. This field is available in API version 31.0 and later.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ExternalDataSourceName": {
         "type": "string",
-        "description": "Name of the external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 32.0 and later."
+        "description": "Name of the external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 32.0 and later.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "ExternalDataSourceType": {
         "type": "picklist",
-        "description": "Type of external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 35.0 and later."
+        "description": "Type of external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 35.0 and later.",
+        "format": "enum",
+        "enum": [
+          "AmazonAthena",
+          "AmazonDynamoDb",
+          "ContentHubBox",
+          "ContentHubGDrive",
+          "contentHubItem",
+          "ContentHubQuip",
+          "ContentHubSharepointOffice365",
+          "ContentHubSharepointOneDrive",
+          "Datajourney",
+          "Identity",
+          "mcdm_15.MarketingCloudDataSourceProvider",
+          "mcsocsel11.SocialInsightsProvider",
+          "OData",
+          "OData4",
+          "OpenSearch",
+          "outgoingemail",
+          "SfdcOrg",
+          "SimpleURL",
+          "usermobileconfig",
+          "vlocity_cmt.IntegrationProcedureDataSourceProvider",
+          "Wrapper"
+        ],
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "FileExtension": {
         "type": "string",
-        "description": "File extension of the document. This field is available in API version 31.0 and later."
+        "description": "File extension of the document. This field is available in API version 31.0 and later.",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "FileType": {
         "type": "string",
-        "description": "Type of document, determined by the file extension."
+        "description": "Type of document, determined by the file extension.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the owner of the document."
+        "description": "ID of the owner of the document.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Title": {
         "type": "string",
-        "description": "Title of the document."
+        "description": "Title of the document.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Owned Content Document Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Content Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_ownedcontentdocument.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_ownedcontentdocument.htm",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": false,
+    "searchable": false
   }
 }

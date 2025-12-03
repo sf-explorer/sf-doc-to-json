@@ -5,18 +5,102 @@
     "properties": {
       "BadgeType": {
         "type": "picklist",
-        "description": "The type of badge. Valid values are: Customer Partner Employee"
+        "description": "The type of badge. Valid values are: Customer Partner Employee",
+        "format": "enum",
+        "enum": [
+          "Customer",
+          "Partner",
+          "Employee"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "CustomText": {
         "type": "string",
-        "description": "Custom text for the badge."
+        "description": "Custom text for the badge.",
+        "maxLength": 50,
+        "nullable": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "The ID of the Experience Cloud site or org that the badge is in."
+        "description": "The ID of the Experience Cloud site or org that the badge is in.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Network",
+          "Organization"
+        ],
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Custom Badge ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_usercustombadge.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_usercustombadge.htm",
+    "keyPrefix": "0MQ",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "UserCustomBadgeLocalization",
+        "field": "ParentId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

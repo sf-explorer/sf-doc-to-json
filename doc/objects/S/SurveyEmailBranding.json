@@ -5,38 +5,164 @@
     "properties": {
       "Body": {
         "type": "textarea",
-        "description": "The body text of the invitation email."
+        "description": "The body text of the invitation email.",
+        "maxLength": 4000,
+        "nullable": false
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique API name of the email branding configuration."
+        "description": "The unique API name of the email branding configuration.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FooterImageId": {
         "type": "reference",
-        "description": "The ID of the content asset that appears in the footer of the invitation email."
+        "description": "The ID of the content asset that appears in the footer of the invitation email.",
+        "format": "salesforce-id",
+        "x-object": "ContentAsset",
+        "maxLength": 18,
+        "nullable": true
       },
       "FromEmailAddress": {
         "type": "email",
-        "description": "The email address that appears in the “From” field when the invitation is sent to participants."
+        "description": "The email address that appears in the “From” field when the invitation is sent to participants.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "HeaderImageId": {
         "type": "reference",
-        "description": "The ID of the content asset that appears in the header of the invitation email."
+        "description": "The ID of the content asset that appears in the header of the invitation email.",
+        "format": "salesforce-id",
+        "x-object": "ContentAsset",
+        "maxLength": 18,
+        "nullable": true
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the emails. Available languages include: Chinese (Simplified) Chinese (Traditional) Danish Dutch English Finnish French German Italian Japanese Korean Norwegian Portuguese (Brazilian) Russian Spanish Spanish (Mexican) Swedish Thai"
+        "description": "The language of the emails. Available languages include: Chinese (Simplified) Chinese (Traditional) Danish Dutch English Finnish French German Italian Japanese Korean Norwegian Portuguese (Brazilian) Russian Spanish Spanish (Mexican) Swedish Thai",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label for these email configuration settings."
+        "description": "The label for these email configuration settings.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Subject": {
         "type": "string",
-        "description": "The subject of the invitation email."
+        "description": "The subject of the invitation email.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Survey Email Branding ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Feedback Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyemailbranding.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyemailbranding.htm",
+    "keyPrefix": "0Ka",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "SurveyInvitation",
+        "field": "EmailBrandingId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

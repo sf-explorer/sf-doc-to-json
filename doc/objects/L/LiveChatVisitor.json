@@ -5,22 +5,142 @@
     "properties": {
       "LastReferencedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the visitor"
+        "description": "The name of the visitor",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SessionKey": {
         "type": "string",
-        "description": "The session key used to uniquely identify the visitor."
+        "description": "The session key used to uniquely identify the visitor.",
+        "maxLength": 200,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Chat Visitor ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatvisitor.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatvisitor.htm",
+    "keyPrefix": "571",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ConversationEntry",
+        "field": "ActorId",
+        "relationshipName": "ConversationEntries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscript",
+        "field": "LiveChatVisitorId",
+        "relationshipName": "LiveChatTranscripts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptChangeEvent",
+        "field": "LiveChatVisitorId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

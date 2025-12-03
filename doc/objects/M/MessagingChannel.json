@@ -5,7 +5,11 @@
     "properties": {
       "BusinessHoursId": {
         "type": "reference",
-        "description": "The operating hours for your business, when agents are available. Available only in orgs that use Einstein Bots."
+        "description": "The operating hours for your business, when agents are available. Available only in orgs that use Einstein Bots.",
+        "format": "salesforce-id",
+        "x-object": "BusinessHours",
+        "maxLength": 18,
+        "nullable": true
       },
       "ChannelAddressIdentifier": {
         "type": "string",
@@ -17,39 +21,61 @@
       },
       "ConsentType": {
         "type": "picklist",
-        "description": "The type of consent, or opt-in, that is required to message users on this channel. This field is available in API version 48.0 and later. Possible values are: DoubleOptIn ExplicitOptIn ImplicitOptIn (default value) The property defaultedOnCreate has been removed in API version 51.0 and later. Now the consent type is defaulted to ImplicitOptIn when the consent type isn’t set on create only for channels that support consents."
+        "description": "The type of consent, or opt-in, that is required to message users on this channel. This field is available in API version 48.0 and later. Possible values are: DoubleOptIn ExplicitOptIn ImplicitOptIn (default value) The property defaultedOnCreate has been removed in API version 51.0 and later. Now the consent type is defaulted to ImplicitOptIn when the consent type isn’t set on create only for channels that support consents.",
+        "format": "enum",
+        "enum": [
+          "ImplicitOptIn",
+          "ExplicitOptIn",
+          "DoubleOptIn"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ConversationEndResponse": {
         "type": "textarea",
-        "description": "Automated response to the customer when the agent ends the conversation. (Optional)"
+        "description": "Automated response to the customer when the agent ends the conversation. (Optional)",
+        "maxLength": 65536,
+        "nullable": true
       },
       "CriticalWaitTime": {
         "type": "Reserved for future use. This field has been deprecated as of API version 52.0.",
-        "description": ""
+        "description": "",
+        "nullable": true
       },
       "Description": {
         "type": "Reserved for future use.",
-        "description": ""
+        "description": "",
+        "maxLength": 65536,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The developer name for the messaging channel. This value is a concatenation of the messaging platform key and the message type."
+        "description": "The developer name for the messaging channel. This value is a concatenation of the messaging platform key and the message type.",
+        "maxLength": 80,
+        "nullable": false
       },
       "DoubleOptInPrompt": {
         "type": "textarea",
-        "description": "Automated response to the end user to prompt them to doubly opt in to receiving messages. Available in API version 48.0 and later."
+        "description": "Automated response to the end user to prompt them to doubly opt in to receiving messages. Available in API version 48.0 and later.",
+        "maxLength": 65536,
+        "nullable": true
       },
       "EngagedResponse": {
         "type": "textarea",
-        "description": "Automated response to the customer when the conversation is accepted by the agent. (Optional)"
+        "description": "Automated response to the customer when the conversation is accepted by the agent. (Optional)",
+        "maxLength": 65536,
+        "nullable": true
       },
       "InitialResponse": {
         "type": "textarea",
-        "description": "First automated response to the customer for a new conversation. (Optional)"
+        "description": "First automated response to the customer for a new conversation. (Optional)",
+        "maxLength": 65536,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether a channel is active and can receive messages."
+        "description": "Indicates whether a channel is active and can receive messages.",
+        "nullable": false
       },
       "IsAuthenticated": {
         "type": "boolean",
@@ -57,43 +83,121 @@
       },
       "IsoCountryCode": {
         "type": "string",
-        "description": "Two-letter ISO 3166-1 alpha-2 code for the country that the phone number is associated with. For example, the code for United States is US. Available in API version 44.0 and later."
+        "description": "Two-letter ISO 3166-1 alpha-2 code for the country that the phone number is associated with. For example, the code for United States is US. Available in API version 44.0 and later.",
+        "maxLength": 2,
+        "nullable": true,
+        "readOnly": true
       },
       "IsRequireDoubleOptIn": {
         "type": "boolean",
-        "description": "Indicates whether double opt-in is required (true) or not (false) for this Messaging channel. Available in API version 48.0 and later."
+        "description": "Indicates whether double opt-in is required (true) or not (false) for this Messaging channel. Available in API version 48.0 and later.",
+        "nullable": false
       },
       "IsRestrictedToBusinessHours": {
         "type": "Reserved for future use.",
-        "description": ""
+        "description": "",
+        "nullable": false
       },
       "IsUserMatchByExternalIdOnly": {
         "type": "boolean",
-        "description": "Indicates whether to restrict matching on customer by external ID only (and not use the full name). This field has been deprecated as of API version 52.0."
+        "description": "Indicates whether to restrict matching on customer by external ID only (and not use the full name). This field has been deprecated as of API version 52.0.",
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "Reserved for future use."
+        "description": "Reserved for future use.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Unique name for the MessagingChannel."
+        "description": "Unique name for the MessagingChannel.",
+        "maxLength": 80,
+        "nullable": false
       },
       "MessageType": {
         "type": "picklist",
-        "description": "Type of message. Possible values are: AppleBusinessChat—Represents Apple Messages for Business. Custom—Represents Bring Your Own Channel for Messaging or Bring Your Own Channel for CCaaS. Available in API version 58.0 and later. EmbeddedMessaging—Represents Messaging for In-App and Web. Available in API version 50.0 and later. Facebook Phone PSTNVoice (for Agentforce Voice channels that use PSTN) Text Voice WhatsApp"
+        "description": "Type of message. Possible values are: AppleBusinessChat—Represents Apple Messages for Business. Custom—Represents Bring Your Own Channel for Messaging or Bring Your Own Channel for CCaaS. Available in API version 58.0 and later. EmbeddedMessaging—Represents Messaging for In-App and Web. Available in API version 50.0 and later. Facebook Phone PSTNVoice (for Agentforce Voice channels that use PSTN) Text Voice WhatsApp",
+        "format": "enum",
+        "enum": [
+          "Text",
+          "Facebook",
+          "Line",
+          "GoogleHome",
+          "Alexa",
+          "Omega",
+          "AppleBusinessChat",
+          "WeChat",
+          "WebChat",
+          "WhatsApp",
+          "Phone",
+          "EmbeddedMessaging",
+          "Voice",
+          "Custom",
+          "InternalCopilot",
+          "VoiceIntegrationPilot",
+          "PstnVoice",
+          "WhatsAppVoice",
+          "SipVoice"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "MessagingPlatformKey": {
         "type": "string",
-        "description": "Unique key for a channel that the end user can message or call based on the MessageType. In PSTNVoice, SMS, WhatsApp, and LINE channels, the platform key is the phone number associated with this channel. In Facebook Messenger channels, the platform key is the Facebook page ID associated with this channel. In Apple Messages for Business channels, the platform key is the Apple Messages identifier. In Messaging for In-App and Web, the platform key is identical to the Channel Address Identifier."
+        "description": "Unique key for a channel that the end user can message or call based on the MessageType. In PSTNVoice, SMS, WhatsApp, and LINE channels, the platform key is the phone number associated with this channel. In Facebook Messenger channels, the platform key is the Facebook page ID associated with this channel. In Apple Messages for Business channels, the platform key is the Apple Messages identifier. In Messaging for In-App and Web, the platform key is identical to the Channel Address Identifier.",
+        "maxLength": 150,
+        "nullable": false
       },
       "OfflineAgentsResponse": {
         "type": "Reserved for future use.",
-        "description": ""
+        "description": "",
+        "maxLength": 65536,
+        "nullable": true
       },
       "OptInPrompt": {
         "type": "textarea",
-        "description": "Automated response to the end user to prompt them to explicitly opt in to receiving messages. Available in API version 49.0 and earlier."
+        "description": "Automated response to the end user to prompt them to explicitly opt in to receiving messages. Available in API version 49.0 and earlier.",
+        "maxLength": 65536,
+        "nullable": true
       },
       "OptInResponse": {
         "type": "textarea",
@@ -109,7 +213,9 @@
       },
       "OutsideBusinessHoursResponse": {
         "type": "Reserved for future use.",
-        "description": ""
+        "description": "",
+        "maxLength": 65536,
+        "nullable": true
       },
       "PlatformType": {
         "type": "picklist",
@@ -117,11 +223,22 @@
       },
       "RoutingConfigurationId": {
         "type": "reference",
-        "description": "Specifies which Omni-Channel routing configuration to use. This field is required when RoutingType is OmniSkills. To learn more, see Create Routing Configurations."
+        "description": "Specifies which Omni-Channel routing configuration to use. This field is required when RoutingType is OmniSkills. To learn more, see Create Routing Configurations.",
+        "format": "salesforce-id",
+        "x-object": "QueueRoutingConfig",
+        "maxLength": 18,
+        "nullable": true
       },
       "RoutingType": {
         "type": "picklist",
-        "description": "Type used to support Omni-Channel’s different routing methods. OmniQueue (queue-based routing) OmniSkills (skills-based routing) When this value isn’t set, OmniQueue is used."
+        "description": "Type used to support Omni-Channel’s different routing methods. OmniQueue (queue-based routing) OmniSkills (skills-based routing) When this value isn’t set, OmniQueue is used.",
+        "format": "enum",
+        "enum": [
+          "OmniQueue",
+          "OmniSkills"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "SessionHandler": {
         "type": "picklist",
@@ -129,14 +246,154 @@
       },
       "TargetQueueId": {
         "type": "reference",
-        "description": "Queue in which incoming conversations are placed while waiting for an agent to accept."
+        "description": "Queue in which incoming conversations are placed while waiting for an agent to accept.",
+        "format": "salesforce-id",
+        "x-object": "Group",
+        "maxLength": 18,
+        "nullable": true
       },
       "TargetUserId": {
         "type": "reference",
-        "description": "Messaging User or agent for the conversation. Available in API version 50.0 and earlier."
+        "description": "Messaging User or agent for the conversation. Available in API version 50.0 and earlier.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Messaging Channel ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Modified On",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LinkingPreference": {
+        "type": "string",
+        "description": "Select record type to link",
+        "format": "enum",
+        "enum": [
+          "Contact"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "IsLinkedRecordOpenedAsSubTab": {
+        "type": "boolean",
+        "description": "Open linked record as a subtab within the Messaging Session",
+        "nullable": false
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingchannel.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingchannel.htm",
+    "keyPrefix": "0Mj",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "Conversation",
+        "field": "ConversationChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ConversationChannelResponse",
+        "field": "ConversationChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingChannelSkill",
+        "field": "MessagingChannelId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MessagingDeliveryError",
+        "field": "MessagingChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingEndUser",
+        "field": "MessagingChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingLink",
+        "field": "MessagingChannelId",
+        "relationshipName": "MessagingLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MessagingSession",
+        "field": "MessagingChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MsgChannelLanguageKeyword",
+        "field": "MessagingChannelId",
+        "relationshipName": "MsgChannelLanguageKeywords",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SetupEntityAccess",
+        "field": "SetupEntityId",
+        "relationshipName": "SetupEntityAccessItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceVendorLine",
+        "field": "ConversationChannelId",
+        "relationshipName": "VoiceVendorLines",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

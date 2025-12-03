@@ -5,66 +5,206 @@
     "properties": {
       "CumulativeScore": {
         "type": "double",
-        "description": "Sum of the responses provided by all the participants for a question of the following types: rating, scoring, and slider. For a question of the type ranking, sum of the weights provided by all the participants for each item."
+        "description": "Sum of the responses provided by all the participants for a question of the following types: rating, scoring, and slider. For a question of the type ranking, sum of the weights provided by all the participants for each item.",
+        "nullable": true,
+        "readOnly": true
       },
       "DateResponse": {
         "type": "date",
-        "description": "The date selected by one or more participants for a question of the type date."
+        "description": "The date selected by one or more participants for a question of the type date.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "For an overall score type record: Name of a question. Name of an item in a question of the type ranking."
+        "description": "For an overall score type record: Name of a question. Name of an item in a question of the type ranking.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "QuestionChoiceId": {
         "type": "reference",
-        "description": "Unique identifier of the answer choice selected by one or more participants. For an individual score type record, this field is applicable for questions of the following types: picklist, radio, multi choice, ranking and rating. For an overall score type record, this field is applicable for questions of the type ranking."
+        "description": "Unique identifier of the answer choice selected by one or more participants. For an individual score type record, this field is applicable for questions of the following types: picklist, radio, multi choice, ranking and rating. For an overall score type record, this field is applicable for questions of the type ranking.",
+        "format": "salesforce-id",
+        "x-object": "SurveyQuestionChoice",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionDeveloperName": {
         "type": "string",
-        "description": "The API name of the question for which response is recorded. The API name must be unique within a particular version of the survey."
+        "description": "The API name of the question for which response is recorded. The API name must be unique within a particular version of the survey.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionId": {
         "type": "reference",
-        "description": "Unique identifier of the question for which response is recorded."
+        "description": "Unique identifier of the question for which response is recorded.",
+        "format": "salesforce-id",
+        "x-object": "SurveyQuestion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionName": {
         "type": "textarea",
-        "description": "Name of the question for which response is recorded."
+        "description": "Name of the question for which response is recorded.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionSkippedCount": {
         "type": "int",
-        "description": "Number of participants who didn’t respond to the question."
+        "description": "Number of participants who didn’t respond to the question.",
+        "nullable": true,
+        "readOnly": true
       },
       "ResponseCount": {
         "type": "int",
-        "description": "For an overall score type record, number of participants who responded to the question. For an individual score type record, number of participants who selected a particular answer choice."
+        "description": "For an overall score type record, number of participants who responded to the question. For an individual score type record, number of participants who selected a particular answer choice.",
+        "nullable": true,
+        "readOnly": true
       },
       "ResponseValue": {
         "type": "double",
-        "description": "Answer choice selected by one or more participants for a question of the following types: rating, slider, score, NPS. Rank provided by the participant for an item in a question of the type ranking."
+        "description": "Answer choice selected by one or more participants for a question of the following types: rating, slider, score, NPS. Rank provided by the participant for an item in a question of the type ranking.",
+        "nullable": true,
+        "readOnly": true
       },
       "Score": {
         "type": "double",
-        "description": "For an individual score type record, percentage of participants who selected a particular answer choice. Note For questions of the type ranking, the percentage of participants who have provided the same rank to an item."
+        "description": "For an individual score type record, percentage of participants who selected a particular answer choice. Note For questions of the type ranking, the percentage of participants who have provided the same rank to an item.",
+        "nullable": true,
+        "readOnly": true
       },
       "ScoreType": {
         "type": "picklist",
-        "description": "Type of the score calculated for a record. Possible values are: Individual Overall"
+        "description": "Type of the score calculated for a record. Possible values are: Individual Overall",
+        "format": "enum",
+        "enum": [
+          "Individual",
+          "Overall"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SurveyId": {
         "type": "reference",
-        "description": "Unique identifier of the survey that contains the question for which scores are calculated."
+        "description": "Unique identifier of the survey that contains the question for which scores are calculated.",
+        "format": "salesforce-id",
+        "x-object": "Survey",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SurveyInvitationId": {
         "type": "reference",
-        "description": "Unique identifier of the survey invitation for which scores are calculated."
+        "description": "Unique identifier of the survey invitation for which scores are calculated.",
+        "format": "salesforce-id",
+        "x-object": "SurveyInvitation",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SurveyVersionId": {
         "type": "reference",
-        "description": "Unique identifier of the survey version for which scores are calculated."
+        "description": "Unique identifier of the survey version for which scores are calculated.",
+        "format": "salesforce-id",
+        "x-object": "SurveyVersion",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Question Score ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Feedback Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyquestionscore.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyquestionscore.htm",
+    "keyPrefix": "0Zg",
+    "createable": false,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

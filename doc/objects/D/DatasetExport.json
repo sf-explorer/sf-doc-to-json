@@ -5,34 +5,117 @@
     "properties": {
       "CompressedMetadataLength": {
         "type": "int",
-        "description": "This field is required when a record in an object contains a BLOB (binary large object) field. In the DataExport object, Metadata is the BLOB field."
+        "description": "This field is required when a record in an object contains a BLOB (binary large object) field. In the DataExport object, Metadata is the BLOB field.",
+        "nullable": true,
+        "readOnly": true
       },
       "Metadata": {
         "type": "base64",
-        "description": "Contains the JSON schema that describes the data in the CSV. This schema includes column metadata such as type, format, and defaultValue."
+        "description": "Contains the JSON schema that describes the data in the CSV. This schema includes column metadata such as type, format, and defaultValue.",
+        "format": "byte",
+        "nullable": true,
+        "readOnly": true
       },
       "MetadataLength": {
         "type": "int",
-        "description": "This field is required when a record in an object contains a BLOB (binary large object) field. In the DataExport object, Metadata is the BLOB field."
+        "description": "This field is required when a record in an object contains a BLOB (binary large object) field. In the DataExport object, Metadata is the BLOB field.",
+        "nullable": true,
+        "readOnly": true
       },
       "Owner": {
         "type": "string",
-        "description": "User ID of the owner, as specified in the userId parameter in the export node of the dataflow that created the record. Only the specified owner can read the content of the record."
+        "description": "User ID of the owner, as specified in the userId parameter in the export node of the dataflow that created the record. Only the specified owner can read the content of the record.",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PublisherInfo": {
         "type": "string",
-        "description": "Identifies the export record to facilitate searching when a user has multiple export records. By default, this column is set to the ID of the dataflow that generated the export record, concatenated with the name of the specific export node. PublisherInfo is unique within your organization. Note A dataflow can have multiple export nodes."
+        "description": "Identifies the export record to facilitate searching when a user has multiple export records. By default, this column is set to the ID of the dataflow that generated the export record, concatenated with the name of the specific export node. PublisherInfo is unique within your organization. Note A dataflow can have multiple export nodes.",
+        "maxLength": 1000,
+        "nullable": false,
+        "readOnly": true
       },
       "PublisherType": {
         "type": "picklist",
-        "description": "Target of the export, as specified in the target parameter in the export node of the dataflow that created the record. The value must be EinsteinDiscovery."
+        "description": "Target of the export, as specified in the target parameter in the export node of the dataflow that created the record. The value must be EinsteinDiscovery.",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the export. The possible values are: New InProgress Completed Canceled Failed Note The content of the Metadata field can be downloaded when the status is Completed."
+        "description": "Status of the export. The possible values are: New InProgress Completed Canceled Failed Note The content of the Metadata field can be downloaded when the status is Completed.",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Dataset Export ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_datasetexport.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_datasetexport.htm",
+    "keyPrefix": "0Px",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DatasetExportPart",
+        "field": "DatasetExportId",
+        "relationshipName": "DatasetExportParts",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

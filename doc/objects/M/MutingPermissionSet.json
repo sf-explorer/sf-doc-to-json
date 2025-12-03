@@ -1,26 +1,2126 @@
 {
   "MutingPermissionSet": {
     "name": "MutingPermissionSet",
-    "description": "Represents a set of disabled permissions and is used in conjunction with PermissionSetGroup.",
+    "description": "Muting Permission Sets - MutingPermissionSet",
     "properties": {
+      "Id": {
+        "type": "string",
+        "description": "MutingPermissionSet ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization."
+        "description": "Muting Permission Set Name",
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language of the muting permission set."
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The muting permission set label for the aggregated, disabled permissions."
+        "description": "Muting Permission Set Label",
+        "maxLength": 80,
+        "nullable": false
       },
-      "PermissionsPermissionName": {
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "PermissionsEmailSingle": {
         "type": "boolean",
-        "description": "One field for each permission. If true, the permission is disabled in the related permission set group. The number of fields varies depending on the permissions for the organization and license type.To get a list of available permissions, use describeSObjects()."
+        "description": "Send Email",
+        "nullable": false
+      },
+      "PermissionsEmailMass": {
+        "type": "boolean",
+        "description": "Mass Email",
+        "nullable": false
+      },
+      "PermissionsEditTask": {
+        "type": "boolean",
+        "description": "Edit Tasks",
+        "nullable": false
+      },
+      "PermissionsEditEvent": {
+        "type": "boolean",
+        "description": "Edit Events",
+        "nullable": false
+      },
+      "PermissionsExportReport": {
+        "type": "boolean",
+        "description": "Export Reports",
+        "nullable": false
+      },
+      "PermissionsImportPersonal": {
+        "type": "boolean",
+        "description": "Import Personal Contacts",
+        "nullable": false
+      },
+      "PermissionsDataExport": {
+        "type": "boolean",
+        "description": "Weekly Data Export",
+        "nullable": false
+      },
+      "PermissionsManageUsers": {
+        "type": "boolean",
+        "description": "Manage Users",
+        "nullable": false
+      },
+      "PermissionsEditPublicFilters": {
+        "type": "boolean",
+        "description": "Manage Public List Views",
+        "nullable": false
+      },
+      "PermissionsEditPublicTemplates": {
+        "type": "boolean",
+        "description": "Manage Public Classic Email Templates",
+        "nullable": false
+      },
+      "PermissionsModifyAllData": {
+        "type": "boolean",
+        "description": "Modify All Data",
+        "nullable": false
+      },
+      "PermissionsEditBillingInfo": {
+        "type": "boolean",
+        "description": "Manage Billing",
+        "nullable": false
+      },
+      "PermissionsManageCases": {
+        "type": "boolean",
+        "description": "Manage Cases",
+        "nullable": false
+      },
+      "PermissionsMassInlineEdit": {
+        "type": "boolean",
+        "description": "Mass Edits from Lists",
+        "nullable": false
+      },
+      "PermissionsEditKnowledge": {
+        "type": "boolean",
+        "description": "Manage Articles",
+        "nullable": false
+      },
+      "PermissionsManageKnowledge": {
+        "type": "boolean",
+        "description": "Manage Salesforce Knowledge",
+        "nullable": false
+      },
+      "PermissionsTagManager": {
+        "type": "boolean",
+        "description": "Tag Manager",
+        "nullable": false
+      },
+      "PermissionsManageSolutions": {
+        "type": "boolean",
+        "description": "Manage Published Solutions",
+        "nullable": false
+      },
+      "PermissionsCustomizeApplication": {
+        "type": "boolean",
+        "description": "Customize Application",
+        "nullable": false
+      },
+      "PermissionsEditReadonlyFields": {
+        "type": "boolean",
+        "description": "Edit Read Only Fields",
+        "nullable": false
+      },
+      "PermissionsRunReports": {
+        "type": "boolean",
+        "description": "Run Reports",
+        "nullable": false
+      },
+      "PermissionsViewSetup": {
+        "type": "boolean",
+        "description": "View Setup and Configuration",
+        "nullable": false
+      },
+      "PermissionsTransferAnyEntity": {
+        "type": "boolean",
+        "description": "Transfer Record",
+        "nullable": false
+      },
+      "PermissionsNewReportBuilder": {
+        "type": "boolean",
+        "description": "Report Builder",
+        "nullable": false
+      },
+      "PermissionsManageCssUsers": {
+        "type": "boolean",
+        "description": "Manage Customer Users",
+        "nullable": false
+      },
+      "PermissionsActivateContract": {
+        "type": "boolean",
+        "description": "Activate Contracts",
+        "nullable": false
+      },
+      "PermissionsActivateOrder": {
+        "type": "boolean",
+        "description": "Activate Orders",
+        "nullable": false
+      },
+      "PermissionsApproveContract": {
+        "type": "boolean",
+        "description": "Approve Contracts",
+        "nullable": false
+      },
+      "PermissionsImportLeads": {
+        "type": "boolean",
+        "description": "Import Leads",
+        "nullable": false
+      },
+      "PermissionsManageLeads": {
+        "type": "boolean",
+        "description": "Manage Leads",
+        "nullable": false
+      },
+      "PermissionsTransferAnyLead": {
+        "type": "boolean",
+        "description": "Transfer Leads",
+        "nullable": false
+      },
+      "PermissionsViewAllData": {
+        "type": "boolean",
+        "description": "View All Data",
+        "nullable": false
+      },
+      "PermissionsEditPublicDocuments": {
+        "type": "boolean",
+        "description": "Manage Public Documents",
+        "nullable": false
+      },
+      "PermissionsViewEncryptedData": {
+        "type": "boolean",
+        "description": "View Encrypted Data",
+        "nullable": false
+      },
+      "PermissionsEditBrandTemplates": {
+        "type": "boolean",
+        "description": "Manage Letterheads",
+        "nullable": false
+      },
+      "PermissionsEditHtmlTemplates": {
+        "type": "boolean",
+        "description": "Edit HTML Templates",
+        "nullable": false
+      },
+      "PermissionsChatterInternalUser": {
+        "type": "boolean",
+        "description": "Chatter Internal User",
+        "nullable": false
+      },
+      "PermissionsManageTranslation": {
+        "type": "boolean",
+        "description": "Manage Translation",
+        "nullable": false
+      },
+      "PermissionsManageEncryptionKeys": {
+        "type": "boolean",
+        "description": "Manage Encryption Keys",
+        "nullable": false
+      },
+      "PermissionsDeleteActivatedContract": {
+        "type": "boolean",
+        "description": "Delete Activated Contracts",
+        "nullable": false
+      },
+      "PermissionsChatterInviteExternalUsers": {
+        "type": "boolean",
+        "description": "Invite Customers To Chatter",
+        "nullable": false
+      },
+      "PermissionsSendSitRequests": {
+        "type": "boolean",
+        "description": "Send Stay-in-Touch Requests",
+        "nullable": false
+      },
+      "PermissionsOverrideForecasts": {
+        "type": "boolean",
+        "description": "Override Forecasts",
+        "nullable": false
+      },
+      "PermissionsViewAllForecasts": {
+        "type": "boolean",
+        "description": "View All Forecasts",
+        "nullable": false
+      },
+      "PermissionsApiUserOnly": {
+        "type": "boolean",
+        "description": "Api Only User",
+        "nullable": false
+      },
+      "PermissionsManageRemoteAccess": {
+        "type": "boolean",
+        "description": "Manage Connected Apps",
+        "nullable": false
+      },
+      "PermissionsCanUseNewDashboardBuilder": {
+        "type": "boolean",
+        "description": "Drag-and-Drop Dashboard Builder",
+        "nullable": false
+      },
+      "PermissionsManageCategories": {
+        "type": "boolean",
+        "description": "Manage Categories",
+        "nullable": false
+      },
+      "PermissionsConvertLeads": {
+        "type": "boolean",
+        "description": "Convert Leads",
+        "nullable": false
+      },
+      "PermissionsTestInstanceCreate": {
+        "type": "boolean",
+        "description": "Salesforce Sandbox Create",
+        "nullable": false
+      },
+      "PermissionsPasswordNeverExpires": {
+        "type": "boolean",
+        "description": "Password Never Expires",
+        "nullable": false
+      },
+      "PermissionsUseTeamReassignWizards": {
+        "type": "boolean",
+        "description": "Use Team Reassignment Wizards",
+        "nullable": false
+      },
+      "PermissionsEditActivatedOrders": {
+        "type": "boolean",
+        "description": "Edit Activated Orders",
+        "nullable": false
+      },
+      "PermissionsInstallPackaging": {
+        "type": "boolean",
+        "description": "Download AppExchange Packages",
+        "nullable": false
+      },
+      "PermissionsPublishPackaging": {
+        "type": "boolean",
+        "description": "Upload AppExchange Packages",
+        "nullable": false
+      },
+      "PermissionsManagePartners": {
+        "type": "boolean",
+        "description": "Manage External Users",
+        "nullable": false
+      },
+      "PermissionsChatterOwnGroups": {
+        "type": "boolean",
+        "description": "Create and Own New Chatter Groups",
+        "nullable": false
+      },
+      "PermissionsEditOppLineItemUnitPrice": {
+        "type": "boolean",
+        "description": "Edit Opportunity Product Sales Price",
+        "nullable": false
+      },
+      "PermissionsManageTerritories": {
+        "type": "boolean",
+        "description": "Manage Territories",
+        "nullable": false
+      },
+      "PermissionsCreatePackaging": {
+        "type": "boolean",
+        "description": "Create AppExchange Packages",
+        "nullable": false
+      },
+      "PermissionsBulkApiHardDelete": {
+        "type": "boolean",
+        "description": "Bulk API Hard Delete",
+        "nullable": false
+      },
+      "PermissionsInboundMigrationToolsUser": {
+        "type": "boolean",
+        "description": "Deploy Change Sets",
+        "nullable": false
+      },
+      "PermissionsSolutionImport": {
+        "type": "boolean",
+        "description": "Import Solutions",
+        "nullable": false
+      },
+      "PermissionsManageCallCenters": {
+        "type": "boolean",
+        "description": "Manage Call Centers",
+        "nullable": false
+      },
+      "PermissionsIPRestrictRequests": {
+        "type": "boolean",
+        "description": "IP Restrict Requests",
+        "nullable": false
+      },
+      "PermissionsPortalSuperUser": {
+        "type": "boolean",
+        "description": "Portal Super User",
+        "nullable": false
+      },
+      "PermissionsManageSynonyms": {
+        "type": "boolean",
+        "description": "Manage Synonyms",
+        "nullable": false
+      },
+      "PermissionsOutboundMigrationToolsUser": {
+        "type": "boolean",
+        "description": "Create and Upload Change Sets",
+        "nullable": false
+      },
+      "PermissionsDelegatedPortalUserAdmin": {
+        "type": "boolean",
+        "description": "Delegated External User Administrator",
+        "nullable": false
+      },
+      "PermissionsViewContent": {
+        "type": "boolean",
+        "description": "View Content in Portals",
+        "nullable": false
+      },
+      "PermissionsManageEmailClientConfig": {
+        "type": "boolean",
+        "description": "Manage Email Client Configurations",
+        "nullable": false
+      },
+      "PermissionsEnableNotifications": {
+        "type": "boolean",
+        "description": "Send Outbound Messages",
+        "nullable": false
+      },
+      "PermissionsManageDataIntegrations": {
+        "type": "boolean",
+        "description": "Manage Data Integrations",
+        "nullable": false
+      },
+      "PermissionsDistributeFromPersWksp": {
+        "type": "boolean",
+        "description": "Create Content Deliveries",
+        "nullable": false
+      },
+      "PermissionsViewDataCategories": {
+        "type": "boolean",
+        "description": "View Data Categories in Setup",
+        "nullable": false
+      },
+      "PermissionsManageDataCategories": {
+        "type": "boolean",
+        "description": "Manage Data Categories",
+        "nullable": false
+      },
+      "PermissionsAuthorApex": {
+        "type": "boolean",
+        "description": "Author Apex",
+        "nullable": false
+      },
+      "PermissionsManageMobile": {
+        "type": "boolean",
+        "description": "Manage Mobile Configurations",
+        "nullable": false
+      },
+      "PermissionsApiEnabled": {
+        "type": "boolean",
+        "description": "API Enabled",
+        "nullable": false
+      },
+      "PermissionsManageCustomReportTypes": {
+        "type": "boolean",
+        "description": "Manage Custom Report Types",
+        "nullable": false
+      },
+      "PermissionsManagePartnerNetConn": {
+        "type": "boolean",
+        "description": "Manage Connections",
+        "nullable": false
+      },
+      "PermissionsEditCaseComments": {
+        "type": "boolean",
+        "description": "Edit Case Comments",
+        "nullable": false
+      },
+      "PermissionsTransferAnyCase": {
+        "type": "boolean",
+        "description": "Transfer Cases",
+        "nullable": false
+      },
+      "PermissionsContentAdministrator": {
+        "type": "boolean",
+        "description": "Manage Salesforce CRM Content",
+        "nullable": false
+      },
+      "PermissionsCreateWorkspaces": {
+        "type": "boolean",
+        "description": "Create Libraries",
+        "nullable": false
+      },
+      "PermissionsManageContentPermissions": {
+        "type": "boolean",
+        "description": "Manage Content Permissions",
+        "nullable": false
+      },
+      "PermissionsManageContentProperties": {
+        "type": "boolean",
+        "description": "Manage Content Properties",
+        "nullable": false
+      },
+      "PermissionsManageContentTypes": {
+        "type": "boolean",
+        "description": "Manage record types and layouts for Files",
+        "nullable": false
+      },
+      "PermissionsScheduleJob": {
+        "type": "boolean",
+        "description": "Schedule Dashboards",
+        "nullable": false
+      },
+      "PermissionsManageExchangeConfig": {
+        "type": "boolean",
+        "description": "Manage Lightning Sync",
+        "nullable": false
+      },
+      "PermissionsManageAnalyticSnapshots": {
+        "type": "boolean",
+        "description": "Manage Reporting Snapshots",
+        "nullable": false
+      },
+      "PermissionsScheduleReports": {
+        "type": "boolean",
+        "description": "Schedule Reports",
+        "nullable": false
+      },
+      "PermissionsManageBusinessHourHolidays": {
+        "type": "boolean",
+        "description": "Manage Business Hours Holidays",
+        "nullable": false
+      },
+      "PermissionsManageEntitlements": {
+        "type": "boolean",
+        "description": "Manage Entitlements",
+        "nullable": false
+      },
+      "PermissionsManageDynamicDashboards": {
+        "type": "boolean",
+        "description": "Manage Dynamic Dashboards",
+        "nullable": false
+      },
+      "PermissionsManageInteraction": {
+        "type": "boolean",
+        "description": "Manage Flow",
+        "nullable": false
+      },
+      "PermissionsViewMyTeamsDashboards": {
+        "type": "boolean",
+        "description": "View My Team's Dashboards",
+        "nullable": false
+      },
+      "PermissionsModerateChatter": {
+        "type": "boolean",
+        "description": "Moderate Chatter",
+        "nullable": false
+      },
+      "PermissionsResetPasswords": {
+        "type": "boolean",
+        "description": "Reset User Passwords and Unlock Users",
+        "nullable": false
+      },
+      "PermissionsFlowUFLRequired": {
+        "type": "boolean",
+        "description": "Require Flow User Feature License",
+        "nullable": false
+      },
+      "PermissionsCanInsertFeedSystemFields": {
+        "type": "boolean",
+        "description": "Insert System Field Values for Chatter Feeds",
+        "nullable": false
+      },
+      "PermissionsActivitiesAccess": {
+        "type": "boolean",
+        "description": "Access Activities",
+        "nullable": false
+      },
+      "PermissionsManageKnowledgeImportExport": {
+        "type": "boolean",
+        "description": "Manage Knowledge Article Import/Export",
+        "nullable": false
+      },
+      "PermissionsEmailTemplateManagement": {
+        "type": "boolean",
+        "description": "Manage Email Templates",
+        "nullable": false
+      },
+      "PermissionsEmailAdministration": {
+        "type": "boolean",
+        "description": "Email Administration",
+        "nullable": false
+      },
+      "PermissionsManageChatterMessages": {
+        "type": "boolean",
+        "description": "Manage Chatter Messages and Direct Messages",
+        "nullable": false
+      },
+      "PermissionsAllowEmailIC": {
+        "type": "boolean",
+        "description": "Email-Based Identity Verification Option",
+        "nullable": false
+      },
+      "PermissionsChatterFileLink": {
+        "type": "boolean",
+        "description": "Create Public Links",
+        "nullable": false
+      },
+      "PermissionsForceTwoFactor": {
+        "type": "boolean",
+        "description": "Multi-Factor Authentication for User Interface Logins",
+        "nullable": false
+      },
+      "PermissionsViewEventLogFiles": {
+        "type": "boolean",
+        "description": "View Event Log Files",
+        "nullable": false
+      },
+      "PermissionsManageNetworks": {
+        "type": "boolean",
+        "description": "Create and Set Up Experiences",
+        "nullable": false
+      },
+      "PermissionsManageAuthProviders": {
+        "type": "boolean",
+        "description": "Manage Auth. Providers",
+        "nullable": false
+      },
+      "PermissionsRunFlow": {
+        "type": "boolean",
+        "description": "Run Flows",
+        "nullable": false
+      },
+      "PermissionsViewGlobalHeader": {
+        "type": "boolean",
+        "description": "View Global Header",
+        "nullable": false
+      },
+      "PermissionsManageQuotas": {
+        "type": "boolean",
+        "description": "Manage Quotas",
+        "nullable": false
+      },
+      "PermissionsCreateCustomizeDashboards": {
+        "type": "boolean",
+        "description": "Create and Customize Dashboards",
+        "nullable": false
+      },
+      "PermissionsCreateDashboardFolders": {
+        "type": "boolean",
+        "description": "Create Dashboard Folders",
+        "nullable": false
+      },
+      "PermissionsViewPublicDashboards": {
+        "type": "boolean",
+        "description": "View Dashboards in Public Folders",
+        "nullable": false
+      },
+      "PermissionsManageDashbdsInPubFolders": {
+        "type": "boolean",
+        "description": "Manage Dashboards in Public Folders",
+        "nullable": false
+      },
+      "PermissionsCreateCustomizeReports": {
+        "type": "boolean",
+        "description": "Create and Customize Reports",
+        "nullable": false
+      },
+      "PermissionsCreateReportFolders": {
+        "type": "boolean",
+        "description": "Create Report Folders",
+        "nullable": false
+      },
+      "PermissionsViewPublicReports": {
+        "type": "boolean",
+        "description": "View Reports in Public Folders",
+        "nullable": false
+      },
+      "PermissionsManageReportsInPubFolders": {
+        "type": "boolean",
+        "description": "Manage Reports in Public Folders",
+        "nullable": false
+      },
+      "PermissionsEditMyDashboards": {
+        "type": "boolean",
+        "description": "Edit My Dashboards",
+        "nullable": false
+      },
+      "PermissionsEditMyReports": {
+        "type": "boolean",
+        "description": "Edit My Reports",
+        "nullable": false
+      },
+      "PermissionsDeleteFieldHistoryArchive": {
+        "type": "boolean",
+        "description": " Enable \"Delete From Field History Archive\"",
+        "nullable": false
+      },
+      "PermissionsViewAllUsers": {
+        "type": "boolean",
+        "description": "View All Users",
+        "nullable": false
+      },
+      "PermissionsBypassEmailApproval": {
+        "type": "boolean",
+        "description": "Bypass Email Approval",
+        "nullable": false
+      },
+      "PermissionsAllowUniversalSearch": {
+        "type": "boolean",
+        "description": "Knowledge One",
+        "nullable": false
+      },
+      "PermissionsConnectOrgToEnvironmentHub": {
+        "type": "boolean",
+        "description": "Connect Organization to Environment Hub",
+        "nullable": false
+      },
+      "PermissionsWorkCalibrationUser": {
+        "type": "boolean",
+        "description": "Enable WDC Calibration",
+        "nullable": false
+      },
+      "PermissionsCreateCustomizeFilters": {
+        "type": "boolean",
+        "description": "Create and Customize List Views",
+        "nullable": false
+      },
+      "PermissionsWorkDotComUserPerm": {
+        "type": "boolean",
+        "description": "Enable WDC",
+        "nullable": false
+      },
+      "PermissionsContentHubUser": {
+        "type": "boolean",
+        "description": "Files Connect Cloud",
+        "nullable": false
+      },
+      "PermissionsModerateNetworkFeeds": {
+        "type": "boolean",
+        "description": "Moderate Experience Cloud Site Feeds",
+        "nullable": false
+      },
+      "PermissionsModerateNetworkFiles": {
+        "type": "boolean",
+        "description": "Moderate Files in Experience Cloud Sites",
+        "nullable": false
+      },
+      "PermissionsGovernNetworks": {
+        "type": "boolean",
+        "description": "Manage Experiences",
+        "nullable": false
+      },
+      "PermissionsSalesConsole": {
+        "type": "boolean",
+        "description": "Sales Console",
+        "nullable": false
+      },
+      "PermissionsTwoFactorApi": {
+        "type": "boolean",
+        "description": "Multi-Factor Authentication for API Logins",
+        "nullable": false
+      },
+      "PermissionsDeleteTopics": {
+        "type": "boolean",
+        "description": "Delete Topics",
+        "nullable": false
+      },
+      "PermissionsEditTopics": {
+        "type": "boolean",
+        "description": "Edit Topics",
+        "nullable": false
+      },
+      "PermissionsCreateTopics": {
+        "type": "boolean",
+        "description": "Create Topics",
+        "nullable": false
+      },
+      "PermissionsAssignTopics": {
+        "type": "boolean",
+        "description": "Assign Topics",
+        "nullable": false
+      },
+      "PermissionsIdentityEnabled": {
+        "type": "boolean",
+        "description": "Use Identity Features",
+        "nullable": false
+      },
+      "PermissionsIdentityConnect": {
+        "type": "boolean",
+        "description": "Use Identity Connect",
+        "nullable": false
+      },
+      "PermissionsAllowViewKnowledge": {
+        "type": "boolean",
+        "description": "Allow View Knowledge",
+        "nullable": false
+      },
+      "PermissionsContentWorkspaces": {
+        "type": "boolean",
+        "description": "Access Libraries",
+        "nullable": false
+      },
+      "PermissionsPredictivePlatformQuery": {
+        "type": "boolean",
+        "description": "Predictive Platform Query",
+        "nullable": false
+      },
+      "PermissionsPredictivePlatformAnalyze": {
+        "type": "boolean",
+        "description": "Predictive Platform Analyze",
+        "nullable": false
+      },
+      "PermissionsCreateWorkBadgeDefinition": {
+        "type": "boolean",
+        "description": "Create custom Badge Definitions",
+        "nullable": false
+      },
+      "PermissionsManageSearchPromotionRules": {
+        "type": "boolean",
+        "description": "Manage Promoted Search Terms",
+        "nullable": false
+      },
+      "PermissionsCustomMobileAppsAccess": {
+        "type": "boolean",
+        "description": "Access Custom Mobile Apps",
+        "nullable": false
+      },
+      "PermissionsViewHelpLink": {
+        "type": "boolean",
+        "description": "View Help Link",
+        "nullable": false
+      },
+      "PermissionsManageProfilesPermissionsets": {
+        "type": "boolean",
+        "description": "Manage Profiles and Permission Sets",
+        "nullable": false
+      },
+      "PermissionsAssignPermissionSets": {
+        "type": "boolean",
+        "description": "Assign Permission Sets",
+        "nullable": false
+      },
+      "PermissionsManageRoles": {
+        "type": "boolean",
+        "description": "Manage Roles",
+        "nullable": false
+      },
+      "PermissionsManageIpAddresses": {
+        "type": "boolean",
+        "description": "Manage IP Addresses",
+        "nullable": false
+      },
+      "PermissionsManageSharing": {
+        "type": "boolean",
+        "description": "Manage Sharing",
+        "nullable": false
+      },
+      "PermissionsManageInternalUsers": {
+        "type": "boolean",
+        "description": "Manage Internal Users",
+        "nullable": false
+      },
+      "PermissionsManagePasswordPolicies": {
+        "type": "boolean",
+        "description": "Manage Password Policies",
+        "nullable": false
+      },
+      "PermissionsManageLoginAccessPolicies": {
+        "type": "boolean",
+        "description": "Manage Login Access Policies",
+        "nullable": false
+      },
+      "PermissionsManageCustomPermissions": {
+        "type": "boolean",
+        "description": "Manage Custom Permissions",
+        "nullable": false
+      },
+      "PermissionsManageMyS1App": {
+        "type": "boolean",
+        "description": "Manage mySalesforce apps",
+        "nullable": false
+      },
+      "PermissionsCanVerifyComment": {
+        "type": "boolean",
+        "description": "Verify Answers to Chatter Questions",
+        "nullable": false
+      },
+      "PermissionsManageUnlistedGroups": {
+        "type": "boolean",
+        "description": "Manage Unlisted Groups",
+        "nullable": false
+      },
+      "PermissionsStdAutomaticActivityCapture": {
+        "type": "boolean",
+        "description": "Use Einstein Activity Capture Standard",
+        "nullable": false
+      },
+      "PermissionsInsightsAppDashboardEditor": {
+        "type": "boolean",
+        "description": "Create and Edit CRM Analytics Dashboards",
+        "nullable": false
+      },
+      "PermissionsShareFilesWithNetworks": {
+        "type": "boolean",
+        "description": "Share Files with People in Experience Cloud sites",
+        "nullable": false
+      },
+      "PermissionsManageTwoFactor": {
+        "type": "boolean",
+        "description": "Manage MFA in API",
+        "nullable": false
+      },
+      "PermissionsInsightsAppUser": {
+        "type": "boolean",
+        "description": "Use CRM Analytics",
+        "nullable": false
+      },
+      "PermissionsInsightsAppAdmin": {
+        "type": "boolean",
+        "description": "Manage CRM Analytics",
+        "nullable": false
+      },
+      "PermissionsInsightsAppEltEditor": {
+        "type": "boolean",
+        "description": "Edit CRM Analytics Dataflows",
+        "nullable": false
+      },
+      "PermissionsInsightsAppUploadUser": {
+        "type": "boolean",
+        "description": "Upload External Data to CRM Analytics",
+        "nullable": false
+      },
+      "PermissionsInsightsCreateApplication": {
+        "type": "boolean",
+        "description": "Create CRM Analytics Apps",
+        "nullable": false
+      },
+      "PermissionsDebugApex": {
+        "type": "boolean",
+        "description": "Debug Apex",
+        "nullable": false
+      },
+      "PermissionsLightningExperienceUser": {
+        "type": "boolean",
+        "description": "Lightning Experience User",
+        "nullable": false
+      },
+      "PermissionsConfigCustomRecs": {
+        "type": "boolean",
+        "description": "Configure Custom Recommendations",
+        "nullable": false
+      },
+      "PermissionsSubmitMacrosAllowed": {
+        "type": "boolean",
+        "description": "Manage Macros Users Can't Undo",
+        "nullable": false
+      },
+      "PermissionsBulkMacrosAllowed": {
+        "type": "boolean",
+        "description": "Run Macros on Multiple Records",
+        "nullable": false
+      },
+      "PermissionsShareInternalArticles": {
+        "type": "boolean",
+        "description": "Share internal Knowledge articles externally",
+        "nullable": false
+      },
+      "PermissionsModerateNetworkMessages": {
+        "type": "boolean",
+        "description": "Moderate Chatter Messages in Experience Cloud Sites",
+        "nullable": false
+      },
+      "PermissionsManageSessionPermissionSets": {
+        "type": "boolean",
+        "description": "Manage Session Permission Set Activations",
+        "nullable": false
+      },
+      "PermissionsManageTemplatedApp": {
+        "type": "boolean",
+        "description": "Manage CRM Analytics Templated Apps",
+        "nullable": false
+      },
+      "PermissionsUseTemplatedApp": {
+        "type": "boolean",
+        "description": "Use CRM Analytics Templated Apps",
+        "nullable": false
+      },
+      "PermissionsSendAnnouncementEmails": {
+        "type": "boolean",
+        "description": "Send announcement emails",
+        "nullable": false
+      },
+      "PermissionsChatterEditOwnPost": {
+        "type": "boolean",
+        "description": "Edit My Own Posts",
+        "nullable": false
+      },
+      "PermissionsChatterEditOwnRecordPost": {
+        "type": "boolean",
+        "description": "Edit Posts on Records I Own",
+        "nullable": false
+      },
+      "PermissionsSalesAnalyticsUser": {
+        "type": "boolean",
+        "description": "Access Sales Cloud Analytics Templates and Apps",
+        "nullable": false
+      },
+      "PermissionsAdminAnalyticsUser": {
+        "type": "boolean",
+        "description": "Access Event Monitoring Analytics Templates and Apps",
+        "nullable": false
+      },
+      "PermissionsEnableSOS": {
+        "type": "boolean",
+        "description": "Enable SOS Licenses",
+        "nullable": false
+      },
+      "PermissionsCreateAuditFields": {
+        "type": "boolean",
+        "description": "Set Audit Fields upon Record Creation",
+        "nullable": false
+      },
+      "PermissionsUpdateWithInactiveOwner": {
+        "type": "boolean",
+        "description": "Update Records with Inactive Owners",
+        "nullable": false
+      },
+      "PermissionsAssignUserToSkill": {
+        "type": "boolean",
+        "description": "Assign Chat Skills to Users",
+        "nullable": false
+      },
+      "PermissionsWaveTrendReports": {
+        "type": "boolean",
+        "description": "Trend Report Data in CRM Analytics",
+        "nullable": false
+      },
+      "PermissionsWaveTabularDownload": {
+        "type": "boolean",
+        "description": "Download CRM Analytics Data",
+        "nullable": false
+      },
+      "PermissionsWaveCommunityUser": {
+        "type": "boolean",
+        "description": "View CRM Analytics on Experience Cloud site pages.",
+        "nullable": false
+      },
+      "PermissionsManageSandboxes": {
+        "type": "boolean",
+        "description": "Manage Sandboxes",
+        "nullable": false
+      },
+      "PermissionsAutomaticActivityCapture": {
+        "type": "boolean",
+        "description": "Use Einstein Activity Capture",
+        "nullable": false
+      },
+      "PermissionsImportCustomObjects": {
+        "type": "boolean",
+        "description": "Import Custom Objects",
+        "nullable": false
+      },
+      "PermissionsSalesforceIQInbox": {
+        "type": "boolean",
+        "description": "Use Inbox",
+        "nullable": false
+      },
+      "PermissionsDelegatedTwoFactor": {
+        "type": "boolean",
+        "description": "Manage MFA in User Interface",
+        "nullable": false
+      },
+      "PermissionsChatterComposeUiCodesnippet": {
+        "type": "boolean",
+        "description": "Allow Inclusion of Code Snippets from UI",
+        "nullable": false
+      },
+      "PermissionsSelectFilesFromSalesforce": {
+        "type": "boolean",
+        "description": "Select Files from Salesforce",
+        "nullable": false
+      },
+      "PermissionsModerateNetworkUsers": {
+        "type": "boolean",
+        "description": "Moderate Experience Cloud Site Users",
+        "nullable": false
+      },
+      "PermissionsVoiceOutbound": {
+        "type": "boolean",
+        "description": "Access Dialer Outbound Calls",
+        "nullable": false
+      },
+      "PermissionsVoiceInbound": {
+        "type": "boolean",
+        "description": "Access Dialer Inbound Calls",
+        "nullable": false
+      },
+      "PermissionsVoiceMinutes": {
+        "type": "boolean",
+        "description": "Access Dialer Minutes",
+        "nullable": false
+      },
+      "PermissionsVoiceCoach": {
+        "type": "boolean",
+        "description": "Access Dialer Monitoring",
+        "nullable": false
+      },
+      "PermissionsMergeTopics": {
+        "type": "boolean",
+        "description": "Merge Topics",
+        "nullable": false
+      },
+      "PermissionsViewForecastingPredictive": {
+        "type": "boolean",
+        "description": "Use Einstein Forecasting",
+        "nullable": false
+      },
+      "PermissionsSubscribeToLightningReports": {
+        "type": "boolean",
+        "description": "Subscribe to Reports",
+        "nullable": false
+      },
+      "PermissionsManagePvtRptsAndDashbds": {
+        "type": "boolean",
+        "description": "Manage All Private Reports and Dashboards",
+        "nullable": false
+      },
+      "PermissionsAllowLightningLogin": {
+        "type": "boolean",
+        "description": "Lightning Login User",
+        "nullable": false
+      },
+      "PermissionsLeadScoreUser": {
+        "type": "boolean",
+        "description": "Use Einstein Lead Scoring",
+        "nullable": false
+      },
+      "PermissionsCampaignInfluence2": {
+        "type": "boolean",
+        "description": "Campaign Influence",
+        "nullable": false
+      },
+      "PermissionsViewDataAssessment": {
+        "type": "boolean",
+        "description": "Access to view Data Assessment",
+        "nullable": false
+      },
+      "PermissionsRemoveDirectMessageMembers": {
+        "type": "boolean",
+        "description": "Remove People from Direct Messages",
+        "nullable": false
+      },
+      "PermissionsCanApproveFeedPost": {
+        "type": "boolean",
+        "description": "Can Approve Feed Post and Comment",
+        "nullable": false
+      },
+      "PermissionsAddDirectMessageMembers": {
+        "type": "boolean",
+        "description": "Add People to Direct Messages",
+        "nullable": false
+      },
+      "PermissionsAllowViewEditConvertedLeads": {
+        "type": "boolean",
+        "description": "View and Edit Converted Leads",
+        "nullable": false
+      },
+      "PermissionsFieldServiceAccess": {
+        "type": "boolean",
+        "description": "Field Service Standard",
+        "nullable": false
+      },
+      "PermissionsFieldServiceScheduling": {
+        "type": "boolean",
+        "description": "Field Service Scheduling",
+        "nullable": false
+      },
+      "PermissionsFieldServiceDispatcher": {
+        "type": "boolean",
+        "description": "Field Service Dispatcher",
+        "nullable": false
+      },
+      "PermissionsFieldServiceMobileApp": {
+        "type": "boolean",
+        "description": "Field Service Mobile",
+        "nullable": false
+      },
+      "PermissionsShowCompanyNameAsUserBadge": {
+        "type": "boolean",
+        "description": "Show Company Name as Site Role",
+        "nullable": false
+      },
+      "PermissionsAccessCMC": {
+        "type": "boolean",
+        "description": "Access Experience Management",
+        "nullable": false
+      },
+      "PermissionsOptOutGeoLocationTracking": {
+        "type": "boolean",
+        "description": "Exclude Technician from Geolocation Tracking",
+        "nullable": false
+      },
+      "PermissionsLeadIQReservedUserPerm": {
+        "type": "boolean",
+        "description": "LeadIQReservedUserPerm",
+        "nullable": false
+      },
+      "PermissionsArchiveArticles": {
+        "type": "boolean",
+        "description": "Archive Articles",
+        "nullable": false
+      },
+      "PermissionsPublishArticles": {
+        "type": "boolean",
+        "description": "Publish Articles",
+        "nullable": false
+      },
+      "PermissionsViewHealthCheck": {
+        "type": "boolean",
+        "description": "View Health Check",
+        "nullable": false
+      },
+      "PermissionsManageHealthCheck": {
+        "type": "boolean",
+        "description": "Manage Health Check",
+        "nullable": false
+      },
+      "PermissionsPackaging2": {
+        "type": "boolean",
+        "description": "Create and Update Second-Generation Packages",
+        "nullable": false
+      },
+      "PermissionsAutomatedDataEntry": {
+        "type": "boolean",
+        "description": "Use Einstein Automated Contacts",
+        "nullable": false
+      },
+      "PermissionsManageCertificates": {
+        "type": "boolean",
+        "description": "Manage Certificates",
+        "nullable": false
+      },
+      "PermissionsCreateReportInLightning": {
+        "type": "boolean",
+        "description": "Report Builder (Lightning Experience)",
+        "nullable": false
+      },
+      "PermissionsPreventClassicExperience": {
+        "type": "boolean",
+        "description": "Hide Option to Switch to Salesforce Classic",
+        "nullable": false
+      },
+      "PermissionsHideReadByList": {
+        "type": "boolean",
+        "description": "Hide the Seen By List",
+        "nullable": false
+      },
+      "PermissionsOpportunityScoreUser": {
+        "type": "boolean",
+        "description": "Use Einstein Opportunity Scoring",
+        "nullable": false
+      },
+      "PermissionsSubmitForTranslation": {
+        "type": "boolean",
+        "description": "Article Translation - Submit for Translation",
+        "nullable": false
+      },
+      "PermissionsEditTranslation": {
+        "type": "boolean",
+        "description": "Article Translation - Edit",
+        "nullable": false
+      },
+      "PermissionsPublishTranslation": {
+        "type": "boolean",
+        "description": "Article Translation - Publish",
+        "nullable": false
+      },
+      "PermissionsUseSmartDataDiscovery": {
+        "type": "boolean",
+        "description": "Use Einstein Discovery",
+        "nullable": false
+      },
+      "PermissionsGetSmartDataDiscovery": {
+        "type": "boolean",
+        "description": "View Einstein Discovery Recommendations",
+        "nullable": false
+      },
+      "PermissionsCreateUpdateSDDDataset": {
+        "type": "boolean",
+        "description": "Create and Update Einstein Discovery Datasets",
+        "nullable": false
+      },
+      "PermissionsCreateUpdateSDDStory": {
+        "type": "boolean",
+        "description": "Create and Update Einstein Discovery Models",
+        "nullable": false
+      },
+      "PermissionsManageSmartDataDiscovery": {
+        "type": "boolean",
+        "description": "Manage Einstein Discovery",
+        "nullable": false
+      },
+      "PermissionsShareSmartDataDiscoveryStory": {
+        "type": "boolean",
+        "description": "Share Einstein Discovery Models",
+        "nullable": false
+      },
+      "PermissionsManageSmartDataDiscoveryModel": {
+        "type": "boolean",
+        "description": "Can Deploy and Manage Einstein Discovery predictions",
+        "nullable": false
+      },
+      "PermissionsDeleteFieldHistory": {
+        "type": "boolean",
+        "description": " Enable \"Delete From Field History\"",
+        "nullable": false
+      },
+      "PermissionsListEmailSend": {
+        "type": "boolean",
+        "description": "Allow sending of List Emails",
+        "nullable": false
+      },
+      "PermissionsFeedPinning": {
+        "type": "boolean",
+        "description": "Pin Posts in Feeds",
+        "nullable": false
+      },
+      "PermissionsChangeDashboardColors": {
+        "type": "boolean",
+        "description": "Change Dashboard Colors",
+        "nullable": false
+      },
+      "PermissionsManageRecommendationStrategies": {
+        "type": "boolean",
+        "description": "Manage Next Best Action Strategies",
+        "nullable": false
+      },
+      "PermissionsManagePropositions": {
+        "type": "boolean",
+        "description": "Manage Next Best Action Recommendations",
+        "nullable": false
+      },
+      "PermissionsCloseConversations": {
+        "type": "boolean",
+        "description": "Close Conversation Threads",
+        "nullable": false
+      },
+      "PermissionsSubscribeReportRolesGrps": {
+        "type": "boolean",
+        "description": "Subscribe to Reports: Send to Groups and Roles",
+        "nullable": false
+      },
+      "PermissionsSubscribeDashboardRolesGrps": {
+        "type": "boolean",
+        "description": "Subscribe to Dashboards: Send to Groups and Roles",
+        "nullable": false
+      },
+      "PermissionsUseWebLink": {
+        "type": "boolean",
+        "description": "Allow Access to Customized Actions",
+        "nullable": false
+      },
+      "PermissionsHasUnlimitedNBAExecutions": {
+        "type": "boolean",
+        "description": "User Has Unlimited Next Best Action Strategy Executions",
+        "nullable": false
+      },
+      "PermissionsViewOnlyEmbeddedAppUser": {
+        "type": "boolean",
+        "description": "Access to View-Only Licensed Templates and Apps",
+        "nullable": false
+      },
+      "PermissionsAdoptionAnalyticsUser": {
+        "type": "boolean",
+        "description": "Access Adoption Analytics Templates and Apps",
+        "nullable": false
+      },
+      "PermissionsViewAllActivities": {
+        "type": "boolean",
+        "description": "View All Activities",
+        "nullable": false
+      },
+      "PermissionsSubscribeReportToOtherUsers": {
+        "type": "boolean",
+        "description": "Subscribe to Reports: Add Recipients",
+        "nullable": false
+      },
+      "PermissionsLightningConsoleAllowedForUser": {
+        "type": "boolean",
+        "description": "Lightning Console User",
+        "nullable": false
+      },
+      "PermissionsSubscribeReportsRunAsUser": {
+        "type": "boolean",
+        "description": "Subscribe to Reports: Set Running User",
+        "nullable": false
+      },
+      "PermissionsSubscribeToLightningDashboards": {
+        "type": "boolean",
+        "description": "Subscribe to Dashboards",
+        "nullable": false
+      },
+      "PermissionsSubscribeDashboardToOtherUsers": {
+        "type": "boolean",
+        "description": "Subscribe to Dashboards: Add Recipients",
+        "nullable": false
+      },
+      "PermissionsPardotUser": {
+        "type": "boolean",
+        "description": "Allow access to all Pardot features",
+        "nullable": false
+      },
+      "PermissionsCreateLtngTempInPub": {
+        "type": "boolean",
+        "description": "Manage Public Lightning Email Templates",
+        "nullable": false
+      },
+      "PermissionsAppointmentBookingUserAccess": {
+        "type": "boolean",
+        "description": "Enables the Appointment Booking feature",
+        "nullable": false
+      },
+      "PermissionsTransactionalEmailSend": {
+        "type": "boolean",
+        "description": "Send Non-Commercial Email",
+        "nullable": false
+      },
+      "PermissionsViewPrivateStaticResources": {
+        "type": "boolean",
+        "description": "View Private Static Resources",
+        "nullable": false
+      },
+      "PermissionsViewCustomerSentiment": {
+        "type": "boolean",
+        "description": "View Customer Insights",
+        "nullable": false
+      },
+      "PermissionsCreateLtngTempFolder": {
+        "type": "boolean",
+        "description": "Create Folders for Lightning Email Templates",
+        "nullable": false
+      },
+      "PermissionsApexRestServices": {
+        "type": "boolean",
+        "description": "Apex REST Services",
+        "nullable": false
+      },
+      "PermissionsConfigureLiveMessage": {
+        "type": "boolean",
+        "description": "Configure Messaging",
+        "nullable": false
+      },
+      "PermissionsLiveMessageAgent": {
+        "type": "boolean",
+        "description": "Messaging Agent",
+        "nullable": false
+      },
+      "PermissionsEnableCommunityAppLauncher": {
+        "type": "boolean",
+        "description": "Show App Launcher in Experience Cloud Sites",
+        "nullable": false
+      },
+      "PermissionsActionPlansUserAccess": {
+        "type": "boolean",
+        "description": "Permission to access the Action Plans feature",
+        "nullable": false
+      },
+      "PermissionsGiveRecognitionBadge": {
+        "type": "boolean",
+        "description": "Give Recognition Badges in Experience Builder Sites",
+        "nullable": false
+      },
+      "PermissionsCanRunAnalysis": {
+        "type": "boolean",
+        "description": "Can Run Einstein Discovery for Reports",
+        "nullable": false
+      },
+      "PermissionsLightningSchedulerUserAccess": {
+        "type": "boolean",
+        "description": "Let a user be included in appointments in Salesforce Scheduler.",
+        "nullable": false
+      },
+      "PermissionsAllowObjectDetection": {
+        "type": "boolean",
+        "description": "Allow user to use Object Detection for prediction. (Retired)",
+        "nullable": false
+      },
+      "PermissionsSalesforceIQInternal": {
+        "type": "boolean",
+        "description": "Allows the Cloud Integration User to perform SalesforceIQ internal operations",
+        "nullable": false
+      },
+      "PermissionsUseMySearch": {
+        "type": "boolean",
+        "description": "Einstein Search",
+        "nullable": false
+      },
+      "PermissionsLtngPromoReserved01UserPerm": {
+        "type": "boolean",
+        "description": "Remain in Salesforce Classic",
+        "nullable": false
+      },
+      "PermissionsManageSubscriptions": {
+        "type": "boolean",
+        "description": "Manage CRM Analytics Subscriptions",
+        "nullable": false
+      },
+      "PermissionsDialerBasicInbound": {
+        "type": "boolean",
+        "description": "Access Dialer for Essentials Inbound Calls",
+        "nullable": false
+      },
+      "PermissionsDialerBasicOutbound": {
+        "type": "boolean",
+        "description": "Access Dialer for Essentials Outbound Calls",
+        "nullable": false
+      },
+      "PermissionsWaveManagePrivateAssetsUser": {
+        "type": "boolean",
+        "description": "Manage CRM Analytics Private Assets",
+        "nullable": false
+      },
+      "PermissionsAllowObjectDetectionTraining": {
+        "type": "boolean",
+        "description": "Allow user to train and generate models for Object Detection. (Retired)",
+        "nullable": false
+      },
+      "PermissionsCanEditDataPrepRecipe": {
+        "type": "boolean",
+        "description": "Edit Dataset Recipes",
+        "nullable": false
+      },
+      "PermissionsAddAnalyticsRemoteConnections": {
+        "type": "boolean",
+        "description": "Add CRM Analytics Remote Connections",
+        "nullable": false
+      },
+      "PermissionsMyTrailheadContentAccess": {
+        "type": "boolean",
+        "description": "View All Content",
+        "nullable": false
+      },
+      "PermissionsMyTrailheadContentCreation": {
+        "type": "boolean",
+        "description": "Create Content",
+        "nullable": false
+      },
+      "PermissionsMyTrailheadReleaseMgmt": {
+        "type": "boolean",
+        "description": "Manage Releases",
+        "nullable": false
+      },
+      "PermissionsMyTrailheadPreviewMode": {
+        "type": "boolean",
+        "description": "Preview Release",
+        "nullable": false
+      },
+      "PermissionsMyTrailheadCustomSteps": {
+        "type": "boolean",
+        "description": "Manage Trailmix Custom Steps",
+        "nullable": false
+      },
+      "PermissionsManageSurveys": {
+        "type": "boolean",
+        "description": "Manage Surveys",
+        "nullable": false
+      },
+      "PermissionsMyTrailheadBranding": {
+        "type": "boolean",
+        "description": "Manage Site Settings",
+        "nullable": false
+      },
+      "PermissionsUseAssistantDialog": {
+        "type": "boolean",
+        "description": "Instant Actionable Results",
+        "nullable": false
+      },
+      "PermissionsUseQuerySuggestions": {
+        "type": "boolean",
+        "description": "Natural Language Search",
+        "nullable": false
+      },
+      "PermissionsRecordVisibilityAPI": {
+        "type": "boolean",
+        "description": "Enable RecordVisibility API",
+        "nullable": false
+      },
+      "PermissionsViewRoles": {
+        "type": "boolean",
+        "description": "View Roles and Role Hierarchy",
+        "nullable": false
+      },
+      "PermissionsSmartDataDiscoveryForCommunity": {
+        "type": "boolean",
+        "description": "Smart Data Discovery for experience users",
+        "nullable": false
+      },
+      "PermissionsCanManageMaps": {
+        "type": "boolean",
+        "description": "Manage CRM Analytics Custom Maps",
+        "nullable": false
+      },
+      "PermissionsStoryOnDSWithPredicate": {
+        "type": "boolean",
+        "description": "Ignore predicate when creating model from dataset",
+        "nullable": false
+      },
+      "PermissionsManageWorkForecasting": {
+        "type": "boolean",
+        "description": "Manage Intelligent Forecasting",
+        "nullable": false
+      },
+      "PermissionsViewWorkForecastingResult": {
+        "type": "boolean",
+        "description": "View Intelligent Forecasting Results",
+        "nullable": false
+      },
+      "PermissionsLMOutboundMessagingUserPerm": {
+        "type": "boolean",
+        "description": "Agent Initiated Outbound Messaging",
+        "nullable": false
+      },
+      "PermissionsModifyDataClassification": {
+        "type": "boolean",
+        "description": "Modify Data Classification",
+        "nullable": false
+      },
+      "PermissionsPrivacyDataAccess": {
+        "type": "boolean",
+        "description": "Allow user to access privacy data",
+        "nullable": false
+      },
+      "PermissionsQueryAllFiles": {
+        "type": "boolean",
+        "description": "Query All Files",
+        "nullable": false
+      },
+      "PermissionsModifyMetadata": {
+        "type": "boolean",
+        "description": "Modify Metadata Through Metadata API Functions",
+        "nullable": false
+      },
+      "PermissionsManageCMS": {
+        "type": "boolean",
+        "description": "Create CMS Workspaces and Channels",
+        "nullable": false
+      },
+      "PermissionsB2BCommerceSuperUser": {
+        "type": "boolean",
+        "description": "B2B Commerce Super User",
+        "nullable": false
+      },
+      "PermissionsSandboxTestingInCommunityApp": {
+        "type": "boolean",
+        "description": "Test Sandboxes in Mobile Publisher for Experience Cloud",
+        "nullable": false
+      },
+      "PermissionsViewFlowUsageAndFlowEventData": {
+        "type": "boolean",
+        "description": "View Flow Usage and Flow Event Data",
+        "nullable": false
+      },
+      "PermissionsB2BCommerceUser": {
+        "type": "boolean",
+        "description": "Commerce User",
+        "nullable": false
+      },
+      "PermissionsCanEditPrompts": {
+        "type": "boolean",
+        "description": "Design and Deliver In-App Guidance",
+        "nullable": false
+      },
+      "PermissionsViewUserPII": {
+        "type": "boolean",
+        "description": "View Concealed Field Data",
+        "nullable": false
+      },
+      "PermissionsRunRetailExecution": {
+        "type": "boolean",
+        "description": "Manage and Run Retail Execution CPG",
+        "nullable": false
+      },
+      "PermissionsMobileAppSecurity": {
+        "type": "boolean",
+        "description": "Enforce Enhanced Mobile App Security",
+        "nullable": false
+      },
+      "PermissionsViewDraftArticles": {
+        "type": "boolean",
+        "description": "View Draft Articles",
+        "nullable": false
+      },
+      "PermissionsViewArchivedArticles": {
+        "type": "boolean",
+        "description": "View Archived Articles",
+        "nullable": false
+      },
+      "PermissionsManageHubConnections": {
+        "type": "boolean",
+        "description": "Connect Org to Customer 360 Data Manager",
+        "nullable": false
+      },
+      "PermissionsB2BMarketingAnalyticsUser": {
+        "type": "boolean",
+        "description": "Create B2B Marketing Analytics Apps",
+        "nullable": false
+      },
+      "PermissionsTraceXdsQueries": {
+        "type": "boolean",
+        "description": "Access Tracer for External Data Sources",
+        "nullable": false
+      },
+      "PermissionsSCEViewAllData": {
+        "type": "boolean",
+        "description": "View Opportunity Scoring Model Factors",
+        "nullable": false
+      },
+      "PermissionsReplyRecommendationUser": {
+        "type": "boolean",
+        "description": "View and Act on Einstein Reply Recommendations",
+        "nullable": false
+      },
+      "PermissionsViewAllCustomSettings": {
+        "type": "boolean",
+        "description": "View All Custom Settings",
+        "nullable": false
+      },
+      "PermissionsManageIndustriesVisit": {
+        "type": "boolean",
+        "description": "Manage Industries Visit",
+        "nullable": false
+      },
+      "PermissionsViewAllForeignKeyNames": {
+        "type": "boolean",
+        "description": "View All Lookup Record Names",
+        "nullable": false
+      },
+      "PermissionsManageManufacturingAnalytics": {
+        "type": "boolean",
+        "description": "Manage Manufacturing Analytics",
+        "nullable": false
+      },
+      "PermissionsUseManufacturingAnalytics": {
+        "type": "boolean",
+        "description": "Use Manufacturing Analytics",
+        "nullable": false
+      },
+      "PermissionsAllowSurveyAdvancedFeatures": {
+        "type": "boolean",
+        "description": "Salesforce Surveys Advanced Features",
+        "nullable": false
+      },
+      "PermissionsUseMfgSalesAgreementsCmty": {
+        "type": "boolean",
+        "description": "Use Manufacturing Sales Agreements via Community",
+        "nullable": false
+      },
+      "PermissionsAddWaveNotificationRecipients": {
+        "type": "boolean",
+        "description": "Add Recipients to CRM Analytics Notifications",
+        "nullable": false
+      },
+      "PermissionsHeadlessCMSAccess": {
+        "type": "boolean",
+        "description": "Enable Salesforce CMS Integration",
+        "nullable": false
+      },
+      "PermissionsUseOrderManagementAPIs": {
+        "type": "boolean",
+        "description": "Use Order Management APIs",
+        "nullable": false
+      },
+      "PermissionsUseFulfillmentAPIs": {
+        "type": "boolean",
+        "description": "Use Order Management Fulfillment APIs",
+        "nullable": false
+      },
+      "PermissionsEditUnmanagedOrderSummaries": {
+        "type": "boolean",
+        "description": "Edit Unmanaged Order Summaries",
+        "nullable": false
+      },
+      "PermissionsLMEndMessagingSessionUserPerm": {
+        "type": "boolean",
+        "description": "End Messaging Session",
+        "nullable": false
+      },
+      "PermissionsEinsteinReplyManager": {
+        "type": "boolean",
+        "description": "Manage Replies for Einstein Reply Recommendations",
+        "nullable": false
+      },
+      "PermissionsManageEAForB2BMarketing": {
+        "type": "boolean",
+        "description": "Manage B2B Marketing Analytics Plus",
+        "nullable": false
+      },
+      "PermissionsUseEAForB2BMarketing": {
+        "type": "boolean",
+        "description": "Use B2B Marketing Analytics Plus",
+        "nullable": false
+      },
+      "PermissionsManageCustomerExperienceAnalytics": {
+        "type": "boolean",
+        "description": "Manage Customer Experience Analytics",
+        "nullable": false
+      },
+      "PermissionsUseCustomerExperienceAnalytics": {
+        "type": "boolean",
+        "description": "Use Customer Experience Analytics",
+        "nullable": false
+      },
+      "PermissionsManageCGAnalytics": {
+        "type": "boolean",
+        "description": "Manage CG Analytics",
+        "nullable": false
+      },
+      "PermissionsUseCGAnalytics": {
+        "type": "boolean",
+        "description": "Use CG Analytics",
+        "nullable": false
+      },
+      "PermissionsConsentApiUpdate": {
+        "type": "boolean",
+        "description": "Update Consent Preferences Using REST API",
+        "nullable": false
+      },
+      "PermissionsManageMobileAppSecurity": {
+        "type": "boolean",
+        "description": "Manage Enhanced Mobile App Security",
+        "nullable": false
+      },
+      "PermissionsPaymentsAPIUser": {
+        "type": "boolean",
+        "description": "Payments Api User",
+        "nullable": false
+      },
+      "PermissionsAccessContentBuilder": {
+        "type": "boolean",
+        "description": "Access drag-and-drop content builder",
+        "nullable": false
+      },
+      "PermissionsB2BCommerceIntegrator": {
+        "type": "boolean",
+        "description": "Commerce Integrator User",
+        "nullable": false
+      },
+      "PermissionsAccountSwitcherUser": {
+        "type": "boolean",
+        "description": "Account Switcher User",
+        "nullable": false
+      },
+      "PermissionsAccountAddressManager": {
+        "type": "boolean",
+        "description": "Manage Account Addresses",
+        "nullable": false
+      },
+      "PermissionsManageC360AConnections": {
+        "type": "boolean",
+        "description": "Connect Org to Data Cloud",
+        "nullable": false
+      },
+      "PermissionsIsContactCenterAdmin": {
+        "type": "boolean",
+        "description": "Contact Center Admin",
+        "nullable": false
+      },
+      "PermissionsIsContactCenterAgent": {
+        "type": "boolean",
+        "description": "Contact Center Agent",
+        "nullable": false
+      },
+      "PermissionsManageReleaseUpdates": {
+        "type": "boolean",
+        "description": "Manage Release Updates",
+        "nullable": false
+      },
+      "PermissionsViewAllProfiles": {
+        "type": "boolean",
+        "description": "View All Profiles",
+        "nullable": false
+      },
+      "PermissionsSkipIdentityConfirmation": {
+        "type": "boolean",
+        "description": "Skip Device Activation at Login",
+        "nullable": false
+      },
+      "PermissionsCanToggleCallRecordings": {
+        "type": "boolean",
+        "description": "Control Call Recording",
+        "nullable": false
+      },
+      "PermissionsCaseWrapUpUser": {
+        "type": "boolean",
+        "description": "View and Act on Einstein Wrap-Up Recommendations",
+        "nullable": false
+      },
+      "PermissionsAllowVisitRecommendation": {
+        "type": "boolean",
+        "description": "Allows a user to use Visit Recommendation for Retail Execution.",
+        "nullable": false
+      },
+      "PermissionsRunDirectStoreDelivery": {
+        "type": "boolean",
+        "description": "Manage and Run Direct Store Delivery",
+        "nullable": false
+      },
+      "PermissionsSendCustomNotifications": {
+        "type": "boolean",
+        "description": "Send Custom Notifications",
+        "nullable": false
+      },
+      "PermissionsPackaging2Delete": {
+        "type": "boolean",
+        "description": "Delete Second-Generation Packages",
+        "nullable": false
+      },
+      "PermissionsCallCoachingUser": {
+        "type": "boolean",
+        "description": "Use Conversation Insights for Sales",
+        "nullable": false
+      },
+      "PermissionsViewRestrictionAndScopingRules": {
+        "type": "boolean",
+        "description": "View Restriction and Scoping Rules",
+        "nullable": false
+      },
+      "PermissionsDocumentChecklistUserAccess": {
+        "type": "boolean",
+        "description": "User license to access the Document Checklist features.",
+        "nullable": false
+      },
+      "PermissionsFSCComprehensiveUserAccess": {
+        "type": "boolean",
+        "description": "User license to access Lightning components and features delivered in Financial Services Cloud.",
+        "nullable": false
+      },
+      "PermissionsFinancialServices2UserAccess": {
+        "type": "boolean",
+        "description": "Access Actionable Relationship Center",
+        "nullable": false
+      },
+      "PermissionsBotManageBots": {
+        "type": "boolean",
+        "description": "Manage Bots",
+        "nullable": false
+      },
+      "PermissionsBotManageBotsTrainingData": {
+        "type": "boolean",
+        "description": "Manage Bots Training Data",
+        "nullable": false
+      },
+      "PermissionsManageTrustMeasures": {
+        "type": "boolean",
+        "description": "Manage Trust Measures",
+        "nullable": false
+      },
+      "PermissionsViewTrustMeasures": {
+        "type": "boolean",
+        "description": "View Trust Measures",
+        "nullable": false
+      },
+      "PermissionsSchedulingLineAmbassador": {
+        "type": "boolean",
+        "description": "Queue Manager",
+        "nullable": false
+      },
+      "PermissionsSchedulingFacilityManager": {
+        "type": "boolean",
+        "description": "Facility Manager",
+        "nullable": false
+      },
+      "PermissionsIsotopeCToCUser": {
+        "type": "boolean",
+        "description": "Salesforce Anywhere Integration Access",
+        "nullable": false
+      },
+      "PermissionsCanAccessCE": {
+        "type": "boolean",
+        "description": "Access Conversation Entries",
+        "nullable": false
+      },
+      "PermissionsHasUnlimitedErbScoringRequests": {
+        "type": "boolean",
+        "description": "User Has Unlimited Erb Model Scoring",
+        "nullable": false
+      },
+      "PermissionsIsotopeAccess": {
+        "type": "boolean",
+        "description": "Salesforce Anywhere on Mobile",
+        "nullable": false
+      },
+      "PermissionsIsotopeLEX": {
+        "type": "boolean",
+        "description": "Salesforce Anywhere in Lightning Experience",
+        "nullable": false
+      },
+      "PermissionsQuipMetricsAccess": {
+        "type": "boolean",
+        "description": "Quip Metrics",
+        "nullable": false
+      },
+      "PermissionsQuipUserEngagementMetrics": {
+        "type": "boolean",
+        "description": "Quip User Engagement Metrics",
+        "nullable": false
+      },
+      "PermissionsAccessWalkthroughs": {
+        "type": "boolean",
+        "description": "Take Custom Walkthroughs",
+        "nullable": false
+      },
+      "PermissionsManageExternalConnections": {
+        "type": "boolean",
+        "description": "Allow user to modify Private Connections",
+        "nullable": false
+      },
+      "PermissionsUseReturnOrder": {
+        "type": "boolean",
+        "description": "Use Order Management Return Order",
+        "nullable": false
+      },
+      "PermissionsUseReturnOrderAPIs": {
+        "type": "boolean",
+        "description": "Use Order Management Return APIs",
+        "nullable": false
+      },
+      "PermissionsUseSubscriptionEmails": {
+        "type": "boolean",
+        "description": "Subscribe to CRM Analytics Assets",
+        "nullable": false
+      },
+      "PermissionsManageWorkScheduling": {
+        "type": "boolean",
+        "description": "Manage Shift Scheduling",
+        "nullable": false
+      },
+      "PermissionsViewWorkScheduling": {
+        "type": "boolean",
+        "description": "View Shift Scheduling Results",
+        "nullable": false
+      },
+      "PermissionsFieldServiceLastMile": {
+        "type": "boolean",
+        "description": "Field Service Appointment Assistant",
+        "nullable": false
+      },
+      "PermissionsManageEmailContent": {
+        "type": "boolean",
+        "description": "Manage Email Content",
+        "nullable": false
+      },
+      "PermissionsAIViewInsightObjects": {
+        "type": "boolean",
+        "description": "View AI Insight Objects",
+        "nullable": false
+      },
+      "PermissionsAICreateInsightObjects": {
+        "type": "boolean",
+        "description": "Create AI Insight Objects",
+        "nullable": false
+      },
+      "PermissionsLifecycleManagementAPIUser": {
+        "type": "boolean",
+        "description": "Access Customer Asset Lifecycle Management APIs",
+        "nullable": false
+      },
+      "PermissionsNativeWebviewScrolling": {
+        "type": "boolean",
+        "description": "Salesforce Mobile App: Native scrolling on webviews",
+        "nullable": false
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_mutingpermissionset.htm"
+    "module": "N/A",
+    "keyPrefix": "0QM",
+    "label": "Muting Permission Set",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

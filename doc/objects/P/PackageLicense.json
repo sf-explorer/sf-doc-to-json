@@ -5,11 +5,16 @@
     "properties": {
       "AllowedLicenses": {
         "type": "int",
-        "description": "The number of users allowed to use the package."
+        "description": "The number of users allowed to use the package.",
+        "nullable": false,
+        "readOnly": true
       },
       "ExpirationDate": {
         "type": "dateTime",
-        "description": "The date and time when the package license expires."
+        "description": "The date and time when the package license expires.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "IsAvailableForIntegrations": {
         "type": "boolean",
@@ -17,22 +22,78 @@
       },
       "IsProvisioned": {
         "type": "boolean",
-        "description": "Reserved for internal use."
+        "description": "Reserved for internal use.",
+        "nullable": false,
+        "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix associated with the package."
+        "description": "The namespace prefix associated with the package.",
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the license. Possible values are: Active, Expired, Free, and Trial."
+        "description": "The status of the license. Possible values are: Active, Expired, Free, and Trial.",
+        "format": "enum",
+        "enum": [
+          "Trial",
+          "Free",
+          "Active"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "UsedLicenses": {
         "type": "int",
-        "description": "The number of users who have a license to the package."
+        "description": "The number of users who have a license to the package.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Package License ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_packagelicense.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_packagelicense.htm",
+    "keyPrefix": "050",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "UserPackageLicense",
+        "field": "PackageLicenseId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

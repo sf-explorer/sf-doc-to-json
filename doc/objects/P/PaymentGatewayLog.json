@@ -9,7 +9,9 @@
       },
       "GatewayAuthCode": {
         "type": "string",
-        "description": "Authorization approval code from the gateway."
+        "description": "Authorization approval code from the gateway.",
+        "maxLength": 64,
+        "nullable": true
       },
       "GatewayAVSCode": {
         "type": "string",
@@ -17,35 +19,78 @@
       },
       "GatewayDate": {
         "type": "dateTime",
-        "description": "The date and time that of the gateway communication that leads to the creation of this gateway log."
+        "description": "The date and time that of the gateway communication that leads to the creation of this gateway log.",
+        "format": "date-time",
+        "nullable": true
       },
       "GatewayMessage": {
         "type": "string",
-        "description": "Information or error messages sent from the gateway."
+        "description": "Information or error messages sent from the gateway.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GatewayRefNumber": {
         "type": "string",
-        "description": "Unique transaction ID created by the payment gateway."
+        "description": "Unique transaction ID created by the payment gateway.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GatewayResultCode": {
         "type": "string",
-        "description": "Gateway-specific result code. Must be mapped to a Salesforce-specific result code."
+        "description": "Gateway-specific result code. Must be mapped to a Salesforce-specific result code.",
+        "maxLength": 64,
+        "nullable": true
       },
       "GatewayResultCodeDescription": {
         "type": "string",
-        "description": "Description of the gateway’s result code. This field is useful for providing more information around why the gateway returned a certain result code."
+        "description": "Description of the gateway’s result code. This field is useful for providing more information around why the gateway returned a certain result code.",
+        "maxLength": 255,
+        "nullable": true
       },
       "InteractionStatus": {
         "type": "picklist",
-        "description": "Describes the result of communication between the payments platform and a payment gateway."
+        "description": "Describes the result of communication between the payments platform and a payment gateway.",
+        "format": "enum",
+        "enum": [
+          "NoOp",
+          "Initiated",
+          "Success",
+          "Failed",
+          "Timeout"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "InteractionType": {
         "type": "picklist",
-        "description": "Describes the type of interaction with the gateway. This field is required for logs created in Salesforce."
+        "description": "Describes the type of interaction with the gateway. This field is required for logs created in Salesforce.",
+        "format": "enum",
+        "enum": [
+          "Authorization",
+          "Sale",
+          "Void",
+          "Capture",
+          "Tokenize",
+          "Avs",
+          "ReferencedRefund",
+          "CheckGiftCardBalance",
+          "AuthorizationReversal",
+          "PostAuth"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IsNotification": {
         "type": "picklist",
-        "description": "For asynchronous transactions, shows whether the gateway log belongs to the notification (yes) or the initial transaction (no)."
+        "description": "For asynchronous transactions, shows whether the gateway log belongs to the notification (yes) or the initial transaction (no).",
+        "format": "enum",
+        "enum": [
+          "No",
+          "Yes"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
@@ -57,38 +102,165 @@
       },
       "OrderPaymentSummaryId": {
         "type": "reference",
-        "description": "Order payment summaries show the balances of each authorization, capture, and refund made against an order."
+        "description": "Order payment summaries show the balances of each authorization, capture, and refund made against an order.",
+        "format": "salesforce-id",
+        "x-object": "OrderPaymentSummary",
+        "maxLength": 18,
+        "nullable": true
       },
       "PaymentGatewayId": {
         "type": "reference",
-        "description": "The Payments Platform payment gateway record used for communication with the external payment gateway."
+        "description": "The Payments Platform payment gateway record used for communication with the external payment gateway.",
+        "format": "salesforce-id",
+        "x-object": "PaymentGateway",
+        "maxLength": 18,
+        "nullable": true
       },
       "PaymentGatewayLogNumber": {
         "type": "string",
-        "description": "System-generated unique ID for this payment gateway log record."
+        "description": "System-generated unique ID for this payment gateway log record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ReferencedEntityId": {
         "type": "reference",
-        "description": "Foreign key with DomainSet of PaymentAuth and Payment."
+        "description": "Foreign key with DomainSet of PaymentAuth and Payment.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "CardPaymentMethod",
+          "Payment",
+          "PaymentAuthorization",
+          "Refund"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "Request": {
         "type": "textarea",
-        "description": "Raw payload. No sensitive attributes are stored."
+        "description": "Raw payload. No sensitive attributes are stored.",
+        "maxLength": 131072,
+        "nullable": true
       },
       "Response": {
         "type": "textarea",
-        "description": "Raw payload."
+        "description": "Raw payload.",
+        "maxLength": 131072,
+        "nullable": true
       },
       "SfRefNumber": {
         "type": "string",
-        "description": "If an IdempotencyKey was passed in the API request, its value is stored here in text format."
+        "description": "If an IdempotencyKey was passed in the API request, its value is stored here in text format.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SfResultCode": {
         "type": "picklist",
-        "description": "Salesforce-specific result code that can map to one or more gateway result codes. We recommend configuring the payment gateway adapter layer to map gateway result codes to the appropriate Salesforce result code."
+        "description": "Salesforce-specific result code that can map to one or more gateway result codes. We recommend configuring the payment gateway adapter layer to map gateway result codes to the appropriate Salesforce result code.",
+        "format": "enum",
+        "enum": [
+          "Success",
+          "PermanentFail",
+          "Decline",
+          "RequiresReview",
+          "Indeterminate",
+          "SystemError",
+          "ValidationError"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Payment Gateway Log ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "GatewayAvsCode": {
+        "type": "string",
+        "maxLength": 64,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgatewaylog.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgatewaylog.htm",
+    "keyPrefix": "0Xt",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderPaymentSummary",
+        "field": "LastPaymentGatewayLogId",
+        "relationshipName": "OrderPaymentSummaries",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

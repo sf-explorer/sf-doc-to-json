@@ -5,15 +5,23 @@
     "properties": {
       "ActualCost": {
         "type": "currency",
-        "description": "The amount of money spent to run the campaign. Label is Actual Cost in Campaign."
+        "description": "The amount of money spent to run the campaign. Label is Actual Cost in Campaign.",
+        "format": "currency",
+        "nullable": true
       },
       "AmountAllOpportunities": {
         "type": "currency",
-        "description": "Amount of money in all opportunities associated with the campaign, including closed/won opportunities. Label is Value Opportunities in Campaign."
+        "description": "Amount of money in all opportunities associated with the campaign, including closed/won opportunities. Label is Value Opportunities in Campaign.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true
       },
       "AmountWonOpportunities": {
         "type": "currency",
-        "description": "Amount of money in closed or won opportunities associated with the campaign. Label is Value Won Opportunities in Campaign."
+        "description": "Amount of money in closed or won opportunities associated with the campaign. Label is Value Won Opportunities in Campaign.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true
       },
       "BriefId": {
         "type": "reference",
@@ -21,15 +29,25 @@
       },
       "BudgetedCost": {
         "type": "currency",
-        "description": "Amount of money budgeted for the campaign. Label is Budgeted Cost in Campaign."
+        "description": "Amount of money budgeted for the campaign. Label is Budgeted Cost in Campaign.",
+        "format": "currency",
+        "nullable": true
       },
       "CampaignImageId": {
         "type": "reference",
-        "description": "ID of the campaign image. Available in API version 42.0 and later. Only available to orgs with Partner Community licenses and Digital Experience enabled or orgs that have installed the Direct Marketing Managed package."
+        "description": "ID of the campaign image. Available in API version 42.0 and later. Only available to orgs with Partner Community licenses and Digital Experience enabled or orgs that have installed the Direct Marketing Managed package.",
+        "format": "salesforce-id",
+        "x-object": "ContentDocument",
+        "maxLength": 18,
+        "nullable": true
       },
       "CampaignMemberRecordTypeId": {
         "type": "reference",
-        "description": "The record type ID for CampaignMember records associated with the campaign."
+        "description": "The record type ID for CampaignMember records associated with the campaign.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "CampaignStage": {
         "type": "picklist",
@@ -45,155 +63,243 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the campaign. Limit: 32 KB. Only the first 255 characters display in reports."
+        "description": "Description of the campaign. Limit: 32 KB. Only the first 255 characters display in reports.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "EndDate": {
         "type": "date",
-        "description": "Ending date for the campaign. Responses received after this date are still counted."
+        "description": "Ending date for the campaign. Responses received after this date are still counted.",
+        "format": "date",
+        "nullable": true
       },
       "ExpectedResponse": {
         "type": "percent",
-        "description": "Percentage of responses you expect to receive for the campaign."
+        "description": "Percentage of responses you expect to receive for the campaign.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ExpectedRevenue": {
         "type": "currency",
-        "description": "Amount of money you expect to generate from the campaign."
+        "description": "Amount of money you expect to generate from the campaign.",
+        "format": "currency",
+        "nullable": true
       },
       "HierarchyActualCost": {
         "type": "currency",
-        "description": "Calculated field for the total amount of money spent to run the campaigns in a campaign hierarchy. Label is Total Actual Cost in Hierarchy."
+        "description": "Calculated field for the total amount of money spent to run the campaigns in a campaign hierarchy. Label is Total Actual Cost in Hierarchy.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyAmountAllOpportunities": {
         "type": "currency",
-        "description": "Amount of money in all opportunities associated with the campaign in a campaign hierarchy, including closed/won opportunities. Label is Value Opportunities in Hierarchy."
+        "description": "Amount of money in all opportunities associated with the campaign in a campaign hierarchy, including closed/won opportunities. Label is Value Opportunities in Hierarchy.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyAmountWonOpportunities": {
         "type": "currency",
-        "description": "The amount of money in closed or won opportunities associated with the campaign in a campaign hierarchy. Label is Value Won Opportunities in Hierarchy."
+        "description": "The amount of money in closed or won opportunities associated with the campaign in a campaign hierarchy. Label is Value Won Opportunities in Hierarchy.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyBudgetedCost": {
         "type": "currency",
-        "description": "Calculated field for the total amount of money budgeted for the campaigns in a campaign hierarchy. Label isTotal Budgeted Cost in Hierarchy."
+        "description": "Calculated field for the total amount of money budgeted for the campaigns in a campaign hierarchy. Label isTotal Budgeted Cost in Hierarchy.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyExpectedRevenue": {
         "type": "currency",
-        "description": "Calculated field for the total amount of money you expect to generate from the campaign in a campaign hierarchy. Label is Total Expected Revenue in Hierarchy."
+        "description": "Calculated field for the total amount of money you expect to generate from the campaign in a campaign hierarchy. Label is Total Expected Revenue in Hierarchy.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberOfContacts": {
         "type": "int",
-        "description": "Calculated field for the number of contacts associated with the campaign hierarchy. Label is Total Contacts in Hierarchy."
+        "description": "Calculated field for the number of contacts associated with the campaign hierarchy. Label is Total Contacts in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberOfConvertedLeads": {
         "type": "currency",
-        "description": "Calculated field for the number of converted leads from the campaign in a campaign hierarchy. Label is Converted Leads in Hierarchy."
+        "description": "Calculated field for the number of converted leads from the campaign in a campaign hierarchy. Label is Converted Leads in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberOfLeads": {
         "type": "currency",
-        "description": "Calculated field for the number of leads from the campaign in a campaign hierarchy. Label is Leads in Hierarchy."
+        "description": "Calculated field for the number of leads from the campaign in a campaign hierarchy. Label is Leads in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberOfOpportunities": {
         "type": "currency",
-        "description": "Calculated field for the number of opportunities related to the campaign in a campaign hierarchy. Label is Opportunities in Hierarchy."
+        "description": "Calculated field for the number of opportunities related to the campaign in a campaign hierarchy. Label is Opportunities in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberOfResponses": {
         "type": "currency",
-        "description": "Number of contacts and unconverted leads with a Member Status equivalent to “Responded” for the campaign in a campaign hierarchy. Label is Responses in Hierarchy."
+        "description": "Number of contacts and unconverted leads with a Member Status equivalent to “Responded” for the campaign in a campaign hierarchy. Label is Responses in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberOfWonOpportunities": {
         "type": "int",
-        "description": "The number of closed or won opportunities associated with the campaign. Label is Won Opportunities in Hierarchy."
+        "description": "The number of closed or won opportunities associated with the campaign. Label is Won Opportunities in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyNumberSent": {
         "type": "double",
-        "description": "Calculated field for the total number of individuals targeted by the campaign in a campaign hierarchy. For example, the number of email messages sent. The label is Num Sent in Hierarchy."
+        "description": "Calculated field for the total number of individuals targeted by the campaign in a campaign hierarchy. For example, the number of email messages sent. The label is Num Sent in Hierarchy.",
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyTotalEmailsDelivered": {
         "type": "int",
-        "description": "Calculated field for emails delivered related to the campaign in a campaign hierarchy. Label is Total Emails Delivered in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for emails delivered related to the campaign in a campaign hierarchy. Label is Total Emails Delivered in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyTotalFormSubmissions": {
         "type": "int",
-        "description": "Calculated field for form submissions related to the campaign in a campaign hierarchy. Label is Total Form Submissions in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for form submissions related to the campaign in a campaign hierarchy. Label is Total Form Submissions in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyTotalFormViews": {
         "type": "int",
-        "description": "Calculated field for form views related to the campaign in a campaign hierarchy. Label is Total Form Views in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for form views related to the campaign in a campaign hierarchy. Label is Total Form Views in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyTotalLandingPageFormSubmissions": {
         "type": "int",
-        "description": "Calculated field for form submissions from a landing page related to the campaign in a campaign hierarchy. Label is Total Landing Page Form Submissions in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for form submissions from a landing page related to the campaign in a campaign hierarchy. Label is Total Landing Page Form Submissions in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyTotalLandingPageViews": {
         "type": "int",
-        "description": "Calculated field for landing page views related to the campaign in a campaign hierarchy. Label is Total Landing Page Views in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for landing page views related to the campaign in a campaign hierarchy. Label is Total Landing Page Views in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyUniqueEmailOpens": {
         "type": "int",
-        "description": "Calculated field for email opens related to the campaign in a campaign hierarchy. Excludes repeat opens. Label is Unique Email Opens in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for email opens related to the campaign in a campaign hierarchy. Excludes repeat opens. Label is Unique Email Opens in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyUniqueEmailTrackedLinkClicks": {
         "type": "int",
-        "description": "Calculated field for unique email link clicks related to the campaign in a campaign hierarchy. Excludes repeat clicks. Label is Unique Email Clicks in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for unique email link clicks related to the campaign in a campaign hierarchy. Excludes repeat clicks. Label is Unique Email Clicks in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "HierarchyUniqueMarketingLinkClicks": {
         "type": "int",
-        "description": "Calculated field for unique marketing link clicks related to the campaign in a campaign hierarchy. Excludes repeat clicks. Label is Unique Marketing Link Clicks in Hierarchy. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for unique marketing link clicks related to the campaign in a campaign hierarchy. Excludes repeat clicks. Label is Unique Marketing Link Clicks in Hierarchy. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this campaign is active (true) or not (false). The default value is false. The label is Active."
+        "description": "Indicates whether this campaign is active (true) or not (false). The default value is false. The label is Active.",
+        "nullable": false
       },
       "LastActivityDate": {
         "type": "date",
-        "description": "Value is one of the following, whichever is the most recent: The due date of the most recent event logged against the record. The due date of the most recently closed task associated with the record."
+        "description": "Value is one of the following, whichever is the most recent: The due date of the most recent event logged against the record. The due date of the most recently closed task associated with the record.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "LastModifiedById": {
         "type": "reference",
-        "description": "ID of the user who last updated the campaign."
+        "description": "ID of the user who last updated the campaign.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of the campaign. Limit: is 80 characters."
+        "description": "Required. Name of the campaign. Limit: is 80 characters.",
+        "maxLength": 80,
+        "nullable": false
       },
       "NumberOfContacts": {
         "type": "int",
-        "description": "Number of contacts associated with the campaign. Label is Total Contacts."
+        "description": "Number of contacts associated with the campaign. Label is Total Contacts.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfConvertedLeads": {
         "type": "int",
-        "description": "Number of leads that were converted to an account and contact due to the marketing efforts in the campaign. Label is Converted Leads."
+        "description": "Number of leads that were converted to an account and contact due to the marketing efforts in the campaign. Label is Converted Leads.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfLeads": {
         "type": "int",
-        "description": "The number of leads associated with the campaign. Label is Leads in Campaign."
+        "description": "The number of leads associated with the campaign. Label is Leads in Campaign.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfOpportunities": {
         "type": "int",
-        "description": "The number of opportunities associated with the campaign. Label is Opportunities in Campaign."
+        "description": "The number of opportunities associated with the campaign. Label is Opportunities in Campaign.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfResponses": {
         "type": "int",
-        "description": "The number of contacts and unconverted leads with a Member Status equivalent to “Responded” for the campaign. Label is Responses in Campaign."
+        "description": "The number of contacts and unconverted leads with a Member Status equivalent to “Responded” for the campaign. Label is Responses in Campaign.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfWonOpportunities": {
         "type": "int",
-        "description": "The number of closed or won opportunities associated with the campaign. Label is Won Opportunities in Campaign."
+        "description": "The number of closed or won opportunities associated with the campaign. Label is Won Opportunities in Campaign.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberSent": {
         "type": "double",
-        "description": "The number of individuals targeted by the campaign. For example, the number of emails sent. Label is Num Sent."
+        "description": "The number of individuals targeted by the campaign. For example, the number of emails sent. Label is Num Sent.",
+        "nullable": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the user who owns this campaign. Default value is the user logging in to the API to perform the create."
+        "description": "ID of the user who owns this campaign. Default value is the user logging in to the API to perform the create.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentCampaign": {
         "type": "reference",
@@ -201,23 +307,47 @@
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the parent Campaign record, if any."
+        "description": "ID of the parent Campaign record, if any.",
+        "format": "salesforce-id",
+        "x-object": "Campaign",
+        "maxLength": 18,
+        "nullable": true
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "ID of the record type assigned to this object."
+        "description": "ID of the record type assigned to this object.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
-        "description": "Starting date for the campaign."
+        "description": "Starting date for the campaign.",
+        "format": "date",
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the campaign, for example, Planned, In Progress. Limit: 40 characters."
+        "description": "Status of the campaign, for example, Planned, In Progress. Limit: 40 characters.",
+        "format": "enum",
+        "enum": [
+          "Planned",
+          "In Progress",
+          "Completed",
+          "Cancelled"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "TenantId": {
         "type": "reference",
-        "description": "ID of the associated Marketing Cloud Account Engagement business unit. Read-only. Available with Marketing Cloud Account Engagement in API version 51.0 and later."
+        "description": "ID of the associated Marketing Cloud Account Engagement business unit. Read-only. Available with Marketing Cloud Account Engagement in API version 51.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "PardotTenant",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "TotalAmountAllOpportunities": {
         "type": "currency",
@@ -229,23 +359,33 @@
       },
       "TotalEmailsDelivered": {
         "type": "int",
-        "description": "Calculated field for emails delivered related to the campaign. Label is Total Emails Delivered in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for emails delivered related to the campaign. Label is Total Emails Delivered in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "TotalFormSubmissions": {
         "type": "int",
-        "description": "Calculated field for form submissions related to the campaign. Label is Total Form Submissions in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for form submissions related to the campaign. Label is Total Form Submissions in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "TotalFormViews": {
         "type": "int",
-        "description": "Calculated field for form views related to the campaign. Label is Total Form Views in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for form views related to the campaign. Label is Total Form Views in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "TotalLandingPageFormSubmissions": {
         "type": "int",
-        "description": "Calculated field for form submissions from a landing page related to the campaign. Label is Total Landing Page Form Submissions in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for form submissions from a landing page related to the campaign. Label is Total Landing Page Form Submissions in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "TotalLandingPageViews": {
         "type": "int",
-        "description": "Calculated field for landing page views related to the campaign. Label is Total Landing Page Views in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for landing page views related to the campaign. Label is Total Landing Page Views in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "TotalNumberofLeads": {
         "type": "int",
@@ -265,22 +405,574 @@
       },
       "Type": {
         "type": "picklist",
-        "description": "Type of campaign, for example, Direct Mail or Referral Program. Limit: 40 characters."
+        "description": "Type of campaign, for example, Direct Mail or Referral Program. Limit: 40 characters.",
+        "format": "enum",
+        "enum": [
+          "Email",
+          "Social Media",
+          "Event",
+          "Web Marketing",
+          "Direct Marketing",
+          "Print Marketing",
+          "Direct Mail",
+          "Multi-Channel",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "UniqueEmailOpens": {
         "type": "int",
-        "description": "Calculated field for email opens related to the campaign. Excludes repeat opens. Label is Unique Email Opens in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for email opens related to the campaign. Excludes repeat opens. Label is Unique Email Opens in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "UniqueEmailTrackedLinkClicks": {
         "type": "int",
-        "description": "Calculated field for unique email link clicks related to the campaign. Excludes repeat clicks. Label is Unique Email Clicks in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for unique email link clicks related to the campaign. Excludes repeat clicks. Label is Unique Email Clicks in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
       },
       "UniqueMarketingLinkClicks": {
         "type": "int",
-        "description": "Calculated field for unique marketing link clicks related to the campaign. Excludes repeat clicks. Label is Unique Marketing Link Clicks in Campaign. This field is available with Marketing Cloud Account Engagement."
+        "description": "Calculated field for unique marketing link clicks related to the campaign. Excludes repeat clicks. Label is Unique Marketing Link Clicks in Campaign. This field is available with Marketing Cloud Account Engagement.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Campaign ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_campaign.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_campaign.htm",
+    "keyPrefix": "701",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActionPlan",
+        "field": "TargetId",
+        "relationshipName": "ActionPlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "COM_Qualification_Question__c",
+        "field": "COM_Campaign__c",
+        "relationshipName": "Qualification_Questions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Campaign",
+        "field": "ParentId",
+        "relationshipName": "ChildCampaigns",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignHistory",
+        "field": "CampaignId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignInfluence",
+        "field": "CampaignId",
+        "relationshipName": "CampaignInfluences",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignInsight",
+        "field": "CampaignId",
+        "relationshipName": "CampaignInsights",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignMember",
+        "field": "CampaignId",
+        "relationshipName": "CampaignMembers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignMemberChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignMemberStatus",
+        "field": "CampaignId",
+        "relationshipName": "CampaignMemberStatuses",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignMemberStatusChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignShare",
+        "field": "CampaignId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignTag",
+        "field": "ItemId",
+        "relationshipName": "Tags",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramCampaign",
+        "field": "CampaignId",
+        "relationshipName": "CampaignCareProgramCampaigns",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CollaborationGroupRecord",
+        "field": "RecordId",
+        "relationshipName": "RecordAssociatedGroups",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDistribution",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "Related_Campaign__c",
+        "relationshipName": "Content__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataUsePurpose",
+        "field": "PurposeId",
+        "relationshipName": "DataUsePurposes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LandingPage",
+        "field": "CampaignId",
+        "relationshipName": "LandingPages",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LandingPageChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ListEmail",
+        "field": "CampaignId",
+        "relationshipName": "ListEmails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ListEmailChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ListEmailRecipientSource",
+        "field": "SourceListId",
+        "relationshipName": "ListEmailRecipientSources",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MarketingForm",
+        "field": "CampaignId",
+        "relationshipName": "MarketingForms",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingFormChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingLink",
+        "field": "CampaignId",
+        "relationshipName": "MarketingLinks",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingLinkChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Opportunity",
+        "field": "CampaignId",
+        "relationshipName": "Opportunities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "vlocity_cmt__CampaignId__c",
+        "relationshipName": "vlocity_cmt__Orders__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerFundRequest",
+        "field": "CampaignId",
+        "relationshipName": "PartnerFundRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Promotion",
+        "field": "CampaignId",
+        "relationshipName": "CampaignPromotions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Quote",
+        "field": "vlocity_cmt__CampaignId__c",
+        "relationshipName": "vlocity_cmt__Quotes__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordRecommendation",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SnippetAssignment",
+        "field": "ParentId",
+        "relationshipName": "SnippetReferenceEntities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "et4ae5__SMSDefinition__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__SMSDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SMSDefinition__c",
+        "field": "et4ae5__ExclusionCampaign__c",
+        "relationshipName": "et4ae5__SMS_Definitions1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SMSJunction__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__SMS_Definitions__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "et4ae5__SendDefinition__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__SendDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SendDefinition__c",
+        "field": "et4ae5__ExclusionCampaign__c",
+        "relationshipName": "et4ae5__Send_Definitions1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SendJunction__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__Send_Definitions__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__ApprovalsPageSettings__c",
+        "field": "mcdm_15__Campaign__c",
+        "relationshipName": "mcdm_15__Campaign__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CampaignContentDocument__c",
+        "field": "vlocity_cmt__CampaignId__c",
+        "relationshipName": "vlocity_cmt__Campaign_Content__r",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -5,31 +5,49 @@
     "properties": {
       "Content": {
         "type": "base64",
-        "description": "The content or body of the note, which can include properly formatted HTML or plain text. When a document is uploaded or downloaded via the API, it must be base64 encoded (for upload) or decoded (for download). Any special characters within plain text in the Content field must be escaped. You can escape special characters by calling content.escapeHtml4(). If the input contains unsafe HTML characters or new lines, we automatically strip them out before saving the content."
+        "description": "The content or body of the note, which can include properly formatted HTML or plain text. When a document is uploaded or downloaded via the API, it must be base64 encoded (for upload) or decoded (for download). Any special characters within plain text in the Content field must be escaped. You can escape special characters by calling content.escapeHtml4(). If the input contains unsafe HTML characters or new lines, we automatically strip them out before saving the content.",
+        "format": "byte",
+        "nullable": true
       },
       "ContentModifiedDate": {
         "type": "dateTime",
-        "description": "Date the document was modified. ContentModifiedDate updates when, for example, the document is renamed or a new document version is uploaded. This field is available in API version 48.0 and later."
+        "description": "Date the document was modified. ContentModifiedDate updates when, for example, the document is renamed or a new document version is uploaded. This field is available in API version 48.0 and later.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ContentSize": {
         "type": "int",
-        "description": "Size of the note in bytes."
+        "description": "Size of the note in bytes.",
+        "nullable": true,
+        "readOnly": true
       },
       "FileExtension": {
         "type": "string",
-        "description": "File extension of the note."
+        "description": "File extension of the note.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "FileType": {
         "type": "string",
-        "description": "Type of file for the note. All notes have a file type of SNOTE."
+        "description": "Type of file for the note. All notes have a file type of SNOTE.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "IsReadOnly": {
         "type": "boolean",
-        "description": "Indicates whether the note is read only."
+        "description": "Indicates whether the note is read only.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "Date the note was last viewed. This field is available in API version 35.0 and later."
+        "description": "Date the note was last viewed. This field is available in API version 35.0 and later.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LatestContentId": {
         "type": "reference",
@@ -37,26 +55,97 @@
       },
       "LatestPublishedVersionId": {
         "type": "reference",
-        "description": "ID of the ContentVersion for the latest published version of the note."
+        "description": "ID of the ContentVersion for the latest published version of the note.",
+        "format": "salesforce-id",
+        "x-object": "ContentVersion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the owner of the note."
+        "description": "ID of the owner of the note.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "SharingPrivacy": {
         "type": "picklist",
-        "description": "Controls sharing privacy for a file. Only administrators and file owners with Collaborator access to the file can modify this field. Default is Visible to Anyone With Record Access. When set to Private on Records, the file is private on records but can be shared selectively with others.This field is available in API versions 41.0 and later."
+        "description": "Controls sharing privacy for a file. Only administrators and file owners with Collaborator access to the file can modify this field. Default is Visible to Anyone With Record Access. When set to Private on Records, the file is private on records but can be shared selectively with others.This field is available in API versions 41.0 and later.",
+        "format": "enum",
+        "enum": [
+          "N",
+          "P"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "TextPreview": {
         "type": "string",
-        "description": "A preview of the note’s content. This field is available in API version 35.0 and later."
+        "description": "A preview of the note’s content. This field is available in API version 35.0 and later.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Title": {
         "type": "string",
-        "description": "Title of the note."
+        "description": "Title of the note.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Note Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentnote.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentnote.htm",
+    "keyPrefix": "069",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true
   }
 }

@@ -5,23 +5,38 @@
     "properties": {
       "BatchJobId": {
         "type": "reference",
-        "description": "The unique identifier of the associated batch job."
+        "description": "The unique identifier of the associated batch job.",
+        "format": "salesforce-id",
+        "x-object": "BatchJob",
+        "maxLength": 18,
+        "nullable": true
       },
       "BatchJobPartId": {
         "type": "reference",
-        "description": "The unique identifier of the associated batch job part."
+        "description": "The unique identifier of the associated batch job part.",
+        "format": "salesforce-id",
+        "x-object": "BatchJobPart",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ErrorDescription": {
         "type": "string",
-        "description": "The error message that indicates why the batch job part couldn't process the records."
+        "description": "The error message that indicates why the batch job part couldn't process the records.",
+        "maxLength": 1333,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the batch job part failed record."
+        "description": "The name of the batch job part failed record.",
+        "maxLength": 255,
+        "nullable": false
       },
       "Record": {
         "type": "string",
-        "description": "The unique identifier of the batch record that processed the failed records."
+        "description": "The unique identifier of the batch record that processed the failed records.",
+        "maxLength": 100,
+        "nullable": true
       },
       "RecordName": {
         "type": "string",
@@ -34,9 +49,68 @@
       "Status": {
         "type": "picklist",
         "description": "Specifies the status of the failed records. This field is available in API version 52.0 and later."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Batch Job Part Failed Record ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_batchjobpartfailedrecord.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_batchjobpartfailedrecord.htm",
+    "keyPrefix": "0mf"
   }
 }

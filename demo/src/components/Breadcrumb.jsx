@@ -40,7 +40,7 @@ const Breadcrumb = ({ items, onNavigate }) => {
             <Link
               component="button"
               variant="body2"
-              onClick={() => onNavigate(item.path)}
+              onClick={() => onNavigate(item)}
               sx={{
                 textDecoration: 'none',
                 color: '#0176d3',

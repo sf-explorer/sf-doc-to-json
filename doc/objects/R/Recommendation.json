@@ -5,43 +5,69 @@
     "properties": {
       "AcceptanceLabel": {
         "type": "string",
-        "description": "Label that appears as the accept option on the surfaced recommendation. Maximum size is 80 characters."
+        "description": "Label that appears as the accept option on the surfaced recommendation. Maximum size is 80 characters.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ActionReference": {
         "type": "string",
-        "description": "Flow referenced for this recommendation. Label is Action."
+        "description": "Flow referenced for this recommendation. Label is Action.",
+        "maxLength": 255,
+        "nullable": false
       },
       "Description": {
         "type": "string",
-        "description": "Text description of the recommendation. Maximum size is 255 characters."
+        "description": "Text description of the recommendation. Maximum size is 255 characters.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ExternalId": {
         "type": "string",
-        "description": "Stores an identifier for the recommendation source, such as product, so Einstein can group all responses for a given recommendation."
+        "description": "Stores an identifier for the recommendation source, such as product, so Einstein can group all responses for a given recommendation.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ImageId": {
         "type": "reference",
-        "description": "Image referenced by this recommendation. Label is Image."
+        "description": "Image referenced by this recommendation. Label is Image.",
+        "format": "salesforce-id",
+        "x-object": "ContentAsset",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsActionActive": {
         "type": "boolean",
-        "description": "Indicates whether the flow referenced in the Action field is active (true) or not (false). Read only."
+        "description": "Indicates whether the flow referenced in the Action field is active (true) or not (false). Read only.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date and time when the recommendation was last referenced."
+        "description": "The date and time when the recommendation was last referenced.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date and time when the recommendation was last viewed."
+        "description": "The date and time when the recommendation was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the recommendation. Maximum size is 80 characters."
+        "description": "The name of the recommendation. Maximum size is 80 characters.",
+        "maxLength": 80,
+        "nullable": false
       },
       "NetworkId": {
         "type": "reference",
-        "description": "ID of the Experience Cloud site associated with the recommendation (if applicable)."
+        "description": "ID of the Experience Cloud site associated with the recommendation (if applicable).",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true
       },
       "RecommendationKey": {
         "type": "string",
@@ -49,10 +75,139 @@
       },
       "RejectionLabel": {
         "type": "string",
-        "description": "Label that appears as the reject option on the surfaced recommendation. Maximum size is 80 characters."
+        "description": "Label that appears as the reject option on the surfaced recommendation. Maximum size is 80 characters.",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Recommendation ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecordTypeId": {
+        "type": "string",
+        "description": "Record Type ID",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecommendationMode": {
+        "type": "string",
+        "description": "Recommendation Mode",
+        "format": "enum",
+        "enum": [
+          "Learning",
+          "Intelligent"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "RecommendationScore": {
+        "type": "number",
+        "description": "Recommendation Score",
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_recommendation.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_recommendation.htm",
+    "keyPrefix": "0pr",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_Service_Conversation_Helper__c",
+        "field": "Recommended_Action__c",
+        "relationshipName": "Conversation_Helpers__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,22 +5,121 @@
     "properties": {
       "Category": {
         "type": "picklist",
-        "description": "The category of the feature evaluated."
+        "description": "The category of the feature evaluated.",
+        "format": "enum",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "FeatureType": {
         "type": "picklist",
-        "description": "The feature evaluated. For a full list, see Features Evaluated in Salesforce Optimizer."
+        "description": "The feature evaluated. For a full list, see Features Evaluated in Salesforce Optimizer.",
+        "format": "enum",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "LatestOrgMetricScanSummaryId": {
         "type": "reference",
-        "description": "The feature’s OrgMetricScanSummaryID from the most recent Optimizer evaluation."
+        "description": "The feature’s OrgMetricScanSummaryID from the most recent Optimizer evaluation.",
+        "format": "salesforce-id",
+        "x-object": "OrgMetricScanSummary",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "A unique number that identifies the feature."
+        "description": "A unique number that identifies the feature.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Org Metric ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orgmetric.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orgmetric.htm",
+    "keyPrefix": "3v1",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrgMetricScanSummary",
+        "field": "OrgMetricId",
+        "relationshipName": "OrgMetric",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -5,15 +5,23 @@
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The API name of the SurveyQuestion. The API name must be unique within a particular version of the survey."
+        "description": "The API name of the SurveyQuestion. The API name must be unique within a particular version of the survey.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeprecated": {
         "type": "boolean",
-        "description": "Indicates whether the question was deleted from the survey."
+        "description": "Indicates whether the question was deleted from the survey.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Up to the first 250 characters of the label for the question."
+        "description": "Up to the first 250 characters of the label for the question.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "PageDisplayOrder": {
         "type": "int",
@@ -29,7 +37,10 @@
       },
       "QuestionName": {
         "type": "textarea",
-        "description": "The label for the question."
+        "description": "The label for the question.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionOrder": {
         "type": "int",
@@ -37,7 +48,33 @@
       },
       "QuestionType": {
         "type": "picklist",
-        "description": "The type of question. Possible values include: Boolean—This value is available in API v49.0 and later. CSAT Currency Date DateTime FreeText Image Matrix—This value is available in API v55.0 and later. MultipleChoice MultiSelectPicklist NPS Number Picklist RadioButton StackRank Rating ShortText—This value is available in API v49.0 and later. Slider Toggle"
+        "description": "The type of question. Possible values include: Boolean—This value is available in API v49.0 and later. CSAT Currency Date DateTime FreeText Image Matrix—This value is available in API v55.0 and later. MultipleChoice MultiSelectPicklist NPS Number Picklist RadioButton StackRank Rating ShortText—This value is available in API v49.0 and later. Slider Toggle",
+        "format": "enum",
+        "enum": [
+          "MultiChoice",
+          "RadioButton",
+          "FreeText",
+          "Date",
+          "Rating",
+          "CSAT",
+          "Slider",
+          "Picklist",
+          "NPS",
+          "StackRank",
+          "Currency",
+          "Number",
+          "DateTime",
+          "Toggle",
+          "MultiSelectPicklist",
+          "Image",
+          "Boolean",
+          "ShortText",
+          "Attachment",
+          "Matrix"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "RelatedQuestionId": {
         "type": "reference",
@@ -49,18 +86,227 @@
       },
       "SurveyPageId": {
         "type": "reference",
-        "description": "Lookup to the SurveyPage that contains the question."
+        "description": "Lookup to the SurveyPage that contains the question.",
+        "format": "salesforce-id",
+        "x-object": "SurveyPage",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SurveyVersionId": {
         "type": "reference",
-        "description": "The ID of the SurveyVersion that the question belongs to."
+        "description": "The ID of the SurveyVersion that the question belongs to.",
+        "format": "salesforce-id",
+        "x-object": "SurveyVersion",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ValidationType": {
         "type": "picklist",
         "description": "The validations available for the short-text question. Possible values include: Custom - Cu Number - Nu"
+      },
+      "Id": {
+        "type": "string",
+        "description": "Survey Question ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Feedback Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyquestion.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyquestion.htm",
+    "keyPrefix": "0Ku",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveyQuestionChoice",
+        "field": "QuestionId",
+        "relationshipName": "QuestionChoices",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyQuestionResponse",
+        "field": "QuestionId",
+        "relationshipName": "SurveyQuestionResponses",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyQuestionScore",
+        "field": "QuestionId",
+        "relationshipName": "SurveyQuestionScores",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyVersionAddlInfo",
+        "field": "SurveyQuestionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

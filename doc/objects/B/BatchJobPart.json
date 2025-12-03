@@ -5,19 +5,32 @@
     "properties": {
       "BatchJobId": {
         "type": "reference",
-        "description": "The unique identifier of the associated batch job."
+        "description": "The unique identifier of the associated batch job.",
+        "format": "salesforce-id",
+        "x-object": "BatchJob",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "EndTime": {
         "type": "dateTime",
-        "description": "The timestamp when the batch job part was processed."
+        "description": "The timestamp when the batch job part was processed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ErrorDescription": {
         "type": "string",
-        "description": "The error message in case the batch job part failed."
+        "description": "The error message in case the batch job part failed.",
+        "maxLength": 1333,
+        "nullable": true,
+        "readOnly": true
       },
       "FailedRecordCount": {
         "type": "int",
-        "description": "The number of records that the batch job part couldn't process."
+        "description": "The number of records that the batch job part couldn't process.",
+        "nullable": true,
+        "readOnly": true
       },
       "FailedRecFile": {
         "type": "FILE",
@@ -25,38 +38,151 @@
       },
       "InputRecordCount": {
         "type": "int",
-        "description": "The number of records that the batch job part must process."
+        "description": "The number of records that the batch job part must process.",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the batch job part."
+        "description": "The name of the batch job part.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OutputRecordCount": {
         "type": "int",
-        "description": "The number of records the batch job part has processed."
+        "description": "The number of records the batch job part has processed.",
+        "nullable": true,
+        "readOnly": true
       },
       "ParentBatchJobPartId": {
         "type": "reference",
-        "description": "The unique identifier of the part batch job part associated with the batch job part."
+        "description": "The unique identifier of the part batch job part associated with the batch job part.",
+        "format": "salesforce-id",
+        "x-object": "BatchJobPart",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "RetryCount": {
         "type": "int",
-        "description": "The number of times the batch job part is automatically rerun in case it fails."
+        "description": "The number of times the batch job part is automatically rerun in case it fails.",
+        "nullable": true,
+        "readOnly": true
       },
       "StartTime": {
         "type": "dateTime",
-        "description": "The timestamp when the batch job part's run was started."
+        "description": "The timestamp when the batch job part's run was started.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the batch job part."
+        "description": "The status of the batch job part.",
+        "format": "enum",
+        "enum": [
+          "Completed",
+          "InProgress",
+          "Failed",
+          "Canceled",
+          "Waiting",
+          "New"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of node in case the associated batch job is of the type Calc (Data Processing Engine)."
+        "description": "The type of node in case the associated batch job is of the type Calc (Data Processing Engine).",
+        "format": "enum",
+        "enum": [
+          "Source",
+          "Join",
+          "Filter",
+          "Append",
+          "Datasync",
+          "Compute",
+          "Aggregate",
+          "Register",
+          "Slice",
+          "Transform",
+          "Writeback",
+          "Execution",
+          "Hierarchy",
+          "Custom",
+          "Forecast",
+          "CsvIngestion",
+          "AtomicWriteback",
+          "OutputRecordsNode",
+          "Summary"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Batch Job Part ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_batchjobpart.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_batchjobpart.htm",
+    "keyPrefix": "0me"
   }
 }

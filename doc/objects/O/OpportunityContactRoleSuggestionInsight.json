@@ -5,11 +5,19 @@
     "properties": {
       "ContactId": {
         "type": "reference",
-        "description": "The ID of the related contact record."
+        "description": "The ID of the related contact record.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": false
       },
       "CreatedRecordId": {
         "type": "reference",
-        "description": "The ID of the created opportunity contact role record."
+        "description": "The ID of the created opportunity contact role record.",
+        "format": "salesforce-id",
+        "x-object": "OpportunityContactRole",
+        "maxLength": 18,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -21,34 +29,173 @@
       },
       "LastOperationUserId": {
         "type": "reference",
-        "description": "The ID of the user who last performed a related operation."
+        "description": "The ID of the user who last performed a related operation.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "The ID of the related opportunity."
+        "description": "The ID of the related opportunity.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RationaleLabel": {
         "type": "string",
-        "description": "The reason why this is a suggested opportunity contact role."
+        "description": "The reason why this is a suggested opportunity contact role.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Role": {
         "type": "string",
-        "description": "The role of the suggested opportunity contact role."
+        "description": "The role of the suggested opportunity contact role.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the suggested contact. Possible values include: New Pending Added Declined"
+        "description": "The status of the suggested contact. Possible values include: New Pending Added Declined",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Pending",
+          "Accepted",
+          "Rejected"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Einstein Opportunity Contact Role Suggestions ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Name": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsPrimary": {
+        "type": "boolean",
+        "description": "Primary Contact",
+        "nullable": false
+      },
+      "Activity": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "OpportunityName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Score": {
+        "type": "number",
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitycontactrolesuggestioninsight.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitycontactrolesuggestioninsight.htm",
+    "keyPrefix": "0Qv",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordRecommendation",
+        "field": "InsightId",
+        "relationshipName": "InsightInformation",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

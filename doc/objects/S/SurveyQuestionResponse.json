@@ -5,62 +5,253 @@
     "properties": {
       "ChoiceValue": {
         "type": "textarea",
-        "description": "Response provided by a participant for the following question types: Multiple choice Picklist Radio Ranking"
+        "description": "Response provided by a participant for the following question types: Multiple choice Picklist Radio Ranking",
+        "maxLength": 1000,
+        "nullable": true,
+        "readOnly": true
       },
       "Datatype": {
         "type": "Filter, Group, Nillable, Restricted picklist, Sort",
-        "description": ""
+        "description": "",
+        "format": "enum",
+        "enum": [
+          "String",
+          "Number",
+          "Date",
+          "Int",
+          "Double",
+          "Boolean"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DateTimeValue": {
         "type": "dateTime",
-        "description": "Response provided by a participant for a question of the type date time."
+        "description": "Response provided by a participant for a question of the type date time.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "DateValue": {
         "type": "date",
-        "description": "Response provided by a participant for a question of the type date."
+        "description": "Response provided by a participant for a question of the type date.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "InvitationId": {
         "type": "reference",
-        "description": "The ID of the SurveyInvitation that was sent to the survey participant."
+        "description": "The ID of the SurveyInvitation that was sent to the survey participant.",
+        "format": "salesforce-id",
+        "x-object": "SurveyInvitation",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IsTrueOrFalse": {
         "type": "boolean",
-        "description": "Response provided by a participant for a question type which has only two possible values: True and False."
+        "description": "Response provided by a participant for a question type which has only two possible values: True and False.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumberValue": {
         "type": "int",
-        "description": "Response provided by a participant for the following question types: Net Promoter Score (NPS) Rating Score Slider"
+        "description": "Response provided by a participant for the following question types: Net Promoter Score (NPS) Rating Score Slider",
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionChoiceId": {
         "type": "reference",
-        "description": "The ID of SurveyQuestionChoice that a participant chose in response to a question."
+        "description": "The ID of SurveyQuestionChoice that a participant chose in response to a question.",
+        "format": "salesforce-id",
+        "x-object": "SurveyQuestionChoice",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "QuestionId": {
         "type": "reference",
-        "description": "The ID of the SurveyQuestion that a participant provided an answer for."
+        "description": "The ID of the SurveyQuestion that a participant provided an answer for.",
+        "format": "salesforce-id",
+        "x-object": "SurveyQuestion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Rank": {
         "type": "int",
-        "description": "Rank provided by a participant for an answer choice for the ranking question type."
+        "description": "Rank provided by a participant for an answer choice for the ranking question type.",
+        "nullable": true,
+        "readOnly": true
       },
       "ResponseId": {
         "type": "reference",
-        "description": "The ID of the SurveyResponse that is the parent of this SurveyQuestionResponse."
+        "description": "The ID of the SurveyResponse that is the parent of this SurveyQuestionResponse.",
+        "format": "salesforce-id",
+        "x-object": "SurveyResponse",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ResponseShortText": {
         "type": "string",
-        "description": "Up to the first 250 characters of the response provided by a participant for a text type question."
+        "description": "Up to the first 250 characters of the response provided by a participant for a text type question.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ResponseValue": {
         "type": "textarea",
-        "description": "Response provided by a participant for a question."
+        "description": "Response provided by a participant for a question.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "SurveyVersionId": {
         "type": "reference",
-        "description": "The ID of the SurveyVersion that the response belongs to."
+        "description": "The ID of the SurveyVersion that the response belongs to.",
+        "format": "salesforce-id",
+        "x-object": "SurveyVersion",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Survey Question Response ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Feedback Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyquestionresponse.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyquestionresponse.htm",
+    "keyPrefix": "0Kr",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

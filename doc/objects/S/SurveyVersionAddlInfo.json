@@ -9,7 +9,12 @@
       },
       "EmailTemplateId": {
         "type": "reference",
-        "description": "ID of the email template that's used to send an automated survey invitation."
+        "description": "ID of the email template that's used to send an automated survey invitation.",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "EngagementContextMetadata": {
         "type": "string",
@@ -17,26 +22,173 @@
       },
       "InvitationSharingRole": {
         "type": "picklist",
-        "description": "Indicates the users that share edit access to a survey invitation."
+        "description": "Indicates the users that share edit access to a survey invitation.",
+        "format": "enum",
+        "enum": [
+          "SurveyOwner",
+          "InvitationRecordCreator"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Language": {
         "type": "picklist",
-        "description": "Language used to create the survey."
+        "description": "Language used to create the survey.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the record."
+        "description": "Name of the record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SurveyQuestionId": {
         "type": "reference",
-        "description": "ID of the survey question embedded in the email template used to send automated survey invitations."
+        "description": "ID of the survey question embedded in the email template used to send automated survey invitations.",
+        "format": "salesforce-id",
+        "x-object": "SurveyQuestion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SurveyVersionId": {
         "type": "reference",
-        "description": "ID of the survey version. This field is unique within your organization"
+        "description": "ID of the survey version. This field is unique within your organization",
+        "format": "salesforce-id",
+        "x-object": "SurveyVersion",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Survey Version Additional Info ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Feedback Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyversionaddlinfo.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_feedback_management_dev_guide.meta/salesforce_feedback_management_dev_guide/sforce_api_objects_surveyversionaddlinfo.htm",
+    "keyPrefix": "0iA",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

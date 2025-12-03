@@ -5,11 +5,20 @@
     "properties": {
       "BackgroundOperationId": {
         "type": "reference",
-        "description": "ID of the background operation that ran the validation."
+        "description": "ID of the background operation that ran the validation.",
+        "format": "salesforce-id",
+        "x-object": "BackgroundOperation",
+        "maxLength": 18,
+        "nullable": true
       },
       "CartId": {
         "type": "reference",
-        "description": "ID of the related WebCart."
+        "description": "ID of the related WebCart.",
+        "format": "salesforce-id",
+        "x-object": "WebCart",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -17,34 +26,176 @@
       },
       "IsDismissed": {
         "type": "boolean",
-        "description": "Indicates whether the validation process is finished. Default value is false."
+        "description": "Indicates whether the validation process is finished. Default value is false.",
+        "nullable": false
       },
       "Level": {
         "type": "picklist",
-        "description": "Describes the type of output resulting from the validation process. Possible values are: 0 (Info) 1 (Error) 2 (Warning)"
+        "description": "Describes the type of output resulting from the validation process. Possible values are: 0 (Info) 1 (Error) 2 (Warning)",
+        "format": "enum",
+        "enum": [
+          "Info",
+          "Error",
+          "Warning"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Message": {
         "type": "string",
-        "description": "Defines the message to show in the log when validation is complete. Message can be up to 255 characters."
+        "description": "Defines the message to show in the log when validation is complete. Message can be up to 255 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of this CartValidationOutput record. Name can be up to 255 characters."
+        "description": "The name of this CartValidationOutput record. Name can be up to 255 characters.",
+        "maxLength": 255,
+        "nullable": false
       },
       "RelatedEntityId": {
         "type": "reference",
-        "description": "Foreign key to WebCart, CartItem, and CartDeliveryGroup."
+        "description": "Foreign key to WebCart, CartItem, and CartDeliveryGroup.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "CartDeliveryGroup",
+          "CartItem",
+          "CartTax",
+          "WebCart"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "RelatedEntityPrefix": {
         "type": "string",
-        "description": "Three-character prefix for the related entity."
+        "description": "Three-character prefix for the related entity.",
+        "maxLength": 3,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The CartValidationOutput type. Possible values are: CartSave — Available in API version 64.0 and later. Entitlement Inventory Other Pricing Promotions Shipping ShippingPromotions SystemError Taxes"
+        "description": "The CartValidationOutput type. Possible values are: CartSave — Available in API version 64.0 and later. Entitlement Inventory Other Pricing Promotions Shipping ShippingPromotions SystemError Taxes",
+        "format": "enum",
+        "enum": [
+          "Inventory",
+          "Taxes",
+          "Pricing",
+          "Promotions",
+          "Shipping",
+          "ShippingPromotions",
+          "Entitlement",
+          "CartSave",
+          "SystemError",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Cart Validation Output ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartvalidationoutput.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartvalidationoutput.htm",
+    "keyPrefix": "0dP",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

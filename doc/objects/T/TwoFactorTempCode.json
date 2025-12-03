@@ -5,22 +5,95 @@
     "properties": {
       "Expiration": {
         "type": "dateTime",
-        "description": "The date and time when the temporary verification code expires. The code expires in 1 to 24 hours after it’s generated. Salesforce admins and non-admin users with the Manage Multi-Factor Authentication in User Interface permission set the expiration time when generating the code."
+        "description": "The date and time when the temporary verification code expires. The code expires in 1 to 24 hours after it’s generated. Salesforce admins and non-admin users with the Manage Multi-Factor Authentication in User Interface permission set the expiration time when generating the code.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "Identifier": {
         "type": "string",
-        "description": "The unique identifier for the temporary code. This is a required field that can take any value."
+        "description": "The unique identifier for the temporary code. This is a required field that can take any value.",
+        "maxLength": 64,
+        "nullable": false,
+        "readOnly": true
       },
       "TempCode": {
         "type": "encryptedstring",
-        "description": ""
+        "description": "",
+        "maxLength": 12,
+        "nullable": false,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID for the user who’s associated with the temporary verification code."
+        "description": "The ID for the user who’s associated with the temporary verification code.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Temporary Verification Code ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_twofactortempcode.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_twofactortempcode.htm",
+    "keyPrefix": "05g",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

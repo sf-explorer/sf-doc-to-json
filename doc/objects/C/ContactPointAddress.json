@@ -5,15 +5,21 @@
     "properties": {
       "ActiveFromDate": {
         "type": "date",
-        "description": "The date when the contact’s address became active."
+        "description": "The date when the contact’s address became active.",
+        "format": "date",
+        "nullable": true
       },
       "ActiveToDate": {
         "type": "date",
-        "description": "The date when the contact’s address is no longer active."
+        "description": "The date when the contact’s address is no longer active.",
+        "format": "date",
+        "nullable": true
       },
       "Address": {
         "type": "address",
-        "description": "The full address."
+        "description": "The full address.",
+        "nullable": true,
+        "readOnly": true
       },
       "AddressFirstName": {
         "type": "string",
@@ -29,23 +35,139 @@
       },
       "AddressType": {
         "type": "picklist",
-        "description": "Indicates the type of address."
+        "description": "Indicates the type of address.",
+        "format": "enum",
+        "enum": [
+          "Billing",
+          "Shipping"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "BestTimeToContactEndTime": {
         "type": "time",
-        "description": "The latest time to contact the individual."
+        "description": "The latest time to contact the individual.",
+        "format": "time",
+        "nullable": true
       },
       "BestTimeToContactStartTime": {
         "type": "time",
-        "description": "The earliest time to contact the individual."
+        "description": "The earliest time to contact the individual.",
+        "format": "time",
+        "nullable": true
       },
       "BestTimeToContactTimezone": {
         "type": "picklist",
-        "description": "The timezone applied to the best time to contact the individual."
+        "description": "The timezone applied to the best time to contact the individual.",
+        "format": "enum",
+        "enum": [
+          "Pacific/Kiritimati",
+          "Pacific/Chatham",
+          "Pacific/Auckland",
+          "Pacific/Enderbury",
+          "Pacific/Tongatapu",
+          "Asia/Kamchatka",
+          "Pacific/Fiji",
+          "Pacific/Norfolk",
+          "Australia/Lord_Howe",
+          "Australia/Sydney",
+          "Pacific/Guadalcanal",
+          "Australia/Adelaide",
+          "Australia/Brisbane",
+          "Australia/Darwin",
+          "Asia/Seoul",
+          "Asia/Tokyo",
+          "Asia/Hong_Kong",
+          "Asia/Kuala_Lumpur",
+          "Asia/Manila",
+          "Asia/Shanghai",
+          "Asia/Singapore",
+          "Asia/Taipei",
+          "Australia/Perth",
+          "Asia/Bangkok",
+          "Asia/Ho_Chi_Minh",
+          "Asia/Jakarta",
+          "Asia/Rangoon",
+          "Asia/Dhaka",
+          "Asia/Kathmandu",
+          "Asia/Colombo",
+          "Asia/Kolkata",
+          "Asia/Karachi",
+          "Asia/Tashkent",
+          "Asia/Yekaterinburg",
+          "Asia/Kabul",
+          "Asia/Baku",
+          "Asia/Dubai",
+          "Asia/Tbilisi",
+          "Asia/Yerevan",
+          "Africa/Nairobi",
+          "Asia/Baghdad",
+          "Asia/Kuwait",
+          "Asia/Riyadh",
+          "Europe/Istanbul",
+          "Europe/Minsk",
+          "Europe/Moscow",
+          "Africa/Cairo",
+          "Africa/Johannesburg",
+          "Asia/Beirut",
+          "Asia/Jerusalem",
+          "Europe/Athens",
+          "Europe/Bucharest",
+          "Europe/Helsinki",
+          "Africa/Algiers",
+          "Africa/Casablanca",
+          "Europe/Amsterdam",
+          "Europe/Berlin",
+          "Europe/Brussels",
+          "Europe/Paris",
+          "Europe/Prague",
+          "Europe/Rome",
+          "Europe/Dublin",
+          "Europe/Lisbon",
+          "Europe/London",
+          "GMT",
+          "Atlantic/Azores",
+          "Atlantic/Cape_Verde",
+          "America/Scoresbysund",
+          "Atlantic/South_Georgia",
+          "America/Argentina/Buenos_Aires",
+          "America/Santiago",
+          "America/Sao_Paulo",
+          "America/St_Johns",
+          "America/Caracas",
+          "America/Halifax",
+          "America/Puerto_Rico",
+          "Atlantic/Bermuda",
+          "America/Bogota",
+          "America/Indiana/Indianapolis",
+          "America/Lima",
+          "America/New_York",
+          "America/Panama",
+          "America/Chicago",
+          "America/El_Salvador",
+          "America/Mexico_City",
+          "America/Denver",
+          "America/Mazatlan",
+          "America/Phoenix",
+          "America/Los_Angeles",
+          "America/Tijuana",
+          "Pacific/Pitcairn",
+          "America/Anchorage",
+          "Pacific/Gambier",
+          "Pacific/Marquesas",
+          "America/Adak",
+          "Pacific/Honolulu",
+          "Pacific/Niue",
+          "Pacific/Pago_Pago"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "City": {
         "type": "string",
-        "description": "The address city."
+        "description": "The address city.",
+        "maxLength": 40,
+        "nullable": true
       },
       "CompanyName": {
         "type": "string",
@@ -53,23 +175,47 @@
       },
       "ContactPointPhoneId": {
         "type": "reference",
-        "description": "Represents the primary phone number associated with this address."
+        "description": "Represents the primary phone number associated with this address.",
+        "format": "salesforce-id",
+        "x-object": "ContactPointPhone",
+        "maxLength": 18,
+        "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "The address country."
+        "description": "The address country.",
+        "maxLength": 80,
+        "nullable": true
       },
       "GeocodeAccuracy": {
         "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates."
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "IsDefault": {
         "type": "boolean",
-        "description": "Indicates whether a contact’s address is the preferred method of communication (true) or not (false). The default value is false."
+        "description": "Indicates whether a contact’s address is the preferred method of communication (true) or not (false). The default value is false.",
+        "nullable": false
       },
       "IsPrimary": {
         "type": "boolean",
-        "description": "Indicates whether a contact’s address is their primary address (true) or not (false). The default value is false."
+        "description": "Indicates whether a contact’s address is their primary address (true) or not (false). The default value is false.",
+        "nullable": false
       },
       "IsThirdPartyAddress": {
         "type": "boolean",
@@ -77,31 +223,57 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last referenced a record related to this record."
+        "description": "The timestamp for when the current user last referenced a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Name": {
         "type": "string",
-        "description": "Required. The name of the contact point address record."
+        "description": "Required. The name of the contact point address record.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the account’s owner associated with this contact."
+        "description": "The ID of the account’s owner associated with this contact.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "The ID of the contact’s parent record. Only an individual or account can be a contact’s parent."
+        "description": "The ID of the contact’s parent record. Only an individual or account can be a contact’s parent.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Account",
+          "Individual"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "PhoneNumber": {
         "type": "phone",
@@ -109,26 +281,186 @@
       },
       "PostalCode": {
         "type": "string",
-        "description": "The address postal code."
+        "description": "The address postal code.",
+        "maxLength": 20,
+        "nullable": true
       },
       "PreferenceRank": {
         "type": "int",
-        "description": "Preference rank when there are multiple contact point addresses."
+        "description": "Preference rank when there are multiple contact point addresses.",
+        "nullable": true
       },
       "State": {
         "type": "string",
-        "description": "The address state."
+        "description": "The address state.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Street": {
         "type": "textarea",
-        "description": "The address street."
+        "description": "The address street.",
+        "maxLength": 255,
+        "nullable": true
       },
       "UsageType": {
         "type": "picklist",
-        "description": "Specify the usage type of this address. For instance, whether it’s a work address or a home address."
+        "description": "Specify the usage type of this address. For instance, whether it’s a work address or a home address.",
+        "format": "enum",
+        "enum": [
+          "Home",
+          "Work",
+          "Temporary",
+          "Inactive"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Contact Point Address ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contactpointaddress.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contactpointaddress.htm",
+    "keyPrefix": "8lW",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsent",
+        "field": "ContactPointId",
+        "relationshipName": "CommSubscriptionConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsentChangeEvent",
+        "field": "ContactPointId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointAddressHistory",
+        "field": "ContactPointAddressId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointAddressShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointConsent",
+        "field": "ContactPointId",
+        "relationshipName": "ContactPointConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointConsentChangeEvent",
+        "field": "ContactPointId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Visit",
+        "field": "PlaceId",
+        "relationshipName": "Places",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,23 +5,37 @@
     "properties": {
       "BatchJobDefinitionId": {
         "type": "reference",
-        "description": "The unique identifier of the associated batch job definition."
+        "description": "The unique identifier of the associated batch job definition.",
+        "format": "salesforce-id",
+        "x-object": "BatchJobDefinition",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "BatchJobDefinitionName": {
         "type": "string",
-        "description": "The name of the associated batch job definition."
+        "description": "The name of the associated batch job definition.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "BatchSize": {
         "type": "int",
-        "description": "Required. The number of records that each Batch Management job part can process. The maximum number of transaction journal records that a batch management job can process for flow or loyalty program process is 2000."
+        "description": "Required. The number of records that each Batch Management job part can process. The maximum number of transaction journal records that a batch management job can process for flow or loyalty program process is 2000.",
+        "nullable": false
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the Batch Management job."
+        "description": "The description of the Batch Management job.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The developer name of the Batch Management job."
+        "description": "The developer name of the Batch Management job.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FlowDefinitionId": {
         "type": "reference",
@@ -33,7 +47,47 @@
       },
       "Language": {
         "type": "picklist",
-        "description": "The language in which the batch job is created."
+        "description": "The language in which the batch job is created.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -41,7 +95,9 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the Batch Management job."
+        "description": "The label of the Batch Management job.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Metadata": {
         "type": "complexvalue",
@@ -49,27 +105,45 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "ProcessGroup": {
         "type": "string",
-        "description": "The group or team for which the Batch Management job processes records."
+        "description": "The group or team for which the Batch Management job processes records.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "RecordIdVariable": {
         "type": "string",
-        "description": "The unique identifier that identifies each record that must be processed by the Batch Management job."
+        "description": "The unique identifier that identifies each record that must be processed by the Batch Management job.",
+        "maxLength": 80,
+        "nullable": true
       },
       "RetryCount": {
         "type": "int",
-        "description": "Required. The number of times this Batch Management job must be rerun in case it fails."
+        "description": "Required. The number of times this Batch Management job must be rerun in case it fails.",
+        "nullable": false
       },
       "RetryInterval": {
         "type": "int",
-        "description": "Required. The number of milliseconds after which the Batch Management job must be rerun in case it fails. A retry interval can be 1,000–10,000 milliseconds."
+        "description": "Required. The number of milliseconds after which the Batch Management job must be rerun in case it fails. A retry interval can be 1,000–10,000 milliseconds.",
+        "nullable": false
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the Batch Management job."
+        "description": "The status of the Batch Management job.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Inactive"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
@@ -77,10 +151,61 @@
       },
       "TypeInstance": {
         "type": "string",
-        "description": "Required. The API name of the process that the Batch Management job must execute."
+        "description": "Required. The API name of the process that the Batch Management job must execute.",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Batch Process Job Definition ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/tooling_api_objects_batchprocessjobdefinition.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/tooling_api_objects_batchprocessjobdefinition.htm",
+    "keyPrefix": "0mh"
   }
 }

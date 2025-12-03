@@ -5,11 +5,27 @@
     "properties": {
       "DateType": {
         "type": "picklist",
-        "description": "Required. The date type that forecast amounts are based on."
+        "description": "Required. The date type that forecast amounts are based on.",
+        "format": "enum",
+        "enum": [
+          "OpportunityCloseDate",
+          "ProductDate",
+          "ScheduleDate",
+          "OLIMeasureCloseDateOnly",
+          "ProductDateOnly",
+          "ScheduleDateOnly",
+          "OpportunityCustomDate",
+          "OLIMeasureOppCustomDateOnly"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Required. The name of the forecast type."
+        "description": "Required. The name of the forecast type.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FullName": {
         "type": "string",
@@ -17,15 +33,59 @@
       },
       "HasProductFamily": {
         "type": "boolean",
-        "description": "Required. Indicates whether the forecast type includes product families (true) or not (false). The default value is false."
+        "description": "Required. Indicates whether the forecast type includes product families (true) or not (false). The default value is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the forecast type."
+        "description": "The language of the forecast type.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Required. Controlling label for this forecast type. This display value is the internal label that doesn’t get translated."
+        "description": "Required. Controlling label for this forecast type. This display value is the internal label that doesn’t get translated.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Metadata": {
         "type": "ForecastingType",
@@ -33,7 +93,12 @@
       },
       "OpportunitySplitTypeId": {
         "type": "reference",
-        "description": "For a forecast type based on a split, the ID of the opportunity split type."
+        "description": "For a forecast type based on a split, the ID of the opportunity split type.",
+        "format": "salesforce-id",
+        "x-object": "OpportunitySplitType",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OpptyLineItemSplitTypeId": {
         "type": "reference",
@@ -41,14 +106,180 @@
       },
       "RoleType": {
         "type": "picklist",
-        "description": "Required. Indicates whether the role type has a ForecastingType, and if so, which ForecastingType."
+        "description": "Required. Indicates whether the role type has a ForecastingType, and if so, which ForecastingType.",
+        "format": "enum",
+        "enum": [
+          "R",
+          "T",
+          "Y"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Territory2ModelId": {
         "type": "string",
-        "description": "For a territory-based forecast type, the ID of the Territory2 model."
+        "description": "For a territory-based forecast type, the ID of the Territory2 model.",
+        "format": "salesforce-id",
+        "x-object": "Territory2Model",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Forecasting Type ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsActive": {
+        "type": "boolean",
+        "nullable": false
+      },
+      "IsQuantity": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsAmount": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CanDisplayQuotas": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsPlatformType": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_forecastingtype.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_forecastingtype.htm",
+    "keyPrefix": "0Db",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ForecastingAdjustment",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingFact",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingItem",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingOwnerAdjustment",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingPrediction",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingPredictionElement",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingPredictionReason",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingPredictionTrend",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingQuota",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingTypeSource",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingTypeToCategory",
+        "field": "ForecastingTypeId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ForecastingUserPreference",
+        "field": "ForecastingDisplayedTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

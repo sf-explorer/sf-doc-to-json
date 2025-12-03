@@ -5,11 +5,21 @@
     "properties": {
       "CareProgramEnrolleeId": {
         "type": "reference",
-        "description": "The ID of the care program enrollee to whom this device is registered."
+        "description": "The ID of the care program enrollee to whom this device is registered.",
+        "format": "salesforce-id",
+        "x-object": "CareProgramEnrollee",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "DeviceId": {
         "type": "Master-detail reference",
-        "description": "The asset ID for the device."
+        "description": "The asset ID for the device.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "DeviceTypeId": {
         "type": "reference",
@@ -17,23 +27,40 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of this device registration record."
+        "description": "The name of this device registration record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "PatientId": {
         "type": "reference",
-        "description": "The account ID of the patient to whom this device is registered."
+        "description": "The account ID of the patient to whom this device is registered.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "RegistrationDate": {
         "type": "dateTime",
-        "description": "The date and time when this device was registered."
+        "description": "The date and time when this device was registered.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "SafetyInformation": {
         "type": "textarea",
@@ -41,15 +68,29 @@
       },
       "SourceSystem": {
         "type": "string",
-        "description": "The system from which the record was sourced."
+        "description": "The system from which the record was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "The ID of the system from which the record was sourced."
+        "description": "The ID of the system from which the record was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Indicates whether the device registration is active."
+        "description": "Indicates whether the device registration is active.",
+        "format": "enum",
+        "enum": [
+          "Inactive",
+          "Active"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SupportContactDetail": {
         "type": "textarea",
@@ -78,9 +119,285 @@
       "UniqueDeviceId3Issuer": {
         "type": "url",
         "description": "The organization that issued the UDI3 for the device."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Care Registered Device ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_careregistereddevice.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_careregistereddevice.htm",
+    "keyPrefix": "0hB",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareRegisteredDeviceFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareRegisteredDeviceHistory",
+        "field": "CareRegisteredDeviceId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataUsePurpose",
+        "field": "PurposeId",
+        "relationshipName": "DataUsePurposes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

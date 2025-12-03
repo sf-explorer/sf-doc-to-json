@@ -5,7 +5,11 @@
     "properties": {
       "ContactId": {
         "type": "reference",
-        "description": "ID of an associated Contact. The API applies user access rights to the associated Opportunity for this object, but not to the associated Contact. The API may return rows from a query on this object that include this field’s values for contacts to which the user does not have sufficient access rights. It may also return values for this field for contacts that have been deleted. In either case, the client must perform a query on the contact table for this field’s value to determine whether the Contact is accessible to the user and has not been deleted."
+        "description": "ID of an associated Contact. The API applies user access rights to the associated Opportunity for this object, but not to the associated Contact. The API may return rows from a query on this object that include this field’s values for contacts to which the user does not have sufficient access rights. It may also return values for this field for contacts that have been deleted. In either case, the client must perform a query on the contact table for this field’s value to determine whether the Contact is accessible to the user and has not been deleted.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": false
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -17,22 +21,130 @@
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the record has been moved to the Recycle Bin (true) or not (false). The IsDeleted flag is usable only when the parent record is deleted to the recycle bin, and not when the OpportunityContactRole record is deleted directly. Label is Deleted."
+        "description": "Indicates whether the record has been moved to the Recycle Bin (true) or not (false). The IsDeleted flag is usable only when the parent record is deleted to the recycle bin, and not when the OpportunityContactRole record is deleted directly. Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPrimary": {
         "type": "boolean",
-        "description": "Indicates whether the associated Contact plays the primary role on the Opportunity (true) or not (false). Each Opportunity has only one primary contact. Label is Primary."
+        "description": "Indicates whether the associated Contact plays the primary role on the Opportunity (true) or not (false). Each Opportunity has only one primary contact. Label is Primary.",
+        "nullable": false
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "Required. ID of an associated Opportunity. This field is non-nullable, and it cannot be updated. You must provide a value for this field when creating new records. You can’t change it after it has been created."
+        "description": "Required. ID of an associated Opportunity. This field is non-nullable, and it cannot be updated. You must provide a value for this field when creating new records. You can’t change it after it has been created.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Role": {
         "type": "picklist",
-        "description": "Name of the role played by the associated Contact on the Opportunity, such as Business User or Decision Maker."
+        "description": "Name of the role played by the associated Contact on the Opportunity, such as Business User or Decision Maker.",
+        "format": "enum",
+        "enum": [
+          "Business User",
+          "Decision Maker",
+          "Economic Buyer",
+          "Economic Decision Maker",
+          "Evaluator",
+          "Executive Sponsor",
+          "Influencer",
+          "Technical Buyer",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Contact Role ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitycontactrole.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitycontactrole.htm",
+    "keyPrefix": "00K",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignInfluence",
+        "field": "OpportunityContactRoleId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityContactRoleSuggestionInsight",
+        "field": "CreatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

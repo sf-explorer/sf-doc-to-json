@@ -5,35 +5,80 @@
     "properties": {
       "AppName": {
         "type": "string",
-        "description": "The unique name of the connected app associated with the service provider."
+        "description": "The unique name of the connected app associated with the service provider.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ApprovalStatus": {
         "type": "picklist",
-        "description": "The status of the approval for the current request. If the user provisioning setup for the connected app does not have an approval process enabled, the status is Not Required. If an approval process is enabled, supported values are: Required— An approval process is enabled in the user provisioning setup for the associated connected app, but there is no response to the request yet. Not Required— An approval process is not enabled in the user provisioning setup for the associated connected app. Approved Denied"
+        "description": "The status of the approval for the current request. If the user provisioning setup for the connected app does not have an approval process enabled, the status is Not Required. If an approval process is enabled, supported values are: Required— An approval process is enabled in the user provisioning setup for the associated connected app, but there is no response to the request yet. Not Required— An approval process is not enabled in the user provisioning setup for the associated connected app. Approved Denied",
+        "format": "enum",
+        "enum": [
+          "Required",
+          "NotRequired",
+          "Approved",
+          "Denied"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "ConnectedAppId": {
         "type": "reference",
-        "description": "The 18-digit application ID for the connected app."
+        "description": "The 18-digit application ID for the connected app.",
+        "format": "salesforce-id",
+        "x-object": "ConnectedApplication",
+        "maxLength": 18,
+        "nullable": true
       },
       "ExternalUserId": {
         "type": "string",
-        "description": "The unique identifier for the user in the target system."
+        "description": "The unique identifier for the user in the target system.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ManagerId": {
         "type": "reference",
-        "description": "Salesforce ID of the user who manages the user specified in the SalesforceUserId field. If an approval process is configured for the user provisioning request. this value allows the manager to approve the request. Available in API version 34.0 and later."
+        "description": "Salesforce ID of the user who manages the user specified in the SalesforceUserId field. If an approval process is configured for the user provisioning request. this value allows the manager to approve the request. Available in API version 34.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The unique name for this object."
+        "description": "The unique name for this object.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Operation": {
         "type": "picklist",
-        "description": "The Apex method called by the trigger associated with the provisioning request (typically a change to the User object). Supported values are: Create Read Update Deactivate Activate Freeze Unfreeze Reconcile Linking For example, when the User object field isActive is set to false, the UPR object Operation field value is set to Deactivate."
+        "description": "The Apex method called by the trigger associated with the provisioning request (typically a change to the User object). Supported values are: Create Read Update Deactivate Activate Freeze Unfreeze Reconcile Linking For example, when the User object field isActive is set to false, the UPR object Operation field value is set to Deactivate.",
+        "format": "enum",
+        "enum": [
+          "Create",
+          "Read",
+          "Update",
+          "Deactivate",
+          "Activate",
+          "Freeze",
+          "Unfreeze",
+          "Reconcile",
+          "Linking"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Salesforce ID of the Group or User who owns this object."
+        "description": "Salesforce ID of the Group or User who owns this object.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentID": {
         "type": "reference",
@@ -45,26 +90,196 @@
       },
       "SalesforceUserId": {
         "type": "reference",
-        "description": "Salesforce ID of the user making the request."
+        "description": "Salesforce ID of the user making the request.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "ScheduleDate": {
         "type": "dateTime",
-        "description": "When to send this request to the service provider. Note Scheduling is not implemented yet. Currently, provisioning changes are queued immediately to be sent to the service provider."
+        "description": "When to send this request to the service provider. Note Scheduling is not implemented yet. Currently, provisioning changes are queued immediately to be sent to the service provider.",
+        "format": "date-time",
+        "nullable": true
       },
       "State": {
         "type": "picklist",
-        "description": "Status of this request. Supported values are: New Requested Completed Failed Collecting Collected Analyzing Analyzed Committing Retried Manually Completed The State goes from New to Requested to Completed or Failed, unless a reconciliation process is occurring. For details about the reconciliation process State value changes, see Usage. The State goes from Failed to Retried or Manually Completed when troubleshooting UPR failures. For details about handling failures, see State Values for Managing Provisioning Failures."
+        "description": "Status of this request. Supported values are: New Requested Completed Failed Collecting Collected Analyzing Analyzed Committing Retried Manually Completed The State goes from New to Requested to Completed or Failed, unless a reconciliation process is occurring. For details about the reconciliation process State value changes, see Usage. The State goes from Failed to Retried or Manually Completed when troubleshooting UPR failures. For details about handling failures, see State Values for Managing Provisioning Failures.",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Requested",
+          "Completed",
+          "Failed",
+          "Collecting",
+          "Collected",
+          "Analyzing",
+          "Analyzed",
+          "Committing",
+          "Retried",
+          "Manually Completed"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "UserProvAccountId": {
         "type": "reference",
-        "description": "The ID value of the associated UserProvAccount object."
+        "description": "The ID value of the associated UserProvAccount object.",
+        "format": "salesforce-id",
+        "x-object": "UserProvAccount",
+        "maxLength": 18,
+        "nullable": true
       },
       "UserProvConfigId": {
         "type": "reference",
-        "description": "The ID value of the associated UserProvisioningConfig object. Available in API version 34.0 and later."
+        "description": "The ID value of the associated UserProvisioningConfig object. Available in API version 34.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "UserProvisioningConfig",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "UserProvisioningRequest ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RetryCount": {
+        "type": "integer",
+        "description": "Retry Count",
+        "nullable": true
+      },
+      "ParentId": {
+        "type": "string",
+        "description": "UserProvisioningRequest ID",
+        "format": "salesforce-id",
+        "x-object": "UserProvisioningRequest",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovisioningrequest.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovisioningrequest.htm",
+    "keyPrefix": "0HP",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvisioningLog",
+        "field": "UserProvisioningRequestId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvisioningRequest",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvisioningRequestShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

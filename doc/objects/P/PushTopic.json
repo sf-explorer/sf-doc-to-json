@@ -5,50 +5,150 @@
     "properties": {
       "ApiVersion": {
         "type": "double",
-        "description": "Required. API version to use for executing the query specified in Query. It must be an API version greater than 20.0. If your query applies to a custom object from a package, this value must match the package's ApiVersion.Example value:"
+        "description": "Required. API version to use for executing the query specified in Query. It must be an API version greater than 20.0. If your query applies to a custom object from a package, this value must match the package's ApiVersion.Example value:",
+        "nullable": false,
+        "multipleOf": 0.1
       },
       "Description": {
         "type": "string",
-        "description": "Description of the PushTopic. Limit: 400 characters"
+        "description": "Description of the PushTopic. Limit: 400 characters",
+        "maxLength": 400,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the record currently counts towards the organization's allocation."
+        "description": "Indicates whether the record currently counts towards the organization's allocation.",
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "Required. Descriptive name of the PushTopic, such as MyNewCases or TeamUpdatedContacts. Limit: 25 characters. This value identifies the channel and must be unique."
+        "description": "Required. Descriptive name of the PushTopic, such as MyNewCases or TeamUpdatedContacts. Limit: 25 characters. This value identifies the channel and must be unique.",
+        "maxLength": 25,
+        "nullable": false
       },
       "NotifyForFields": {
         "type": "picklist",
-        "description": "Specifies which fields are evaluated to generate a notification."
+        "description": "Specifies which fields are evaluated to generate a notification.",
+        "format": "enum",
+        "enum": [
+          "Select",
+          "Where",
+          "Referenced",
+          "All"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "NotifyForOperationCreate": {
         "type": "boolean",
-        "description": "true if a create operation should generate a notification, otherwise, false. Defaults to true. This field is available in API version 29.0 and later."
+        "description": "true if a create operation should generate a notification, otherwise, false. Defaults to true. This field is available in API version 29.0 and later.",
+        "nullable": false
       },
       "NotifyForOperationDelete": {
         "type": "boolean",
-        "description": "true if a delete operation should generate a notification, otherwise, false. Defaults to true. Clients must connect using the cometd/29.0 (or later) Streaming API endpoint to receive delete and undelete event notifications. This field is available in API version 29.0 and later."
+        "description": "true if a delete operation should generate a notification, otherwise, false. Defaults to true. Clients must connect using the cometd/29.0 (or later) Streaming API endpoint to receive delete and undelete event notifications. This field is available in API version 29.0 and later.",
+        "nullable": false
       },
       "NotifyForOperationUndelete": {
         "type": "boolean",
-        "description": "true if an undelete operation should generate a notification, otherwise, false. Defaults to true. Clients must connect using the cometd/29.0 (or later) Streaming API endpoint to receive delete and undelete event notifications. This field is available in API version 29.0 and later."
+        "description": "true if an undelete operation should generate a notification, otherwise, false. Defaults to true. Clients must connect using the cometd/29.0 (or later) Streaming API endpoint to receive delete and undelete event notifications. This field is available in API version 29.0 and later.",
+        "nullable": false
       },
       "NotifyForOperationUpdate": {
         "type": "boolean",
-        "description": "true if an update operation should generate a notification, otherwise, false. Defaults to true. This field is available in API version 29.0 and later."
+        "description": "true if an update operation should generate a notification, otherwise, false. Defaults to true. This field is available in API version 29.0 and later.",
+        "nullable": false
       },
       "NotifyForOperations": {
         "type": "picklist",
-        "description": "Specifies which record events may generate a notification.In API version 29.0 and later, this field is read-only, and doesn’t contain information about delete and undelete events. Use NotifyForOperationCreate, NotifyForOperationDelete, NotifyForOperationUndelete and NotifyForOperationUpdate to specify which record events should generate a notification. Possible values are: All (default) Create Extended Update A value of Extended means that neither create or update operations are set to generate events."
+        "description": "Specifies which record events may generate a notification.In API version 29.0 and later, this field is read-only, and doesn’t contain information about delete and undelete events. Use NotifyForOperationCreate, NotifyForOperationDelete, NotifyForOperationUndelete and NotifyForOperationUpdate to specify which record events should generate a notification. Possible values are: All (default) Create Extended Update A value of Extended means that neither create or update operations are set to generate events.",
+        "format": "enum",
+        "enum": [
+          "Create",
+          "Update",
+          "All",
+          "Extended"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "Query": {
         "type": "string",
-        "description": "Required. The SOQL query statement that determines which record changes trigger events to be sent to the channel. Limit: 1,300 characters"
+        "description": "Required. The SOQL query statement that determines which record changes trigger events to be sent to the channel. Limit: 1,300 characters",
+        "maxLength": 1300,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Push Topic ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_pushtopic.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_pushtopic.htm",
+    "keyPrefix": "0IF",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

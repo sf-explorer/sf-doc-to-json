@@ -5,14 +5,142 @@
     "properties": {
       "Name": {
         "type": "string",
-        "description": "Name of the folder."
+        "description": "Name of the folder.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ParentContentFolderId": {
         "type": "reference",
-        "description": "ID of the ParentFolder."
+        "description": "ID of the ParentFolder.",
+        "format": "salesforce-id",
+        "x-object": "ContentFolder",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Content Folder ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "FeaturedMediaId": {
+        "type": "string",
+        "description": "Asset File ID",
+        "format": "salesforce-id",
+        "x-object": "ContentAsset",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentfolder.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentfolder.htm",
+    "keyPrefix": "07H",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ContentFolder",
+        "field": "ParentContentFolderId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentFolderItem",
+        "field": "ParentContentFolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentFolderLink",
+        "field": "ContentFolderId",
+        "relationshipName": "ContentFolderLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentFolderMember",
+        "field": "ParentContentFolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentWorkspace",
+        "field": "RootContentFolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FolderedContentDocument",
+        "field": "ParentContentFolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

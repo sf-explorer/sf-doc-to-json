@@ -1,8 +1,14 @@
 import React, { useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import { Box, Chip, Typography } from '@mui/material';
+import NestedSchemaDisplay from './NestedSchemaDisplay';
 
-const FieldDetail = ({ object }) => {
+const FieldDetail = ({ object, onObjectSelect, availableObjects }) => {
+  // Check if this is a metadata object (has nested schemas)
+  const isMetadataObject = useMemo(() => {
+    return object?.cloud === 'Metadata API' || object?.module === 'Metadata API';
+  }, [object]);
+  
   const fields = useMemo(() => {
     if (!object || !object.fields) return [];
     
@@ -12,27 +18,74 @@ const FieldDetail = ({ object }) => {
       const isArray = typeString.includes('array');
       const baseType = typeString.replace('array of ', '').replace(/\[.*?\]/, '').trim();
       
+      // Get enhanced metadata from Describe API
+      const format = fieldData.format;
+      const enumValues = fieldData.enum;
+      const referenceTo = fieldData['x-object'] || null;
+      const polymorphicRefs = fieldData['x-objects'] || null;
+      const maxLength = fieldData.maxLength;
+      const nullable = fieldData.nullable;
+      const readOnly = fieldData.readOnly;
+      const minimum = fieldData.minimum;
+      const maximum = fieldData.maximum;
+      
       // Determine if it's a reference field
-      const isReference = baseType.toLowerCase().includes('reference') || 
+      const isReference = referenceTo || polymorphicRefs || 
+                         baseType.toLowerCase().includes('reference') || 
                          baseType.toLowerCase().includes('lookup') ||
-                         baseType.toLowerCase().includes('id');
+                         (format === 'salesforce-id' && (referenceTo || polymorphicRefs));
+      
+      // Determine if it's a picklist with enum values
+      const isPicklist = format === 'enum' || enumValues;
+      
+      // For metadata objects, check if field has nested schema
+      const hasNestedSchema = fieldData.schema || (fieldData.items && fieldData.items.properties);
+      const nestedSchema = fieldData.schema || (fieldData.items && fieldData.items.properties ? fieldData.items : null);
+      const itemType = fieldData.itemType;
       
       return {
         apiName,
         label: apiName,
         type: baseType,
-        length: '-',
-        required: false,
+        format: format,
+        length: maxLength || '-',
+        required: nullable === false,
         unique: false,
         externalId: false,
         description: fieldData.description || '',
         isCustom: apiName.endsWith('__c') || apiName.includes('__'),
-        referenceTo: null,
-        picklistValues: null,
-        isArray: isArray
+        referenceTo: referenceTo,
+        polymorphicRefs: polymorphicRefs,
+        picklistValues: enumValues,
+        isArray: isArray,
+        readOnly: readOnly || false,
+        nullable: nullable,
+        minimum: minimum,
+        maximum: maximum,
+        isReference: isReference,
+        isPicklist: isPicklist,
+        hasNestedSchema: hasNestedSchema,
+        nestedSchema: nestedSchema,
+        itemType: itemType,
+        originalType: fieldData.originalType
       };
     });
   }, [object]);
+
+  // Helper function to check if an object exists in available objects
+  const objectExists = (objectName) => {
+    return availableObjects?.some(obj => obj.apiName === objectName);
+  };
+
+  // Helper function to handle reference click
+  const handleReferenceClick = (objectName) => {
+    if (!objectExists(objectName) || !onObjectSelect) return;
+    
+    const targetObject = availableObjects.find(obj => obj.apiName === objectName);
+    if (targetObject) {
+      onObjectSelect(targetObject);
+    }
+  };
 
   const columns = useMemo(
     () => [
@@ -49,26 +102,129 @@ const FieldDetail = ({ object }) => {
       {
         accessorKey: 'type',
         header: 'Type',
-        size: 120,
+        size: 150,
         Cell: ({ cell, row }) => (
           <Box>
-            <Chip 
-              label={cell.getValue()} 
-              size="small"
-              variant="outlined"
-              sx={{ 
-                borderRadius: '4px',
-                fontSize: '0.75rem',
-                fontWeight: 500
-              }}
-            />
+            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', flexWrap: 'wrap' }}>
+              <Chip 
+                label={cell.getValue()} 
+                size="small"
+                variant="outlined"
+                color={row.original.isPicklist ? 'secondary' : row.original.isReference ? 'primary' : 'default'}
+                sx={{ 
+                  borderRadius: '4px',
+                  fontSize: '0.75rem',
+                  fontWeight: 500
+                }}
+              />
+              {row.original.format && row.original.format !== 'enum' && row.original.format !== 'salesforce-id' && (
+                <Chip 
+                  label={row.original.format} 
+                  size="small"
+                  variant="filled"
+                  sx={{ 
+                    borderRadius: '4px',
+                    fontSize: '0.65rem',
+                    height: '18px',
+                    backgroundColor: '#f3f2f2',
+                    color: '#706e6b'
+                  }}
+                />
+              )}
+              {row.original.itemType && (
+                <Chip 
+                  label={`items: ${row.original.itemType}`} 
+                  size="small"
+                  variant="filled"
+                  sx={{ 
+                    borderRadius: '4px',
+                    fontSize: '0.65rem',
+                    height: '18px',
+                    backgroundColor: '#e8f4f8',
+                    color: '#014486'
+                  }}
+                />
+              )}
+              {row.original.readOnly && (
+                <Chip 
+                  label="Read-only" 
+                  size="small"
+                  sx={{ 
+                    borderRadius: '4px',
+                    fontSize: '0.65rem',
+                    height: '18px',
+                    backgroundColor: '#fef7e5',
+                    color: '#826902'
+                  }}
+                />
+              )}
+            </Box>
+            {/* Show reference relationships */}
             {row.original.referenceTo && (
+              <Typography 
+                variant="caption" 
+                display="block" 
+                sx={{ 
+                  mt: 0.5, 
+                  color: objectExists(row.original.referenceTo) ? '#0176d3' : '#706e6b',
+                  fontWeight: 500,
+                  cursor: objectExists(row.original.referenceTo) ? 'pointer' : 'default',
+                  '&:hover': objectExists(row.original.referenceTo) ? {
+                    textDecoration: 'underline'
+                  } : {}
+                }}
+                onClick={() => handleReferenceClick(row.original.referenceTo)}
+              >
+                → {row.original.referenceTo}
+              </Typography>
+            )}
+            {row.original.polymorphicRefs && (
+              <Box sx={{ mt: 0.5, display: 'flex', flexWrap: 'wrap', gap: 0.3 }}>
+                <Typography variant="caption" sx={{ color: '#706e6b' }}>→ [</Typography>
+                {row.original.polymorphicRefs.map((ref, idx) => (
+                  <React.Fragment key={ref}>
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        color: objectExists(ref) ? '#0176d3' : '#706e6b',
+                        fontWeight: 500,
+                        cursor: objectExists(ref) ? 'pointer' : 'default',
+                        '&:hover': objectExists(ref) ? {
+                          textDecoration: 'underline'
+                        } : {}
+                      }}
+                      onClick={() => handleReferenceClick(ref)}
+                    >
+                      {ref}
+                    </Typography>
+                    {idx < row.original.polymorphicRefs.length - 1 && (
+                      <Typography variant="caption" sx={{ color: '#706e6b' }}>, </Typography>
+                    )}
+                  </React.Fragment>
+                ))}
+                <Typography variant="caption" sx={{ color: '#706e6b' }}>]</Typography>
+              </Box>
+            )}
+            {/* Show picklist values count */}
+            {row.original.picklistValues && (
               <Typography 
                 variant="caption" 
                 display="block" 
                 sx={{ mt: 0.5, color: '#706e6b' }}
               >
-                → {row.original.referenceTo}
+                {row.original.picklistValues.length} values
+              </Typography>
+            )}
+            {/* Show constraints */}
+            {(row.original.minimum !== undefined || row.original.maximum !== undefined) && (
+              <Typography 
+                variant="caption" 
+                display="block" 
+                sx={{ mt: 0.5, color: '#706e6b', fontFamily: 'monospace', fontSize: '0.7rem' }}
+              >
+                {row.original.minimum !== undefined && `min: ${row.original.minimum}`}
+                {row.original.minimum !== undefined && row.original.maximum !== undefined && ', '}
+                {row.original.maximum !== undefined && `max: ${row.original.maximum}`}
               </Typography>
             )}
           </Box>
@@ -158,7 +314,7 @@ const FieldDetail = ({ object }) => {
           ) : null,
       },
     ],
-    []
+    [objectExists, handleReferenceClick]
   );
 
   return (
@@ -219,6 +375,16 @@ const FieldDetail = ({ object }) => {
               {fields.length}
             </Typography>
           </Box>
+          {object.childRelationships && object.childRelationships.length > 0 && (
+            <Box>
+              <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
+                Child Relationships:
+              </Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                {object.childRelationships.length}
+              </Typography>
+            </Box>
+          )}
         </Box>
         {object.description && (
           <Box sx={{ mt: 1 }}>
@@ -301,7 +467,7 @@ const FieldDetail = ({ object }) => {
           },
         }}
         renderDetailPanel={({ row }) => (
-          row.original.description || row.original.picklistValues ? (
+          row.original.description || row.original.picklistValues || row.original.referenceTo || row.original.polymorphicRefs || row.original.hasNestedSchema ? (
             <Box sx={{ p: 2, backgroundColor: '#f3f2f2' }}>
               {row.original.description && (
                 <Box sx={{ mb: 2 }}>
@@ -313,10 +479,31 @@ const FieldDetail = ({ object }) => {
                   </Typography>
                 </Box>
               )}
+              {row.original.hasNestedSchema && row.original.nestedSchema && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#706e6b', mb: 1, display: 'block' }}>
+                    {row.original.type === 'array' ? `${row.original.itemType} Schema:` : `${row.original.originalType || row.original.type} Schema:`}
+                  </Typography>
+                  <Box 
+                    sx={{ 
+                      backgroundColor: '#ffffff',
+                      border: '1px solid #dddbda',
+                      borderRadius: '4px',
+                      p: 2
+                    }}
+                  >
+                    <NestedSchemaDisplay
+                      schema={row.original.nestedSchema}
+                      onObjectClick={handleReferenceClick}
+                      objectExists={objectExists}
+                    />
+                  </Box>
+                </Box>
+              )}
               {row.original.picklistValues && (
-                <Box>
+                <Box sx={{ mb: 2 }}>
                   <Typography variant="caption" sx={{ fontWeight: 600, color: '#706e6b' }}>
-                    Picklist Values:
+                    Picklist Values ({row.original.picklistValues.length}):
                   </Typography>
                   <Box sx={{ mt: 0.5, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                     {row.original.picklistValues.map((value, idx) => (
@@ -325,9 +512,92 @@ const FieldDetail = ({ object }) => {
                         label={value} 
                         size="small"
                         variant="outlined"
-                        sx={{ fontSize: '0.75rem' }}
+                        color="secondary"
+                        sx={{ fontSize: '0.75rem', borderRadius: '4px' }}
                       />
                     ))}
+                  </Box>
+                </Box>
+              )}
+              {row.original.referenceTo && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#706e6b' }}>
+                    References:
+                  </Typography>
+                  <Box sx={{ mt: 0.5 }}>
+                    <Chip 
+                      label={row.original.referenceTo}
+                      size="small"
+                      variant="outlined"
+                      color="primary"
+                      clickable={objectExists(row.original.referenceTo)}
+                      onClick={() => handleReferenceClick(row.original.referenceTo)}
+                      sx={{ 
+                        fontSize: '0.75rem', 
+                        fontFamily: 'monospace',
+                        cursor: objectExists(row.original.referenceTo) ? 'pointer' : 'default'
+                      }}
+                      icon={objectExists(row.original.referenceTo) ? (
+                        <span style={{ fontSize: '0.9rem' }}>🔗</span>
+                      ) : undefined}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {row.original.polymorphicRefs && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#706e6b' }}>
+                    Polymorphic References:
+                  </Typography>
+                  <Box sx={{ mt: 0.5, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {row.original.polymorphicRefs.map((ref, idx) => (
+                      <Chip 
+                        key={idx} 
+                        label={ref} 
+                        size="small"
+                        variant="outlined"
+                        color="primary"
+                        clickable={objectExists(ref)}
+                        onClick={() => handleReferenceClick(ref)}
+                        sx={{ 
+                          fontSize: '0.75rem', 
+                          fontFamily: 'monospace',
+                          cursor: objectExists(ref) ? 'pointer' : 'default'
+                        }}
+                        icon={objectExists(ref) ? (
+                          <span style={{ fontSize: '0.9rem' }}>🔗</span>
+                        ) : undefined}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              )}
+              {(row.original.length !== '-' || row.original.minimum !== undefined || row.original.maximum !== undefined) && (
+                <Box>
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#706e6b' }}>
+                    Constraints:
+                  </Typography>
+                  <Box sx={{ mt: 0.5 }}>
+                    {row.original.length !== '-' && (
+                      <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                        • Max Length: {row.original.length}
+                      </Typography>
+                    )}
+                    {row.original.minimum !== undefined && (
+                      <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                        • Minimum: {row.original.minimum}
+                      </Typography>
+                    )}
+                    {row.original.maximum !== undefined && (
+                      <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                        • Maximum: {row.original.maximum}
+                      </Typography>
+                    )}
+                    {row.original.nullable !== undefined && (
+                      <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                        • Nullable: {row.original.nullable ? 'Yes' : 'No'}
+                      </Typography>
+                    )}
                   </Box>
                 </Box>
               )}
@@ -335,6 +605,142 @@ const FieldDetail = ({ object }) => {
           ) : null
         )}
       />
+
+      {/* Child Relationships Section */}
+      {object.childRelationships && object.childRelationships.length > 0 && (
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h6" sx={{ mb: 2, fontSize: '1rem', fontWeight: 700 }}>
+            Child Relationships ({object.childRelationships.length})
+          </Typography>
+          <Box 
+            sx={{ 
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+              gap: 2
+            }}
+          >
+            {object.childRelationships.map((relationship, index) => {
+              const childObjectExists = objectExists(relationship.childObject);
+              
+              return (
+                <Box
+                  key={index}
+                  sx={{
+                    p: 2,
+                    backgroundColor: '#fafaf9',
+                    borderRadius: '4px',
+                    border: '1px solid #dddbda',
+                    '&:hover': {
+                      boxShadow: childObjectExists ? '0 2px 4px rgba(0,0,0,0.1)' : 'none'
+                    },
+                    cursor: childObjectExists ? 'pointer' : 'default'
+                  }}
+                  onClick={() => {
+                    if (childObjectExists) {
+                      handleReferenceClick(relationship.childObject);
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: 700,
+                        color: childObjectExists ? '#0176d3' : '#080707',
+                        fontFamily: 'monospace',
+                        fontSize: '0.875rem'
+                      }}
+                    >
+                      {relationship.childObject}
+                    </Typography>
+                    {childObjectExists && (
+                      <Typography 
+                        component="span" 
+                        sx={{ ml: 0.5, fontSize: '0.9rem' }}
+                      >
+                        🔗
+                      </Typography>
+                    )}
+                  </Box>
+                  
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                      <Typography 
+                        variant="caption" 
+                        sx={{ 
+                          color: '#706e6b', 
+                          fontWeight: 600,
+                          minWidth: '100px'
+                        }}
+                      >
+                        Field:
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          fontFamily: 'monospace',
+                          fontSize: '0.75rem',
+                          color: '#3e3e3c'
+                        }}
+                      >
+                        {relationship.field}
+                      </Typography>
+                    </Box>
+                    
+                    {relationship.relationshipName && (
+                      <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                        <Typography 
+                          variant="caption" 
+                          sx={{ 
+                            color: '#706e6b', 
+                            fontWeight: 600,
+                            minWidth: '100px'
+                          }}
+                        >
+                          Relationship:
+                        </Typography>
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            fontFamily: 'monospace',
+                            fontSize: '0.75rem',
+                            color: '#3e3e3c'
+                          }}
+                        >
+                          {relationship.relationshipName}
+                        </Typography>
+                      </Box>
+                    )}
+                    
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                      <Typography 
+                        variant="caption" 
+                        sx={{ 
+                          color: '#706e6b', 
+                          fontWeight: 600,
+                          minWidth: '100px'
+                        }}
+                      >
+                        Cascade Delete:
+                      </Typography>
+                      <Chip 
+                        label={relationship.cascadeDelete ? 'Yes' : 'No'}
+                        size="small"
+                        color={relationship.cascadeDelete ? 'warning' : 'default'}
+                        sx={{ 
+                          borderRadius: '4px', 
+                          fontSize: '0.65rem',
+                          height: '18px'
+                        }}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };

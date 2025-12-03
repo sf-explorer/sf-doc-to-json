@@ -9,19 +9,52 @@
       },
       "KnowledgeArticleId": {
         "type": "reference",
-        "description": "The ID of the Knowledge article attached to the record. The label in the user interface is Knowledge Article ID."
+        "description": "The ID of the Knowledge article attached to the record. The label in the user interface is Knowledge Article ID.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "FAQ__ka",
+          "Knowledge__ka"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "KnowledgeArticleVersionId": {
         "type": "reference",
-        "description": "The version of the Knowledge article attached to the record. This field lists the title of the attached version and links to the version. The label in the user interface is Article Version.When you attach an article to a work order, that version of the article stays associated with the work order, even if later versions are published. If needed, you can detach and reattach an article to a work order to link the latest version."
+        "description": "The version of the Knowledge article attached to the record. This field lists the title of the attached version and links to the version. The label in the user interface is Article Version.When you attach an article to a work order, that version of the article stays associated with the work order, even if later versions are published. If needed, you can detach and reattach an article to a work order to link the latest version.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "FAQ__kav",
+          "Knowledge__kav"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "LinkedEntityId": {
         "type": "reference",
-        "description": "The ID of the record that the Knowledge article is attached to. The label in the user interface is Linked Record ID."
+        "description": "The ID of the record that the Knowledge article is attached to. The label in the user interface is Linked Record ID.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "LiveChatTranscript",
+          "MessagingSession",
+          "Product2",
+          "SocialPost",
+          "SurveyInvitation",
+          "VoiceCall",
+          "WorkOrder",
+          "WorkOrderLineItem",
+          "WorkType"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The title of the article. The label in the user interface is Article Title."
+        "description": "The title of the article. The label in the user interface is Article Title.",
+        "maxLength": 255,
+        "nullable": false
       },
       "RecordTypeId": {
         "type": "reference",
@@ -29,10 +62,193 @@
       },
       "Type": {
         "type": "string",
-        "description": "(Read only) The type of record that the Knowledge article is attached to. For example, work order. The label in the user interface is Linked Object Type."
+        "description": "(Read only) The type of record that the Knowledge article is attached to. For example, work order. The label in the user interface is Linked Object Type.",
+        "maxLength": 50,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Linked Article ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_linkedarticle.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_linkedarticle.htm",
+    "keyPrefix": "1WK",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LinkedArticleFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LinkedArticleHistory",
+        "field": "LinkedArticleId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -5,7 +5,11 @@
     "properties": {
       "AdjustedLineAmount": {
         "type": "currency",
-        "description": "Total, including line adjustments but not order-lever adjustments or tax, of the OrderItemSummary. This is a calculated field."
+        "description": "Total, including line adjustments but not order-lever adjustments or tax, of the OrderItemSummary. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AdjustedLineAmt​WithTax": {
         "type": "currency",
@@ -29,7 +33,9 @@
       },
       "Description": {
         "type": "string",
-        "description": "Description of the OrderItemSummary."
+        "description": "Description of the OrderItemSummary.",
+        "maxLength": 255,
+        "nullable": true
       },
       "EarliestEstimatedDeliveryDate": {
         "type": "date",
@@ -41,11 +47,18 @@
       },
       "EndDate": {
         "type": "date",
-        "description": "End date of the OrderItemSummary."
+        "description": "End date of the OrderItemSummary.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "GrossUnitPrice": {
         "type": "currency",
-        "description": "Unit price, including tax, of the OrderItemSummary. This value is equal to UnitPrice + the amount of tax on the UnitPrice."
+        "description": "Unit price, including tax, of the OrderItemSummary. This value is equal to UnitPrice + the amount of tax on the UnitPrice.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "LastEstimatedDeliveryDate": {
         "type": "date",
@@ -57,11 +70,17 @@
       },
       "LineNumber": {
         "type": "int",
-        "description": "The order line number assigned to this OrderItemSummary. For example, if this object is the third in the displayed list of OrderItemSummaries belonging to the OrderSummary, this value is 3."
+        "description": "The order line number assigned to this OrderItemSummary. For example, if this object is the third in the displayed list of OrderItemSummaries belonging to the OrderSummary, this value is 3.",
+        "nullable": true,
+        "readOnly": true
       },
       "ListPrice": {
         "type": "currency",
-        "description": "List price of the product represented by this OrderItemSummary."
+        "description": "List price of the product represented by this OrderItemSummary.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "MainOrderItemSummaryId": {
         "type": "reference",
@@ -69,7 +88,9 @@
       },
       "Name": {
         "type": "string",
-        "description": "Name of the OrderItemSummary."
+        "description": "Name of the OrderItemSummary.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OrderDeliveryGroup​SummaryId": {
         "type": "reference",
@@ -81,11 +102,21 @@
       },
       "OrderSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderSummary to which this object belongs."
+        "description": "ID of the OrderSummary to which this object belongs.",
+        "format": "salesforce-id",
+        "x-object": "OrderSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OriginalOrderItemId": {
         "type": "reference",
-        "description": "ID of the original order item associated with this summary object. Nillable=true only if the associated order summary is unmanaged. For managed order summaries, nillable=false."
+        "description": "ID of the original order item associated with this summary object. Nillable=true only if the associated order summary is unmanaged. For managed order summaries, nillable=false.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PricebookEntryId": {
         "type": "reference",
@@ -93,19 +124,31 @@
       },
       "Product2Id": {
         "type": "reference",
-        "description": "ID of the product represented by this OrderItemSummary."
+        "description": "ID of the product represented by this OrderItemSummary.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ProductCode": {
         "type": "string",
-        "description": "Product code of the product represented by this OrderItemSummary."
+        "description": "Product code of the product represented by this OrderItemSummary.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Quantity": {
         "type": "double",
-        "description": "Current total quantity of products represented by this order item summary. Equal to QuantityOrdered minus (QuantityCanceled and QuantityReturned)."
+        "description": "Current total quantity of products represented by this order item summary. Equal to QuantityOrdered minus (QuantityCanceled and QuantityReturned).",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityAllocated": {
         "type": "double",
-        "description": "Allocated quantity on this order item summary. This quantity is associated with one or more FulfillmentOrderLineItems."
+        "description": "Allocated quantity on this order item summary. This quantity is associated with one or more FulfillmentOrderLineItems.",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityAvailable​ToCancel": {
         "type": "double",
@@ -125,19 +168,27 @@
       },
       "QuantityCanceled": {
         "type": "double",
-        "description": "Canceled quantity on this OrderItemSummary."
+        "description": "Canceled quantity on this OrderItemSummary.",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityFulfilled": {
         "type": "double",
-        "description": "Fulfilled quantity on this OrderItemSummary. This quantity can no longer be canceled."
+        "description": "Fulfilled quantity on this OrderItemSummary. This quantity can no longer be canceled.",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityNetOrdered": {
         "type": "double",
-        "description": "Quantity available to be allocated on this OrderItemSummary. Equal to QuantityOrdered minus QuantityCanceled."
+        "description": "Quantity available to be allocated on this OrderItemSummary. Equal to QuantityOrdered minus QuantityCanceled.",
+        "nullable": true,
+        "readOnly": true
       },
       "QuantityOrdered": {
         "type": "double",
-        "description": "Ordered quantity on this OrderItemSummary. It includes the originally ordered quantity plus any quantity added to the order later."
+        "description": "Ordered quantity on this OrderItemSummary. It includes the originally ordered quantity plus any quantity added to the order later.",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityReshipped": {
         "type": "double",
@@ -145,11 +196,15 @@
       },
       "QuantityReturned": {
         "type": "double",
-        "description": "Returned quantity on this OrderItemSummary."
+        "description": "Returned quantity on this OrderItemSummary.",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityReturnInitiated": {
         "type": "double",
-        "description": "Quantity returned or pending return on this OrderItemSummary."
+        "description": "Quantity returned or pending return on this OrderItemSummary.",
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityShipped": {
         "type": "double",
@@ -161,19 +216,45 @@
       },
       "ReservedAtLocationId": {
         "type": "reference",
-        "description": "Reserved for future use."
+        "description": "Reserved for future use.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "ServiceDate": {
         "type": "date",
-        "description": "Service or start date of the OrderItemSummary."
+        "description": "Service or start date of the OrderItemSummary.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the OrderItemSummary. The default value is ORDERED. When a quantity value changes, each status formula is evaluated in order. If a formula is true, no more evaluations are performed for that change."
+        "description": "Status of the OrderItemSummary. The default value is ORDERED. When a quantity value changes, each status formula is evaluated in order. If a formula is true, no more evaluations are performed for that change.",
+        "format": "enum",
+        "enum": [
+          "ORDERED",
+          "RETURNED",
+          "CANCELED",
+          "PAID",
+          "RESHIPPED",
+          "FULFILLED",
+          "PARTIALLYFULFILLED",
+          "ALLOCATED",
+          "PARTIALLYALLOCATED",
+          "RETURNINITIATED"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "StockKeepingUnit": {
         "type": "string",
-        "description": "The stock keeping unit (SKU) of the Product2 associated with the OrderItemSummary."
+        "description": "The stock keeping unit (SKU) of the Product2 associated with the OrderItemSummary.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TaxTreatmentId": {
         "type": "reference",
@@ -185,7 +266,11 @@
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
-        "description": "Total of all price adjustments applied to this OrderItemSummary. This is a calculated field."
+        "description": "Total of all price adjustments applied to this OrderItemSummary. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustment​AmtWithTax": {
         "type": "currency",
@@ -193,7 +278,11 @@
       },
       "TotalAdjustmentDistAmount": {
         "type": "currency",
-        "description": "Total of all order-level price adjustments applied to this OrderItemSummary. This value includes OrderItemAdjustmentLineSummaries that belong to OrderAdjustmentGroupSummaries of type Header. This is a calculated field."
+        "description": "Total of all order-level price adjustments applied to this OrderItemSummary. This value includes OrderItemAdjustmentLineSummaries that belong to OrderAdjustmentGroupSummaries of type Header. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentDist​AmtWithTax": {
         "type": "currency",
@@ -205,15 +294,27 @@
       },
       "TotalAdjustmentTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalAdjustmentAmount. This is a calculated field."
+        "description": "Tax on the TotalAdjustmentAmount. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAmtWithTax": {
         "type": "currency",
-        "description": "Total price of the OrderItemSummary, inclusive of tax. This amount is equal to TotalPrice + TotalTaxAmount."
+        "description": "Total price of the OrderItemSummary, inclusive of tax. This amount is equal to TotalPrice + TotalTaxAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAdjustmentAmount": {
         "type": "currency",
-        "description": "Total of all non-order-level price adjustments applied to this OrderItemSummary. This value includes OrderItemAdjustmentLineSummaries that don’t belong to an OrderAdjustmentGroupSummary, or that belong to an OrderAdjustmentGroupSummary of type SplitLine. This is a calculated field."
+        "description": "Total of all non-order-level price adjustments applied to this OrderItemSummary. This value includes OrderItemAdjustmentLineSummaries that don’t belong to an OrderAdjustmentGroupSummary, or that belong to an OrderAdjustmentGroupSummary of type SplitLine. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAdjustment​AmtWithTax": {
         "type": "currency",
@@ -225,7 +326,11 @@
       },
       "TotalLineAmount": {
         "type": "currency",
-        "description": "Total, not including adjustments or tax, of the OrderItemSummary."
+        "description": "Total, not including adjustments or tax, of the OrderItemSummary.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmount​WithTax": {
         "type": "currency",
@@ -233,30 +338,358 @@
       },
       "TotalLineTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalLineAmount. This is a calculated field."
+        "description": "Tax on the TotalLineAmount. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "Total, including line and order-level adjustments but not tax, of the OrderItemSummary. This is a calculated field."
+        "description": "Total, including line and order-level adjustments but not tax, of the OrderItemSummary. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalPrice. This is a calculated field."
+        "description": "Tax on the TotalPrice. This is a calculated field.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Type": {
         "type": "picklist",
-        "description": "Type of the OrderItemSummary. Delivery Charge indicates that the OrderItemSummary represents a delivery charge. Fee indicates that it represents another type of fee, such as a return fee. Order Product indicates that it represents any other type of product, service, or charge. Each type corresponds to one type code, shown here in parentheses."
+        "description": "Type of the OrderItemSummary. Delivery Charge indicates that the OrderItemSummary represents a delivery charge. Fee indicates that it represents another type of fee, such as a return fee. Order Product indicates that it represents any other type of product, service, or charge. Each type corresponds to one type code, shown here in parentheses.",
+        "format": "enum",
+        "enum": [
+          "Order Product",
+          "Delivery Charge",
+          "Fee"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "TypeCode": {
         "type": "picklist",
-        "description": "Type code of the OrderItemSummary. Charge indicates that the OrderItemSummary represents a charge or fee. Product indicates that it represents any other type of product, service, or charge. A type code can be associated with one or more types."
+        "description": "Type code of the OrderItemSummary. Charge indicates that the OrderItemSummary represents a charge or fee. Product indicates that it represents any other type of product, service, or charge. A type code can be associated with one or more types.",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "Unit price of the product represented by the OrderItemSummary."
+        "description": "Unit price of the product represented by the OrderItemSummary.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Product Summary ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OrderDeliveryGroupSummaryId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "OrderDeliveryGroupSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "TotalAdjustedLineTaxAmount": {
+        "type": "number",
+        "description": "Adjusted Line Subtotal Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalLineAdjustmentTaxAmount": {
+        "type": "number",
+        "description": "Line Adjustments Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentDistTaxAmount": {
+        "type": "number",
+        "description": "Distributed Order Adjustments Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "QuantityAvailableToCancel": {
+        "type": "number",
+        "nullable": true,
+        "readOnly": true
+      },
+      "QuantityAvailableToReturn": {
+        "type": "number",
+        "nullable": true,
+        "readOnly": true
+      },
+      "QuantityAvailableToFulfill": {
+        "type": "number",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentAmtWithTax": {
+        "type": "number",
+        "description": "Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "AdjustedLineAmtWithTax": {
+        "type": "number",
+        "description": "Line Total",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalLineAdjustmentAmtWithTax": {
+        "type": "number",
+        "description": "Line Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentDistAmtWithTax": {
+        "type": "number",
+        "description": "Distributed Order Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalLineAmountWithTax": {
+        "type": "number",
+        "description": "Line Subtotal with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemsummary.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemsummary.htm",
+    "keyPrefix": "10u",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "CreditMemoLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderLineItem",
+        "field": "OrderItemSummaryId",
+        "relationshipName": "FulfillmentOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "GroupReferenceEntityItemId",
+        "relationshipName": "GroupInvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "InvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemAdjustmentLineSummary",
+        "field": "OrderItemSummaryId",
+        "relationshipName": "OrderItemAdjustmentLineItemSummaries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemSummaryChange",
+        "field": "OrderItemSummaryId",
+        "relationshipName": "OrderItemSummaries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemSummaryFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemTaxLineItemSummary",
+        "field": "OrderItemSummaryId",
+        "relationshipName": "OrderItemTaxLineItemSummaries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessException",
+        "field": "AttachedToId",
+        "relationshipName": "ProcessExceptions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessExceptionEvent",
+        "field": "AttachedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "OrderItemSummaryId",
+        "relationshipName": "ReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "OrderItemSummaryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

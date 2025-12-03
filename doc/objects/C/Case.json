@@ -5,7 +5,11 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the account associated with this case."
+        "description": "ID of the account associated with this case.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "AssetWarrantyID": {
         "type": "reference",
@@ -13,19 +17,31 @@
       },
       "BusinessHoursId": {
         "type": "reference",
-        "description": "ID of the business hours associated with this case."
+        "description": "ID of the business hours associated with this case.",
+        "format": "salesforce-id",
+        "x-object": "BusinessHours",
+        "maxLength": 18,
+        "nullable": false
       },
       "Comments": {
         "type": "textarea",
-        "description": "Used to insert a new CaseComment. Email textarea has a length of 4000 chars."
+        "description": "Used to insert a new CaseComment. Email textarea has a length of 4000 chars.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "CaseNumber": {
         "type": "string",
-        "description": "Assigned automatically when each case is inserted. It can't be set directly, and it can't be modified after the case is created."
+        "description": "Assigned automatically when each case is inserted. It can't be set directly, and it can't be modified after the case is created.",
+        "maxLength": 30,
+        "nullable": false,
+        "readOnly": true
       },
       "ClosedDate": {
         "type": "dateTime",
-        "description": "The date and time when the case was closed."
+        "description": "The date and time when the case was closed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "CommunityId": {
         "type": "reference",
@@ -33,31 +49,61 @@
       },
       "ConnectionReceivedId": {
         "type": "reference",
-        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce."
+        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce.",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ConnectionSentId": {
         "type": "reference",
-        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections."
+        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections.",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ContactEmail": {
         "type": "email",
-        "description": "Email address for the contact. The Case.ContactEmail field displays the Email field on the contact that is referenced by Case.ContactId. Label is Contact Email. This field is available in API version 38.0 and later."
+        "description": "Email address for the contact. The Case.ContactEmail field displays the Email field on the contact that is referenced by Case.ContactId. Label is Contact Email. This field is available in API version 38.0 and later.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "ContactFax": {
         "type": "phone",
-        "description": "Fax number for the contact. Label is Contact Fax. This field is available in API version 38.0 and later."
+        "description": "Fax number for the contact. Label is Contact Fax. This field is available in API version 38.0 and later.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ContactId": {
         "type": "reference",
-        "description": "ID of the associated contact."
+        "description": "ID of the associated contact.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "ContactMobile": {
         "type": "phone",
-        "description": "Mobile telephone number for the contact. Label is Contact Mobile. This field is available in API version 38.0 and later."
+        "description": "Mobile telephone number for the contact. Label is Contact Mobile. This field is available in API version 38.0 and later.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ContactPhone": {
         "type": "phone",
-        "description": "Telephone number for the contact. Label is Contact Phone. This field is available in API version 38.0 and later."
+        "description": "Telephone number for the contact. Label is Contact Phone. This field is available in API version 38.0 and later.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CreatorFullPhotoUrl": {
         "type": "string",
@@ -73,79 +119,189 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "A text description of the case. Limit: 32 KB."
+        "description": "A text description of the case. Limit: 32 KB.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "FeedItemId": {
         "type": "reference",
-        "description": "ID of the question in Chatter associated with the case. This field is available in API version 33.0 and later, and is only accessible in organizations where Question-to-Case is enabled."
+        "description": "ID of the question in Chatter associated with the case. This field is available in API version 33.0 and later, and is only accessible in organizations where Question-to-Case is enabled.",
+        "format": "salesforce-id",
+        "x-object": "FeedItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "HasCommentsUnreadByOwner": {
         "type": "boolean",
-        "description": "Indicates whether a case contains comments that the case owner hasn’t read (true) or not (false)."
+        "description": "Indicates whether a case contains comments that the case owner hasn’t read (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "HasSelfServiceComments": {
         "type": "boolean",
-        "description": "Indicates whether a case has comments added by a Self-Service user (true) or not (false). Only visible when Customer Portal is enabled."
+        "description": "Indicates whether a case has comments added by a Self-Service user (true) or not (false). Only visible when Customer Portal is enabled.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsClosed": {
         "type": "boolean",
-        "description": "Indicates whether the case is closed (true) or open (false). This field is controlled by the Status field; it can't be set directly. Label is Closed."
+        "description": "Indicates whether the case is closed (true) or open (false). This field is controlled by the Status field; it can't be set directly. Label is Closed.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsClosedOnCreate": {
         "type": "boolean",
-        "description": "Indicates whether the case was closed at the same time that it was created (true) or not (false). This flag is read-only and is automatically set when a record is created. It can't be set to true unless the IsClosed flag is also true."
+        "description": "Indicates whether the case was closed at the same time that it was created (true) or not (false). This flag is read-only and is automatically set when a record is created. It can't be set to true unless the IsClosed flag is also true.",
+        "nullable": false
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsEscalated": {
         "type": "boolean",
-        "description": "Indicates whether the case has been escalated (true) or not. A case's escalated state does not affect how you can use a case, or whether you can query, delete, or update it. You can set this flag via the API. Label is Escalated."
+        "description": "Indicates whether the case has been escalated (true) or not. A case's escalated state does not affect how you can use a case, or whether you can query, delete, or update it. You can set this flag via the API. Label is Escalated.",
+        "nullable": false
       },
       "IsSelfServiceClosed": {
         "type": "boolean",
-        "description": "Indicates whether the case is closed for Self-Service users (true) or not (false)."
+        "description": "Indicates whether the case is closed for Self-Service users (true) or not (false).",
+        "nullable": false
       },
       "IsStopped": {
         "type": "boolean",
-        "description": "Indicates whether an entitlement process on a case is stopped (true) or not (false)."
+        "description": "Indicates whether an entitlement process on a case is stopped (true) or not (false).",
+        "nullable": false
       },
       "IsVisibleInSelfService": {
         "type": "boolean",
-        "description": "Indicates whether the case can be viewed in the Customer Service Portal, Partner Service Portal, and Self-Service Portal (true) or not (false). This field is applied for case visibility in the Partner Relationship Management, Customer Service Portal, and the earlier version of Self Service Portal. The field does not alter sharing and will not prevent usage of a direct URL to a case if a portal user has read or write access."
+        "description": "Indicates whether the case can be viewed in the Customer Service Portal, Partner Service Portal, and Self-Service Portal (true) or not (false). This field is applied for case visibility in the Partner Relationship Management, Customer Service Portal, and the earlier version of Self Service Portal. The field does not alter sharing and will not prevent usage of a direct URL to a case if a portal user has read or write access.",
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the case. The Language field is available when you enable Einstein Case Classification in Enterprise, Performance, and Unlimited edition orgs with Service Cloud. By default, only Einstein classification apps use this field."
+        "description": "The language of the case. The Language field is available when you enable Einstein Case Classification in Enterprise, Performance, and Unlimited edition orgs with Service Cloud. By default, only Einstein classification apps use this field.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MasterRecordId": {
         "type": "reference",
-        "description": "If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or has not been deleted, the value is null."
+        "description": "If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or has not been deleted, the value is null.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Origin": {
         "type": "picklist",
-        "description": "The source of the case, such as Email, Phone, or Web. Label is Case Origin."
+        "description": "The source of the case, such as Email, Phone, or Web. Label is Case Origin.",
+        "format": "enum",
+        "enum": [
+          "Email",
+          "Phone",
+          "Website",
+          "Community",
+          "Text Session",
+          "Q&A",
+          "Facebook",
+          "Twitter",
+          "Chat",
+          "Google",
+          "Mobile Device",
+          "Instagram",
+          "LinkedIn",
+          "Salesforce IoT"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the contact who owns the case."
+        "description": "ID of the contact who owns the case.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "The ID of the parent case in the hierarchy. The label is Parent Case."
+        "description": "The ID of the parent case in the hierarchy. The label is Parent Case.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": true
       },
       "Priority": {
         "type": "picklist",
-        "description": "The importance or urgency of the case, such as High, Medium, or Low."
+        "description": "The importance or urgency of the case, such as High, Medium, or Low.",
+        "format": "enum",
+        "enum": [
+          "Critical",
+          "High",
+          "Medium",
+          "Low"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "QuestionId": {
         "type": "reference",
@@ -153,11 +309,28 @@
       },
       "Reason": {
         "type": "picklist",
-        "description": "The reason why the case was created, such as Instructions not clear, or User didn’t attend training."
+        "description": "The reason why the case was created, such as Instructions not clear, or User didn’t attend training.",
+        "format": "enum",
+        "enum": [
+          "Problem Resolved",
+          "Documentation Issue",
+          "Existing problem",
+          "Mail delivery issue",
+          "New problem",
+          "Software Issue",
+          "Feature Request",
+          "Hardware Issue"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "ID of the record type assigned to this object."
+        "description": "ID of the record type assigned to this object.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "ServiceContractId": {
         "type": "reference",
@@ -165,43 +338,92 @@
       },
       "SlaStartDate": {
         "type": "dateTime",
-        "description": "Shows the time that the case entered an entitlement process. If you have the Edit permission on cases, you can update or reset the time."
+        "description": "Shows the time that the case entered an entitlement process. If you have the Edit permission on cases, you can update or reset the time.",
+        "format": "date-time",
+        "nullable": true
       },
       "SourceId": {
         "type": "reference",
-        "description": "The ID of the social post source."
+        "description": "The ID of the social post source.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "EmailMessage",
+          "LiveChatTranscript",
+          "MessagingSession",
+          "SOSSession",
+          "SocialPost"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the case, such as New, Closed, or Escalated. This field directly controls the IsClosed flag. Each predefined Status value implies an IsClosed flag value. For more information, see CaseStatus."
+        "description": "The status of the case, such as New, Closed, or Escalated. This field directly controls the IsClosed flag. Each predefined Status value implies an IsClosed flag value. For more information, see CaseStatus.",
+        "format": "enum",
+        "enum": [
+          "Applied",
+          "Approved",
+          "On Hold",
+          "Pending",
+          "Rejected",
+          "Waiting on Customer",
+          "Working",
+          "Closed",
+          "New",
+          "Escalated"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "StopStartDate": {
         "type": "dateTime",
-        "description": "The date and time an entitlement process was stopped on the case.This field is available in API version 18.0 and later."
+        "description": "The date and time an entitlement process was stopped on the case.This field is available in API version 18.0 and later.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Subject": {
         "type": "string",
-        "description": "The subject of the case. Limit: 255 characters."
+        "description": "The subject of the case. Limit: 255 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SuppliedCompany": {
         "type": "string",
-        "description": "The company name that was entered when the case was created. Label is Company."
+        "description": "The company name that was entered when the case was created. Label is Company.",
+        "maxLength": 80,
+        "nullable": true
       },
       "SuppliedEmail": {
         "type": "email",
-        "description": "The email address that was entered when the case was created. Label is Email.If your organization has an active auto-response rule, SuppliedEmail is required when creating a case via the API. Auto-response rules use the email in the contact specified by ContactId. If no email address is in the contact record, the email specified here is used."
+        "description": "The email address that was entered when the case was created. Label is Email.If your organization has an active auto-response rule, SuppliedEmail is required when creating a case via the API. Auto-response rules use the email in the contact specified by ContactId. If no email address is in the contact record, the email specified here is used.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "SuppliedName": {
         "type": "string",
-        "description": "The name that was entered when the case was created. Label is Name."
+        "description": "The name that was entered when the case was created. Label is Name.",
+        "maxLength": 80,
+        "nullable": true
       },
       "SuppliedPhone": {
         "type": "string",
-        "description": "The phone number that was entered when the case was created. Label is Phone."
+        "description": "The phone number that was entered when the case was created. Label is Phone.",
+        "maxLength": 40,
+        "nullable": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of case, such as Feature Request or Question."
+        "description": "The type of case, such as Feature Request or Question.",
+        "format": "enum",
+        "enum": [
+          "Product Support",
+          "Account Support",
+          "General"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "assignmentRuleId": {
         "type": "",
@@ -210,9 +432,769 @@
       "useDefaultRule": {
         "type": "",
         "description": ""
+      },
+      "Id": {
+        "type": "string",
+        "description": "Case ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "AssetId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ProductId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "EntitlementId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Entitlement",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "SlaExitDate": {
+        "type": "string",
+        "description": "Sla Policy End Time",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MilestoneStatus": {
+        "type": "string",
+        "maxLength": 30,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_case.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_case.htm",
+    "keyPrefix": "500",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActionPlan",
+        "field": "TargetId",
+        "relationshipName": "ActionPlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AgentWork",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswer",
+        "field": "QuestionId",
+        "relationshipName": "QuestionSourceEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "QuestionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "ParentId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseArticle",
+        "field": "CaseId",
+        "relationshipName": "CaseArticles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseComment",
+        "field": "ParentId",
+        "relationshipName": "CaseComments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseContactRole",
+        "field": "CasesId",
+        "relationshipName": "CaseContactRoles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseExternalDocument",
+        "field": "CaseId",
+        "relationshipName": "CaseExternalDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseHistory",
+        "field": "CaseId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseHistory__c",
+        "field": "CaseId__c",
+        "relationshipName": "CaseHistoryRelated__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseMilestone",
+        "field": "CaseId",
+        "relationshipName": "CaseMilestones",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseShare",
+        "field": "CaseId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseSolution",
+        "field": "CaseId",
+        "relationshipName": "CaseSolutions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseTag",
+        "field": "ItemId",
+        "relationshipName": "Tags",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseTeamMember",
+        "field": "ParentId",
+        "relationshipName": "TeamMembers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseTeamTemplateRecord",
+        "field": "ParentId",
+        "relationshipName": "TeamTemplateRecords",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseTimer19__Session_Time__c",
+        "field": "CaseTimer19__Case__c",
+        "relationshipName": "CaseTimer19__Session_Times__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationGroupRecord",
+        "field": "RecordId",
+        "relationshipName": "RecordAssociatedGroups",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactRequest",
+        "field": "WhatId",
+        "relationshipName": "ContactRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDistribution",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Customer_Survey__c",
+        "field": "Case__c",
+        "relationshipName": "Customer_Surveys__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EinsteinAnswerFeedback",
+        "field": "FeedbackEntityId",
+        "relationshipName": "SuggestionFeedbackEntities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EinsteinAnswerFeedbackChangeEvent",
+        "field": "FeedbackEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "ParentId",
+        "relationshipName": "EmailMessages",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FAQ__kav",
+        "field": "SourceId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingItem__hd",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Knowledge__kav",
+        "field": "SourceId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscript",
+        "field": "CaseId",
+        "relationshipName": "LiveChatTranscripts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptChangeEvent",
+        "field": "CaseId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingSession",
+        "field": "CaseId",
+        "relationshipName": "MessagingSessions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkUserHistoryRecent",
+        "field": "RecordId",
+        "relationshipName": "NetworkUserHistoryRecentToRecord",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Opportunity",
+        "field": "Case__c",
+        "relationshipName": "Opportunities__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Opportunity__hd",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "LocalRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "PartnerRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PendingServiceRouting",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessException",
+        "field": "CaseId",
+        "relationshipName": "ProcessExceptions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequest",
+        "field": "CaseId",
+        "relationshipName": "ProductRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestChangeEvent",
+        "field": "CaseId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItem",
+        "field": "CaseId",
+        "relationshipName": "ProductRequestLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItemChangeEvent",
+        "field": "CaseId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordRecommendation",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrder",
+        "field": "CaseId",
+        "relationshipName": "ReturnOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderChangeEvent",
+        "field": "CaseId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Quote__c",
+        "field": "Case__c",
+        "relationshipName": "Quotes__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SFBD__CollectionsPlan__c",
+        "field": "SFBD__Case__c",
+        "relationshipName": "SFBD__Collections_Plans__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SOSSession",
+        "field": "CaseId",
+        "relationshipName": "SOSSessions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "Case__c",
+        "relationshipName": "Service_Appointments__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "ParentRecordId",
+        "relationshipName": "ServiceAppointments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceAppointmentChangeEvent",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Slack_Channel__c",
+        "field": "COM_Case__c",
+        "relationshipName": "Slack_Channels__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPost",
+        "field": "ParentId",
+        "relationshipName": "Posts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPostChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveyInvitation",
+        "field": "Case__c",
+        "relationshipName": "Survey_Invitations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Swarm_Member__c",
+        "field": "Case__c",
+        "relationshipName": "Swarm_Members__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Swarm__c",
+        "field": "Case__c",
+        "relationshipName": "Swarms__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Visit",
+        "field": "ContextId",
+        "relationshipName": "Contexts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "Case__c",
+        "relationshipName": "Voice_Calls__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "RelatedRecordId",
+        "relationshipName": "RelatedRecords",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "CaseId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "CaseId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__AdvRouteVisitWindows__c",
+        "field": "maps__VW_Case__c",
+        "relationshipName": "maps__AdvRouteVisitWindows__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__AdvRouteWaypoint__c",
+        "field": "maps__RW_Case__c",
+        "relationshipName": "maps__AdvRouteWaypoints__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__Waypoint__c",
+        "field": "maps__Case__c",
+        "relationshipName": "maps__Maps_Waypoints__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "scrubDemo_Interaction_Analysis__c",
+        "field": "Case__c",
+        "relationshipName": "Interaction_Analyses__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Slack_Message__c",
+        "field": "slackv2__Case__c",
+        "relationshipName": "slackv2__Slack_Messages__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "tspa__TechSeeSessions__c",
+        "field": "tspa__Case__c",
+        "relationshipName": "tspa__Visual_Remote_Assistant_Session_Invites__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "tspa__Visual_History__c",
+        "field": "tspa__Case__c",
+        "relationshipName": "tspa__Visual_Remote_Assistant_Reports__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CustomerInteractionTopic__c",
+        "field": "vlocity_cmt__CaseId__c",
+        "relationshipName": "vlocity_cmt__CustomerInteractionTopics__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PaymentAdjustment__c",
+        "field": "vlocity_cmt__DisputeId__c",
+        "relationshipName": "vlocity_cmt__Payment_Adjustments__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
+        "field": "vlocity_cmt__CaseId__c",
+        "relationshipName": "vlocity_cmt__TrackingEntries__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -2,7 +2,183 @@
   "PredictionDefinition": {
     "name": "PredictionDefinition",
     "description": "Prediction Definition (Tooling API)",
-    "properties": {},
-    "module": "Tooling API"
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Prediction Definition ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SobjectType": {
+        "type": "string",
+        "description": "Custom Object Definition ID",
+        "format": "enum",
+        "enum": [
+          "Account",
+          "Campaign",
+          "Case",
+          "EmailMessage",
+          "Opportunity"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "DeveloperName": {
+        "type": "string",
+        "description": "Object Name",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "Language": {
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "MasterLabel": {
+        "type": "string",
+        "description": "Label",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SortOrder": {
+        "type": "integer",
+        "nullable": false
+      },
+      "Type": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Action",
+          "Insight"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Mode": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Manual"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Status": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Building",
+          "Active",
+          "Inactive",
+          "ReadyToActivate",
+          "Failed",
+          "Transitioning"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "FailureReason": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      }
+    },
+    "module": "Tooling API",
+    "keyPrefix": "1Pd",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "RecordRecommendation",
+        "field": "RecommendationDefinitionId",
+        "relationshipName": "RecordRecommendations",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

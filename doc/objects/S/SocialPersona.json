@@ -5,122 +5,344 @@
     "properties": {
       "AreWeFollowing": {
         "type": "boolean",
-        "description": "Specifies whether a Salesforce social account is following the social persona or not."
+        "description": "Specifies whether a Salesforce social account is following the social persona or not.",
+        "nullable": false
       },
       "AuthorLabels": {
         "type": "string",
-        "description": "Comma-separated list of author type tags."
+        "description": "Comma-separated list of author type tags.",
+        "maxLength": 255,
+        "nullable": true
       },
       "AvatarUrl": {
         "type": "string",
-        "description": "Retrieves the user's social network avatar. It's a read-only field and you can't specify or update its value."
+        "description": "Retrieves the user's social network avatar. It's a read-only field and you can't specify or update its value.",
+        "maxLength": 1024,
+        "nullable": true,
+        "readOnly": true
       },
       "Bio": {
         "type": "textarea",
-        "description": "Biography of the social persona."
+        "description": "Biography of the social persona.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "ExternalId": {
         "type": "string",
-        "description": "ID of the social persona on the social network."
+        "description": "ID of the social persona on the social network.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ExternalPictureURL": {
         "type": "url",
-        "description": "URL to the picture of the social persona on the social network."
+        "description": "URL to the picture of the social persona on the social network.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
       },
       "Followers": {
         "type": "int",
-        "description": "Number of followers that the social persona has."
+        "description": "Number of followers that the social persona has.",
+        "nullable": true
       },
       "Following": {
         "type": "int",
-        "description": "Number of people that the social persona is following."
+        "description": "Number of people that the social persona is following.",
+        "nullable": true
       },
       "InfluencerScore": {
         "type": "int",
-        "description": "Radian6 score describing the influence of the social persona. No longer used."
+        "description": "Radian6 score describing the influence of the social persona. No longer used.",
+        "nullable": true
       },
       "IsBlacklisted": {
         "type": "boolean",
-        "description": "Specifies whether the social persona is blacklisted or not."
+        "description": "Specifies whether the social persona is blacklisted or not.",
+        "nullable": false
       },
       "IsDefault": {
         "type": "boolean",
-        "description": "Specifies whether the social persona supplies the default avatar image that’s displayed on the contact or account."
+        "description": "Specifies whether the social persona supplies the default avatar image that’s displayed on the contact or account.",
+        "nullable": false
       },
       "IsFollowingUs": {
         "type": "boolean",
-        "description": "Specifies whether the social persona is following a Salesforce social account or not."
+        "description": "Specifies whether the social persona is following a Salesforce social account or not.",
+        "nullable": false
       },
       "IsVerified": {
         "type": "boolean",
-        "description": "Specifies whether the social persona is verified or not."
+        "description": "Specifies whether the social persona is verified or not.",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "Date and time when the social persona was last referenced."
+        "description": "Date and time when the social persona was last referenced.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "Date and time when the social persona was last viewed."
+        "description": "Date and time when the social persona was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ListedCount": {
         "type": "int",
-        "description": "Radian6 field. No longer used."
+        "description": "Radian6 field. No longer used.",
+        "nullable": true
       },
       "MediaProvider": {
         "type": "string",
-        "description": "Social network of the social persona."
+        "description": "Social network of the social persona.",
+        "maxLength": 255,
+        "nullable": true
       },
       "MediaType": {
         "type": "string",
-        "description": "Social network type of the social persona."
+        "description": "Social network type of the social persona.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the social persona."
+        "description": "Name of the social persona.",
+        "maxLength": 255,
+        "nullable": false
       },
       "NumberOfFriends": {
         "type": "int",
-        "description": "Number of friends that the social persona has."
+        "description": "Number of friends that the social persona has.",
+        "nullable": true
       },
       "NumberOfTweets": {
         "type": "int",
-        "description": "Number of tweets made by the social persona."
+        "description": "Number of tweets made by the social persona.",
+        "nullable": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the contact parent record for the social persona."
+        "description": "ID of the contact parent record for the social persona.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Account",
+          "Contact",
+          "Lead",
+          "SocialPost"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ProfileType": {
         "type": "picklist",
-        "description": "Type of profile. Values are: Person Page"
+        "description": "Type of profile. Values are: Person Page",
+        "format": "enum",
+        "enum": [
+          "PERSON",
+          "PAGE"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ProfileUrl": {
         "type": "url",
-        "description": "URL for the profile."
+        "description": "URL for the profile.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
       },
       "Provider": {
         "type": "picklist",
-        "description": "Social network, such as Facebook or Twitter, of the social persona."
+        "description": "Social network, such as Facebook or Twitter, of the social persona.",
+        "format": "enum",
+        "enum": [
+          "Twitter",
+          "Facebook",
+          "LinkedIn",
+          "YouTube",
+          "Klout",
+          "Rypple",
+          "GooglePlus",
+          "SinaWeibo",
+          "WeChat",
+          "Line",
+          "WhatsApp",
+          "Pinterest",
+          "Instagram",
+          "vKontakte",
+          "Azure",
+          "Skype",
+          "Telegram",
+          "Snapchat",
+          "Messenger",
+          "Kik",
+          "KakaoTalk",
+          "QQ",
+          "SMS",
+          "Spark",
+          "InstagramBusiness",
+          "GoogleRtc",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "R6SourceId": {
         "type": "string",
-        "description": "ID of the social persona in Social Studio."
+        "description": "ID of the social persona in Social Studio.",
+        "maxLength": 255,
+        "nullable": true
       },
       "RealName": {
         "type": "string",
-        "description": "Real name of the social persona."
+        "description": "Real name of the social persona.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SourceApp": {
         "type": "string",
-        "description": "Salesforce product that created the social persona."
+        "description": "Salesforce product that created the social persona.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TopicType": {
         "type": "string",
-        "description": "Type of topic, such as keyword or managed."
+        "description": "Type of topic, such as keyword or managed.",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Social Persona ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_socialpersona.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_socialpersona.htm",
+    "keyPrefix": "0SP",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPersonaHistory",
+        "field": "SocialPersonaId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SocialPost",
+        "field": "PersonaId",
+        "relationshipName": "Posts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SocialPostChangeEvent",
+        "field": "PersonaId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

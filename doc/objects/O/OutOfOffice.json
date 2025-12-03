@@ -5,26 +5,116 @@
     "properties": {
       "EndDate": {
         "type": "dateTime",
-        "description": "The date of the last day a person is out of the office. After the message expires, it goes away automatically."
+        "description": "The date of the last day a person is out of the office. After the message expires, it goes away automatically.",
+        "format": "date-time",
+        "nullable": false
       },
       "IsEnabled": {
         "type": "boolean",
-        "description": "Indicates whether an out-of-office message can be displayed for a user. The default value is true."
+        "description": "Indicates whether an out-of-office message can be displayed for a user. The default value is true.",
+        "nullable": false
       },
       "Message": {
         "type": "string",
-        "description": "The message portion of the out-of-office message. This text, along with start and end dates, is appended to the user’s name in the Salesforce user interface. The maximum length of this string is 40 characters."
+        "description": "The message portion of the out-of-office message. This text, along with start and end dates, is appended to the user’s name in the Salesforce user interface. The maximum length of this string is 40 characters.",
+        "maxLength": 60,
+        "nullable": false
       },
       "StartDate": {
         "type": "dateTime",
-        "description": "The date of the first day a person is out of the office."
+        "description": "The date of the first day a person is out of the office.",
+        "format": "date-time",
+        "nullable": false
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID of the user associated with the out-of-office message."
+        "description": "The ID of the user associated with the out-of-office message.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Out Of Office ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_outofoffice.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_outofoffice.htm",
+    "keyPrefix": "1OO",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

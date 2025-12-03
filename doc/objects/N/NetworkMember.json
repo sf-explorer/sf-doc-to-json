@@ -5,63 +5,103 @@
     "properties": {
       "DefaultGroupNotificationFrequency": {
         "type": "picklist",
-        "description": "Required. The default frequency for sending the member’s group email notifications when the member joins groups in the Experience Cloud site. The valid values are: P—Email on every post D—Daily digests W—Weekly digests N—Never The default value is W. In sites, the Email on every post option is disabled once more than 10,000 members choose this setting for the group. All members who had this option selected are automatically switched to Daily digests. However, this field is not currently enabled. These values are reserved for future use."
+        "description": "Required. The default frequency for sending the member’s group email notifications when the member joins groups in the Experience Cloud site. The valid values are: P—Email on every post D—Daily digests W—Weekly digests N—Never The default value is W. In sites, the Email on every post option is disabled once more than 10,000 members choose this setting for the group. All members who had this option selected are automatically switched to Daily digests. However, this field is not currently enabled. These values are reserved for future use.",
+        "format": "enum",
+        "enum": [
+          "P",
+          "D",
+          "W",
+          "N"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "DigestFrequency": {
         "type": "picklist",
-        "description": "Required. The frequency for sending the member’s personal email digest for the Experience Cloud site. The valid values are: D—Daily W—Weekly N—Never The default value is D. However, daily and weekly personal digests aren’t currently available in sites. These values are reserved for future use."
+        "description": "Required. The frequency for sending the member’s personal email digest for the Experience Cloud site. The valid values are: D—Daily W—Weekly N—Never The default value is D. However, daily and weekly personal digests aren’t currently available in sites. These values are reserved for future use.",
+        "format": "enum",
+        "enum": [
+          "D",
+          "W",
+          "N"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "LastChatterActivityDate": {
         "type": "date",
-        "description": "The last time the member posted or commented in the Experience Cloud site."
+        "description": "The last time the member posted or commented in the Experience Cloud site.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberId": {
         "type": "reference",
-        "description": "The ID of a person who is a member of an Experience Cloud site."
+        "description": "The ID of a person who is a member of an Experience Cloud site.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "NetworkId": {
         "type": "reference",
-        "description": "The ID of the Experience Cloud site that the member is part of."
+        "description": "The ID of the Experience Cloud site that the member is part of.",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PreferencesDisableAllFeedsEmail": {
         "type": "boolean",
-        "description": "When false, the member can automatically receive email for updates in the Experience Cloud site, based on the types of feed emails and digests the member has enabled."
+        "description": "When false, the member can automatically receive email for updates in the Experience Cloud site, based on the types of feed emails and digests the member has enabled.",
+        "nullable": false
       },
       "PreferencesDisableBestAnswerEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email when someone selects their answer to a post as best. Available in API 46.0 and later."
+        "description": "When false, the member automatically receives email when someone selects their answer to a post as best. Available in API 46.0 and later.",
+        "nullable": false
       },
       "PreferencesDisableBookmarkEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone comments on a feed item after the member has bookmarked it."
+        "description": "When false, the member automatically receives email every time someone comments on a feed item after the member has bookmarked it.",
+        "nullable": false
       },
       "PreferencesDisableChangeCommentEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone comments on a change the member has made, such as an update to their profile."
+        "description": "When false, the member automatically receives email every time someone comments on a change the member has made, such as an update to their profile.",
+        "nullable": false
       },
       "PreferencesDisableDirectMessageEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone sends them a direct message in the Experience Cloud site."
+        "description": "When false, the member automatically receives email every time someone sends them a direct message in the Experience Cloud site.",
+        "nullable": false
       },
       "PreferencesDisableEndorsementEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone endorses them for a topic."
+        "description": "When false, the member automatically receives email every time someone endorses them for a topic.",
+        "nullable": false
       },
       "PreferencesDisableFollowersEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone in the Experience Cloud site starts following the member."
+        "description": "When false, the member automatically receives email every time someone in the Experience Cloud site starts following the member.",
+        "nullable": false
       },
       "PreferencesDisableItemFlaggedEmail": {
         "type": "boolean",
-        "description": "When false, the user automatically receives email every time a member flags a post or comment. This setting only applies for community moderators (with the Moderate Experiences Feeds permission) and group owners or managers.This field is available in API version 29.0 and later."
+        "description": "When false, the user automatically receives email every time a member flags a post or comment. This setting only applies for community moderators (with the Moderate Experiences Feeds permission) and group owners or managers.This field is available in API version 29.0 and later.",
+        "nullable": false
       },
       "PreferencesDisableLaterCommentEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone comments on a feed item after the member has commented on the feed item."
+        "description": "When false, the member automatically receives email every time someone comments on a feed item after the member has commented on the feed item.",
+        "nullable": false
       },
       "PreferencesDisableLikeEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone comments on a feed item after the member has liked the feed item."
+        "description": "When false, the member automatically receives email every time someone comments on a feed item after the member has liked the feed item.",
+        "nullable": false
       },
       "PreferencesDisableMarketingCloudEmail": {
         "type": "boolean",
@@ -69,38 +109,90 @@
       },
       "PreferencesDisableMentionsPostEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time the member is mentioned in posts."
+        "description": "When false, the member automatically receives email every time the member is mentioned in posts.",
+        "nullable": false
       },
       "PreferencesDisableMessageEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time the member is sent a Chatter message."
+        "description": "When false, the member automatically receives email every time the member is sent a Chatter message.",
+        "nullable": false
       },
       "PreferencesDisableProfilePostEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone posts to the member’s profile."
+        "description": "When false, the member automatically receives email every time someone posts to the member’s profile.",
+        "nullable": false
       },
       "PreferencesDisableSharePostEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time the member’s post is shared."
+        "description": "When false, the member automatically receives email every time the member’s post is shared.",
+        "nullable": false
       },
       "PreferencesDisCommentAfterLikeEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone comments on a post the member has liked."
+        "description": "When false, the member automatically receives email every time someone comments on a post the member has liked.",
+        "nullable": false
       },
       "PreferencesDisMentionsCommentEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time the member is mentioned in comments."
+        "description": "When false, the member automatically receives email every time the member is mentioned in comments.",
+        "nullable": false
       },
       "PreferencesDisProfPostCommentEmail": {
         "type": "boolean",
-        "description": "When false, the member automatically receives email every time someone comments on posts on the member’s profile."
+        "description": "When false, the member automatically receives email every time someone comments on posts on the member’s profile.",
+        "nullable": false
       },
       "ReputationPoints": {
         "type": "double",
-        "description": "The number of reputation points the user has accumulated by performing actions in the Experience Cloud site."
+        "description": "The number of reputation points the user has accumulated by performing actions in the Experience Cloud site.",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Network Member ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "PreferencesDisableCaseContactEmail": {
+        "type": "boolean",
+        "description": "DisableCaseContactEmail",
+        "nullable": false
+      },
+      "PreferencesDisablePendingReviewEmail": {
+        "type": "boolean",
+        "description": "DisablePendingReviewEmail",
+        "nullable": false
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_networkmember.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_networkmember.htm",
+    "keyPrefix": "0DO",
+    "createable": false,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -5,66 +5,138 @@
     "properties": {
       "AggregateField": {
         "type": "string",
-        "description": "The field that’s used for calculating data on each group. AggregateField can’t be the same as GroupingField."
+        "description": "The field that’s used for calculating data on each group. AggregateField can’t be the same as GroupingField.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "AggregateType": {
         "type": "picklist",
-        "description": "The type of calculations to run on each group. The supported AggregateType values are Count, Sum, and Avg."
+        "description": "The type of calculations to run on each group. The supported AggregateType values are Count, Sum, and Avg.",
+        "format": "enum",
+        "enum": [
+          "Sum",
+          "Count",
+          "Avg"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ChartType": {
         "type": "picklist",
-        "description": "The type of chart to create. The supported chart types are horizontal bar chart, vertical bar chart, and donut chart."
+        "description": "The type of chart to create. The supported chart types are horizontal bar chart, vertical bar chart, and donut chart.",
+        "format": "enum",
+        "enum": [
+          "vbar",
+          "hbar",
+          "pie"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "DataQuery": {
         "type": "textarea",
-        "description": "The SOQL query that can be executed to fetch the data for drawing a chart."
+        "description": "The SOQL query that can be executed to fetch the data for drawing a chart.",
+        "maxLength": 1333,
+        "nullable": true,
+        "readOnly": true
       },
       "DataQueryWithoutUserFilters": {
         "type": "textarea",
-        "description": "The SOQL query that can be executed to fetch the data for drawing a chart, without user filters."
+        "description": "The SOQL query that can be executed to fetch the data for drawing a chart, without user filters.",
+        "maxLength": 1333,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "API name of the chart. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
+        "description": "API name of the chart. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "ExternalId": {
         "type": "string",
-        "description": "Reserved for future use."
+        "description": "Reserved for future use.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "GroupingField": {
         "type": "string",
-        "description": "The field that’s used to divide the data into collections. The field has to be supported by SOQL GROUP BY functionality. GroupingField can’t be the same as AggregateField."
+        "description": "The field that’s used to divide the data into collections. The field has to be supported by SOQL GROUP BY functionality. GroupingField can’t be the same as AggregateField.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeletable": {
         "type": "boolean",
-        "description": "Indicates if the chart can be deleted."
+        "description": "Indicates if the chart can be deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsEditable": {
         "type": "boolean",
-        "description": "Indicates if the chart can be edited. Standard charts are not editable."
+        "description": "Indicates if the chart can be edited. Standard charts are not editable.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsLastViewed": {
         "type": "boolean",
-        "description": "Indicates if a chart is the last viewed by a user."
+        "description": "Indicates if a chart is the last viewed by a user.",
+        "nullable": false,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "The display name of the chart."
+        "description": "The display name of the chart.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ListViewChartId": {
         "type": "reference",
-        "description": "ID of the chart created by a user. For standard charts, this is null."
+        "description": "ID of the chart created by a user. For standard charts, this is null.",
+        "format": "salesforce-id",
+        "x-object": "ListViewChart",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ListViewContextId": {
         "type": "reference",
-        "description": "ID of the list view in context of which the chart is generated. Required to query ListViewChartInstance."
+        "description": "ID of the list view in context of which the chart is generated. Required to query ListViewChartInstance.",
+        "format": "salesforce-id",
+        "x-object": "ListView",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SourceEntity": {
         "type": "string",
-        "description": "API name of the entity to which the chart is related. Required to query ListViewChartInstance."
+        "description": "API name of the entity to which the chart is related. Required to query ListViewChartInstance.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "List View Chart Instance ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listviewchartinstance.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listviewchartinstance.htm",
+    "keyPrefix": "0De",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

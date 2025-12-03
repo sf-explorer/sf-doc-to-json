@@ -5,34 +5,115 @@
     "properties": {
       "AgentWorkId": {
         "type": "reference",
-        "description": "The AgentWork object associated with this skill."
+        "description": "The AgentWork object associated with this skill.",
+        "format": "salesforce-id",
+        "x-object": "AgentWork",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsAdditionalSkill": {
         "type": "boolean",
-        "description": "After a designated timeout period, a skill marked as additional is dropped from Omni-Channel routing. The case is then routed to the best-matched agent, even if the agent doesn’t have all the skills. The default value is false. Available in API version 48.0 and later."
+        "description": "After a designated timeout period, a skill marked as additional is dropped from Omni-Channel routing. The case is then routed to the best-matched agent, even if the agent doesn’t have all the skills. The default value is false. Available in API version 48.0 and later.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "An automatically generated ID number that identifies the record."
+        "description": "An automatically generated ID number that identifies the record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SkillId": {
         "type": "reference",
-        "description": "The skill that is required or additional."
+        "description": "The skill that is required or additional.",
+        "format": "salesforce-id",
+        "x-object": "Skill",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SkillLevel": {
         "type": "double",
-        "description": "The level of the required or additional skill. Skill levels can range from 1 to 10. Depending on your business needs, you might want the skill level to reflect years of experience, certification levels, or license classes."
+        "description": "The level of the required or additional skill. Skill levels can range from 1 to 10. Depending on your business needs, you might want the skill level to reflect years of experience, certification levels, or license classes.",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "SkillPriority": {
         "type": "int",
-        "description": "For additional skills, specifies the order in which skills are dropped if after the specified timeout no agent with that skill is available. Higher priority-value skills are dropped first. Lower priority-value skills, for example 0, are dropped last. Skills with the same priority value are dropped as a group. You can set skill priority using attribute setup for skills-based routing or Apex code."
+        "description": "For additional skills, specifies the order in which skills are dropped if after the specified timeout no agent with that skill is available. Higher priority-value skills are dropped first. Lower priority-value skills, for example 0, are dropped last. Skills with the same priority value are dropped as a group. You can set skill priority using attribute setup for skills-based routing or Apex code.",
+        "nullable": true,
+        "readOnly": true
       },
       "WasDropped": {
         "type": "boolean",
-        "description": "For skills marked as additional, indicates if the skill was dropped from Omni-Channel routing because an agent with this skill was not available. The default value is false. Available in API version 48.0 and later."
+        "description": "For skills marked as additional, indicates if the skill was dropped from Omni-Channel routing because an agent with this skill was not available. The default value is false. Available in API version 48.0 and later.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Agent Work Skill ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_agentworkskill.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_agentworkskill.htm",
+    "keyPrefix": "0Sm"
   }
 }

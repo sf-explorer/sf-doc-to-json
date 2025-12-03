@@ -5,22 +5,118 @@
     "properties": {
       "ContextId": {
         "type": "reference",
-        "description": "Required. The ID of the MacroInstruction object that contains the expression."
+        "description": "Required. The ID of the MacroInstruction object that contains the expression.",
+        "format": "salesforce-id",
+        "x-object": "MacroInstruction",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "FilterConditionLogic": {
         "type": "string",
-        "description": "Optional. The filter conditions to use and the order in which to apply them. For example, ‘1 AND 2’ evaluates condition 1 and then condition 2."
+        "description": "Optional. The filter conditions to use and the order in which to apply them. For example, ‘1 AND 2’ evaluates condition 1 and then condition 2.",
+        "maxLength": 255,
+        "nullable": true
       },
       "FilterDescription": {
         "type": "string",
-        "description": "Optional. A description of the filter expression that helps to explain the logic to users. For example, ‘Applies to New cases.’"
+        "description": "Optional. A description of the filter expression that helps to explain the logic to users. For example, ‘Applies to New cases.’",
+        "maxLength": 255,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Optional. A label for the expression."
+        "description": "Optional. A label for the expression.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Expression Filter ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_expressionfilter.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_expressionfilter.htm",
+    "keyPrefix": "1GS",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ExpressionFilterCriteria",
+        "field": "ExpressionFilterId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

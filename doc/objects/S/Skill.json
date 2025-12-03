@@ -1,30 +1,225 @@
 {
   "Skill": {
     "name": "Skill",
-    "description": "Represents a skill that service resources have. For technician type service resources, the skill represents their area of expertise. For asset type service resources, the skill must be specified as Test Drive.",
+    "description": "Skills - Skill",
     "properties": {
-      "Description": {
-        "type": "textarea",
-        "description": "The description of the skill."
+      "Id": {
+        "type": "string",
+        "description": "Skill ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores."
+        "description": "Developer Name",
+        "maxLength": 80,
+        "nullable": false
       },
-      "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The date when the record was last viewed."
+      "Language": {
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The name of the skill."
+        "description": "Name",
+        "maxLength": 80,
+        "nullable": false
       },
-      "TypeId": {
-        "type": "reference",
-        "description": "The type of skill."
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastViewedDate": {
+        "type": "string",
+        "description": "Last Viewed Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description",
+        "maxLength": 32000,
+        "nullable": true
       }
     },
-    "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_skill.htm"
+    "module": "N/A",
+    "keyPrefix": "0C5",
+    "label": "Skill",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AgentWorkSkill",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatButton",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatButtonSkill",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscript",
+        "field": "SkillId",
+        "relationshipName": "LiveChatTranscripts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptChangeEvent",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptSkill",
+        "field": "SkillId",
+        "relationshipName": "LiveChatTrancriptSkills",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatUserConfig",
+        "field": "SupervisorDefaultSkillId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingChannelSkill",
+        "field": "SkillId",
+        "relationshipName": "MessagingChannelSkills",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceResourceSkill",
+        "field": "SkillId",
+        "relationshipName": "ServiceResources",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SkillProfile",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SkillRequirement",
+        "field": "SkillId",
+        "relationshipName": "SkillRequirements",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SkillUser",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SupervisorAgentConfigSkill",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserConfigTransferSkill",
+        "field": "SkillId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

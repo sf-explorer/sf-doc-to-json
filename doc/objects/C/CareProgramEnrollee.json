@@ -5,7 +5,12 @@
     "properties": {
       "AccountId": {
         "type": "Lookup(Account)",
-        "description": "Person Account representing the enrollee"
+        "description": "Person Account representing the enrollee",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "BenefitCoverageType": {
         "type": "Picklist",
@@ -13,7 +18,12 @@
       },
       "CareProgramId": {
         "type": "Master-Detail(Care Program)",
-        "description": "Look up for Care Program."
+        "description": "Look up for Care Program.",
+        "format": "salesforce-id",
+        "x-object": "CareProgram",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ClinicalServiceRequestId": {
         "type": "reference",
@@ -53,19 +63,33 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LeadId": {
         "type": "Lookup(Lead)",
-        "description": "Lead representing the enrollee."
+        "description": "Lead representing the enrollee.",
+        "format": "salesforce-id",
+        "x-object": "Lead",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the enrollee."
+        "description": "Name of the enrollee.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OptOutPeriodEndDateTime": {
         "type": "dateTime",
@@ -89,22 +113,389 @@
       },
       "SourceSystem": {
         "type": "string",
-        "description": "System from which the enrollee record was sourced."
+        "description": "System from which the enrollee record was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "ID of the system from which the enrollee record was sourced."
+        "description": "ID of the system from which the enrollee record was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the enrollee."
+        "description": "Status of the enrollee.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Inactive"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "Lookup(User)",
-        "description": "User representing the enrollee."
+        "description": "User representing the enrollee.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Care Program Enrollee ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_careprogramenrollee.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_careprogramenrollee.htm",
+    "keyPrefix": "0Ww",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "AuthorizationFormConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramEnrolleeFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEnrolleeHistory",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEnrolleeProduct",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": "Care_Program_Enrollee_Products",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramEnrolleeShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEnrollmentCard",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": "Care_Program_Enrollment_Cards",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareRegisteredDevice",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": "CareProgramEnrollees",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequest",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": "ProductRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestChangeEvent",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItem",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": "ProductRequestLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItemChangeEvent",
+        "field": "CareProgramEnrolleeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "ParentRecordId",
+        "relationshipName": "ServiceAppointments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceAppointmentChangeEvent",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

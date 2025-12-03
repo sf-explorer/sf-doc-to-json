@@ -5,11 +5,19 @@
     "properties": {
       "ApexClassId": {
         "type": "reference",
-        "description": "The ID of the Apex class executing the job. Label is Class ID."
+        "description": "The ID of the Apex class executing the job. Label is Class ID.",
+        "format": "salesforce-id",
+        "x-object": "ApexClass",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "CompletedDate": {
         "type": "dateTime",
-        "description": "The date and time when the job was completed."
+        "description": "The date and time when the job was completed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "CronTriggerId": {
         "type": "reference",
@@ -17,46 +25,119 @@
       },
       "ExtendedStatus": {
         "type": "string",
-        "description": "If one or more errors occurred during the batch processing, this field contains a short description of the first error. A more detailed description of that error, along with any subsequent errors, is emailed to the last user who modified the batch class. This field is available in API version 19.0 and later."
+        "description": "If one or more errors occurred during the batch processing, this field contains a short description of the first error. A more detailed description of that error, along with any subsequent errors, is emailed to the last user who modified the batch class. This field is available in API version 19.0 and later.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "JobItemsProcessed": {
         "type": "int",
-        "description": "Number of job items processed. Label is Batches Processed."
+        "description": "Number of job items processed. Label is Batches Processed.",
+        "nullable": false,
+        "readOnly": true
       },
       "JobType": {
         "type": "picklist",
-        "description": "The type of job being processed. Valid values are: ApexToken BatchApex BatchApexWorker Future Queueable ScheduledApex SharingRecalculation TestRequest TestWorker"
+        "description": "The type of job being processed. Valid values are: ApexToken BatchApex BatchApexWorker Future Queueable ScheduledApex SharingRecalculation TestRequest TestWorker",
+        "format": "enum",
+        "enum": [
+          "Future",
+          "SharingRecalculation",
+          "ScheduledApex",
+          "BatchApex",
+          "BatchApexWorker",
+          "TestRequest",
+          "TestWorker",
+          "ApexToken",
+          "Queueable"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "LastProcessed": {
         "type": "string",
-        "description": "Last ID that was processed and committed."
+        "description": "Last ID that was processed and committed.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "LastProcessedOffset": {
         "type": "int",
-        "description": "Offset of the last ID that was processed and committed."
+        "description": "Offset of the last ID that was processed and committed.",
+        "nullable": true,
+        "readOnly": true
       },
       "MethodName": {
         "type": "string",
-        "description": "The name of the Apex method being executed. Label is Apex Method."
+        "description": "The name of the Apex method being executed. Label is Apex Method.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "NumberOfErrors": {
         "type": "int",
-        "description": "Total number of batches with a failure. A batch is considered transactional, so any unhandled exceptions constitute an entire failure of the batch. Label is Failures."
+        "description": "Total number of batches with a failure. A batch is considered transactional, so any unhandled exceptions constitute an entire failure of the batch. Label is Failures.",
+        "nullable": true,
+        "readOnly": true
       },
       "ParentJobId": {
         "type": "reference",
-        "description": "For batch Apex jobs that run using chunking implementation, multiple child jobs of type BatchApexWorker are created. Each of these child job records contains the job Id of the parent Apex job that started their execution. For batch Apex jobs that run using a non-chunking implementation, child jobs aren’t created."
+        "description": "For batch Apex jobs that run using chunking implementation, multiple child jobs of type BatchApexWorker are created. Each of these child job records contains the job Id of the parent Apex job that started their execution. For batch Apex jobs that run using a non-chunking implementation, child jobs aren’t created.",
+        "format": "salesforce-id",
+        "x-object": "AsyncApexJob",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the job. Valid values are: Aborted Completed Failed Holding1 Preparing Processing Queued 1 This status applies to batch jobs in the Apex flex queue."
+        "description": "The status of the job. Valid values are: Aborted Completed Failed Holding1 Preparing Processing Queued 1 This status applies to batch jobs in the Apex flex queue.",
+        "format": "enum",
+        "enum": [
+          "Queued",
+          "Processing",
+          "Aborted",
+          "Completed",
+          "Failed",
+          "Preparing",
+          "Holding"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "TotalJobItems": {
         "type": "int",
-        "description": "Total number of batches processed. Each batch contains a set of records. Label is Total Batches."
+        "description": "Total number of batches processed. Each batch contains a set of records. Label is Total Batches.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Apex Job ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_asyncapexjob.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_asyncapexjob.htm",
+    "keyPrefix": "707"
   }
 }

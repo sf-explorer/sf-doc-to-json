@@ -5,42 +5,154 @@
     "properties": {
       "CompletedDate": {
         "type": "dateTime",
-        "description": "The completion date and time of this step in the approval process. The ElapsedTimeDay, ElapsedTimeHours, and ElapsedTimeMinutes field values are calculated using CompletedDate."
+        "description": "The completion date and time of this step in the approval process. The ElapsedTimeDay, ElapsedTimeHours, and ElapsedTimeMinutes field values are calculated using CompletedDate.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ElapsedTimeInDays": {
         "type": "double",
-        "description": "The total time in days since this step was started."
+        "description": "The total time in days since this step was started.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.001
       },
       "ElapsedTimeInHours": {
         "type": "double",
-        "description": "The total time in hours since this step was started."
+        "description": "The total time in hours since this step was started.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ElapsedTimeInMinutes": {
         "type": "double",
-        "description": "The total time in minutes since this step was started."
+        "description": "The total time in minutes since this step was started.",
+        "nullable": true,
+        "readOnly": true
       },
       "LastActorId": {
         "type": "reference",
-        "description": "The last actor that approved or rejected this step."
+        "description": "The last actor that approved or rejected this step.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "NodeStatus": {
         "type": "picklist",
-        "description": "The status of this approval instance, for example Started, Pending, or Approved."
+        "description": "The status of this approval instance, for example Started, Pending, or Approved.",
+        "format": "enum",
+        "enum": [
+          "Approved",
+          "Rejected",
+          "Removed",
+          "Fault",
+          "Pending",
+          "Held",
+          "Reassigned",
+          "Started",
+          "NoResponse"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ProcessInstanceId": {
         "type": "reference",
-        "description": "The approval process this step is part of."
+        "description": "The approval process this step is part of.",
+        "format": "salesforce-id",
+        "x-object": "ProcessInstance",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ProcessNodeId": {
         "type": "reference",
-        "description": "The identifier for this step."
+        "description": "The identifier for this step.",
+        "format": "salesforce-id",
+        "x-object": "ProcessNode",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ProcessNodeName": {
         "type": "string",
-        "description": "The name of this step.The contents of this field can be publicly viewed."
+        "description": "The name of this step.The contents of this field can be publicly viewed.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Process Instance Node ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processinstancenode.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processinstancenode.htm",
+    "keyPrefix": "0OO",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

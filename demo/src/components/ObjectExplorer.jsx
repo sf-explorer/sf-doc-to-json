@@ -12,6 +12,7 @@ const ObjectExplorer = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [loadingObjectDetails, setLoadingObjectDetails] = useState(false);
   const [cloudDescriptions, setCloudDescriptions] = useState({});
+  const [navigationHistory, setNavigationHistory] = useState([]);
 
   useEffect(() => {
     // Load object metadata from the package
@@ -61,16 +62,19 @@ const ObjectExplorer = () => {
             'loyalty',
             'net-zero-cloud',
             'public-sector-cloud',
+            'sales-cloud',
+            'service-cloud',
             'scheduler',
             'feedback-management',
             'revenue-lifecycle-management',
-            'tooling-api'
+            'tooling-api',
+            'metadata'
           ];
 
           await Promise.all(
             cloudFiles.map(async (cloudFile) => {
               try {
-                const cloudModule = await import(`@sf-explorer/salesforce-object-reference/doc/${cloudFile}.json`);
+                const cloudModule = await import(/* @vite-ignore */ `@sf-explorer/salesforce-object-reference/doc/${cloudFile}.json`);
                 const cloudData = cloudModule.default || cloudModule;
                 if (cloudData && cloudData.description) {
                   cloudDescMap[cloudFile] = cloudData.description;
@@ -107,11 +111,15 @@ const ObjectExplorer = () => {
         const fullObjectData = await getObject(object.apiName);
         
         if (fullObjectData) {
-          // Update the object with full field data
+          // Update the object with full field data and child relationships
           const updatedObject = {
             ...object,
-            fields: fullObjectData.properties || {}
+            fields: fullObjectData.properties || {},
+            childRelationships: fullObjectData.childRelationships || []
           };
+          
+          // Add to navigation history
+          setNavigationHistory(prev => [...prev, updatedObject]);
           setSelectedObject(updatedObject);
           
           // Also update the object in the list for caching
@@ -121,13 +129,17 @@ const ObjectExplorer = () => {
             )
           );
         } else {
+          setNavigationHistory(prev => [...prev, object]);
           setSelectedObject(object);
         }
       } catch (error) {
         console.error('Error loading object details:', error);
+        setNavigationHistory(prev => [...prev, object]);
         setSelectedObject(object);
       }
     } else {
+      // Add to navigation history
+      setNavigationHistory(prev => [...prev, object]);
       setSelectedObject(object);
     }
     
@@ -136,34 +148,49 @@ const ObjectExplorer = () => {
 
   const handleBackToList = () => {
     setSelectedObject(null);
+    setNavigationHistory([]);
   };
 
-  // Build breadcrumb items
+  // Build breadcrumb items from navigation history
   const breadcrumbItems = useMemo(() => {
-    const items = [{ label: 'All Objects', path: 'list' }];
+    const items = [{ label: 'All Objects', path: 'list', index: -1 }];
     
-    if (selectedObject) {
+    navigationHistory.forEach((obj, index) => {
       items.push({ 
-        label: selectedObject.label || selectedObject.apiName, 
-        path: 'detail' 
+        label: obj.label || obj.apiName, 
+        path: 'detail',
+        index: index,
+        object: obj
       });
-    }
+    });
     
     return items;
-  }, [selectedObject]);
+  }, [navigationHistory]);
 
-  // Get unique categories for filtering
+  // Get unique categories for filtering - collect all clouds from objects
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(objects.map(obj => obj.cloud))];
-    return uniqueCategories.sort();
+    const allClouds = new Set();
+    objects.forEach(obj => {
+      // Support both single cloud and multiple clouds
+      if (obj.clouds && Array.isArray(obj.clouds)) {
+        obj.clouds.forEach(cloud => allClouds.add(cloud));
+      } else if (obj.cloud) {
+        allClouds.add(obj.cloud);
+      }
+    });
+    return [...allClouds].sort();
   }, [objects]);
 
-  // Filter objects by selected categories
+  // Filter objects by selected categories - match if ANY selected cloud is in the object's clouds array
   const filteredObjects = useMemo(() => {
     if (selectedCategories.length === 0) {
       return objects;
     }
-    return objects.filter(obj => selectedCategories.includes(obj.cloud));
+    return objects.filter(obj => {
+      // Support both single cloud and multiple clouds
+      const objectClouds = obj.clouds || [obj.cloud];
+      return selectedCategories.some(category => objectClouds.includes(category));
+    });
   }, [objects, selectedCategories]);
 
   return (
@@ -172,9 +199,14 @@ const ObjectExplorer = () => {
         {/* Breadcrumb Navigation */}
         <Breadcrumb 
           items={breadcrumbItems} 
-          onNavigate={(path) => {
-            if (path === 'list') {
+          onNavigate={(item) => {
+            if (item.path === 'list') {
               handleBackToList();
+            } else if (item.index >= 0) {
+              // Navigate to a specific object in the history
+              const newHistory = navigationHistory.slice(0, item.index + 1);
+              setNavigationHistory(newHistory);
+              setSelectedObject(item.object);
             }
           }}
         />
@@ -217,7 +249,11 @@ const ObjectExplorer = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <FieldDetail object={selectedObject} />
+          <FieldDetail 
+            object={selectedObject} 
+            onObjectSelect={handleObjectSelect}
+            availableObjects={objects}
+          />
         )}
       </div>
     </div>

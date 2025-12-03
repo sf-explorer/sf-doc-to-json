@@ -5,7 +5,12 @@
     "properties": {
       "CatalogId": {
         "type": "reference",
-        "description": "The ID of the catalog."
+        "description": "The ID of the catalog.",
+        "format": "salesforce-id",
+        "x-object": "ProductCatalog",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -13,38 +18,278 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the category."
+        "description": "The description of the category.",
+        "maxLength": 255,
+        "nullable": true
       },
       "IsNavigational": {
         "type": "boolean",
-        "description": "The default value is false."
+        "description": "The default value is false.",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the category."
+        "description": "Name of the category.",
+        "maxLength": 200,
+        "nullable": false
       },
       "NumberOfProducts": {
         "type": "int",
-        "description": "The number of products in a category."
+        "description": "The number of products in a category.",
+        "nullable": true,
+        "readOnly": true
       },
       "ParentCategoryId": {
         "type": "reference",
-        "description": "The ID of the product’s parent category."
+        "description": "The ID of the product’s parent category.",
+        "format": "salesforce-id",
+        "x-object": "ProductCategory",
+        "maxLength": 18,
+        "nullable": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "Order that the category is displayed in."
+        "description": "Order that the category is displayed in.",
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Category ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productcategory.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productcategory.htm",
+    "keyPrefix": "0ZG",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyPartnerProduct",
+        "field": "PartnerCategoryDerivedFieldId",
+        "relationshipName": "LoyaltyPartnerProductCategory",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyPartnerProduct",
+        "field": "ProductId",
+        "relationshipName": "LoyaltyPartnerProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductCategory",
+        "field": "ParentCategoryId",
+        "relationshipName": "ChildCategories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductCategoryDataTranslation",
+        "field": "ParentId",
+        "relationshipName": "DataTranslations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductCategoryFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductCategoryHistory",
+        "field": "ProductCategoryId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductCategoryMedia",
+        "field": "ProductCategoryId",
+        "relationshipName": "ProductCategoryMedias",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductCategoryProduct",
+        "field": "ProductCategoryId",
+        "relationshipName": "ProductCategoryProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "ProductCategoryId",
+        "relationshipName": "ProductCategories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "ProductCategoryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

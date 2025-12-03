@@ -5,31 +5,52 @@
     "properties": {
       "AlternatePublicKey": {
         "type": "textarea",
-        "description": "Read-only. Alternate public keys are used by Salesforce to auto-rotate domain keys. This field is available in API version 44.0 and later after activating the Critical Update."
+        "description": "Read-only. Alternate public keys are used by Salesforce to auto-rotate domain keys. This field is available in API version 44.0 and later after activating the Critical Update.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "AlternateSelector": {
         "type": "string",
-        "description": "The text used to distinguish the DKIM key from any other DKIM keys your organization uses for the specified domain. This field is available in API version 44.0 and later after activating the Critical Update."
+        "description": "The text used to distinguish the DKIM key from any other DKIM keys your organization uses for the specified domain. This field is available in API version 44.0 and later after activating the Critical Update.",
+        "maxLength": 63,
+        "nullable": true
       },
       "AlternateTxtRecordName": {
         "type": "string",
-        "description": "The alternate TXT record name is used to create the CNAME record. Refer to the Usage section for more information. This field is available in API version 44.0 and later after activating the Critical Update."
+        "description": "The alternate TXT record name is used to create the CNAME record. Refer to the Usage section for more information. This field is available in API version 44.0 and later after activating the Critical Update.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Domain": {
         "type": "string",
-        "description": "The organization’s domain name that the DKIM key is generated for."
+        "description": "The organization’s domain name that the DKIM key is generated for.",
+        "maxLength": 255,
+        "nullable": false
       },
       "DomainMatch": {
         "type": "picklist",
-        "description": "The specificity of match required on the sending domain name before signing with this DKIM key. Valid values are: DomainOnly—Sign if sending domain matches at the domain level only (example.com but not mail.example.com) SubdomainsOnly—Sign if sending domain matches at the subdomain level only (mail.example.com but not example.com) DomainAndSubdomains—Sign if sending domain matches at the domain and subdomain levels (example.com and mail.example.com)"
+        "description": "The specificity of match required on the sending domain name before signing with this DKIM key. Valid values are: DomainOnly—Sign if sending domain matches at the domain level only (example.com but not mail.example.com) SubdomainsOnly—Sign if sending domain matches at the subdomain level only (mail.example.com but not example.com) DomainAndSubdomains—Sign if sending domain matches at the domain and subdomain levels (example.com and mail.example.com)",
+        "format": "enum",
+        "enum": [
+          "DomainOnly",
+          "SubdomainsOnly",
+          "DomainAndSubdomains"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this DKIM key is active (true) or not (false)."
+        "description": "Indicates whether this DKIM key is active (true) or not (false).",
+        "nullable": false
       },
       "KeySize": {
         "type": "int",
-        "description": "Indicates the RSA key size, in bits. The possible values are: 1024 2048 This field is available in API version 45.0 and later."
+        "description": "Indicates the RSA key size, in bits. The possible values are: 1024 2048 This field is available in API version 45.0 and later.",
+        "nullable": true,
+        "readOnly": true
       },
       "PrivateKey": {
         "type": "textarea",
@@ -37,22 +58,93 @@
       },
       "PublicKey": {
         "type": "textarea",
-        "description": "Part of the domain key pair that mail recipients retrieve to decrypt the DKIM header and verify your domain. Add the PublicKey value to your domain’s DNS records before you start signing with this domain key."
+        "description": "Part of the domain key pair that mail recipients retrieve to decrypt the DKIM header and verify your domain. Add the PublicKey value to your domain’s DNS records before you start signing with this domain key.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "Selector": {
         "type": "string",
-        "description": "Text used to distinguish the DKIM key from any other DKIM keys your organization uses for the specified domain."
+        "description": "Text used to distinguish the DKIM key from any other DKIM keys your organization uses for the specified domain.",
+        "maxLength": 63,
+        "nullable": false
       },
       "TxtRecordName": {
         "type": "string",
-        "description": "Read-only. The TXT record name is used to create the CNAME record. Refer to the Usage section for more information. This field is available in API version 44.0 and later after activating the Critical Update."
+        "description": "Read-only. The TXT record name is used to create the CNAME record. Refer to the Usage section for more information. This field is available in API version 44.0 and later after activating the Critical Update.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TxtRecordsPublishState": {
         "type": "picklist",
-        "description": "The possible values are: Published Publishing in progress Publishing failed This field is available in API version 44.0 and later after activating the Critical Update."
+        "description": "The possible values are: Published Publishing in progress Publishing failed This field is available in API version 44.0 and later after activating the Critical Update.",
+        "format": "enum",
+        "enum": [
+          "Published",
+          "Publishing in progress",
+          "Publishing failed",
+          "Not Applicable"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Email Domain Key ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emaildomainkey.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emaildomainkey.htm",
+    "keyPrefix": "09P",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

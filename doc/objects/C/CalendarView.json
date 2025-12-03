@@ -5,7 +5,9 @@
     "properties": {
       "Color": {
         "type": "string",
-        "description": "Represents the color used in the background for records displayed in a user’s calendar view within the user interface."
+        "description": "Represents the color used in the background for records displayed in a user’s calendar view within the user interface.",
+        "maxLength": 6,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -13,35 +15,63 @@
       },
       "DateHandlingType": {
         "type": "picklist",
-        "description": "Determined by the data type of the StartField. Valid values include:"
+        "description": "Determined by the data type of the StartField. Valid values include:",
+        "format": "enum",
+        "enum": [
+          "Datetime",
+          "Date"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DisplayField": {
         "type": "string",
-        "description": "Represents the SobjectType field used as the subject for records displayed in a user’s calendar view within the user interface."
+        "description": "Represents the SobjectType field used as the subject for records displayed in a user’s calendar view within the user interface.",
+        "maxLength": 255,
+        "nullable": false
       },
       "EndField": {
         "type": "string",
-        "description": "An optional field that represents the sObjectType field used as the end time for records displayed in a user’s calendar view within the user interface. Must be a date or dateTime field that matches the type in StartField."
+        "description": "An optional field that represents the sObjectType field used as the end time for records displayed in a user’s calendar view within the user interface. Must be a date or dateTime field that matches the type in StartField.",
+        "maxLength": 255,
+        "nullable": true
       },
       "FillPattern": {
         "type": "string",
-        "description": "Represents the pattern displayed as the background for records displayed in a user’s calendar view within the user interface. Valid values include: verticalStripes ascDiagonalStripes descDiagonalStripes"
+        "description": "Represents the pattern displayed as the background for records displayed in a user’s calendar view within the user interface. Valid values include: verticalStripes ascDiagonalStripes descDiagonalStripes",
+        "maxLength": 50,
+        "nullable": true
       },
       "IsDisplayed": {
         "type": "boolean",
-        "description": "Defines whether users can see a calendar’s records in their calendar view in the user interface. When true, records are visible in the user’s calendar view. When false, records are hidden from the user’s calendar view. The default is true. IsDisplayed can be true for up to 50 calendars."
+        "description": "Defines whether users can see a calendar’s records in their calendar view in the user interface. When true, records are visible in the user’s calendar view. When false, records are hidden from the user’s calendar view. The default is true. IsDisplayed can be true for up to 50 calendars.",
+        "nullable": false
       },
       "ListViewFilterId": {
         "type": "reference",
-        "description": "References the ListView used to filter records represented by the CalendarView. ListView must have the same sObjectType. If no ListViewFilterId is defined, the calendar displays only records with the same owner as the CalendarView."
+        "description": "References the ListView used to filter records represented by the CalendarView. ListView must have the same sObjectType. If no ListViewFilterId is defined, the calendar displays only records with the same owner as the CalendarView.",
+        "format": "salesforce-id",
+        "x-object": "ListView",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "A user-provided name that identifies the calendar. This isn’t an enumerated field; it can be any string to a maximum length of 80 characters."
+        "description": "A user-provided name that identifies the calendar. This isn’t an enumerated field; it can be any string to a maximum length of 80 characters.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Represents the owner of the CalendarView."
+        "description": "Represents the owner of the CalendarView.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "PublisherId": {
         "type": "reference",
@@ -49,14 +79,128 @@
       },
       "SobjectType": {
         "type": "picklist",
-        "description": "The type of standard or custom Salesforce object that is used to create records for the CalendarView. Use the API name of the desired SobjectType."
+        "description": "The type of standard or custom Salesforce object that is used to create records for the CalendarView. Use the API name of the desired SobjectType.",
+        "format": "enum",
+        "enum": [
+          "Account",
+          "Asset",
+          "Campaign",
+          "Case",
+          "Contact",
+          "Contract",
+          "EmailMessage",
+          "Endorsement",
+          "Event",
+          "FlowRecord",
+          "Holiday",
+          "Idea",
+          "Lead",
+          "Opportunity",
+          "Order",
+          "Partner",
+          "Pricebook2",
+          "Product2",
+          "Report",
+          "Skill",
+          "SkillUser",
+          "SocialPersona",
+          "SocialPost",
+          "Solution",
+          "Task",
+          "Topic",
+          "User",
+          "UserProvisioningRequest",
+          "Visit",
+          "WorkBadge",
+          "WorkOrder",
+          "WorkThanks"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "StartField": {
         "type": "string",
-        "description": "Represents the SobjectType field used as the start time for records displayed in a user’s calendar view within the user interface. Must be a date or dateTime field type."
+        "description": "Represents the SobjectType field used as the start time for records displayed in a user’s calendar view within the user interface. Must be a date or dateTime field type.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Calendar ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_calendarview.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_calendarview.htm",
+    "keyPrefix": "03A",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CalendarViewShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

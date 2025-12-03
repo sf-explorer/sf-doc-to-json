@@ -2,8 +2,214 @@
   "ConnectedApplication": {
     "name": "ConnectedApplication",
     "description": "For internal use only.",
-    "properties": {},
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Connected App ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Name": {
+        "type": "string",
+        "description": "Connected App Name",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OptionsAllowAdminApprovedUsersOnly": {
+        "type": "boolean",
+        "description": "AllowAdminApprovedUsersOnly",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OptionsRefreshTokenValidityMetric": {
+        "type": "boolean",
+        "description": "RefreshTokenValidityMetric",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OptionsHasSessionLevelPolicy": {
+        "type": "boolean",
+        "description": "HasSessionLevelPolicy",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OptionsIsInternal": {
+        "type": "boolean",
+        "description": "isInternal",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OptionsFullContentPushNotifications": {
+        "type": "boolean",
+        "description": "FullContentPushNotifications",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MobileSessionTimeout": {
+        "type": "string",
+        "description": "Lock App After",
+        "format": "enum",
+        "enum": [
+          "1",
+          "5",
+          "10",
+          "30",
+          "60",
+          "120",
+          "180",
+          "240"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
+      },
+      "PinLength": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
+      },
+      "StartUrl": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2400,
+        "nullable": true,
+        "readOnly": true
+      },
+      "MobileStartUrl": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2400,
+        "nullable": true,
+        "readOnly": true
+      },
+      "RefreshTokenValidityPeriod": {
+        "type": "integer",
+        "description": "Refresh Token Policy:",
+        "nullable": true,
+        "readOnly": true
+      }
+    },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_connectedapplication.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_connectedapplication.htm",
+    "keyPrefix": "0H4",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AssetTokenEvent",
+        "field": "ConnectedAppId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "IdpEventLog",
+        "field": "AppId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InstalledMobileApp",
+        "field": "ConnectedApplicationId",
+        "relationshipName": "InstalledMobileApps",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SPSamlAttributes",
+        "field": "ConnectivityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SetupEntityAccess",
+        "field": "SetupEntityId",
+        "relationshipName": "SetupEntityAccessItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserAppMenuCustomization",
+        "field": "ApplicationId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserProvAccount",
+        "field": "ConnectedAppId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvAccountStaging",
+        "field": "ConnectedAppId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvisioningConfig",
+        "field": "ConnectedAppId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvisioningRequest",
+        "field": "ConnectedAppId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VerificationHistory",
+        "field": "ResourceId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

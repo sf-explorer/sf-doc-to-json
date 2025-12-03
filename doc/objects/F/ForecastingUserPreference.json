@@ -5,43 +5,66 @@
     "properties": {
       "ExternalId": {
         "type": "string",
-        "description": "A unique system-generated numerical identifier for the user."
+        "description": "A unique system-generated numerical identifier for the user.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ForecastingDisplayedTypeId": {
         "type": "reference",
-        "description": "An identifier for the forecasting type that’s displayed."
+        "description": "An identifier for the forecasting type that’s displayed.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingType",
+        "maxLength": 18,
+        "nullable": false
       },
       "ForecastingPeriodDuration": {
         "type": "int",
-        "description": "How long the forecasting period lasts."
+        "description": "How long the forecasting period lasts.",
+        "nullable": true
       },
       "ForecastingPeriodType": {
         "type": "picklist",
-        "description": "The forecasting period’s type. Valid values include: Month, Quarter, Week, or Year"
+        "description": "The forecasting period’s type. Valid values include: Month, Quarter, Week, or Year",
+        "format": "enum",
+        "enum": [
+          "Month",
+          "Quarter",
+          "Week",
+          "Year"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ForecastingStartPeriod": {
         "type": "int",
-        "description": "The date when the forecasting period begins."
+        "description": "The date when the forecasting period begins.",
+        "nullable": true
       },
       "ForecastingViewCurrency": {
         "type": "string",
-        "description": "The currency shown on the forecasts page."
+        "description": "The currency shown on the forecasts page.",
+        "maxLength": 40,
+        "nullable": true
       },
       "IsForecastingHideZeroRows": {
         "type": "boolean",
-        "description": "Whether the forecasts page shows zero-value rows."
+        "description": "Whether the forecasts page shows zero-value rows.",
+        "nullable": false
       },
       "IsForecastingShowQuantity": {
         "type": "boolean",
-        "description": "Whether the forecasts page shows forecast quantity."
+        "description": "Whether the forecasts page shows forecast quantity.",
+        "nullable": false
       },
       "IsHideForecastingGuidedTour": {
         "type": "boolean",
-        "description": "Whether the forecasts page shows the guided tour."
+        "description": "Whether the forecasts page shows the guided tour.",
+        "nullable": false
       },
       "IsHideForecastingQuotaColumn": {
         "type": "boolean",
-        "description": "Whether the forecasts page shows a quota column."
+        "description": "Whether the forecasts page shows a quota column.",
+        "nullable": false
       },
       "IsShowForecastingChangeSignals": {
         "type": "boolean",
@@ -49,10 +72,25 @@
       },
       "IsShowForecastingQuotaAttainment": {
         "type": "boolean",
-        "description": "Whether the forecasts page shows quota attainment information."
+        "description": "Whether the forecasts page shows quota attainment information.",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Forecasting User Preference ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastinguserpreference.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastinguserpreference.htm",
+    "keyPrefix": "0Cl",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

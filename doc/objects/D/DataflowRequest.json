@@ -1,0 +1,187 @@
+{
+  "DataflowRequest": {
+    "name": "DataflowRequest",
+    "description": "Dataflow Requests - DataflowRequest",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Dataflow Request ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "DataflowVersionId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "DataflowVersion",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "RequestTime": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      },
+      "RequestorId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-objects": [
+          "DataflowInstance",
+          "DataflowTrigger",
+          "DataflowVersion",
+          "EdgeMartData",
+          "ExecutionPlan",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true
+      },
+      "RequestorType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "User",
+          "DataflowGroup",
+          "Trigger",
+          "Schedule",
+          "Dataset",
+          "System",
+          "ExecutionPlan"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "InstanceId": {
+        "type": "string",
+        "description": "Dataflow Job ID",
+        "format": "salesforce-id",
+        "x-object": "DataflowInstance",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Status": {
+        "type": "string",
+        "description": "Request Status",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Serviced",
+          "Cancelled",
+          "Preprocessing"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "NotificationEmail": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "NotificationSent": {
+        "type": "string",
+        "description": "Notification Condition",
+        "format": "enum",
+        "enum": [
+          "Always",
+          "Failures",
+          "WarningsFailures",
+          "Never",
+          "Success",
+          "Warnings",
+          "SuccessFailures",
+          "WarningsSuccess"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "DedupKey": {
+        "type": "string",
+        "description": "Unique key",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Message": {
+        "type": "string",
+        "description": "Status Message",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "ExecutionPlanId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "ExecutionPlan",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Metrics": {
+        "type": "string",
+        "maxLength": 32000,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "030",
+    "label": "Dataflow Request",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ExecutionPlanTask",
+        "field": "DataflowRequestId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WaveTrendedReport",
+        "field": "LastDataflowRequestId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
+  }
+}

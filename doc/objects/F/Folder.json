@@ -1,38 +1,225 @@
 {
   "Folder": {
     "name": "Folder",
-    "description": "Represents a repository for a Dashboard, Document, EmailTemplate, Macro, QuickText, or Report. Only one type of item can be contained in a folder.",
+    "description": "Folders - Folder",
     "properties": {
-      "AccessType": {
-        "type": "picklist",
-        "description": "Required. Indicates who can access the Folder. Available values include: Hidden—Folder is hidden from everyone. Public—Folder is accessible by all users. Shared—Folder is accessible only by a User in a particular Group or UserRole. The API doesn’t allow you to view, insert, or update which group or Role the Folder is shared with. Note If analytics folder sharing is turned on for your organization, then this field is present but not used."
-      },
-      "DeveloperName": {
+      "Id": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Folder Unique Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
+        "description": "Folder ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "IsReadonly": {
-        "type": "boolean",
-        "description": "Indicates whether this Folder is read-only (true) or editable (false). Label is Read Only. Note If analytics folder sharing is turned on for your organization, then this field is present but not used."
+      "ParentId": {
+        "type": "string",
+        "description": "Folder ID",
+        "format": "salesforce-id",
+        "x-object": "Folder",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Label of the folder as it appears in the user interface. Label is Document Folder Label."
+        "maxLength": 40,
+        "nullable": false
+      },
+      "DeveloperName": {
+        "type": "string",
+        "description": "Folder Unique Name",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "AccessType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Shared",
+          "Public",
+          "Hidden",
+          "PublicInternal"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "IsReadonly": {
+        "type": "boolean",
+        "description": "Read Only",
+        "nullable": false
+      },
+      "Type": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Document",
+          "Email",
+          "Report",
+          "Dashboard",
+          "QuickText",
+          "Macro",
+          "EmailTemplate",
+          "ActionCadence",
+          "Capstone",
+          "AnalyticAssetCollection"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
-      "ParentId": {
-        "type": "reference",
-        "description": "ID of the parent object, if any."
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "Type": {
-        "type": "picklist",
-        "description": "Required. Type of objects contained in the Folder. This field can’t be updated. Available values include: Dashboard Document Email (for Salesforce Classic email templates) EmailTemplate (for Lightning email templates) Macro QuickText Report"
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_folder.htm"
+    "module": "N/A",
+    "keyPrefix": "00l",
+    "label": "Folder",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AnalysisConfiguration",
+        "field": "FolderId",
+        "relationshipName": "AnalysisConfigurations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AnalysisSetup",
+        "field": "FolderId",
+        "relationshipName": "AnalysisSetups",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Dashboard",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataPrepRecipe",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Dataflow",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Document",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EdgeMart",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailTemplate",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailTemplateChangeEvent",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Folder",
+        "field": "ParentId",
+        "relationshipName": "SubFolders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InsightsApplication",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Lens",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Report",
+        "field": "OwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveAutoInstallRequest",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveDataConnector",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveTemplate",
+        "field": "ApplicationOriginId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveTemplateValues",
+        "field": "FolderId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

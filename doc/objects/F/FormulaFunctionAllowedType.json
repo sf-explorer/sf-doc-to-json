@@ -5,18 +5,49 @@
     "properties": {
       "DurableId": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "FunctionId": {
         "type": "string",
-        "description": "Unique identifier for the supported function."
+        "description": "Unique identifier for the supported function.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The name of the formula type in which the function is supported."
+        "description": "The name of the formula type in which the function is supported.",
+        "format": "enum",
+        "enum": [
+          "VALIDATION",
+          "VISUALFORCE",
+          "FLOW",
+          "CONVERSATION_MESSAGE",
+          "LOYALTYFORMULA"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Formula Function Allowed Type ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_formulafunctionallowedtype.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_formulafunctionallowedtype.htm",
+    "keyPrefix": "0fE",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -1,262 +1,1971 @@
 {
   "Network": {
     "name": "Network",
-    "description": "Represents an Experience Cloud site. Salesforce Experience Cloud lets you create branded spaces for your employees, customers, and partners. You can customize and create experiences, whether they’re communities, sites, or portals, to meet your business needs, then transition seamlessly between them. Experience Cloud sites let you share information, records, and files with coworkers and stakeholders all in one place.",
+    "description": "Networks - Network",
     "properties": {
-      "AllowedExtensions": {
-        "type": "textarea",
-        "description": "Specifies the types of files allowed in your site. This list of file types lets you control what members upload and also prevents spammers from polluting your site with inappropriate files. Available in API version 36.0 and later.Separate file types with a comma (for example: jpg,docx,txt). You can enter lowercase and uppercase letters. You can enter up to 1,000 characters. To allow all file types, leave this field empty."
-      },
-      "CaseCommentEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when submitting a comment on a case. This field is available in API version 28.0 and later."
-      },
-      "ChangePasswordEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when notifying users that their password has been reset."
-      },
-      "ChgEmailVerNewEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when notifying users that their email address has been changed. This email is sent to the user’s new email address."
-      },
-      "ChgEmailVerOldEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when notifying users that their email address has been changed. This email is sent to the user’s old email address."
-      },
-      "Description": {
+      "Id": {
         "type": "string",
-        "description": "Description of the site."
+        "description": "Network ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "DeviceActEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when users log in from an unrecognized browser, app, or IP address. The email contains a one-time password that users enter to verify their identity.This field is available in API version 53.0 and later."
-      },
-      "EmailFooterLogoId": {
-        "type": "reference",
-        "description": "ID of the Document object that displays as an image in the footer of Chatter emails."
-      },
-      "EmailFooterText": {
+      "SystemModstamp": {
         "type": "string",
-        "description": "Text that displays in the footer of Chatter emails."
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "EmailSenderAddress": {
-        "type": "email",
-        "description": "Read only. Email address from which emails are sent. Note To change the EmailSenderAddress value, you must first specify NewSenderAddress, which triggers the sending of an address change verification email. After you complete the address verification process, EmailSenderAddress changes to the specified NewSenderAddress."
-      },
-      "EmailSenderName": {
+      "CreatedDate": {
         "type": "string",
-        "description": "Name from which emails are sent."
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "enableImageOptimizationCDN": {
-        "type": "boolean",
-        "description": "The setting that optimizes cached images for guest users on all devices when a site uses Salesforce’s CDN for Digital Experiences.This field is available in API version 56.0 and later."
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "FirstActivationDate": {
-        "type": "date",
-        "description": "The date the site was first activated.This field is available in API version 34.0 and later. If the site was activated or inactive before the release of API version 34.0, this field returns the date that the site was first created."
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "ForgotPasswordEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when users forget their password."
-      },
-      "HeadlessForgotPasswordTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template to use with the Headless Forgot Password Flow.This field is available in API version 57.0 and later."
-      },
-      "HeadlessRegistrationTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template to use for identity verification during the Headless Registration Flow.This field is available in API version 59.0 and later."
-      },
-      "LockoutEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when users try to reset their password after locking themselves out because of too many login attempts. This field is available in API version 43.0 and later."
-      },
-      "MaxFileSizeKb": {
-        "type": "int",
-        "description": "Specifies the maximum file size (in KBs) that members can upload in your site. Available in API version 36.0 and later.Enter a number between 3072 KB and your org’s maximum file size. To use the default limit of 2 GB, leave this field empty."
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the site."
+        "maxLength": 40,
+        "nullable": false
       },
-      "NewSenderAddress": {
-        "type": "email",
-        "description": "Email address that has been entered as the new value for EmailSenderAddress but hasn’t been verified yet. After a user has requested to change the sender email address and has successfully responded to the verification email, the NewSenderAddress value overwrites the value in EmailSenderAddress. This value becomes the email address from which emails are sent. Note If verification is pending for a new email address and you set NewSenderAddress to null, the verification request is canceled. NewSenderAddress is automatically set to null after EmailSenderAddress has been set to the new verified address. If verification is pending for a new email address, and you specify a different new address for this field, only the latest value is retained and used for verification."
+      "Description": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
       },
-      "OptionsActionOverrideEnabled": {
-        "type": "boolean",
-        "description": "Override the action that occurs when users click a default button, like New or Edit, with a Lightning component. For example, show a custom window instead of the one that Salesforce provides. Assign action overrides in the Object Manager. In the UI, this setting is available in the Administration Workspace, under Administration | Preferences under Experience Management This field is available in API version 49.0 and later."
-      },
-      "OptionsAllowInternalUserLogin": {
-        "type": "boolean",
-        "description": "Specifies whether internal users can log in with their internal credentials on the site login page. This field is available in API version 37.0 and later."
-      },
-      "OptionsAllowMembersToFlag": {
-        "type": "boolean",
-        "description": "Determines whether users can flag posts, comments, or files as inappropriate.This field is available in API version 29.0 and later. The ability to flag files is available in version 30.0 and later."
-      },
-      "OptionsApexCDNCachingEnabled": {
-        "type": "boolean",
-        "description": "Determines whether public data from @wire calls to Apex methods is cached only for guest users. This setting applies only to sites using Salesforce's CDN for Digital Experiences.This field is available in API version 55.0 and later."
-      },
-      "OptionsDirectMessagesEnabled": {
-        "type": "boolean",
-        "description": "Controls the availability of direct messages in an Experience Builder site.This field is available in API version 39.0 and later."
-      },
-      "OptionsEmbeddedLoginEnabled": {
-        "type": "boolean",
-        "description": "Determines whether the Embedded Login feature is enabled in a site. When true, Embedded Login is turned on.This field is available in API version 61.0 and later."
-      },
-      "OptionsEnableTalkingAboutStats": {
-        "type": "boolean",
-        "description": "Determines whether site users see how many people are discussing a topic. The number of people discussing the topic appears as the user types the topic and the system gives topic suggestions.This field is available in API version 41.0 and later."
-      },
-      "OptionsEnableTopicAssignmentRules": {
-        "type": "boolean",
-        "description": "When true, displays knowledgeable people in key areas, for example, on Topic Detail pages."
-      },
-      "OptionsExpFriendlyUrlsAsDefault": {
-        "type": "boolean",
-        "description": "When true, URL slugs are on by default for Product and Category pages of LWR Commerce stores (available in API version 58.0 and later) Custom object pages on enhanced LWR sites (available in API version 60.0 and later) Account and contact pages on enhanced LWR sites (available in API version 61.0 and later)"
-      },
-      "OptionsExperienceBundleBasedSnaOverrideEnabled": {
-        "type": "boolean",
-        "description": "When true, the Service Not Available Page is an auto-generated Experience Builder-based page. When false, the Service Not Available page uses a static resource page that is set in Workspaces | Administration | Pages. The default value is true. Available in API version 52.0 and later."
-      },
-      "OptionsGatherCustomerSentimentData": {
-        "type": "boolean",
-        "description": "When true, collects data about user likes, upvotes, and downvotes."
-      },
-      "OptionsGuestChatterEnabled": {
-        "type": "boolean",
-        "description": "Specifies whether guest users can access public Chatter groups in the site without logging in."
-      },
-      "OptionsGuestFileAccessEnabled": {
-        "type": "boolean",
-        "description": "When true, lets guest users view asset files and CMS content that’s available to the site. Guest users can access shared asset files and published CMS content that’s made for external use, even if it isn’t used. Shared asset files include images that are associated with topics, recognition badges, branding, and account branding. This preference is automatically enabled if public access is enabled at the page or site level in Experience Builder."
-      },
-      "OptionsGuestMemberVisibility": {
-        "type": "boolean",
-        "description": "When true, lets guest users see who else is part of the site, including non-guest users. In the UI, this setting appears in the Administration Workspace under Administration | Preferences .Available in API version 47.0 and later."
-      },
-      "OptionsHeadlessFrgtPswEnabled": {
-        "type": "boolean",
-        "description": "When true, Headless Forgot Password Flow is enabled.This field is available in API version 57.0 and later."
-      },
-      "OptionsImageOptimizationCDNEnabled": {
-        "type": "boolean",
-        "description": "When true, cached images are optimized to suit any device that guest users use to access your site. This feature is available only for sites that use Salesforce’s CDN for Digital Experiences. In the UI, this setting appears in the Administration Workspace under Administration | Preferences.Available in API version 56.0 and later."
+      "Status": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "UnderConstruction",
+          "Live",
+          "DownForMaintenance"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "OptionsInvitationsEnabled": {
         "type": "boolean",
-        "description": "Determines whether users can invite others to the site."
-      },
-      "OptionsKnowledgeableEnabled": {
-        "type": "boolean",
-        "description": "Determines whether users can see knowledgeable people for topics and endorse people for topics."
-      },
-      "OptionsLWRExperienceConnectedAppEnabled": {
-        "type": "boolean",
-        "description": "When true, enhances the performance and scalability of Connect API calls made from Lightning web components in an enhanced LWR site. This field is available in API version 58.0 and later."
-      },
-      "OptionsMemberVisibility": {
-        "type": "boolean",
-        "description": "Controls user visibility on a per-site basis. If true, the See other members of this site preference is enabled for the selected site. This field is available in API version 45.0 and later."
-      },
-      "OptionsMobileImageOptimizationEnabled": {
-        "type": "boolean",
-        "description": "If true, file asset images are optimized for mobile display. This field is available in API version 45.0 and later."
-      },
-      "OptionsNetworkSentimentAnalysis": {
-        "type": "boolean",
-        "description": "If true, enables sentiment analysis in a site. In the UI, this setting is available in the Administration Workspace, under Administration | Preferences. This field is available in API version 40.0 and later."
-      },
-      "OptionsNicknameDisplayEnabled": {
-        "type": "boolean",
-        "description": "Determines whether user nicknames display instead of their first and last names in most places in the site.A few restrictions to keep in mind about nickname display: Records and user lookups on records show full names. Keep in mind, though, that you can control record and user visibility with sharing rules. Mobile notifications in the Salesforce mobile app show full names. You can turn off mobile notifications in the app to avoid this display. Searches by first, last, and full names aren’t restricted and return matches, but the search results display only nicknames. Global search auto-complete recommendations show any first, last, and full names that the user has searched by or accessed via a record or another location. The recent items list also shows first, last, and full under the same conditions."
-      },
-      "OptionsPrivateMessagesEnabled": {
-        "type": "boolean",
-        "description": "Determines whether users can send and receive Chatter messages in the site."
-      },
-      "OptionsProfileBasedLayoutsForKnowledgeSearchEnabled": {
-        "type": "boolean",
-        "description": "When true, provides a grid layout for Knowledge search results. With grid layout in place, you can edit search profile layouts on the Knowledge object to show and hide different search result fields for different profiles. When you enable the standard grid layout, search-term highlighting isn’t available. This field is available in API version 51.0 and later."
-      },
-      "OptionsRecognitionBadgingEnabled": {
-        "type": "boolean",
-        "description": "Determines whether Recognition Badges is enabled for the site."
-      },
-      "OptionsReputationEnabled": {
-        "type": "boolean",
-        "description": "Determines if reputation is calculated and displayed for members. This field is available in API version 31.0 and later."
-      },
-      "OptionsReputationRecordConversationsDisabled": {
-        "type": "boolean",
-        "description": "Disables the feed on reputation records."
-      },
-      "OptionsSelfRegistrationEnabled": {
-        "type": "boolean",
-        "description": "Determines whether customers and partners can self-register to join the site. Customers and partners are users with External Identity, Community, Customer Portal, or partner portal licenses. If true, displays a Not a member? link on the login page that points to the default self-registration page. This field is available in API version 28.0 and later."
+        "description": "Invitations Enabled",
+        "nullable": false
       },
       "OptionsSendWelcomeEmail": {
         "type": "boolean",
-        "description": "Determines whether a welcome email is sent when a new user is added to the site."
+        "description": "Send Welcome Email",
+        "nullable": false
       },
-      "OptionsShowAllNetworkSettings": {
+      "OptionsSelfRegistrationEnabled": {
         "type": "boolean",
-        "description": "Determines whether settings in Experience Management that were hidden based on how you set up your site are visible or remain hidden.This field is available in API version 33.0 and later."
+        "description": "Self Registration Enabled",
+        "nullable": false
+      },
+      "OptionsAllowMembersToFlag": {
+        "type": "boolean",
+        "description": "Allow Members To Flag",
+        "nullable": false
       },
       "OptionsSiteAsContainerEnabled": {
         "type": "boolean",
-        "description": "Determines whether the site is an Experience Builder site (true) or a Salesforce Tabs + Visualforce site (false).This field is available in API version 29.0 and later."
+        "description": "Site.com as Experience Container Enabled",
+        "nullable": false
       },
-      "OptionsThreadedDiscussionsEnabled": {
+      "OptionsPrivateMessagesEnabled": {
         "type": "boolean",
-        "description": "Indicates whether threaded discussions are enabled for the site. Available in API version 44.0 and later."
+        "description": "Private Messages Enabled",
+        "nullable": false
       },
-      "OptionsTopicFilteringForKnowledgeSearchEnabled": {
+      "OptionsKnowledgeableEnabled": {
         "type": "boolean",
-        "description": "Determines whether topic filtering is enabled for Knowledge search.This field is available in API version 55.0 and later."
+        "description": "Knowledgeable Enabled",
+        "nullable": false
+      },
+      "OptionsReputationEnabled": {
+        "type": "boolean",
+        "description": "Reputation Enabled",
+        "nullable": false
+      },
+      "OptionsEinsteinAnswersSnippetEnabled": {
+        "type": "boolean",
+        "description": "EinsteinAnswersSnippetEnabled",
+        "nullable": false
+      },
+      "OptionsGuestChatterEnabled": {
+        "type": "boolean",
+        "description": "Guest Chatter Enabled",
+        "nullable": false
+      },
+      "OptionsNicknameDisplayEnabled": {
+        "type": "boolean",
+        "description": "NicknameDisplayEnabled",
+        "nullable": false
+      },
+      "OptionsShowAllNetworkSettings": {
+        "type": "boolean",
+        "description": "ShowAllNetworkSettings",
+        "nullable": false
+      },
+      "OptionsAllowInternalUserLogin": {
+        "type": "boolean",
+        "description": "Allow Employee Login",
+        "nullable": false
+      },
+      "OptionsDirectMessagesEnabled": {
+        "type": "boolean",
+        "description": "Direct Messages Enabled",
+        "nullable": false
+      },
+      "OptionsReputationRecordConversationsDisabled": {
+        "type": "boolean",
+        "description": "ReputationRecordConversationsDisabled",
+        "nullable": false
+      },
+      "OptionsGuestFileAccessEnabled": {
+        "type": "boolean",
+        "description": "Guest File Access Enabled",
+        "nullable": false
+      },
+      "OptionsGatherCustomerSentimentData": {
+        "type": "boolean",
+        "description": "Gather Customer Insights Data",
+        "nullable": false
+      },
+      "OptionsNetworkSentimentAnalysis": {
+        "type": "boolean",
+        "description": "Sentiment Analysis on Feed Posts and Comments",
+        "nullable": false
+      },
+      "OptionsEnableTopicAssignmentRules": {
+        "type": "boolean",
+        "description": "EnableTopicAssignmentRules",
+        "nullable": false
+      },
+      "OptionsEinsteinAnswersEnabled": {
+        "type": "boolean",
+        "description": "EinsteinAnswersEnabled",
+        "nullable": false
+      },
+      "OptionsCWBannerState": {
+        "type": "boolean",
+        "description": "CWBannerState",
+        "nullable": false
       },
       "OptionsTopicSuggestionsEnabled": {
         "type": "boolean",
-        "description": "Enables topic suggestions when users write posts.This field is available in API version 41.0 and later."
+        "description": "TopicSuggestionsEnabled",
+        "nullable": false
+      },
+      "OptionsEnableTalkingAboutStats": {
+        "type": "boolean",
+        "description": "EnableTalkingAboutStats",
+        "nullable": false
       },
       "OptionsUpDownVoteEnabled": {
         "type": "boolean",
-        "description": "Determines whether up and down voting is enabled for the site.This field is available in API version 41.0 and later."
+        "description": "UpDownVoteEnabled",
+        "nullable": false
       },
-      "PwdlessRegEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template for the welcome email that users receive when they sign up with passwordless registration. This field is available in API version 61.0 and later."
+      "OptionsDisableWorkspaceInfo": {
+        "type": "boolean",
+        "description": "DisableWorkspaceInfo",
+        "nullable": false
       },
-      "SelfRegMicroBatchSubErrorEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the profile assigned to users who self-register using micro-batchng. Only applies if self-registration using micro-batching is enabled for the site. This field is available in API version 54.0 and later."
+      "OptionsEinsteinAnswersQAEnabled": {
+        "type": "boolean",
+        "description": "EinsteinAnswersQAEnabled",
+        "nullable": false
       },
-      "SelfRegProfileId": {
-        "type": "reference",
-        "description": "ID of the profile assigned to users who self-register. Only applies if self-registration is enabled for the site.This field is available in API version 29.0 and later."
+      "OptionsEinsteinAnswersKAEnabled": {
+        "type": "boolean",
+        "description": "EinsteinAnswersKAEnabled",
+        "nullable": false
       },
-      "Status": {
-        "type": "picklist",
-        "description": "Status of the site. Available values are: Live—The site is online and members can access it. Label is Published. DownForMaintenance—The site was previously published, but was taken offline. Members with the Create and Set Up Experiences permission can still access the setup for offline sites regardless of profile or membership. Members aren’t able to access offline sites, but they still appear in the user interface dropdown menu as SiteName (Offline). Label is Offline. UnderConstruction—The site hasn’t yet been published. When a user’s profile is associated with the site, and they’ve Create and Set Up Experiences permission, they can access sites in this status.After a site is published, it can never be in this status again. Label is Preview."
+      "OptionsRecognitionBadgingEnabled": {
+        "type": "boolean",
+        "description": "​Recognition badging for Lightning Experiences",
+        "nullable": false
+      },
+      "OptionsThreadedDiscussionsEnabled": {
+        "type": "boolean",
+        "description": "ThreadedDiscussionsEnabled",
+        "nullable": false
+      },
+      "OptionsMemberVisibility": {
+        "type": "boolean",
+        "description": "MemberVisibility",
+        "nullable": false
+      },
+      "OptionsMobileImageOptimizationEnabled": {
+        "type": "boolean",
+        "description": "MobileImageOptimizationEnabled",
+        "nullable": false
+      },
+      "OptionsGuestMemberVisibility": {
+        "type": "boolean",
+        "description": "GuestMemberVisibility",
+        "nullable": false
+      },
+      "OptionsActionOverrideEnabled": {
+        "type": "boolean",
+        "description": "ActionOverrideEnabled",
+        "nullable": false
+      },
+      "WelcomeEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "ChangePasswordEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "ForgotPasswordEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "LockoutEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "VerificationEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ChgEmailVerOldEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ChgEmailVerNewEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "EmailSenderName": {
+        "type": "string",
+        "description": "From Email Name",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "EmailSenderAddress": {
+        "type": "string",
+        "description": "From Email Address",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
+      },
+      "NewSenderAddress": {
+        "type": "string",
+        "description": "Unverified Sender Email Address",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "EmailFooterLogoId": {
+        "type": "string",
+        "description": "Document ID",
+        "format": "salesforce-id",
+        "x-object": "Document",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "EmailFooterText": {
+        "type": "string",
+        "maxLength": 1000,
+        "nullable": true
       },
       "UrlPathPrefix": {
         "type": "string",
-        "description": "The UrlPathPrefix is a unique string at the end of the URL for the site. For example, in the site URL MyDomainName.my.site.com/customers, customers is the UrlPathPrefix."
+        "description": "Experience URL Prefix",
+        "maxLength": 40,
+        "nullable": true
       },
-      "VerificationEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when users must verify their identity, for example, when they log in without a password. This field is available in API version 44.0 and later."
+      "CaseCommentEmailTemplateId": {
+        "type": "string",
+        "description": "Email Template ID",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": true
       },
-      "WelcomeEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when sending welcome emails to new members."
+      "SelfRegProfileId": {
+        "type": "string",
+        "description": "Profile ID",
+        "format": "salesforce-id",
+        "x-object": "Profile",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "FirstActivationDate": {
+        "type": "string",
+        "description": "First Date Active",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
+      },
+      "MaxFileSizeKb": {
+        "type": "integer",
+        "nullable": true
+      },
+      "AllowedExtensions": {
+        "type": "string",
+        "maxLength": 1000,
+        "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_network.htm"
+    "module": "N/A",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "keyPrefix": "0DB",
+    "label": "Network",
+    "createable": false,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AccountFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountRelationshipFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentIndicatorDefinitionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskContentDocumentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskDefinitionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskIndDefinitionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetDowntimePeriodFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetRelationshipFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetWarrantyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssignedResourceFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Audience",
+        "field": "ContainerId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BatchJobFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "BatchJobPartFailedRecordFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "BatchJobPartFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "BuyerAccountFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "BuyerGroupFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "BuyerGroupPricebookFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CandidateAnswer",
+        "field": "NetworkId",
+        "relationshipName": "NetworkAnswer",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareObservationFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CarePgmProvHealthcareProviderFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramCampaignFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramEligibilityRuleFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramEnrolleeFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramEnrolleeProductFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramEnrollmentCardFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramGoalFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramProductFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramProviderFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramTeamMemberFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProviderFacilitySpecialtyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareRegisteredDeviceFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareSpecialtyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ChannelProgramFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ChannelProgramLevelFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ChannelProgramMemberFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ChatterActivity",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ChatterExtensionConfig",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ChatterMessage",
+        "field": "SendingNetworkId",
+        "relationshipName": "ChatterMessages",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Chatter_Story__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CodeSetFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CollaborationGroup",
+        "field": "NetworkId",
+        "relationshipName": "NetworkCollaborationGroups",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CollaborationGroupFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CollaborationGroupMember",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CollaborationGroupRecord",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommSubscriptionChannelTypeFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionTimingFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommerceEntitlementPolicyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Community",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ConsumptionScheduleFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDocumentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoInvApplicationFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoLineFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CustomBrand",
+        "field": "ParentId",
+        "relationshipName": "CustomBrands",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DashboardComponentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DashboardFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DelegatedAccountFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EinsteinAnswerFeedback",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EinsteinAnswerFeedbackChangeEvent",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailContentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EngagementChannelTypeFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EnhancedLetterheadFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EnrollmentEligibilityCriteriaFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitlementFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntityMilestoneFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "NetworkId",
+        "relationshipName": "NetworkEntitySubscriptions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ExpenseFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ExpenseReportEntryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ExpenseReportFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ExternalAccountHierarchyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FAQ__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FSL__Work_Rule_Entry__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedRevision",
+        "field": "OriginNetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Field_Capacity__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderItemAdjustmentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderItemTaxFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLineFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Invoice_Example__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "JobProfileFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Knowledge__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "KnowledgeableUser",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LandingPageFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LeadFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LegalEntityFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LinkedArticleFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LocationFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoginHistory",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyMemberCurrencyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyProgramFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyProgramMemberFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenanceAssetFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlanFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenanceWorkRuleFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingFormFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingLinkFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingSessionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NavigationLinkSet",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "NetworkId",
+        "relationshipName": "NetworkActivityAudits",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkAffinity",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkDiscoverableLogin",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkMember",
+        "field": "NetworkId",
+        "relationshipName": "NetworkMembers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkMemberGroup",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkModeration",
+        "field": "NetworkId",
+        "relationshipName": "NetworkModerations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkPageOverride",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkSelfRegistration",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkUserHistoryRecent",
+        "field": "NetworkId",
+        "relationshipName": "NetworkUserHistoryRecentToNetwork",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OperatingHoursFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OperatingHoursHolidayFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderAdjustmentGroupFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderAdjustmentGroupSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLogFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderDeliveryGroupFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderDeliveryGroupSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderDeliveryMethodFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemAdjustmentLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemAdjustmentLineSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItemSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderPaymentSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderSummaryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OtherComponentTaskFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerFundAllocationFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerFundClaimFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerFundRequestFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerMarketingBudgetFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartyConsentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PersonNameFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PersonalizationTargetInfo",
+        "field": "ContainerId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Product2Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductCatalogFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductCategoryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductConsumedFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductFulfillmentLocationFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductItemTransactionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequiredFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductServiceCampaignFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransferFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductWarrantyTermFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProfileSkillEndorsementFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProfileSkillFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProfileSkillUserFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PromotionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReceivedDocumentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecentlyViewed",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Recommendation",
+        "field": "NetworkId",
+        "relationshipName": "NetworkRecommendations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecommendationChangeEvent",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordsetFilterCriteriaFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReportFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReputationLevel",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReputationPointsRule",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ResourceAbsenceFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ResourcePreferenceFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_ChannelPartner_Certification__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_Service_Appointment__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SFDC_Channel_Account_Plan__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SOSSessionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SalesChannelFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SerializedProductFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SerializedProductTransactionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointmentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceCrewFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceCrewMemberFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResourceCapacityFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResourceFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResourceSkillFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryLocationFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryMemberFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryWorkTypeFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShiftFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShiftPatternFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShipmentFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SignatureTaskFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SignatureTaskLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SiteFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SkillRequirementFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SnippetFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPostFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SolutionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Stamp",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveyInvitation",
+        "field": "CommunityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Territory2ModelFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TimeSheetEntryFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TimeSheetFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Topic",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicUserEvent",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Training_Course__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserAppMenuCustomization",
+        "field": "ApplicationId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserCustomBadge",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VisitFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VisitedPartyFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VisitorFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WarrantyTermFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebStoreNetwork",
+        "field": "NetworkId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WebStorePricebookFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkBadge",
+        "field": "NetworkId",
+        "relationshipName": "NetworkBadges",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkBadgeDefinition",
+        "field": "NetworkId",
+        "relationshipName": "NetworkBadgeDefinitions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkBadgeDefinitionFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkPlanFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkThanks",
+        "field": "NetworkId",
+        "relationshipName": "NetworkThanks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkTypeFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkTypeGroupFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkTypeGroupMemberFeed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "aqi_ltng_mng__Article_Quality__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "inov8__PMT_Phase__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "inov8__PMT_Program__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "inov8__PMT_Project__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "inov8__PMT_Resource_Availability__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "inov8__PMT_Task__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__TPAlignment__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__TPComment__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__TPDataSet__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "mcdm_15__MarketingCloudJourney__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__AssetContact__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__Asset__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__ConsumptionReport__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__Contact__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__Contract__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__EmissionFactorElectricity__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__EmissionFactorOther__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__EmissionFactorScope3__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__EnergyConsumption__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__ExtrapolationLog__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "sustain_app__ServiceProvider__Feed",
+        "field": "NetworkScope",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

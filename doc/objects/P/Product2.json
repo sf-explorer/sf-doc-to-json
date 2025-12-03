@@ -5,418 +5,1475 @@
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "A text description of this record. Label is Product Description."
+        "description": "A text description of this record. Label is Product Description.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "DisplayUrl": {
         "type": "url",
-        "description": "URL leading to a specific version of a record in the linked external data source."
+        "description": "URL leading to a specific version of a record in the linked external data source.",
+        "format": "uri",
+        "maxLength": 1000,
+        "nullable": true
       },
       "ExternalDataSourceId": {
         "type": "reference",
-        "description": "ID of the related external data source."
+        "description": "ID of the related external data source.",
+        "format": "salesforce-id",
+        "x-object": "ExternalDataSource",
+        "maxLength": 18,
+        "nullable": true
       },
       "ExternalId": {
         "type": "string",
-        "description": "The unique identifier of a record in the linked external data source. For example, ID #123."
+        "description": "The unique identifier of a record in the linked external data source. For example, ID #123.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Family": {
         "type": "picklist",
-        "description": "Name of the product family associated with this record."
+        "description": "Name of the product family associated with this record.",
+        "format": "enum",
+        "enum": [
+          "Internet",
+          "Product",
+          "Service",
+          "Services",
+          "Multiplay",
+          "Wireless",
+          "TV",
+          "Streaming",
+          "Home Security",
+          "Software",
+          "Mobile",
+          "Landline",
+          "Support",
+          "Accessories",
+          "Device",
+          "Networking"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this record is active (true) or not (false). Inactive Product2 records are hidden in many areas in the user interface. You can change the IsActive flag on a Product2 object as often as necessary. Label is Active."
+        "description": "Indicates whether this record is active (true) or not (false). Inactive Product2 records are hidden in many areas in the user interface. You can change the IsActive flag on a Product2 object as often as necessary. Label is Active.",
+        "nullable": false
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicates whether the product is archived."
+        "description": "Indicates whether the product is archived.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this object."
+        "description": "The timestamp for when the current user last viewed a record related to this object.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this object."
+        "description": "The timestamp for when the current user last viewed this object.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Required. Default name of this record. Label is Product Name."
+        "description": "Required. Default name of this record. Label is Product Name.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ProductCode": {
         "type": "string",
-        "description": "Default product code for this record. Your org defines the product code naming pattern."
+        "description": "Default product code for this record. Your org defines the product code naming pattern.",
+        "maxLength": 255,
+        "nullable": true
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value (Each) so consider creating your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values."
+        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value (Each) so consider creating your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values.",
+        "format": "enum",
+        "enum": [
+          "Each"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "Indicates the record type of the record."
+        "description": "Indicates the record type of the record.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "StockKeepingUnit": {
         "type": "string",
-        "description": "The SKU for the product. Use in tandem with or instead of the ProductCode field. For example, you can track the manufacturer’s identifying code in the Product Code field and assign the product a SKU when you resell it."
+        "description": "The SKU for the product. Use in tandem with or instead of the ProductCode field. For example, you can track the manufacturer’s identifying code in the Product Code field and assign the product a SKU when you resell it.",
+        "maxLength": 180,
+        "nullable": true
       },
-      "cgcloud__Asset_Template__c": {
-        "type": "reference",
-        "description": "References to asset template."
-      },
-      "cgcloud__Bill_Of_Material_Header_Code__c": {
+      "Id": {
         "type": "string",
-        "description": "Holds the Header code of the product, if it is a BOM component. For standard products the field will be empty."
+        "description": "Product ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "cgcloud__Category__c": {
-        "type": "picklist",
-        "description": "Indicates the product category that this product record is referring to."
+      "QuantityScheduleType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Divide",
+          "Repeat"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
-      "cgcloud__Competitive_Product__c": {
+      "QuantityInstallmentPeriod": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Daily",
+          "Weekly",
+          "Monthly",
+          "Quarterly",
+          "Yearly"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "NumberOfQuantityInstallments": {
+        "type": "integer",
+        "nullable": true
+      },
+      "RevenueScheduleType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Divide",
+          "Repeat"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "RevenueInstallmentPeriod": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Daily",
+          "Weekly",
+          "Monthly",
+          "Quarterly",
+          "Yearly"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "NumberOfRevenueInstallments": {
+        "type": "integer",
+        "nullable": true
+      },
+      "CanUseQuantitySchedule": {
         "type": "boolean",
-        "description": "Marks a product as a competitor's product."
+        "description": "Quantity Scheduling Enabled",
+        "nullable": false
       },
-      "cgcloud__Consumer_Goods_External_Product_Id__c": {
-        "type": "string",
-        "description": "Holds the unique external id."
-      },
-      "cgcloud__Consumer_Goods_Product_Code__c": {
-        "type": "string",
-        "description": "Stores the unique identification of a product."
-      },
-      "cgcloud__Container_Size_Unit__c": {
-        "type": "picklist",
-        "description": "Describes the unit of a container size."
-      },
-      "cgcloud__Container_Size__c": {
-        "type": "double",
-        "description": "Describes the numeric value for container size."
-      },
-      "cgcloud__Container_Type__c": {
-        "type": "picklist",
-        "description": "Describes the type of container of the product."
-      },
-      "cgcloud__Criteria_Text_0__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_1__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_2__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_3__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_4__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_5__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_6__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_7__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_8__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criteria_Text_9__c": {
-        "type": "string",
-        "description": "Holds the Criteria in a text form."
-      },
-      "cgcloud__Criterion_1_Product_Code__c": {
-        "type": "string",
-        "description": "Product code belonging to Criterion_1_Product."
-      },
-      "cgcloud__Criterion_1_Product_Description__c": {
-        "type": "string",
-        "description": "Product description belonging to Criterion_1_Product."
-      },
-      "cgcloud__Criterion_1_Product__c": {
-        "type": "reference",
-        "description": "References the product in the hierarchy of the product which is on Product_Level 'Category'."
-      },
-      "cgcloud__Criterion_2_Product_Code__c": {
-        "type": "string",
-        "description": "Product code belonging to Criterion_2_Product."
-      },
-      "cgcloud__Criterion_2_Product_Description__c": {
-        "type": "string",
-        "description": "Product description belonging to Criterion_2_Product."
-      },
-      "cgcloud__Criterion_2_Product__c": {
-        "type": "reference",
-        "description": "References the product in the hierarchy of the product which is on Product_Level 'SubCategory'."
-      },
-      "cgcloud__Criterion_3_Product_Code__c": {
-        "type": "string",
-        "description": "Product code belonging to Criterion_3_Product."
-      },
-      "cgcloud__Criterion_3_Product_Description__c": {
-        "type": "string",
-        "description": "Product description belonging to Criterion_3_Product."
-      },
-      "cgcloud__Criterion_3_Product__c": {
-        "type": "reference",
-        "description": "References the product in the hierarchy of the product which is on Product_Level 'Brand'."
-      },
-      "cgcloud__Criterion_4_Product_Code__c": {
-        "type": "string",
-        "description": "Product code belonging to Criterion_4_Product."
-      },
-      "cgcloud__Criterion_4_Product_Description__c": {
-        "type": "string",
-        "description": "Product description belonging to Criterion_4_Product."
-      },
-      "cgcloud__Criterion_4_Product__c": {
-        "type": "reference",
-        "description": "References the product in the hierarchy of the product which is on Product_Level 'Flavor'."
-      },
-      "cgcloud__Criterion_5_Product_Code__c": {
-        "type": "string",
-        "description": "Product code belonging to Criterion_5_Product."
-      },
-      "cgcloud__Criterion_5_Product_Description__c": {
-        "type": "string",
-        "description": "Product description belonging to Criterion_5_Product."
-      },
-      "cgcloud__Criterion_5_Product__c": {
-        "type": "reference",
-        "description": "References the product in the hierarchy of the product which is on Product_Level 'Package'."
-      },
-      "cgcloud__Criterion_6_Product_Code__c": {
-        "type": "string",
-        "description": "Product code belonging to Criterion_6_Product."
-      },
-      "cgcloud__Criterion_6_Product_Description__c": {
-        "type": "string",
-        "description": "Product description belonging to Criterion_6_Product."
-      },
-      "cgcloud__Criterion_6_Product__c": {
-        "type": "reference",
-        "description": "References the product in the hierarchy of the product which is on Product_Level 'Product'."
-      },
-      "cgcloud__Custom_Sort__c": {
-        "type": "string",
-        "description": "Use to customize the sorting order of the products. Is unique."
-      },
-      "cgcloud__Delivery_Valid_From__c": {
-        "type": "date",
-        "description": "Delivery status valid from date."
-      },
-      "cgcloud__Delivery_Valid_Thru__c": {
-        "type": "date",
-        "description": "Delivery status valid thru date."
-      },
-      "cgcloud__Description_1_Language_1__c": {
-        "type": "string",
-        "description": "Holds the first description of language 1."
-      },
-      "cgcloud__Description_1_Language_2__c": {
-        "type": "string",
-        "description": "Holds the first description of language 2."
-      },
-      "cgcloud__Description_1_Language_3__c": {
-        "type": "string",
-        "description": "Holds the first description of language 3."
-      },
-      "cgcloud__Description_1_Language_4__c": {
-        "type": "string",
-        "description": "Holds the first description of language 4."
-      },
-      "cgcloud__Description_1__c": {
-        "type": "string",
-        "description": "Description 1 based on the user specific language."
-      },
-      "cgcloud__Description_2_Language_1__c": {
-        "type": "string",
-        "description": "Holds the second description of language 1."
-      },
-      "cgcloud__Description_2_Language_2__c": {
-        "type": "string",
-        "description": "Holds the second description of language 2."
-      },
-      "cgcloud__Description_2_Language_3__c": {
-        "type": "string",
-        "description": "Holds the second description of language 3."
-      },
-      "cgcloud__Description_2_Language_4__c": {
-        "type": "string",
-        "description": "Holds the second description of language 4."
-      },
-      "cgcloud__Description_2__c": {
-        "type": "string",
-        "description": "Description 2 based on the user specific language."
-      },
-      "cgcloud__Estimated_Value__c": {
-        "type": "string",
-        "description": "Holds the estimated value of the asset."
-      },
-      "cgcloud__Field_Valid_From__c": {
-        "type": "date",
-        "description": "Field status valid from date."
-      },
-      "cgcloud__Field_Valid_Thru__c": {
-        "type": "date",
-        "description": "Field status valid thru date."
-      },
-      "cgcloud__Fund_Valid_From__c": {
-        "type": "date",
-        "description": "Fund Role status valid from date."
-      },
-      "cgcloud__Fund_Valid_Thru__c": {
-        "type": "date",
-        "description": "Fund Role status valid thru date."
-      },
-      "cgcloud__GTIN__c": {
-        "type": "string",
-        "description": "Universal Product Number (UPC) number of the product."
-      },
-      "cgcloud__Height__c": {
-        "type": "string",
-        "description": "Holds the height of the asset."
-      },
-      "cgcloud__Is_Bill_Of_Material_Label__c": {
+      "CanUseRevenueSchedule": {
         "type": "boolean",
-        "description": "Defines a secondary label for the Is_Bill_Of_Material__c field."
+        "description": "Revenue Scheduling Enabled",
+        "nullable": false
       },
-      "cgcloud__Is_Bill_Of_Material__c": {
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsSerialized": {
         "type": "boolean",
-        "description": "Boolean flag to identify BOM products."
+        "description": "Serialized",
+        "nullable": false
       },
-      "cgcloud__KAM_Product__c": {
-        "type": "reference",
-        "description": "References to the specifics for a product on the lowest level of the product hierarchy, which is the corresponding product on planning level (Product Price Group level)."
-      },
-      "cgcloud__KAM_Valid_From__c": {
-        "type": "date",
-        "description": "KAM status valid from date."
-      },
-      "cgcloud__KAM_Valid_Thru__c": {
-        "type": "date",
-        "description": "KAM status valid thru date."
-      },
-      "cgcloud__Manufacturer_Item_Number__c": {
-        "type": "string",
-        "description": "Number assigned to the manufacturer."
-      },
-      "cgcloud__Manufacturer__c": {
-        "type": "string",
-        "description": "Name of the manufacturer."
-      },
-      "cgcloud__New_Item_Valid_From__c": {
-        "type": "date",
-        "description": "New Item status valid from date."
-      },
-      "cgcloud__New_Item_Valid_Thru__c": {
-        "type": "date",
-        "description": "New Item status valid thru date."
-      },
-      "cgcloud__Order_Ability__c": {
-        "type": "double",
-        "description": "This is an \"apex roll up summary field\" to identify the Order able products only. Order Able products are identified by the units of measure which have Order Ability set to true."
-      },
-      "cgcloud__Pack_Size_Unit__c": {
-        "type": "picklist",
-        "description": "Unit of the product pack size."
-      },
-      "cgcloud__Pack_Size__c": {
-        "type": "double",
-        "description": "Numeric value for the product pack size."
-      },
-      "cgcloud__Power_Supply_Connected__c": {
+      "IsDeleted": {
         "type": "boolean",
-        "description": "Specifies whether the asset requires connection to a power supply."
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
-      "cgcloud__Product_Form__c": {
-        "type": "picklist",
-        "description": "Defines the state of the product."
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       },
-      "cgcloud__Product_Level__c": {
-        "type": "picklist",
-        "description": "Describes the Product Level."
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       },
-      "cgcloud__Product_Short_Code__c": {
+      "ConnectionReceivedId": {
         "type": "string",
-        "description": "Additional short product identifier."
+        "description": "Received Connection ID",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
-      "cgcloud__Product_Template__c": {
-        "type": "reference",
-        "description": "References to product template."
-      },
-      "cgcloud__Product_Type__c": {
-        "type": "picklist",
-        "description": "The type of the product."
-      },
-      "cgcloud__Rounding_Rule_Validation__c": {
-        "type": "double",
-        "description": "This is an \"apex roll up summary field\". Internally required."
-      },
-      "cgcloud__Sales_Org__c": {
+      "ConnectionSentId": {
         "type": "string",
-        "description": "Describes the sales org which the product belongs to."
+        "description": "Sent Connection ID",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
-      "cgcloud__Sell_In_Code__c": {
+      "Type": {
         "type": "string",
-        "description": "Holds the Sell In Code of the product."
+        "description": "Product Type",
+        "format": "enum",
+        "enum": [
+          "Base",
+          "Bundle",
+          "Set"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
-      "cgcloud__Sell_Out_Code__c": {
+      "ProductClass": {
         "type": "string",
-        "description": "Holds the Sell Out Code of the product."
-      },
-      "cgcloud__Short_Description_Language_1__c": {
-        "type": "string",
-        "description": "Holds the short description of language 1."
-      },
-      "cgcloud__Short_Description_Language_2__c": {
-        "type": "string",
-        "description": "Holds the short description of language 2."
-      },
-      "cgcloud__Short_Description_Language_3__c": {
-        "type": "string",
-        "description": "Holds the short description of language 3."
-      },
-      "cgcloud__Short_Description_Language_4__c": {
-        "type": "string",
-        "description": "Holds the short description of language 4."
-      },
-      "cgcloud__Short_Description__c": {
-        "type": "string",
-        "description": "Short description based on the user specific language."
-      },
-      "cgcloud__Size__c": {
-        "type": "string",
-        "description": "Holds the size of the asset."
-      },
-      "cgcloud__State__c": {
-        "type": "picklist",
-        "description": "State of the product."
-      },
-      "cgcloud__Tax_Classification__c": {
-        "type": "picklist",
-        "description": "Tax classification of the product."
-      },
-      "cgcloud__Transfer_Record_Identifier__c": {
-        "type": "string",
-        "description": "Identifies the products for the promotion transfer process."
-      },
-      "cgcloud__Weight__c": {
-        "type": "string",
-        "description": "Holds the weight of the asset."
+        "format": "enum",
+        "enum": [
+          "Simple",
+          "VariationParent",
+          "Variation",
+          "Bundle",
+          "Set"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm",
+    "keyPrefix": "01t",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "Product2Id",
+        "relationshipName": "Assets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "SBQQ__RequiredByProduct__c",
+        "relationshipName": "SBQQ__ChildAssets__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "SBQQ__Subscription__c",
+        "relationshipName": "SBQQ__Assets__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "COM_Product_Flow__c",
+        "field": "COM_Product__c",
+        "relationshipName": "COM_Product_Flows__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Campaign",
+        "field": "COM_Product__c",
+        "relationshipName": "Campaigns__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramProduct",
+        "field": "ProductId",
+        "relationshipName": "ProductCareProgramProducts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CartItem",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "ProductId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "ProductId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommerceEntitlementProduct",
+        "field": "ProductId",
+        "relationshipName": "CommerceEntitlementProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItem",
+        "field": "Product2Id",
+        "relationshipName": "ContractLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoLine",
+        "field": "Product2Id",
+        "relationshipName": "CreditMemoLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Cross_Sell_Recommendations__c",
+        "field": "Recommended_Product_Parent__c",
+        "relationshipName": "ProductsRecommandation__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Cross_Sell_Recommendations__c",
+        "field": "Recommended_Product__c",
+        "relationshipName": "Recommendations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataUsePurpose",
+        "field": "PurposeId",
+        "relationshipName": "DataUsePurposes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderLineItem",
+        "field": "Product2Id",
+        "relationshipName": "FulfillmentOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "Product2Id",
+        "relationshipName": "InvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LinkedArticle",
+        "field": "LinkedEntityId",
+        "relationshipName": "LinkedArticles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyPartnerProduct",
+        "field": "ProductDerivedFieldId",
+        "relationshipName": "LoyaltyPartnerProduct2",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyPartnerProduct",
+        "field": "ProductId",
+        "relationshipName": "LoyaltyPartnerProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkUserHistoryRecent",
+        "field": "RecordId",
+        "relationshipName": "NetworkUserHistoryRecentToRecord",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Offer_sdo__c",
+        "field": "Product__c",
+        "relationshipName": "Offers__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Offer_sdo__c",
+        "field": "Recommended_Product_Parent__c",
+        "relationshipName": "Offers1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Offer_sdo__c",
+        "field": "Recommended_Product__c",
+        "relationshipName": "Offers_Recommendations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpportunityLineItem",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityLineItem",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__Opportunity_Product__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderDeliveryMethod",
+        "field": "ProductId",
+        "relationshipName": "Products",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__OrderProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemSummary",
+        "field": "Product2Id",
+        "relationshipName": "OrderItemSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "LocalRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "PartnerRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PricebookEntry",
+        "field": "Product2Id",
+        "relationshipName": "PricebookEntries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "SBQQ__RenewalProduct__c",
+        "relationshipName": "SBQQ__OriginalProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "SBQQ__SubscriptionTarget__c",
+        "relationshipName": "SBQQ__SubscriptionTargetingProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "SBQQ__UpgradeCredit__c",
+        "relationshipName": "SBQQ__CreditedProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "SBQQ__UpgradeSource__c",
+        "relationshipName": "SBQQ__TargetUpgrades__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "SBQQ__UpgradeTarget__c",
+        "relationshipName": "SBQQ__SourceUpgrades__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "vlocity_cmt__ClassId__c",
+        "relationshipName": "vlocity_cmt__ClassProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "vlocity_cmt__ParentClassId__c",
+        "relationshipName": "vlocity_cmt__Subclasses__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "vlocity_cmt__ProductSpecId__c",
+        "relationshipName": "vlocity_cmt__ProductSpecOffers__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "vlocity_cmt__ProductTemplateProductId__c",
+        "relationshipName": "vlocity_cmt__ProductTemplateProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2DataTranslation",
+        "field": "ParentId",
+        "relationshipName": "DataTranslations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Product2Feed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Product2History",
+        "field": "Product2Id",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductAttribute",
+        "field": "ProductId",
+        "relationshipName": "ProductAttributes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductAttribute",
+        "field": "VariantParentId",
+        "relationshipName": "ProductVariantAttributes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductAttributeSetProduct",
+        "field": "ProductId",
+        "relationshipName": "ProductAttributeSetProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductCategoryProduct",
+        "field": "ProductId",
+        "relationshipName": "ProductCategoryProducts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductConsumed",
+        "field": "Product2Id",
+        "relationshipName": "ProductsConsumed",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductConsumptionSchedule",
+        "field": "ProductId",
+        "relationshipName": "ProductConsumptionSchedules",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductEntitlementTemplate",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductFulfillmentLocation",
+        "field": "ProductId",
+        "relationshipName": "ProductFulfillmentLocations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductItem",
+        "field": "Product2Id",
+        "relationshipName": "ProductItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductItemChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductMedia",
+        "field": "ProductId",
+        "relationshipName": "ProductMedias",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductRequestLineItem",
+        "field": "Product2Id",
+        "relationshipName": "ProductRequestLineItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductRequestLineItemChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequired",
+        "field": "Product2Id",
+        "relationshipName": "ProductsRequired",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductServiceCampaign",
+        "field": "Product2Id",
+        "relationshipName": "ProductServiceCampaignProducts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransfer",
+        "field": "Product2Id",
+        "relationshipName": "ProductTransfers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductTransferChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductWarrantyTerm",
+        "field": "CoveredProductId",
+        "relationshipName": "ProductWarrantyTermProducts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product_Video__c",
+        "field": "Product__c",
+        "relationshipName": "Product_Videos__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteLineItem",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteLineItem",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__Quote_Line_Items__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteLineItemChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "Product2Id",
+        "relationshipName": "ReturnOrderLineItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__BlockPrice__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__BlockPrices__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ConfigurationAttribute__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__ConfigurationAttributes__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ConfigurationRule__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__ConfigurationRules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ContractedPrice__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__ContractedPrices__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Cost__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__Costs__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Dimension__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__Dimensions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__DiscountSchedule__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__DiscountSchedules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__FavoriteProduct__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__FavoriteProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Localization__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__Localizations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__LookupData__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__LookupData__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__OptionConstraint__c",
+        "field": "SBQQ__ConfiguredSKU__c",
+        "relationshipName": "SBQQ__Option_Constraints__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__PriceRule__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__PriceRules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__PriceSchedule__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__PriceSchedules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ProductAction__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__ProductActions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ProductAttribute__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__ProductAttributes__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ProductFeature__c",
+        "field": "SBQQ__ConfiguredSKU__c",
+        "relationshipName": "SBQQ__Features__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ProductOption__c",
+        "field": "SBQQ__ConfiguredSKU__c",
+        "relationshipName": "SBQQ__Options__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__ProductOption__c",
+        "field": "SBQQ__OptionalSKU__c",
+        "relationshipName": "SBQQ__OptionalFor__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__QuoteLine__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__R00N70000001lXB6EAM__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__RelatedContent__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__Content__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Subscription__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__Subscriptions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Subscription__c",
+        "field": "SBQQ__RequiredByProduct__c",
+        "relationshipName": "SBQQ__ChildSubscriptions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__UpgradeSource__c",
+        "field": "SBQQ__SourceProduct__c",
+        "relationshipName": "SBQQ__AvailableUpgradeSources__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__UpgradeSource__c",
+        "field": "SBQQ__UpgradeProduct__c",
+        "relationshipName": "SBQQ__UpgradeSources__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__WebQuoteLine__c",
+        "field": "SBQQ__Product__c",
+        "relationshipName": "SBQQ__WebQuoteLines__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_B2BCommerce_Bundle_Item__c",
+        "field": "Bundle_Item__c",
+        "relationshipName": "Items__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_B2BCommerce_Bundle_Item__c",
+        "field": "Bundle_Parent_Item__c",
+        "relationshipName": "ItemsIncludedInBundles__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SerializedProduct",
+        "field": "Product2Id",
+        "relationshipName": "SerializedProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "ProductId",
+        "relationshipName": "JournalProducts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "ProductId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebStoreSearchProdSettings",
+        "field": "ProductId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WishlistItem",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "Product2Id",
+        "relationshipName": "WorkOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemChangeEvent",
+        "field": "Product2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkPlanSelectionRule",
+        "field": "Product2Id",
+        "relationshipName": "WorkPlanSelectionRules",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__AccountDiscountItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__AccountDiscountItemsProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__AccountOffer__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__Offers__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__AccountProductRollup__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__AccountProductRollups__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__AdSpaceSpecification__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__AdSpaceSpecifications__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__Application__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__Applications__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__BusinessSiteOffering__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__SiteServicesProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CachedFilterableAttribute__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__CachedFilterableAttribute__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CachedProduct2Translation__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__Cached_Product2_Translations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CartItem__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__CartItemsProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CatalogProductRelationship__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__CatalogProductRelationships2__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CompiledAttributeOverride__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__CompiledAttributeOverrides__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractLineItem__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__OrderProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractLineItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__GroupBenefitsPlans__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractTerm__c",
+        "field": "vlocity_cmt__TermSpecProduct2Id__c",
+        "relationshipName": "vlocity_cmt__ContractTerms__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractTypeTerm__c",
+        "field": "vlocity_cmt__TermSpecProduct2Id__c",
+        "relationshipName": "vlocity_cmt__ContractTypeTerms__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractVersionDiscountItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__ContractVersionDiscountItemsProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__Datastore__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__DataStoreItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__DecompositionRelationship__c",
+        "field": "vlocity_cmt__DestinationProductId__c",
+        "relationshipName": "vlocity_cmt__SourceDecompositionRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__DecompositionRelationship__c",
+        "field": "vlocity_cmt__SourceProductId__c",
+        "relationshipName": "vlocity_cmt__DestinationDecompositionRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__DocumentTemplateSectionCondition__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__DocumentTemplateSectionConditions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__EntityFilterMember__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__EntityFilterMembers__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestLine__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__FulfillmentRequestLines__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__InventoryItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__InventoryItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OfferMigrationComponentMapping__c",
+        "field": "vlocity_cmt__SourceProductId__c",
+        "relationshipName": "vlocity_cmt__SourceProductId__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OfferMigrationComponentMapping__c",
+        "field": "vlocity_cmt__TargetProductId__c",
+        "relationshipName": "vlocity_cmt__TargetProductId__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OfferPricingComponent__c",
+        "field": "vlocity_cmt__OfferId__c",
+        "relationshipName": "vlocity_cmt__OfferPricingComponents__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OfferPricingComponent__c",
+        "field": "vlocity_cmt__RootOfferId__c",
+        "relationshipName": "vlocity_cmt__RootOfferPricingComponents__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OpportunityDiscountItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__OpportunityDiscountItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationQueueAssignmentRule__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__OrchestrationQueueAssignmentRules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationScenario__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__OrchestrationScenarios__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderDiscountItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__OrderDiscountItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderProductRollup__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__OrderProductRollups__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OverrideDefinition__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__OverrideDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PriceListEntry__c",
+        "field": "vlocity_cmt__OfferId__c",
+        "relationshipName": "vlocity_cmt__PriceListEntries__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PriceListEntry__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__ProductPriceListEntries__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PricingElement__c",
+        "field": "vlocity_cmt__OfferId__c",
+        "relationshipName": "vlocity_cmt__OfferPricingElements__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PricingElement__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__PricingElements__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductAvailability__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__ProductEligibility__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductChildItem__c",
+        "field": "vlocity_cmt__ChildProductId__c",
+        "relationshipName": "vlocity_cmt__ProductChildItemsChild__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductChildItem__c",
+        "field": "vlocity_cmt__ParentProductId__c",
+        "relationshipName": "vlocity_cmt__ProductChildItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductConfigurationProcedure__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__ProductConfigurationProcedures__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductEligibility__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__ProductEligibilityProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductRelationship__c",
+        "field": "vlocity_cmt__Product2Id__c",
+        "relationshipName": "vlocity_cmt__RelatedProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ProductRelationship__c",
+        "field": "vlocity_cmt__RelatedProductId__c",
+        "relationshipName": "vlocity_cmt__ProductRelations1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PromotionApplicableProduct__c",
+        "field": "vlocity_cmt__ContextOfferId__c",
+        "relationshipName": "vlocity_cmt__PromotionApplicableProductContext__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PromotionApplicableProduct__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__PromotionApplicableProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PromotionIncludedProduct__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__PromotionIncludedProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PromotionItem__c",
+        "field": "vlocity_cmt__ContextProductId__c",
+        "relationshipName": "vlocity_cmt__ContextPromotionItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PromotionItem__c",
+        "field": "vlocity_cmt__OfferId__c",
+        "relationshipName": "vlocity_cmt__OfferPromotionItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__PromotionItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__PromotionItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteDiscountItem__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__QuoteDiscountItemsProduct__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteProductRollup__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__QuoteProductRollups__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__SpecTemplateMapping__c",
+        "field": "vlocity_cmt__TemplateProductId__c",
+        "relationshipName": "vlocity_cmt__SpecTemplateMappings__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
+        "field": "vlocity_cmt__ProductId__c",
+        "relationshipName": "vlocity_cmt__TrackingEntries__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__VqResource__c",
+        "field": "vlocity_cmt__LinkedProductId__c",
+        "relationshipName": "vlocity_cmt__Vlocity_Intelligence_Resources__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

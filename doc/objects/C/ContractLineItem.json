@@ -5,35 +5,59 @@
     "properties": {
       "AssetId": {
         "type": "reference",
-        "description": "Required. ID of the Asset associated with the contract line item. Must be a valid asset ID."
+        "description": "Required. ID of the Asset associated with the contract line item. Must be a valid asset ID.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the contract line item."
+        "description": "Description of the contract line item.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "Discount": {
         "type": "percent",
-        "description": "The discount for the product as a percentage."
+        "description": "The discount for the product as a percentage.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "EndDate": {
         "type": "date",
-        "description": "The last day the contract line item is in effect."
+        "description": "The last day the contract line item is in effect.",
+        "format": "date",
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LineItemNumber": {
         "type": "string",
-        "description": "Automatically-generated number that identifies the contract line item."
+        "description": "Automatically-generated number that identifies the contract line item.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ListPrice": {
         "type": "currency",
-        "description": "Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard pricebook or a custom pricebook. A client application can use this information to show whether the unit price (or sales price) of the line item differs from the pricebook entry list price."
+        "description": "Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard pricebook or a custom pricebook. A client application can use this information to show whether the unit price (or sales price) of the line item differs from the pricebook entry list price.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "LocationId": {
         "type": "reference",
@@ -41,50 +65,415 @@
       },
       "ParentContractLineItemId": {
         "type": "reference",
-        "description": "The line item’s parent line item, if it has one."
+        "description": "The line item’s parent line item, if it has one.",
+        "format": "salesforce-id",
+        "x-object": "ContractLineItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "PricebookEntryId": {
         "type": "reference",
-        "description": "Required. ID of the associated PricebookEntry."
+        "description": "Required. ID of the associated PricebookEntry.",
+        "format": "salesforce-id",
+        "x-object": "PricebookEntry",
+        "maxLength": 18,
+        "nullable": false
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The product related to the contract line item."
+        "description": "The product related to the contract line item.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Quantity": {
         "type": "double",
-        "description": "Number of units of the contract line item (product) included in the associated service contract."
+        "description": "Number of units of the contract line item (product) included in the associated service contract.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "RootContractLineItemId": {
         "type": "reference",
-        "description": "(Read only) The top-level line item in a contract line item hierarchy. Depending on where a line item lies in the hierarchy, its root could be the same as its parent."
+        "description": "(Read only) The top-level line item in a contract line item hierarchy. Depending on where a line item lies in the hierarchy, its root could be the same as its parent.",
+        "format": "salesforce-id",
+        "x-object": "ContractLineItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ServiceContractId": {
         "type": "reference",
-        "description": "Required. ID of the ServiceContract associated with the contract line item. Must be a valid service contract ID."
+        "description": "Required. ID of the ServiceContract associated with the contract line item. Must be a valid service contract ID.",
+        "format": "salesforce-id",
+        "x-object": "ServiceContract",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The first day the contract line item is in effect."
+        "description": "The first day the contract line item is in effect.",
+        "format": "date",
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the contract line item."
+        "description": "Status of the contract line item.",
+        "format": "enum",
+        "enum": [
+          "Inactive",
+          "Active",
+          "Expired"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Subtotal": {
         "type": "currency",
-        "description": "Contract line item's sales price multiplied by the Quantity."
+        "description": "Contract line item's sales price multiplied by the Quantity.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "This field is available only for backward compatibility. It represents the total price of the ContractLineItem"
+        "description": "This field is available only for backward compatibility. It represents the total price of the ContractLineItem",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "The unit price for the contract line item. In the user interface, this field’s value is calculated by dividing the total price of the contract line item by the quantity listed for that line item. Label is Sales Price."
+        "description": "The unit price for the contract line item. In the user interface, this field’s value is calculated by dividing the total price of the contract line item by the quantity listed for that line item. Label is Sales Price.",
+        "format": "currency",
+        "nullable": false,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Contract Line Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_contractlineitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_contractlineitem.htm",
+    "keyPrefix": "811",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItem",
+        "field": "ParentContractLineItemId",
+        "relationshipName": "ChildContractLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItem",
+        "field": "RootContractLineItemId",
+        "relationshipName": "DescendantContractLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItemChangeEvent",
+        "field": "ParentContractLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItemChangeEvent",
+        "field": "RootContractLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItemHistory",
+        "field": "ContractLineItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Entitlement",
+        "field": "ContractLineItemId",
+        "relationshipName": "Entitlements",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitlementChangeEvent",
+        "field": "ContractLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenanceAsset",
+        "field": "ContractLineItemId",
+        "relationshipName": "MaintenanceAssets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenanceAssetChangeEvent",
+        "field": "ContractLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

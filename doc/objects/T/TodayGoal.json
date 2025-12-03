@@ -5,30 +5,129 @@
     "properties": {
       "IsLocked": {
         "type": "boolean",
-        "description": "Returns true if the goal is locked, or false if it’s not."
+        "description": "Returns true if the goal is locked, or false if it’s not.",
+        "nullable": false,
+        "readOnly": true
       },
       "MayEdit": {
         "type": "boolean",
-        "description": "Indicates whether the goal can be edited (true) or not (false)."
+        "description": "Indicates whether the goal can be edited (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the goal."
+        "description": "The name of the goal.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the creator of the goal."
+        "description": "The ID of the creator of the goal.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID of the user of the goal."
+        "description": "The ID of the user of the goal.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "Value": {
         "type": "currency",
-        "description": "The customizable sales goal for the quarter."
+        "description": "The customizable sales goal for the quarter.",
+        "format": "currency",
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Goal ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_todaygoal.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_todaygoal.htm",
+    "keyPrefix": "0Jz",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TodayGoalShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

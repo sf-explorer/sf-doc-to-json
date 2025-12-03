@@ -5,18 +5,56 @@
     "properties": {
       "Channel": {
         "type": "picklist",
-        "description": "The channel where the article is rated: AllChannels for article views across all channels. App for the internal Salesforce Knowledge application. Pkb for article views in public knowledge base. Csp for Customer Portal. Prm for article view in partner portal."
+        "description": "The channel where the article is rated: AllChannels for article views across all channels. App for the internal Salesforce Knowledge application. Pkb for article views in public knowledge base. Csp for Customer Portal. Prm for article view in partner portal.",
+        "format": "enum",
+        "enum": [
+          "AllChannels",
+          "App",
+          "Pkb",
+          "Csp",
+          "Prm"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "NormalizedScore": {
         "type": "double",
-        "description": "Article's weighted score on a scale of 1 to 5. A higher score means more votes. Articles without recent votes trend towards an average rating of three stars."
+        "description": "Article's weighted score on a scale of 1 to 5. A higher score means more votes. Articles without recent votes trend towards an average rating of three stars.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.00009999999999999999
       },
       "ParentId": {
         "type": "reference",
-        "description": "The rated article. This corresponds to a KnowledgeArticle record."
+        "description": "The rated article. This corresponds to a KnowledgeArticle record.",
+        "format": "salesforce-id",
+        "x-object": "KnowledgeArticle",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Vote Stat ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_knowledgearticlevotestat.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_knowledgearticlevotestat.htm",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

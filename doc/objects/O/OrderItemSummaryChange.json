@@ -5,11 +5,30 @@
     "properties": {
       "ChangeOrderItemId": {
         "type": "reference",
-        "description": "ID of the associated change order item."
+        "description": "ID of the associated change order item.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ChangeType": {
         "type": "picklist",
-        "description": "Type of change represented by the OrderItemSummaryChange."
+        "description": "Type of change represented by the OrderItemSummaryChange.",
+        "format": "enum",
+        "enum": [
+          "Add",
+          "Cancel",
+          "Return",
+          "ReturnFee",
+          "CancelFee",
+          "DeliveryChargeAdjustment",
+          "ProductAdjustment",
+          "FeeAdjustment"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -17,7 +36,9 @@
       },
       "IsPreFulfillment": {
         "type": "boolean",
-        "description": "Indicates whether the change occurs before the OrderItemSummary has been fulfilled."
+        "description": "Indicates whether the change occurs before the OrderItemSummary has been fulfilled.",
+        "nullable": false,
+        "readOnly": true
       },
       "OrderItemSummary​ChangeNumber": {
         "type": "string",
@@ -25,22 +46,150 @@
       },
       "OrderItemSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderItemSummary to which the change applies."
+        "description": "ID of the OrderItemSummary to which the change applies.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OrderSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderSummary to which the associated OrderItemSummary belongs."
+        "description": "ID of the OrderSummary to which the associated OrderItemSummary belongs.",
+        "format": "salesforce-id",
+        "x-object": "OrderSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Reason": {
         "type": "picklist",
-        "description": "Reason for the change. You can customize this list."
+        "description": "Reason for the change. You can customize this list.",
+        "format": "enum",
+        "enum": [
+          "Unknown",
+          "No longer needed",
+          "Change of Mind",
+          "Bought by mistake",
+          "Better price available",
+          "Inaccurate website description",
+          "Item defective or doesn’t work",
+          "Item doesn’t fit",
+          "Product damaged, but shipping box OK",
+          "Item arrived too late",
+          "Missing or broken parts",
+          "Product and shipping box both damaged",
+          "Wrong item was sent",
+          "Received extra item I didn’t buy",
+          "Didn’t approve purchase"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ReasonText": {
         "type": "string",
         "description": "Details about the reason for change."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Item Summary Change ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OrderItemSummaryChangeNumber": {
+        "type": "string",
+        "description": "Name",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemsummarychange.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemsummarychange.htm",
+    "keyPrefix": "1oc",
+    "createable": false,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

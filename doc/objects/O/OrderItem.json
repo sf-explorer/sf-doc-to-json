@@ -5,7 +5,11 @@
     "properties": {
       "AdjustedLineAmount": {
         "type": "currency",
-        "description": "Line amount following line adjustments, excluding tax."
+        "description": "Line amount following line adjustments, excluding tax.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AdjustedLineAmtWithTax": {
         "type": "currency",
@@ -13,7 +17,10 @@
       },
       "AvailableQuantity": {
         "type": "double",
-        "description": "Amount of an order product that is available to be reduced. Value must be greater than or equal to 0. An order product is reducible only if AvailableQuantity is greater than 0. Value is always 0 if the order product’s parent order is a reduction order."
+        "description": "Amount of an order product that is available to be reduced. Value must be greater than or equal to 0. An order product is reducible only if AvailableQuantity is greater than 0. Value is always 0 if the order product’s parent order is a reduction order.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "BillingFrequency2": {
         "type": "picklist",
@@ -33,7 +40,9 @@
       },
       "Description": {
         "type": "string",
-        "description": "Text description of this object. For Commerce stores, during checkout, this field is populated with the value of a product name. The product name is copied from the CartItem.Name field of a cart item that corresponds to the OrderItem."
+        "description": "Text description of this object. For Commerce stores, during checkout, this field is populated with the value of a product name. The product name is copied from the CartItem.Name field of a cart item that corresponds to the OrderItem.",
+        "maxLength": 255,
+        "nullable": true
       },
       "EarliestEstimatedDeliveryDate": {
         "type": "date",
@@ -45,7 +54,9 @@
       },
       "EndDate": {
         "type": "date",
-        "description": "Optional. Last day the order product is available."
+        "description": "Optional. Last day the order product is available.",
+        "format": "date",
+        "nullable": true
       },
       "EndDateTime": {
         "type": "datetime",
@@ -69,11 +80,17 @@
       },
       "LineNumber": {
         "type": "int",
-        "description": "Used to organize lines on the order."
+        "description": "Used to organize lines on the order.",
+        "nullable": true,
+        "readOnly": true
       },
       "ListPrice": {
         "type": "currency",
-        "description": "List price for the order product. Value is inherited from the associated PriceBookEntry upon order product creation."
+        "description": "List price for the order product. Value is inherited from the associated PriceBookEntry upon order product creation.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ListPriceTotal": {
         "type": "currency",
@@ -89,19 +106,36 @@
       },
       "OrderDeliveryGroupId": {
         "type": "reference",
-        "description": "The delivery group for the order product."
+        "description": "The delivery group for the order product.",
+        "format": "salesforce-id",
+        "x-object": "OrderDeliveryGroup",
+        "maxLength": 18,
+        "nullable": true
       },
       "OrderId": {
         "type": "reference",
-        "description": "Required. ID of the order that this order product is a child of."
+        "description": "Required. ID of the order that this order product is a child of.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OrderItemNumber": {
         "type": "string",
-        "description": "Automatically generated number that identifies the order product."
+        "description": "Automatically generated number that identifies the order product.",
+        "maxLength": 30,
+        "nullable": false,
+        "readOnly": true
       },
       "OriginalOrderItemId": {
         "type": "reference",
-        "description": "Required if isReductionOrder on the parent order is true."
+        "description": "Required if isReductionOrder on the parent order is true.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PeriodBoundary": {
         "type": "picklist",
@@ -117,7 +151,12 @@
       },
       "PricebookEntryId": {
         "type": "reference",
-        "description": "Required. ID of the associated PricebookEntry. This field must be specified when creating OrderItem records. It can’t be changed in an update."
+        "description": "Required. ID of the associated PricebookEntry. This field must be specified when creating OrderItem records. It can’t be changed in an update.",
+        "format": "salesforce-id",
+        "x-object": "PricebookEntry",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PriceRevisionPolicyId": {
         "type": "reference",
@@ -137,7 +176,12 @@
       },
       "Product2Id": {
         "type": "reference",
-        "description": "ID of the Product2 associated with this OrderItem."
+        "description": "ID of the Product2 associated with this OrderItem.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductSellingModelId": {
         "type": "reference",
@@ -149,11 +193,17 @@
       },
       "Quantity": {
         "type": "double",
-        "description": "Required. Number of units of this order product."
+        "description": "Required. Number of units of this order product.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "QuoteLineItemId": {
         "type": "reference",
-        "description": "Required. ID of the associated quote line item.If this field is specified, the quote line item’s QuoteId must match the QuoteId for the order product’s parent order."
+        "description": "Required. ID of the associated quote line item.If this field is specified, the quote line item’s QuoteId must match the QuoteId for the order product’s parent order.",
+        "format": "salesforce-id",
+        "x-object": "QuoteLineItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "ReferencePrice": {
         "type": "currency",
@@ -173,7 +223,9 @@
       },
       "ServiceDate": {
         "type": "date",
-        "description": "Start date for the order product."
+        "description": "Start date for the order product.",
+        "format": "date",
+        "nullable": true
       },
       "ServiceDateTime": {
         "type": "datetime",
@@ -201,11 +253,19 @@
       },
       "TotalAdjustedLineTaxAmount": {
         "type": "currency",
-        "description": "Sum of line tax amount and line adjustment tax amounts."
+        "description": "Sum of line tax amount and line adjustment tax amounts.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
-        "description": "Roll-up of all the order product’s price adjustments."
+        "description": "Roll-up of all the order product’s price adjustments.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentAmtWithTax": {
         "type": "currency",
@@ -213,7 +273,11 @@
       },
       "TotalAdjustmentDistAmount": {
         "type": "currency",
-        "description": "Roll-up of all adjustments on the order. Used only if the OrderAdjustmentGroup has a Type value of Header."
+        "description": "Roll-up of all adjustments on the order. Used only if the OrderAdjustmentGroup has a Type value of Header.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentDistTaxAmount": {
         "type": "currency",
@@ -221,11 +285,19 @@
       },
       "TotalAdjustmentDistAmtWithTax": {
         "type": "currency",
-        "description": "Roll-up of all adjustment tax amounts on the order, including tax. Used only if the OrderAdjustmentGroup has a Type value of Header."
+        "description": "Roll-up of all adjustment tax amounts on the order, including tax. Used only if the OrderAdjustmentGroup has a Type value of Header.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentTaxAmount": {
         "type": "currency",
-        "description": "Sum of all the order product’s tax adjustments."
+        "description": "Sum of all the order product’s tax adjustments.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAmtWithTax": {
         "type": "currency",
@@ -233,7 +305,11 @@
       },
       "TotalLineAdjustmentAmount": {
         "type": "currency",
-        "description": "The sum of line-level adjustments for the order product."
+        "description": "The sum of line-level adjustments for the order product.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAdjustmentAmtWithTax": {
         "type": "currency",
@@ -245,7 +321,10 @@
       },
       "TotalLineAmount": {
         "type": "currency",
-        "description": "The net total price of the order product, before price adjustments, inclusive of quantity."
+        "description": "The net total price of the order product, before price adjustments, inclusive of quantity.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalLineTaxAmount": {
         "type": "currency",
@@ -253,26 +332,518 @@
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "Total price for this order product. The calculations for this field’s value are different if Commerce Orders are enabled."
+        "description": "Total price for this order product. The calculations for this field’s value are different if Commerce Orders are enabled.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Sum of the order product’s tax and any adjustments."
+        "description": "Sum of the order product’s tax and any adjustments.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Type": {
         "type": "picklist",
-        "description": "Describes what the order item represents. Each value is associated with one type code, shown here in parentheses."
+        "description": "Describes what the order item represents. Each value is associated with one type code, shown here in parentheses.",
+        "format": "enum",
+        "enum": [
+          "Order Product",
+          "Delivery Charge",
+          "Fee"
+        ],
+        "maxLength": 100,
+        "nullable": true
       },
       "TypeCode": {
         "type": "picklist",
-        "description": "The category associated with the type. A type code can be associated with one or more types."
+        "description": "The category associated with the type. A type code can be associated with one or more types.",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "Unit price for the order product."
+        "description": "Unit price for the order product.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Product ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RelatedOrderItemId": {
+        "type": "string",
+        "description": "Order Product ID",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitem.htm",
+    "keyPrefix": "802",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "SBQQ__OrderProduct__c",
+        "relationshipName": "SBQQ__Assets__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "vlocity_cmt__OrderProductId__c",
+        "relationshipName": "vlocity_cmt__Assets__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetActionSource",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "AssetActionSourceReferences",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "CreditMemoLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "CurrentFulfillmentOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "GroupReferenceEntityItemId",
+        "relationshipName": "GroupInvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "InvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "ChangeLineId",
+        "relationshipName": "OrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "RelatedLineId",
+        "relationshipName": "RelatedOrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "OriginalOrderItemId",
+        "relationshipName": "ChildOrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "RelatedOrderItemId",
+        "relationshipName": "RelatedOrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "SBQQ__BundleRoot__c",
+        "relationshipName": "SBQQ__BundleChildren__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "SBQQ__RequiredBy__c",
+        "relationshipName": "SBQQ__Components__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "SBQQ__RevisedOrderProduct__c",
+        "relationshipName": "SBQQ__RevisingOrderProducts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "vlocity_cmt__FirstVersionOrderItemId__c",
+        "relationshipName": "vlocity_cmt__LaterVersionOrderItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "vlocity_cmt__MainOrderItemId__c",
+        "relationshipName": "vlocity_cmt__MainOrderItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "vlocity_cmt__ParentOrderProduct__c",
+        "relationshipName": "vlocity_cmt__Order_Products__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "vlocity_cmt__SupersededOrderItemId__c",
+        "relationshipName": "vlocity_cmt__SupersedingOrderItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemAdjustmentLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "OrderItemAdjustmentLineItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemChangeEvent",
+        "field": "OriginalOrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemChangeEvent",
+        "field": "RelatedOrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemHistory",
+        "field": "OrderItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemSummary",
+        "field": "OriginalOrderItemId",
+        "relationshipName": "OrderItemSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemSummaryChange",
+        "field": "ChangeOrderItemId",
+        "relationshipName": "ChangeOrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "OrderItemTaxLineItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessException",
+        "field": "AttachedToId",
+        "relationshipName": "ProcessExceptions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessExceptionEvent",
+        "field": "AttachedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "ChangeOrderItemId",
+        "relationshipName": "CurrentReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "ReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "ChangeOrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "OrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__AttributeValue__c",
+        "field": "SBQQ__OrderItem__c",
+        "relationshipName": "SBQQ__AttributeValues__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__BlockPrice__c",
+        "field": "SBQQ__OrderProduct__c",
+        "relationshipName": "SBQQ__BlockPrice__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__DiscountSchedule__c",
+        "field": "SBQQ__OrderProduct__c",
+        "relationshipName": "SBQQ__DiscountSchedules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__OrderItemConsumptionSchedule__c",
+        "field": "SBQQ__OrderItem__c",
+        "relationshipName": "SBQQ__OrderItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__PriceSchedule__c",
+        "field": "SBQQ__OrderProduct__c",
+        "relationshipName": "SBQQ__PriceSchedules__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Subscription__c",
+        "field": "SBQQ__OrderProduct__c",
+        "relationshipName": "SBQQ__Subscriptions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "OrderItemId",
+        "relationshipName": "OrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "OrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestLineDecompRelationship__c",
+        "field": "vlocity_cmt__SourceOrderItemId__c",
+        "relationshipName": "vlocity_cmt__DestinationDecompositionRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestLineSourceRootOrderItem__c",
+        "field": "vlocity_cmt__RootOrderItemId__c",
+        "relationshipName": "vlocity_cmt__BundleMembers__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationItemSource__c",
+        "field": "vlocity_cmt__SourceOrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrchestrationItemAssociations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationItem__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrchestrationItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderAppliedPromotionItem__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderAppliedPromotionAffectedItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderAppliedPromotion__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderAppliedPromotions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderEventLogEntry__b",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderEventLogEntries__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderItemAdPlacement__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderItemAdPlacements__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderItemPriceAdjustment__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderItemPriceAdjustments__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderItemRelationship__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderItemRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderItemRelationship__c",
+        "field": "vlocity_cmt__RelatedOrderItemId__c",
+        "relationshipName": "vlocity_cmt__RelatedOrderItemRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderPriceAdjustment__c",
+        "field": "vlocity_cmt__OrderItemId__c",
+        "relationshipName": "vlocity_cmt__OrderPricingAdjustments__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

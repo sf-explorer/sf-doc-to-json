@@ -5,7 +5,12 @@
     "properties": {
       "ContentVersionDocumentId": {
         "type": "reference",
-        "description": "ID for the document’s version."
+        "description": "ID for the document’s version.",
+        "format": "salesforce-id",
+        "x-object": "ContentVersion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -13,11 +18,18 @@
       },
       "Discount": {
         "type": "percent",
-        "description": "The discount for the quote used in the document."
+        "description": "The discount for the quote used in the document.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Document": {
         "type": "base64",
-        "description": "The binary data of the document stored in the QuoteDocument object."
+        "description": "The binary data of the document stored in the QuoteDocument object.",
+        "format": "byte",
+        "nullable": true,
+        "readOnly": true
       },
       "DocumentTemplate": {
         "type": "string",
@@ -25,22 +37,107 @@
       },
       "GrandTotal": {
         "type": "currency",
-        "description": "Grand total for the quote used in the document."
+        "description": "Grand total for the quote used in the document.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "Name of the quote document."
+        "description": "Name of the quote document.",
+        "maxLength": 270,
+        "nullable": false,
+        "readOnly": true
       },
       "QuoteId": {
         "type": "reference",
-        "description": "ID for the quote used for the document."
+        "description": "ID for the quote used for the document.",
+        "format": "salesforce-id",
+        "x-object": "Quote",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
         "description": "The status of the document."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Quote PDF ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotedocument.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotedocument.htm",
+    "keyPrefix": "0QD",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

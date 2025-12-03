@@ -5,19 +5,33 @@
     "properties": {
       "ActionPlanId": {
         "type": "reference",
-        "description": "The ID of the action plan that this item belongs to."
+        "description": "The ID of the action plan that this item belongs to.",
+        "format": "salesforce-id",
+        "x-object": "ActionPlan",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ActionPlanTemplateItemId": {
         "type": "reference",
-        "description": "The ID of the action plan template item this item was created from."
+        "description": "The ID of the action plan template item this item was created from.",
+        "format": "salesforce-id",
+        "x-object": "ActionPlanTemplateItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IsLocked": {
         "type": "boolean",
-        "description": "Indicates whether this action plan item is locked or not. The default value is false."
+        "description": "Indicates whether this action plan item is locked or not. The default value is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsRequired": {
         "type": "boolean",
-        "description": "Indicates whether this action plan item is required or not."
+        "description": "Indicates whether this action plan item is required or not.",
+        "nullable": false,
+        "readOnly": true
       },
       "ItemEntityType": {
         "type": "picklist",
@@ -25,18 +39,98 @@
       },
       "ItemId": {
         "type": "reference",
-        "description": "The ID of the record created by this action plan item. This field is a polymorphic relationship field."
+        "description": "The ID of the record created by this action plan item. This field is a polymorphic relationship field.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "AssessmentTask",
+          "DocumentChecklistItem",
+          "Event",
+          "OtherComponentTask",
+          "RecordAction",
+          "SignatureTask",
+          "Task"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ItemState": {
         "type": "picklist",
-        "description": "The action plan item’s work state."
+        "description": "The action plan item’s work state.",
+        "format": "enum",
+        "enum": [
+          "Pending",
+          "InProgress",
+          "Completed",
+          "Canceled",
+          "Deleted",
+          "Skipped"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "The name of this action plan item."
+        "description": "The name of this action plan item.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Action Plan Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Public Sector Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/sforce_api_objects_actionplanitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/sforce_api_objects_actionplanitem.htm",
+    "keyPrefix": "07s"
   }
 }

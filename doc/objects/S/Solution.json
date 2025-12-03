@@ -5,43 +5,67 @@
     "properties": {
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsHtml": {
         "type": "boolean",
-        "description": "Indicates whether the Solution is an HTML solution (true) or not (false)."
+        "description": "Indicates whether the Solution is an HTML solution (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "IsOutOfDate": {
         "type": "boolean",
-        "description": "Read-only field that indicates whether a solution master has been updated since the translated version was created (true) or not (false). Note that this field does not appear in the page layout of master solutions."
+        "description": "Read-only field that indicates whether a solution master has been updated since the translated version was created (true) or not (false). Note that this field does not appear in the page layout of master solutions.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPublished": {
         "type": "boolean",
-        "description": "Indicates whether the Solution has been published (true) or not (false). A solution’s published state does not affect how it can be used, or whether you can query, update, or delete it. Label is Public. Note Prior to Spring ‘14, the label was Visible in Self-Service Portal."
+        "description": "Indicates whether the Solution has been published (true) or not (false). A solution’s published state does not affect how it can be used, or whether you can query, update, or delete it. Label is Public. Note Prior to Spring ‘14, the label was Visible in Self-Service Portal.",
+        "nullable": false
       },
       "IsPublishedInPublicKb": {
         "type": "boolean",
-        "description": "Indicates whether the Solution has been published as a Public Solution (true) or not (false). Label is Visible in Public Knowledge Base. This field only applies to solutions, not articles in the public knowledge base."
+        "description": "Indicates whether the Solution has been published as a Public Solution (true) or not (false). Label is Visible in Public Knowledge Base. This field only applies to solutions, not articles in the public knowledge base.",
+        "nullable": false
       },
       "IsReviewed": {
         "type": "boolean",
-        "description": "Indicates whether the Solution has been reviewed (true) or not (false). This flag can only be set indirectly via the Status picklist. Each predefined Status value implies an IsReviewed value. Label is Reviewed."
+        "description": "Indicates whether the Solution has been reviewed (true) or not (false). This flag can only be set indirectly via the Status picklist. Each predefined Status value implies an IsReviewed value. Label is Reviewed.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the User who owns the Solution."
+        "description": "ID of the User who owns the Solution.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the master solution, if this is the translation of a master solution."
+        "description": "ID of the master solution, if this is the translation of a master solution.",
+        "format": "salesforce-id",
+        "x-object": "Solution",
+        "maxLength": 18,
+        "nullable": true
       },
       "RecordTypeId": {
         "type": "reference",
@@ -49,30 +73,388 @@
       },
       "SolutionLanguage": {
         "type": "picklist",
-        "description": "The language that the solution is written in, such as French or Chinese (Traditional)."
+        "description": "The language that the solution is written in, such as French or Chinese (Traditional).",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "SolutionName": {
         "type": "string",
-        "description": "Required. If a client application creates a new Solution and a value for this field is unspecified, a hyphen (-), the default value for this field, is used. Limit: 255 characters. Label is Title."
+        "description": "Required. If a client application creates a new Solution and a value for this field is unspecified, a hyphen (-), the default value for this field, is used. Limit: 255 characters. Label is Title.",
+        "maxLength": 255,
+        "nullable": false
       },
       "SolutionNote": {
         "type": "textarea",
-        "description": "The details of the Solution record. Limit: 32,000 characters. Label is Solution Details. Note If you have HTML Solutions enabled, any HTML tags used in this field are verified before the object is created or updated. If invalid HTML is entered, an error is thrown. Any JavaScript used in this field is removed before the object is created or updated."
+        "description": "The details of the Solution record. Limit: 32,000 characters. Label is Solution Details. Note If you have HTML Solutions enabled, any HTML tags used in this field are verified before the object is created or updated. If invalid HTML is entered, an error is thrown. Any JavaScript used in this field is removed before the object is created or updated.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "SolutionNumber": {
         "type": "string",
-        "description": "An identifying number that is assigned automatically when a solution is created. It can’t be set directly, and it can’t be modified."
+        "description": "An identifying number that is assigned automatically when a solution is created. It can’t be set directly, and it can’t be modified.",
+        "maxLength": 30,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Required. The status of the solution. Directly controls the IsReviewed value. To obtain the status values in the picklist, a client application can query the SolutionStatus."
+        "description": "Required. The status of the solution. Directly controls the IsReviewed value. To obtain the status values in the picklist, a client application can query the SolutionStatus.",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Reviewed",
+          "Duplicate"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "TimesUsed": {
         "type": "int",
-        "description": "Number of times this solution has been used. Label is Num Related Case."
+        "description": "Number of times this solution has been used. Label is Num Related Case.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Solution ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_solution.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_solution.htm",
+    "keyPrefix": "501",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseSolution",
+        "field": "SolutionId",
+        "relationshipName": "CaseSolutions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CategoryData",
+        "field": "RelatedSobjectId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Solution",
+        "field": "ParentId",
+        "relationshipName": "Translations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SolutionFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SolutionHistory",
+        "field": "SolutionId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SolutionTag",
+        "field": "ItemId",
+        "relationshipName": "Tags",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Vote",
+        "field": "ParentId",
+        "relationshipName": "Votes",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

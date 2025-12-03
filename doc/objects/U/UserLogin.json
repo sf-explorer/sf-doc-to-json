@@ -5,18 +5,55 @@
     "properties": {
       "IsFrozen": {
         "type": "boolean",
-        "description": "If true, the user account associated with this object is frozen. If a user's account is frozen, they can't log in, but their account isn't deactivated."
+        "description": "If true, the user account associated with this object is frozen. If a user's account is frozen, they can't log in, but their account isn't deactivated.",
+        "nullable": false
       },
       "IsPasswordLocked": {
         "type": "boolean",
-        "description": "If true, the user account associated with this object is locked because of too many login failures. From the API, you can set this field to false, but not true. Note If the Lockout effective period is set to Forever (must be reset by admin) in your org’s Password Policies Setup page, this field isn’t set to false."
+        "description": "If true, the user account associated with this object is locked because of too many login failures. From the API, you can set this field to false, but not true. Note If the Lockout effective period is set to Forever (must be reset by admin) in your org’s Password Policies Setup page, this field isn’t set to false.",
+        "nullable": false
       },
       "UserId": {
         "type": "reference",
-        "description": "ID of the associated user account. This field can’t be updated."
+        "description": "ID of the associated user account. This field can’t be updated.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Login ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userlogin.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userlogin.htm",
+    "keyPrefix": "0Yw",
+    "createable": false,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -1,0 +1,235 @@
+{
+  "ConversationDefinitionSession": {
+    "name": "ConversationDefinitionSession",
+    "description": "Conversation Definition Sessions - ConversationDefinitionSession",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Conversation Definition Session ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Language": {
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ConversationDefinitionId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "BotVersion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionStartTime": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionDuration": {
+        "type": "integer",
+        "description": "Duration in Seconds",
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionStatus": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "InProgress",
+          "Ended"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionTransferType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "BotRequest",
+          "ImplementationError",
+          "InvocationTimeout",
+          "InsufficientPrivileges"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionEndType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "EndedByEndUser",
+          "Transferred",
+          "SessionTimedOut",
+          "Error",
+          "Other",
+          "Action"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionTransferResult": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "NoTransferRequested",
+          "TransferSuccessful",
+          "TransferFailed",
+          "NoAgentsAvailable"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ChannelType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Text",
+          "Facebook",
+          "Line",
+          "GoogleHome",
+          "Alexa",
+          "Omega",
+          "AppleBusinessChat",
+          "WeChat",
+          "WebChat",
+          "WhatsApp",
+          "Phone",
+          "EmbeddedMessaging",
+          "Voice",
+          "Custom",
+          "InternalCopilot",
+          "VoiceIntegrationPilot",
+          "PstnVoice",
+          "WhatsAppVoice",
+          "SipVoice"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "SessionTransferTargetType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Bot",
+          "Agent"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "5CB",
+    "label": "Conversation Definition Session",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ConversationDefinitionEventLog",
+        "field": "ParentId",
+        "relationshipName": "ConversationDefinitionEventLogs",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ConversationDefinitionSessionEngagement",
+        "field": "SessionId",
+        "relationshipName": "ConversationEngagements",
+        "cascadeDelete": false
+      }
+    ]
+  }
+}

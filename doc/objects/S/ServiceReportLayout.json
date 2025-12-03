@@ -5,26 +5,181 @@
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The developer name of the service report template."
+        "description": "The developer name of the service report template.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Language": {
         "type": "picklist",
-        "description": "The language that the service report template uses."
+        "description": "The language that the service report template uses.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date the service report template was last viewed."
+        "description": "The date the service report template was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The name of the service report template. For example, Maintenance Report Template."
+        "description": "The name of the service report template. For example, Maintenance Report Template.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "TemplateType": {
         "type": "picklist",
-        "description": "The type of the service report template. Available in API version 46.0 and later."
+        "description": "The type of the service report template. Available in API version 46.0 and later.",
+        "format": "enum",
+        "enum": [
+          "ServiceReport",
+          "DigitalForm"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Service Report Layout ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_servicereportlayout.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_servicereportlayout.htm",
+    "keyPrefix": "0SL",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "WorkOrder",
+        "field": "ServiceReportTemplateId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "ServiceReportTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "ServiceReportTemplateId",
+        "relationshipName": "WorkOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemChangeEvent",
+        "field": "ServiceReportTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkType",
+        "field": "ServiceReportTemplateId",
+        "relationshipName": "WorkTypes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkTypeChangeEvent",
+        "field": "ServiceReportTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

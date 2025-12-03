@@ -5,18 +5,78 @@
     "properties": {
       "CaseId": {
         "type": "reference",
-        "description": "Required. ID of the Case associated with the Solution."
+        "description": "Required. ID of the Case associated with the Solution.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "SolutionId": {
         "type": "reference",
-        "description": "Required. ID of the Solution associated with the case."
+        "description": "Required. ID of the Solution associated with the case.",
+        "format": "salesforce-id",
+        "x-object": "Solution",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Case Solution ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_casesolution.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_casesolution.htm",
+    "keyPrefix": "010",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

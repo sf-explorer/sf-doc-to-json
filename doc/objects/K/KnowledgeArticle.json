@@ -5,23 +5,39 @@
     "properties": {
       "ArchivedById": {
         "type": "reference",
-        "description": "The ID of the user who archived the article."
+        "description": "The ID of the user who archived the article.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ArchivedDate": {
         "type": "dateTime",
-        "description": "The date when the article was archived."
+        "description": "The date when the article was archived.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ArticleNumber": {
         "type": "string",
-        "description": "The unique number automatically assigned to the article when it's created. You can't change the format or value for this field."
+        "description": "The unique number automatically assigned to the article when it's created. You can't change the format or value for this field.",
+        "maxLength": 30,
+        "nullable": false,
+        "readOnly": true
       },
       "CaseAssociationCount": {
         "type": "int",
-        "description": "The number of cases attached to the article."
+        "description": "The number of cases attached to the article.",
+        "nullable": false,
+        "readOnly": true
       },
       "FirstPublishedDate": {
         "type": "dateTime",
-        "description": "The date when the article was first published."
+        "description": "The date when the article was first published.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "IsGeneratedByLlm": {
         "type": "boolean",
@@ -29,30 +45,238 @@
       },
       "LastPublishedDate": {
         "type": "dateTime",
-        "description": "The date when the article was last published."
+        "description": "The date when the article was last published.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user has not viewed this record or list view, though they might have accessed it (LastReferencedDate)"
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user has not viewed this record or list view, though they might have accessed it (LastReferencedDate)",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MasterLanguage": {
         "type": "picklist",
-        "description": "The article's original language. Only accessible if your knowledge base supports multiple languages."
+        "description": "The article's original language. Only accessible if your knowledge base supports multiple languages.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "fr",
+          "de",
+          "ja",
+          "pt_BR",
+          "es",
+          "es_MX"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "MigratedToFromArticle": {
         "type": "string",
-        "description": "The ID for the corresponding pre- or post-migration article. Contains values only in orgs that migrate from Knowledge in Salesforce Classic to Lightning Knowledge. This field is available in API version 45.0 and later."
+        "description": "The ID for the corresponding pre- or post-migration article. Contains values only in orgs that migrate from Knowledge in Salesforce Classic to Lightning Knowledge. This field is available in API version 45.0 and later.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "TotalViewCount": {
         "type": "int",
-        "description": "Total number of views for this article. This field is available in API version 39.0 and later."
+        "description": "Total number of views for this article. This field is available in API version 39.0 and later.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Knowledge Article ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_knowledgearticle.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_knowledgearticle.htm",
+    "keyPrefix": "kA#",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswer",
+        "field": "AnswerEntityId",
+        "relationshipName": "AnswerSourceEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "AnswerEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseArticle",
+        "field": "KnowledgeArticleId",
+        "relationshipName": "CaseArticles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedAttachment",
+        "field": "RecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "KnowledgeArticleVersion",
+        "field": "KnowledgeArticleId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "KnowledgeArticleVersionHistory",
+        "field": "ParentId",
+        "relationshipName": "VersionHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "KnowledgeArticleViewStat",
+        "field": "ParentId",
+        "relationshipName": "ViewStats",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "KnowledgeArticleVoteStat",
+        "field": "ParentId",
+        "relationshipName": "VoteStats",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LinkedArticle",
+        "field": "KnowledgeArticleId",
+        "relationshipName": "LinkedArticles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Vote",
+        "field": "ParentId",
+        "relationshipName": "Votes",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

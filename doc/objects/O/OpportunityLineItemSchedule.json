@@ -9,30 +9,134 @@
       },
       "Description": {
         "type": "string",
-        "description": "Text description of the opportunity line item schedule. Limit: 80 characters. Label is Comments."
+        "description": "Text description of the opportunity line item schedule. Limit: 80 characters. Label is Comments.",
+        "maxLength": 80,
+        "nullable": true
       },
       "OpportunityLineItemId": {
         "type": "reference",
-        "description": "Required. ID of the associated OpportunityLineItem."
+        "description": "Required. ID of the associated OpportunityLineItem.",
+        "format": "salesforce-id",
+        "x-object": "OpportunityLineItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Quantity": {
         "type": "double",
-        "description": "Required. The total number of units to be scheduled in a quantity schedule."
+        "description": "Required. The total number of units to be scheduled in a quantity schedule.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Revenue": {
         "type": "currency",
-        "description": "The revenue that should be recognized, or the quantity that should be shipped, or both - depending upon the value of Type."
+        "description": "The revenue that should be recognized, or the quantity that should be shipped, or both - depending upon the value of Type.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ScheduleDate": {
         "type": "date",
-        "description": "Required. The date the associated OpportunityLineItem is to be scheduled for an event: delivery, shipping, or any other date you wish to track."
+        "description": "Required. The date the associated OpportunityLineItem is to be scheduled for an event: delivery, shipping, or any other date you wish to track.",
+        "format": "date",
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of the schedule. Required when inserting an OpportunityLineItemSchedule. Valid values include Quantity, Revenue, or Both."
+        "description": "The type of the schedule. Required when inserting an OpportunityLineItemSchedule. Valid values include Quantity, Revenue, or Both.",
+        "format": "enum",
+        "enum": [
+          "Quantity",
+          "QuantityRevenueRelated",
+          "Revenue",
+          "Both"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Schedule ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitylineitemschedule.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitylineitemschedule.htm",
+    "keyPrefix": "00o",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

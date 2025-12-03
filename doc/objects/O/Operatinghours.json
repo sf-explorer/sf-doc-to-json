@@ -1,30 +1,408 @@
 {
-  "Operatinghours": {
-    "name": "Operatinghours",
-    "description": "Standard and custom fields extend the standard Operating hours object in Consumer Goods Cloud to represent the hours in which a service territory, service resource, or account is available for work.",
+  "OperatingHours": {
+    "name": "OperatingHours",
+    "description": "Operating Hours - OperatingHours",
     "properties": {
-      "Description": {
-        "type": "textarea",
-        "description": "Description of the operating hours. Add any details that aren’t included in the name."
+      "Id": {
+        "type": "string",
+        "description": "Operating Hour ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "Date when the operating hours record was last modified."
-      },
-      "LastViewedDate": {
-        "type": "dateTime",
-        "description": "Date when the operating hours record was last viewed."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the operating hours. For example, Summer Hours, Winter Hours, or Peak Season Hours."
+        "maxLength": 255,
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastViewedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "LastReferencedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "maxLength": 32000,
+        "nullable": true
       },
       "TimeZone": {
-        "type": "picklist",
-        "description": "Time zone which the operating hours fall within:"
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Pacific/Kiritimati",
+          "Pacific/Chatham",
+          "Pacific/Auckland",
+          "Pacific/Enderbury",
+          "Pacific/Tongatapu",
+          "Asia/Kamchatka",
+          "Pacific/Fiji",
+          "Pacific/Norfolk",
+          "Australia/Lord_Howe",
+          "Australia/Sydney",
+          "Pacific/Guadalcanal",
+          "Australia/Adelaide",
+          "Australia/Brisbane",
+          "Australia/Darwin",
+          "Asia/Seoul",
+          "Asia/Tokyo",
+          "Asia/Hong_Kong",
+          "Asia/Kuala_Lumpur",
+          "Asia/Manila",
+          "Asia/Shanghai",
+          "Asia/Singapore",
+          "Asia/Taipei",
+          "Australia/Perth",
+          "Asia/Bangkok",
+          "Asia/Ho_Chi_Minh",
+          "Asia/Jakarta",
+          "Asia/Rangoon",
+          "Asia/Dhaka",
+          "Asia/Kathmandu",
+          "Asia/Colombo",
+          "Asia/Kolkata",
+          "Asia/Karachi",
+          "Asia/Tashkent",
+          "Asia/Yekaterinburg",
+          "Asia/Kabul",
+          "Asia/Baku",
+          "Asia/Dubai",
+          "Asia/Tbilisi",
+          "Asia/Yerevan",
+          "Africa/Nairobi",
+          "Asia/Baghdad",
+          "Asia/Kuwait",
+          "Asia/Riyadh",
+          "Europe/Istanbul",
+          "Europe/Minsk",
+          "Europe/Moscow",
+          "Africa/Cairo",
+          "Africa/Johannesburg",
+          "Asia/Beirut",
+          "Asia/Jerusalem",
+          "Europe/Athens",
+          "Europe/Bucharest",
+          "Europe/Helsinki",
+          "Africa/Algiers",
+          "Africa/Casablanca",
+          "Europe/Amsterdam",
+          "Europe/Berlin",
+          "Europe/Brussels",
+          "Europe/Paris",
+          "Europe/Prague",
+          "Europe/Rome",
+          "Europe/Dublin",
+          "Europe/Lisbon",
+          "Europe/London",
+          "GMT",
+          "Atlantic/Azores",
+          "Atlantic/Cape_Verde",
+          "America/Scoresbysund",
+          "Atlantic/South_Georgia",
+          "America/Argentina/Buenos_Aires",
+          "America/Santiago",
+          "America/Sao_Paulo",
+          "America/St_Johns",
+          "America/Caracas",
+          "America/Halifax",
+          "America/Puerto_Rico",
+          "Atlantic/Bermuda",
+          "America/Bogota",
+          "America/Indiana/Indianapolis",
+          "America/Lima",
+          "America/New_York",
+          "America/Panama",
+          "America/Chicago",
+          "America/El_Salvador",
+          "America/Mexico_City",
+          "America/Denver",
+          "America/Mazatlan",
+          "America/Phoenix",
+          "America/Los_Angeles",
+          "America/Tijuana",
+          "Pacific/Pitcairn",
+          "America/Anchorage",
+          "Pacific/Gambier",
+          "Pacific/Marquesas",
+          "America/Adak",
+          "Pacific/Honolulu",
+          "Pacific/Niue",
+          "Pacific/Pago_Pago"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Default_for_FSL_Snap_Ins__c": {
+        "type": "boolean",
+        "description": "Default for FSL Snap-Ins",
+        "nullable": false
+      },
+      "External_ID__c": {
+        "type": "string",
+        "description": "External ID",
+        "maxLength": 255,
+        "nullable": true
       }
     },
-    "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_operatinghours.htm"
+    "module": "N/A",
+    "keyPrefix": "0OH",
+    "label": "Operating Hours",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "OperatingHoursId",
+        "relationshipName": "Accounts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "SDO_Operating_Hours__c",
+        "relationshipName": "Accounts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountChangeEvent",
+        "field": "OperatingHoursId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Entitlement",
+        "field": "SvcApptBookingWindowsId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitlementChangeEvent",
+        "field": "SvcApptBookingWindowsId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OperatingHoursFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OperatingHoursHoliday",
+        "field": "OperatingHoursId",
+        "relationshipName": "OperatingHoursHolidays",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OperatingHoursShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritory",
+        "field": "OperatingHoursId",
+        "relationshipName": "ServiceTerritories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryChangeEvent",
+        "field": "OperatingHoursId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryMember",
+        "field": "OperatingHoursId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryMemberChangeEvent",
+        "field": "OperatingHoursId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TimeSlot",
+        "field": "OperatingHoursId",
+        "relationshipName": "TimeSlots",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "FSL__VisitingHours__c",
+        "relationshipName": "FSL__Work_Orders__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "FSL__VisitingHours__c",
+        "relationshipName": "FSL__Work_Order_Line_Items__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkType",
+        "field": "OperatingHoursId",
+        "relationshipName": "OperatingHours",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkTypeChangeEvent",
+        "field": "OperatingHoursId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

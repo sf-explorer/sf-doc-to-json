@@ -9,15 +9,25 @@
       },
       "Description": {
         "type": "string",
-        "description": "Description of the FulfillmentOrderLineItem."
+        "description": "Description of the FulfillmentOrderLineItem.",
+        "maxLength": 255,
+        "nullable": true
       },
       "EndDate": {
         "type": "dateTime",
-        "description": "End date of the FulfillmentOrderLineItem."
+        "description": "End date of the FulfillmentOrderLineItem.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "FulfillmentOrderId": {
         "type": "reference",
-        "description": "ID of the FulfillmentOrder associated with the FulfillmentOrderLineItem."
+        "description": "ID of the FulfillmentOrder associated with the FulfillmentOrderLineItem.",
+        "format": "salesforce-id",
+        "x-object": "FulfillmentOrder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "FulfillmentOrder​LineItemNumber": {
         "type": "string",
@@ -25,7 +35,11 @@
       },
       "GrossUnitPrice": {
         "type": "currency",
-        "description": "Unit price, including tax, of the FulfillmentOrderLineItem. This value is equal to TotalPrice + TotalTaxAmount."
+        "description": "Unit price, including tax, of the FulfillmentOrderLineItem. This value is equal to TotalPrice + TotalTaxAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "IsReship": {
         "type": "boolean",
@@ -37,27 +51,48 @@
       },
       "OrderItemId": {
         "type": "reference",
-        "description": "ID of the original OrderItem for the OrderItemSummary associated with the FulfillmentOrderLineItem."
+        "description": "ID of the original OrderItem for the OrderItemSummary associated with the FulfillmentOrderLineItem.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OrderItemSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderItemSummary associated with the FulfillmentOrderLineItem."
+        "description": "ID of the OrderItemSummary associated with the FulfillmentOrderLineItem.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemSummary",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OriginalQuantity": {
         "type": "double",
-        "description": "Original quantity of the FulfillmentOrderLineItem."
+        "description": "Original quantity of the FulfillmentOrderLineItem.",
+        "nullable": false,
+        "readOnly": true
       },
       "Product2Id": {
         "type": "reference",
-        "description": "ID of the product represented by the FulfillmentOrderLineItem."
+        "description": "ID of the product represented by the FulfillmentOrderLineItem.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Quantity": {
         "type": "double",
-        "description": "Current quantity of the FulfillmentOrderLineItem. Equal to the original quantity minus any canceled quantity."
+        "description": "Current quantity of the FulfillmentOrderLineItem. Equal to the original quantity minus any canceled quantity.",
+        "nullable": false
       },
       "QuantityUnitOfMeasure": {
         "type": "string",
-        "description": "Unit of measure of the quantity, for example: unit, gallon, ton, or case."
+        "description": "Unit of measure of the quantity, for example: unit, gallon, ton, or case.",
+        "maxLength": 100,
+        "nullable": true,
+        "readOnly": true
       },
       "RejectedQuantity": {
         "type": "double",
@@ -73,11 +108,18 @@
       },
       "ServiceDate": {
         "type": "dateTime",
-        "description": "Service or start date of the FulfillmentOrderLineItem."
+        "description": "Service or start date of the FulfillmentOrderLineItem.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
-        "description": "Total of any price adjustments applied to the FulfillmentOrderLineItem."
+        "description": "Total of any price adjustments applied to the FulfillmentOrderLineItem.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustment​AmountWithTax": {
         "type": "currency",
@@ -89,11 +131,19 @@
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "Total, including adjustments and tax, of the FulfillmentOrderLineItem."
+        "description": "Total, including adjustments and tax, of the FulfillmentOrderLineItem.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmount": {
         "type": "currency",
-        "description": "Total, not including adjustments or tax, of the FulfillmentOrderLineItem."
+        "description": "Total, not including adjustments or tax, of the FulfillmentOrderLineItem.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmount​WithTax": {
         "type": "currency",
@@ -101,30 +151,265 @@
       },
       "TotalLineTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalLineAmount."
+        "description": "Tax on the TotalLineAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "Total, including adjustments but not tax, of the FulfillmentOrderLineItem. Equal to UnitPrice times Quantity."
+        "description": "Total, including adjustments but not tax, of the FulfillmentOrderLineItem. Equal to UnitPrice times Quantity.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalPrice."
+        "description": "Tax on the TotalPrice.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Type": {
         "type": "picklist",
-        "description": "Type of the FulfillmentOrderLineItem. Matches the type of the associated OrderItemSummary. Delivery Charge indicates that the FulfillmentOrderLineItem represents a delivery charge. Fee indicates that it represents another type of fee, such as a return fee. Order Product indicates that it represents any other type of product, service, or charge. Each type corresponds to one type code, shown here in parentheses."
+        "description": "Type of the FulfillmentOrderLineItem. Matches the type of the associated OrderItemSummary. Delivery Charge indicates that the FulfillmentOrderLineItem represents a delivery charge. Fee indicates that it represents another type of fee, such as a return fee. Order Product indicates that it represents any other type of product, service, or charge. Each type corresponds to one type code, shown here in parentheses.",
+        "format": "enum",
+        "enum": [
+          "Order Product",
+          "Delivery Charge",
+          "Fee"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "TypeCode": {
         "type": "picklist",
-        "description": "Type code of the FulfillmentOrderLineItem. Matches the type code of the associated OrderItemSummary. Processing depends on this value. Charge indicates that the FulfillmentOrderLineItem represents a charge or fee. Product indicates that it represents any other type of product, service, or charge. A type code can be associated with one or more types."
+        "description": "Type code of the FulfillmentOrderLineItem. Matches the type code of the associated OrderItemSummary. Processing depends on this value. Charge indicates that the FulfillmentOrderLineItem represents a charge or fee. Product indicates that it represents any other type of product, service, or charge. A type code can be associated with one or more types.",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "Unit price of the FulfillmentOrderLineItem."
+        "description": "Unit price of the FulfillmentOrderLineItem.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Fulfillment Order Product ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "FulfillmentOrderLineItemNumber": {
+        "type": "string",
+        "description": "Fulfillment Order Product Number",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "TotalAdjustmentTaxAmount": {
+        "type": "number",
+        "description": "Adjustments Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalLineAmountWithTax": {
+        "type": "number",
+        "description": "Line Subtotal with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentAmountWithTax": {
+        "type": "number",
+        "description": "Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorderlineitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorderlineitem.htm",
+    "keyPrefix": "0a4",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderItemAdjustment",
+        "field": "FulfillmentOrderLineItemId",
+        "relationshipName": "FulfillmentOrderItemAdjustments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderItemTax",
+        "field": "FulfillmentOrderLineItemId",
+        "relationshipName": "FulfillmentOrderItemTaxes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderLineItemFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

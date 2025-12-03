@@ -5,54 +5,157 @@
     "properties": {
       "AmountUsed": {
         "type": "double",
-        "description": "The quantity of an entitlement that has been used."
+        "description": "The quantity of an entitlement that has been used.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CurrentAmountAllowed": {
         "type": "double",
-        "description": "The amount of an entitlement that a tenant is allowed to use."
+        "description": "The amount of an entitlement that a tenant is allowed to use.",
+        "nullable": false,
+        "readOnly": true
       },
       "EndDate": {
         "type": "date",
-        "description": "The end date of the setting, based on license end dates that entitle the org to that setting."
+        "description": "The end date of the setting, based on license end dates that entitle the org to that setting.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Frequency": {
         "type": "picklist",
-        "description": "How often the tenant's entitlement data is automatically reviewed to see how much of the entitlement has been used."
+        "description": "How often the tenant's entitlement data is automatically reviewed to see how much of the entitlement has been used.",
+        "format": "enum",
+        "enum": [
+          "Daily",
+          "Weekly",
+          "Fortnightly",
+          "Monthly",
+          "Once",
+          "Quarterly",
+          "Yearly"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "HasRollover": {
         "type": "boolean",
-        "description": "Indicates that a certain amount of a customer's unused entitlements from a set time period can be added to the next set time period. This field is reserved for future use."
+        "description": "Indicates that a certain amount of a customer's unused entitlements from a set time period can be added to the next set time period. This field is reserved for future use.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPersistentResource": {
         "type": "boolean",
-        "description": "Indicates that the data that will be saved and available for future use even after closing a session."
+        "description": "Indicates that the data that will be saved and available for future use even after closing a session.",
+        "nullable": false,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The overarching name of an element in your organization. A MasterLabel is visible to customers."
+        "description": "The overarching name of an element in your organization. A MasterLabel is visible to customers.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "OverageGrace": {
         "type": "percent",
-        "description": "The percentage of the Allowed Amount that a customer can use without incurring an additional charge. The default value is 100% (no overage grace). This field is reserved for future use."
+        "description": "The percentage of the Allowed Amount that a customer can use without incurring an additional charge. The default value is 100% (no overage grace). This field is reserved for future use.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ResourceGroupKey": {
         "type": "string",
-        "description": "Tracks resource usage across different segments for the same setting. For example, a Messages entitlement that tracks email messages and SMS messages separately could have one ResourceGroupKey of SMS and another ResourceGroupKey of Email. In most cases though, TenantUsageEntitlements are configured for the org and not by segment."
+        "description": "Tracks resource usage across different segments for the same setting. For example, a Messages entitlement that tracks email messages and SMS messages separately could have one ResourceGroupKey of SMS and another ResourceGroupKey of Email. In most cases though, TenantUsageEntitlements are configured for the org and not by segment.",
+        "maxLength": 120,
+        "nullable": false,
+        "readOnly": true
       },
       "Setting": {
         "type": "string",
-        "description": "A rule or attribute that can be used to configure the appearance or actions in an organization."
+        "description": "A rule or attribute that can be used to configure the appearance or actions in an organization.",
+        "maxLength": 120,
+        "nullable": false,
+        "readOnly": true
       },
       "StartDate": {
         "type": "date",
-        "description": "This date is the earliest start date of any license contributing to the provisioning aggregation output."
+        "description": "This date is the earliest start date of any license contributing to the provisioning aggregation output.",
+        "format": "date",
+        "nullable": false,
+        "readOnly": true
       },
       "UsageDate": {
         "type": "dateTime",
-        "description": "The date an event occurred that deducted from the tenant's entitlement."
+        "description": "The date an event occurred that deducted from the tenant's entitlement.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Tenant Usage Entitlement ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_tenantusageentitlement.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_tenantusageentitlement.htm",
+    "keyPrefix": "0UT",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

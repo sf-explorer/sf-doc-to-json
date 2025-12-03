@@ -1,0 +1,193 @@
+{
+  "RecordRecommendation": {
+    "name": "RecordRecommendation",
+    "description": "Record Recommendations - RecordRecommendation",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Record Recommendation ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecommendationDefinitionId": {
+        "type": "string",
+        "description": "Prediction Definition ID",
+        "format": "salesforce-id",
+        "x-object": "PredictionDefinition",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "TargetId": {
+        "type": "string",
+        "description": "Target ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Account",
+          "Campaign",
+          "Case",
+          "EmailMessage",
+          "Opportunity"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "TargetSobjectType": {
+        "type": "string",
+        "description": "Custom Object Definition ID",
+        "format": "enum",
+        "enum": [
+          "Account",
+          "Campaign",
+          "Case",
+          "EmailMessage",
+          "Opportunity"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecommendationType": {
+        "type": "string",
+        "description": "Recommendation Type",
+        "format": "enum",
+        "enum": [
+          "Action",
+          "Insight"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "OwnerId": {
+        "type": "string",
+        "description": "Owner ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ReferenceDate": {
+        "type": "string",
+        "description": "Recommendation Reference Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecommendationScore": {
+        "type": "number",
+        "description": "Recommendation Score",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecommendationStatus": {
+        "type": "string",
+        "description": "Recommendation Status",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Defunct"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "AcceptCount": {
+        "type": "integer",
+        "description": "Accept Count",
+        "nullable": false
+      },
+      "ExternalDataSourceId": {
+        "type": "string",
+        "description": "External Data Source ID",
+        "format": "salesforce-id",
+        "x-object": "ExternalDataSource",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ExternalId": {
+        "type": "string",
+        "description": "External ID",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "InsightId": {
+        "type": "string",
+        "description": "Insight ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "CampaignInsight",
+          "ContactSuggestionInsight",
+          "OpportunityContactRoleSuggestionInsight"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "0RR",
+    "label": "Record Recommendation",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "RecommendationFeedback",
+        "field": "RecordRecommendationId",
+        "relationshipName": "RecommendationFeedbacks",
+        "cascadeDelete": true
+      }
+    ]
+  }
+}

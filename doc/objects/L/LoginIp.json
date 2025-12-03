@@ -5,26 +5,69 @@
     "properties": {
       "ChallengeMethod": {
         "type": "picklist",
-        "description": "The challenge method used to confirm the user’s identity. Possible values include the following. Email SMS TOTP_CHOICE: The user chooses multi-factor authentication. TOTP_ONLY: The user is required to use multi-factor authentication."
+        "description": "The challenge method used to confirm the user’s identity. Possible values include the following. Email SMS TOTP_CHOICE: The user chooses multi-factor authentication. TOTP_ONLY: The user is required to use multi-factor authentication.",
+        "format": "enum",
+        "enum": [
+          "Email",
+          "SMS",
+          "TOTP_CHOICE",
+          "TOTP_ONLY"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ChallengeSentDate": {
         "type": "dateTime",
-        "description": "The date and time that the user was authenticated."
+        "description": "The date and time that the user was authenticated.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "IsAuthenticated": {
         "type": "boolean",
-        "description": "If true, the user has already been authenticated."
+        "description": "If true, the user has already been authenticated.",
+        "nullable": false,
+        "readOnly": true
       },
       "SourceIp": {
         "type": "string",
-        "description": "The IP address the user logged in from."
+        "description": "The IP address the user logged in from.",
+        "maxLength": 39,
+        "nullable": true,
+        "readOnly": true
       },
       "UsersId": {
         "type": "reference",
-        "description": "The ID of the user associated with this item."
+        "description": "The ID of the user associated with this item.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Login IP ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginip.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginip.htm",
+    "keyPrefix": "710",
+    "createable": false,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

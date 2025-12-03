@@ -5,26 +5,125 @@
     "properties": {
       "CollaborationGroupId": {
         "type": "reference",
-        "description": "ID of the associated CollaborationGroup."
+        "description": "ID of the associated CollaborationGroup.",
+        "format": "salesforce-id",
+        "x-object": "CollaborationGroup",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CollaborationRole": {
         "type": "picklist",
-        "description": "The role of a group member. Group owners and managers can change roles for members of their groups. The valid values are: Standard—Indicates that a user is a group member. Members can post and comment in the group. Admin—Indicates that a user is a group manager. Managers can post and comment, change member roles, edit group settings, add and remove members, delete posts and comments, and edit the group information field. Note To change the group owner, use the OwnerId field on the CollaborationGroup object."
+        "description": "The role of a group member. Group owners and managers can change roles for members of their groups. The valid values are: Standard—Indicates that a user is a group member. Members can post and comment in the group. Admin—Indicates that a user is a group manager. Managers can post and comment, change member roles, edit group settings, add and remove members, delete posts and comments, and edit the group information field. Note To change the group owner, use the OwnerId field on the CollaborationGroup object.",
+        "format": "enum",
+        "enum": [
+          "Admin",
+          "Standard"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastFeedAccessDate": {
         "type": "dateTime",
-        "description": "Date and time when a group member last accessed the group’s feed. The value is only updated when a member explicitly consumes the group’s feed, not when the member sees group posts in other feeds, like the profile feed."
+        "description": "Date and time when a group member last accessed the group’s feed. The value is only updated when a member explicitly consumes the group’s feed, not when the member sees group posts in other feeds, like the profile feed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberId": {
         "type": "reference",
-        "description": "ID of the group member."
+        "description": "ID of the group member.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "NotificationFrequency": {
         "type": "picklist",
-        "description": "Required. The frequency at which Salesforce sends Chatter group email digests to this member. Can only be set by the member or users with the “Modify All Data” permission. The valid values are: D—Daily W—Weekly N—Never P—On every post The default value is specified by the member in their Chatter email settings. In communities, the Email on every post option is disabled once more than 10,000 members choose this setting for the group. All members who had this option selected are automatically switched to Daily digests."
+        "description": "Required. The frequency at which Salesforce sends Chatter group email digests to this member. Can only be set by the member or users with the “Modify All Data” permission. The valid values are: D—Daily W—Weekly N—Never P—On every post The default value is specified by the member in their Chatter email settings. In communities, the Email on every post option is disabled once more than 10,000 members choose this setting for the group. All members who had this option selected are automatically switched to Daily digests.",
+        "format": "enum",
+        "enum": [
+          "P",
+          "D",
+          "W",
+          "N"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Group Member Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "NetworkId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationgroupmember.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationgroupmember.htm",
+    "keyPrefix": "0FB",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,22 +5,99 @@
     "properties": {
       "ApiName": {
         "type": "string",
-        "description": "Uniquely identifies a picklist value so it can be retrieved without using an id or master label."
+        "description": "Uniquely identifies a picklist value so it can be retrieved without using an id or master label.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Master label for this partner role value. This display value is the internal label that does not get translated. Limit: 255 characters."
+        "description": "Master label for this partner role value. This display value is the internal label that does not get translated. Limit: 255 characters.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ReverseRole": {
         "type": "picklist",
-        "description": "Name of the reverse role that corresponds to this partner role. For example, if the role is “subcontractor,” then the reverse role might be “general contractor.” In the user interface, assigning a partner role to an account creates a reverse partner relationship so that both accounts list the other as a partner."
+        "description": "Name of the reverse role that corresponds to this partner role. For example, if the role is “subcontractor,” then the reverse role might be “general contractor.” In the user interface, assigning a partner role to an account creates a reverse partner relationship so that both accounts list the other as a partner.",
+        "format": "enum",
+        "enum": [
+          "Advertiser",
+          "Agency",
+          "Broker",
+          "Consultant",
+          "Contractor",
+          "Dealer",
+          "Developer",
+          "Distributor",
+          "Institution",
+          "Lender",
+          "Supplier",
+          "System Integrator",
+          "VAR/Reseller",
+          "Lawyer",
+          "Spouse",
+          "Parent"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "Number used to sort this value in the partner role picklist. These numbers are not guaranteed to be sequential, as some previous partner role values might have been deleted."
+        "description": "Number used to sort this value in the partner role picklist. These numbers are not guaranteed to be sequential, as some previous partner role values might have been deleted.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Partner Role Value ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_partnerrole.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_partnerrole.htm",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

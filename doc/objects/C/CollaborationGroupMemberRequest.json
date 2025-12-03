@@ -5,22 +5,104 @@
     "properties": {
       "CollaborationGroupId": {
         "type": "reference",
-        "description": "ID of the private Chatter group."
+        "description": "ID of the private Chatter group.",
+        "format": "salesforce-id",
+        "x-object": "CollaborationGroup",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RequesterId": {
         "type": "reference",
-        "description": "ID of the user requesting to join the group; must be the ID of the context user."
+        "description": "ID of the user requesting to join the group; must be the ID of the context user.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ResponseMessage": {
         "type": "string",
-        "description": "Optional message to be included in the notification email when Status is Declined."
+        "description": "Optional message to be included in the notification email when Status is Declined.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the request. Available values are: Accepted Declined Pending"
+        "description": "The status of the request. Available values are: Accepted Declined Pending",
+        "format": "enum",
+        "enum": [
+          "Pending",
+          "Accepted",
+          "Declined"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Group Member Request Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationgroupmemberrequest.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationgroupmemberrequest.htm",
+    "keyPrefix": "0I5",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

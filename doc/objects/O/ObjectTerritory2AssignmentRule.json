@@ -5,34 +5,161 @@
     "properties": {
       "BooleanFilter": {
         "type": "string",
-        "description": "Represents advanced filter conditions that were specified for the rule in the online application. For example, “(1 AND 2) OR 3.”"
+        "description": "Represents advanced filter conditions that were specified for the rule in the online application. For example, “(1 AND 2) OR 3.”",
+        "maxLength": 255,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters and must be unique in your organization. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. The field label in the user interface is Unique Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
+        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters and must be unique in your organization. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. The field label in the user interface is Unique Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
+        "maxLength": 80,
+        "nullable": false
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the rule is active (true) or inactive (false). Via the API, active rules run automatically when object records are created and edited. The exception is when the value of the IsExcludedFromRealign field on an object record is true, which prevents record assignment rules from evaluating that record."
+        "description": "Indicates whether the rule is active (true) or inactive (false). Via the API, active rules run automatically when object records are created and edited. The exception is when the value of the IsExcludedFromRealign field on an object record is true, which prevents record assignment rules from evaluating that record.",
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the label in the user interface."
+        "description": "The language of the label in the user interface.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Required. The user interface label for the territory type."
+        "description": "Required. The user interface label for the territory type.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ObjectType": {
         "type": "picklist",
-        "description": "The object that the rule is defined for. For API version 31, Account only."
+        "description": "The object that the rule is defined for. For API version 31, Account only.",
+        "format": "enum",
+        "enum": [
+          "Account"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Territory2ModelId": {
         "type": "reference",
-        "description": "The ID of the territory model."
+        "description": "The ID of the territory model.",
+        "format": "salesforce-id",
+        "x-object": "Territory2Model",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Object Territory Assignment Rule ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_objectterritory2assignmentrule.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_objectterritory2assignmentrule.htm",
+    "keyPrefix": "0Ir",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "ObjectTerritory2AssignmentRuleItem",
+        "field": "RuleId",
+        "relationshipName": "ObjectTerritory2AssignmentRuleItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RuleTerritory2Association",
+        "field": "RuleId",
+        "relationshipName": "RuleTerritory2Associations",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

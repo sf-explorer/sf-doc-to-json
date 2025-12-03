@@ -5,10 +5,72 @@
     "properties": {
       "ParentId": {
         "type": "reference",
-        "description": "The ID of the parent entity that this branding applies to. The parent entity can be an Experience Cloud site, organization, topic, or reputation level. The branding applies to the entity that the ParentId references. For example, if the ParentId references a network ID, the branding applies to that Experience Cloud site only, and if the ParentId references an organization ID, the branding applies to the organization that it is accessed through, and so on. Label is Branded Entity ID."
+        "description": "The ID of the parent entity that this branding applies to. The parent entity can be an Experience Cloud site, organization, topic, or reputation level. The branding applies to the entity that the ParentId references. For example, if the ParentId references a network ID, the branding applies to that Experience Cloud site only, and if the ParentId references an organization ID, the branding applies to the organization that it is accessed through, and so on. Label is Branded Entity ID.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "NavigationMenuItem",
+          "Network",
+          "Organization",
+          "ReputationLevel",
+          "Stamp",
+          "Topic"
+        ],
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Custom Brand ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_custombrand.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_custombrand.htm",
+    "keyPrefix": "07W",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CustomBrandAsset",
+        "field": "CustomBrandId",
+        "relationshipName": "CustomBrandAssets",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

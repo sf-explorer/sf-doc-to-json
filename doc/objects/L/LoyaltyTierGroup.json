@@ -9,7 +9,9 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Detailed description of the tier group."
+        "description": "Detailed description of the tier group.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "EndDate": {
         "type": "dateTime",
@@ -17,11 +19,21 @@
       },
       "ExtendExpiration": {
         "type": "picklist",
-        "description": "Required. The field decides if the tier is changed on the exact day or the last day of the month."
+        "description": "Required. The field decides if the tier is changed on the exact day or the last day of the month.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "TillEndOfMonth",
+          "MemberEnrollmentAnniversary",
+          "QualifyingPointsResetDate"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Required. Indicates whether the loyalty tier group is active (true) or not (false)."
+        "description": "Required. Indicates whether the loyalty tier group is active (true) or not (false).",
+        "nullable": false
       },
       "IsHiddenToMembers": {
         "type": "boolean",
@@ -33,31 +45,55 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoyaltyProgramId": {
         "type": "reference",
-        "description": "ID of the loyalty program."
+        "description": "ID of the loyalty program.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgram",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the loyalty tier group."
+        "description": "The name of the loyalty tier group.",
+        "maxLength": 255,
+        "nullable": false
       },
       "QpResetDate": {
         "type": "date",
-        "description": "Required. Start date of the QP reset process."
+        "description": "Required. Start date of the QP reset process.",
+        "format": "date",
+        "nullable": true
       },
       "QpResetFrequency": {
         "type": "int",
-        "description": "Required. The frequency at which members’ qualifying points must be reset."
+        "description": "Required. The frequency at which members’ qualifying points must be reset.",
+        "nullable": true
       },
       "QpResetPeriod": {
         "type": "picklist",
-        "description": "Required. Unit of the period for QP reset."
+        "description": "Required. Unit of the period for QP reset.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "StartDate": {
         "type": "dateTime",
@@ -69,18 +105,154 @@
       },
       "TierModel": {
         "type": "picklist",
-        "description": "Required. It’s the model that decides the start date of the qualifying period."
+        "description": "Required. It’s the model that decides the start date of the qualifying period.",
+        "format": "enum",
+        "enum": [
+          "Fixed",
+          "Anniversary"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "TierPeriodQuantity": {
         "type": "int",
-        "description": "Required. The period after which members’ tier must be reset."
+        "description": "Required. The period after which members’ tier must be reset.",
+        "nullable": true
       },
       "TierPeriodUnit": {
         "type": "picklist",
-        "description": "Required. The frequency type for the tier assessment."
+        "description": "Required. The frequency type for the tier assessment.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Loyalty Tier Group ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltytiergroup.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltytiergroup.htm",
+    "keyPrefix": "0lt",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyMemberTier",
+        "field": "LoyaltyTierGroupId",
+        "relationshipName": "LoyaltyTierGroup",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyProgramCurrency",
+        "field": "LoyaltyTierGroupId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyTier",
+        "field": "LoyaltyTierGroupId",
+        "relationshipName": "LoyaltyTiers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

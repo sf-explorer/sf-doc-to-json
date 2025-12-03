@@ -5,38 +5,134 @@
     "properties": {
       "City": {
         "type": "string",
-        "description": "The city where the user’s IP address is physically located. This value is not localized."
+        "description": "The city where the user’s IP address is physically located. This value is not localized.",
+        "maxLength": 200,
+        "nullable": true,
+        "readOnly": true
       },
       "Country": {
         "type": "string",
-        "description": "The country where the user’s IP address is physically located. This value is not localized."
+        "description": "The country where the user’s IP address is physically located. This value is not localized.",
+        "maxLength": 200,
+        "nullable": true,
+        "readOnly": true
       },
       "CountryIso": {
         "type": "string",
-        "description": "The ISO 3166 code for the country where the user’s IP address is physically located. For more information, see Country Codes - ISO 3166"
+        "description": "The ISO 3166 code for the country where the user’s IP address is physically located. For more information, see Country Codes - ISO 3166",
+        "maxLength": 3,
+        "nullable": true,
+        "readOnly": true
       },
       "Latitude": {
         "type": "double",
-        "description": "The latitude where the user’s IP address is physically located."
+        "description": "The latitude where the user’s IP address is physically located.",
+        "nullable": true,
+        "readOnly": true
       },
       "LoginTime": {
         "type": "dateTime",
-        "description": "Time of the login attempt, in GMT time zone."
+        "description": "Time of the login attempt, in GMT time zone.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "Longitude": {
         "type": "double",
-        "description": "The longitude where the user’s IP address is physically located."
+        "description": "The longitude where the user’s IP address is physically located.",
+        "nullable": true,
+        "readOnly": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The postal code where the user’s IP address is physically located. This value is not localized."
+        "description": "The postal code where the user’s IP address is physically located. This value is not localized.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "Subdivision": {
         "type": "string",
-        "description": "The name of the subdivision where the user’s IP address is physically located. In the U.S., this value is usually the state name (for example, Pennsylvania). This value is not localized."
+        "description": "The name of the subdivision where the user’s IP address is physically located. In the U.S., this value is usually the state name (for example, Pennsylvania). This value is not localized.",
+        "maxLength": 200,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Login Geo Data ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_logingeo.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_logingeo.htm",
+    "keyPrefix": "04F",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AuthSession",
+        "field": "LoginGeoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoginHistory",
+        "field": "LoginGeoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VerificationHistory",
+        "field": "LoginGeoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

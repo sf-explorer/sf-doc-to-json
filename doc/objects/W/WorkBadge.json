@@ -5,39 +5,74 @@
     "properties": {
       "DefinitionId": {
         "type": "reference",
-        "description": "Required. Salesforce unique ID for the given WorkBadgeDefinition record given."
+        "description": "Required. Salesforce unique ID for the given WorkBadgeDefinition record given.",
+        "format": "salesforce-id",
+        "x-object": "WorkBadgeDefinition",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the WorkBadgeDefinition."
+        "description": "The description of the WorkBadgeDefinition.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "GiverId": {
         "type": "reference",
-        "description": "The ID of the badge giver. Can’t be the same as RecipientId."
+        "description": "The ID of the badge giver. Can’t be the same as RecipientId.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ImageUrl": {
         "type": "url",
-        "description": "The URL of the badge image."
+        "description": "The URL of the badge image.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The time stamp that indicates when the current user last viewed a record that is related to this WorkBadge."
+        "description": "The time stamp that indicates when the current user last viewed a record that is related to this WorkBadge.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The time stamp that indicates when the current user last viewed this WorkBadge. If this value is null, this record might have been only referenced (LastReferencedDate) and not viewed."
+        "description": "The time stamp that indicates when the current user last viewed this WorkBadge. If this value is null, this record might have been only referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Message": {
         "type": "textarea",
-        "description": "The message accompanying the thanks badge."
+        "description": "The message accompanying the thanks badge.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "NetworkId": {
         "type": "reference",
-        "description": "The ID of the community that this WorkBadge is associated with. This field is available only if digital experiences is enabled in your org."
+        "description": "The ID of the community that this WorkBadge is associated with. This field is available only if digital experiences is enabled in your org.",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true
       },
       "RecipientId": {
         "type": "reference",
-        "description": "Required. Salesforce unique ID for User who is the Recipient of Badge. Can’t be the same as GiverId"
+        "description": "Required. Salesforce unique ID for User who is the Recipient of Badge. Can’t be the same as GiverId",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RewardId": {
         "type": "reference",
@@ -45,10 +80,112 @@
       },
       "SourceId": {
         "type": "reference",
-        "description": "Salesforce unique ID for Thanks record referenced to this badge."
+        "description": "Salesforce unique ID for Thanks record referenced to this badge.",
+        "format": "salesforce-id",
+        "x-object": "WorkThanks",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Badge Received ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_workbadge.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_workbadge.htm",
+    "keyPrefix": "0W2",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

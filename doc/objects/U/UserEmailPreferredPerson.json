@@ -5,22 +5,134 @@
     "properties": {
       "Email": {
         "type": "email",
-        "description": "Required. The unique email the mapping applies to. This field is unique for each user."
+        "description": "Required. The unique email the mapping applies to. This field is unique for each user.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "Read-only. Auto-generated field."
+        "description": "Read-only. Auto-generated field.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Required. The userId that owns the record. Each record is only accessible to the owner."
+        "description": "Required. The userId that owns the record. Each record is only accessible to the owner.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "PersonRecordId": {
         "type": "reference",
-        "description": "Required. The recordId of a contact, lead, or user that represents the preferred record for the email address. Use cascade delete for contact and lead, and delete if the personId is a deactivated user record."
+        "description": "Required. The recordId of a contact, lead, or user that represents the preferred record for the email address. Use cascade delete for contact and lead, and delete if the personId is a deactivated user record.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Contact",
+          "Lead",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Email Preferred Person ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_useremailpreferredperson.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_useremailpreferredperson.htm",
+    "keyPrefix": "0UV",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserEmailPreferredPersonShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

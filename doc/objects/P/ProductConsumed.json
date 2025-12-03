@@ -5,7 +5,9 @@
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "The description of the product consumed record."
+        "description": "The description of the product consumed record.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "Discount": {
         "type": "percent",
@@ -21,11 +23,17 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ListPrice": {
         "type": "currency",
@@ -33,31 +41,60 @@
       },
       "PricebookEntryId": {
         "type": "reference",
-        "description": "The price book associated with the product consumed. If the work order and the product item’s associated product are related to the same price book, the Price Book Entry auto-populates based on the product item."
+        "description": "The price book associated with the product consumed. If the work order and the product item’s associated product are related to the same price book, the Price Book Entry auto-populates based on the product item.",
+        "format": "salesforce-id",
+        "x-object": "PricebookEntry",
+        "maxLength": 18,
+        "nullable": true
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The product associated with the product consumed."
+        "description": "The product associated with the product consumed.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductConsumedNumber": {
         "type": "string",
-        "description": "An auto-generated number identifying the product consumed."
+        "description": "An auto-generated number identifying the product consumed.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ProductItemId": {
         "type": "reference",
-        "description": "The product item associated with the product consumed."
+        "description": "The product item associated with the product consumed.",
+        "format": "salesforce-id",
+        "x-object": "ProductItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductName": {
         "type": "string",
-        "description": "The name of the product that’s consumed."
+        "description": "The name of the product that’s consumed.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "QuantityConsumed": {
         "type": "double",
-        "description": "The quantity of product that’s consumed. When you create a product consumed record, the quantity consumed is subtracted from the product item’s quantity."
+        "description": "The quantity of product that’s consumed. When you create a product consumed record, the quantity consumed is subtracted from the product item’s quantity.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "The unit of the quantity of the product that’s consumed. For example, kilograms or liters. Quantity Unit of Measure values are inherited from the Quantity Unit of Measure field on products."
+        "description": "The unit of the quantity of the product that’s consumed. For example, kilograms or liters. Quantity Unit of Measure values are inherited from the Quantity Unit of Measure field on products.",
+        "format": "enum",
+        "enum": [
+          "Each"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "TotalPrice": {
         "type": "currency",
@@ -65,18 +102,330 @@
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "The price per unit of the product consumed."
+        "description": "The price per unit of the product consumed.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "WorkOrderId": {
         "type": "reference",
-        "description": "The work order for which the product was consumed."
+        "description": "The work order for which the product was consumed.",
+        "format": "salesforce-id",
+        "x-object": "WorkOrder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "WorkOrderLineItemId": {
         "type": "reference",
-        "description": "The work order line item for which the product was consumed."
+        "description": "The work order line item for which the product was consumed.",
+        "format": "salesforce-id",
+        "x-object": "WorkOrderLineItem",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Product Consumed ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productconsumed.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productconsumed.htm",
+    "keyPrefix": "0Gv",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductConsumedFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductConsumedHistory",
+        "field": "ProductConsumedId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductItemTransaction",
+        "field": "RelatedRecordId",
+        "relationshipName": "ProductItemTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SerializedProductTransaction",
+        "field": "RelatedRecordId",
+        "relationshipName": "SerializedProductTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

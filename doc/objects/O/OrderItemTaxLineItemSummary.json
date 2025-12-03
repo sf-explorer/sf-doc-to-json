@@ -5,7 +5,11 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "Amount of tax represented by the OrderItemTaxLineItemSummary."
+        "description": "Amount of tax represented by the OrderItemTaxLineItemSummary.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CalculationReferenceNumber": {
         "type": "string",
@@ -17,11 +21,15 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the OrderItemTaxLineItemSummary."
+        "description": "Description of the OrderItemTaxLineItemSummary.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the OrderItemTaxLineItemSummary."
+        "description": "Name of the OrderItemTaxLineItemSummary.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OrderItemAdjustmentLine​SummaryId": {
         "type": "reference",
@@ -29,11 +37,21 @@
       },
       "OrderItemSummaryId": {
         "type": "reference",
-        "description": "If this object represents tax on an OrderItemSummary, this value is the ID of that OrderItemSummary. If this object represents tax on an adjustment, this value is the ID of the OrderItemSummary to which the adjustment applies."
+        "description": "If this object represents tax on an OrderItemSummary, this value is the ID of that OrderItemSummary. If this object represents tax on an adjustment, this value is the ID of the OrderItemSummary to which the adjustment applies.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OrderSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderSummary that the associated OrderItemSummary or OrderItemAdjustmentLineSummary belongs to."
+        "description": "ID of the OrderSummary that the associated OrderItemSummary or OrderItemAdjustmentLineSummary belongs to.",
+        "format": "salesforce-id",
+        "x-object": "OrderSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OriginalOrderItemTax​LineItemId": {
         "type": "reference",
@@ -41,7 +59,11 @@
       },
       "Rate": {
         "type": "percent",
-        "description": "Tax rate used to calculate the Amount."
+        "description": "Tax rate used to calculate the Amount.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ReferenceNumber": {
         "type": "string",
@@ -49,7 +71,10 @@
       },
       "TaxEffectiveDate": {
         "type": "date",
-        "description": "Date on which the Amount was calculated. Important due to tax rate changes over time."
+        "description": "Date on which the Amount was calculated. Important due to tax rate changes over time.",
+        "format": "date",
+        "nullable": false,
+        "readOnly": true
       },
       "TransactionReferenceNumber": {
         "type": "string",
@@ -57,10 +82,198 @@
       },
       "Type": {
         "type": "picklist",
-        "description": "Indicates whether the Amount is actual or estimated."
+        "description": "Indicates whether the Amount is actual or estimated.",
+        "format": "enum",
+        "enum": [
+          "Actual",
+          "Estimated"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Product Tax Line Item Summary ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OriginalOrderItemTaxLineItemId": {
+        "type": "string",
+        "description": "Order Product Tax Line Item ID",
+        "format": "salesforce-id",
+        "x-object": "OrderItemTaxLineItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "OrderItemAdjustmentLineSummaryId": {
+        "type": "string",
+        "description": "Order Product Adjustment Line Item Summary ID",
+        "format": "salesforce-id",
+        "x-object": "OrderItemAdjustmentLineSummary",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtaxlineitemsummary.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtaxlineitemsummary.htm",
+    "keyPrefix": "0ai",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderItemTax",
+        "field": "OrderItemTaxLineItemSummaryId",
+        "relationshipName": "FulfillmentOrderItemTaxes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItemSummaryFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderItemTax",
+        "field": "OrderItemTaxLineItemSummaryId",
+        "relationshipName": "ReturnOrderItemTaxes",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

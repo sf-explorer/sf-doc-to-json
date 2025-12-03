@@ -5,7 +5,11 @@
     "properties": {
       "AuthorizationAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that has been authorized."
+        "description": "Amount of the OrderPaymentSummary that has been authorized.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AuthorizationReversal​Amount": {
         "type": "currency",
@@ -13,19 +17,35 @@
       },
       "AvailableToCaptureAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that’s available to be captured. Equal to AuthorizationAmount minus (CapturedAmount and PendingCaptureAmount and AuthorizationReversalAmount and PendingReverseAuthAmount). However, if the calculated amount is a negative number, this value is 0."
+        "description": "Amount of the OrderPaymentSummary that’s available to be captured. Equal to AuthorizationAmount minus (CapturedAmount and PendingCaptureAmount and AuthorizationReversalAmount and PendingReverseAuthAmount). However, if the calculated amount is a negative number, this value is 0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AvailableToRefundAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that’s available to be refunded. Equal to CapturedAmount plus PendingCaptureAmount minus (RefundedAmount and PendingRefundAmount). However, if the calculated amount is a negative number, this value is 0."
+        "description": "Amount of the OrderPaymentSummary that’s available to be refunded. Equal to CapturedAmount plus PendingCaptureAmount minus (RefundedAmount and PendingRefundAmount). However, if the calculated amount is a negative number, this value is 0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "BalanceAmount": {
         "type": "currency",
-        "description": "Total balance of all payments associated with this summary object."
+        "description": "Total balance of all payments associated with this summary object.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CapturedAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that has been captured."
+        "description": "Amount of the OrderPaymentSummary that has been captured.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -33,7 +53,9 @@
       },
       "FullName": {
         "type": "string",
-        "description": "The full name of the payment method user."
+        "description": "The full name of the payment method user.",
+        "maxLength": 255,
+        "nullable": true
       },
       "LastPaymentGateway​LogId": {
         "type": "reference",
@@ -45,23 +67,43 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "Timestamp when the current user last viewed a record related to this record."
+        "description": "Timestamp when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "Timestamp when the current user last viewed this record. A null value can mean that this record was only referenced (LastReferencedDate) and not viewed."
+        "description": "Timestamp when the current user last viewed this record. A null value can mean that this record was only referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Method": {
         "type": "string",
-        "description": "Name of the OrderPaymentSummary."
+        "description": "Name of the OrderPaymentSummary.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OrderSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderSummary associated with the OrderPaymentSummary."
+        "description": "ID of the OrderSummary associated with the OrderPaymentSummary.",
+        "format": "salesforce-id",
+        "x-object": "OrderSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the user who currently owns this OrderPaymentSummary. Default value is the user logged in to the API to perform the create."
+        "description": "ID of the user who currently owns this OrderPaymentSummary. Default value is the user logged in to the API to perform the create.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "PaymentCreditedAmount": {
         "type": "currency",
@@ -69,7 +111,12 @@
       },
       "PaymentMethodId": {
         "type": "reference",
-        "description": "ID of the payment method associated with this OrderPaymentSummary."
+        "description": "ID of the payment method associated with this OrderPaymentSummary.",
+        "format": "salesforce-id",
+        "x-object": "PaymentMethod",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PendingAuthorization​Amount": {
         "type": "currency",
@@ -77,11 +124,19 @@
       },
       "PendingCaptureAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that’s pending capture."
+        "description": "Amount of the OrderPaymentSummary that’s pending capture.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PendingRefundAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that’s pending refund."
+        "description": "Amount of the OrderPaymentSummary that’s pending refund.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PendingReverseAuth​Amount": {
         "type": "currency",
@@ -89,7 +144,11 @@
       },
       "RefundedAmount": {
         "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that was refunded."
+        "description": "Amount of the OrderPaymentSummary that was refunded.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ReservedBalanceTotalAmount": {
         "type": "currency",
@@ -97,10 +156,240 @@
       },
       "Type": {
         "type": "string",
-        "description": "The payment method type associated with the OrderPaymentSummary. For example, visa, mastercard, check, or giftcard."
+        "description": "The payment method type associated with the OrderPaymentSummary. For example, visa, mastercard, check, or giftcard.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Payment Summary ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastPaymentGatewayLogId": {
+        "type": "string",
+        "description": "Payment Gateway Log ID",
+        "format": "salesforce-id",
+        "x-object": "PaymentGatewayLog",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "AuthorizationReversalAmount": {
+        "type": "number",
+        "description": "Authorization Reversed",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "PendingAuthorizationAmount": {
+        "type": "number",
+        "description": "Pending Authorization",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "PendingReverseAuthAmount": {
+        "type": "number",
+        "description": "Pending Authorization Reversal",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "LastPaymentGatewayMessage": {
+        "type": "string",
+        "maxLength": 1000,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderpaymentsummary.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderpaymentsummary.htm",
+    "keyPrefix": "0bM",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderPaymentSummaryFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderPaymentSummaryShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Payment",
+        "field": "OrderPaymentSummaryId",
+        "relationshipName": "Payments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentAuthorization",
+        "field": "OrderPaymentSummaryId",
+        "relationshipName": "PaymentAuthorizations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentGatewayLog",
+        "field": "OrderPaymentSummaryId",
+        "relationshipName": "PaymentGatewayLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessException",
+        "field": "AttachedToId",
+        "relationshipName": "ProcessExceptions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessExceptionEvent",
+        "field": "AttachedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Refund",
+        "field": "OrderPaymentSummaryId",
+        "relationshipName": "Refunds",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

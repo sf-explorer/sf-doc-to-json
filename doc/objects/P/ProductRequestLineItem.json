@@ -5,110 +5,536 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The account associated with the product request line item."
+        "description": "The account associated with the product request line item.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "CaseId": {
         "type": "reference",
-        "description": "The case associated with the product request line item."
+        "description": "The case associated with the product request line item.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the product request line item."
+        "description": "The description of the product request line item.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DestinationLocationId": {
         "type": "reference",
-        "description": "The destination of the product delivery."
+        "description": "The destination of the product delivery.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "NeedByDate": {
         "type": "dateTime",
-        "description": "The date when the product must be delivered by."
+        "description": "The date when the product must be delivered by.",
+        "format": "date-time",
+        "nullable": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "The product request that’s associated with the product request line item."
+        "description": "The product request that’s associated with the product request line item.",
+        "format": "salesforce-id",
+        "x-object": "ProductRequest",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The product associated with the product request line item."
+        "description": "The product associated with the product request line item.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": false
       },
       "ProductRequestLineItemNumber": {
         "type": "string",
-        "description": "An auto-generated number for the product request line item."
+        "description": "An auto-generated number for the product request line item.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "QuantityRequested": {
         "type": "double",
-        "description": "The quantity of the requested product."
+        "description": "The quantity of the requested product.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "The units of the requested product; for example, grams, liters, or units. The picklist values can be customized."
+        "description": "The units of the requested product; for example, grams, liters, or units. The picklist values can be customized.",
+        "format": "enum",
+        "enum": [
+          "Each"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipToAddress": {
         "type": "address",
-        "description": "The physical address where the product is needed."
+        "description": "The physical address where the product is needed.",
+        "nullable": true,
+        "readOnly": true
       },
       "ShipToCity": {
         "type": "string",
-        "description": "The city of the address where the product is needed."
+        "description": "The city of the address where the product is needed.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipToCountry": {
         "type": "string",
-        "description": "The country of the address where the product is needed."
+        "description": "The country of the address where the product is needed.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShipToGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the product is needed."
+        "description": "Accuracy level of the geocode for the address where the product is needed.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipToLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShipToLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShipToPostalCode": {
         "type": "string",
-        "description": "The postal code of the address where the product is needed."
+        "description": "The postal code of the address where the product is needed.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ShipToState": {
         "type": "string",
-        "description": "The state of the address where the product is needed."
+        "description": "The state of the address where the product is needed.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShipToStreet": {
         "type": "textarea",
-        "description": "The street of the address where the product is needed."
+        "description": "The street of the address where the product is needed.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ShipmentType": {
         "type": "picklist",
-        "description": "The type of shipment. The picklist includes the following values, which can be customized: Rush Overnight Next Business Day Pick Up"
+        "description": "The type of shipment. The picklist includes the following values, which can be customized: Rush Overnight Next Business Day Pick Up",
+        "format": "enum",
+        "enum": [
+          "Rush",
+          "Overnight",
+          "Next Business Day",
+          "Pick Up",
+          "Standard"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "SourceLocationId": {
         "type": "reference",
-        "description": "Where the product is at the time of the request."
+        "description": "Where the product is at the time of the request.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the shipment. The picklist includes the following values, which can be customized: Draft Submitted Received"
+        "description": "The status of the shipment. The picklist includes the following values, which can be customized: Draft Submitted Received",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Submitted",
+          "Received",
+          "Canceled"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "WorkOrderId": {
         "type": "reference",
-        "description": "The work order for which the product is needed."
+        "description": "The work order for which the product is needed.",
+        "format": "salesforce-id",
+        "x-object": "WorkOrder",
+        "maxLength": 18,
+        "nullable": true
       },
       "WorkOrderLineItemId": {
         "type": "reference",
-        "description": "The work order line item for which the product is needed."
+        "description": "The work order line item for which the product is needed.",
+        "format": "salesforce-id",
+        "x-object": "WorkOrderLineItem",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Product Request Line Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": " ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": " ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CareProgramEnrolleeId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "CareProgramEnrollee",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productrequestlineitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productrequestlineitem.htm",
+    "keyPrefix": "0Tw",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItemFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductRequestLineItemHistory",
+        "field": "ProductRequestLineItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductTransfer",
+        "field": "ProductRequestLineItemId",
+        "relationshipName": "ProductTransfers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransferChangeEvent",
+        "field": "ProductRequestLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "ProductRequestLineItemId",
+        "relationshipName": "ReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "ProductRequestLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

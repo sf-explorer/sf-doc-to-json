@@ -29,19 +29,32 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "User-entered information about the order adjustment group."
+        "description": "User-entered information about the order adjustment group.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "GrandTotalAmount": {
         "type": "currency",
-        "description": "The sum of all total amounts of all adjustments in this group, including tax."
+        "description": "The sum of all total amounts of all adjustments in this group, including tax.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "The user-defined name of the order adjustment group."
+        "description": "The user-defined name of the order adjustment group.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OrderId": {
         "type": "reference",
-        "description": "The unique identifier of the order related to the adjustments in this order adjustment group."
+        "description": "The unique identifier of the order related to the adjustments in this order adjustment group.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Priority": {
         "type": "int",
@@ -49,22 +62,240 @@
       },
       "RelatedAdjustmentGroupId": {
         "type": "reference",
-        "description": "The unique identifier of the original order’s adjustment group. This field is a useful reference in change order scenarios."
+        "description": "The unique identifier of the original order’s adjustment group. This field is a useful reference in change order scenarios.",
+        "format": "salesforce-id",
+        "x-object": "OrderAdjustmentGroup",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "The total of all order adjustments in this order adjustment group, excluding tax."
+        "description": "The total of all order adjustments in this order adjustment group, excluding tax.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "The total tax for all order adjustments in this order adjustment group."
+        "description": "The total tax for all order adjustments in this order adjustment group.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Type": {
         "type": "picklist",
-        "description": "Indicates how the adjustment was applied to the order."
+        "description": "Indicates how the adjustment was applied to the order.",
+        "format": "enum",
+        "enum": [
+          "Header",
+          "SplitLine"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Adjustment Group ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderadjustmentgroup.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderadjustmentgroup.htm",
+    "keyPrefix": "0az",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderAdjustmentGroup",
+        "field": "RelatedAdjustmentGroupId",
+        "relationshipName": "RelatedAdjustmentGroups",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderAdjustmentGroupFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderAdjustmentGroupHistory",
+        "field": "OrderAdjustmentGroupId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderAdjustmentGroupSummary",
+        "field": "OriginalOrderAdjGroupId",
+        "relationshipName": "OrderAdjustmentGroupSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "ChangeLineId",
+        "relationshipName": "OrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "RelatedLineId",
+        "relationshipName": "RelatedOrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemAdjustmentLineItem",
+        "field": "OrderAdjustmentGroupId",
+        "relationshipName": "OrderItemAdjustmentLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

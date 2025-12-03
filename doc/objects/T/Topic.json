@@ -5,26 +5,169 @@
     "properties": {
       "Description": {
         "type": "string",
-        "description": "Description of the topic."
+        "description": "Description of the topic.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "ManagedTopicType": {
         "type": "string",
-        "description": "Type of managed topic. Values are: Content Featured Navigational This field is available in API version 44.0 and later."
+        "description": "Type of managed topic. Values are: Content Featured Navigational This field is available in API version 44.0 and later.",
+        "maxLength": 99,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the topic."
+        "description": "Name of the topic.",
+        "maxLength": 99,
+        "nullable": false
       },
       "NetworkId": {
         "type": "reference",
-        "description": "Identifier of the Experience Cloud site to which the topic belongs. This field is available only if digital experiences is enabled in your org."
+        "description": "Identifier of the Experience Cloud site to which the topic belongs. This field is available only if digital experiences is enabled in your org.",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "TalkingAbout": {
         "type": "int",
-        "description": "Number of people talking about the topic over the last two months, based on factors such as topic additions and comments on posts with the topic."
+        "description": "Number of people talking about the topic over the last two months, based on factors such as topic additions and comments on posts with the topic.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Topic ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_topic.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_topic.htm",
+    "keyPrefix": "0TO",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CustomBrand",
+        "field": "ParentId",
+        "relationshipName": "CustomBrands",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "KnowledgeableUser",
+        "field": "TopicId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ListEmailRecipientSource",
+        "field": "SourceListId",
+        "relationshipName": "ListEmailRecipientSources",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "TopicId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TopicFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TopicLocalization",
+        "field": "ParentId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TopicUserEvent",
+        "field": "TopicId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -9,11 +9,15 @@
       },
       "DeliverToAddress": {
         "type": "address",
-        "description": "Address of the recipient. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Address of the recipient. Users with the Edit Delivery Information user permission can modify this field.",
+        "nullable": true,
+        "readOnly": true
       },
       "DeliverToCity": {
         "type": "string",
-        "description": "Recipient address city."
+        "description": "Recipient address city.",
+        "maxLength": 40,
+        "nullable": true
       },
       "DeliverToCompanyName": {
         "type": "string",
@@ -21,7 +25,9 @@
       },
       "DeliverToCountry": {
         "type": "string",
-        "description": "Recipient address country."
+        "description": "Recipient address country.",
+        "maxLength": 80,
+        "nullable": true
       },
       "DeliverToFullFirstName": {
         "type": "string",
@@ -45,55 +51,83 @@
       },
       "DeliverToLatitude": {
         "type": "double",
-        "description": "Used with FulfilledToLongitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with FulfilledToLongitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "DeliverToLongitude": {
         "type": "double",
-        "description": "Used with FulfilledToLatitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with FulfilledToLatitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "DeliverToName": {
         "type": "string",
-        "description": "Name on the recipient address. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Name on the recipient address. Users with the Edit Delivery Information user permission can modify this field.",
+        "maxLength": 255,
+        "nullable": true
       },
       "DeliverToPostalCode": {
         "type": "string",
-        "description": "Recipient address postal code."
+        "description": "Recipient address postal code.",
+        "maxLength": 20,
+        "nullable": true
       },
       "DeliverToState": {
         "type": "string",
-        "description": "Recipient address state."
+        "description": "Recipient address state.",
+        "maxLength": 80,
+        "nullable": true
       },
       "DeliverToStreet": {
         "type": "textarea",
-        "description": "Recipient address street."
+        "description": "Recipient address street.",
+        "maxLength": 255,
+        "nullable": true
       },
       "DeliveryInstructions": {
         "type": "textarea",
-        "description": "Special instructions for the delivery. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Special instructions for the delivery. Users with the Edit Delivery Information user permission can modify this field.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the OrderDeliveryGroupSummary."
+        "description": "Description of the OrderDeliveryGroupSummary.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "DesiredDeliveryDate": {
         "type": "dateTime",
-        "description": "Desired date for delivery. This field is informational, available for customizations. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Desired date for delivery. This field is informational, available for customizations. Users with the Edit Delivery Information user permission can modify this field.",
+        "format": "date-time",
+        "nullable": true
       },
       "EmailAddress": {
         "type": "email",
-        "description": "Email address of the recipient. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Email address of the recipient. Users with the Edit Delivery Information user permission can modify this field.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "GiftMessage": {
         "type": "textarea",
-        "description": "Gift message to include. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Gift message to include. Users with the Edit Delivery Information user permission can modify this field.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "GrandTotalAmount": {
         "type": "currency",
-        "description": "Total, including adjustments and tax, of the delivery charges associated with the OrderDeliveryGroupSummary. This value only includes OrderItemSummaries of type code Charge."
+        "description": "Total, including adjustments and tax, of the delivery charges associated with the OrderDeliveryGroupSummary. This value only includes OrderItemSummaries of type code Charge.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "IsGift": {
         "type": "boolean",
-        "description": "Indicates whether the OrderDeliveryGroupSummary represents a gift. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Indicates whether the OrderDeliveryGroupSummary represents a gift. Users with the Edit Delivery Information user permission can modify this field.",
+        "nullable": false
       },
       "OrderDeliveryGroup​SummaryNumber": {
         "type": "string",
@@ -101,11 +135,20 @@
       },
       "OrderDeliveryMethodId": {
         "type": "reference",
-        "description": "ID of the order delivery method specified for the OrderDeliveryGroupSummary. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "ID of the order delivery method specified for the OrderDeliveryGroupSummary. Users with the Edit Delivery Information user permission can modify this field.",
+        "format": "salesforce-id",
+        "x-object": "OrderDeliveryMethod",
+        "maxLength": 18,
+        "nullable": false
       },
       "OrderSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderSummary associated with the OrderDeliveryGroupSummary."
+        "description": "ID of the OrderSummary associated with the OrderDeliveryGroupSummary.",
+        "format": "salesforce-id",
+        "x-object": "OrderSummary",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OriginalOrderDelivery​GroupId": {
         "type": "reference",
@@ -113,15 +156,24 @@
       },
       "PhoneNumber": {
         "type": "phone",
-        "description": "Phone number of the recipient. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Phone number of the recipient. Users with the Edit Delivery Information user permission can modify this field.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "PromisedDeliveryDate": {
         "type": "dateTime",
-        "description": "Promised date for delivery. This field is informational, available for customizations. Users with the Edit Delivery Information user permission can modify this field."
+        "description": "Promised date for delivery. This field is informational, available for customizations. Users with the Edit Delivery Information user permission can modify this field.",
+        "format": "date-time",
+        "nullable": true
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
-        "description": "Total price adjustments applied to delivery charges associated with the OrderDeliveryGroupSummary. This value only includes adjustments to OrderItemSummaries of type code Charge."
+        "description": "Total price adjustments applied to delivery charges associated with the OrderDeliveryGroupSummary. This value only includes adjustments to OrderItemSummaries of type code Charge.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustment​AmtWithTax": {
         "type": "currency",
@@ -133,11 +185,19 @@
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "Total, including adjustments but not tax, of the delivery charges associated with the OrderDeliveryGroupSummary. This value only includes adjustments to OrderItemSummaries of type code Charge."
+        "description": "Total, including adjustments but not tax, of the delivery charges associated with the OrderDeliveryGroupSummary. This value only includes adjustments to OrderItemSummaries of type code Charge.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmount": {
         "type": "currency",
-        "description": "Total, not including adjustments or tax, of the delivery charges associated with the OrderDeliveryGroupSummary."
+        "description": "Total, not including adjustments or tax, of the delivery charges associated with the OrderDeliveryGroupSummary.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmt​WithTax": {
         "type": "currency",
@@ -145,14 +205,235 @@
       },
       "TotalLineTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalLineAmount."
+        "description": "Tax on the TotalLineAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalAmount."
+        "description": "Tax on the TotalAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Delivery Group Summary ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OrderDeliveryGroupSummaryNumber": {
+        "type": "string",
+        "description": "Name",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OriginalOrderDeliveryGroupId": {
+        "type": "string",
+        "description": "Order Delivery Group ID",
+        "format": "salesforce-id",
+        "x-object": "OrderDeliveryGroup",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "DeliverToGeocodeAccuracy": {
+        "type": "string",
+        "description": "Geocode Accuracy",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "TotalAdjustmentTaxAmount": {
+        "type": "number",
+        "description": "Adjustments Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentAmtWithTax": {
+        "type": "number",
+        "description": "Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalLineAmtWithTax": {
+        "type": "number",
+        "description": "Subtotal with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderdeliverygroupsummary.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderdeliverygroupsummary.htm",
+    "keyPrefix": "0ag",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderDeliveryGroupSummaryFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemSummary",
+        "field": "OrderDeliveryGroupSummaryId",
+        "relationshipName": "OrderItemSummaries",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

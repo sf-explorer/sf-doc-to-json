@@ -5,7 +5,8 @@
     "properties": {
       "DurationInSeconds": {
         "type": "int",
-        "description": "The total length (in seconds) of the voice call recording."
+        "description": "The total length (in seconds) of the voice call recording.",
+        "nullable": false
       },
       "IntelligenceScore": {
         "type": "int",
@@ -13,19 +14,33 @@
       },
       "IsConsented": {
         "type": "boolean",
-        "description": "Whether the call recording was indicated as consented or not."
+        "description": "Whether the call recording was indicated as consented or not.",
+        "nullable": false
       },
       "MediaContentId": {
         "type": "reference",
-        "description": "The ID of the related media content, a ContentDocument. The record counts toward your org’s file storage quota."
+        "description": "The ID of the related media content, a ContentDocument. The record counts toward your org’s file storage quota.",
+        "format": "salesforce-id",
+        "x-object": "ContentDocument",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the call recording file."
+        "description": "The name of the call recording file.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the owner of the call recording."
+        "description": "The ID of the owner of the call recording.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "UploadDateTime": {
         "type": "dateTime",
@@ -33,10 +48,111 @@
       },
       "VoiceCallId": {
         "type": "reference",
-        "description": "Required. The ID of the related phone call. The property nillable has been removed in API version 50.0 and later."
+        "description": "Required. The ID of the related phone call. The property nillable has been removed in API version 50.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "VoiceCall",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Voice Call Recording ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicecallrecording.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicecallrecording.htm",
+    "keyPrefix": "0Ox",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "CallRecordingId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "CallRecordingId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -9,39 +9,63 @@
       },
       "ActivityDate": {
         "type": "dateTime",
-        "description": "The date of the transaction."
+        "description": "The date of the transaction.",
+        "format": "date-time",
+        "nullable": false
       },
       "ErrorDescription": {
         "type": "string",
-        "description": "The description of the error in the journal record."
+        "description": "The description of the error in the journal record.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ExternalTransactionNumber": {
         "type": "string",
-        "description": "The transaction number from the external systems."
+        "description": "The transaction number from the external systems.",
+        "maxLength": 40,
+        "nullable": true
       },
       "InvoiceDate": {
         "type": "date",
-        "description": "The date the invoice was generated."
+        "description": "The date the invoice was generated.",
+        "format": "date",
+        "nullable": true
       },
       "JournalDate": {
         "type": "dateTime",
-        "description": "The date of the journal."
+        "description": "The date of the journal.",
+        "format": "date-time",
+        "nullable": true
       },
       "JournalTypeId": {
         "type": "reference",
-        "description": "The type of journal transaction."
+        "description": "The type of journal transaction.",
+        "format": "salesforce-id",
+        "x-object": "JournalType",
+        "maxLength": 18,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberId": {
         "type": "reference",
-        "description": "The rebate program member associated with this record. Note Use this field if you have enabled Rebate Management in your org and the dealer submitting the transaction is part of a rebate program."
+        "description": "The rebate program member associated with this record. Note Use this field if you have enabled Rebate Management in your org and the dealer submitting the transaction is part of a rebate program.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramMember",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
@@ -49,27 +73,49 @@
       },
       "OrderId": {
         "type": "reference",
-        "description": "The order associated with the transaction."
+        "description": "The order associated with the transaction.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": true
       },
       "OrderItemId": {
         "type": "reference",
-        "description": "The order items associated with the transaction."
+        "description": "The order items associated with the transaction.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProductCategoryId": {
         "type": "reference",
-        "description": "The category of the product associated with the transaction."
+        "description": "The category of the product associated with the transaction.",
+        "format": "salesforce-id",
+        "x-object": "ProductCategory",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProductId": {
         "type": "reference",
-        "description": "The product associated with the transaction."
+        "description": "The product associated with the transaction.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true
       },
       "Quantity": {
         "type": "double",
-        "description": "The product quantity associated with the transaction."
+        "description": "The product quantity associated with the transaction.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "QuantityUnitOfMeasureId": {
         "type": "reference",
-        "description": "The unit of measure associated with the record."
+        "description": "The unit of measure associated with the record.",
+        "format": "salesforce-id",
+        "x-object": "UnitOfMeasure",
+        "maxLength": 18,
+        "nullable": true
       },
       "RebatePgmReferenceNumber": {
         "type": "string",
@@ -93,14 +139,330 @@
       },
       "TransactionAmount": {
         "type": "currency",
-        "description": "The total amount of the transaction."
+        "description": "The total amount of the transaction.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "UsageType": {
         "type": "picklist",
-        "description": "Type of journal record."
+        "description": "Type of journal record.",
+        "format": "enum",
+        "enum": [
+          "Loyalty"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Transaction Journal ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "JournalSubTypeId": {
+        "type": "string",
+        "description": "Journal Subtype ID",
+        "format": "salesforce-id",
+        "x-object": "JournalSubType",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Status": {
+        "type": "string",
+        "description": "Status",
+        "format": "enum",
+        "enum": [
+          "Pending",
+          "Processed",
+          "Cancelled",
+          "Error",
+          "SystemApproved",
+          "SystemRejected",
+          "Approved",
+          "Rejected",
+          "ProcessingError"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "Origin": {
+        "type": "string",
+        "description": "Origin",
+        "maxLength": 30,
+        "nullable": true
+      },
+      "Destination": {
+        "type": "string",
+        "description": "Destination",
+        "maxLength": 30,
+        "nullable": true
+      },
+      "TransactionLocation": {
+        "type": "string",
+        "description": "Transaction Location",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "Distance": {
+        "type": "number",
+        "description": "Distance",
+        "nullable": true
+      },
+      "BookedFareClass": {
+        "type": "string",
+        "description": "Booked Fare Class",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "TraveledFareClass": {
+        "type": "string",
+        "description": "Traveled Fare Class",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Brand": {
+        "type": "string",
+        "description": "Brand",
+        "maxLength": 30,
+        "nullable": true
+      },
+      "BookedRoomType": {
+        "type": "string",
+        "description": "Booked Room Type",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "BookingDate": {
+        "type": "string",
+        "description": "Booking Date",
+        "format": "date",
+        "nullable": true
+      },
+      "StartDate": {
+        "type": "string",
+        "description": "Start Date",
+        "format": "date-time",
+        "nullable": true
+      },
+      "EndDate": {
+        "type": "string",
+        "description": "End Date",
+        "format": "date-time",
+        "nullable": true
+      },
+      "Channel": {
+        "type": "string",
+        "description": "Channel",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PaymentMethod": {
+        "type": "string",
+        "description": "Payment Method",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PartnerId": {
+        "type": "string",
+        "description": "Loyalty Program Partner ID",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramPartner",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "FlightNumber": {
+        "type": "string",
+        "description": "Flight Number",
+        "maxLength": 10,
+        "nullable": true
+      },
+      "Establishment": {
+        "type": "string",
+        "description": "Establishment",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Industry": {
+        "type": "string",
+        "description": "Industry",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "ReferredMemberId": {
+        "type": "string",
+        "description": "Referred Member ID",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramMember",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "RelatedCorporateMembershipId": {
+        "type": "string",
+        "description": "Related Corporate Membership ID",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramMember",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "RelatedJournalId": {
+        "type": "string",
+        "description": "Related Journal ID",
+        "format": "salesforce-id",
+        "x-object": "TransactionJournal",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "LoyaltyProgramId": {
+        "type": "string",
+        "description": "Loyalty Program ID",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgram",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_transactionjournal.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_transactionjournal.htm",
+    "keyPrefix": "0lV",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyLedger",
+        "field": "TransactionJournalId",
+        "relationshipName": "TransactionJournalLedger",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyLedgerChangeEvent",
+        "field": "TransactionJournalId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "RelatedJournalId",
+        "relationshipName": "RelatedTransaction",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "RelatedJournalId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

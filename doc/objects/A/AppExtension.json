@@ -5,34 +5,107 @@
     "properties": {
       "AppExtensionLabel": {
         "type": "string",
-        "description": "The label in the UI for the app extension."
+        "description": "The label in the UI for the app extension.",
+        "maxLength": 255,
+        "nullable": false
       },
       "AppExtensionName": {
         "type": "string",
-        "description": "The API name of the app extension."
+        "description": "The API name of the app extension.",
+        "maxLength": 40,
+        "nullable": false
       },
       "FieldServiceMobileSettingsId": {
         "type": "reference",
-        "description": "The ID of a set of field service mobile settings."
+        "description": "The ID of a set of field service mobile settings.",
+        "format": "salesforce-id",
+        "x-object": "FieldServiceMobileSettings",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "InstallationUrl": {
         "type": "string",
-        "description": "The URL that takes the user to the app install location, such as the App Store or Google Play."
+        "description": "The URL that takes the user to the app install location, such as the App Store or Google Play.",
+        "maxLength": 255,
+        "nullable": true
       },
       "LaunchValue": {
         "type": "string",
-        "description": "A value directing the Field Service app to the appropriate app extension. The Launch Value can be a static URL or a dynamic value that you can represent with certain tokens. These tokens pass field information from the record that the user is currently viewing. The basic format for these tokens is based on the field names; for example: {!$Name}."
+        "description": "A value directing the Field Service app to the appropriate app extension. The Launch Value can be a static URL or a dynamic value that you can represent with certain tokens. These tokens pass field information from the record that the user is currently viewing. The basic format for these tokens is based on the field names; for example: {!$Name}.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ScopedToObjectTypes": {
         "type": "string",
-        "description": "Indicates the types of records from which the app extension can be activated. Scoping an app extension to an object lets users activate the app extension from records of the specified type. For example, to scope to both work orders and service appointments you would use the value WorkOrder,ServiceAppointment."
+        "description": "Indicates the types of records from which the app extension can be activated. Scoping an app extension to an object lets users activate the app extension from records of the specified type. For example, to scope to both work orders and service appointments you would use the value WorkOrder,ServiceAppointment.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Type": {
         "type": "picklist",
-        "description": "A picklist of types of app extensions: iOS, Android, Flow, and Lightning Apps"
+        "description": "A picklist of types of app extensions: iOS, Android, Flow, and Lightning Apps",
+        "format": "enum",
+        "enum": [
+          "iOS",
+          "Android",
+          "Flow",
+          "LightningApp"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "App Extension ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_appextension.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_appextension.htm",
+    "keyPrefix": "0Mg"
   }
 }

@@ -5,7 +5,12 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the Account or Person Account associated with the FulfillmentOrder. It represents the shopper in the storefront."
+        "description": "ID of the Account or Person Account associated with the FulfillmentOrder. It represents the shopper in the storefront.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ActiveDate": {
         "type": "datetime",
@@ -13,7 +18,12 @@
       },
       "BillToContactId": {
         "type": "reference",
-        "description": "ID of the Contact associated with the FulfillmentOrder. It represents the shopper in the storefront when not using person accounts."
+        "description": "ID of the Contact associated with the FulfillmentOrder. It represents the shopper in the storefront when not using person accounts.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ClosedDate": {
         "type": "datetime",
@@ -29,27 +39,44 @@
       },
       "DeliveryMethodId": {
         "type": "reference",
-        "description": "ID of the DeliveryMethod used for this FulfillmentOrder."
+        "description": "ID of the DeliveryMethod used for this FulfillmentOrder.",
+        "format": "salesforce-id",
+        "x-object": "OrderDeliveryMethod",
+        "maxLength": 18,
+        "nullable": true
       },
       "FulfilledFromLocationId": {
         "type": "reference",
-        "description": "ID of the Location handling this FulfillmentOrder."
+        "description": "ID of the Location handling this FulfillmentOrder.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "FulfilledToAddress": {
         "type": "address",
-        "description": "Address of the recipient."
+        "description": "Address of the recipient.",
+        "nullable": true,
+        "readOnly": true
       },
       "FulfilledToCity": {
         "type": "string",
-        "description": "Recipient address city."
+        "description": "Recipient address city.",
+        "maxLength": 40,
+        "nullable": true
       },
       "FulfilledToCountry": {
         "type": "string",
-        "description": "Recipient address country."
+        "description": "Recipient address country.",
+        "maxLength": 80,
+        "nullable": true
       },
       "FulfilledToEmailAddress": {
         "type": "email",
-        "description": "Email address of the recipient."
+        "description": "Email address of the recipient.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "FulfilledTo​GeocodeAccuracy": {
         "type": "picklist",
@@ -57,43 +84,69 @@
       },
       "FulfilledToLatitude": {
         "type": "double",
-        "description": "Used with FulfilledToLongitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with FulfilledToLongitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "FulfilledToLongitude": {
         "type": "double",
-        "description": "Used with FulfilledToLatitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with FulfilledToLatitude to specify the precise geolocation of the recipient address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "FulfilledToName": {
         "type": "string",
-        "description": "Name on the recipient address."
+        "description": "Name on the recipient address.",
+        "maxLength": 255,
+        "nullable": false
       },
       "FulfilledToPhone": {
         "type": "phone",
-        "description": "Phone number of the recipient."
+        "description": "Phone number of the recipient.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "FulfilledToPostalCode": {
         "type": "string",
-        "description": "Recipient address postal code."
+        "description": "Recipient address postal code.",
+        "maxLength": 20,
+        "nullable": true
       },
       "FulfilledToState": {
         "type": "string",
-        "description": "Recipient address state."
+        "description": "Recipient address state.",
+        "maxLength": 80,
+        "nullable": true
       },
       "FulfilledToStreet": {
         "type": "textarea",
-        "description": "Recipient address street."
+        "description": "Recipient address street.",
+        "maxLength": 255,
+        "nullable": true
       },
       "FulfillmentOrderNumber": {
         "type": "string",
-        "description": "ID of the FulfillmentOrder."
+        "description": "ID of the FulfillmentOrder.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "GrandTotalAmount": {
         "type": "currency",
-        "description": "Total, including adjustments and tax, of the products, fees, and delivery charges on the FulfillmentOrder. This amount includes all FulfillmentOrderLineItems associated with the FulfillmentOrder. This amount is equal to TotalAmount + TotalTaxAmount."
+        "description": "Total, including adjustments and tax, of the products, fees, and delivery charges on the FulfillmentOrder. This amount includes all FulfillmentOrderLineItems associated with the FulfillmentOrder. This amount is equal to TotalAmount + TotalTaxAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "InvoiceId": {
         "type": "reference",
-        "description": "ID of the Invoice associated with the FulfillmentOrder."
+        "description": "ID of the Invoice associated with the FulfillmentOrder.",
+        "format": "salesforce-id",
+        "x-object": "Invoice",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsReship": {
         "type": "boolean",
@@ -101,31 +154,57 @@
       },
       "IsSuspended": {
         "type": "boolean",
-        "description": "Indicates whether the FulfillmentOrder is suspended. The default value is false."
+        "description": "Indicates whether the FulfillmentOrder is suspended. The default value is false.",
+        "nullable": false
       },
       "ItemCount": {
         "type": "double",
-        "description": "Sum of the quantities of the FulfillmentOrderLineItems included in the FulfillmentOrder."
+        "description": "Sum of the quantities of the FulfillmentOrderLineItems included in the FulfillmentOrder.",
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "Timestamp for when the current user last viewed a record related to this record."
+        "description": "Timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "Timestamp for when the current user last viewed this record. A null value can mean that this record has only been referenced (LastReferencedDate) and not viewed."
+        "description": "Timestamp for when the current user last viewed this record. A null value can mean that this record has only been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OrderId": {
         "type": "reference",
-        "description": "ID of the original Order that generated the FulfillmentOrder."
+        "description": "ID of the original Order that generated the FulfillmentOrder.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OrderSummaryId": {
         "type": "reference",
-        "description": "ID of the OrderSummary associated with the FulfillmentOrder."
+        "description": "ID of the OrderSummary associated with the FulfillmentOrder.",
+        "format": "salesforce-id",
+        "x-object": "OrderSummary",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the User who currently owns this FulfillmentOrder. Default value is the User logged in to the API to perform the create."
+        "description": "ID of the User who currently owns this FulfillmentOrder. Default value is the User logged in to the API to perform the create.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ProcessingTimeInMinutes": {
         "type": "long",
@@ -137,19 +216,63 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the FulfillmentOrder. Each status corresponds to one status category, shown here in parentheses. You can customize the status picklist to represent your business processes, but the status category picklist is fixed because processing is based on those values. If you customize the status picklist, include at least one status value for each status category."
+        "description": "Status of the FulfillmentOrder. Each status corresponds to one status category, shown here in parentheses. You can customize the status picklist to represent your business processes, but the status category picklist is fixed because processing is based on those values. If you customize the status picklist, include at least one status value for each status category.",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Allocated",
+          "Waiting Assignment",
+          "Assigned",
+          "Waiting Pickpack",
+          "Pickpack",
+          "Ready for Pickup",
+          "Customer Arrived",
+          "Fulfilled",
+          "Cancelled",
+          "Rejected",
+          "Printed",
+          "Pick Complete",
+          "Pack Complete"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "StatusCategory": {
         "type": "picklist",
-        "description": "Status category of the FulfillmentOrder. Processing of the FulfillmentOrder depends on this value. Each status category corresponds to one or more statuses."
+        "description": "Status category of the FulfillmentOrder. Processing of the FulfillmentOrder depends on this value. Each status category corresponds to one or more statuses.",
+        "format": "enum",
+        "enum": [
+          "DRAFT",
+          "ACTIVATED",
+          "FULFILLING",
+          "CLOSED",
+          "CANCELLED",
+          "REJECTED"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "TaxLocaleType": {
         "type": "picklist",
-        "description": "The system used to handle tax on the original Order associated with the FulfillmentOrder. Gross usually applies to taxes like value-added tax (VAT), and Net usually applies to taxes like sales tax."
+        "description": "The system used to handle tax on the original Order associated with the FulfillmentOrder. Gross usually applies to taxes like value-added tax (VAT), and Net usually applies to taxes like sales tax.",
+        "format": "enum",
+        "enum": [
+          "Net",
+          "Gross",
+          "Automatic"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
-        "description": "Total amount of the price adjustments applied to the products on the FulfillmentOrder. This value only includes adjustments to FulfillmentOrderLineItems of type code Product, not adjustments to delivery charges or fees."
+        "description": "Total amount of the price adjustments applied to the products on the FulfillmentOrder. This value only includes adjustments to FulfillmentOrderLineItems of type code Product, not adjustments to delivery charges or fees.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustment​AmtWithTax": {
         "type": "currency",
@@ -157,11 +280,19 @@
       },
       "TotalAdjustmentTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalAdjustmentAmount."
+        "description": "Tax on the TotalAdjustmentAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "Adjusted total, not including tax, of the FulfillmentOrderLineItems, including products, fees, and delivery charges, on the Fulfillment Order."
+        "description": "Adjusted total, not including tax, of the FulfillmentOrderLineItems, including products, fees, and delivery charges, on the Fulfillment Order.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalDelivery​AdjustAmount": {
         "type": "currency",
@@ -177,7 +308,11 @@
       },
       "TotalDeliveryAmount": {
         "type": "currency",
-        "description": "Total of the delivery charges on the FulfillmentOrder. This value only includes FulfillmentOrderLineItems of type Delivery Charge."
+        "description": "Total of the delivery charges on the FulfillmentOrder. This value only includes FulfillmentOrderLineItems of type Delivery Charge.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalDelivery​AmtWithTax": {
         "type": "currency",
@@ -185,7 +320,11 @@
       },
       "TotalDeliveryTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalDeliveryAmount."
+        "description": "Tax on the TotalDeliveryAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalFeeAdjustAmount": {
         "type": "currency",
@@ -213,7 +352,11 @@
       },
       "TotalProductAmount": {
         "type": "currency",
-        "description": "Total price of the products on the FulfillmentOrder, excluding order adjustments, delivery charges, and fees. This value only includes FulfillmentOrderLineItems of type code Product."
+        "description": "Total price of the products on the FulfillmentOrder, excluding order adjustments, delivery charges, and fees. This value only includes FulfillmentOrderLineItems of type code Product.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalProduct​AmtWithTax": {
         "type": "currency",
@@ -221,22 +364,418 @@
       },
       "TotalProductTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalProductAmount."
+        "description": "Tax on the TotalProductAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Tax on the TotalAmount."
+        "description": "Tax on the TotalAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Type": {
         "type": "picklist",
-        "description": "Type of the FulfillmentOrder. Each type corresponds to one type category, shown here in parentheses. You can customize the type picklist to represent your business processes, but the type category picklist is fixed because processing is based on those values. If you customize the type picklist, include at least one type value for each type category."
+        "description": "Type of the FulfillmentOrder. Each type corresponds to one type category, shown here in parentheses. You can customize the type picklist to represent your business processes, but the type category picklist is fixed because processing is based on those values. If you customize the type picklist, include at least one type value for each type category.",
+        "format": "enum",
+        "enum": [
+          "Warehouse",
+          "Retail Store",
+          "In Store Pickup",
+          "Supplier",
+          "Download",
+          "Email"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "TypeCategory": {
         "type": "picklist",
-        "description": "Type category of the FulfillmentOrder. Processing of the FulfillmentOrder depends on this value. Each type category corresponds to one or more types."
+        "description": "Type category of the FulfillmentOrder. Processing of the FulfillmentOrder depends on this value. Each type category corresponds to one or more types.",
+        "format": "enum",
+        "enum": [
+          "PHYSICAL",
+          "DROPSHIP",
+          "DIGITAL"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Fulfillment Order ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecordTypeId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "FulfilledToGeocodeAccuracy": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "TotalDeliveryAdjustAmount": {
+        "type": "number",
+        "description": "Shipping Adjustments",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalDeliveryAdjustTaxAmount": {
+        "type": "number",
+        "description": "Shipping Adjustments Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalProductAmtWithTax": {
+        "type": "number",
+        "description": "Product Subtotal with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentAmtWithTax": {
+        "type": "number",
+        "description": "Product Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalDeliveryAmtWithTax": {
+        "type": "number",
+        "description": "Shipping Subtotal with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalDeliveryAdjustAmtWithTax": {
+        "type": "number",
+        "description": "Shipping Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorder.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorder.htm",
+    "keyPrefix": "0a3",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FOStatusChangedEvent",
+        "field": "FulfillmentOrderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrderFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderItemAdjustment",
+        "field": "FulfillmentOrderId",
+        "relationshipName": "FulfillmentOrderItemAdjustments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderItemTax",
+        "field": "FulfillmentOrderId",
+        "relationshipName": "FulfillmentOrderItemTaxes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderLineItem",
+        "field": "FulfillmentOrderId",
+        "relationshipName": "FulfillmentOrderLineItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessException",
+        "field": "AttachedToId",
+        "relationshipName": "ProcessExceptions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessExceptionEvent",
+        "field": "AttachedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Shipment",
+        "field": "FulfillmentOrderId",
+        "relationshipName": "FulfillmentOrderShipments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShipmentChangeEvent",
+        "field": "FulfillmentOrderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,78 +5,197 @@
     "properties": {
       "AssetId": {
         "type": "reference",
-        "description": "The ID of the asset this warranty term applies to."
+        "description": "The ID of the asset this warranty term applies to.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "AssetWarrantyNumber": {
         "type": "string",
-        "description": "The identifier of the asset warranty record."
+        "description": "The identifier of the asset warranty record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "EndDate": {
         "type": "date",
-        "description": "The date on which this warranty term expires."
+        "description": "The date on which this warranty term expires.",
+        "format": "date",
+        "nullable": true
       },
       "ExchangeType": {
         "type": "picklist",
-        "description": "The type of exchange offered by this warranty term."
+        "description": "The type of exchange offered by this warranty term.",
+        "format": "enum",
+        "enum": [
+          "Advance Exchange",
+          "Loaner",
+          "Return Exchange"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Exclusions": {
         "type": "textarea",
-        "description": "Description of any exclusions."
+        "description": "Description of any exclusions.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "ExpensesCovered": {
         "type": "percent",
-        "description": "The percentage of expenses covered."
+        "description": "The percentage of expenses covered.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ExpensesCoveredEndDate": {
         "type": "date",
-        "description": "The date on which cover for expenses ends."
+        "description": "The date on which cover for expenses ends.",
+        "format": "date",
+        "nullable": true
       },
       "IsTransferable": {
         "type": "boolean",
-        "description": "Defines whether the warranty term can be transferred to a new owner."
+        "description": "Defines whether the warranty term can be transferred to a new owner.",
+        "nullable": false
       },
       "LaborCovered": {
         "type": "percent",
-        "description": "The percentage of labor covered."
+        "description": "The percentage of labor covered.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "LaborCoveredEndDate": {
         "type": "date",
-        "description": "The date on which cover for labor ends."
+        "description": "The date on which cover for labor ends.",
+        "format": "date",
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the asset warranty term was last modified. Its label in the user interface is Last Modified Date."
+        "description": "The date when the asset warranty term was last modified. Its label in the user interface is Last Modified Date.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when the asset warranty term was last viewed."
+        "description": "The date when the asset warranty term was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "PartsCovered": {
         "type": "percent",
-        "description": "The percentage of parts covered."
+        "description": "The percentage of parts covered.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "PartsCoveredEndDate": {
         "type": "date",
-        "description": "The date on which cover for parts ends."
+        "description": "The date on which cover for parts ends.",
+        "format": "date",
+        "nullable": true
       },
       "Pricebook2Id": {
         "type": "reference",
-        "description": "The ID of the price book item associated with this asset warranty term."
+        "description": "The ID of the price book item associated with this asset warranty term.",
+        "format": "salesforce-id",
+        "x-object": "Pricebook2",
+        "maxLength": 18,
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The date on which cover under this warranty term starts."
+        "description": "The date on which cover under this warranty term starts.",
+        "format": "date",
+        "nullable": false
       },
       "WarrantyTermId": {
         "type": "reference",
-        "description": "The ID of the warranty term this asset warranty term extends."
+        "description": "The ID of the warranty term this asset warranty term extends.",
+        "format": "salesforce-id",
+        "x-object": "WarrantyTerm",
+        "maxLength": 18,
+        "nullable": true
       },
       "WarrantyType": {
         "type": "picklist",
-        "description": "The type of the warranty."
+        "description": "The type of the warranty.",
+        "format": "enum",
+        "enum": [
+          "Repair",
+          "Standard",
+          "Supplier"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Asset Warranty ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetwarranty.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetwarranty.htm",
+    "keyPrefix": "4xo"
   }
 }

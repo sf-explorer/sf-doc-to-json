@@ -5,26 +5,127 @@
     "properties": {
       "AccountToId": {
         "type": "reference",
-        "description": "ID of the partner Account in the partner relationship."
+        "description": "ID of the partner Account in the partner relationship.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsPrimary": {
         "type": "boolean",
-        "description": "Indicates whether the account is the opportunity’s primary partner (true) or not (false). Label is Primary."
+        "description": "Indicates whether the account is the opportunity’s primary partner (true) or not (false). Label is Primary.",
+        "nullable": false,
+        "readOnly": true
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "ID of the Opportunity that is in the partner relationship."
+        "description": "ID of the Opportunity that is in the partner relationship.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ReversePartnerId": {
         "type": "reference",
-        "description": "ID of the reciprocal OpportunityPartner record in a partner relationship."
+        "description": "ID of the reciprocal OpportunityPartner record in a partner relationship.",
+        "format": "salesforce-id",
+        "x-object": "OpportunityPartner",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Role": {
         "type": "picklist",
-        "description": "The UserRole that the Account has on the Opportunity. For example, Reseller or Manufacturer."
+        "description": "The UserRole that the Account has on the Opportunity. For example, Reseller or Manufacturer.",
+        "format": "enum",
+        "enum": [
+          "Advertiser",
+          "Agency",
+          "Broker",
+          "Consultant",
+          "Contractor",
+          "Dealer",
+          "Developer",
+          "Distributor",
+          "Institution",
+          "Lender",
+          "Supplier",
+          "System Integrator",
+          "VAR/Reseller",
+          "Lawyer",
+          "Spouse",
+          "Parent"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Opportunity Partner/Relationship ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitypartner.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitypartner.htm",
+    "keyPrefix": "00I",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "OpportunityPartner",
+        "field": "ReversePartnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

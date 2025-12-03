@@ -9,6 +9,8 @@ A dual-purpose npm package that:
 1. **Generates** - Scrapes Salesforce documentation to create structured JSON files
 2. **Exposes** - Provides programmatic access to Salesforce object schemas
 
+> **🆕 NEW:** Check out [`@sf-explorer/describe-api`](./describe-api/) - Connect to your Salesforce org using the Describe API to fetch real-time metadata with custom fields, accurate picklist values, and relationships!
+
 ## 📦 Two Ways to Use This Package
 
 ### 1. As a Consumer (Most Common)

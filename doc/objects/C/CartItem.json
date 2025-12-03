@@ -5,7 +5,10 @@
     "properties": {
       "AdjustmentAmount": {
         "type": "currency",
-        "description": "Non-itemized adjustments for this cart item."
+        "description": "Non-itemized adjustments for this cart item.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "AdjustmentTax​Amount": {
         "type": "currency",
@@ -21,7 +24,12 @@
       },
       "CartId": {
         "type": "reference",
-        "description": "The ID of the WebCart that’s associated with a cart item."
+        "description": "The ID of the WebCart that’s associated with a cart item.",
+        "format": "salesforce-id",
+        "x-object": "WebCart",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ChildProduct​Count": {
         "type": "int",
@@ -65,11 +73,16 @@
       },
       "ListPrice": {
         "type": "currency",
-        "description": "The original price of the cart item. Typically shown with a line through it. List price is shown only when it’s higher than the negotiated price. If the list price is the same or lower, it isn’t shown to the buyer. This field is available in API version 52.0 and later."
+        "description": "The original price of the cart item. Typically shown with a line through it. List price is shown only when it’s higher than the negotiated price. If the list price is the same or lower, it isn’t shown to the buyer. This field is available in API version 52.0 and later.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "The name of this CartItem record. Name can be up to 255 characters."
+        "description": "The name of this CartItem record. Name can be up to 255 characters.",
+        "maxLength": 255,
+        "nullable": false
       },
       "NetAdjustment​Amount": {
         "type": "currency",
@@ -89,7 +102,11 @@
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The ID of a product type cart item. Cart items can be of type PRODUCT or CHARGE."
+        "description": "The ID of a product type cart item. Cart items can be of type PRODUCT or CHARGE.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProductClass": {
         "type": "picklist",
@@ -109,7 +126,8 @@
       },
       "Quantity": {
         "type": "double",
-        "description": "The number of a given cart item in a cart."
+        "description": "The number of a given cart item in a cart.",
+        "nullable": true
       },
       "QtyScaleMethod": {
         "type": "picklist",
@@ -117,11 +135,16 @@
       },
       "SalesPrice": {
         "type": "currency",
-        "description": "The discounted price of a cart item."
+        "description": "The discounted price of a cart item.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Sku": {
         "type": "string",
-        "description": "The Shelf-Keeping Unit ID of a cart item."
+        "description": "The Shelf-Keeping Unit ID of a cart item.",
+        "maxLength": 255,
+        "nullable": true
       },
       "StockCheck​Method": {
         "type": "picklist",
@@ -141,7 +164,11 @@
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "The total cost of this cart item, including taxes and adjustments."
+        "description": "The total cost of this cart item, including taxes and adjustments.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLine​Amount": {
         "type": "currency",
@@ -161,11 +188,17 @@
       },
       "TotalListPrice": {
         "type": "currency",
-        "description": "Total amount for this cart item, based on ListPrice. We provide this value for comparison. It's not the price that the buyer is paying."
+        "description": "Total amount for this cart item, based on ListPrice. We provide this value for comparison. It's not the price that the buyer is paying.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "Total amount for this cart item, including adjustments but excluding taxes."
+        "description": "Total amount for this cart item, including adjustments but excluding taxes.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalPriceAfterAll​Adjustments": {
         "type": "currency",
@@ -185,7 +218,11 @@
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Total tax amount for this cart item. This value includes taxes for both TotalLineAmount and AdjustmentAmount."
+        "description": "Total tax amount for this cart item. This value includes taxes for both TotalLineAmount and AdjustmentAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalWeight": {
         "type": "double",
@@ -193,7 +230,14 @@
       },
       "Type": {
         "type": "picklist",
-        "description": "The CartItem type. Possible values are: Product Charge"
+        "description": "The CartItem type. Possible values are: Product Charge",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "UnitAdjusted​Price": {
         "type": "currency",
@@ -214,9 +258,173 @@
       "WeightUnit": {
         "type": "picklist",
         "description": "Unit of measurement for the weight of the cart item. This field is available in API version 62.0 and later."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Cart Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CartDeliveryGroupId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "CartDeliveryGroup",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "UnitAdjustmentAmount": {
+        "type": "number",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "UnitAdjustedPrice": {
+        "type": "number",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "TotalLineAmount": {
+        "type": "number",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "TotalLineTaxAmount": {
+        "type": "number",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "AdjustmentTaxAmount": {
+        "type": "number",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartitem.htm",
+    "keyPrefix": "0a9",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CartRelatedItem",
+        "field": "ChildCartItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartRelatedItem",
+        "field": "ParentCartItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartTax",
+        "field": "CartItemId",
+        "relationshipName": "CartItemTaxes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartValidationOutput",
+        "field": "RelatedEntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

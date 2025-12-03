@@ -13,11 +13,19 @@
       },
       "CartCheckoutSessionId": {
         "type": "reference",
-        "description": "The unique ID used to identify your cart checkout session."
+        "description": "The unique ID used to identify your cart checkout session.",
+        "format": "salesforce-id",
+        "x-object": "CartCheckoutSession",
+        "maxLength": 18,
+        "nullable": true
       },
       "CartDeliveryGroupId": {
         "type": "reference",
-        "description": "The ID of the cart delivery group associated with the checkout session."
+        "description": "The ID of the cart delivery group associated with the checkout session.",
+        "format": "salesforce-id",
+        "x-object": "CartDeliveryGroup",
+        "maxLength": 18,
+        "nullable": false
       },
       "ClassOfService": {
         "type": "picklist",
@@ -29,11 +37,17 @@
       },
       "DeliveryMethodId": {
         "type": "reference",
-        "description": "The ID of the selected order delivery method."
+        "description": "The ID of the selected order delivery method.",
+        "format": "salesforce-id",
+        "x-object": "OrderDeliveryMethod",
+        "maxLength": 18,
+        "nullable": true
       },
       "ExternalProvider": {
         "type": "string",
-        "description": "The ID of the external shipping method provider. Optional field."
+        "description": "The ID of the external shipping method provider. Optional field.",
+        "maxLength": 255,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
@@ -41,7 +55,9 @@
       },
       "Name": {
         "type": "string",
-        "description": "Name of the delivery method."
+        "description": "Name of the delivery method.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ProcessTime": {
         "type": "int",
@@ -61,7 +77,9 @@
       },
       "ShippingFee": {
         "type": "currency",
-        "description": "Shipping fee associated with the delivery method. Required field."
+        "description": "Shipping fee associated with the delivery method. Required field.",
+        "format": "currency",
+        "nullable": false
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
@@ -81,10 +99,117 @@
       },
       "WebCartId": {
         "type": "reference",
-        "description": "The ID of the WebCart associated with the cart delivery group method. Required field."
+        "description": "The ID of the WebCart associated with the cart delivery group method. Required field.",
+        "format": "salesforce-id",
+        "x-object": "WebCart",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Cart Delivery Group Method ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartdeliverygroupmethod.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartdeliverygroupmethod.htm",
+    "keyPrefix": "7cd",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

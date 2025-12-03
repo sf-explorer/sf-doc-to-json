@@ -5,42 +5,189 @@
     "properties": {
       "AvgNumResults": {
         "type": "double",
-        "description": "The number of search results returned for the search term. If Period is also included, this value is aggregated based on the time period specified."
+        "description": "The number of search results returned for the search term. If Period is also included, this value is aggregated based on the time period specified.",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.1
       },
       "ClickRank": {
         "type": "double",
-        "description": "The order that the file appeared in the search results when users clicked it from the list of results."
+        "description": "The order that the file appeared in the search results when users clicked it from the list of results.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.1
       },
       "CountQueries": {
         "type": "int",
-        "description": "The number of searches for the period (day, month, or year)."
+        "description": "The number of searches for the period (day, month, or year).",
+        "nullable": false,
+        "readOnly": true
       },
       "CountUsers": {
         "type": "int",
-        "description": "The number of individual users who clicked the file."
+        "description": "The number of individual users who clicked the file.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of search activity."
+        "description": "Name of search activity.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Period": {
         "type": "picklist",
-        "description": "The time period that the search count is applied to. For example, a record where the Count is 70 and the Period is Monthly indicates that 70 searches took place over the past month. Totals are aggregated daily for the current month, monthly from the past full month through the past full year, and yearly beyond that."
+        "description": "The time period that the search count is applied to. For example, a record where the Count is 70 and the Period is Monthly indicates that 70 searches took place over the past month. Totals are aggregated daily for the current month, monthly from the past full month through the past full year, and yearly beyond that.",
+        "format": "enum",
+        "enum": [
+          "DAY",
+          "MONTH",
+          "YEAR"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "QueryDate": {
         "type": "date",
-        "description": "The date of the search."
+        "description": "The date of the search.",
+        "format": "date",
+        "nullable": false,
+        "readOnly": true
       },
       "QueryLanguage": {
         "type": "picklist",
-        "description": "The language filter that’s applied to the user’s search."
+        "description": "The language filter that’s applied to the user’s search.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SearchTerm": {
         "type": "string",
-        "description": "The first 100 characters of the search term that was used to search published files."
+        "description": "The first 100 characters of the search term that was used to search published files.",
+        "maxLength": 100,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Search Activity Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_filesearchactivity.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_filesearchactivity.htm",
+    "keyPrefix": "06h",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

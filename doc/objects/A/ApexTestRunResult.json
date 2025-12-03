@@ -5,51 +5,81 @@
     "properties": {
       "AsyncApexJobId": {
         "type": "reference",
-        "description": "The parent Apex job ID for the result."
+        "description": "The parent Apex job ID for the result.",
+        "format": "salesforce-id",
+        "x-object": "AsyncApexJob",
+        "maxLength": 18,
+        "nullable": true
       },
       "ClassesCompleted": {
         "type": "int",
-        "description": "The total number of classes executed during the test run."
+        "description": "The total number of classes executed during the test run.",
+        "nullable": true
       },
       "ClassesEnqueued": {
         "type": "int",
-        "description": "The total number of classes enqueued during the test run."
+        "description": "The total number of classes enqueued during the test run.",
+        "nullable": false
       },
       "EndTime": {
         "type": "dateTime",
-        "description": "The time at which the test run ended."
+        "description": "The time at which the test run ended.",
+        "format": "date-time",
+        "nullable": true
       },
       "IsAllTests": {
         "type": "boolean",
-        "description": "Indicates whether all Apex test classes were run."
+        "description": "Indicates whether all Apex test classes were run.",
+        "nullable": false
       },
       "JobName": {
         "type": "string",
-        "description": "Reserved for future use."
+        "description": "Reserved for future use.",
+        "maxLength": 255,
+        "nullable": true
       },
       "MethodsCompleted": {
         "type": "int",
-        "description": "The total number of methods completed during the test run. This value is updated after each class is run."
+        "description": "The total number of methods completed during the test run. This value is updated after each class is run.",
+        "nullable": true
       },
       "MethodsEnqueued": {
         "type": "int",
-        "description": "The total number of methods enqueued for the test run. This value is initialized before the test runs."
+        "description": "The total number of methods enqueued for the test run. This value is initialized before the test runs.",
+        "nullable": true
       },
       "MethodsFailed": {
         "type": "int",
-        "description": "The total number of methods that failed during this test run. This value is updated after each class is run."
+        "description": "The total number of methods that failed during this test run. This value is updated after each class is run.",
+        "nullable": true
       },
       "Source": {
         "type": "string",
-        "description": "The source of the test run, such as the Developer Console."
+        "description": "The source of the test run, such as the Developer Console.",
+        "maxLength": 255,
+        "nullable": true
       },
       "StartTime": {
         "type": "dateTime",
-        "description": "The time at which the test run started."
+        "description": "The time at which the test run started.",
+        "format": "date-time",
+        "nullable": false
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the test run. Can be one of these values: Queued Preparing Processing Aborted Completed Failed"
+        "description": "The status of the test run. Can be one of these values: Queued Preparing Processing Aborted Completed Failed",
+        "format": "enum",
+        "enum": [
+          "Queued",
+          "Processing",
+          "Aborted",
+          "Completed",
+          "Failed",
+          "Preparing",
+          "Holding"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "TestSetupTime": {
         "type": "int",
@@ -57,14 +87,68 @@
       },
       "TestTime": {
         "type": "int",
-        "description": "The time it took the test to run, in milliseconds."
+        "description": "The time it took the test to run, in milliseconds.",
+        "nullable": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The user who ran the test run."
+        "description": "The user who ran the test run.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ApexTestRunResult ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextestrunresult.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextestrunresult.htm",
+    "keyPrefix": "05m"
   }
 }

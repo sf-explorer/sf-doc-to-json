@@ -5,34 +5,140 @@
     "properties": {
       "InvitedUserEmail": {
         "type": "string",
-        "description": "The email address for the user invited to join Chatter. Label is Invited Email."
+        "description": "The email address for the user invited to join Chatter. Label is Invited Email.",
+        "maxLength": 240,
+        "nullable": false,
+        "readOnly": true
       },
       "InvitedUserEmailNormalized": {
         "type": "email",
-        "description": "A normalized version of the InvitedUserEmail entered. Label is Invited Email (Normalized)."
+        "description": "A normalized version of the InvitedUserEmail entered. Label is Invited Email (Normalized).",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "InviterId": {
         "type": "reference",
-        "description": "The person that initiated the invitation."
+        "description": "The person that initiated the invitation.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OptionalMessage": {
         "type": "string",
-        "description": "An optional message from the person sending the invitation to the person receiving it."
+        "description": "An optional message from the person sending the invitation to the person receiving it.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "Used when the email address on the invitation is different than the one entered when the invitee accepts the invitation."
+        "description": "Used when the email address on the invitation is different than the one entered when the invitee accepts the invitation.",
+        "format": "salesforce-id",
+        "x-object": "CollaborationInvitation",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SharedEntityId": {
         "type": "reference",
-        "description": "ID of the user or group associated with this invitation. If the invitation is to join Chatter, the SharedEntityId is the ID of the User that created the invitation. The invitee will auto-follow the inviter. If the invitation is to join a group within Chatter, the SharedEntityId is the ID of the Chatter CollaborationGroup. To invite a customer, set SharedEntityId to the ID of the private CollaborationGroup with Allow Customers turned on."
+        "description": "ID of the user or group associated with this invitation. If the invitation is to join Chatter, the SharedEntityId is the ID of the User that created the invitation. The invitee will auto-follow the inviter. If the invitation is to join a group within Chatter, the SharedEntityId is the ID of the Chatter CollaborationGroup. To invite a customer, set SharedEntityId to the ID of the private CollaborationGroup with Allow Customers turned on.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "CollaborationGroup",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the invitation. Possible values are: Sent Accepted Canceled"
+        "description": "The status of the invitation. Possible values are: Sent Accepted Canceled",
+        "format": "enum",
+        "enum": [
+          "Sent",
+          "Accepted",
+          "Canceled"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Chatter Invitation Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationinvitation.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationinvitation.htm",
+    "keyPrefix": "0H1",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CollaborationInvitation",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

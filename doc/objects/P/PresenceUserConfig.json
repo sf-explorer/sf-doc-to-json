@@ -1,50 +1,185 @@
 {
   "PresenceUserConfig": {
     "name": "PresenceUserConfig",
-    "description": "Represents a configuration that determines a presence user’s settings. This object is available in API version 65.0 and later.",
+    "description": "Presence Configurations - PresenceUserConfig",
     "properties": {
-      "AcwExtensionDuration": {
-        "type": "int",
-        "description": "The maximum length of time, measured in seconds, an agent can spend on After Conversation Work (ACW) each time they extend the timer. You must set this field if HasAcwExtensionEnabled is set to true. Specify a value from 10 through 3600."
+      "Id": {
+        "type": "string",
+        "description": "Presence Configuration ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "AfterConvoWorkMaxTime": {
-        "type": "int",
-        "description": "The maximum length of time, measured in seconds, an agent has to complete ACW. You must set this field if HasAfterConvoWorkTimer is set to true. Specify a value from 10 through 3600."
-      },
-      "Capacity": {
-        "type": "int",
-        "description": "The maximum number of work units an agent can be assigned at one time."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API."
-      },
-      "HasAcwExtensionEnabled": {
-        "type": "boolean",
-        "description": "Indicates whether agents can extend their ACW time (true) or not (false). Available only if HasAfterConvoWorkTimer is set to true. If this field is set to true, you must also set the AcwExtensionDuration and MaxExtensions fields."
-      },
-      "HasAfterConvoWorkTimer": {
-        "type": "boolean",
-        "description": "Indicates whether ACW time can be configured for the agent (true) or not (false). If set to true, you must also set the AfterConvoWorkMaxTime field to true."
-      },
-      "InterruptibleCapacity": {
-        "type": "int",
-        "description": "The maximum number of work units using interruptible capacity that can be assigned to an agent at a time. If the value in this field is empty it defaults to the value set in the Capacity field. This field is available only when the Interruptible Capacity feature is enabled."
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language of the presence configuration."
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the presence configuration."
+        "description": "Presence Configuration Name",
+        "maxLength": 80,
+        "nullable": false
       },
-      "MaxExtensions": {
-        "type": "picklist",
-        "description": "Maximum number of times an agent can extend their ACW time. Specify a value from 1 through 10. You must set this field if HasAcwExtensionEnabled is set to true."
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Capacity": {
+        "type": "integer",
+        "nullable": false
+      },
+      "OptionsIsAutoAcceptEnabled": {
+        "type": "boolean",
+        "description": "IsAutoAcceptEnabled",
+        "nullable": false
+      },
+      "OptionsIsDeclineEnabled": {
+        "type": "boolean",
+        "description": "IsDeclineEnabled",
+        "nullable": false
+      },
+      "OptionsIsDeclineReasonEnabled": {
+        "type": "boolean",
+        "description": "IsDeclineReasonEnabled",
+        "nullable": false
+      },
+      "OptionsIsRequestSoundEnabled": {
+        "type": "boolean",
+        "description": "IsRequestSoundEnabled",
+        "nullable": false
+      },
+      "OptionsIsDisconnectSoundEnabled": {
+        "type": "boolean",
+        "description": "IsDisconnectSoundEnabled",
+        "nullable": false
+      },
+      "PresenceStatusOnDeclineId": {
+        "type": "string",
+        "description": "Service Presence Status ID",
+        "format": "salesforce-id",
+        "x-object": "ServicePresenceStatus",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "PresenceStatusOnPushTimeoutId": {
+        "type": "string",
+        "description": "Service Presence Status ID",
+        "format": "salesforce-id",
+        "x-object": "ServicePresenceStatus",
+        "maxLength": 18,
+        "nullable": true
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_presenceuserconfig.htm"
+    "module": "N/A",
+    "keyPrefix": "0Nd",
+    "label": "Presence Configuration",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "PresenceConfigDeclineReason",
+        "field": "PresenceUserConfigId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PresenceUserConfigProfile",
+        "field": "PresenceUserConfigId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PresenceUserConfigUser",
+        "field": "PresenceUserConfigId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

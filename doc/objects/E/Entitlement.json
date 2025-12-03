@@ -5,11 +5,19 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the Account associated with the entitlement."
+        "description": "ID of the Account associated with the entitlement.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false
       },
       "AssetId": {
         "type": "reference",
-        "description": "Required. ID of the Asset associated with the entitlement. Must be a valid asset ID."
+        "description": "Required. ID of the Asset associated with the entitlement. Must be a valid asset ID.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true
       },
       "AssetWarrantyID": {
         "type": "reference",
@@ -17,31 +25,49 @@
       },
       "BusinessHoursId": {
         "type": "reference",
-        "description": "Required. ID of the BusinessHours associated with the entitlement. Must be a valid business hours ID."
+        "description": "Required. ID of the BusinessHours associated with the entitlement. Must be a valid business hours ID.",
+        "format": "salesforce-id",
+        "x-object": "BusinessHours",
+        "maxLength": 18,
+        "nullable": true
       },
       "CasesPerEntitlement": {
         "type": "int",
-        "description": "The total number of cases the entitlement supports."
+        "description": "The total number of cases the entitlement supports.",
+        "nullable": true
       },
       "ContractLineItemId": {
         "type": "reference",
-        "description": "Required. ID of the ContractLineItem associated with the entitlement. Must be a valid ID."
+        "description": "Required. ID of the ContractLineItem associated with the entitlement. Must be a valid ID.",
+        "format": "salesforce-id",
+        "x-object": "ContractLineItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "EndDate": {
         "type": "date",
-        "description": "The last day the entitlement is in effect."
+        "description": "The last day the entitlement is in effect.",
+        "format": "date",
+        "nullable": true
       },
       "IsPerIncident": {
         "type": "boolean",
-        "description": "Indicates whether the entitlement is limited to supporting a specific number of cases (true) or not (false)."
+        "description": "Indicates whether the entitlement is limited to supporting a specific number of cases (true) or not (false).",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LocationID": {
         "type": "reference",
@@ -49,15 +75,22 @@
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of the entitlement."
+        "description": "Required. Name of the entitlement.",
+        "maxLength": 255,
+        "nullable": false
       },
       "SvcApptBookingWindowsId": {
         "type": "reference",
-        "description": "The operating hours that the entitlement’s work orders should respect. The label in the user interface is Operating Hours. Available only if Field Service is enabled."
+        "description": "The operating hours that the entitlement’s work orders should respect. The label in the user interface is Operating Hours. Available only if Field Service is enabled.",
+        "format": "salesforce-id",
+        "x-object": "OperatingHours",
+        "maxLength": 18,
+        "nullable": true
       },
       "RemainingCases": {
         "type": "int",
-        "description": "The number of cases the entitlement can support. This field decreases in value by one each time a case is created with the entitlement."
+        "description": "The number of cases the entitlement can support. This field decreases in value by one each time a case is created with the entitlement.",
+        "nullable": true
       },
       "RemainingWorkOrders": {
         "type": "int",
@@ -65,19 +98,38 @@
       },
       "ServiceContractId": {
         "type": "reference",
-        "description": "Required. ID of the ServiceContract associated with the entitlement. Must be a valid ID."
+        "description": "Required. ID of the ServiceContract associated with the entitlement. Must be a valid ID.",
+        "format": "salesforce-id",
+        "x-object": "ServiceContract",
+        "maxLength": 18,
+        "nullable": true
       },
       "SlaProcessId": {
         "type": "reference",
-        "description": "ID of the SlaProcess associated with the entitlement. This field is available in version 19.0 and later."
+        "description": "ID of the SlaProcess associated with the entitlement. This field is available in version 19.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "SlaProcess",
+        "maxLength": 18,
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The first date the entitlement is in effect."
+        "description": "The first date the entitlement is in effect.",
+        "format": "date",
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the entitlement, such as Expired."
+        "description": "Status of the entitlement, such as Expired.",
+        "format": "enum",
+        "enum": [
+          "Inactive",
+          "Active",
+          "Expired"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SvcApptBookingWindows": {
         "type": "reference",
@@ -85,7 +137,16 @@
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of entitlement, such as Web or phone support."
+        "description": "The type of entitlement, such as Web or phone support.",
+        "format": "enum",
+        "enum": [
+          "Phone Support",
+          "Web Support",
+          "Premium Service",
+          "Field Support"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "": {
         "type": "",
@@ -94,9 +155,341 @@
       "WorkOrdersPerEntitlement": {
         "type": "int",
         "description": "Total number of work orders available for this entitlement."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Entitlement ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "AssetWarrantyId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "AssetWarranty",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "LocationId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_entitlement.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_entitlement.htm",
+    "keyPrefix": "550",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "SDO_SFS_Default_Field_Entitlement__c",
+        "relationshipName": "Accounts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Case",
+        "field": "EntitlementId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "EntitlementId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitlementContact",
+        "field": "EntitlementId",
+        "relationshipName": "EntitlementContacts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitlementFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitlementHistory",
+        "field": "EntitlementId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "EntitlementId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "EntitlementId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

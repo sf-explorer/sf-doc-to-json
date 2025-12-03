@@ -5,66 +5,135 @@
     "properties": {
       "AppMenuItemId": {
         "type": "string",
-        "description": "The 15-character ID for the menu item."
+        "description": "The 15-character ID for the menu item.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ApplicationId": {
         "type": "reference",
-        "description": "The 15-character ID for the application associated with the menu item."
+        "description": "The 15-character ID for the application associated with the menu item.",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "A description of this menu item."
+        "description": "A description of this menu item.",
+        "maxLength": 250,
+        "nullable": true,
+        "readOnly": true
       },
       "IconUrl": {
         "type": "url",
-        "description": "The icon for the menu item’s application."
+        "description": "The icon for the menu item’s application.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "InfoUrl": {
         "type": "url",
-        "description": "The URL for more information about the application."
+        "description": "The URL for more information about the application.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IsUsingAdminAuthorization": {
         "type": "boolean",
-        "description": "If true, the app is pre-authorized for certain users by the administrator."
+        "description": "If true, the app is pre-authorized for certain users by the administrator.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsVisible": {
         "type": "boolean",
-        "description": "If true, the app is visible to the user."
+        "description": "If true, the app is visible to the user.",
+        "nullable": false,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "The app’s name."
+        "description": "The app’s name.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "LogoUrl": {
         "type": "url",
-        "description": "The logo for the menu item’s application. The default is the initials of the Label value."
+        "description": "The logo for the menu item’s application. The default is the initials of the Label value.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "MobileStartUrl": {
         "type": "url",
-        "description": "The location mobile users are directed to after they’ve authenticated. This is only used with connected apps."
+        "description": "The location mobile users are directed to after they’ve authenticated. This is only used with connected apps.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The API name of the item."
+        "description": "The API name of the item.",
+        "maxLength": 250,
+        "nullable": true,
+        "readOnly": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "The index value that controls where this item appears in the menu. For example, a menu item with a sort order value of 5 will appear between items with sort order values of 3 and 9."
+        "description": "The index value that controls where this item appears in the menu. For example, a menu item with a sort order value of 5 will appear between items with sort order values of 3 and 9.",
+        "nullable": true,
+        "readOnly": true
       },
       "StartUrl": {
         "type": "url",
-        "description": "The location users are directed to after they’ve authenticated. For a connected app, this is the location specified by the StartUrl. Otherwise it’s the application’s default start page."
+        "description": "The location users are directed to after they’ve authenticated. For a connected app, this is the location specified by the StartUrl. Otherwise it’s the application’s default start page.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of application represented by this item. The types are: ConnectedApplication Network ServiceProvider TabSet"
+        "description": "The type of application represented by this item. The types are: ConnectedApplication Network ServiceProvider TabSet",
+        "format": "enum",
+        "enum": [
+          "ConnectedApplication",
+          "ExternalClientApplication",
+          "Network",
+          "ServiceProvider",
+          "TabSet"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "UserSortOrder": {
         "type": "int",
-        "description": "The index value that represents where the user set this item in the menu (or App Launcher). For example, an item with a sort order value of 5 will appear between items with sort order values of 3 and 9. This value is separate from SortOrder so you can create logic incorporating both values. For example, if you want the user-sorted items to appear first, followed by the organization order for the rest, use: SELECT ApplicationId,SortOrder,UserSortOrder FROM AppMenuItem order by userSortOrder NULLS LAST, sortOrder NULLS LAST"
+        "description": "The index value that represents where the user set this item in the menu (or App Launcher). For example, an item with a sort order value of 5 will appear between items with sort order values of 3 and 9. This value is separate from SortOrder so you can create logic incorporating both values. For example, if you want the user-sorted items to appear first, followed by the organization order for the rest, use: SELECT ApplicationId,SortOrder,UserSortOrder FROM AppMenuItem order by userSortOrder NULLS LAST, sortOrder NULLS LAST",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Application ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userappmenuitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userappmenuitem.htm",
+    "keyPrefix": "07p",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true
   }
 }

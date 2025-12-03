@@ -5,23 +5,39 @@
     "properties": {
       "ActualTravelTime": {
         "type": "double",
-        "description": "The number of minutes that the service resource needs to travel to the assigned service appointment. You can enter a value with up to two decimal places."
+        "description": "The number of minutes that the service resource needs to travel to the assigned service appointment. You can enter a value with up to two decimal places.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ApptAssistantInfoUrl": {
         "type": "textarea",
-        "description": "The URL that contains the status of the mobile worker approaching the service appointment, the Community URL, and the expiry of the URL. Available in version 51.0 and later."
+        "description": "The URL that contains the status of the mobile worker approaching the service appointment, the Community URL, and the expiry of the URL. Available in version 51.0 and later.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "AssignedResourceNumber": {
         "type": "string",
-        "description": "An auto-generated number identifying the resource assignment."
+        "description": "An auto-generated number identifying the resource assignment.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "EstimatedTravelTime": {
         "type": "double",
-        "description": "The estimated number of minutes needed for the service resource to travel to the service appointment they’re assigned to. You can enter a value with up to two decimal places."
+        "description": "The estimated number of minutes needed for the service resource to travel to the service appointment they’re assigned to. You can enter a value with up to two decimal places.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "LocationStatus": {
         "type": "picklist",
-        "description": "The status of the mobile worker approaching the service appointment. When the location status changes to one of these values, a status update containing ApptAssistantInfoUrl is sent to the customer. Available in version 51.0 and later."
+        "description": "The status of the mobile worker approaching the service appointment. When the location status changes to one of these values, a status update containing ApptAssistantInfoUrl is sent to the customer. Available in version 51.0 and later.",
+        "format": "enum",
+        "enum": [
+          "EnRoute",
+          "LastMile"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "IsPrimaryResource": {
         "type": "boolean",
@@ -29,22 +45,114 @@
       },
       "ServiceAppointmentId": {
         "type": "reference",
-        "description": "The service appointment that the resource is assigned to."
+        "description": "The service appointment that the resource is assigned to.",
+        "format": "salesforce-id",
+        "x-object": "ServiceAppointment",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ServiceCrewId": {
         "type": "reference",
-        "description": "The service crew that the resource is assigned to. Note Since service resources can represent crews or individuals, appointments are typically assigned to crews in the following way: Create a service resource of the Crew type that represent the crew. Create an assigned resource on the service appointment and select the crew resource in the ServiceResourceId field. As an alternative, you can assign appointments to crew members separately. This lets you track each member’s travel time and see a list of the crew members in the Assigned Resources related list. To take this approach, create an assigned resource for each crew member. List the crew member in the ServiceResourceId field and the crew they belong to in the ServiceCrewId field."
+        "description": "The service crew that the resource is assigned to. Note Since service resources can represent crews or individuals, appointments are typically assigned to crews in the following way: Create a service resource of the Crew type that represent the crew. Create an assigned resource on the service appointment and select the crew resource in the ServiceResourceId field. As an alternative, you can assign appointments to crew members separately. This lets you track each member’s travel time and see a list of the crew members in the Assigned Resources related list. To take this approach, create an assigned resource for each crew member. List the crew member in the ServiceResourceId field and the crew they belong to in the ServiceCrewId field.",
+        "format": "salesforce-id",
+        "x-object": "ServiceCrew",
+        "maxLength": 18,
+        "nullable": true
       },
       "ServiceResourceId": {
         "type": "reference",
-        "description": "The resource who is assigned to the service appointment."
+        "description": "The resource who is assigned to the service appointment.",
+        "format": "salesforce-id",
+        "x-object": "ServiceResource",
+        "maxLength": 18,
+        "nullable": false
       },
       "Transaction": {
         "type": "string",
         "description": "The last transaction ID of the scheduling and optimization request that updated this object. The transaction ID is automatically generated and populated by the Enhanced Scheduling and Optimization engine. Available in API version 63.0 and later."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Assigned Resource ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsRequiredResource": {
+        "type": "boolean",
+        "description": "Required Resource",
+        "nullable": false
+      },
+      "Role": {
+        "type": "string",
+        "format": "enum",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "EventId": {
+        "type": "string",
+        "description": "Activity ID",
+        "format": "salesforce-id",
+        "x-object": "Event",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_assignedresource.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_assignedresource.htm",
+    "keyPrefix": "03r"
   }
 }

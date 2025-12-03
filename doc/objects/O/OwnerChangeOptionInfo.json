@@ -5,11 +5,16 @@
     "properties": {
       "DefaultValue": {
         "type": "boolean",
-        "description": "Default value of the checkbox for this option in the user interface."
+        "description": "Default value of the checkbox for this option in the user interface.",
+        "nullable": false,
+        "readOnly": true
       },
       "DurableId": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "EntityDefinition": {
         "type": "EntityDefinition",
@@ -17,26 +22,62 @@
       },
       "EntityDefinitionId": {
         "type": "string",
-        "description": "The ID of the EntityDefinition containing the record."
+        "description": "The ID of the EntityDefinition containing the record.",
+        "maxLength": 70,
+        "nullable": true,
+        "readOnly": true
       },
       "IsEditable": {
         "type": "boolean",
-        "description": "Indicates whether this option is editable by the user when updating the owner using the OwnerChangeOptions SOAP header."
+        "description": "Indicates whether this option is editable by the user when updating the owner using the OwnerChangeOptions SOAP header.",
+        "nullable": false,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "The label that corresponds to the option in the user interface."
+        "description": "The label that corresponds to the option in the user interface.",
+        "maxLength": 150,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The unique name for the option."
+        "description": "The unique name for the option.",
+        "maxLength": 150,
+        "nullable": true,
+        "readOnly": true
       },
       "ParentId": {
         "type": "string",
-        "description": "The durable ID of the parent OwnerChangeOptionInfo record. Available in Tooling API version 44.0 and later."
+        "description": "The durable ID of the parent OwnerChangeOptionInfo record. Available in Tooling API version 44.0 and later.",
+        "maxLength": 70,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Change Owner Option ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_ownerchangeoptioninfo.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_ownerchangeoptioninfo.htm",
+    "keyPrefix": "0Cy",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "OwnerChangeOptionInfo",
+        "field": "ParentId",
+        "relationshipName": "ChildOwnerChangeOptionInfo",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,95 +5,174 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "Customer account for the payment method."
+        "description": "Customer account for the payment method.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "AuditEmail": {
         "type": "email",
-        "description": "Email address of the card owner where audit information about payments gets sent."
+        "description": "Email address of the card owner where audit information about payments gets sent.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "AutoCardType": {
         "type": "string",
-        "description": "Card network type, derived from the card number."
+        "description": "Card network type, derived from the card number.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "CardBin": {
         "type": "int",
-        "description": "First six digits of the card number."
+        "description": "First six digits of the card number.",
+        "nullable": true,
+        "readOnly": true
       },
       "CardCategory": {
         "type": "picklist",
-        "description": "Defines whether the card is a credit card or debit card."
+        "description": "Defines whether the card is a credit card or debit card.",
+        "format": "enum",
+        "enum": [
+          "CreditCard",
+          "DebitCard"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "CardHolderFirstName": {
         "type": "string",
-        "description": "First name of the cardholder."
+        "description": "First name of the cardholder.",
+        "maxLength": 255,
+        "nullable": true
       },
       "CardHolderLastName": {
         "type": "string",
-        "description": "Last name of the cardholder."
+        "description": "Last name of the cardholder.",
+        "maxLength": 255,
+        "nullable": true
       },
       "CardHolderName": {
         "type": "string",
-        "description": "Full name of the cardholder."
+        "description": "Full name of the cardholder.",
+        "maxLength": 255,
+        "nullable": true
       },
       "CardLastFour": {
         "type": "int",
-        "description": "Last four digits of the credit card or debit card."
+        "description": "Last four digits of the credit card or debit card.",
+        "nullable": true,
+        "readOnly": true
       },
       "CardPaymentMethodNumber": {
         "type": "string",
-        "description": "System-defined unique ID for the card payment method."
+        "description": "System-defined unique ID for the card payment method.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "CardType": {
         "type": "picklist",
-        "description": "Identifies the credit card type."
+        "description": "Identifies the credit card type.",
+        "format": "enum",
+        "enum": [
+          "Visa",
+          "Master Card",
+          "American Express",
+          "Diners Club",
+          "JCB",
+          "Maestro"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CardTypeCategory": {
         "type": "picklist",
-        "description": "Further identifies the credit card. Used for internal reference."
+        "description": "Further identifies the credit card. Used for internal reference.",
+        "format": "enum",
+        "enum": [
+          "Visa",
+          "MasterCard",
+          "AmericanExpress",
+          "Jcb",
+          "DinersClub",
+          "Maestro",
+          "Discover",
+          "UnionPay"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Comments": {
         "type": "textarea",
-        "description": "Payment admin can add comments to provide additional details about a record. Maximum of 1000 characters."
+        "description": "Payment admin can add comments to provide additional details about a record. Maximum of 1000 characters.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "CompanyName": {
         "type": "string",
-        "description": "Company of the cardholder."
+        "description": "Company of the cardholder.",
+        "maxLength": 255,
+        "nullable": true
       },
       "DisplayCardNumber": {
         "type": "string",
-        "description": "Masked digits for the full credit card number except the last four digits."
+        "description": "Masked digits for the full credit card number except the last four digits.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "Email": {
         "type": "email",
-        "description": "Email address of the payer."
+        "description": "Email address of the payer.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "ExpiryMonth": {
         "type": "int",
-        "description": "The card’s expiration month."
+        "description": "The card’s expiration month.",
+        "nullable": true
       },
       "ExpiryYear": {
         "type": "int",
-        "description": "The card’s expiration year."
+        "description": "The card’s expiration year.",
+        "nullable": true
       },
       "GatewayDate": {
         "type": "dateTime",
-        "description": "The date that the payment gateway logs a card activity."
+        "description": "The date that the payment gateway logs a card activity.",
+        "format": "date-time",
+        "nullable": true
       },
       "GatewayResultCode": {
         "type": "string",
-        "description": "The result of the card payment method’s interaction with the payment gateway during a transaction request."
+        "description": "The result of the card payment method’s interaction with the payment gateway during a transaction request.",
+        "maxLength": 64,
+        "nullable": true
       },
       "GatewayResultCodeDescription": {
         "type": "string",
-        "description": "Additional information about the gateway result code. Descriptions vary between payment gateway providers."
+        "description": "Additional information about the gateway result code. Descriptions vary between payment gateway providers.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GatewayToken": {
         "type": "string",
-        "description": "Unencrypted unique token ID generated by the payment gateway to represent the card payment method during transactions. GatewayToken is for use with APIs earlier than version 52.0. For version 53.0 and latter, use the GatewayTokenEncrypted field. To secure the token, use the GatewayTokenEncrypted field."
+        "description": "Unencrypted unique token ID generated by the payment gateway to represent the card payment method during transactions. GatewayToken is for use with APIs earlier than version 52.0. For version 53.0 and latter, use the GatewayTokenEncrypted field. To secure the token, use the GatewayTokenEncrypted field.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GatewayTokenDetails": {
         "type": "textarea",
-        "description": "Additional information about the gateway token."
+        "description": "Additional information about the gateway token.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "GatewayTokenEncrypted": {
         "type": "encryptedstring",
@@ -101,11 +180,16 @@
       },
       "InputCardNumber": {
         "type": "string",
-        "description": "Used by a payer to enter a credit card number when storing an external-type card payment method. After entry, the credit card number isn’t saved, so the InputCardNumber value always appears blank. The credit card number appears as a masked value in DisplayCardNumber, which shows only the last four digits."
+        "description": "Used by a payer to enter a credit card number when storing an external-type card payment method. After entry, the credit card number isn’t saved, so the InputCardNumber value always appears blank. The credit card number appears as a masked value in DisplayCardNumber, which shows only the last four digits.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "IpAddress": {
         "type": "string",
-        "description": "IP address of the card payment method holder."
+        "description": "IP address of the card payment method holder.",
+        "maxLength": 39,
+        "nullable": true
       },
       "IsAutoPayEnabled": {
         "type": "boolean",
@@ -113,35 +197,56 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record or list view related to this record, but didn’t access it directly."
+        "description": "The timestamp for when the current user last viewed a record or list view related to this record, but didn’t access it directly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it's possible the user referenced this record but didn’t view it directly."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it's possible the user referenced this record but didn’t view it directly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MacAddress": {
         "type": "string",
-        "description": "MAC address of the card payment method holder."
+        "description": "MAC address of the card payment method holder.",
+        "maxLength": 32,
+        "nullable": true
       },
       "NickName": {
         "type": "string",
-        "description": "Payer-defined nickname for the card payment method."
+        "description": "Payer-defined nickname for the card payment method.",
+        "maxLength": 255,
+        "nullable": true
       },
       "PaymentGatewayId": {
         "type": "reference",
-        "description": "The payment gateway used to create a gateway token. For transactions with a saved payment method in Salesforce, this field stores the payment gateway ID used in the transaction."
+        "description": "The payment gateway used to create a gateway token. For transactions with a saved payment method in Salesforce, this field stores the payment gateway ID used in the transaction.",
+        "format": "salesforce-id",
+        "x-object": "PaymentGateway",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodAddress": {
         "type": "address",
-        "description": "Full address associated with the card payment method."
+        "description": "Full address associated with the card payment method.",
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodCity": {
         "type": "string",
-        "description": "City of the address for the payment method."
+        "description": "City of the address for the payment method.",
+        "maxLength": 40,
+        "nullable": true
       },
       "PaymentMethodCountry": {
         "type": "string",
-        "description": "Country of the address for the payment method."
+        "description": "Country of the address for the payment method.",
+        "maxLength": 80,
+        "nullable": true
       },
       "PaymentMethodDetails": {
         "type": "string",
@@ -149,27 +254,53 @@
       },
       "PaymentMethodGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the payment method address. An accuracy level contains information about the location of a latitude and longitude. For more information about geolocation fields, see Geolocation Compound Field."
+        "description": "Accuracy level of the geocode for the payment method address. An accuracy level contains information about the location of a latitude and longitude. For more information about geolocation fields, see Geolocation Compound Field.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "PaymentMethodLatitude": {
         "type": "double",
-        "description": "Latitude of the payment method address. Used with the PaymentMethodLongitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Latitude of the payment method address. Used with the PaymentMethodLongitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "PaymentMethodLongitude": {
         "type": "double",
-        "description": "Latitude of the payment method address. Used with the PaymentMethodLatitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Latitude of the payment method address. Used with the PaymentMethodLatitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "PaymentMethodPostalCode": {
         "type": "string",
-        "description": "Postal Code of the address for the payment method."
+        "description": "Postal Code of the address for the payment method.",
+        "maxLength": 20,
+        "nullable": true
       },
       "PaymentMethodState": {
         "type": "string",
-        "description": "State of the address for the payment method."
+        "description": "State of the address for the payment method.",
+        "maxLength": 80,
+        "nullable": true
       },
       "PaymentMethodStreet": {
         "type": "textarea",
-        "description": "Street of the address for the payment method."
+        "description": "Street of the address for the payment method.",
+        "maxLength": 255,
+        "nullable": true
       },
       "PaymentMethodSubType": {
         "type": "string",
@@ -181,11 +312,22 @@
       },
       "Phone": {
         "type": "phone",
-        "description": "Phone number of the payer."
+        "description": "Phone number of the payer.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "ProcessingMode": {
         "type": "picklist",
-        "description": "Defines whether the card payment method is used for transactions made by Salesforce Payments or by an external third-party payment provider."
+        "description": "Defines whether the card payment method is used for transactions made by Salesforce Payments or by an external third-party payment provider.",
+        "format": "enum",
+        "enum": [
+          "Salesforce",
+          "External"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SavedPaymentMethodId": {
         "type": "reference",
@@ -193,22 +335,170 @@
       },
       "SfResultCode": {
         "type": "picklist",
-        "description": "The results of the card payment method’s interaction with the payment gateway."
+        "description": "The results of the card payment method’s interaction with the payment gateway.",
+        "format": "enum",
+        "enum": [
+          "Success",
+          "PermanentFail",
+          "Decline",
+          "RequiresReview",
+          "Indeterminate",
+          "SystemError",
+          "ValidationError"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "StartMonth": {
         "type": "int",
-        "description": "The month is activated."
+        "description": "The month is activated.",
+        "nullable": true
       },
       "StartYear": {
         "type": "int",
-        "description": "The year the card is activated."
+        "description": "The year the card is activated.",
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the payment method."
+        "description": "The status of the payment method.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "InActive",
+          "Canceled"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Card Payment Method ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cardpaymentmethod.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cardpaymentmethod.htm",
+    "keyPrefix": "03O",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderPaymentSummary",
+        "field": "PaymentMethodId",
+        "relationshipName": "OrderPaymentSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Payment",
+        "field": "PaymentMethodId",
+        "relationshipName": "Payments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentAuthorization",
+        "field": "PaymentMethodId",
+        "relationshipName": "PaymentAuthorizations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentGatewayLog",
+        "field": "ReferencedEntityId",
+        "relationshipName": "PaymentGatewayLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Refund",
+        "field": "PaymentMethodId",
+        "relationshipName": "Refunds",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebCart",
+        "field": "PaymentMethodId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

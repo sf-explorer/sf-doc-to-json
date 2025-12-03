@@ -5,34 +5,180 @@
     "properties": {
       "CallUsageInSecondsLastMonth": {
         "type": "int",
-        "description": "An org’s total call usage last month in seconds."
+        "description": "An org’s total call usage last month in seconds.",
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who owns the phone number."
+        "description": "The ID of the user who owns the phone number.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PhoneNumber": {
         "type": "phone",
-        "description": "The unique vendor phone number."
+        "description": "The unique vendor phone number.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ShouldRecord": {
         "type": "boolean",
-        "description": "Reserved for future use."
+        "description": "Reserved for future use.",
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Specifies whether the number is currently active or released."
+        "description": "Specifies whether the number is currently active or released.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Released"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID of the user using the phone number."
+        "description": "The ID of the user using the phone number.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "VoiceVendorInfoId": {
         "type": "reference",
-        "description": "The ID of the Dialer vendor."
+        "description": "The ID of the Dialer vendor.",
+        "format": "salesforce-id",
+        "x-object": "VoiceVendorInfo",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Voice Vendor Line ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ConversationChannelId": {
+        "type": "string",
+        "description": "Messaging Channel ID",
+        "format": "salesforce-id",
+        "x-object": "MessagingChannel",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicevendorline.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicevendorline.htm",
+    "keyPrefix": "0LF",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "VoiceVendorLineId",
+        "relationshipName": "VoiceCalls",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "VoiceVendorLineId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceVendorLineShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

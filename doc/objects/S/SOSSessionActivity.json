@@ -5,22 +5,138 @@
     "properties": {
       "ActivityTime": {
         "type": "dateTime",
-        "description": "The time at which the activity occurred."
+        "description": "The time at which the activity occurred.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the activity."
+        "description": "The name of the activity.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SessionId": {
         "type": "reference",
-        "description": "The ID of the SOS session that’s associated with the event."
+        "description": "The ID of the SOS session that’s associated with the event.",
+        "format": "salesforce-id",
+        "x-object": "SOSSession",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The kind of activity that occurred."
+        "description": "The kind of activity that occurred.",
+        "format": "enum",
+        "enum": [
+          "SessionCreated",
+          "CustomerConnect",
+          "CustomerDisconnect",
+          "AgentConnected",
+          "AgentDisconnected",
+          "SessionEnd",
+          "SessionTimeout",
+          "SessionRecordingProvided",
+          "SessionTokenRevoked",
+          "BackwardFacingCameraEnabled",
+          "BackwardFacingCameraDisabled",
+          "SessionRecordingFailed",
+          "SessionRouted",
+          "SessionCancelled"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "SOS Session Activity ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_sossessionactivity.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_sossessionactivity.htm",
+    "keyPrefix": "0NZ",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

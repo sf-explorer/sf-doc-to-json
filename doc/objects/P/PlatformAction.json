@@ -5,15 +5,53 @@
     "properties": {
       "ActionListContext": {
         "type": "picklist",
-        "description": "Required. The list context this action applies to. Valid values are: Assistant BannerPhoto Chatter Dockable FeedElement Flexipage Global ListView ListViewDefinition ListViewRecord Lookup MruList MruRow ObjectHomeChart Photo Record RecordEdit RelatedList RelatedListRecord"
+        "description": "Required. The list context this action applies to. Valid values are: Assistant BannerPhoto Chatter Dockable FeedElement Flexipage Global ListView ListViewDefinition ListViewRecord Lookup MruList MruRow ObjectHomeChart Photo Record RecordEdit RelatedList RelatedListRecord",
+        "format": "enum",
+        "enum": [
+          "ListView",
+          "RelatedList",
+          "ListViewRecord",
+          "RelatedListRecord",
+          "Record",
+          "FeedElement",
+          "Chatter",
+          "Global",
+          "Flexipage",
+          "MruList",
+          "MruRow",
+          "RecordEdit",
+          "Photo",
+          "BannerPhoto",
+          "ObjectHomeChart",
+          "ListViewDefinition",
+          "Dockable",
+          "Lookup",
+          "Assistant"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ActionTarget": {
         "type": "textarea",
-        "description": "The URL to invoke or describe the action when the action is invoked. If the action is a standard button overridden by a Visualforce page, the ActionTarget returns the URL of the Visualforce page, such as /apex/pagename."
+        "description": "The URL to invoke or describe the action when the action is invoked. If the action is a standard button overridden by a Visualforce page, the ActionTarget returns the URL of the Visualforce page, such as /apex/pagename.",
+        "maxLength": 2048,
+        "nullable": true,
+        "readOnly": true
       },
       "ActionTargetType": {
         "type": "picklist",
-        "description": "The type of the target when this action is triggered. Valid values are: Describe—applies to actions with a user interface, such as quick actions Invoke—applies to actions with no user interface, such as action links or invocable actions Visualforce—applies to standard buttons overridden by a Visualforce page"
+        "description": "The type of the target when this action is triggered. Valid values are: Describe—applies to actions with a user interface, such as quick actions Invoke—applies to actions with no user interface, such as action links or invocable actions Visualforce—applies to standard buttons overridden by a Visualforce page",
+        "format": "enum",
+        "enum": [
+          "Describe",
+          "Invoke",
+          "Visualforce",
+          "LightningComponent"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ActionTargetUrl": {
         "type": "string",
@@ -21,98 +59,253 @@
       },
       "Category": {
         "type": "picklist",
-        "description": "Applies only to action links. Denotes whether the action link shows up in the feed item list of actions or the overflow list of actions. Valid values are: Primary Overflow"
+        "description": "Applies only to action links. Denotes whether the action link shows up in the feed item list of actions or the overflow list of actions. Valid values are: Primary Overflow",
+        "format": "enum",
+        "enum": [
+          "Primary",
+          "Overflow"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ConfirmationMessage": {
         "type": "string",
-        "description": "Applies only to action links. The message to display before the action is invoked. Field is null if no confirmation is required before invoking the action."
+        "description": "Applies only to action links. The message to display before the action is invoked. Field is null if no confirmation is required before invoking the action.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DeviceFormat": {
         "type": "picklist",
-        "description": "Specifies which action icon the PlatformAction query returns. If this field isn’t specified, it defaults to Phone. Valid values are: Aloha Desktop Phone Tablet"
+        "description": "Specifies which action icon the PlatformAction query returns. If this field isn’t specified, it defaults to Phone. Valid values are: Aloha Desktop Phone Tablet",
+        "format": "enum",
+        "enum": [
+          "Phone",
+          "Tablet",
+          "Desktop",
+          "Aloha"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ExternalId": {
         "type": "string",
-        "description": "The unique ID for the PlatformAction. If the action doesn’t have an ID, its API name is used."
+        "description": "The unique ID for the PlatformAction. If the action doesn’t have an ID, its API name is used.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "GroupId": {
         "type": "reference",
-        "description": "The unique ID of a group of action links."
+        "description": "The unique ID of a group of action links.",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IconContentType": {
         "type": "string",
-        "description": "The content type—such as .jpg, .gif, or .png—of the icon for this action. Applies to both custom and standard icons assigned to actions."
+        "description": "The content type—such as .jpg, .gif, or .png—of the icon for this action. Applies to both custom and standard icons assigned to actions.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IconHeight": {
         "type": "int",
-        "description": "The height of the icon for this action. Applies only to standard icons."
+        "description": "The height of the icon for this action. Applies only to standard icons.",
+        "nullable": true,
+        "readOnly": true
       },
       "IconUrl": {
         "type": "url",
-        "description": "The URL of the icon for this action."
+        "description": "The URL of the icon for this action.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IconWidth": {
         "type": "int",
-        "description": "The width of the icon for this action. Applies only to standard icons."
+        "description": "The width of the icon for this action. Applies only to standard icons.",
+        "nullable": true,
+        "readOnly": true
       },
       "InvocationStatus": {
         "type": "picklist",
-        "description": "The status of the action within the feed item. Applies to action links only. Valid values are: Failed New Pending Successful"
+        "description": "The status of the action within the feed item. Applies to action links only. Valid values are: Failed New Pending Successful",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Pending",
+          "Successful",
+          "Failed"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "InvokedByUserId": {
         "type": "reference",
-        "description": "The ID of the user who most recently invoked this action within the current feed item. Applies to action links only."
+        "description": "The ID of the user who most recently invoked this action within the current feed item. Applies to action links only.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IsGroupDefault": {
         "type": "boolean",
-        "description": "Denotes whether this action is the default in an action link group. False for other action types. Applies to action links only."
+        "description": "Denotes whether this action is the default in an action link group. False for other action types. Applies to action links only.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsMassAction": {
         "type": "boolean",
-        "description": "Indicates whether the action can be performed on multiple records.This field is available in API version 38.0 and later."
+        "description": "Indicates whether the action can be performed on multiple records.This field is available in API version 38.0 and later.",
+        "nullable": false,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "The label to display for this action."
+        "description": "The label to display for this action.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "PrimaryColor": {
         "type": "string",
-        "description": "The primary color of the icon for this action."
+        "description": "The primary color of the icon for this action.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "RelatedListRecordId": {
         "type": "string",
-        "description": "Represents the ID of a record in an object’s related list.This field is available in API version 38.0 and later."
+        "description": "Represents the ID of a record in an object’s related list.This field is available in API version 38.0 and later.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "RelatedSourceEntity": {
         "type": "string",
-        "description": "When the ActionListContext is RelatedList or RelatedListRecord, this field represents the API name of the related list to which the action belongs."
+        "description": "When the ActionListContext is RelatedList or RelatedListRecord, this field represents the API name of the related list to which the action belongs.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Section": {
         "type": "picklist",
-        "description": "The section of the user interface the action resides in. Applicable only to Lightning Experience. Valid values are: ActivityComposer CollaborateComposer NotesComposer Page SingleActionLinks This field is available in API version 35.0 and later."
+        "description": "The section of the user interface the action resides in. Applicable only to Lightning Experience. Valid values are: ActivityComposer CollaborateComposer NotesComposer Page SingleActionLinks This field is available in API version 35.0 and later.",
+        "format": "enum",
+        "enum": [
+          "Page",
+          "ActivityComposer",
+          "CollaborateComposer",
+          "SingleActionLinks"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceEntity": {
         "type": "string",
-        "description": "Required. The object or record with which this action is associated."
+        "description": "Required. The object or record with which this action is associated.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Subtype": {
         "type": "string",
-        "description": "The subtype of the action. For quick actions, the subtype is QuickActionType. For custom buttons, the subtype is WebLinkTypeEnum. For action links, subtypes are Api, ApiAsync, Download, and Ui. Standard buttons and productivity actions have no subtype."
+        "description": "The subtype of the action. For quick actions, the subtype is QuickActionType. For custom buttons, the subtype is WebLinkTypeEnum. For action links, subtypes are Api, ApiAsync, Download, and Ui. Standard buttons and productivity actions have no subtype.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TargetObject": {
         "type": "string",
-        "description": "The type of object record the action creates, such as a contact or opportunity.This field is available in API version 41.0 and later."
+        "description": "The type of object record the action creates, such as a contact or opportunity.This field is available in API version 41.0 and later.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TargetUrl": {
         "type": "string",
-        "description": "The URL that a custom button or link points to.This field is available in API version 41.0 and later."
+        "description": "The URL that a custom button or link points to.This field is available in API version 41.0 and later.",
+        "maxLength": 2048,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of the action. Valid values are: ActionLink—An indicator on a feed element that targets an API, a web page, or a file, represented by a button in the Salesforce Chatter feed UI. CustomButton—When clicked, opens a URL or a Visualforce page in a window or executes JavaScript. InvocableAction ProductivityAction—Productivity actions are predefined and attached to a limited set of objects. Productivity actions include Send Email, Call, Map, View Website, and Read News. Except for the Call action, you can’t edit productivity actions. QuickAction—A global or object-specific action. StandardButton—A predefined Salesforce button such as New, Edit, and Delete."
+        "description": "The type of the action. Valid values are: ActionLink—An indicator on a feed element that targets an API, a web page, or a file, represented by a button in the Salesforce Chatter feed UI. CustomButton—When clicked, opens a URL or a Visualforce page in a window or executes JavaScript. InvocableAction ProductivityAction—Productivity actions are predefined and attached to a limited set of objects. Productivity actions include Send Email, Call, Map, View Website, and Read News. Except for the Call action, you can’t edit productivity actions. QuickAction—A global or object-specific action. StandardButton—A predefined Salesforce button such as New, Edit, and Delete.",
+        "format": "enum",
+        "enum": [
+          "QuickAction",
+          "StandardButton",
+          "CustomButton",
+          "ProductivityAction",
+          "ActionLink",
+          "InvocableAction"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Not used ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "ApiName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "RetrievalMode": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "All",
+          "PageLayout"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "OpenType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "newWindow",
+          "sidebar",
+          "noSidebar",
+          "replace",
+          "onClickJavaScript"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_platformaction.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_platformaction.htm",
+    "keyPrefix": "0JV",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

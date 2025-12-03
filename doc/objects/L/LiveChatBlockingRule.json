@@ -5,30 +5,144 @@
     "properties": {
       "Description": {
         "type": "string",
-        "description": "The description of the blocking rule—for example, the reason why the given IP address or range of addresses is being banned from starting new chats."
+        "description": "The description of the blocking rule—for example, the reason why the given IP address or range of addresses is being banned from starting new chats.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FromIpAddress": {
         "type": "string",
-        "description": "The IP address of the user that you want to block, or the beginning of the range of IP addresses you want to block. If you want to block a range of IP addresses, indicate the end of the range in the ToIpAddress field. If you don’t indicate an IP address in the ToIpAddress field, the only IP address that will be blocked is the IP address in the FromIpAddress field."
+        "description": "The IP address of the user that you want to block, or the beginning of the range of IP addresses you want to block. If you want to block a range of IP addresses, indicate the end of the range in the ToIpAddress field. If you don’t indicate an IP address in the ToIpAddress field, the only IP address that will be blocked is the IP address in the FromIpAddress field.",
+        "maxLength": 39,
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the blocking rule."
+        "description": "The language of the blocking rule.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label for the blocking rule."
+        "description": "Label for the blocking rule.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ToIpAddress": {
         "type": "string",
-        "description": "(Optional) The end of the range of IP addresses that you want to block. The range begins with and includes the IP address in the FromIpAddress field, and it ends with and includes the IP address in the ToIpAddress field."
+        "description": "(Optional) The end of the range of IP addresses that you want to block. The range begins with and includes the IP address in the FromIpAddress field, and it ends with and includes the IP address in the ToIpAddress field.",
+        "maxLength": 39,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Chat Blocking Rule ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OwnerType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Admin",
+          "Agent"
+        ],
+        "maxLength": 255,
+        "nullable": false
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatblockingrule.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatblockingrule.htm",
+    "keyPrefix": "0No",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -5,19 +5,35 @@
     "properties": {
       "ActualTax": {
         "type": "currency",
-        "description": "The region-specific tax amount determined at time of the order."
+        "description": "The region-specific tax amount determined at time of the order.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AdjustmentAmount": {
         "type": "currency",
-        "description": "An adjustment to the product amount, such as a discount."
+        "description": "An adjustment to the product amount, such as a discount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AssetActionId": {
         "type": "reference",
-        "description": "The related asset action, that is, the change caused by an asset action source transaction."
+        "description": "The related asset action, that is, the change caused by an asset action source transaction.",
+        "format": "salesforce-id",
+        "x-object": "AssetAction",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "AssetActionSourceNumber": {
         "type": "string",
-        "description": "The ID of the asset action source. Label is Name."
+        "description": "The ID of the asset action source. Label is Name.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "BillingReference": {
         "type": "string",
@@ -37,19 +53,32 @@
       },
       "EndDate": {
         "type": "dateTime",
-        "description": "The end date of the service or change."
+        "description": "The end date of the service or change.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EstimatedTax": {
         "type": "currency",
-        "description": "The estimate of the region-specific tax amount made at time of the transaction."
+        "description": "The estimate of the region-specific tax amount made at time of the transaction.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ExternalReference": {
         "type": "string",
-        "description": "The ID of an asset action source transaction originating in a system outside of Salesforce."
+        "description": "The ID of an asset action source transaction originating in a system outside of Salesforce.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ExternalReferenceDataSource": {
         "type": "string",
-        "description": "A system outside of Salesforce that contains asset action source transactions."
+        "description": "A system outside of Salesforce that contains asset action source transactions.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "LegalEntityId": {
         "type": "reference",
@@ -93,7 +122,11 @@
       },
       "ProductAmount": {
         "type": "currency",
-        "description": "The product amount after the asset action source transaction."
+        "description": "The product amount after the asset action source transaction.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ProductSellingModelId": {
         "type": "reference",
@@ -105,11 +138,22 @@
       },
       "Quantity": {
         "type": "double",
-        "description": "The product quantity or the change in product quantity after the asset action source transaction."
+        "description": "The product quantity or the change in product quantity after the asset action source transaction.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ReferenceEntityItemId": {
         "type": "reference",
-        "description": "The ID of an asset action source transaction originating in Salesforce. The transaction can be an order product or a work order line item."
+        "description": "The ID of an asset action source transaction originating in Salesforce. The transaction can be an order product or a work order line item.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "OrderItem",
+          "WorkOrderLineItem"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SegmentIdentifier": {
         "type": "string",
@@ -117,11 +161,18 @@
       },
       "StartDate": {
         "type": "dateTime",
-        "description": "The start date of the service or change."
+        "description": "The start date of the service or change.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Subtotal": {
         "type": "currency",
-        "description": "The sum of the product amount and the adjustment amount."
+        "description": "The sum of the product amount and the adjustment amount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TaxTreatmentId": {
         "type": "reference",
@@ -137,14 +188,76 @@
       },
       "TransactionDate": {
         "type": "dateTime",
-        "description": "The date of a source transaction, such as an order date."
+        "description": "The date of a source transaction, such as an order date.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "UnitPrice": {
         "type": "currency",
         "description": "The unit price of the item before any discounts or tax calculation."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Asset Action Source ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetactionsource.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetactionsource.htm",
+    "keyPrefix": "4nM"
   }
 }

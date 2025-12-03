@@ -5,15 +5,21 @@
     "properties": {
       "Address": {
         "type": "email",
-        "description": "An email alias that can be used by users of your org."
+        "description": "An email alias that can be used by users of your org.",
+        "format": "email",
+        "maxLength": 270,
+        "nullable": false
       },
       "DisplayName": {
         "type": "string",
-        "description": "The name used to identify the sender of the email."
+        "description": "The name used to identify the sender of the email.",
+        "maxLength": 300,
+        "nullable": false
       },
       "IsAllowAllProfiles": {
         "type": "boolean",
-        "description": "If true, any user profile in your organization can use this object. If false, only specified user profiles can use this object when sending email. If you do not have the appropriate user profile, you can’t use this object."
+        "description": "If true, any user profile in your organization can use this object. If false, only specified user profiles can use this object when sending email. If you do not have the appropriate user profile, you can’t use this object.",
+        "nullable": false
       },
       "IsVerified": {
         "type": "boolean",
@@ -22,9 +28,65 @@
       "Purpose": {
         "type": "picklist",
         "description": "Indicates how an email address can be used. UserSelection allows users with the correct profile to select the address as the From address for an email."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Organization-wide From Email Address ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orgwideemailaddress.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orgwideemailaddress.htm",
+    "keyPrefix": "0D2",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "SetupEntityAccess",
+        "field": "SetupEntityId",
+        "relationshipName": "SetupEntityAccessItems",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

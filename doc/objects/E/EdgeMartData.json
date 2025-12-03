@@ -1,0 +1,214 @@
+{
+  "EdgeMartData": {
+    "name": "EdgeMartData",
+    "description": "DatasetDatas - EdgeMartData",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "DatasetData ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "EdgeMartId": {
+        "type": "string",
+        "description": "Dataset ID",
+        "format": "salesforce-id",
+        "x-object": "EdgeMart",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsComplete": {
+        "type": "boolean",
+        "nullable": false
+      },
+      "IsParent": {
+        "type": "boolean",
+        "nullable": false
+      },
+      "ParentId": {
+        "type": "string",
+        "description": "Dataset ID",
+        "format": "salesforce-id",
+        "x-object": "EdgeMart",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "TotalRows": {
+        "type": "number",
+        "nullable": true
+      },
+      "Predicate": {
+        "type": "string",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "PredicateVersion": {
+        "type": "number",
+        "nullable": true
+      },
+      "SharingSource": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PartitionRootId": {
+        "type": "string",
+        "description": "DatasetData ID",
+        "format": "salesforce-id",
+        "x-object": "EdgeMartData",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Type": {
+        "type": "string",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "DataCenter": {
+        "type": "string",
+        "description": "DataCenter",
+        "maxLength": 25,
+        "nullable": true
+      },
+      "SuperPod": {
+        "type": "string",
+        "description": "SuperPod",
+        "maxLength": 25,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "0Fc",
+    "label": "DatasetData",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AnalysisSetup",
+        "field": "SourceId",
+        "relationshipName": "AnalysisSetups",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataflowRequest",
+        "field": "RequestorId",
+        "relationshipName": "DataflowRequested",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DatasetDarkLaunch",
+        "field": "DarklaunchVersionId",
+        "relationshipName": "Darklaunch",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DatasetDarkLaunch",
+        "field": "VersionId",
+        "relationshipName": "Version",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DatasetFetch",
+        "field": "DatasetVersionId",
+        "relationshipName": "FetchedVersions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DatasetRegister",
+        "field": "DatasetVersionId",
+        "relationshipName": "RegisteredVersions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DiscoveryRefreshTask",
+        "field": "InputDatasetVersionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EdgeMart",
+        "field": "CurrentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EdgeMartData",
+        "field": "PartitionRootId",
+        "relationshipName": "EdgeMartRoot",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EdgeMartDataFile",
+        "field": "EdgeMartDataId",
+        "relationshipName": "EdgeMartDataFiles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EdgeMartDataShard",
+        "field": "EdgeMartDataId",
+        "relationshipName": "EdgeMartDataShards",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EdgeMartMetadata",
+        "field": "OwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Xmd",
+        "field": "EdgeMartDataId",
+        "relationshipName": "EdgeMartDataXmds",
+        "cascadeDelete": true
+      }
+    ]
+  }
+}

@@ -5,35 +5,65 @@
     "properties": {
       "ActualDeliveryDate": {
         "type": "dateTime",
-        "description": "The date when the product was delivered."
+        "description": "The date when the product was delivered.",
+        "format": "date-time",
+        "nullable": true
       },
       "DeliveredToId": {
         "type": "reference",
-        "description": "The person or entity the product was delivered to."
+        "description": "The person or entity the product was delivered to.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the shipment."
+        "description": "The description of the shipment.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DestinationLocationId": {
         "type": "reference",
-        "description": "The place the product is to be delivered."
+        "description": "The place the product is to be delivered.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "ExpectedDeliveryDate": {
         "type": "dateTime",
-        "description": "The date when the product is expected to be delivered."
+        "description": "The date when the product is expected to be delivered.",
+        "format": "date-time",
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The owner of the shipment."
+        "description": "The owner of the shipment.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ReturnOrderId": {
         "type": "reference",
@@ -41,91 +71,174 @@
       },
       "ShipFromAddress": {
         "type": "address",
-        "description": "The place the product is coming from."
+        "description": "The place the product is coming from.",
+        "nullable": true,
+        "readOnly": true
       },
       "ShipFromCity": {
         "type": "string",
-        "description": "The city of the address where the shipment originates."
+        "description": "The city of the address where the shipment originates.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipFromCountry": {
         "type": "string",
-        "description": "The country of the address where the shipment originates."
+        "description": "The country of the address where the shipment originates.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShipFromGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the shipment originates."
+        "description": "Accuracy level of the geocode for the address where the shipment originates.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipFromLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShipFromLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShipFromPostalCode": {
         "type": "string",
-        "description": "The postal code of the address where the shipment originates."
+        "description": "The postal code of the address where the shipment originates.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ShipFromState": {
         "type": "string",
-        "description": "The state of the address where the shipment originates."
+        "description": "The state of the address where the shipment originates.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShipFromStreet": {
         "type": "textarea",
-        "description": "The street of the address where the shipment originates."
+        "description": "The street of the address where the shipment originates.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ShipToAddress": {
         "type": "address",
-        "description": "The physical address where the shipment is delivered."
+        "description": "The physical address where the shipment is delivered.",
+        "nullable": true,
+        "readOnly": true
       },
       "ShipToCity": {
         "type": "string",
-        "description": "The city of the address where the shipment is delivered."
+        "description": "The city of the address where the shipment is delivered.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipToCountry": {
         "type": "string",
-        "description": "The country of the address where the shipment is delivered."
+        "description": "The country of the address where the shipment is delivered.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShipToGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the shipment is delivered."
+        "description": "Accuracy level of the geocode for the address where the shipment is delivered.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ShipToLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShipToLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShipToName": {
         "type": "string",
-        "description": "The shipment recipient."
+        "description": "The shipment recipient.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ShipToPostalCode": {
         "type": "string",
-        "description": "The postal code of the address where the shipment is delivered."
+        "description": "The postal code of the address where the shipment is delivered.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ShipToState": {
         "type": "string",
-        "description": "The state of the address where the shipment is delivered."
+        "description": "The state of the address where the shipment is delivered.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShipToStreet": {
         "type": "textarea",
-        "description": "The street of the address where the shipment is delivered."
+        "description": "The street of the address where the shipment is delivered.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ShipmentNumber": {
         "type": "string",
-        "description": "An auto-generated number identifying the shipment."
+        "description": "An auto-generated number identifying the shipment.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SourceLocationId": {
         "type": "reference",
-        "description": "The location where the shipment originates."
+        "description": "The location where the shipment originates.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the shipment. The picklist includes the following values, which can be customized: Shipped—The product is in transit. Delivered—The product is at the source location."
+        "description": "The status of the shipment. The picklist includes the following values, which can be customized: Shipped—The product is in transit. Delivered—The product is at the source location.",
+        "format": "enum",
+        "enum": [
+          "Shipped",
+          "Delivered",
+          "Created",
+          "In Transit",
+          "Voided"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "TotalItemsQuantity": {
         "type": "double",
@@ -133,14 +246,334 @@
       },
       "TrackingNumber": {
         "type": "string",
-        "description": "The tracking number for the shipment."
+        "description": "The tracking number for the shipment.",
+        "maxLength": 255,
+        "nullable": true
       },
       "TrackingUrl": {
         "type": "url",
-        "description": "The URL of the website used for tracking the shipment."
+        "description": "The URL of the website used for tracking the shipment.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Shipment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Provider": {
+        "type": "string",
+        "description": "Shipping Provider",
+        "format": "enum",
+        "enum": [
+          "FedEx",
+          "UPS",
+          "USPS"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "FulfillmentOrderId": {
+        "type": "string",
+        "description": "Fulfillment Order ID",
+        "format": "salesforce-id",
+        "x-object": "FulfillmentOrder",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_shipment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_shipment.htm",
+    "keyPrefix": "0OB",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransfer",
+        "field": "ShipmentId",
+        "relationshipName": "ProductTransfers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransferChangeEvent",
+        "field": "ShipmentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShipmentFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ShipmentHistory",
+        "field": "ShipmentId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ShipmentShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

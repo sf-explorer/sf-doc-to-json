@@ -5,27 +5,65 @@
     "properties": {
       "AvailableCredit": {
         "type": "currency",
-        "description": "The amount of credit available to a buyer account."
+        "description": "The amount of credit available to a buyer account.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "BuyerId": {
         "type": "reference",
-        "description": "The ID of the buyer account."
+        "description": "The ID of the buyer account.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "BuyerStatus": {
         "type": "picklist",
-        "description": "Status of the buyer account."
+        "description": "Status of the buyer account.",
+        "format": "enum",
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive",
+          "On Hold"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "CommerceType": {
         "type": "picklist",
-        "description": "The type of commerce that the buyer account is conducting, using the Commerce app."
+        "description": "The type of commerce that the buyer account is conducting, using the Commerce app.",
+        "format": "enum",
+        "enum": [
+          "Buyer",
+          "Seller",
+          "Reseller"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "CreditLimit": {
         "type": "currency",
-        "description": "The limit of credit available to the buyer account."
+        "description": "The limit of credit available to the buyer account.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "CreditStatus": {
         "type": "picklist",
-        "description": "The type or status of the buyer account's credit ranking."
+        "description": "The type or status of the buyer account's credit ranking.",
+        "format": "enum",
+        "enum": [
+          "Good Credit",
+          "Delinquent",
+          "Bad Credit",
+          "On Hold"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -33,38 +71,121 @@
       },
       "CurrentBalance": {
         "type": "currency",
-        "description": "The balance carried by the buyer account."
+        "description": "The balance carried by the buyer account.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the buyer account is active (true) or not (false)."
+        "description": "Indicates whether the buyer account is active (true) or not (false).",
+        "nullable": false
       },
       "MaximumOrderLimit": {
         "type": "currency",
-        "description": "The maximum number of orders that can be placed by the buyer account."
+        "description": "The maximum number of orders that can be placed by the buyer account.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "MinimumOrderLimit": {
         "type": "currency",
-        "description": "The minimum number of orders that can be placed by the buyer account."
+        "description": "The minimum number of orders that can be placed by the buyer account.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "The name of the buyer account."
+        "description": "The name of the buyer account.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the buyer account owner."
+        "description": "The ID of the buyer account owner.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "PayerId": {
         "type": "reference",
-        "description": "The ID of the buyer account payer."
+        "description": "The ID of the buyer account payer.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "SendToId": {
         "type": "reference",
-        "description": "The ID of account that an order is sent to."
+        "description": "The ID of account that an order is sent to.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Buyer Account ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_buyeraccount.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_buyeraccount.htm",
+    "keyPrefix": "0bj"
   }
 }

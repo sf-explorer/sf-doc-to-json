@@ -5,50 +5,189 @@
     "properties": {
       "Description": {
         "type": "string",
-        "description": "A brief description of the safety protocol. For example, “Employees and customers are required to wear a mask in the store.”"
+        "description": "A brief description of the safety protocol. For example, “Employees and customers are required to wear a mask in the store.”",
+        "maxLength": 255,
+        "nullable": false
       },
       "IconUrl": {
         "type": "string",
-        "description": "A public image URL to display for the LocationTrustMeasure object."
+        "description": "A public image URL to display for the LocationTrustMeasure object.",
+        "maxLength": 255,
+        "nullable": true
       },
       "IsVisibleInPublic": {
         "type": "boolean",
-        "description": "If true, displays the LocationTrustMeasure object on your site. If false, hides the LocationTrustMeasure object on your site."
+        "description": "If true, displays the LocationTrustMeasure object on your site. If false, hides the LocationTrustMeasure object on your site.",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date on which the record was last viewed."
+        "description": "The date on which the record was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LocationExternalReference": {
         "type": "string",
-        "description": "An ID assigned to the LocationTrustMeasure objects for a particular location."
+        "description": "An ID assigned to the LocationTrustMeasure objects for a particular location.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "LocationId": {
         "type": "reference",
-        "description": "The unique ID for the location associated with the LocationTrustMeasure."
+        "description": "The unique ID for the location associated with the LocationTrustMeasure.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "An auto-assigned name for the LocationTrustMeasure."
+        "description": "An auto-assigned name for the LocationTrustMeasure.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the owner for this record."
+        "description": "The ID of the owner for this record.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "SortOrder": {
         "type": "int",
-        "description": "The order in which to display LocationTrustMeasure objects on your site."
+        "description": "The order in which to display LocationTrustMeasure objects on your site.",
+        "nullable": true
       },
       "Title": {
         "type": "string",
-        "description": "The name of the safety protocol. For example, Enforcement of Masks."
+        "description": "The name of the safety protocol. For example, Enforcement of Masks.",
+        "maxLength": 40,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "LocationTrustMeasure ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_locationtrustmeasure.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_locationtrustmeasure.htm",
+    "keyPrefix": "20X",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LocationTrustMeasureShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

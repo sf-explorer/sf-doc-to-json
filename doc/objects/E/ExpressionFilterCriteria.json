@@ -5,30 +5,124 @@
     "properties": {
       "ExpressionFilterId": {
         "type": "reference",
-        "description": "Required. The ID of the ExpressionFilter object that references this condition."
+        "description": "Required. The ID of the ExpressionFilter object that references this condition.",
+        "format": "salesforce-id",
+        "x-object": "ExpressionFilter",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "FilterTarget": {
         "type": "string",
-        "description": "Required. The target object or field used in the condition. For example, to create a condition that applies to new cases, use Case.Status as the FilterTarget."
+        "description": "Required. The target object or field used in the condition. For example, to create a condition that applies to new cases, use Case.Status as the FilterTarget.",
+        "maxLength": 255,
+        "nullable": true
       },
       "FilterTargetValue": {
         "type": "string",
-        "description": "Optional. The value that’s compared to the value of the FilterTarget. For example, to create a condition that applies to new cases, use New as the FilterTargetValue."
+        "description": "Optional. The value that’s compared to the value of the FilterTarget. For example, to create a condition that applies to new cases, use New as the FilterTargetValue.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Optional. A label for the condition."
+        "description": "Optional. A label for the condition.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Operation": {
         "type": "picklist",
-        "description": "Required. Specifies the operator used to compare the target field and the target value. For example, to create a condition that applies to new cases, use EQUALS for the Operation field, as in Case.Status EQUALS New. EQUALS NOTEQUALS CONTAINS NOTCONTAIN"
+        "description": "Required. Specifies the operator used to compare the target field and the target value. For example, to create a condition that applies to new cases, use EQUALS for the Operation field, as in Case.Status EQUALS New. EQUALS NOTEQUALS CONTAINS NOTCONTAIN",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false
       },
       "SortOrder": {
         "type": "int",
-        "description": "Required. The order in which the criteria are evaluated."
+        "description": "Required. The order in which the criteria are evaluated.",
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Expression Filter Criteria ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_expressionfiltercriteria.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_expressionfiltercriteria.htm",
+    "keyPrefix": "8BM",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

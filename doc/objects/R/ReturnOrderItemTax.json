@@ -5,46 +5,198 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "Amount of tax represented by the return order item tax."
+        "description": "Amount of tax represented by the return order item tax.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the return order item tax."
+        "description": "Description of the return order item tax.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "OrderItemTaxLineItemSummaryId": {
         "type": "reference",
-        "description": "ID of the order item tax line item summary associated with the order item summary that corresponds to the return order line item to which the tax applies."
+        "description": "ID of the order item tax line item summary associated with the order item summary that corresponds to the return order line item to which the tax applies.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemTaxLineItemSummary",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Rate": {
         "type": "percent",
-        "description": "Tax rate used to calculate the Amount."
+        "description": "Tax rate used to calculate the Amount.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ReturnOrderId": {
         "type": "reference",
-        "description": "ID of the associated return order."
+        "description": "ID of the associated return order.",
+        "format": "salesforce-id",
+        "x-object": "ReturnOrder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ReturnOrderItemAdjustmentId": {
         "type": "reference",
-        "description": "If this object represents a tax on an adjustment, this value is the ID of the return order item adjustment to which the tax applies. If this value is null, the adjustment applies to a return order line item."
+        "description": "If this object represents a tax on an adjustment, this value is the ID of the return order item adjustment to which the tax applies. If this value is null, the adjustment applies to a return order line item.",
+        "format": "salesforce-id",
+        "x-object": "ReturnOrderItemAdjustment",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ReturnOrderItemTaxNumber": {
         "type": "string",
-        "description": "ID of the return order item tax."
+        "description": "ID of the return order item tax.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ReturnOrderLineItemId": {
         "type": "reference",
-        "description": "If this object represents a tax on a return order line item, this value is the ID of that return order line item. If this object represents a tax on an adjustment, this value is the ID of the return order line item to which the adjustment applies."
+        "description": "If this object represents a tax on a return order line item, this value is the ID of that return order line item. If this object represents a tax on an adjustment, this value is the ID of the return order line item to which the adjustment applies.",
+        "format": "salesforce-id",
+        "x-object": "ReturnOrderLineItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "TaxEffectiveDate": {
         "type": "date",
-        "description": "Date on which the Amount was calculated. Important due to tax rate changes over time."
+        "description": "Date on which the Amount was calculated. Important due to tax rate changes over time.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "Shows whether the amount on the tax line is an estimate or the final calculated amount. Doesn’t set a value by default. Users can define automation to set and change the value as needed."
+        "description": "Shows whether the amount on the tax line is an estimate or the final calculated amount. Doesn’t set a value by default. Users can define automation to set and change the value as needed.",
+        "format": "enum",
+        "enum": [
+          "Actual",
+          "Estimated"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Return Order Item Tax ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_returnorderitemtax.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_returnorderitemtax.htm",
+    "keyPrefix": "9Jj",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

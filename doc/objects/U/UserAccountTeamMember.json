@@ -5,34 +5,142 @@
     "properties": {
       "AccountAccessLevel": {
         "type": "picklist",
-        "description": "Required. For Account records that the user has added to his or her default account team, the level of access the account team member has. . The possible values are: Read Edit This field must be set to an access level that is higher than the organization’s default access level for accounts."
+        "description": "Required. For Account records that the user has added to his or her default account team, the level of access the account team member has. . The possible values are: Read Edit This field must be set to an access level that is higher than the organization’s default access level for accounts.",
+        "format": "enum",
+        "enum": [
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "CaseAccessLevel": {
         "type": "picklist",
-        "description": "Required. Level of access that the account team member has to Case records related to the account. The possible values are: None Read Edit This field must be set to an access level that is higher than the organization's default access level for cases."
+        "description": "Required. Level of access that the account team member has to Case records related to the account. The possible values are: None Read Edit This field must be set to an access level that is higher than the organization's default access level for cases.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "ContactAccessLevel": {
         "type": "picklist",
-        "description": "Required. ForContact records related to the account, the level of access that the account team member has. The possible values are: None Read Edit This field must be set to an access level that is higher than the organization's default access level for contacts. Note When DefaultContactAccess is set to Controlled by Parent, you can’t create or update this field."
+        "description": "Required. ForContact records related to the account, the level of access that the account team member has. The possible values are: None Read Edit This field must be set to an access level that is higher than the organization's default access level for contacts. Note When DefaultContactAccess is set to Controlled by Parent, you can’t create or update this field.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "OpportunityAccessLevel": {
         "type": "picklist",
-        "description": "Required. Level of access that the team member has to Opportunity records related to the account. The possible values are: None Read Edit This field must be set to an access level that is higher than the organization’s default access level for opportunities."
+        "description": "Required. Level of access that the team member has to Opportunity records related to the account. The possible values are: None Read Edit This field must be set to an access level that is higher than the organization’s default access level for opportunities.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Required. ID of the User who owns the default account team."
+        "description": "Required. ID of the User who owns the default account team.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "TeamMemberRole": {
         "type": "picklist",
-        "description": "Role that the team member has on opportunities for which the user has added his or her default account team. The valid values are set by the organization’s administrator in the Account Team Roles picklist. Label is Team Role."
+        "description": "Role that the team member has on opportunities for which the user has added his or her default account team. The valid values are set by the organization’s administrator in the Account Team Roles picklist. Label is Team Role.",
+        "format": "enum",
+        "enum": [
+          "Account Executive",
+          "Sales Manager",
+          "Executive Sponsor",
+          "Service Contact",
+          "Industry Specialist",
+          "Channel Manager",
+          "Competitive Expert",
+          "Opportunity Owner"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "UserId": {
         "type": "reference",
-        "description": "Required. ID of the User who is a member of the default account team. This field cannot be updated."
+        "description": "Required. ID of the User who is a member of the default account team. This field cannot be updated.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Account Team Member ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_useraccountteammember.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_useraccountteammember.htm",
+    "keyPrefix": "01D",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -5,7 +5,9 @@
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "The description of the recordset filter criteria."
+        "description": "The description of the recordset filter criteria.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "FilteredObject": {
         "type": "picklist",
@@ -13,15 +15,22 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the recordset filter criteria is associated with shifts or maintenance work rules (true) or not (false)."
+        "description": "Indicates whether the recordset filter criteria is associated with shifts or maintenance work rules (true) or not (false).",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the recordset filter criteria was last referenced."
+        "description": "The date when the recordset filter criteria was last referenced.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when the recordset filter criteria was last viewed."
+        "description": "The date when the recordset filter criteria was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LogicalOperator": {
         "type": "picklist",
@@ -29,11 +38,20 @@
       },
       "Name": {
         "type": "string",
-        "description": "The name of the recordset filter criteria."
+        "description": "The name of the recordset filter criteria.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The owner of the recordset filter criteria."
+        "description": "The owner of the recordset filter criteria.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "SourceObject": {
         "type": "picklist",
@@ -46,9 +64,190 @@
       "Usage Rate Unit": {
         "type": "picklist",
         "description": "Defines the rate for Usage Rate Field."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Recordset Filter Criteria ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_recordsetfiltercriteria.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_recordsetfiltercriteria.htm",
+    "keyPrefix": "0hr",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordsetFilterCriteriaFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordsetFilterCriteriaHistory",
+        "field": "RecordsetFilterCriteriaId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordsetFilterCriteriaRule",
+        "field": "RecordsetFilterCriteriaId",
+        "relationshipName": "RecordsetFilterCriteriaRules",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordsetFilterCriteriaShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Shift",
+        "field": "RecordsetFilterCriteriaId",
+        "relationshipName": "ShiftRecordsetFilterCriteria",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

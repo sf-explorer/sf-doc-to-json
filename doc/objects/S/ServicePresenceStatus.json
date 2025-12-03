@@ -1,22 +1,158 @@
 {
   "ServicePresenceStatus": {
     "name": "ServicePresenceStatus",
-    "description": "Represents a presence status that can be assigned to a service channel. This object is available in API version 65.0 and later.",
+    "description": "Service Presence Statuses - ServicePresenceStatus",
     "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Service Presence Status ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API."
+        "description": "Developer Name",
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language of the presence status."
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the presence status."
+        "description": "Status Name",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_servicepresencestatus.htm"
+    "module": "N/A",
+    "keyPrefix": "0N5",
+    "label": "Service Presence Status",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "PresenceUserConfig",
+        "field": "PresenceStatusOnDeclineId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PresenceUserConfig",
+        "field": "PresenceStatusOnPushTimeoutId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceChannelStatus",
+        "field": "ServicePresenceStatusId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SetupEntityAccess",
+        "field": "SetupEntityId",
+        "relationshipName": "SetupEntityAccessItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserServicePresence",
+        "field": "ServicePresenceStatusId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

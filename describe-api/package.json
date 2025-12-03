@@ -1,0 +1,56 @@
+{
+  "name": "@sf-explorer/describe-api",
+  "version": "1.0.0",
+  "description": "Fetch Salesforce object metadata from orgs using the Describe API and convert to JSON Schema",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "sf-describe-fetch": "./dist/cli-describe.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "prepare": "npm run build",
+    "start": "npm run build && node dist/cli-describe.js",
+    "example": "npm run build && node dist/example.js",
+    "test": "echo \"Tests not yet implemented\"",
+    "prepublishOnly": "npm run build",
+    "clean-objects": "node scripts/clean-unwanted-objects.js",
+    "clean-indexes": "node scripts/clean-unwanted-from-indexes.js",
+    "clean-descriptions": "node scripts/clean-redundant-descriptions.js",
+    "clean-all": "npm run clean-objects && npm run clean-indexes && npm run clean-descriptions"
+  },
+  "keywords": [
+    "salesforce",
+    "describe-api",
+    "jsforce",
+    "json-schema",
+    "metadata",
+    "schema-generator",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sf-explorer/sf-doc-to-json.git",
+    "directory": "describe-api"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "jsforce": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

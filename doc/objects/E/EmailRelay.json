@@ -9,30 +9,118 @@
       },
       "Host": {
         "type": "string",
-        "description": "Indicates the host name or IP address of your company's SMTP server."
+        "description": "Indicates the host name or IP address of your company's SMTP server.",
+        "maxLength": 255,
+        "nullable": false
       },
       "IsRequireAuth": {
         "type": "boolean",
-        "description": "Indicates whether (true) or not (false) authentication is required. When setting this field to true, the TlsSetting must be set to RequiredVerify. This field is available in API version 44.0 and later."
+        "description": "Indicates whether (true) or not (false) authentication is required. When setting this field to true, the TlsSetting must be set to RequiredVerify. This field is available in API version 44.0 and later.",
+        "nullable": false
       },
       "Password": {
         "type": "encryptedstring",
-        "description": "Specifies the password for relay host STMP authentication. When IsRequireAuth is set to true, this field is required. This field is available in API version 44.0 and later."
+        "description": "Specifies the password for relay host STMP authentication. When IsRequireAuth is set to true, this field is required. This field is available in API version 44.0 and later.",
+        "maxLength": 100,
+        "nullable": true
       },
       "Port": {
         "type": "picklist",
-        "description": "Indicates the port number of your company's SMTP server. 25 587 10025 11025"
+        "description": "Indicates the port number of your company's SMTP server. 25 587 10025 11025",
+        "format": "enum",
+        "enum": [
+          "25",
+          "587",
+          "10025",
+          "11025"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "TlsSetting": {
         "type": "picklist",
-        "description": "Specifies whether Salesforce uses TLS for SMTP sessions. Off: TLS is turned off. SMTP session continues through an insecure connection. Preferred: If the remote server supports TLS, Salesforce upgrades the current SMTP session to use TLS. If TLS is unavailable, Salesforce continues the session without TLS. Required: Salesforce continues the session only if the remote server supports TLS. If TLS is unavailable, Salesforce terminates the session without delivering the email. PreferredVerify: If the remote server supports TLS, Salesforce upgrades the current SMTP session to use TLS. Before the session begins, Salesforce verifies that the certificate is signed by a valid certificate authority, and that the common name presented in the certificate matches the domain or mail exchange of the current connection. If TLS is available but the certificate is not signed or the common name does not match, Salesforce disconnects the session and does not deliver the email. If TLS is unavailable, Salesforce continues the session without TLS. RequiredVerify: Salesforce continues the session only if the remote server supports TLS, the certificate is signed by a valid certificate authority, and the common name presented in the certificate matches the domain or mail exchange to which Salesforce is connected. If any of these criteria are not met, Salesforce terminates the session without delivering the email."
+        "description": "Specifies whether Salesforce uses TLS for SMTP sessions. Off: TLS is turned off. SMTP session continues through an insecure connection. Preferred: If the remote server supports TLS, Salesforce upgrades the current SMTP session to use TLS. If TLS is unavailable, Salesforce continues the session without TLS. Required: Salesforce continues the session only if the remote server supports TLS. If TLS is unavailable, Salesforce terminates the session without delivering the email. PreferredVerify: If the remote server supports TLS, Salesforce upgrades the current SMTP session to use TLS. Before the session begins, Salesforce verifies that the certificate is signed by a valid certificate authority, and that the common name presented in the certificate matches the domain or mail exchange of the current connection. If TLS is available but the certificate is not signed or the common name does not match, Salesforce disconnects the session and does not deliver the email. If TLS is unavailable, Salesforce continues the session without TLS. RequiredVerify: Salesforce continues the session only if the remote server supports TLS, the certificate is signed by a valid certificate authority, and the common name presented in the certificate matches the domain or mail exchange to which Salesforce is connected. If any of these criteria are not met, Salesforce terminates the session without delivering the email.",
+        "format": "enum",
+        "enum": [
+          "Off",
+          "Preferred",
+          "Required",
+          "PreferredVerify",
+          "RequiredVerify"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Username": {
         "type": "string",
-        "description": "Specifies the username for relay host STMP authentication. When IsRequireAuth is set to true, this field is required. This field is available in API version 44.0 and later."
+        "description": "Specifies the username for relay host STMP authentication. When IsRequireAuth is set to true, this field is required. This field is available in API version 44.0 and later.",
+        "maxLength": 100,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Email Relay ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailrelay.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailrelay.htm",
+    "keyPrefix": "26Z",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "EmailDomainFilter",
+        "field": "EmailRelayId",
+        "relationshipName": "Filters",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

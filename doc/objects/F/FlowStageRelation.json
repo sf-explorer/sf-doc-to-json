@@ -5,26 +5,131 @@
     "properties": {
       "Name": {
         "type": "string",
-        "description": "The auto-generated ID of this relation."
+        "description": "The auto-generated ID of this relation.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "The flow interview that the record is related to."
+        "description": "The flow interview that the record is related to.",
+        "format": "salesforce-id",
+        "x-object": "FlowInterview",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "StageLabel": {
         "type": "string",
-        "description": "Label for the stage. If the stage is translated, the label respects the language of the user who is querying the label."
+        "description": "Label for the stage. If the stage is translated, the label respects the language of the user who is querying the label.",
+        "maxLength": 1000,
+        "nullable": true,
+        "readOnly": true
       },
       "StageOrder": {
         "type": "int",
-        "description": "The order of this stage when the flow interview was paused. This order may differ from the order in the stage definition. If the type is Active, the order corresponds to the order of the stage in $Flow.ActiveStages. If the type is Current and corresponds to an active stage, the order matches the order of the active stage. If the type is Current and doesn't correspond to an active stage, the order is 0."
+        "description": "The order of this stage when the flow interview was paused. This order may differ from the order in the stage definition. If the type is Active, the order corresponds to the order of the stage in $Flow.ActiveStages. If the type is Current and corresponds to an active stage, the order matches the order of the active stage. If the type is Current and doesn't correspond to an active stage, the order is 0.",
+        "nullable": false,
+        "readOnly": true
       },
       "StageType": {
         "type": "picklist",
-        "description": "Type of stage. The valid values are: Current: Identifies that the stage is set to $Flow.CurrentStage. Active: Identifies that the stage is set to $Flow.ActiveStages."
+        "description": "Type of stage. The valid values are: Current: Identifies that the stage is set to $Flow.CurrentStage. Active: Identifies that the stage is set to $Flow.ActiveStages.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Current"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Flow Interview Stage Relation ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "FlexIndex": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_flowstagerelation.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_flowstagerelation.htm",
+    "keyPrefix": "31y",
+    "createable": false,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

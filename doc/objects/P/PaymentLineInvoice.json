@@ -5,78 +5,310 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "Total amount applied or unapplied by this payment line."
+        "description": "Total amount applied or unapplied by this payment line.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AppliedDate": {
         "type": "dateTime",
-        "description": "The date that this line was applied to an invoice or payment. If this field is null, it inherits the value of the payment line invoice’s Date field."
+        "description": "The date that this line was applied to an invoice or payment. If this field is null, it inherits the value of the payment line invoice’s Date field.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AssociatedAccountId": {
         "type": "reference",
-        "description": "The account for this payment line’s target invoice."
+        "description": "The account for this payment line’s target invoice.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "AssociatedPaymentLineId": {
         "type": "reference",
-        "description": "The paymentLine that was unapplied. Populated only when PaymentLineInvoice’s Type field has a value of Unapplied."
+        "description": "The paymentLine that was unapplied. Populated only when PaymentLineInvoice’s Type field has a value of Unapplied.",
+        "format": "salesforce-id",
+        "x-object": "PaymentLineInvoice",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Comments": {
         "type": "textarea",
-        "description": "Users can add comments to provide additional details about a record. Maximum of 1000 characters."
+        "description": "Users can add comments to provide additional details about a record. Maximum of 1000 characters.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "Date": {
         "type": "dateTime",
-        "description": "The date and time that this payment line was created."
+        "description": "The date and time that this payment line was created.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveDate": {
         "type": "dateTime",
-        "description": "Defines the date and time when the payment line application or unapplication becomes effective."
+        "description": "Defines the date and time when the payment line application or unapplication becomes effective.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveImpactAmount": {
         "type": "currency",
-        "description": "Shows how this payment invoice line impacts a customer’s accounts receivable. This value is positive when PaymentLineInvoice’s Type field is Applied, and negative when PaymentLineInvoice’s Type is Unapplied. If there’s an unapplied line related to this record, EffectiveImpactAmount has a value of 0."
+        "description": "Shows how this payment invoice line impacts a customer’s accounts receivable. This value is positive when PaymentLineInvoice’s Type field is Applied, and negative when PaymentLineInvoice’s Type is Unapplied. If there’s an unapplied line related to this record, EffectiveImpactAmount has a value of 0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "HasBeenUnapplied": {
         "type": "picklist",
-        "description": "Defines whether this payment line has been unapplied from the target invoice. Has a value of NA when PaymentInvoiceLine’s Type field has a value of Unapplied. Can be No or Yes if Type has a value of Applied."
+        "description": "Defines whether this payment line has been unapplied from the target invoice. Has a value of NA when PaymentInvoiceLine’s Type field has a value of Unapplied. Can be No or Yes if Type has a value of Applied.",
+        "format": "enum",
+        "enum": [
+          "No",
+          "Yes",
+          "NA"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ImpactAmount": {
         "type": "currency",
-        "description": "Shows the payment’s financial impact against the customer’s accounts receivable. If PaymentLineInvoice has a Type of Applied, the ImpactAmount is the negative equivalent of the line’s Amount field. Otherwise, ImpactAmount equals Amount."
+        "description": "Shows the payment’s financial impact against the customer’s accounts receivable. If PaymentLineInvoice has a Type of Applied, the ImpactAmount is the negative equivalent of the line’s Amount field. Otherwise, ImpactAmount equals Amount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "InvoiceId": {
         "type": "reference",
-        "description": "Target invoice for this payment line."
+        "description": "Target invoice for this payment line.",
+        "format": "salesforce-id",
+        "x-object": "Invoice",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentBalance": {
         "type": "currency",
-        "description": "Total balance of this line’s parent payment record following the application or unapplication of this payment line."
+        "description": "Total balance of this line’s parent payment record following the application or unapplication of this payment line.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PaymentId": {
         "type": "reference",
-        "description": "Parent payment for this payment line."
+        "description": "Parent payment for this payment line.",
+        "format": "salesforce-id",
+        "x-object": "Payment",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PaymentLineInvoiceNumber": {
         "type": "string",
-        "description": "System-defined unique ID for this payment line."
+        "description": "System-defined unique ID for this payment line.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "Defines whether this payment line has been applied or unapplied to the target invoice."
+        "description": "Defines whether this payment line has been applied or unapplied to the target invoice.",
+        "format": "enum",
+        "enum": [
+          "Applied",
+          "Unapplied"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "UnappliedDate": {
         "type": "dateTime",
-        "description": "The date that this payment line was unapplied from the target invoice. Populated only when the Type field equals Unapplied. Inherits the value of the Date field."
+        "description": "The date that this payment line was unapplied from the target invoice. Populated only when the Type field equals Unapplied. Inherits the value of the Date field.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Payment Line Invoice ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentlineinvoice.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentlineinvoice.htm",
+    "keyPrefix": "1PL",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshot",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceBalanceSnapshots",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshotChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "DestinationEntityId",
+        "relationshipName": "DestinationFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": "ParentFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "SourceEntityId",
+        "relationshipName": "SourceFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "DestinationEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "SourceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentLineInvoice",
+        "field": "AssociatedPaymentLineId",
+        "relationshipName": "AssociatedPaymentLines",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

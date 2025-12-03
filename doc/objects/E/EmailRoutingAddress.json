@@ -5,18 +5,87 @@
     "properties": {
       "PersonalName": {
         "type": "string",
-        "description": "The display name of the EmailRoutingAddress. Maximum size is 300 characters."
+        "description": "The display name of the EmailRoutingAddress. Maximum size is 300 characters.",
+        "maxLength": 300,
+        "nullable": false
       },
       "Address": {
         "type": "email",
-        "description": "The email address to which your customers direct their questions. Emails are forwarded from this address."
+        "description": "The email address to which your customers direct their questions. Emails are forwarded from this address.",
+        "format": "email",
+        "maxLength": 270,
+        "nullable": false
       },
       "EmailServicesAddress": {
         "type": "reference",
         "description": "A unique, Salesforce-generated email address. This field value is read-only and can't be modified. Emails are forwarded to this address."
+      },
+      "Id": {
+        "type": "string",
+        "description": "EmailRoutingAddress ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "EmailServicesAddressId": {
+        "type": "string",
+        "description": "Address ID",
+        "format": "salesforce-id",
+        "x-object": "EmailServicesAddress",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailroutingaddress.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailroutingaddress.htm",
+    "keyPrefix": "02t",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "SetupEntityAccess",
+        "field": "SetupEntityId",
+        "relationshipName": "SetupEntityAccessItems",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

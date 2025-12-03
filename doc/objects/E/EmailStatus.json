@@ -5,30 +5,110 @@
     "properties": {
       "EmailTemplateName": {
         "type": "string",
-        "description": "The name of the EmailTemplate."
+        "description": "The name of the EmailTemplate.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "FirstOpenDate": {
         "type": "dateTime",
-        "description": "Date when the email was first opened by recipient. Label is Date Opened."
+        "description": "Date when the email was first opened by recipient. Label is Date Opened.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastOpenDate": {
         "type": "dateTime",
-        "description": "Date when the email was last opened by recipient."
+        "description": "Date when the email was last opened by recipient.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "TaskId": {
         "type": "reference",
-        "description": "The activity (task or event) associated with the email. Label is Activity ID."
+        "description": "The activity (task or event) associated with the email. Label is Activity ID.",
+        "format": "salesforce-id",
+        "x-object": "Task",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "TimesOpened": {
         "type": "int",
-        "description": "Number of times the recipient opened the email."
+        "description": "Number of times the recipient opened the email.",
+        "nullable": false,
+        "readOnly": true
       },
       "WhoId": {
         "type": "reference",
-        "description": "The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID."
+        "description": "The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Contact",
+          "Lead"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Email Status ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailstatus.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailstatus.htm",
+    "keyPrefix": "018",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": false,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

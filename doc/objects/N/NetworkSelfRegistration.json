@@ -5,11 +5,19 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The ID of the account that self-registering users in the Experience Cloud site are associated with."
+        "description": "The ID of the account that self-registering users in the Experience Cloud site are associated with.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "ApexHandlerId": {
         "type": "reference",
-        "description": "The ID of the Apex handler created by Configurable Self-Reg registration page type."
+        "description": "The ID of the Apex handler created by Configurable Self-Reg registration page type.",
+        "format": "salesforce-id",
+        "x-object": "ApexClass",
+        "maxLength": 18,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -17,11 +25,19 @@
       },
       "ExecuteApexHandlerAsId": {
         "type": "reference",
-        "description": "The ID of the user who is executing the configurable self-registration handler."
+        "description": "The ID of the user who is executing the configurable self-registration handler.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "NetworkId": {
         "type": "reference",
-        "description": "The ID of NetworkId is unique within your org. You can use only one account per Experience Cloud site to assign self-registering users."
+        "description": "The ID of NetworkId is unique within your org. You can use only one account per Experience Cloud site to assign self-registering users.",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": false
       },
       "OptionsDisableStandardRgstrComponent": {
         "type": "boolean",
@@ -29,31 +45,38 @@
       },
       "OptionsIncludePassword": {
         "type": "Boolean",
-        "description": "Option on Configurable Self-Reg registration page. If true, the Include Password field is selected."
+        "description": "Option on Configurable Self-Reg registration page. If true, the Include Password field is selected.",
+        "nullable": false
       },
       "OptionsShowEmail": {
         "type": "Boolean",
-        "description": "Option on Configurable Self-Reg registration page. If true, the Email field appears on the self-registration form."
+        "description": "Option on Configurable Self-Reg registration page. If true, the Email field appears on the self-registration form.",
+        "nullable": false
       },
       "OptionsShowFirstName": {
         "type": "Boolean",
-        "description": "Option on the Configurable Self-Reg registration page. If true, the First Name field appears on the self-registration form."
+        "description": "Option on the Configurable Self-Reg registration page. If true, the First Name field appears on the self-registration form.",
+        "nullable": false
       },
       "OptionsShowLastName": {
         "type": "Boolean",
-        "description": "Option on the Configurable Self-Reg registration page. If true, the Last Name field appears on the self-registration form."
+        "description": "Option on the Configurable Self-Reg registration page. If true, the Last Name field appears on the self-registration form.",
+        "nullable": false
       },
       "OptionsShowMobilePhone": {
         "type": "Boolean",
-        "description": "Option on the Configurable Self-Reg registration page. If true, the Mobile field appears on the self-registration form."
+        "description": "Option on the Configurable Self-Reg registration page. If true, the Mobile field appears on the self-registration form.",
+        "nullable": false
       },
       "OptionsShowNickname": {
         "type": "Boolean",
-        "description": "Option on the Configurable Self-Reg registration page. If true, the Nickname field appears on the self-registration form."
+        "description": "Option on the Configurable Self-Reg registration page. If true, the Nickname field appears on the self-registration form.",
+        "nullable": false
       },
       "OptionsShowUsername": {
         "type": "Boolean",
-        "description": "Option on the Configurable Self-Reg registration page. If true, the Username field appears on the self-registration form."
+        "description": "Option on the Configurable Self-Reg registration page. If true, the Username field appears on the self-registration form.",
+        "nullable": false
       },
       "PermissionSetGroupId": {
         "type": "reference",
@@ -61,10 +84,95 @@
       },
       "VerificationMethod": {
         "type": "picklist",
-        "description": "The type of verification method that a user must supply when registering, which can be: SyncEmail—User must supply an email address to verify identity. SMS—User must supply a phone number to verify identity."
+        "description": "The type of verification method that a user must supply when registering, which can be: SyncEmail—User must supply an email address to verify identity. SMS—User must supply a phone number to verify identity.",
+        "format": "enum",
+        "enum": [
+          "SyncEmail",
+          "SMS"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Experience Self Registration Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_networkselfregistration.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_networkselfregistration.htm",
+    "keyPrefix": "0Dm",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

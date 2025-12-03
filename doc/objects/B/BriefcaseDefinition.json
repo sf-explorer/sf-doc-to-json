@@ -5,11 +5,17 @@
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "Description of the briefcase definition. Limited to 1024 characters."
+        "description": "Description of the briefcase definition. Limited to 1024 characters.",
+        "maxLength": 1024,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "FullName": {
         "type": "string",
@@ -17,11 +23,54 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the briefcase is available for use (true) or not (false). The default value is false."
+        "description": "Indicates whether the briefcase is available for use (true) or not (false). The default value is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "Language": {
         "type": "picklist",
-        "description": "The language for the briefcase. This field defaults to the user's language unless the org is multi-language enabled. Specifies the language of the labels returned."
+        "description": "The language for the briefcase. This field defaults to the user's language unless the org is multi-language enabled. Specifies the language of the labels returned.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -29,7 +78,10 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The unique label for the briefcase definition. This internal label doesn’t get translated."
+        "description": "The unique label for the briefcase definition. This internal label doesn’t get translated.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Metadata": {
         "type": "complexvalue",
@@ -37,14 +89,66 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
         "description": "Standard: Standard briefcase that can be used with priming APIs. HighVolume: Increased-capacity briefcase that's used with performance priming in the Salesforce Field Service mobile app. MobileAppSync: Automatically generated briefcase that's used for performance priming in the Salesforce Field Service mobile app."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Briefcase Definition ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_briefcasedefinition.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_briefcasedefinition.htm",
+    "keyPrefix": "1rY"
   }
 }

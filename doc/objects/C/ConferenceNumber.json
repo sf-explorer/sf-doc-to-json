@@ -5,38 +5,126 @@
     "properties": {
       "AccessCode": {
         "type": "string",
-        "description": "Specifies the access code to enter in order to validate identity and join the call."
+        "description": "Specifies the access code to enter in order to validate identity and join the call.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ExternalEventId": {
         "type": "reference",
-        "description": "The ID of the external event associated with the conference number."
+        "description": "The ID of the external event associated with the conference number.",
+        "format": "salesforce-id",
+        "x-object": "ExternalEvent",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsLocked": {
         "type": "boolean",
-        "description": "Returns true if the conference number is locked, or false if it’s not."
+        "description": "Returns true if the conference number is locked, or false if it’s not.",
+        "nullable": false,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "The description of the conference number."
+        "description": "The description of the conference number.",
+        "maxLength": 255,
+        "nullable": true
       },
       "MayEdit": {
         "type": "boolean",
-        "description": "Indicates whether the conference number can be edited (true) or not (false)."
+        "description": "Indicates whether the conference number can be edited (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the conference call’s organizer."
+        "description": "The name of the conference call’s organizer.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Number": {
         "type": "phone",
-        "description": "The phone number used to connect to the conference call."
+        "description": "The phone number used to connect to the conference call.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "Vendor": {
         "type": "string",
-        "description": "The vendor or company associated with the conference number."
+        "description": "The vendor or company associated with the conference number.",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Conference Number ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_conferencenumber.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_conferencenumber.htm",
+    "keyPrefix": "0Ah",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

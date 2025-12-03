@@ -5,18 +5,70 @@
     "properties": {
       "ContentFolderId": {
         "type": "reference",
-        "description": "ID of the folder."
+        "description": "ID of the folder.",
+        "format": "salesforce-id",
+        "x-object": "ContentFolder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "EnableFolderStatus": {
         "type": "picklist",
-        "description": "Indicates the status of enabling folders for the library. Valid values are: C — Completed folder enablement S — Started folder enablement F — Failed folder enablement This field is available in API version 39.0 and later."
+        "description": "Indicates the status of enabling folders for the library. Valid values are: C — Completed folder enablement S — Started folder enablement F — Failed folder enablement This field is available in API version 39.0 and later.",
+        "format": "enum",
+        "enum": [
+          "S",
+          "C",
+          "F"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ParentEntityId": {
         "type": "reference",
-        "description": "Name of the entity the folder hierarchy is linked to."
+        "description": "Name of the entity the folder hierarchy is linked to.",
+        "format": "salesforce-id",
+        "x-object": "ContentWorkspace",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Content Folder Link ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentfolderlink.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentfolderlink.htm",
+    "keyPrefix": "07v",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

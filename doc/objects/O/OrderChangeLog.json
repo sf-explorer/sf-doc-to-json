@@ -5,27 +5,67 @@
     "properties": {
       "ChangeLineId": {
         "type": "reference",
-        "description": "The ID of the main change line created as a result of the change request. For example, if you change an order item, the ChangeLineId would be the change OrderItem ID, or if you change a shipping address, the ChangeLineId would be the change OrderDeliveryGroup ID."
+        "description": "The ID of the main change line created as a result of the change request. For example, if you change an order item, the ChangeLineId would be the change OrderItem ID, or if you change a shipping address, the ChangeLineId would be the change OrderDeliveryGroup ID.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "OrderAdjustmentGroup",
+          "OrderDeliveryGroup",
+          "OrderItem",
+          "OrderItemAdjustmentLineItem",
+          "OrderItemTaxLineItem"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ChangeLineType": {
         "type": "picklist",
-        "description": "The method used to implement the change."
+        "description": "The method used to implement the change.",
+        "format": "enum",
+        "enum": [
+          "Delta",
+          "New"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ChangeOrderId": {
         "type": "reference",
-        "description": "The ID of the change order."
+        "description": "The ID of the change order.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ChangeRequest": {
         "type": "string",
-        "description": "The unique ID of the request of which this change is a part."
+        "description": "The unique ID of the request of which this change is a part.",
+        "maxLength": 36,
+        "nullable": false,
+        "readOnly": true
       },
       "ChangeSummary": {
         "type": "textarea",
-        "description": "A human-readable summary of the change details."
+        "description": "A human-readable summary of the change details.",
+        "maxLength": 50000,
+        "nullable": false,
+        "readOnly": true
       },
       "ChangeType": {
         "type": "picklist",
-        "description": "The type of the change request."
+        "description": "The type of the change request.",
+        "format": "enum",
+        "enum": [
+          "QuantityChange",
+          "NewLineAdjustments",
+          "NewAdjustmentGroups",
+          "DistributedAdjustmentsChange"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -33,22 +73,195 @@
       },
       "Name": {
         "type": "string",
-        "description": "The name for the order change log."
+        "description": "The name for the order change log.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "RelatedLineId": {
         "type": "reference",
-        "description": "The ID of the main line that is changed as a result of this change."
+        "description": "The ID of the main line that is changed as a result of this change.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "OrderAdjustmentGroup",
+          "OrderDeliveryGroup",
+          "OrderItem",
+          "OrderItemAdjustmentLineItem",
+          "OrderItemTaxLineItem"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "RelatedOrderId": {
         "type": "reference",
-        "description": "The ID of the order that is changed."
+        "description": "The ID of the order that is changed.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The order status of the change order."
+        "description": "The order status of the change order.",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Activated",
+          "Shipped",
+          "Delivered"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Change Log ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderchangelog.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderchangelog.htm",
+    "keyPrefix": "0dy",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLogFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderChangeLogHistory",
+        "field": "OrderChangeLogId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

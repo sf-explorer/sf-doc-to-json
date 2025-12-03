@@ -5,23 +5,38 @@
     "properties": {
       "ActualElapsedTimeInDays": {
         "type": "double",
-        "description": "The number of days that it took to complete a milestone. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time) Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout."
+        "description": "The number of days that it took to complete a milestone. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time) Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ActualElapsedTimeInHrs": {
         "type": "double",
-        "description": "The number of hours that it took to complete a milestone. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time) Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout."
+        "description": "The number of hours that it took to complete a milestone. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time) Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ActualElapsedTimeInMins": {
         "type": "int",
-        "description": "The number of minutes that it took to complete a milestone. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time) Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout."
+        "description": "The number of minutes that it took to complete a milestone. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time) Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout.",
+        "nullable": true,
+        "readOnly": true
       },
       "BusinessHoursId": {
         "type": "reference",
-        "description": "The business hours on the milestone. If business hours aren’t specified, the entitlement process business hours are used. If business hours are also not specified on the entitlement process, the business hours on the record are used."
+        "description": "The business hours on the milestone. If business hours aren’t specified, the entitlement process business hours are used. If business hours are also not specified on the entitlement process, the business hours on the record are used.",
+        "format": "salesforce-id",
+        "x-object": "BusinessHours",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "CompletionDate": {
         "type": "dateTime",
-        "description": "The date and time the milestone was completed."
+        "description": "The date and time the milestone was completed.",
+        "format": "date-time",
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -29,98 +44,334 @@
       },
       "ElapsedTimeInDays": {
         "type": "double",
-        "description": "The number of days it took to complete a milestone, including time during which the milestone was stopped. Automatically calculated to include the business hours on the record. Elapsed time is calculated only after the Completion Date field is populated. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time)."
+        "description": "The number of days it took to complete a milestone, including time during which the milestone was stopped. Automatically calculated to include the business hours on the record. Elapsed time is calculated only after the Completion Date field is populated. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time).",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ElapsedTimeInHrs": {
         "type": "double",
-        "description": "The number of hours it took to complete a milestone, including time during which the milestone was stopped. Automatically calculated to include the business hours on the record. Elapsed time is calculated only after the Completion Date field is populated. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time)."
+        "description": "The number of hours it took to complete a milestone, including time during which the milestone was stopped. Automatically calculated to include the business hours on the record. Elapsed time is calculated only after the Completion Date field is populated. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time).",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ElapsedTimeInMins": {
         "type": "int",
-        "description": "The number of minutes it took to complete a milestone, including time during which the milestone was stopped. Automatically calculated to include the business hours on the record. Elapsed time is calculated only after the Completion Date field is populated. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time)."
+        "description": "The number of minutes it took to complete a milestone, including time during which the milestone was stopped. Automatically calculated to include the business hours on the record. Elapsed time is calculated only after the Completion Date field is populated. (Elapsed Time) – (Stopped Time) = (Actual Elapsed Time).",
+        "nullable": true,
+        "readOnly": true
       },
       "IsCompleted": {
         "type": "boolean",
-        "description": "Green checkmark icon that indicates a milestone completion."
+        "description": "Green checkmark icon that indicates a milestone completion.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsViolated": {
         "type": "boolean",
-        "description": "Red exclamation point icon that indicates a milestone violation."
+        "description": "Red exclamation point icon that indicates a milestone violation.",
+        "nullable": false,
+        "readOnly": true
       },
       "MilestoneTypeId": {
         "type": "reference",
-        "description": "The ID of the milestone (for instance, First Response)."
+        "description": "The ID of the milestone (for instance, First Response).",
+        "format": "salesforce-id",
+        "x-object": "MilestoneType",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the milestone."
+        "description": "The name of the milestone.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ParentEntityId": {
         "type": "reference",
-        "description": "The ID of the record—for example, a work order—that contains the milestone."
+        "description": "The ID of the record—for example, a work order—that contains the milestone.",
+        "format": "salesforce-id",
+        "x-object": "WorkOrder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SlaProcessId": {
         "type": "reference",
-        "description": "The entitlement process associated with the milestone."
+        "description": "The entitlement process associated with the milestone.",
+        "format": "salesforce-id",
+        "x-object": "SlaProcess",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "StartDate": {
         "type": "dateTime",
-        "description": "The date and time that milestone tracking started."
+        "description": "The date and time that milestone tracking started.",
+        "format": "date-time",
+        "nullable": true
       },
       "StoppedTimeInDays": {
         "type": "double",
-        "description": "The number of days that an agent has been blocked from completing a milestone. For example, an agent may be waiting for a customer to reply with more information. Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout."
+        "description": "The number of days that an agent has been blocked from completing a milestone. For example, an agent may be waiting for a customer to reply with more information. Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "StoppedTimeInHrs": {
         "type": "double",
-        "description": "The number of hours that an agent has been blocked from completing a milestone. For example, an agent may be waiting for a customer to reply with more information. Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout."
+        "description": "The number of hours that an agent has been blocked from completing a milestone. For example, an agent may be waiting for a customer to reply with more information. Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "StoppedTimeInMins": {
         "type": "int",
-        "description": "The number of minutes that an agent has been blocked from completing a milestone. For example, an agent may be waiting for a customer to reply with more information. Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout."
+        "description": "The number of minutes that an agent has been blocked from completing a milestone. For example, an agent may be waiting for a customer to reply with more information. Note To display this field, select Enable stopped time and actual elapsed time on the Entitlement Settings page and add the field to the object milestone page layout.",
+        "nullable": true,
+        "readOnly": true
       },
       "TargetDate": {
         "type": "dateTime",
-        "description": "The date and time to complete the milestone."
+        "description": "The date and time to complete the milestone.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "TargetResponseInDays": {
         "type": "double",
-        "description": "The number of days to complete the milestone. Automatically calculated to include the business hours on the record."
+        "description": "The number of days to complete the milestone. Automatically calculated to include the business hours on the record.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TargetResponseInHrs": {
         "type": "double",
-        "description": "The number of hours to complete the milestone. Automatically calculated to include the business hours on the record."
+        "description": "The number of hours to complete the milestone. Automatically calculated to include the business hours on the record.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TargetResponseInMins": {
         "type": "int",
-        "description": "The number of minutes to complete the milestone. Automatically calculated to include the business hours on the record."
+        "description": "The number of minutes to complete the milestone. Automatically calculated to include the business hours on the record.",
+        "nullable": true,
+        "readOnly": true
       },
       "TimeRemainingInDays": {
         "type": "string",
-        "description": "The days that remain before a milestone violation. Automatically calculated to include the business hours on the record."
+        "description": "The days that remain before a milestone violation. Automatically calculated to include the business hours on the record.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TimeRemainingInHrs": {
         "type": "string",
-        "description": "The hours that remain before a milestone violation. Automatically calculated to include the business hours on the record."
+        "description": "The hours that remain before a milestone violation. Automatically calculated to include the business hours on the record.",
+        "maxLength": 10,
+        "nullable": true,
+        "readOnly": true
       },
       "TimeRemainingInMins": {
         "type": "string",
-        "description": "The minutes that remain before a milestone violation. Automatically calculated to include the business hours on the record."
+        "description": "The minutes that remain before a milestone violation. Automatically calculated to include the business hours on the record.",
+        "maxLength": 10,
+        "nullable": true,
+        "readOnly": true
       },
       "TimeSinceTargetInDays": {
         "type": "string",
-        "description": "The days that have elapsed since a milestone violation. Automatically calculated to include the business hours on the record."
+        "description": "The days that have elapsed since a milestone violation. Automatically calculated to include the business hours on the record.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TimeSinceTargetInHrs": {
         "type": "string",
-        "description": "The hours that have elapsed since a milestone violation. Automatically calculated to include the business hours on the record."
+        "description": "The hours that have elapsed since a milestone violation. Automatically calculated to include the business hours on the record.",
+        "maxLength": 10,
+        "nullable": true,
+        "readOnly": true
       },
       "TimeSinceTargetInMins": {
         "type": "string",
-        "description": "The minutes that have elapsed since a milestone violation. Automatically calculated to include the business hours on the record."
+        "description": "The minutes that have elapsed since a milestone violation. Automatically calculated to include the business hours on the record.",
+        "maxLength": 10,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Object Milestone ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_entitymilestone.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_entitymilestone.htm",
+    "keyPrefix": "1EM",
+    "createable": false,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntityMilestoneFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntityMilestoneHistory",
+        "field": "EntityMilestoneId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

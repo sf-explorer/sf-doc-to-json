@@ -5,22 +5,123 @@
     "properties": {
       "ListEmailId": {
         "type": "reference",
-        "description": "The related list email record. Required on record creation; read-only otherwise."
+        "description": "The related list email record. Required on record creation; read-only otherwise.",
+        "format": "salesforce-id",
+        "x-object": "ListEmail",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The auto-generated name of the list email recipient source."
+        "description": "The auto-generated name of the list email recipient source.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SourceListId": {
         "type": "reference",
-        "description": "Required. The id of a list view to send the list email to. Read-only except when list email is in draft state."
+        "description": "Required. The id of a list view to send the list email to. Read-only except when list email is in draft state.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Campaign",
+          "ListView",
+          "Topic"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "SourceType": {
         "type": "reference",
-        "description": "Required. Read-only except when list email is in draft state."
+        "description": "Required. Read-only except when list email is in draft state.",
+        "format": "enum",
+        "enum": [
+          "ExcludeList",
+          "IncludeList"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "List Email Recipient Source ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listemail_recipient_source.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listemail_recipient_source.htm",
+    "keyPrefix": "0XD",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

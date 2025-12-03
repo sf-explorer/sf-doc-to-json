@@ -29,11 +29,15 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the decision table."
+        "description": "Description of the decision table.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer name of the decision table."
+        "description": "Developer name of the decision table.",
+        "maxLength": 80,
+        "nullable": false
       },
       "DoesConsiderNullValue": {
         "type": "boolean",
@@ -57,11 +61,54 @@
       },
       "Language": {
         "type": "picklist",
-        "description": "Language in which the decision table is created."
+        "description": "Language in which the decision table is created.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastSyncDate": {
         "type": "dateTime",
-        "description": "Latest date on which the decision table was refreshed."
+        "description": "Latest date on which the decision table was refreshed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -69,7 +116,9 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label of the decision table."
+        "description": "Label of the decision table.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Metadata": {
         "type": "complexvalue",
@@ -77,7 +126,10 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace prefix that’s associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that aren’t Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "Namespace prefix that’s associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that aren’t Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "PricingElementDecisionTables": {
         "type": "QueryResult",
@@ -97,7 +149,9 @@
       },
       "SetupName": {
         "type": "string",
-        "description": "Required. Name of the decision table, which appears in Setup."
+        "description": "Required. Name of the decision table, which appears in Setup.",
+        "maxLength": 120,
+        "nullable": false
       },
       "SourceConditionLogic": {
         "type": "string",
@@ -105,11 +159,22 @@
       },
       "SourceObject": {
         "type": "string",
-        "description": "Required. Object that contains the rules based on which the decision table must provide outcomes."
+        "description": "Required. Object that contains the rules based on which the decision table must provide outcomes.",
+        "maxLength": 120,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Required. Status of the decision table."
+        "description": "Required. Status of the decision table.",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Inactive",
+          "Active",
+          "ActivationInProgress"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
@@ -118,9 +183,77 @@
       "UsageType": {
         "type": "picklist",
         "description": "Usage type of the decision table. Available in API version 59.0 and later. Bre–Default ProductCategoryQualification ProductQualification RecordAlert When Business Rules Engine is enabled for a Salesforce org, the default value is Bre. Other usage types may be available to you depending on your industry solution and permission sets."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Decision Table ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Public Sector Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/tooling_api_objects_decisiontable.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/tooling_api_objects_decisiontable.htm",
+    "keyPrefix": "0lD",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DecisionTableDatasetLink",
+        "field": "DecisionTableId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DecisionTableParameter",
+        "field": "DecisionTableId",
+        "relationshipName": "DecisionTableParameters",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

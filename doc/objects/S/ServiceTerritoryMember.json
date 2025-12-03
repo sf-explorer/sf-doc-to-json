@@ -5,78 +5,364 @@
     "properties": {
       "Address": {
         "type": "address",
-        "description": "The member’s address."
+        "description": "The member’s address.",
+        "nullable": true,
+        "readOnly": true
       },
       "City": {
         "type": "string",
-        "description": "The city of the member’s address. Maximum length is 40 characters."
+        "description": "The city of the member’s address. Maximum length is 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "The country of the member’s address. Maximum length is 80 characters."
+        "description": "The country of the member’s address. Maximum length is 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "EffectiveEndDate": {
         "type": "dateTime",
-        "description": "The date when the service resource is no longer a member of the territory."
+        "description": "The date when the service resource is no longer a member of the territory.",
+        "format": "date-time",
+        "nullable": true
       },
       "EffectiveStartDate": {
         "type": "dateTime",
-        "description": "The date when the service resource becomes a member of the service territory."
+        "description": "The date when the service resource becomes a member of the service territory.",
+        "format": "date-time",
+        "nullable": false
       },
       "GeocodeAccuracy": {
         "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates."
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the territory member was last modified."
+        "description": "The date when the territory member was last modified.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when the territory member was last viewed."
+        "description": "The date when the territory member was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "MemberNumber": {
         "type": "string",
-        "description": "(Read only) An auto-generated number identifying the service territory member."
+        "description": "(Read only) An auto-generated number identifying the service territory member.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OperatingHoursId": {
         "type": "reference",
-        "description": "The operating hours assigned to the service territory member. If no operating hours are specified, the member is assumed to use their parent service territory’s operating hours. If a member needs special operating hours, create them in Setup and select them in the Operating Hours lookup field on the member’s detail page."
+        "description": "The operating hours assigned to the service territory member. If no operating hours are specified, the member is assumed to use their parent service territory’s operating hours. If a member needs special operating hours, create them in Setup and select them in the Operating Hours lookup field on the member’s detail page.",
+        "format": "salesforce-id",
+        "x-object": "OperatingHours",
+        "maxLength": 18,
+        "nullable": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The postal code of the member’s address. Maximum length is 20 characters."
+        "description": "The postal code of the member’s address. Maximum length is 20 characters.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ServiceResourceId": {
         "type": "reference",
-        "description": "The service resource assigned to the service territory."
+        "description": "The service resource assigned to the service territory.",
+        "format": "salesforce-id",
+        "x-object": "ServiceResource",
+        "maxLength": 18,
+        "nullable": false
       },
       "ServiceTerritoryId": {
         "type": "reference",
-        "description": "The service territory that the service resource is assigned to."
+        "description": "The service territory that the service resource is assigned to.",
+        "format": "salesforce-id",
+        "x-object": "ServiceTerritory",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "State": {
         "type": "string",
-        "description": "The state of the member’s address. Maximum length is 80 characters."
+        "description": "The state of the member’s address. Maximum length is 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Street": {
         "type": "textarea",
-        "description": "The street number and name of the member’s address."
+        "description": "The street number and name of the member’s address.",
+        "maxLength": 255,
+        "nullable": true
       },
       "TerritoryType": {
         "type": "picklist",
-        "description": "Specifies the type of the territory in relation to the resource who is a member."
+        "description": "Specifies the type of the territory in relation to the resource who is a member.",
+        "format": "enum",
+        "enum": [
+          "P",
+          "S",
+          "R"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Resource Territory ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Role": {
+        "type": "string",
+        "description": "Role",
+        "format": "enum",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": {
+        "type": "number",
+        "description": "Internal SLR HomeAddress Geolocation (Latitude)",
+        "nullable": true
+      },
+      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": {
+        "type": "number",
+        "description": "Internal SLR HomeAddress Geolocation (Longitude)",
+        "nullable": true
+      },
+      "FSLDemoTools_Original_Geolocation__Latitude__s": {
+        "type": "number",
+        "description": "FSLDemoTools Original Geolocation (Latitude)",
+        "nullable": true
+      },
+      "FSLDemoTools_Original_Geolocation__Longitude__s": {
+        "type": "number",
+        "description": "FSLDemoTools Original Geolocation (Longitude)",
+        "nullable": true
       }
     },
     "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_serviceterritorymember.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_serviceterritorymember.htm",
+    "keyPrefix": "0Hu",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryMemberFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceTerritoryMemberHistory",
+        "field": "ServiceTerritoryMemberId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

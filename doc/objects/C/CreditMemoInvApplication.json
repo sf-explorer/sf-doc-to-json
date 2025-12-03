@@ -5,11 +5,18 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "Required. The amount of the credit memo that was applied to or unapplied from the invoice."
+        "description": "Required. The amount of the credit memo that was applied to or unapplied from the invoice.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AppliedDate": {
         "type": "dateTime",
-        "description": "The date when the credit memo was applied. If the credit memo invoice application's type is Unapplied, this value is inherited from the Applied date of the credit memo referenced in the AssociatedLineId field."
+        "description": "The date when the credit memo was applied. If the credit memo invoice application's type is Unapplied, this value is inherited from the Applied date of the credit memo referenced in the AssociatedLineId field.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AssociatedLineId": {
         "type": "reference",
@@ -21,23 +28,39 @@
       },
       "CreditMemoId": {
         "type": "reference",
-        "description": "Required. The credit memo that was applied or unapplied."
+        "description": "Required. The credit memo that was applied or unapplied.",
+        "format": "salesforce-id",
+        "x-object": "CreditMemo",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CreditMemoInvoiceNumber": {
         "type": "string",
-        "description": "Required. An auto-generated number identifying the credit memo invoice application."
+        "description": "Required. An auto-generated number identifying the credit memo invoice application.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Date": {
         "type": "dateTime",
-        "description": "The date when the credit memo amount was applied to the invoice."
+        "description": "The date when the credit memo amount was applied to the invoice.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Additional details about the credit memo applied to an invoice."
+        "description": "Additional details about the credit memo applied to an invoice.",
+        "maxLength": 255,
+        "nullable": true
       },
       "EffectiveDate": {
         "type": "dateTime",
-        "description": "The effective date of the application or unapplication of credit. You can provide this value when applying or unapplying the credit memo. This field is optional and provided only for reporting purposes. It doesn't affect the credit memo invoice application's other fields."
+        "description": "The effective date of the application or unapplication of credit. You can provide this value when applying or unapplying the credit memo. This field is optional and provided only for reporting purposes. It doesn't affect the credit memo invoice application's other fields.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "HasBeenUnapplied": {
         "type": "picklist",
@@ -53,18 +76,256 @@
       },
       "InvoiceId": {
         "type": "reference",
-        "description": "Required. The invoice to which the credit memo is applied."
+        "description": "Required. The invoice to which the credit memo is applied.",
+        "format": "salesforce-id",
+        "x-object": "Invoice",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "Required. Specifies whether the credit memo line application was generated because of an apply action (application) or an unapply action (unapplication)."
+        "description": "Required. Specifies whether the credit memo line application was generated because of an apply action (application) or an unapply action (unapplication).",
+        "format": "enum",
+        "enum": [
+          "Applied",
+          "Unapplied"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "UnappliedDate": {
         "type": "dateTime",
-        "description": "The date when this application was unapplied from the target invoice."
+        "description": "The date when this application was unapplied from the target invoice.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Credit Memo Invoice Application ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoinvapplication.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoinvapplication.htm",
+    "keyPrefix": "4sF",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoInvApplicationFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FinanceBalanceSnapshot",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceBalanceSnapshots",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshotChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "DestinationEntityId",
+        "relationshipName": "DestinationFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": "ParentFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "SourceEntityId",
+        "relationshipName": "SourceFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "DestinationEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "SourceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

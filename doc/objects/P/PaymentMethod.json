@@ -5,19 +5,33 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The account entity linked to this payment method."
+        "description": "The account entity linked to this payment method.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Comments": {
         "type": "textarea",
-        "description": "Users can add comments to provide additional details about a record. Maximum of 1000 characters."
+        "description": "Users can add comments to provide additional details about a record. Maximum of 1000 characters.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "CompanyName": {
         "type": "string",
-        "description": "Company name for this payment method. Part of the payment method’s address."
+        "description": "Company name for this payment method. Part of the payment method’s address.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ImplementorType": {
         "type": "string",
-        "description": "Shows the type of payment method."
+        "description": "Shows the type of payment method.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IsAutoPayEnabled": {
         "type": "boolean",
@@ -25,23 +39,37 @@
       },
       "Name": {
         "type": "string",
-        "description": "A unique number assigned to the payment method. Numbers start at 1000 and are read only, but administrators can change the format."
+        "description": "A unique number assigned to the payment method. Numbers start at 1000 and are read only, but administrators can change the format.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "NickName": {
         "type": "string",
-        "description": "User-defined nickname for this payment method."
+        "description": "User-defined nickname for this payment method.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodAddress": {
         "type": "address",
-        "description": "Full address related to the alternative payment method. For more information about address fields, see Address Compound Fields."
+        "description": "Full address related to the alternative payment method. For more information about address fields, see Address Compound Fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodCity": {
         "type": "string",
-        "description": "Payment method address details."
+        "description": "Payment method address details.",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodCountry": {
         "type": "string",
-        "description": "Payment method address details."
+        "description": "Payment method address details.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodDetails": {
         "type": "string",
@@ -49,27 +77,59 @@
       },
       "PaymentMethodGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the payment method address. An accuracy level contains information about the location of a latitude and longitude. For more information about geolocation fields, see Geolocation Compound Field."
+        "description": "Accuracy level of the geocode for the payment method address. An accuracy level contains information about the location of a latitude and longitude. For more information about geolocation fields, see Geolocation Compound Field.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodLatitude": {
         "type": "double",
-        "description": "Latitude of the payment method address. Used with the PaymentMethodLongitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Latitude of the payment method address. Used with the PaymentMethodLongitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 1e-15
       },
       "PaymentMethodLongitude": {
         "type": "double",
-        "description": "Longitude of the payment method address. Used with the PaymentMethodLatitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Longitude of the payment method address. Used with the PaymentMethodLatitude to specify the precise geolocation of the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 1e-15
       },
       "PaymentMethodPostalCode": {
         "type": "string",
-        "description": "Part of the address for this payment method."
+        "description": "Part of the address for this payment method.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodState": {
         "type": "string",
-        "description": "Payment method address details."
+        "description": "Payment method address details.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodStreet": {
         "type": "textarea",
-        "description": "Payment method address details."
+        "description": "Payment method address details.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentMethodSubType": {
         "type": "string",
@@ -85,10 +145,103 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "The state of the payment method."
+        "description": "The state of the payment method.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "InActive",
+          "Canceled"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Payment Method ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "User ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "__MISSING LABEL__ PropertyFile - val CreatedDate not found in section udd_PaymentMethod",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "User ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "__MISSING LABEL__ PropertyFile - val SystemModstamp not found in section udd_PaymentMethod",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "__MISSING LABEL__ PropertyFile - val IsDeleted not found in section udd_PaymentMethod",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentmethod.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentmethod.htm",
+    "keyPrefix": "0aa",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "OrderPaymentSummary",
+        "field": "PaymentMethodId",
+        "relationshipName": "OrderPaymentSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Payment",
+        "field": "PaymentMethodId",
+        "relationshipName": "Payments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentAuthorization",
+        "field": "PaymentMethodId",
+        "relationshipName": "PaymentAuthorizations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Refund",
+        "field": "PaymentMethodId",
+        "relationshipName": "Refunds",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

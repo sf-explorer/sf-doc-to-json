@@ -2,8 +2,74 @@
   "ScoreIntelligence": {
     "name": "ScoreIntelligence",
     "description": "",
-    "properties": {},
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Score Intelligence Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "BaseId": {
+        "type": "string",
+        "description": "Lead ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Score": {
+        "type": "integer",
+        "description": "Lead Score",
+        "nullable": true
+      },
+      "LastModifiedTimeOnRecord": {
+        "type": "string",
+        "description": "Last Modified Time on record",
+        "format": "date-time",
+        "nullable": true
+      },
+      "Insights": {
+        "type": "string",
+        "description": "Insights",
+        "maxLength": 1333,
+        "nullable": true
+      },
+      "ExtractionTime": {
+        "type": "string",
+        "description": "Extraction Time",
+        "format": "date-time",
+        "nullable": true
+      }
+    },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_scoreintelligence.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_scoreintelligence.htm",
+    "keyPrefix": "0Gq",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Lead",
+        "field": "ScoreIntelligenceId",
+        "relationshipName": "LeadScoreIntelligence",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

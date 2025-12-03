@@ -5,7 +5,12 @@
     "properties": {
       "DecisionTableId": {
         "type": "reference",
-        "description": "The unique identifier of the associated decision table."
+        "description": "The unique identifier of the associated decision table.",
+        "format": "salesforce-id",
+        "x-object": "DecisionTable",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "DomainObject": {
         "type": "string",
@@ -13,7 +18,9 @@
       },
       "FieldName": {
         "type": "string",
-        "description": "The API name of the field that’s selected as an input or output for the decision table."
+        "description": "The API name of the field that’s selected as an input or output for the decision table.",
+        "maxLength": 120,
+        "nullable": true
       },
       "FieldPath": {
         "type": "string",
@@ -33,7 +40,25 @@
       },
       "Operator": {
         "type": "picklist",
-        "description": "The operator used for the input field."
+        "description": "The operator used for the input field.",
+        "format": "enum",
+        "enum": [
+          "Equals",
+          "NotEquals",
+          "LessThan",
+          "LessOrEqual",
+          "GreaterThan",
+          "GreaterOrEqual",
+          "Matches",
+          "ExistsIn",
+          "DoesNotExistIn",
+          "DoesNotMatch",
+          "Contains",
+          "IsNotNull",
+          "IsNull"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Sequence": {
         "type": "int",
@@ -45,10 +70,80 @@
       },
       "Usage": {
         "type": "picklist",
-        "description": "Required. The usage type of a field."
+        "description": "Required. The usage type of a field.",
+        "format": "enum",
+        "enum": [
+          "INPUT",
+          "ROWCRITERIA",
+          "OUTPUT"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Decision Table Parameter ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Public Sector Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/tooling_api_objects_decisiontableparameter.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/tooling_api_objects_decisiontableparameter.htm",
+    "keyPrefix": "0lP",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DecisionTblDatasetParameter",
+        "field": "DecisionTableParameterId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

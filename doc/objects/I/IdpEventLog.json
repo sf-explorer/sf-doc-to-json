@@ -5,46 +5,140 @@
     "properties": {
       "AppId": {
         "type": "reference",
-        "description": "The ID of the app provider seeking authentication."
+        "description": "The ID of the app provider seeking authentication.",
+        "format": "salesforce-id",
+        "x-object": "ConnectedApplication",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "AuthSessionId": {
         "type": "reference",
-        "description": "The ID of the authentication session."
+        "description": "The ID of the authentication session.",
+        "format": "salesforce-id",
+        "x-object": "AuthSession",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ErrorCode": {
         "type": "picklist",
-        "description": "The error code for the authentication issue."
+        "description": "The error code for the authentication issue.",
+        "format": "enum",
+        "enum": [
+          "Success",
+          "NoSubdomain",
+          "InvalidIdpEndpoint",
+          "InvalidAuthnRequest",
+          "InvalidSp",
+          "NoUserFedId",
+          "NoAccess",
+          "InvalidSettings",
+          "NoSpokeId",
+          "InvalidSpokeSp",
+          "NoCustomAttrValue",
+          "NoCustomField",
+          "ForceAuthNLogout",
+          "InvalidIssuer",
+          "InvalidSignature",
+          "UnableToResolve",
+          "InvalidSessionLevel",
+          "InternalError",
+          "OauthError",
+          "AppAccessDenied",
+          "AppBlocked",
+          "ClientUnapproved",
+          "CodeExpired",
+          "InvalidClientCredentials",
+          "InvalidCode",
+          "InvalidScope",
+          "InvalidUserCredentials",
+          "InvalidDeviceId",
+          "UnknownError"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "IdentityUsed": {
         "type": "string",
-        "description": "The identity (username) of the user being authenticated."
+        "description": "The identity (username) of the user being authenticated.",
+        "maxLength": 765,
+        "nullable": true,
+        "readOnly": true
       },
       "InitiatedBy": {
         "type": "picklist",
-        "description": "The code describing how the authentication request was initiated."
+        "description": "The code describing how the authentication request was initiated.",
+        "format": "enum",
+        "enum": [
+          "IdP",
+          "SP",
+          "OauthAuthorize",
+          "OauthTokenExchange",
+          "Unused"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "OptionsHasLogoutUrl": {
         "type": "boolean",
-        "description": "Whether a logout URL has been assigned to the app. This URL is where users are redirected when they log out."
+        "description": "Whether a logout URL has been assigned to the app. This URL is where users are redirected when they log out.",
+        "nullable": false,
+        "readOnly": true
       },
       "SamlEntityUrl": {
         "type": "string",
-        "description": "The authentication URL of the SAML provider."
+        "description": "The authentication URL of the SAML provider.",
+        "maxLength": 1500,
+        "nullable": false,
+        "readOnly": true
       },
       "SsoType": {
         "type": "picklist",
-        "description": "The type of SSO. Options are:"
+        "description": "The type of SSO. Options are:",
+        "format": "enum",
+        "enum": [
+          "Saml",
+          "Oidc"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "Timestamp": {
         "type": "dateTime",
-        "description": "The date and time on which the event occurred."
+        "description": "The date and time on which the event occurred.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID of the user seeking authentication."
+        "description": "The ID of the user seeking authentication.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Event Log Entry ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_idpeventlog.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_idpeventlog.htm",
+    "keyPrefix": "0Yu",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

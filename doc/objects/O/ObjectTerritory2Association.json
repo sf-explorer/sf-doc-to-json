@@ -5,22 +5,101 @@
     "properties": {
       "AssociationCause": {
         "type": "picklist",
-        "description": "The means by which the record was associated with the territory. User interface field label is Method."
+        "description": "The means by which the record was associated with the territory. User interface field label is Method.",
+        "format": "enum",
+        "enum": [
+          "Territory2AssignmentRule",
+          "Territory2Manual"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ObjectId": {
         "type": "reference",
-        "description": "The ID of the object assigned to the territory. Object Availability Account API version 30.0 and later Lead API version 55.0 and later"
+        "description": "The ID of the object assigned to the territory. Object Availability Account API version 30.0 and later Lead API version 55.0 and later",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SobjectType": {
         "type": "picklist",
-        "description": "The type of the object."
+        "description": "The type of the object.",
+        "format": "enum",
+        "enum": [
+          "Account"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "Territory2Id": {
         "type": "reference",
-        "description": "The ID of the territory that the record is assigned to."
+        "description": "The ID of the territory that the record is assigned to.",
+        "format": "salesforce-id",
+        "x-object": "Territory2",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Object Territory Association ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_objectterritory2association.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_objectterritory2association.htm",
+    "keyPrefix": "0JB",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

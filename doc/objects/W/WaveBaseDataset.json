@@ -1,0 +1,192 @@
+{
+  "WaveBaseDataset": {
+    "name": "WaveBaseDataset",
+    "description": "Wave Base Dataset - WaveBaseDataset",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Base Dataset ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ObjectReference": {
+        "type": "string",
+        "description": "Object represented by this dataset",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "DataConnectorId": {
+        "type": "string",
+        "description": "Connector ID",
+        "format": "salesforce-id",
+        "x-object": "WaveDataConnector",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "EdgeMartId": {
+        "type": "string",
+        "description": "Dataset ID",
+        "format": "salesforce-id",
+        "x-object": "EdgeMart",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "FullRefreshToken": {
+        "type": "string",
+        "description": "Full refresh token used to trigger full refresh",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "FullRefreshRequestDate": {
+        "type": "string",
+        "description": "Last time full refresh was requested and full refresh token changed",
+        "format": "date-time",
+        "nullable": true
+      },
+      "DataflowVersionId": {
+        "type": "string",
+        "description": "Dataflow Version ID",
+        "format": "salesforce-id",
+        "x-object": "DataflowVersion",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "State": {
+        "type": "string",
+        "description": "State",
+        "format": "enum",
+        "enum": [
+          "Enabled",
+          "Invalid",
+          "Missing",
+          "Disabled",
+          "NoAccess"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "IncrementalMode": {
+        "type": "string",
+        "description": "Option to configure extraction from source ",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Incremental",
+          "NotSpecified"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "ChunkingStrategy": {
+        "type": "string",
+        "description": "Chunking strategy used to create the dataset",
+        "format": "enum",
+        "enum": [
+          "None",
+          "PKChunking",
+          "NotSpecified"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PassthroughFilter": {
+        "type": "string",
+        "description": "Filter passed directly to the source connector system",
+        "maxLength": 8000,
+        "nullable": true
+      },
+      "PeriodicFullRefresh": {
+        "type": "boolean",
+        "description": "Option to periodically trigger a full refresh",
+        "nullable": false
+      },
+      "RowLevelSharing": {
+        "type": "boolean",
+        "description": "Inherit row level sharing rules for this object",
+        "nullable": false
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "0Iu",
+    "label": "Wave Base Dataset",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "SourceObjectAttributes",
+        "field": "BaseDatasetId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WaveBaseField",
+        "field": "BaseDatasetId",
+        "relationshipName": "Fields",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WaveReplicationFilterItem",
+        "field": "BaseDatasetId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WaveTrendedReport",
+        "field": "BaseDatasetId",
+        "relationshipName": "Reports",
+        "cascadeDelete": true
+      }
+    ]
+  }
+}

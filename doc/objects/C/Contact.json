@@ -5,7 +5,11 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the account that’s the parent of this contact. We recommend that you update up to 50 contacts simultaneously when changing the accounts on contacts enabled for a Customer Portal or partner portal. We also recommend that you make this update after business hours."
+        "description": "ID of the account that’s the parent of this contact. We recommend that you update up to 50 contacts simultaneously when changing the accounts on contacts enabled for a Customer Portal or partner portal. We also recommend that you make this update after business hours.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "ActionCadenceAssigneeId": {
         "type": "reference",
@@ -33,15 +37,22 @@
       },
       "AssistantName": {
         "type": "string",
-        "description": "The assistant’s name."
+        "description": "The assistant’s name.",
+        "maxLength": 40,
+        "nullable": true
       },
       "AssistantPhone": {
         "type": "phone",
-        "description": "The assistant’s phone number. Label is Asst. Phone."
+        "description": "The assistant’s phone number. Label is Asst. Phone.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "Birthdate": {
         "type": "date",
-        "description": "The contact’s birthdate.Filter criteria for report filters, list view filters, and SOQL queries ignore the year portion of the Birthdate field. For example, this SOQL query returns contacts with birthdays later in the year than today:SELECT Name, Birthdate FROM Contact WHERE Birthdate > TODAY"
+        "description": "The contact’s birthdate.Filter criteria for report filters, list view filters, and SOQL queries ignore the year portion of the Birthdate field. For example, this SOQL query returns contacts with birthdays later in the year than today:SELECT Name, Birthdate FROM Contact WHERE Birthdate > TODAY",
+        "format": "date",
+        "nullable": true
       },
       "BuyerAttributes": {
         "type": "multipicklist",
@@ -49,7 +60,8 @@
       },
       "CanAllowPortalSelfReg": {
         "type": "boolean",
-        "description": "Indicates whether this contact can self-register for your Customer Portal (true) or not (false)."
+        "description": "Indicates whether this contact can self-register for your Customer Portal (true) or not (false).",
+        "nullable": false
       },
       "CleanStatus": {
         "type": "picklist",
@@ -57,11 +69,21 @@
       },
       "ConnectionReceivedId": {
         "type": "reference",
-        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce."
+        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce.",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ConnectionSentId": {
         "type": "reference",
-        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections."
+        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections.",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ContactSource": {
         "type": "picklist",
@@ -69,7 +91,9 @@
       },
       "Department": {
         "type": "string",
-        "description": "The contact’s department."
+        "description": "The contact’s department.",
+        "maxLength": 80,
+        "nullable": true
       },
       "DepartmentGroup": {
         "type": "picklist",
@@ -77,27 +101,40 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "A description of the contact. Label is Contact Description up to 32 KB."
+        "description": "A description of the contact. Label is Contact Description up to 32 KB.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DoNotCall": {
         "type": "boolean",
-        "description": "Indicates that the contact doesn’t want to receive calls."
+        "description": "Indicates that the contact doesn’t want to receive calls.",
+        "nullable": false
       },
       "Email": {
         "type": "email",
-        "description": "The contact’s email address."
+        "description": "The contact’s email address.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "EmailBouncedDate": {
         "type": "dateTime",
-        "description": "If bounce management is activated and an email sent to the contact results in a hard bounce, the date and time of the bounce."
+        "description": "If bounce management is activated and an email sent to the contact results in a hard bounce, the date and time of the bounce.",
+        "format": "date-time",
+        "nullable": true
       },
       "EmailBouncedReason": {
         "type": "string",
-        "description": "If bounce management is activated and an email sent to the contact results in a hard bounce, the reason for the bounce."
+        "description": "If bounce management is activated and an email sent to the contact results in a hard bounce, the reason for the bounce.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Fax": {
         "type": "phone",
-        "description": "The contact’s fax number. Label is Business Fax."
+        "description": "The contact’s fax number. Label is Business Fax.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "FirstCallDateTime": {
         "type": "dateTime",
@@ -109,7 +146,9 @@
       },
       "FirstName": {
         "type": "string",
-        "description": "The contact’s first name up to 40 characters."
+        "description": "The contact’s first name up to 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "GenderIdentity": {
         "type": "picklist",
@@ -117,31 +156,46 @@
       },
       "HasOptedOutOfEmail": {
         "type": "boolean",
-        "description": "Indicates whether the contact doesn’t want to receive email from Salesforce (true) or does (false). Label is Email Opt Out."
+        "description": "Indicates whether the contact doesn’t want to receive email from Salesforce (true) or does (false). Label is Email Opt Out.",
+        "nullable": false
       },
       "HasOptedOutOfFax": {
         "type": "boolean",
-        "description": "Indicates whether the contact prohibits receiving faxes."
+        "description": "Indicates whether the contact prohibits receiving faxes.",
+        "nullable": false
       },
       "HomePhone": {
         "type": "phone",
-        "description": "The contact’s home phone number. Label is Home Phone."
+        "description": "The contact’s home phone number. Label is Home Phone.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "IndividualId": {
         "type": "reference",
-        "description": "ID of the data privacy record associated with this contact. This field is available if Data Protection and Privacy is enabled."
+        "description": "ID of the data privacy record associated with this contact. This field is available if Data Protection and Privacy is enabled.",
+        "format": "salesforce-id",
+        "x-object": "Individual",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsEmailBounced": {
         "type": "boolean",
-        "description": "If bounce management is activated and an email is sent to a contact, indicates whether the email results in a soft or hard bounce (true) or not (false)."
+        "description": "If bounce management is activated and an email is sent to a contact, indicates whether the email results in a soft or hard bounce (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPersonAccount": {
         "type": "boolean",
-        "description": "Read only. Indicates whether this account has a record type of Person Account (true) or not (false). Label is Is Person Account."
+        "description": "Read only. Indicates whether this account has a record type of Person Account (true) or not (false). Label is Is Person Account.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPriorityRecord": {
         "type": "boolean",
@@ -149,43 +203,80 @@
       },
       "Jigsaw": {
         "type": "string",
-        "description": "References the company’s ID in Data.com. If an account has a value in this field, it means that the account was imported from Data.com. If the field value is null, the account wasn’t imported from Data.com. Maximum size is 20 characters. Available in API version 22.0 and later. Label is Data.com Key. Important The Jigsaw field is exposed in the API to support troubleshooting for import errors and reimporting of corrected data. Do not modify this value."
+        "description": "References the company’s ID in Data.com. If an account has a value in this field, it means that the account was imported from Data.com. If the field value is null, the account wasn’t imported from Data.com. Maximum size is 20 characters. Available in API version 22.0 and later. Label is Data.com Key. Important The Jigsaw field is exposed in the API to support troubleshooting for import errors and reimporting of corrected data. Do not modify this value.",
+        "maxLength": 20,
+        "nullable": true
       },
       "JigsawContactId": {
         "type": "string",
-        "description": "The ID of the contact in reference to Jigsaw. Important The Jigsaw field is exposed in the API to support troubleshooting for import errors and reimporting of corrected data. Don’t modify the value in the Jigsaw field."
+        "description": "The ID of the contact in reference to Jigsaw. Important The Jigsaw field is exposed in the API to support troubleshooting for import errors and reimporting of corrected data. Don’t modify the value in the Jigsaw field.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "LastActivityDate": {
         "type": "date",
-        "description": "Value is the most recent of either: Due date of the most recent event logged against the record. Due date of the most recently closed task associated with the record."
+        "description": "Value is the most recent of either: Due date of the most recent event logged against the record. Due date of the most recently closed task associated with the record.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "LastName": {
         "type": "string",
-        "description": "Required. Last name of the contact up to 80 characters."
+        "description": "Required. Last name of the contact up to 80 characters.",
+        "maxLength": 80,
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LeadSource": {
         "type": "picklist",
-        "description": "The source of the lead that was converted to this contact."
+        "description": "The source of the lead that was converted to this contact.",
+        "format": "enum",
+        "enum": [
+          "Website",
+          "Social Media",
+          "Marketing Event",
+          "Referral",
+          "Cold Call",
+          "Data.com",
+          "Partner",
+          "Community",
+          "Inbound Call",
+          "Salesforce IoT"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "MailingAddress": {
         "type": "address",
-        "description": "The compound form of the mailing address. Read-only. For details on compound address fields, see Address Compound Fields."
+        "description": "The compound form of the mailing address. Read-only. For details on compound address fields, see Address Compound Fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "MailingCity": {
         "type": "string",
-        "description": "Mailing address details."
+        "description": "Mailing address details.",
+        "maxLength": 40,
+        "nullable": true
       },
       "MailingCountry": {
         "type": "string",
-        "description": "Mailing address details."
+        "description": "Mailing address details.",
+        "maxLength": 80,
+        "nullable": true
       },
       "MailingCountryCode": {
         "type": "picklist",
@@ -193,23 +284,47 @@
       },
       "MailingGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the mailing address. For details on geolocation compound field, see Compound Field Considerations and Limitations."
+        "description": "Accuracy level of the geocode for the mailing address. For details on geolocation compound field, see Compound Field Considerations and Limitations.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MailingLatitude": {
         "type": "double",
-        "description": "Used with MailingLongitude to specify the precise geolocation of a mailing address. Acceptable values are numbers between –90 and 90 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Used with MailingLongitude to specify the precise geolocation of a mailing address. Acceptable values are numbers between –90 and 90 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "MailingLongitude": {
         "type": "double",
-        "description": "Used with MailingLatitude to specify the precise geolocation of a mailing address. Acceptable values are numbers between –180 and 180 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Used with MailingLatitude to specify the precise geolocation of a mailing address. Acceptable values are numbers between –180 and 180 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "MailingPostalCode": {
         "type": "string",
-        "description": "Mailing address details."
+        "description": "Mailing address details.",
+        "maxLength": 20,
+        "nullable": true
       },
       "MailingState": {
         "type": "string",
-        "description": "Mailing address details."
+        "description": "Mailing address details.",
+        "maxLength": 80,
+        "nullable": true
       },
       "MailingStateCode": {
         "type": "picklist",
@@ -217,11 +332,18 @@
       },
       "MailingStreet": {
         "type": "textarea",
-        "description": "Street address for mailing address."
+        "description": "Street address for mailing address.",
+        "maxLength": 255,
+        "nullable": true
       },
       "MasterRecordId": {
         "type": "reference",
-        "description": "If this record was deleted as the result of a merge, this field contains the ID of the record that remains. If this record was deleted for any other reason, or hasn’t been deleted, the value is null."
+        "description": "If this record was deleted as the result of a merge, this field contains the ID of the record that remains. If this record was deleted for any other reason, or hasn’t been deleted, the value is null.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "MiddleName": {
         "type": "string",
@@ -229,23 +351,35 @@
       },
       "MobilePhone": {
         "type": "phone",
-        "description": "Contact’s mobile phone number. Label is Mobile Phone."
+        "description": "Contact’s mobile phone number. Label is Mobile Phone.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Concatenation of FirstName, MiddleName, LastName, and Suffix up to 203 characters, including whitespaces."
+        "description": "Concatenation of FirstName, MiddleName, LastName, and Suffix up to 203 characters, including whitespaces.",
+        "maxLength": 121,
+        "nullable": false,
+        "readOnly": true
       },
       "OtherAddress": {
         "type": "address",
-        "description": "The compound form of the other address. Read-only. For details on compound address fields, see Address Compound Fields."
+        "description": "The compound form of the other address. Read-only. For details on compound address fields, see Address Compound Fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "OtherCity": {
         "type": "string",
-        "description": "Alternate address details."
+        "description": "Alternate address details.",
+        "maxLength": 40,
+        "nullable": true
       },
       "OtherCountry": {
         "type": "string",
-        "description": "Alternate address details."
+        "description": "Alternate address details.",
+        "maxLength": 80,
+        "nullable": true
       },
       "OtherCountryCode": {
         "type": "picklist",
@@ -253,27 +387,54 @@
       },
       "OtherGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the other address. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Accuracy level of the geocode for the other address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "OtherLatitude": {
         "type": "double",
-        "description": "Used with OtherLongitude to specify the precise geolocation of an alternate address. Acceptable values are numbers between –90 and 90 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Used with OtherLongitude to specify the precise geolocation of an alternate address. Acceptable values are numbers between –90 and 90 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "OtherLongitude": {
         "type": "double",
-        "description": "Used with OtherLatitude to specify the precise geolocation of an alternate address. Acceptable values are numbers between –180 and 180 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations."
+        "description": "Used with OtherLatitude to specify the precise geolocation of an alternate address. Acceptable values are numbers between –180 and 180 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "OtherPhone": {
         "type": "phone",
-        "description": "Phone for alternate address."
+        "description": "Phone for alternate address.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "OtherPostalCode": {
         "type": "string",
-        "description": "Alternate address details."
+        "description": "Alternate address details.",
+        "maxLength": 20,
+        "nullable": true
       },
       "OtherState": {
         "type": "string",
-        "description": "Alternate address details."
+        "description": "Alternate address details.",
+        "maxLength": 80,
+        "nullable": true
       },
       "OtherStateCode": {
         "type": "picklist",
@@ -281,19 +442,32 @@
       },
       "OtherStreet": {
         "type": "textarea",
-        "description": "Street for alternate address."
+        "description": "Street for alternate address.",
+        "maxLength": 255,
+        "nullable": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the owner of the account associated with this contact."
+        "description": "The ID of the owner of the account associated with this contact.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "Phone": {
         "type": "phone",
-        "description": "Phone number for the contact. Label is Business Phone."
+        "description": "Phone number for the contact. Label is Business Phone.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "PhotoUrl": {
         "type": "url",
-        "description": "Path to be combined with the URL of a Salesforce instance (Example: https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the contact. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the contact. Empty if Social Accounts and Contacts isn't enabled or if Social Accounts and Contacts is disabled for the requesting user."
+        "description": "Path to be combined with the URL of a Salesforce instance (Example: https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the contact. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the contact. Empty if Social Accounts and Contacts isn't enabled or if Social Accounts and Contacts is disabled for the requesting user.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Pronouns": {
         "type": "picklist",
@@ -301,15 +475,34 @@
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "ID of the record type assigned to this object."
+        "description": "ID of the record type assigned to this object.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "ReportsToId": {
         "type": "reference",
-        "description": "ID of the contact that this contact reports to."
+        "description": "ID of the contact that this contact reports to.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "Salutation": {
         "type": "picklist",
-        "description": "Honorific abbreviation, word, or phrase to be used in front of name in greetings, such as Dr. or Mrs."
+        "description": "Honorific abbreviation, word, or phrase to be used in front of name in greetings, such as Dr. or Mrs.",
+        "format": "enum",
+        "enum": [
+          "Mr.",
+          "Ms.",
+          "Mrs.",
+          "Dr.",
+          "Prof.",
+          "Mx."
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ScheduledResumeDateTime": {
         "type": "dateTime",
@@ -321,14 +514,1245 @@
       },
       "Title": {
         "type": "string",
-        "description": "Title of the contact, such as CEO or Vice President."
+        "description": "Title of the contact, such as CEO or Vice President.",
+        "maxLength": 128,
+        "nullable": true
       },
       "TitleType": {
         "type": "picklist",
         "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the hierarchical position that the contact holds in the organization. In the UI, this field is shown as Seniority Level. Possible values are: ceo—Key value directorOrManager—Key value executive—Key value individualContributor vp—VP or Head of Department. Key value. Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t show contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a complete picture of the deal or account, increasing sales success. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Contact ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastCURequestDate": {
+        "type": "string",
+        "description": "Last Stay-in-Touch Request Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "LastCUUpdateDate": {
+        "type": "string",
+        "description": "Last Stay-in-Touch Save Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "EngagementScoreId": {
+        "type": "string",
+        "description": "Behavior Score ID",
+        "format": "salesforce-id",
+        "x-object": "EngagementScore",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contact.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contact.htm",
+    "keyPrefix": "003",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AcceptedEventRelation",
+        "field": "RelationId",
+        "relationshipName": "AcceptedEventRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "PersonContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "vlocity_cmt__PersonContactId__c",
+        "relationshipName": "vlocity_cmt__PersonAccount__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "vlocity_cmt__PrimaryContactId__c",
+        "relationshipName": "vlocity_cmt__Accounts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "vlocity_cmt__ReferredByContactId__c",
+        "relationshipName": "vlocity_cmt__ReferredAccounts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountChangeEvent",
+        "field": "PersonContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountContactRelation",
+        "field": "ContactId",
+        "relationshipName": "AccountContactRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountContactRole",
+        "field": "ContactId",
+        "relationshipName": "AccountContactRoles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountContactRoleChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActionPlan",
+        "field": "TargetId",
+        "relationshipName": "ActionPlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "PrimaryWhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhoId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AgentWork",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "ContactId",
+        "relationshipName": "Assets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "AuthorizationFormConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignInfluence",
+        "field": "ContactId",
+        "relationshipName": "CampaignInfluences",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignMember",
+        "field": "ContactId",
+        "relationshipName": "CampaignMembers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignMember",
+        "field": "LeadOrContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignMemberChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareProgramProvider",
+        "field": "CareProgramContactId",
+        "relationshipName": "Care_Program_Providers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "ContactId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseContactRole",
+        "field": "ContactId",
+        "relationshipName": "CaseContactRoles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseTeamMember",
+        "field": "MemberId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseTeamTemplateMember",
+        "field": "MemberId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationGroupRecord",
+        "field": "RecordId",
+        "relationshipName": "RecordAssociatedGroups",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommSubscriptionConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "CommSubscriptionConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Contact",
+        "field": "ReportsToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactChangeEvent",
+        "field": "ReportsToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactHistory",
+        "field": "ContactId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactRequest",
+        "field": "WhoId",
+        "relationshipName": "ContactRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactShare",
+        "field": "ContactId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactSuggestionInsight",
+        "field": "CreatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactTag",
+        "field": "ItemId",
+        "relationshipName": "Tags",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDistribution",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Contract",
+        "field": "CustomerSignedId",
+        "relationshipName": "ContractsSigned",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractChangeEvent",
+        "field": "CustomerSignedId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractContactRole",
+        "field": "ContactId",
+        "relationshipName": "ContractContactRoles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ConversationParticipant",
+        "field": "ParticipantEntityId",
+        "relationshipName": "ConversationParticipants",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemo",
+        "field": "BillToContactId",
+        "relationshipName": "CreditMemos",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Customer_Survey__c",
+        "field": "Contact__c",
+        "relationshipName": "Customer_Surveys__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DeclinedEventRelation",
+        "field": "RelationId",
+        "relationshipName": "DeclinedEventRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "WhoId",
+        "relationshipName": "DocumentChecklistWho",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DuplicateRecordItem",
+        "field": "RecordId",
+        "relationshipName": "DuplicateRecordItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EmailMessageRelation",
+        "field": "RelationId",
+        "relationshipName": "EmailMessageRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EmailStatus",
+        "field": "WhoId",
+        "relationshipName": "EmailStatuses",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EngagementScore",
+        "field": "BaseId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitlementContact",
+        "field": "ContactId",
+        "relationshipName": "EntitlementContacts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhoId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventWhoRelation",
+        "field": "RelationId",
+        "relationshipName": "EventWhoRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "External_Account__c",
+        "field": "Customer__c",
+        "relationshipName": "External_Accounts__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FulfillmentOrder",
+        "field": "BillToContactId",
+        "relationshipName": "FulfillmentOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Idea_Team__c",
+        "field": "Contact__c",
+        "relationshipName": "R00NHo00000FIrYIMA1",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Invoice",
+        "field": "BillToContactId",
+        "relationshipName": "Invoices",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Lead",
+        "field": "ConvertedContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LeadChangeEvent",
+        "field": "ConvertedContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LeadInsight",
+        "field": "ParentId",
+        "relationshipName": "LeadInsights",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Linkedin_Contact__c",
+        "field": "TeamLink1__c",
+        "relationshipName": "Linkedin_Contacts__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ListEmailIndividualRecipient",
+        "field": "RecipientId",
+        "relationshipName": "ListEmailIndividualRecipients",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscript",
+        "field": "ContactId",
+        "relationshipName": "LiveChatTranscripts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyProgramMember",
+        "field": "ContactId",
+        "relationshipName": "LoyaltyProgramMemberContact",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlan",
+        "field": "ContactId",
+        "relationshipName": "MaintenancePlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlanChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MatchingInformation",
+        "field": "SFDCIdId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MessagingEndUser",
+        "field": "ContactId",
+        "relationshipName": "MessagingEndUsers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingSession",
+        "field": "EndUserContactId",
+        "relationshipName": "MessagingSessions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "PrimaryWhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhoId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Opportunity",
+        "field": "ContactId",
+        "relationshipName": "Opportunities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Opportunity",
+        "field": "Primary_Contact__c",
+        "relationshipName": "Opportunities1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityContactRole",
+        "field": "ContactId",
+        "relationshipName": "OpportunityContactRoles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpportunityContactRoleChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityContactRoleSuggestionInsight",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Order",
+        "field": "BillToContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "Contact__c",
+        "relationshipName": "Orders__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "CustomerAuthorizedById",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "ShipToContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "vlocity_cmt__CustomerOriginatedById__c",
+        "relationshipName": "vlocity_cmt__Orders__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "vlocity_cmt__OriginatingContactId__c",
+        "relationshipName": "vlocity_cmt__ContactOrders__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeEvent",
+        "field": "BillToContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeEvent",
+        "field": "CustomerAuthorizedById",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeEvent",
+        "field": "ShipToContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderSummary",
+        "field": "BillToContactId",
+        "relationshipName": "OrderSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "WhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OutgoingEmailRelation",
+        "field": "RelationId",
+        "relationshipName": "OutgoingEmailRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerNetworkConnection",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "LocalRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerNetworkRecordConnection",
+        "field": "PartnerRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PendingServiceRouting",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PersonName",
+        "field": "ParentRecordId",
+        "relationshipName": "PersonNamesParents",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Product2",
+        "field": "vlocity_cmt__ApprovedBy__c",
+        "relationshipName": "vlocity_cmt__Products__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Quote",
+        "field": "ContactId",
+        "relationshipName": "Quotes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrder",
+        "field": "ContactId",
+        "relationshipName": "ReturnOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__Quote__c",
+        "field": "SBQQ__PrimaryContact__c",
+        "relationshipName": "SBQQ__Quotes__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SBQQ__WebQuote__c",
+        "field": "SBQQ__PrimaryContact__c",
+        "relationshipName": "SBQQ__WebQuotes__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_C360_Address__c",
+        "field": "Contact__c",
+        "relationshipName": "Account_Addresses__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_ChannelPartner_Certification__c",
+        "field": "Contact__c",
+        "relationshipName": "Certifications__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_Custom_Debit_Card__c",
+        "field": "ContactID__c",
+        "relationshipName": "Custom_Debit_Cards__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_Customer360_Custom_Activity__c",
+        "field": "Contact__c",
+        "relationshipName": "Custom_Activities__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SDO_Money_Transfer__c",
+        "field": "Customer__c",
+        "relationshipName": "Money_Transfers__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_Service_Appointment__c",
+        "field": "Contact__c",
+        "relationshipName": "Appointments__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SFBD__CollectionsPlan__c",
+        "field": "SFBD__CollectionsContact__c",
+        "relationshipName": "SFBD__Collections_Plans__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SOSSession",
+        "field": "ContactId",
+        "relationshipName": "SOSSessions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "ContactId",
+        "relationshipName": "ServiceAppointments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "Tracker_Assigned_Resource_Contact__c",
+        "relationshipName": "Service_Appointments__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointmentChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContract",
+        "field": "ContactId",
+        "relationshipName": "ServiceContracts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResource",
+        "field": "Tracker_Contact__c",
+        "relationshipName": "Service_Resources__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPersona",
+        "field": "ParentId",
+        "relationshipName": "Personas",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SocialPost",
+        "field": "WhoId",
+        "relationshipName": "Posts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPostChangeEvent",
+        "field": "WhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveyInvitation",
+        "field": "ContactId",
+        "relationshipName": "LeadSurveyInvitations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyInvitation",
+        "field": "ParticipantId",
+        "relationshipName": "SurveyInvitations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyResponse",
+        "field": "SubmitterId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhoId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskWhoRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskWhoRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UndecidedEventRelation",
+        "field": "RelationId",
+        "relationshipName": "UndecidedEventRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "User",
+        "field": "ContactId",
+        "relationshipName": "Users",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserEmailPreferredPerson",
+        "field": "PersonRecordId",
+        "relationshipName": "PersonRecord",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Visit",
+        "field": "VisitorId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VisitedParty",
+        "field": "ContactId",
+        "relationshipName": "VisitedParties",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Visitor",
+        "field": "AssigneeId",
+        "relationshipName": "Visitors",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "Contact__c",
+        "relationshipName": "Voice_Calls__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "RelatedRecordId",
+        "relationshipName": "RelatedRecords",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebCart",
+        "field": "Contact__c",
+        "relationshipName": "Carts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "ContactId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "ContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "engage_reports__Engage_Contact_Stat__c",
+        "field": "engage_reports__Contact__c",
+        "relationshipName": "engage_reports__Engage_Contact_Stats__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__IndividualEmailResult__c",
+        "field": "et4ae5__Contact__c",
+        "relationshipName": "et4ae5__IndividualEmailResults__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SMSDefinition__c",
+        "field": "et4ae5__Contact__c",
+        "relationshipName": "et4ae5__SMSDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SendDefinition__c",
+        "field": "et4ae5__Contact__c",
+        "relationshipName": "et4ae5__SendDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__AdvRouteVisitWindows__c",
+        "field": "maps__VW_Contact__c",
+        "relationshipName": "maps__AdvRouteVisitWindows__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__AdvRouteWaypoint__c",
+        "field": "maps__RW_Contact__c",
+        "relationshipName": "maps__AdvRouteWaypoints__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__LiveEventAssociation__c",
+        "field": "maps__AssociatedContact__c",
+        "relationshipName": "maps__LiveEventAssociations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__Waypoint__c",
+        "field": "maps__Contact__c",
+        "relationshipName": "maps__Maps_Waypoints__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "openCTIconfig__c",
+        "field": "Contact__c",
+        "relationshipName": "openCTIconfigs__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "pi__Category_Contact_Score__c",
+        "field": "pi__Contact__c",
+        "relationshipName": "pi__Category_Contact_Scores__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "pi__EngageCampaignRecipient__c",
+        "field": "pi__ContactId__c",
+        "relationshipName": "pi__EngageCampaign_Contact__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "slackv2__Slack_Message__c",
+        "field": "slackv2__Contact__c",
+        "relationshipName": "slackv2__Slack_Messages__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__Cart__c",
+        "field": "vlocity_cmt__ContactId__c",
+        "relationshipName": "vlocity_cmt__Cart__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractRecipient__c",
+        "field": "vlocity_cmt__ContactId__c",
+        "relationshipName": "vlocity_cmt__ContractRecipients__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__CustomerInteraction__c",
+        "field": "vlocity_cmt__ContactId__c",
+        "relationshipName": "vlocity_cmt__CustomerInteractions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ExpandedInteractionLog__c",
+        "field": "vlocity_cmt__ClientContactId__c",
+        "relationshipName": "vlocity_cmt__Expanded_Interaction_Logs__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__GenericRecipient__c",
+        "field": "vlocity_cmt__ContactId__c",
+        "relationshipName": "vlocity_cmt__GenericRecipients__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__Household__c",
+        "field": "vlocity_cmt__PrimaryContactId__c",
+        "relationshipName": "vlocity_cmt__Households__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__MediaProperty__c",
+        "field": "vlocity_cmt__PublisherPrimaryContactId__c",
+        "relationshipName": "vlocity_cmt__MediaProperties__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__Party__c",
+        "field": "vlocity_cmt__ContactId__c",
+        "relationshipName": "vlocity_cmt__Party__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__Subscription__c",
+        "field": "vlocity_cmt__ServiceContactId__c",
+        "relationshipName": "vlocity_cmt__Subscriptions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
+        "field": "vlocity_cmt__ContactId__c",
+        "relationshipName": "vlocity_cmt__TrackingEntries__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

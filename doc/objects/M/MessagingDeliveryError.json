@@ -5,70 +5,160 @@
     "properties": {
       "CreatedById": {
         "type": "reference",
-        "description": "ID of the user who created the error."
+        "description": "ID of the user who created the error.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CreatedDate": {
         "type": "dateTime",
-        "description": "Date the error was created."
+        "description": "Date the error was created.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "DestinationPhoneNumber": {
         "type": "string",
-        "description": "The recipient of the phone call."
+        "description": "The recipient of the phone call.",
+        "maxLength": 64,
+        "nullable": true
       },
       "FailureReason": {
         "type": "textarea",
-        "description": "The provided reason for why the message failed."
+        "description": "The provided reason for why the message failed.",
+        "maxLength": 65536,
+        "nullable": true
       },
       "FlowEntity": {
         "type": "string",
-        "description": "The entity that triggered the flow to send the message."
+        "description": "The entity that triggered the flow to send the message.",
+        "maxLength": 18,
+        "nullable": true
       },
       "FullMessage": {
         "type": "textarea",
-        "description": ""
+        "description": "",
+        "maxLength": 65536,
+        "nullable": true
       },
       "Id": {
         "type": "id",
-        "description": "Identifier of the error."
+        "description": "Identifier of the error.",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the error has been deleted."
+        "description": "Indicates whether the error has been deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastModifiedById": {
         "type": "reference",
-        "description": "The ID of the user who last modified the error log."
+        "description": "The ID of the user who last modified the error log.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LastModifiedDate": {
         "type": "dateTime",
-        "description": "Date when the Messaging error log was last modified."
+        "description": "Date when the Messaging error log was last modified.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "MessagingChannelId": {
         "type": "reference",
-        "description": "ID of the MessagingChannel."
+        "description": "ID of the MessagingChannel.",
+        "format": "salesforce-id",
+        "x-object": "MessagingChannel",
+        "maxLength": 18,
+        "nullable": true
       },
       "MessagingEndUserId": {
         "type": "reference",
-        "description": "Identifier for the Messaging user."
+        "description": "Identifier for the Messaging user.",
+        "format": "salesforce-id",
+        "x-object": "MessagingEndUser",
+        "maxLength": 18,
+        "nullable": true
       },
       "MessagingTemplateId": {
         "type": "reference",
-        "description": "ID of the Messaging template used."
+        "description": "ID of the Messaging template used.",
+        "format": "salesforce-id",
+        "x-object": "MessagingTemplate",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the error. Maximum length is 80 characters."
+        "description": "Name of the error. Maximum length is 80 characters.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SystemModstamp": {
         "type": "dateTime",
-        "description": "System modification time for the Messaging delivery error log."
+        "description": "System modification time for the Messaging delivery error log.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "The kind of event that occurred. Possible values include: Error (Default) Warning"
+        "description": "The kind of event that occurred. Possible values include: Error (Default) Warning",
+        "format": "enum",
+        "enum": [
+          "Error",
+          "Warning"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CorrelationIdentifier": {
+        "type": "string",
+        "maxLength": 36,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingdeliveryerror.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingdeliveryerror.htm",
+    "keyPrefix": "0Ut",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,18 +5,89 @@
     "properties": {
       "SharedKey": {
         "type": "string",
-        "description": "This field is never read-enabled, though it is write-enabled. A request for this value always returns null. The value must be a base32-encoded string of a 20-byte secret. You can use the Apex method Auth.SessionManagement.getQrCode() to get a value to write to this field. Note If you write a secret to this field, in API version 37.0 and later the user gets an email notification that a new identity verification method was added to the user’s account."
+        "description": "This field is never read-enabled, though it is write-enabled. A request for this value always returns null. The value must be a base32-encoded string of a 20-byte secret. You can use the Apex method Auth.SessionManagement.getQrCode() to get a value to write to this field. Note If you write a secret to this field, in API version 37.0 and later the user gets an email notification that a new identity verification method was added to the user’s account.",
+        "maxLength": 255,
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
-        "description": "The multi-factor method. TOTP—The time-based one-time password."
+        "description": "The multi-factor method. TOTP—The time-based one-time password.",
+        "format": "enum",
+        "enum": [
+          "TOTP"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID for the user who’s associated with the authentication secret."
+        "description": "The ID for the user who’s associated with the authentication secret.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Two Factor ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_twofactorinfo.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_twofactorinfo.htm",
+    "keyPrefix": "0HN",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

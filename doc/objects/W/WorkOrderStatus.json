@@ -5,26 +5,102 @@
     "properties": {
       "ApiName": {
         "type": "string",
-        "description": "The API name of the status value."
+        "description": "The API name of the status value.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDefault": {
         "type": "boolean",
-        "description": "Indicates that the status value is the default status on work orders. Only one status value can be the default."
+        "description": "Indicates that the status value is the default status on work orders. Only one status value can be the default.",
+        "nullable": false,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label for the picklist value that appears in the UI."
+        "description": "The label for the picklist value that appears in the UI.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "The value’s position in the drop-down list of values in the UI."
+        "description": "The value’s position in the drop-down list of values in the UI.",
+        "nullable": true,
+        "readOnly": true
       },
       "StatusCode": {
         "type": "picklist",
-        "description": "The status category that the value corresponds to. The Status Category field has seven values which are identical to the default Status values."
+        "description": "The status category that the value corresponds to. The Status Category field has seven values which are identical to the default Status values.",
+        "format": "enum",
+        "enum": [
+          "New",
+          "InProgress",
+          "OnHold",
+          "Completed",
+          "Closed",
+          "None",
+          "CannotComplete",
+          "Canceled"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Work Order Status Value ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_workorderstatus.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_workorderstatus.htm",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -13,38 +13,166 @@
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "ID of the opportunity for which the split is being created."
+        "description": "ID of the opportunity for which the split is being created.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Split": {
         "type": "string",
-        "description": "Read-only. Automatically generated number identifying the split within the opportunity."
+        "description": "Read-only. Automatically generated number identifying the split within the opportunity.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SplitAmount": {
         "type": "currency",
-        "description": "Monetary amount of the split."
+        "description": "Monetary amount of the split.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "SplitNote": {
         "type": "string",
-        "description": "Enter any notes or comments about the split. The character limit is 255."
+        "description": "Enter any notes or comments about the split. The character limit is 255.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SplitOwnerId": {
         "type": "reference",
-        "description": "The opportunity owner."
+        "description": "The opportunity owner.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SplitPercentage": {
         "type": "percent",
-        "description": "Split percentage that this team member receives. If the split type is validated to a 100% total, this number can range from 0 to 100. If the total isn’t validated, this number can range from 0 to 1,000."
+        "description": "Split percentage that this team member receives. If the split type is validated to a 100% total, this number can range from 0 to 100. If the total isn’t validated, this number can range from 0 to 1,000.",
+        "format": "percent",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "SplitTypeId": {
         "type": "reference",
-        "description": "Auto-generated, numeric ID for the split type defined by the OpportunitySplitType object. This field is available in API version 28 and later."
+        "description": "Auto-generated, numeric ID for the split type defined by the OpportunitySplitType object. This field is available in API version 28 and later.",
+        "format": "salesforce-id",
+        "x-object": "OpportunitySplitType",
+        "maxLength": 18,
+        "nullable": true
       },
       "Territory2Id": {
         "type": "reference",
         "description": "ID of the associated territory. This field is a relationship field, and is available in API version 62.0 and later."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Opportunity Split ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitysplit.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunitysplit.htm",
+    "keyPrefix": "049",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingFact",
+        "field": "ForecastedObjectId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunitySplitHistory",
+        "field": "OpportunitySplitId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

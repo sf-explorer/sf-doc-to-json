@@ -5,26 +5,96 @@
     "properties": {
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastModifiedById": {
         "type": "reference",
-        "description": "ID of the user most recently associated with this vote."
+        "description": "ID of the user most recently associated with this vote.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LastModifiedDate": {
         "type": "dateTime",
-        "description": "The datetime when this vote was last modified."
+        "description": "The datetime when this vote was last modified.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the Knowledge Article, Idea, or Reply associated with this vote."
+        "description": "ID of the Knowledge Article, Idea, or Reply associated with this vote.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "FAQ__ka",
+          "Idea",
+          "IdeaComment",
+          "Knowledge__ka",
+          "Solution"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "Picklist that indicates the type of vote. The value Up indicates that the vote is a user's positive endorsement of the associated idea or reply. The value Down indicates that the vote is a user's negative endorsement of the associated idea or reply."
+        "description": "Picklist that indicates the type of vote. The value Up indicates that the vote is a user's positive endorsement of the associated idea or reply. The value Down indicates that the vote is a user's negative endorsement of the associated idea or reply.",
+        "format": "enum",
+        "enum": [
+          "Up",
+          "Down",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Vote ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_vote.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_vote.htm",
+    "keyPrefix": "083",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -35,10 +35,14 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
       'loyalty': 'Loyalty Management',
       'net-zero-cloud': 'Net Zero Cloud',
       'public-sector-cloud': 'Public Sector',
+      'sales-cloud': 'Sales Cloud',
+      'service-cloud': 'Service Cloud',
       'scheduler': 'Scheduler',
       'feedback-management': 'Feedback Management',
       'revenue-lifecycle-management': 'Revenue Lifecycle Management',
-      'tooling-api': 'Tooling API'
+      'tooling-api': 'Tooling API',
+      'metadata': 'Metadata API',
+      'Metadata API': 'Metadata API'
     };
     return nameMap[cloudName] || cloudName;
   };
@@ -65,10 +69,14 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
       'loyalty': 'Objects for loyalty program management including member enrollment, points, rewards, and promotions.',
       'net-zero-cloud': 'Objects for sustainability management, carbon accounting, emissions tracking, and environmental reporting.',
       'public-sector-cloud': 'Objects for government and public sector organizations including permits, inspections, and regulatory compliance.',
+      'sales-cloud': 'Objects for sales operations including leads, opportunities, quotes, forecasts, and sales performance management.',
+      'service-cloud': 'Objects for customer service and support including cases, knowledge articles, service contracts, and omnichannel routing.',
       'scheduler': 'Objects for scheduling appointments, managing availability, and coordinating resources.',
       'feedback-management': 'Objects for collecting, managing, and analyzing customer feedback and survey responses.',
       'revenue-lifecycle-management': 'Objects for revenue lifecycle management including product configuration, pricing, billing, and revenue recognition.',
-      'tooling-api': 'Salesforce Tooling API objects for metadata management, deployment, and development operations.'
+      'tooling-api': 'Salesforce Tooling API objects for metadata management, deployment, and development operations.',
+      'metadata': 'Salesforce metadata types including ApexClass, CustomObject, Flow, and other components used in deployments and package development.',
+      'Metadata API': 'Salesforce metadata types including ApexClass, CustomObject, Flow, and other components used in deployments and package development.'
     };
     return descriptionMap[cloudName] || 'No description available';
   };
@@ -83,6 +91,9 @@ const CategoryFilter = ({ categories, selectedCategories, onCategoryChange, clou
       'nonprofit-cloud': 'secondary',
       'manufacturing-cloud': 'info',
       'field-service-lightning': 'primary',
+      'metadata': 'secondary',
+      'Metadata API': 'secondary',
+      'tooling-api': 'info'
     };
     return colorMap[cloudName] || 'default';
   };

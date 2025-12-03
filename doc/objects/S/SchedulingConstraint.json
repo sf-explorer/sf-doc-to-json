@@ -5,11 +5,17 @@
     "properties": {
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the scheduling constraint was last modified. Its label in the user interface is Last Modified Date."
+        "description": "The date when the scheduling constraint was last modified. Its label in the user interface is Last Modified Date.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when the scheduling constraint was last viewed."
+        "description": "The date when the scheduling constraint was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MaxNonstandardShiftsPerMonth": {
         "type": "int",
@@ -17,42 +23,187 @@
       },
       "MaxShiftsPerDay": {
         "type": "int",
-        "description": "The maximum number of shifts an agent can have in a day."
+        "description": "The maximum number of shifts an agent can have in a day.",
+        "nullable": true
       },
       "MaxShiftsPerMonth": {
         "type": "int",
-        "description": "The maximum number of shifts an agent can have in a month."
+        "description": "The maximum number of shifts an agent can have in a month.",
+        "nullable": true
       },
       "MaxShiftsPerWeek": {
         "type": "int",
-        "description": "The maximum number of shifts an agent can have in a week."
+        "description": "The maximum number of shifts an agent can have in a week.",
+        "nullable": true
       },
       "MaxWorkingHoursPerDay": {
         "type": "double",
-        "description": "The maximum number of hours an agent can have in a day."
+        "description": "The maximum number of hours an agent can have in a day.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "MaxWorkingHoursPerMonth": {
         "type": "double",
-        "description": "The maximum number of hours an agent can have in a month."
+        "description": "The maximum number of hours an agent can have in a month.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "MaxWorkingHoursPerWeek": {
         "type": "double",
-        "description": "The maximum number of hours an agent can have in a week."
+        "description": "The maximum number of hours an agent can have in a week.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "The scheduling constraint record name."
+        "description": "The scheduling constraint record name.",
+        "maxLength": 200,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The owner of the scheduling constraint."
+        "description": "The owner of the scheduling constraint.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "RestTimeMinutes": {
         "type": "int",
         "description": "The minimum rest time, in minutes, between an agent’s consecutive shifts."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Constraint ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_schedulingconstraint.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_schedulingconstraint.htm",
+    "keyPrefix": "0hA",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SchedulingConstraintShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceResource",
+        "field": "SchedulingConstraintId",
+        "relationshipName": "ServiceResources",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResourceChangeEvent",
+        "field": "SchedulingConstraintId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritory",
+        "field": "SchedulingConstraintId",
+        "relationshipName": "ServiceTerritories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryChangeEvent",
+        "field": "SchedulingConstraintId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

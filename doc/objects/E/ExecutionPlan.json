@@ -1,0 +1,175 @@
+{
+  "ExecutionPlan": {
+    "name": "ExecutionPlan",
+    "description": "Execution Plans - ExecutionPlan",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Execution Plan ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "TaskGroupId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "TaskGroup",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Status": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "New",
+          "InProgress",
+          "Queued",
+          "Failed",
+          "Warnings",
+          "Success",
+          "Cancelled"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Requestor": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Message": {
+        "type": "string",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "PipelineType": {
+        "type": "string",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "NotificationComplete": {
+        "type": "boolean",
+        "description": "Notification Completed",
+        "nullable": false
+      },
+      "NotificationSent": {
+        "type": "string",
+        "description": "Notification Condition",
+        "format": "enum",
+        "enum": [
+          "Always",
+          "Failures",
+          "WarningsFailures",
+          "Never",
+          "Success",
+          "Warnings",
+          "SuccessFailures",
+          "WarningsSuccess"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "EndTime": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      },
+      "CompleteTaskCount": {
+        "type": "integer",
+        "nullable": true
+      },
+      "TotalTaskCount": {
+        "type": "integer",
+        "nullable": true
+      },
+      "Plan": {
+        "type": "string",
+        "maxLength": 100000,
+        "nullable": false
+      },
+      "Context": {
+        "type": "string",
+        "maxLength": 100000,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "0eP",
+    "label": "Execution Plan",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DataflowInstance",
+        "field": "ExecutionPlanId",
+        "relationshipName": "DataflowInstances",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataflowRequest",
+        "field": "ExecutionPlanId",
+        "relationshipName": "DataflowRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataflowRequest",
+        "field": "RequestorId",
+        "relationshipName": "DataflowRequested",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ExecutionPlanTask",
+        "field": "ExecutionPlanId",
+        "relationshipName": "TrackerEntries",
+        "cascadeDelete": true
+      }
+    ]
+  }
+}

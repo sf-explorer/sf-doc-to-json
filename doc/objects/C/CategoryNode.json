@@ -5,22 +5,104 @@
     "properties": {
       "MasterLabel": {
         "type": "string",
-        "description": "Label for the category node."
+        "description": "Label for the category node.",
+        "maxLength": 40,
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the parent of this node, if any."
+        "description": "ID of the parent of this node, if any.",
+        "format": "salesforce-id",
+        "x-object": "CategoryNode",
+        "maxLength": 18,
+        "nullable": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "Indicates the sort order of child CategoryNode objects."
+        "description": "Indicates the sort order of child CategoryNode objects.",
+        "nullable": true
       },
       "SortStyle": {
         "type": "picklist",
-        "description": "Indicates whether the sort order is alphabetical or custom."
+        "description": "Indicates whether the sort order is alphabetical or custom.",
+        "format": "enum",
+        "enum": [
+          "custom",
+          "alphabetical"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Category Node ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_categorynode.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_categorynode.htm",
+    "keyPrefix": "02n",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CategoryData",
+        "field": "CategoryNodeId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CategoryNode",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CategoryNodeLocalization",
+        "field": "CategoryNodeId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

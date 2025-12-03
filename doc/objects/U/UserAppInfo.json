@@ -5,18 +5,120 @@
     "properties": {
       "AppDefinitionId": {
         "type": "reference",
-        "description": "The ID of the last Lightning app that the user logged in to. This field is available in API version 43.0 and later."
+        "description": "The ID of the last Lightning app that the user logged in to. This field is available in API version 43.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "AppDefinition",
+        "maxLength": 18,
+        "nullable": true
       },
       "FormFactor": {
         "type": "picklist",
-        "description": "The relative size of the app as displayed. Values are: Small—suitable for a small device like a mobile phone Medium—suitable for a tablet Large—suitable for a large display device, like a monitor It’s possible to have three versions of the app as the one last logged in to, where each version has a different form factor."
+        "description": "The relative size of the app as displayed. Values are: Small—suitable for a small device like a mobile phone Medium—suitable for a tablet Large—suitable for a large display device, like a monitor It’s possible to have three versions of the app as the one last logged in to, where each version has a different form factor.",
+        "format": "enum",
+        "enum": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID of the user that used this app."
+        "description": "The ID of the user that used this app.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Last Used App ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userappinfo.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userappinfo.htm",
+    "keyPrefix": "0Ds",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

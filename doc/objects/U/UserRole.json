@@ -5,19 +5,42 @@
     "properties": {
       "CaseAccessForAccountOwner": {
         "type": "picklist",
-        "description": "The case access level for the account owner."
+        "description": "The case access level for the account owner.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ContactAccessForAccountOwner": {
         "type": "picklist",
-        "description": "The contact access level for the account owner. Note When DefaultContactAccess is set to Controlled by Parent, you can’t create or update this field."
+        "description": "The contact access level for the account owner. Note When DefaultContactAccess is set to Controlled by Parent, you can’t create or update this field.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Corresponds to Role Name in the user interface. This field is available in API version 24.0 and later. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Corresponds to Role Name in the user interface. This field is available in API version 24.0 and later. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ForecastUserId": {
         "type": "reference",
-        "description": "The ID of the forecast manager associated with this role. Label is User ID."
+        "description": "The ID of the forecast manager associated with this role. Label is User ID.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsPartner": {
         "type": "boolean",
@@ -25,42 +48,170 @@
       },
       "MayForecastManagerShare": {
         "type": "boolean",
-        "description": "Indicates whether the forecast manager can manually share their own forecast."
+        "description": "Indicates whether the forecast manager can manually share their own forecast.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of the role. Corresponds to Label on the user interface."
+        "description": "Required. Name of the role. Corresponds to Label on the user interface.",
+        "maxLength": 80,
+        "nullable": false
       },
       "OpportunityAccessForAccountOwner": {
         "type": "picklist",
-        "description": "Required. The opportunity access level for the account owner. Note that you can’t set a user role with an opportunity access less than that specified in organization-wide defaults."
+        "description": "Required. The opportunity access level for the account owner. Note that you can’t set a user role with an opportunity access less than that specified in organization-wide defaults.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "ParentRoleId": {
         "type": "reference",
-        "description": "The ID of the parent role."
+        "description": "The ID of the parent role.",
+        "format": "salesforce-id",
+        "x-object": "UserRole",
+        "maxLength": 18,
+        "nullable": true
       },
       "PortalAccountId": {
         "type": "reference",
-        "description": "The ID of the role’s associated portal account. This field is read-only."
+        "description": "The ID of the role’s associated portal account. This field is read-only.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PortalAccountOwnerId": {
         "type": "reference",
-        "description": "The ID of the role’s associated portal account’s owner. This field is read-only."
+        "description": "The ID of the role’s associated portal account’s owner. This field is read-only.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PortalRole": {
         "type": "picklist",
-        "description": "The portal role: Executive, Manager, User, or PersonAccount."
+        "description": "The portal role: Executive, Manager, User, or PersonAccount.",
+        "format": "enum",
+        "enum": [
+          "Executive",
+          "Manager",
+          "Worker",
+          "PersonAccount"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "PortalType": {
         "type": "picklist",
-        "description": "This value indicates the type of portal for the role: None: Salesforce application role. CustomerPortal: Customer portal role. Partner: partner portal role. The field IsPartner used in release 8.0 will map to this value. This field replaces IsPartner beginning with release 9.0."
+        "description": "This value indicates the type of portal for the role: None: Salesforce application role. CustomerPortal: Customer portal role. Partner: partner portal role. The field IsPartner used in release 8.0 will map to this value. This field replaces IsPartner beginning with release 9.0.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "CustomerPortal",
+          "Partner"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "RollupDescription": {
         "type": "string",
-        "description": "Description of the forecast rollup. Label is Description."
+        "description": "Description of the forecast rollup. Label is Description.",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Role ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_role.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_role.htm",
+    "keyPrefix": "00E",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "ForecastingShare",
+        "field": "SharedForecastManagerRoleId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Group",
+        "field": "RelatedId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Name",
+        "field": "UserRoleId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecentlyViewed",
+        "field": "UserRoleId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "User",
+        "field": "UserRoleId",
+        "relationshipName": "Users",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserChangeEvent",
+        "field": "UserRoleId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserRole",
+        "field": "ParentRoleId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

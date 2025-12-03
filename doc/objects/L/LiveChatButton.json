@@ -1,166 +1,451 @@
 {
   "LiveChatButton": {
     "name": "LiveChatButton",
-    "description": "Represents a button that allows visitors to request chats with Chat users.",
+    "description": "Chat Buttons - LiveChatButton",
     "properties": {
-      "Animation": {
-        "type": "picklist",
-        "description": "The type of animation used when an automated chat invitation appears on-screen. For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "AutoGreeting": {
-        "type": "textarea",
-        "description": "The text that is automatically sent from an agent to a visitor when a chat session starts. Note A greeting message in the AutoGreeting field of the LiveChatButton object overrides individual users’ greeting messages in the AutoGreeting field in the LiveChatUserConfig object."
-      },
-      "ChasitorIdleTimeout": {
-        "type": "int",
-        "description": "The amount of time a customer has to respond to an agent message before the chat times out."
-      },
-      "ChasitorIdleTimeoutWarning": {
-        "type": "int",
-        "description": "The amount of time a customer has to respond to an agent message before a warning appears and a timer begins a countdown. This value must be shorter than the ChasitorIdleTimeout value. We recommend at least 30 seconds shorter."
-      },
-      "ChatPageId": {
-        "type": "reference",
-        "description": "The record ID of the custom VisualForce page that contains the custom chat window code."
-      },
-      "CustomAgentName": {
+      "Id": {
         "type": "string",
-        "description": "The custom name of the agent associated with the button. Available in API version 29.0 and later. Note A custom agent name in the CustomAgentName field of the LiveChatButton object overrides individual users’ custom agent name in the CustomAgentName field in the LiveChatUserConfig object."
+        "description": "Chat Button ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record."
-      },
-      "HasQueue": {
-        "type": "boolean",
-        "description": "Determines whether or not to allow queing incoming chat requests until an agent is available."
-      },
-      "InviteEndPosition": {
-        "type": "picklist",
-        "description": "The position on screen where an automated chat invitation’s animation ends. Note You don’t need to select an end position for your automated chat invitation if you use a custom animation. For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "InviteImageId": {
-        "type": "reference",
-        "description": "The record ID of the static image resource displayed on your automated chat invitation. For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "InviteStartPosition": {
-        "type": "picklist",
-        "description": "The position on screen where an automated chat invitation’s animation begins. Note You don’t need to select a start position for your automated chat invitation if you use a custom animation. For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "IsActive": {
-        "type": "boolean",
-        "description": "For automated chat invitations, specifies whether an automated chat invitation is active or not."
-      },
-      "IsRoutingFlowEnabled": {
-        "type": "boolean",
-        "description": "Specifies whether routing flow is enabled or not."
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language of the chat."
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label for the chat button."
+        "description": "Name",
+        "maxLength": 80,
+        "nullable": false
       },
-      "NumberOfReroutingAttempts": {
-        "type": "int",
-        "description": "Specifies the number of times a chat request can be rerouted to available agents if all agents reject the chat request."
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
-      "OfflineImageId": {
-        "type": "reference",
-        "description": "The record ID of the static image resource that is displayed when the button is offline (inactive)."
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SkillId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Skill",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "SiteId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Site",
+        "maxLength": 18,
+        "nullable": true
       },
       "OnlineImageId": {
-        "type": "reference",
-        "description": "The record ID of the static image resource that is displayed when the button is online (active)."
-      },
-      "OptionsHasChasitorIdleTimeout": {
-        "type": "boolean",
-        "description": "Specifies whether Customer Time-Out is enabled."
-      },
-      "OptionsHasInviteAfterAccept": {
-        "type": "boolean",
-        "description": "Specifies whether an automated chat invitation can be sent to a customer after that customer has accepted a prior automated chat invitation (true) or not (false). For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "OptionsHasInviteAfterReject": {
-        "type": "boolean",
-        "description": "Specifies whether an automated chat invitation can be sent to a customer after that customer has rejected a prior automated chat invitation (true) or not (false). For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "OptionsHasRerouteDeclinedRequest": {
-        "type": "boolean",
-        "description": "Specifies whether a chat request that has been rejected by all available agents should be rerouted to available agents again (true) or not (false)."
-      },
-      "OptionsIsAutoAccept": {
-        "type": "boolean",
-        "description": "Specifies whether a chat request should be automatically accepted by the agent it’s assigned to (true) or not false). For chat buttons and automated chat invitations with RoutingType set to Most Available or Least Active. Available in API version 30.0 and later."
-      },
-      "OptionsIsInviteAutoRemove": {
-        "type": "boolean",
-        "description": "Specifies whether an automated chat invitation should be automatically removed from the screen after a certain amount of time (true) or not (false). For automated chat invitations only. Available in API version 29.0 and later."
-      },
-      "OverallQueueLength": {
-        "type": "int",
-        "description": "The maximum number of chat requests allowed to queue."
-      },
-      "PerAgentQueueLength": {
-        "type": "int",
-        "description": "The maximum number of chat requests allowed to queue for each agent with the required skill."
-      },
-      "PostchatPageId": {
-        "type": "reference",
-        "description": "The record ID of the custom VisualForce page displayed when the chat ends."
-      },
-      "PostchatUrl": {
         "type": "string",
-        "description": "The URL the user is directed to after the chat ends."
+        "description": "Static Resource ID",
+        "format": "salesforce-id",
+        "x-object": "StaticResource",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "OfflineImageId": {
+        "type": "string",
+        "description": "Static Resource ID",
+        "format": "salesforce-id",
+        "x-object": "StaticResource",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ChatPageId": {
+        "type": "string",
+        "description": "Page ID",
+        "format": "salesforce-id",
+        "x-object": "ApexPage",
+        "maxLength": 18,
+        "nullable": true
       },
       "PrechatFormPageId": {
-        "type": "reference",
-        "description": "The record ID of the custom VisualForce page displayed before the chat begins."
+        "type": "string",
+        "description": "Page ID",
+        "format": "salesforce-id",
+        "x-object": "ApexPage",
+        "maxLength": 18,
+        "nullable": true
       },
       "PrechatFormUrl": {
         "type": "string",
-        "description": "The URL the user is directed to before the chat begins."
+        "maxLength": 255,
+        "nullable": true
       },
-      "PushTimeout": {
-        "type": "int",
-        "description": "The number of seconds an agent has to answer a chat request before it’s routed to the next available agent."
+      "PostchatPageId": {
+        "type": "string",
+        "description": "Page ID",
+        "format": "salesforce-id",
+        "x-object": "ApexPage",
+        "maxLength": 18,
+        "nullable": true
       },
-      "QueueId": {
-        "type": "reference",
-        "description": "The record ID of the queue used for this chat button."
-      },
-      "RoutingConfigurationId": {
-        "type": "reference",
-        "description": "The record ID of the routing configuration used for this chat button."
+      "PostchatUrl": {
+        "type": "string",
+        "description": "Post-Chat URL",
+        "maxLength": 255,
+        "nullable": true
       },
       "RoutingType": {
-        "type": "picklist",
-        "description": "How chat requests are routed to agents. The values are: Choice—Incoming chat requests are added to the queue in Live Agent in the Salesforce console and are available to any agent with the required skill. Least Active—Incoming chats are routed to the agent with the required skill who has the fewest active chats. Most Available—Incoming chats are routed to the agent with the required skill and the greatest difference between chat capacity and active chat sessions. For example, if Agent A and Agent B each have a chat capacity of five, and Agent A has three active chat sessions while Agent B has one, incoming chats will be routed to Agent B. Omni—Incoming chats are routed using Omni-Channel queues."
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Choice",
+          "LeastActive",
+          "MostAvailable",
+          "Omni",
+          "OmniSkills"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
-      "SiteId": {
-        "type": "reference",
-        "description": "The record ID of the site used for loading static resources and custom VisualForce pages."
+      "PushTimeout": {
+        "type": "integer",
+        "description": "Push Time-Out (seconds)",
+        "nullable": true
       },
-      "SkillId": {
-        "type": "reference",
-        "description": "The record ID of the skill used to route incoming chat requests. To associate multiple skills with a chat button, reference one skill in the SkillId field and use LiveChatButtonSkill junction objects for the remaining skills."
+      "HasQueue": {
+        "type": "boolean",
+        "description": "Enable queue",
+        "nullable": false
       },
-      "TimeToRemoveInvite": {
-        "type": "int",
-        "description": "The number of seconds an automated invitation stays on-screen before it is automatically removed. For automated chat invitations only. Available in API version 29.0 and later."
+      "PerAgentQueueLength": {
+        "type": "integer",
+        "description": "Queue Size Per Agent",
+        "nullable": true
       },
-      "Type": {
-        "type": "picklist",
-        "description": "The type of element to display to customers."
+      "OverallQueueLength": {
+        "type": "integer",
+        "description": "Overall Queue Size",
+        "nullable": true
       },
       "WindowLanguage": {
-        "type": "picklist",
-        "description": "The language used for standard chat windows. Custom chat windows use the language of the user’s browser."
+        "type": "string",
+        "description": "Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Type": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Standard",
+          "Invite"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "IsActive": {
+        "type": "boolean",
+        "description": "Active",
+        "nullable": false
+      },
+      "OptionsIsInviteAutoRemove": {
+        "type": "boolean",
+        "description": "Auto Remove Invitation",
+        "nullable": false
+      },
+      "OptionsHasInviteAfterAccept": {
+        "type": "boolean",
+        "description": "Allow invitation to be triggered again after accepting",
+        "nullable": false
+      },
+      "OptionsHasInviteAfterReject": {
+        "type": "boolean",
+        "description": "Allow invitation to be triggered again after rejecting",
+        "nullable": false
+      },
+      "OptionsHasRerouteDeclinedRequest": {
+        "type": "boolean",
+        "description": "Reroute Declined Requests",
+        "nullable": false
+      },
+      "OptionsIsAutoAccept": {
+        "type": "boolean",
+        "description": "isAutoAccept",
+        "nullable": false
+      },
+      "OptionsHasChasitorIdleTimeout": {
+        "type": "boolean",
+        "description": "Enable customer timeout",
+        "nullable": false
+      },
+      "TimeToRemoveInvite": {
+        "type": "integer",
+        "description": "Display Time",
+        "nullable": true
+      },
+      "Animation": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Slide",
+          "Fade",
+          "Appear",
+          "Custom"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "InviteStartPosition": {
+        "type": "string",
+        "description": "Start Position",
+        "format": "enum",
+        "enum": [
+          "TopLeft",
+          "TopLeftTop",
+          "Top",
+          "TopRightTop",
+          "TopRight",
+          "TopRightRight",
+          "Right",
+          "BottomRightRight",
+          "BottomRight",
+          "BottomRightBottom",
+          "Bottom",
+          "BottomLeftBottom",
+          "BottomLeft",
+          "BottomLeftLeft",
+          "Left",
+          "TopLeftLeft"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "InviteEndPosition": {
+        "type": "string",
+        "description": "End Position",
+        "format": "enum",
+        "enum": [
+          "TopLeft",
+          "Top",
+          "TopRight",
+          "Left",
+          "Center",
+          "Right",
+          "BottomLeft",
+          "Bottom",
+          "BottomRight"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "InviteImageId": {
+        "type": "string",
+        "description": "Static Resource ID",
+        "format": "salesforce-id",
+        "x-object": "StaticResource",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "AutoGreeting": {
+        "type": "string",
+        "maxLength": 1000,
+        "nullable": true
+      },
+      "CustomAgentName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "NumberOfReroutingAttempts": {
+        "type": "integer",
+        "nullable": true
+      },
+      "ChasitorIdleTimeout": {
+        "type": "integer",
+        "description": "Customer Time-Out (seconds)",
+        "nullable": true
+      },
+      "ChasitorIdleTimeoutWarning": {
+        "type": "integer",
+        "description": "Customer Time-Out Warning (seconds)",
+        "nullable": true
+      },
+      "QueueId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Group",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "RoutingConfigurationId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "QueueRoutingConfig",
+        "maxLength": 18,
+        "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatbutton.htm"
+    "module": "N/A",
+    "keyPrefix": "573",
+    "label": "Chat Button",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "LiveChatButtonDeployment",
+        "field": "ButtonId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatButtonSkill",
+        "field": "ButtonId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscript",
+        "field": "LiveChatButtonId",
+        "relationshipName": "LiveChatTranscripts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatTranscriptChangeEvent",
+        "field": "LiveChatButtonId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatUserConfig",
+        "field": "SupervisorDefaultButtonId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserConfigTransferButton",
+        "field": "LiveChatButtonId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

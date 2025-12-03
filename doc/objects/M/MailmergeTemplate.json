@@ -5,54 +5,131 @@
     "properties": {
       "Body": {
         "type": "base64",
-        "description": "Required. Microsoft Word document to use as a mail merge template. Due to limitations with Microsoft Word mail merge templates, your client application can specify the Body field when creating these records, but not when updating them. Limit: 5 MB."
+        "description": "Required. Microsoft Word document to use as a mail merge template. Due to limitations with Microsoft Word mail merge templates, your client application can specify the Body field when creating these records, but not when updating them. Limit: 5 MB.",
+        "format": "byte",
+        "nullable": false,
+        "readOnly": true
       },
       "BodyLength": {
         "type": "int",
-        "description": "Length of the Microsoft Word document."
+        "description": "Length of the Microsoft Word document.",
+        "nullable": true,
+        "readOnly": true
       },
       "Category": {
         "type": "picklist",
-        "description": "The type of document template. Possible values are: Document Envelope Label The default value is Document."
+        "description": "The type of document template. Possible values are: Document Envelope Label The default value is Document.",
+        "format": "enum",
+        "enum": [
+          "Document",
+          "Label",
+          "Envelope"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Description": {
         "type": "string",
-        "description": "Required. Text description of this mail merge template. Limit: 255 characters."
+        "description": "Required. Text description of this mail merge template. Limit: 255 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Filename": {
         "type": "string",
-        "description": "Required. File name of the Microsoft Word document that was uploaded as a mail merge template. Limit: 255 characters in length."
+        "description": "Required. File name of the Microsoft Word document that was uploaded as a mail merge template. Limit: 255 characters in length.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastUsedDate": {
         "type": "dateTime",
-        "description": "Date and time when this MailmergeTemplate was last used."
+        "description": "Date and time when this MailmergeTemplate was last used.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of this mail merge template."
+        "description": "Required. Name of this mail merge template.",
+        "maxLength": 80,
+        "nullable": false
       },
       "SecurityOptionsAttachmentHasFlash": {
         "type": "boolean",
-        "description": "Required. True if Flash Injection was detected in the attachment."
+        "description": "Required. True if Flash Injection was detected in the attachment.",
+        "nullable": false
       },
       "SecurityOptionsAttachmentHasXSSThreat": {
         "type": "boolean",
-        "description": "Required. True if a cross site scripting threat was detected in the attachment."
+        "description": "Required. True if a cross site scripting threat was detected in the attachment.",
+        "nullable": false
       },
       "SecurityOptionsAttachmentScannedforFlash": {
         "type": "boolean",
-        "description": "Required. True if the attachment has been scanned for Flash Injection."
+        "description": "Required. True if the attachment has been scanned for Flash Injection.",
+        "nullable": false
       },
       "SecurityOptionsAttachmentScannedForXSS": {
         "type": "boolean",
-        "description": "Required. True if the attachment has been scanned for a cross site scripting threat."
+        "description": "Required. True if the attachment has been scanned for a cross site scripting threat.",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Mail Merge Template ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_mailmergetemplate.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_mailmergetemplate.htm",
+    "keyPrefix": "01H",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

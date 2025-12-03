@@ -9,7 +9,10 @@
       },
       "EndDate": {
         "type": "dateTime",
-        "description": "The end date and time in UTC used for querying usage metrics. The date granularity is hourly."
+        "description": "The end date and time in UTC used for querying usage metrics. The date granularity is hourly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EventName": {
         "type": "string",
@@ -21,15 +24,31 @@
       },
       "ExternalId": {
         "type": "string",
-        "description": "This field is not in use."
+        "description": "This field is not in use.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "picklist",
-        "description": "The name of the metric to get usage for."
+        "description": "The name of the metric to get usage for.",
+        "format": "enum",
+        "enum": [
+          "CHANGE_EVENTS_PUBLISHED",
+          "CHANGE_EVENTS_DELIVERED",
+          "PLATFORM_EVENTS_PUBLISHED",
+          "PLATFORM_EVENTS_DELIVERED"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "StartDate": {
         "type": "dateTime",
-        "description": "The start date and time in UTC used for querying usage metrics. The date granularity is hourly."
+        "description": "The start date and time in UTC used for querying usage metrics. The date granularity is hourly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "TimeSegment": {
         "type": "picklist",
@@ -41,10 +60,26 @@
       },
       "Value": {
         "type": "long",
-        "description": "The usage value for the specified metric and date range."
+        "description": "The usage value for the specified metric and date range.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Platform Event Usage Metric ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_platformeventusagemetric.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_platformeventusagemetric.htm",
+    "keyPrefix": "8Kk",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

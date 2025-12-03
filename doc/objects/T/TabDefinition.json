@@ -5,50 +5,112 @@
     "properties": {
       "DurableId": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IsAvailableInAloha": {
         "type": "boolean",
-        "description": "Set to true if the tab is available in the Salesforce Classic user interface. If a tab is available in Salesforce Classic, then IsAvailableInMobile is false."
+        "description": "Set to true if the tab is available in the Salesforce Classic user interface. If a tab is available in Salesforce Classic, then IsAvailableInMobile is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsAvailableInDesktop": {
         "type": "boolean",
-        "description": "Set to true if the tab is available in the desktop user interface."
+        "description": "Set to true if the tab is available in the desktop user interface.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsAvailableInMobile": {
         "type": "boolean",
-        "description": "Set to true if the tab is available in the Salesforce mobile app."
+        "description": "Set to true if the tab is available in the Salesforce mobile app.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsAvailableInLightning": {
         "type": "boolean",
-        "description": "Set to true if the tab is available in the Lightning Experience user interface."
+        "description": "Set to true if the tab is available in the Lightning Experience user interface.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsCustom": {
         "type": "boolean",
-        "description": "Set to true if the tab is a custom tab."
+        "description": "Set to true if the tab is a custom tab.",
+        "nullable": false,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "The tab label in the Salesforce org."
+        "description": "The tab label in the Salesforce org.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "MobileUrl": {
         "type": "string",
-        "description": "If the tab is available in mobile, this is the URL that the tab directs the user to in the Salesforce mobile app. If the tab isn’t available in mobile, this is set to null."
+        "description": "If the tab is available in mobile, this is the URL that the tab directs the user to in the Salesforce mobile app. If the tab isn’t available in mobile, this is set to null.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the tab."
+        "description": "The name of the tab.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SobjectName": {
         "type": "string",
-        "description": "Used with REST to retrieve the metadata for the tab."
+        "description": "Used with REST to retrieve the metadata for the tab.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Url": {
         "type": "string",
-        "description": "The URL for where the tab directs the user."
+        "description": "The URL for where the tab directs the user.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Tab Definition ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_tabdefinition.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_tabdefinition.htm",
+    "keyPrefix": "0KD",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AppTabMember",
+        "field": "TabDefinitionId",
+        "relationshipName": "AppTabs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ColorDefinition",
+        "field": "TabDefinitionId",
+        "relationshipName": "Colors",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "IconDefinition",
+        "field": "TabDefinitionId",
+        "relationshipName": "Icons",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -9,22 +9,169 @@
       },
       "Name": {
         "type": "string",
-        "description": "Eight-digit auto-generated number identifying the reply."
+        "description": "Eight-digit auto-generated number identifying the reply.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "RawTextMessage": {
         "type": "textarea",
-        "description": "The text of the reply."
+        "description": "The text of the reply.",
+        "maxLength": 8192,
+        "nullable": false,
+        "readOnly": true
       },
       "Source": {
         "type": "picklist",
-        "description": "Indicates who last modified the reply."
+        "description": "Indicates who last modified the reply.",
+        "format": "enum",
+        "enum": [
+          "EINSTEIN_GENERATED",
+          "USER_GENERATED",
+          "USER_EDITED"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the reply."
+        "description": "The status of the reply.",
+        "format": "enum",
+        "enum": [
+          "NEW",
+          "PUBLISHED",
+          "PUBLISH_FAILED"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Reply Candidate ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ExternalAiModelId": {
+        "type": "string",
+        "description": "External AI Model ID",
+        "format": "salesforce-id",
+        "x-object": "ExternalAIModel",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_replytext.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_replytext.htm",
+    "keyPrefix": "8My",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "CandidateAnswer",
+        "field": "AnswerEntityId",
+        "relationshipName": "AnswerSourceEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "AnswerEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuickText",
+        "field": "SourceEntityId",
+        "relationshipName": "QuickTextsForSourceEntity",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuickTextChangeEvent",
+        "field": "SourceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReplyAIRecommendation",
+        "field": "ReplyEntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

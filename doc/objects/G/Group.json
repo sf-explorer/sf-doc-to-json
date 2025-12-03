@@ -1,38 +1,3653 @@
 {
   "Group": {
     "name": "Group",
-    "description": "",
+    "description": "Group - Group",
     "properties": {
-      "Description": {
-        "type": "textarea",
-        "description": "The description of the group. This field is available in API version 62.0 and later."
-      },
-      "DeveloperName": {
+      "Id": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Corresponds to Group Name in the user interface. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
-      },
-      "DoesIncludeBosses": {
-        "type": "boolean",
-        "description": "Indicates whether records shared with users in this group are also shared with users higher in the role hierarchy (true) or not (false). This field is only available for public groups. This field corresponds to the Grant Access Using Hierarchies checkbox in Setup."
+        "description": "Group ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the group. This value corresponds to the value of the Label field in the user interface."
+        "maxLength": 40,
+        "nullable": false
       },
-      "OwnerId": {
-        "type": "reference",
-        "description": "The ID of the user who owns the group."
+      "DeveloperName": {
+        "type": "string",
+        "maxLength": 80,
+        "nullable": true
       },
       "RelatedId": {
-        "type": "reference",
-        "description": "Represents the ID of the associated records. For example, for Groups of type “Role,” this field is the ID of the associated UserRole. The RelatedId field is polymorphic."
+        "type": "string",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Territory2",
+          "User",
+          "UserRole"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
-        "type": "picklist",
-        "description": "Type of the group. One of the following values: AllCustomerPortal—All your Customer Portal or Customer Community Plus users. This type is only available when a Customer Portal or a Customer Site is enabled for your org. CollaborationGroup—Chatter group. Manager—Public group that includes a user’s direct and indirect managers. This Group is read-only. ManagerAndSubordinatesInternal—Public group that includes a user and the user’s direct and indirect reports. This group is read-only. Organization—Public group that includes all the User records in the organization. This group is read-only. PRMOrganization—Public group that includes all the partners in an organization that has the partner site or portal feature enabled. Queue—Public group that includes all the User records that are members of a queue. Regular—Standard public group. When you create a group through the create() call, its type must be Regular, unless a site or partner portal is enabled for the org. If so, the type can be Regular or PRMOrganization. Role—Public group that includes all the User records in a particular UserRole. RoleAndSubordinates—Public group that includes all the User records in a particular UserRole and all the User records in any subordinate UserRole. Only available when digital experiences is enabled for your org and Experience Cloud site users are created with external account roles other than a shared person account role. RoleAndSubordinatesInternal—Public group that includes all the User records in an internal UserRole, excluding customer and partner roles, and all the User records in any subordinate internal UserRole. SharingRuleGroup—Group associated with a criteria-based sharing rule. Territory—Public group that includes all the User records in a particular Territory. TerritoryAndSubordinates—Public group that includes all the User records in a particular Territory and all the User records in any subordinate Territory. Only Regular can be used when creating a group. The other values are reserved for system-managed groups."
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "AllCustomerPortal",
+          "ChannelProgramGroup",
+          "CollaborationGroup",
+          "DataAnalytics",
+          "Manager",
+          "ManagerAndSubordinatesInternal",
+          "Organization",
+          "Participant",
+          "PRMOrganization",
+          "Queue",
+          "Regular",
+          "Role",
+          "RoleAndSubordinates",
+          "RoleAndSubordinatesInternal",
+          "SharingRecordCollGroup",
+          "Territory",
+          "TerritoryAndSubordinates"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Email": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "QueueRoutingConfigId": {
+        "type": "string",
+        "description": "Routing Configuration ID",
+        "format": "salesforce-id",
+        "x-object": "QueueRoutingConfig",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "OwnerId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Organization",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
+      },
+      "DoesSendEmailToMembers": {
+        "type": "boolean",
+        "description": "Send Email to Members",
+        "nullable": false
+      },
+      "DoesIncludeBosses": {
+        "type": "boolean",
+        "description": "Include Bosses",
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_group.htm"
+    "module": "N/A",
+    "keyPrefix": "00G",
+    "label": "Group",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AccountBrandShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountRelationshipShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ActionPlanShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ActionPlanTemplateShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AgentWork",
+        "field": "OriginalGroupId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AgentWorkShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentIndicatorDefinitionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskDefinitionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormConsentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormDataUseShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BatchJobShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BriefcaseAssignment",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BuyerAccountShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BuyerGroupMemberShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BuyerGroupShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "COM_Product_Flow__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "COM_Qualification_Answer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "COM_Qualification_Question__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CalendarViewShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareObservationShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEligibilityRuleShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEnrolleeProductShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEnrolleeShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramEnrollmentCardShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramGoalShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramProductShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramProviderShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProgramShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProviderFacilitySpecialtyShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareSpecialtyShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CaseShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ChannelProgramLevelShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ChannelProgramMemberShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ChannelProgramShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ChatterTool__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CodeSetBundleShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CodeSetShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommSubscriptionChannelTypeShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommSubscriptionConsentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommSubscriptionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommerceEntitlementPolicyShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ConsumptionScheduleShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointAddressShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointConsentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointEmailShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointPhoneShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointTypeConsentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactRequestShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentWorkspaceMember",
+        "field": "MemberId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CreditMemoShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Cross_Sell_Recommendations__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Customer_Profile__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Customer_Survey__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DataPrepServiceLocatorShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DataUseLegalBasisShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DataUsePurposeShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DelegatedAccountShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DialerCallUsageShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DiscoveryRecipient",
+        "field": "RecipientId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DocumentChecklistItemShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ElectronicMediaGroupShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EngagementChannelTypeShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EnrollmentEligibilityCriteriaShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ExpenseReportShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ExpenseShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Export_FOI__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ExternalAccountHierarchyShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ExternalEventMappingShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__Crew_Management_User_Settings__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__Criteria__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__FSL_Operation__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__GanttPalette__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__Gantt_Filter__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__Optimization_Request_Queue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FSL__SchedulingRecipe__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Fake_Report_Data_Object__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FieldDefinition",
+        "field": "BusinessOwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshotShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FinanceTransactionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowInterviewLogShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowInterviewShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowPersonalConfiguration__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowTableViewDefinition__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FulfillmentOrderShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "GroupMember",
+        "field": "GroupId",
+        "relationshipName": "GroupMembers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "GroupMember",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Ideas_Projects__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ImageShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "IndividualShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Interviewer_Feedback__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "InvoiceShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "JobProfileShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "JournalTypeShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LeadShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LegalEntityShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ListEmailShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveAgentSessionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscriptShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Live_Agent_ID__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LocationShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LocationTrustMeasureShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyProgramMemberShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyProgramPartnerShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyProgramShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MacroShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MacroUsageShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MaintenancePlanShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MaintenanceWorkRuleShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MessagingEndUserShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MessagingSessionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Multi_Product_Engagement__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Offer_sdo__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OmniSupervisorConfigGroup",
+        "field": "GroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OperatingHoursShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpportunityShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Opportunity_Pipeline_Snapshot__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderDeliveryMethodShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderPaymentSummaryShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderSummaryShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Organization",
+        "field": "WebToCaseDefaultOwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Organization",
+        "field": "WebToLeadDefaultOwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OtherComponentTaskShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerFundAllocationShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerFundClaimShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerFundRequestShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartnerMarketingBudgetShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PartyConsentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PendingServiceRouting",
+        "field": "GroupId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PendingServiceRoutingShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PersonNameShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PriceAdjustmentScheduleShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PricebookShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessExceptionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductCatalogShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductFulfillmentLocationShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductItemShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductRequestShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductServiceCampaignShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductTransferShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Product_Video__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProfileSkillShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PromotionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PromptActionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "QueueSobject",
+        "field": "QueueId",
+        "relationshipName": "QueueSobjects",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Queue_Stat__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "QuickTextShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "QuickTextUsageShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "QuoteShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReceivedDocumentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordsetFilterCriteriaShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Related_Idea__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Reply_Rec_Demo_Helper_QuickText__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Reply_Rec_Demo_Helper__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__BlockPrice__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Cost__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__CustomAction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__CustomScript__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Dimension__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__DiscountCategory__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Favorite__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__FieldSetMetadata__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__ImportFormat__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__InstallProcessorLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Localization__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__LookupData__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__OrderItemConsumptionSchedule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__PriceRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__PricingGuidance__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__ProcessInputValue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__ProductFeature__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__ProductOption__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__ProductRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__QuoteProcess__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__QuoteTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__QuoteTerm__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Quote__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__RecordJob__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__RelatedContent__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__SearchFilter__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__SolutionGroup__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Subscription__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__SummaryVariable__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__TemplateContent__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__Theme__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__TimingLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__UpgradeSource__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SBQQ__WebQuote__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_B2BCommerce_Bundle_Item__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_B2BCommerce_CustomContent__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_C360_Address__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_Service_Appointment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_Service_Bot_Message__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_Service_Case_Pipeline_Snapshot__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SDO_Service_Conversation_Helper__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SFBD__CollectionsPlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SFBD__DunningActivity__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SFBD__DunningMethod__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SFDC_Objective_Opportunity_Association__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SFDC_Plan_Resource_Association__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SOSSessionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SalesChannelShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SchedulingConstraintShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SerializedProductShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceAppointmentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceContractShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceCrewShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceResourceShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceTerritoryShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SharingRecordCollection",
+        "field": "GroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SharingRecordCollectionMember",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SharingRecordCollectionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ShiftPatternShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ShiftShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ShipmentShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Slack_Channel__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SocialPostShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Spotter_Configuration__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "StreamingChannelShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyEngagementContextShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyInvitationShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveyShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Swarm_Member__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Swarm__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TimeSheetShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TodayGoalShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Training_Course__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UnitOfMeasureShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UpgradePlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UpgradeStep__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "User",
+        "field": "DelegatedApproverId",
+        "relationshipName": "DelegatedUsers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserAppMenuCustomizationShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserChangeEvent",
+        "field": "DelegatedApproverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserEmailPreferredPersonShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserProvisioningRequestShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserServicePresenceShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UserShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VPL_NumberInventory__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VPL_SimInventory__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Vehicle_Inspection__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VisitShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCallShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceVendorLineShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WarrantyTermShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WebCartShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WebStoreShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WebToObject__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WishlistShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkAccessShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkBadgeDefinitionShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkOrderShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkPlanSelectionRuleShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkPlanShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkPlanTemplateShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkStepTemplateShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkThanksShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkTypeGroupShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkTypeShare",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "cpqlabs__Log__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datadetect__CS_Scan_Result__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datadetect__Data_Detect_Field__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datadetect__Data_Detect_Object__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datadetect__Data_Detect_Schedule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datadetect__Run_Log__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datadetect__Scan_Log__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datamask__DM_Object_Metadata__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "datamask__Masking_Execution_Log__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "engage_reports__Engage_Contact_Stat__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "engage_reports__Engage_Lead_Stat__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "engage_reports__Engage_Send__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ers_datatableConfig__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "et4ae5__Journey__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "et4ae5__MC_CDC_Journey__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "inov8__PMT_Error_Log__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "inov8__PMT_Program__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "inov8__PMT_Project__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "inov8__PMT_Resource_Availability__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__Module__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__Recommended_Learning__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__Trail__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__Trailmix__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__Unit_Question__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__Unit_Topic__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mTH_Q__myTrailhead_User__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteContinuousTravel__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteDataSet__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteDefaultValue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteDefaultValuesGrouping__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteOffDays__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteOutputType__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRoutePriority__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRoutePromotionalPeriodConfiguration__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteQueryFilterGrouping__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteQueryFilter__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteRoutableObject__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteSettings__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteTemplateUser__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteVisitWindows__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRouteWaypoint__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AdvRoute__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__Analytic__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__ArcGISBatchPushLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__ArcGISBatchPushSetting__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__ArcGISBatchPushTest__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AssignmentPlanRun__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__AssignmentPlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__BaseObject__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__ButtonSet__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__CalEventBaseObj__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__CalendarResourceShift__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__Click2Create__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__CustomAction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__DataLayerSetting__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__DebugLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__DriveProfile__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__FolderPermission__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__Folder__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__Layer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveAssetDailySummary__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveAsset__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveAsyncError__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveDailySummaryConfig__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveDriverAssignment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveDriver__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveEvent__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveHolidayTime__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveIoTDevice__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__LiveWorkingHours__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__Location__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__MarkerLayer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__MiniMapSetting__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__Route__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__ScheduledJob__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__SettingsGroup__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__ShapeLayer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPAlignment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPArea__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPComment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPDataSet__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPHistory__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPRole__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPUnitAssignment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "maps__TPUserPreference__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__Blacklist__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__Bulk_Send_Job__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__DMAsyncSendJobResult__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__DMAsyncSendMemberError__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__DMUserFavorite__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__DM_Activity_Log__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__DM_Auto_Send__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__ObjectPlugin__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__ScheduledSend__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__SendCapLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__SubmissionP13n__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__SubmissionSendSettings__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__Submission__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcdm_15__ValidDomains__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__ExternalUserAccount__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialInsightsFollowingAuthor__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialInsightsHiddenPost__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialInsightsLikedPost__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialInsightsPersonaRecord__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialInsightsPostRecord__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialInsightsRecordConfig__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "mcsocsel11__SocialStudioUser__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "orgtrusthealth__SFInstance__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "pi__AsyncRequest__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "pi__EngageCampaignRecipient__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "pi__LDFilter__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "pi__ObjectChangeLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "pi__PardotTask__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "pi__Pardot_Scoring_Category__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__ApprovalChain__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__ApprovalRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__ApprovalVariable__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__Approval__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__Approver__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__EmailTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__TrackedField__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sbaa__TrackedValue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Message_Destination__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Recent_Channel__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Setup_Data__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Slack_Auth__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Slack_Message__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Subscription_Condition__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Subscription_Object__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Subscription_Type__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "slackv2__Subscription__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__Asset__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__ConsumptionReport__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__Contact__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__Contract__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__EmissionFactorElectricity__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__EmissionFactorOther__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__EmissionFactorScope3__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__EnergyConsumption__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__ExtrapolationLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "sustain_app__ServiceProvider__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "tspa__SettingsBackup__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "tspa__VRA_Report_Knowledge__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "tspa__VRA_logs__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "tspa__Visual_Remote_Assistant_VJ_Invites__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "tspa__Visual_Support_Request__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AccountOffer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ActivityContentDocument__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ActivityTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AdCreativeSizeType__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AdServer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AdSpaceSpecification__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AdminTabLayout__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ApplicationTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Application__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Assessment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AssignmentRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AsyncProcessJob__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AsyncProcessStep__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AsyncProcess__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AttributeAssignmentRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AttributeAssignment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__AttributeCategory__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedAPIChangeEntry__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedAPIChange__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedAPIMigrate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedAPIResponse__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedDataSet__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedFilterableAttribute__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedKeyMapping__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedPriceBookEntryAttributeValue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedProduct2Translation__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CachedPromotionTranslation__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CalculationMatrix__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CalculationProcedure__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CallbackURI__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CampaignMemberActionLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Cart__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CatalogRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Catalog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ChargeMeasurement__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CompiledAttributeOverride__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ConfigurationSnapshot__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ConsoleActionLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContextAction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContextDimension__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContextMapping__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContextRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContextRuleset__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContextScope__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ContractType__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__CustomerInteraction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DRBatchQueue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DRBulkData__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DRBundle__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DRMapItem__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Datastore__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DecompositionRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DocumentClause__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DocumentTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__DocumentToken__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Document__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__EntityFilterCondition__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__EntityFilterMember__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__EntityFilter__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ErrorCodeNamespace__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Error_Code_Namespace__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__EventDuringInteraction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__EventMessage__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ExpandedInteractionLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentDiagram__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestDecompRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestLineDecompRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestLineRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequestLine__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__FulfilmentRequest__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__GenericEnvelope__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__GraphClone__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Household__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__InboundRESTInterface__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__IntegrationRetryPolicy__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__InterfaceImplementation__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Interface_BillingInfo__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Interface_DRGeneric__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Interface_ProductAttribute__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__InventoryItemDecompositionRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__InventoryItem__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ItemImplementation__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Jurisdiction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__LargeDataStore__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__LineOfBusiness__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ManualQueue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__MediaContentTitle__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__MediaProperty__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ObjectAppliedResult__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ObjectClass__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ObjectLayout__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ObjectRuleAssignment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OfferMigrationPlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OfferPricingComponent__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OfferingProcedure__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OmniScriptInstance__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OmniScript__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OmniUserSession__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OperatingHours__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationPlanDefinition__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationPlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationQueueAssignmentRule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationQueue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationScenario__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OrchestrationSchedulerImplementation__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OutboundConfiguration__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__OverrideDefinition__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PartyMergeRequest__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PartyRelationshipType__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PartyRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Party__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PicklistSelectionEntry__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Picklist__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Premises__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PriceList__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PricingComponentRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PricingComponent__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PricingElement__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PricingPlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__PricingVariable__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductAttribXN__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductAvailability__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductChildItem__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductConfigurationProcedure__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductEligibility__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductRelationshipType__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductRelationship__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProductTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProfileCategoryAssignment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ProfilingSegmentCategory__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Project__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Promotion__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__RelationshipGraph__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Rule__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ScreeningRuleGroup__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__SpecTemplateMapping__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Stage__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__StateTransition__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__String__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__Subscription__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__SyncDeltaObject__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__SyncDeltaSnapshot__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__System__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__TestResult__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__ThorOrchestrationQueue__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__TimePlan__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__TimePolicy__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__UIFacet__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__UISection__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__UserAdServer__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__UserCalendar__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__UserNotification__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityAPIMetadata__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityAction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityAttachment__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityCard__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityContractServiceLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityDataPack__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityDocuSignBranding__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityDocuSignTemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityErrorLogEntry__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityFunction__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityScheduledJob__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocitySearchWidgetSetup__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityStateModel__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocitySystemLog__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityTrackingEntry__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityTrackingGroup__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityUILayout__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityUITemplate__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VlocityWebTrackingConfiguration__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VqMachine__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "vlocity_cmt__VqResource__Share",
+        "field": "UserOrGroupId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -5,46 +5,216 @@
     "properties": {
       "CronExpression": {
         "type": "string",
-        "description": "The cron expression used to initiate the schedule."
+        "description": "The cron expression used to initiate the schedule.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "CronJobDetailId": {
         "type": "reference",
-        "description": "The ID of the CronJobDetail record containing more details about this scheduled job."
+        "description": "The ID of the CronJobDetail record containing more details about this scheduled job.",
+        "format": "salesforce-id",
+        "x-object": "CronJobDetail",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "EndTime": {
         "type": "dateTime",
-        "description": "The date and time when the job either finished or will finish."
+        "description": "The date and time when the job either finished or will finish.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "NextFireTime": {
         "type": "dateTime",
-        "description": "The next date and time the job is scheduled to run. null if the job is not scheduled to run again."
+        "description": "The next date and time the job is scheduled to run. null if the job is not scheduled to run again.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Owner of the job."
+        "description": "Owner of the job.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "PreviousFireTime": {
         "type": "dateTime",
-        "description": "The most recent date and time the job ran. null if the job has not run before current local time."
+        "description": "The most recent date and time the job ran. null if the job has not run before current local time.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "StartTime": {
         "type": "dateTime",
-        "description": "The date and time when the most recent iteration of the scheduled job started."
+        "description": "The date and time when the most recent iteration of the scheduled job started.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "State": {
         "type": "string",
-        "description": "The current state of the job. The job state is managed by the system. Possible values are: WAITING—The job is waiting for execution. ACQUIRED—The job has been picked up by the system and is about to execute. EXECUTING—The job is executing. COMPLETE—The trigger has fired and is not scheduled to fire again. ERROR—The trigger definition has an error. DELETED—The job has been deleted. PAUSED—A job can have this state during patch and major releases. After the release has finished, the job state is automatically set to WAITING or another state. BLOCKED—Execution of a second instance of the job is attempted while one instance is running. This state lasts until the first job instance is completed. PAUSED_BLOCKED—A job has this state due to a release occurring. When the release has finished and no other instance of the job is running, the job’s status is set to another state."
+        "description": "The current state of the job. The job state is managed by the system. Possible values are: WAITING—The job is waiting for execution. ACQUIRED—The job has been picked up by the system and is about to execute. EXECUTING—The job is executing. COMPLETE—The trigger has fired and is not scheduled to fire again. ERROR—The trigger definition has an error. DELETED—The job has been deleted. PAUSED—A job can have this state during patch and major releases. After the release has finished, the job state is automatically set to WAITING or another state. BLOCKED—Execution of a second instance of the job is attempted while one instance is running. This state lasts until the first job instance is completed. PAUSED_BLOCKED—A job has this state due to a release occurring. When the release has finished and no other instance of the job is running, the job’s status is set to another state.",
+        "maxLength": 16,
+        "nullable": true,
+        "readOnly": true
       },
       "TimesTriggered": {
         "type": "int",
-        "description": "The number of times this job has been triggered."
+        "description": "The number of times this job has been triggered.",
+        "nullable": true,
+        "readOnly": true
       },
       "TimeZoneSidKey": {
         "type": "picklist",
-        "description": "Returns the timezone ID. For example, America/Los_Angeles."
+        "description": "Returns the timezone ID. For example, America/Los_Angeles.",
+        "format": "enum",
+        "enum": [
+          "Pacific/Kiritimati",
+          "Pacific/Chatham",
+          "Pacific/Auckland",
+          "Pacific/Enderbury",
+          "Pacific/Tongatapu",
+          "Asia/Kamchatka",
+          "Pacific/Fiji",
+          "Pacific/Norfolk",
+          "Australia/Lord_Howe",
+          "Australia/Sydney",
+          "Pacific/Guadalcanal",
+          "Australia/Adelaide",
+          "Australia/Brisbane",
+          "Australia/Darwin",
+          "Asia/Seoul",
+          "Asia/Tokyo",
+          "Asia/Hong_Kong",
+          "Asia/Kuala_Lumpur",
+          "Asia/Manila",
+          "Asia/Shanghai",
+          "Asia/Singapore",
+          "Asia/Taipei",
+          "Australia/Perth",
+          "Asia/Bangkok",
+          "Asia/Ho_Chi_Minh",
+          "Asia/Jakarta",
+          "Asia/Rangoon",
+          "Asia/Dhaka",
+          "Asia/Kathmandu",
+          "Asia/Colombo",
+          "Asia/Kolkata",
+          "Asia/Karachi",
+          "Asia/Tashkent",
+          "Asia/Yekaterinburg",
+          "Asia/Kabul",
+          "Asia/Baku",
+          "Asia/Dubai",
+          "Asia/Tbilisi",
+          "Asia/Yerevan",
+          "Africa/Nairobi",
+          "Asia/Baghdad",
+          "Asia/Kuwait",
+          "Asia/Riyadh",
+          "Europe/Istanbul",
+          "Europe/Minsk",
+          "Europe/Moscow",
+          "Africa/Cairo",
+          "Africa/Johannesburg",
+          "Asia/Beirut",
+          "Asia/Jerusalem",
+          "Europe/Athens",
+          "Europe/Bucharest",
+          "Europe/Helsinki",
+          "Africa/Algiers",
+          "Africa/Casablanca",
+          "Europe/Amsterdam",
+          "Europe/Berlin",
+          "Europe/Brussels",
+          "Europe/Paris",
+          "Europe/Prague",
+          "Europe/Rome",
+          "Europe/Dublin",
+          "Europe/Lisbon",
+          "Europe/London",
+          "GMT",
+          "Atlantic/Azores",
+          "Atlantic/Cape_Verde",
+          "America/Scoresbysund",
+          "Atlantic/South_Georgia",
+          "America/Argentina/Buenos_Aires",
+          "America/Santiago",
+          "America/Sao_Paulo",
+          "America/St_Johns",
+          "America/Caracas",
+          "America/Halifax",
+          "America/Puerto_Rico",
+          "Atlantic/Bermuda",
+          "America/Bogota",
+          "America/Indiana/Indianapolis",
+          "America/Lima",
+          "America/New_York",
+          "America/Panama",
+          "America/Chicago",
+          "America/El_Salvador",
+          "America/Mexico_City",
+          "America/Denver",
+          "America/Mazatlan",
+          "America/Phoenix",
+          "America/Los_Angeles",
+          "America/Tijuana",
+          "Pacific/Pitcairn",
+          "America/Anchorage",
+          "Pacific/Gambier",
+          "Pacific/Marquesas",
+          "America/Adak",
+          "Pacific/Honolulu",
+          "Pacific/Niue",
+          "Pacific/Pago_Pago"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Scheduled Job ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_crontrigger.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_crontrigger.htm",
+    "keyPrefix": "08e",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -5,15 +5,51 @@
     "properties": {
       "AuraDefinitionBundleId": {
         "type": "reference",
-        "description": "The ID of the bundle containing the definition. A bundle contains a Lightning definition and all its related resources."
+        "description": "The ID of the bundle containing the definition. A bundle contains a Lightning definition and all its related resources.",
+        "format": "salesforce-id",
+        "x-object": "AuraDefinitionBundle",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "DefType": {
         "type": "picklist",
-        "description": "The definition type. Valid values are: APPLICATION — Lightning Aura Components app CONTROLLER — client-side controller COMPONENT — component markup EVENT — event definition HELPER — client-side helper INTERFACE — interface definition RENDERER — client-side renderer STYLE — style (CSS) resource PROVIDER — reserved for future use MODEL — deprecated, do not use TESTSUITE — reserved for future use DOCUMENTATION — documentation markup TOKENS — tokens collection DESIGN — design definition SVG — SVG graphic resource MODULE — reserved for future use"
+        "description": "The definition type. Valid values are: APPLICATION — Lightning Aura Components app CONTROLLER — client-side controller COMPONENT — component markup EVENT — event definition HELPER — client-side helper INTERFACE — interface definition RENDERER — client-side renderer STYLE — style (CSS) resource PROVIDER — reserved for future use MODEL — deprecated, do not use TESTSUITE — reserved for future use DOCUMENTATION — documentation markup TOKENS — tokens collection DESIGN — design definition SVG — SVG graphic resource MODULE — reserved for future use",
+        "format": "enum",
+        "enum": [
+          "APPLICATION",
+          "CONTROLLER",
+          "COMPONENT",
+          "EVENT",
+          "HELPER",
+          "INTERFACE",
+          "RENDERER",
+          "STYLE",
+          "PROVIDER",
+          "MODEL",
+          "TESTSUITE",
+          "DOCUMENTATION",
+          "TOKENS",
+          "DESIGN",
+          "SVG",
+          "MODULE"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Format": {
         "type": "picklist",
-        "description": "The format of the definition. Valid values are: XML for component markup JS for JavaScript code CSS for styles TEMPLATE_CSS reserved for future use SVG for an SVG graphic"
+        "description": "The format of the definition. Valid values are: XML for component markup JS for JavaScript code CSS for styles TEMPLATE_CSS reserved for future use SVG for an SVG graphic",
+        "format": "enum",
+        "enum": [
+          "XML",
+          "JS",
+          "CSS",
+          "TEMPLATE_CSS",
+          "SVG"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -21,10 +57,61 @@
       },
       "Source": {
         "type": "textarea",
-        "description": "The contents of the definition. This is all the markup or code for the definition."
+        "description": "The contents of the definition. This is all the markup or code for the definition.",
+        "maxLength": 1000000,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Lightning Definition ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_auradefinition.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_auradefinition.htm",
+    "keyPrefix": "0Ad"
   }
 }

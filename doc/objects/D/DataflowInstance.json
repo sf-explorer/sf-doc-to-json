@@ -1,0 +1,191 @@
+{
+  "DataflowInstance": {
+    "name": "DataflowInstance",
+    "description": "Dataflow Jobs - DataflowInstance",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Dataflow Job ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "DataflowVersionId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "DataflowVersion",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "DataflowStatus": {
+        "type": "string",
+        "description": "Job Status",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Enqueued",
+          "Dequeued",
+          "Initiated",
+          "Checkpoint",
+          "Failed",
+          "Warnings",
+          "Success",
+          "Cancelled"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Message": {
+        "type": "string",
+        "description": "Status Message",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "StartTime": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false
+      },
+      "EndTime": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      },
+      "NotificationComplete": {
+        "type": "boolean",
+        "description": "Notification Completed",
+        "nullable": false
+      },
+      "TriggersComplete": {
+        "type": "boolean",
+        "description": "Triggers Completed",
+        "nullable": false
+      },
+      "ExecutionPlanId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "ExecutionPlan",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ExecutionStartTime": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      },
+      "NumRetries": {
+        "type": "integer",
+        "description": "Number of Retries",
+        "nullable": true
+      },
+      "CurrentProgress": {
+        "type": "number",
+        "nullable": true
+      },
+      "MaxProgress": {
+        "type": "number",
+        "description": "Maximum Progress",
+        "nullable": true
+      },
+      "ExecutionEnvironment": {
+        "type": "string",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Metrics": {
+        "type": "string",
+        "maxLength": 32000,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "03C",
+    "label": "Dataflow Job",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DataflowNode",
+        "field": "DataflowInstanceId",
+        "relationshipName": "DataflowNodes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DataflowRequest",
+        "field": "InstanceId",
+        "relationshipName": "DataflowRequests",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DataflowRequest",
+        "field": "RequestorId",
+        "relationshipName": "DataflowRequested",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DatasetFetch",
+        "field": "DataflowInstanceId",
+        "relationshipName": "FetchedDatasets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DatasetRegister",
+        "field": "DataflowInstanceId",
+        "relationshipName": "RegisteredDatasets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ExecutionPlanTask",
+        "field": "DataflowInstanceId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
+  }
+}

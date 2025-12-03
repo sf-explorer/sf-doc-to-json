@@ -5,114 +5,413 @@
     "properties": {
       "BirthDate": {
         "type": "date",
-        "description": "The customer’s birthdate."
+        "description": "The customer’s birthdate.",
+        "format": "date",
+        "nullable": true
       },
       "CanStorePiiElsewhere": {
         "type": "boolean",
-        "description": "Indication that you can store the customer’s personally identifiable information (PII) outside of their legislation area. For example, you could store an EU citizen’s PII data in the US."
+        "description": "Indication that you can store the customer’s personally identifiable information (PII) outside of their legislation area. For example, you could store an EU citizen’s PII data in the US.",
+        "nullable": false
       },
       "ChildrenCount": {
         "type": "int",
-        "description": "The number of children the customer has."
+        "description": "The number of children the customer has.",
+        "nullable": true
       },
       "ConsumerCreditScore": {
         "type": "int",
-        "description": "The person's credit score (for example, 740)."
+        "description": "The person's credit score (for example, 740).",
+        "nullable": true
       },
       "ConsumerCreditScoreProviderName": {
         "type": "string",
-        "description": "The name of the company that provided the credit score."
+        "description": "The name of the company that provided the credit score.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ConvictionsCount": {
         "type": "int",
-        "description": "The number of convictions for the customer."
+        "description": "The number of convictions for the customer.",
+        "nullable": true
       },
       "DeathDate": {
         "type": "date",
-        "description": "The customer’s death date."
+        "description": "The customer’s death date.",
+        "format": "date",
+        "nullable": true
       },
       "FirstName": {
         "type": "string",
-        "description": "The customer’s first name. Maximum size is 40 characters."
+        "description": "The customer’s first name. Maximum size is 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "HasOptedOutGeoTracking": {
         "type": "boolean",
-        "description": "Preference to not track geolocation on mobile devices."
+        "description": "Preference to not track geolocation on mobile devices.",
+        "nullable": false
       },
       "HasOptedOutProcessing": {
         "type": "boolean",
-        "description": "Preference to not process personal data, which can include collecting, storing, and sharing personal data."
+        "description": "Preference to not process personal data, which can include collecting, storing, and sharing personal data.",
+        "nullable": false
       },
       "HasOptedOutProfiling": {
         "type": "boolean",
-        "description": "Preference to not process data for predicting personal attributes, such as interests, behavior, and location."
+        "description": "Preference to not process data for predicting personal attributes, such as interests, behavior, and location.",
+        "nullable": false
       },
       "HasOptedOutSolicit": {
         "type": "boolean",
-        "description": "Preference to not solicit products and services."
+        "description": "Preference to not solicit products and services.",
+        "nullable": false
       },
       "HasOptedOutTracking": {
         "type": "boolean",
-        "description": "Preference to not track customer web activity and whether the customer opens email sent through Salesforce."
+        "description": "Preference to not track customer web activity and whether the customer opens email sent through Salesforce.",
+        "nullable": false
       },
       "IndividualsAge": {
         "type": "picklist",
-        "description": "Indicates whether the customer is considered to be a minor."
+        "description": "Indicates whether the customer is considered to be a minor.",
+        "format": "enum",
+        "enum": [
+          "13 or Older",
+          "16 or Older"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "InfluencerRating": {
         "type": "int",
-        "description": "A measure of the person's influence, irrespective of how we do business with them."
+        "description": "A measure of the person's influence, irrespective of how we do business with them.",
+        "nullable": true
       },
       "IsHomeOwner": {
         "type": "boolean",
-        "description": "Indicates whether the customer owns a home."
+        "description": "Indicates whether the customer owns a home.",
+        "nullable": false
       },
       "LastName": {
         "type": "string",
-        "description": "Required. The customer’s last name. Maximum size is 80 characters."
+        "description": "Required. The customer’s last name. Maximum size is 80 characters.",
+        "maxLength": 80,
+        "nullable": false
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record."
+        "description": "The timestamp for when the current user last viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MasterRecordId": {
         "type": "reference",
-        "description": "If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or hasn’t been deleted, the value is null."
+        "description": "If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or hasn’t been deleted, the value is null.",
+        "format": "salesforce-id",
+        "x-object": "Individual",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "MilitaryService": {
         "type": "picklist",
-        "description": "Indicates whether the customer has served in the military."
+        "description": "Indicates whether the customer has served in the military.",
+        "format": "enum",
+        "enum": [
+          "Unknown",
+          "Yes",
+          "No"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Concatenation of FirstName and LastName. Maximum size is 203 characters, including whitespaces."
+        "description": "Concatenation of FirstName and LastName. Maximum size is 203 characters, including whitespaces.",
+        "maxLength": 121,
+        "nullable": false,
+        "readOnly": true
       },
       "Occupation": {
         "type": "string",
-        "description": "The customer’s occupation. Maximum size is 150 characters."
+        "description": "The customer’s occupation. Maximum size is 150 characters.",
+        "maxLength": 150,
+        "nullable": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the owner of the account associated with this customer."
+        "description": "The ID of the owner of the account associated with this customer.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "Salutation": {
         "type": "picklist",
-        "description": "The title for addressing the customer, such as Dr. or Mrs."
+        "description": "The title for addressing the customer, such as Dr. or Mrs.",
+        "format": "enum",
+        "enum": [
+          "Mr.",
+          "Ms.",
+          "Mrs.",
+          "Dr.",
+          "Prof.",
+          "Mx."
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "SendIndividualData": {
         "type": "boolean",
-        "description": "Preference to export personal data for delivery to the customer."
+        "description": "Preference to export personal data for delivery to the customer.",
+        "nullable": false
       },
       "ShouldForget": {
         "type": "boolean",
-        "description": "Preference to delete records and personal data related to this customer."
+        "description": "Preference to delete records and personal data related to this customer.",
+        "nullable": false
       },
       "Website": {
         "type": "url",
-        "description": "The URL for the customer’s website."
+        "description": "The URL for the customer’s website.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Individual ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_individual.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_individual.htm",
+    "keyPrefix": "0PK",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "PersonIndividualId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountChangeEvent",
+        "field": "PersonIndividualId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "AuthorizationFormConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "CommSubscriptionConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Contact",
+        "field": "IndividualId",
+        "relationshipName": "Contacts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactChangeEvent",
+        "field": "IndividualId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointAddress",
+        "field": "ParentId",
+        "relationshipName": "ContactPointAddresses",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointAddressChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointEmail",
+        "field": "ParentId",
+        "relationshipName": "ContactPointEmails",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointEmailChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointPhone",
+        "field": "ParentId",
+        "relationshipName": "ContactPointPhones",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointPhoneChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointTypeConsent",
+        "field": "PartyId",
+        "relationshipName": "Individuals",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointTypeConsentChangeEvent",
+        "field": "PartyId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DuplicateRecordItem",
+        "field": "RecordId",
+        "relationshipName": "DuplicateRecordItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "IndividualHistory",
+        "field": "IndividualId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "IndividualShare",
+        "field": "IndividualId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Lead",
+        "field": "IndividualId",
+        "relationshipName": "Leads",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LeadChangeEvent",
+        "field": "IndividualId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartyConsent",
+        "field": "PartyId",
+        "relationshipName": "PartyConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PartyConsentChangeEvent",
+        "field": "PartyId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "User",
+        "field": "IndividualId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserChangeEvent",
+        "field": "IndividualId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

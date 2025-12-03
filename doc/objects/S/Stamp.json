@@ -4,19 +4,110 @@
     "description": "Represents a User Specialty.",
     "properties": {
       "Description": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 255,
+        "nullable": true
       },
       "MasterLabel": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 50,
+        "nullable": false
       },
       "ParentId": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Network",
+          "Organization"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Stamp ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_stamp.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_stamp.htm",
+    "keyPrefix": "1ST",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CustomBrand",
+        "field": "ParentId",
+        "relationshipName": "CustomBrands",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "StampAssignment",
+        "field": "StampId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "StampLocalization",
+        "field": "ParentId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

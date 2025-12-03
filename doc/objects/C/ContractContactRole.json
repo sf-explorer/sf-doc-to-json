@@ -5,26 +5,114 @@
     "properties": {
       "ContactId": {
         "type": "reference",
-        "description": "ID of the Contact associated with this Contract."
+        "description": "ID of the Contact associated with this Contract.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": false
       },
       "ContractId": {
         "type": "reference",
-        "description": "Required. ID of the Contract."
+        "description": "Required. ID of the Contract.",
+        "format": "salesforce-id",
+        "x-object": "Contract",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPrimary": {
         "type": "boolean",
-        "description": "Specifies whether this Contact plays the primary role on this Contract (true) or not (false). Each contract has one primary contact role. Default is false. Labels is Primary."
+        "description": "Specifies whether this Contact plays the primary role on this Contract (true) or not (false). Each contract has one primary contact role. Default is false. Labels is Primary.",
+        "nullable": false
       },
       "Role": {
         "type": "picklist",
-        "description": "Name of the role played by the Contact on this Contract, such as Decision Maker, Approver, Buyer, and so on. Must be unique—there can't be multiple records in which the ContractId, ContactId, and Role values are identical. Different contacts can play the same role on the same contract. A contact can play different roles on the same contract."
+        "description": "Name of the role played by the Contact on this Contract, such as Decision Maker, Approver, Buyer, and so on. Must be unique—there can't be multiple records in which the ContractId, ContactId, and Role values are identical. Different contacts can play the same role on the same contract. A contact can play different roles on the same contract.",
+        "format": "enum",
+        "enum": [
+          "Business User",
+          "Decision Maker",
+          "Economic Buyer",
+          "Economic Decision Maker",
+          "Evaluator",
+          "Executive Sponsor",
+          "Influencer",
+          "Technical Buyer",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Contact Role ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contractcontactrole.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contractcontactrole.htm",
+    "keyPrefix": "02a",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

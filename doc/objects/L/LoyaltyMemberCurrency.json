@@ -5,7 +5,9 @@
     "properties": {
       "BalanceBeforeReset": {
         "type": "double",
-        "description": "The last balance of points before resetting the qualifying points of the member."
+        "description": "The last balance of points before resetting the qualifying points of the member.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "EscrowPointsBalance": {
         "type": "double",
@@ -13,11 +15,15 @@
       },
       "ExpirablePoints": {
         "type": "double",
-        "description": "Calculates the points to be expired for unredeemed points."
+        "description": "Calculates the points to be expired for unredeemed points.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "LastAccrualProcessedDate": {
         "type": "dateTime",
-        "description": "The date when the last accrual was processed. This field indicates the date and time at which the Point Balance calculation process updated the total accrued points for a member and its currency the last time."
+        "description": "The date when the last accrual was processed. This field indicates the date and time at which the Point Balance calculation process updated the total accrued points for a member and its currency the last time.",
+        "format": "date-time",
+        "nullable": true
       },
       "LastEscrowProcessedDate": {
         "type": "dateTime",
@@ -25,7 +31,9 @@
       },
       "LastExpirationProcessRunDate": {
         "type": "date",
-        "description": "The most recent date when the expired points for a member were calculated."
+        "description": "The most recent date when the expired points for a member were calculated.",
+        "format": "date",
+        "nullable": true
       },
       "LastExpiredPtTraceabilityRunDt": {
         "type": "date",
@@ -37,31 +45,52 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastResetDate": {
         "type": "date",
-        "description": "The most recent date when the qualifying points for members were reset."
+        "description": "The most recent date when the qualifying points for members were reset.",
+        "format": "date",
+        "nullable": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoyaltyMemberId": {
         "type": "reference",
-        "description": "ID of the loyalty program member."
+        "description": "ID of the loyalty program member.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramMember",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LoyaltyProgramCurrencyId": {
         "type": "reference",
-        "description": "ID of the loyalty program currency."
+        "description": "ID of the loyalty program currency.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramCurrency",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the loyalty member currency."
+        "description": "The name of the loyalty member currency.",
+        "maxLength": 255,
+        "nullable": false
       },
       "NextResetDate": {
         "type": "date",
-        "description": "The next date when the qualifying points for members are reset."
+        "description": "The next date when the qualifying points for members are reset.",
+        "format": "date",
+        "nullable": true
       },
       "PointsBalBeforeSecondLastReset": {
         "type": "double",
@@ -69,7 +98,10 @@
       },
       "PointsBalance": {
         "type": "double",
-        "description": "Represents information about Point balance for a member and a particular currency."
+        "description": "Represents information about Point balance for a member and a particular currency.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "RedemStlPendFromDateTime": {
         "type": "dateTime",
@@ -85,18 +117,192 @@
       },
       "TotalPointsAccrued": {
         "type": "double",
-        "description": "The total points accrued by the member until today."
+        "description": "The total points accrued by the member until today.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalPointsExpired": {
         "type": "double",
-        "description": "The total points expired for a member until today."
+        "description": "The total points expired for a member until today.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalPointsRedeemed": {
         "type": "double",
-        "description": "The total points redeemed by the member until today."
+        "description": "The total points redeemed by the member until today.",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Loyalty Member Currency ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltymembercurrency.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltymembercurrency.htm",
+    "keyPrefix": "0lz",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyMemberCurrencyFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyMemberCurrencyHistory",
+        "field": "LoyaltyMemberCurrencyId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

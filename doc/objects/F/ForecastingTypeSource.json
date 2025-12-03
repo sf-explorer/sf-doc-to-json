@@ -5,15 +5,27 @@
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The developer name of the forecasting source definition."
+        "description": "The developer name of the forecasting source definition.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ForecastingSourceDefinitionId": {
         "type": "reference",
-        "description": "The ID of the forecasting source definition."
+        "description": "The ID of the forecasting source definition.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingSourceDefinition",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ForecastingTypeId": {
         "type": "reference",
-        "description": "The ID of the forecast type. Can be linked only to forecast types created in Summer ’21 and later."
+        "description": "The ID of the forecast type. Can be linked only to forecast types created in Summer ’21 and later.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingType",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "FullName": {
         "type": "string",
@@ -21,11 +33,53 @@
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the forecasting type source."
+        "description": "The language of the forecasting type source.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Required. The controlling label for this forecasting type source."
+        "description": "Required. The controlling label for this forecasting type source.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Metadata": {
         "type": "ForecastingTypeSource",
@@ -41,10 +95,66 @@
       },
       "SourceGroup": {
         "type": "int",
-        "description": "Required. Represents a grouping of forecast type source definitions."
+        "description": "Required. Represents a grouping of forecast type source definitions.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Forecasting Type Source ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_forecastingtypesource.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_forecastingtypesource.htm",
+    "keyPrefix": "0hl",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

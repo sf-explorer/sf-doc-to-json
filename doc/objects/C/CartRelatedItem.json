@@ -1,0 +1,134 @@
+{
+  "CartRelatedItem": {
+    "name": "CartRelatedItem",
+    "description": "Cart Related Items - CartRelatedItem",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Cart Related Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Name": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ParentCartItemId": {
+        "type": "string",
+        "description": "Cart Item ID",
+        "format": "salesforce-id",
+        "x-object": "CartItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "ChildCartItemId": {
+        "type": "string",
+        "description": "Cart Item ID",
+        "format": "salesforce-id",
+        "x-object": "CartItem",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "RelationshipType": {
+        "type": "string",
+        "description": "Type of relationship between parent and child",
+        "format": "enum",
+        "enum": [
+          "Bundle",
+          "ChargeFor"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "keyPrefix": "0aA",
+    "label": "Cart Related Item",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
+  }
+}

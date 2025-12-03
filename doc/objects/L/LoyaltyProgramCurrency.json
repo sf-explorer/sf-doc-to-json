@@ -9,7 +9,15 @@
       },
       "CurrencyType": {
         "type": "picklist",
-        "description": "Required. Type of the loyalty program currency."
+        "description": "Required. Type of the loyalty program currency.",
+        "format": "enum",
+        "enum": [
+          "Qualifying",
+          "NonQualifying"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "DoesAllowLedgerTracing": {
         "type": "boolean",
@@ -21,19 +29,42 @@
       },
       "ExpiryModel": {
         "type": "picklist",
-        "description": "The model evaluates the type of expiration of points based on the fixed date or customer’s activity."
+        "description": "The model evaluates the type of expiration of points based on the fixed date or customer’s activity.",
+        "format": "enum",
+        "enum": [
+          "Activity",
+          "Fixed"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ExpiryPeriodFrequency": {
         "type": "int",
-        "description": "The frequency type to evaluate the expiration of currency."
+        "description": "The frequency type to evaluate the expiration of currency.",
+        "nullable": true
       },
       "ExpiryPeriodUnit": {
         "type": "picklist",
-        "description": "Unit of the period in which currency expiration is done."
+        "description": "Unit of the period in which currency expiration is done.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ExtendExpiration": {
         "type": "picklist",
-        "description": "The field decides if the expiration date is changed on the exact day or the last day of the month."
+        "description": "The field decides if the expiration date is changed on the exact day or the last day of the month.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "TillEndOfMonth"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "HasEscrow": {
         "type": "boolean",
@@ -41,7 +72,8 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Required. Indicates whether the loyalty program currency is active."
+        "description": "Required. Indicates whether the loyalty program currency is active.",
+        "nullable": false
       },
       "IsPrimary": {
         "type": "boolean",
@@ -49,26 +81,163 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoyaltyProgramId": {
         "type": "reference",
-        "description": "The ID of the loyalty program."
+        "description": "The ID of the loyalty program.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgram",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LoyaltyTierGroupId": {
         "type": "reference",
-        "description": "The ID of the loyalty tier group."
+        "description": "The ID of the loyalty tier group.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyTierGroup",
+        "maxLength": 18,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the loyalty program currency."
+        "description": "The name of the loyalty program currency.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Currency ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogramcurrency.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogramcurrency.htm",
+    "keyPrefix": "0lc",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyLedger",
+        "field": "LoyaltyProgramCurrencyId",
+        "relationshipName": "LoyaltyProgramCurrencyLedger",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyLedgerChangeEvent",
+        "field": "LoyaltyProgramCurrencyId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyMemberCurrency",
+        "field": "LoyaltyProgramCurrencyId",
+        "relationshipName": "Loyalty_Member_Currency",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

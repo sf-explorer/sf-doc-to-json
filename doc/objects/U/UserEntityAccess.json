@@ -5,7 +5,10 @@
     "properties": {
       "DurableId": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "EntityDefinition": {
         "type": "EntityDefinition",
@@ -13,43 +16,64 @@
       },
       "EntityDefinitionId": {
         "type": "string",
-        "description": "ID of the EntityDefinition."
+        "description": "ID of the EntityDefinition.",
+        "maxLength": 150,
+        "nullable": true,
+        "readOnly": true
       },
       "IsActivateable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to activate records of the associated object type if the User owns them. For example, a user owns an Apex trigger or workflow rule, and can activate them if this field is true for ApexTrigger or WorkflowRule."
+        "description": "If true, the user specified in the User field has access to activate records of the associated object type if the User owns them. For example, a user owns an Apex trigger or workflow rule, and can activate them if this field is true for ApexTrigger or WorkflowRule.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsCreatable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to create records of the associated object type."
+        "description": "If true, the user specified in the User field has access to create records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeletable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to delete records of the associated object type."
+        "description": "If true, the user specified in the User field has access to delete records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsEditable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to edit records of the associated object type."
+        "description": "If true, the user specified in the User field has access to edit records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsFlsUpdatable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to change field-level security settings on appropriate fields of the associated object type. For example, an administrator could deny a group of users access to the Type field on Account."
+        "description": "If true, the user specified in the User field has access to change field-level security settings on appropriate fields of the associated object type. For example, an administrator could deny a group of users access to the Type field on Account.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsMergeable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to merge records of the associated object type."
+        "description": "If true, the user specified in the User field has access to merge records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsReadable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to view records of the associated object type."
+        "description": "If true, the user specified in the User field has access to view records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsUndeletable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to undelete records of the associated object type."
+        "description": "If true, the user specified in the User field has access to undelete records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsUpdatable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to edit records of the associated object type."
+        "description": "If true, the user specified in the User field has access to edit records of the associated object type.",
+        "nullable": false,
+        "readOnly": true
       },
       "User": {
         "type": "User",
@@ -57,10 +81,37 @@
       },
       "UserId": {
         "type": "ID",
-        "description": "ID of the user specified in the User field."
+        "description": "ID of the user specified in the User field.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Entity Access ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_userentityaccess.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_userentityaccess.htm",
+    "keyPrefix": "07u",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "EntityDefinition",
+        "field": "RunningUserEntityAccessId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

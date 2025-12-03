@@ -5,7 +5,9 @@
     "properties": {
       "Body": {
         "type": "textarea",
-        "description": "Text of the message."
+        "description": "Text of the message.",
+        "maxLength": 10000,
+        "nullable": false
       },
       "ConversationId": {
         "type": "reference",
@@ -13,7 +15,12 @@
       },
       "SenderId": {
         "type": "reference",
-        "description": "ID of the sender."
+        "description": "ID of the sender.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SenderNetworkId": {
         "type": "reference",
@@ -21,10 +28,70 @@
       },
       "SentDate": {
         "type": "dateTime",
-        "description": "Date the message was sent."
+        "description": "Date the message was sent.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Chatter Message ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SendingNetworkId": {
+        "type": "string",
+        "description": "Network ID",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_chattermessage.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_chattermessage.htm",
+    "keyPrefix": "03J",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "EntityId",
+        "relationshipName": "AuditableEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkModeration",
+        "field": "EntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

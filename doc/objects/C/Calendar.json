@@ -5,22 +5,144 @@
     "properties": {
       "IsActive": {
         "type": "boolean",
-        "description": "This field indicates whether a user can save events to the calendar."
+        "description": "This field indicates whether a user can save events to the calendar.",
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "A user provided name that identifies the calendar. It is text-indexed for searchability. Note that this is not an enumerated field; it can be any string to a maximum length of 80 characters."
+        "description": "A user provided name that identifies the calendar. It is text-indexed for searchability. Note that this is not an enumerated field; it can be any string to a maximum length of 80 characters.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of the calendar. Possible values are: Holiday (Holiday Calendar) Public (Public Calendar) Resource (Resource Calendar) User (User Calendar)"
+        "description": "The type of the calendar. Possible values are: Holiday (Holiday Calendar) Public (Public Calendar) Resource (Resource Calendar) User (User Calendar)",
+        "format": "enum",
+        "enum": [
+          "User",
+          "Public",
+          "Resource",
+          "Holiday"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The ID of the user that owns that calendar record. If Type=User, there’s a UserID associated (foreign key reference to the user). Otherwise, the user field is null."
+        "description": "The ID of the user that owns that calendar record. If Type=User, there’s a UserID associated (foreign key reference to the user). Otherwise, the user field is null.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Calendar ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_calendar.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_calendar.htm",
+    "keyPrefix": "023",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AcceptedEventRelation",
+        "field": "RelationId",
+        "relationshipName": "AcceptedEventRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "OwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Attachment",
+        "field": "OwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DeclinedEventRelation",
+        "field": "RelationId",
+        "relationshipName": "DeclinedEventRelations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Event",
+        "field": "OwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "OwnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UndecidedEventRelation",
+        "field": "RelationId",
+        "relationshipName": "UndecidedEventRelations",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

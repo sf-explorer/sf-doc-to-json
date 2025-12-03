@@ -5,38 +5,185 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "Amount, not including tax, of the adjustment."
+        "description": "Amount, not including tax, of the adjustment.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the adjustment."
+        "description": "Description of the adjustment.",
+        "maxLength": 1175,
+        "nullable": true
       },
       "OrderItemAdjustLineSummaryId": {
         "type": "reference",
-        "description": "ID of the order item adjustment line summary associated with the adjustment."
+        "description": "ID of the order item adjustment line summary associated with the adjustment.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemAdjustmentLineSummary",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ReturnOrderId": {
         "type": "reference",
-        "description": "ID of the return order associated with the return order line item to which the adjustment applies."
+        "description": "ID of the return order associated with the return order line item to which the adjustment applies.",
+        "format": "salesforce-id",
+        "x-object": "ReturnOrder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ReturnOrderItemAdjustmentNumber": {
         "type": "string",
-        "description": "ID of the return order item adjustment."
+        "description": "ID of the return order item adjustment.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ReturnOrderLineItemId": {
         "type": "reference",
-        "description": "ID of the return order line item to which this adjustment applies."
+        "description": "ID of the return order line item to which this adjustment applies.",
+        "format": "salesforce-id",
+        "x-object": "ReturnOrderLineItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "TotalAmtWithTax": {
         "type": "currency",
-        "description": "Total amount of the adjustment, inclusive of tax. This amount is equal to Amount + TotalTaxAmount."
+        "description": "Total amount of the adjustment, inclusive of tax. This amount is equal to Amount + TotalTaxAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "Tax on the Amount."
+        "description": "Tax on the Amount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Return Order Item Adjustment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_returnorderitemadjustment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_returnorderitemadjustment.htm",
+    "keyPrefix": "7FH",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderItemTax",
+        "field": "ReturnOrderItemAdjustmentId",
+        "relationshipName": "ReturnOrderItemTaxes",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

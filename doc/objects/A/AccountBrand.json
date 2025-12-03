@@ -5,86 +5,215 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the Account. This number is unique within your organization."
+        "description": "ID of the Account. This number is unique within your organization.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false
       },
       "Address": {
         "type": "address",
-        "description": "The street address."
+        "description": "The street address.",
+        "nullable": true,
+        "readOnly": true
       },
       "City": {
         "type": "string",
-        "description": "The city."
+        "description": "The city.",
+        "maxLength": 40,
+        "nullable": true
       },
       "CompanyName": {
         "type": "string",
-        "description": "The name of the company associated with the account brand."
+        "description": "The name of the company associated with the account brand.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "The country where the account is physically located."
+        "description": "The country where the account is physically located.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Email": {
         "type": "reference",
-        "description": "Email address associated with the account."
+        "description": "Email address associated with the account.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "GeocodeAccuracy": {
         "type": "picklist",
-        "description": "Stores data for accurate geocoded location."
+        "description": "Stores data for accurate geocoded location.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "Most recent date referenced."
+        "description": "Most recent date referenced.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "Most recent date viewed."
+        "description": "Most recent date viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Latitude": {
         "type": "double",
-        "description": "Used along with Longitude to specify the precise geolocation of an address."
+        "description": "Used along with Longitude to specify the precise geolocation of an address.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "LogoId": {
         "type": "reference",
-        "description": "ID of the logo."
+        "description": "ID of the logo.",
+        "format": "salesforce-id",
+        "x-object": "ContentAsset",
+        "maxLength": 18,
+        "nullable": true
       },
       "LogoUrl": {
         "type": "url",
-        "description": "URL of the logo. This field is available in API version 44.0 and later."
+        "description": "URL of the logo. This field is available in API version 44.0 and later.",
+        "format": "uri",
+        "maxLength": 1000,
+        "nullable": true,
+        "readOnly": true
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of an address."
+        "description": "Used with Latitude to specify the precise geolocation of an address.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of the account."
+        "description": "Required. Name of the account.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Required. ID of the Owner."
+        "description": "Required. ID of the Owner.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "Phone": {
         "type": "phone",
-        "description": "Phone number."
+        "description": "Phone number.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The postal code where the user’s IP address is physically located."
+        "description": "The postal code where the user’s IP address is physically located.",
+        "maxLength": 20,
+        "nullable": true
       },
       "State": {
         "type": "string",
-        "description": "The address state."
+        "description": "The address state.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Street": {
         "type": "textarea",
-        "description": "The address street."
+        "description": "The address street.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Website": {
         "type": "url",
-        "description": "Website for the Account Brand."
+        "description": "Website for the Account Brand.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Account Brand Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountbrand.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountbrand.htm",
+    "keyPrefix": "0TU"
   }
 }

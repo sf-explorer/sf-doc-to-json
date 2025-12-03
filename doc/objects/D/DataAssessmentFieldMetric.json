@@ -5,34 +5,137 @@
     "properties": {
       "DataAssessmentMetricId": {
         "type": "reference",
-        "description": "A unique number that identifies the parent DataAssessmentMetric record."
+        "description": "A unique number that identifies the parent DataAssessmentMetric record.",
+        "format": "salesforce-id",
+        "x-object": "DataAssessmentMetric",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "FieldName": {
         "type": "string",
-        "description": "The name of the assessed field."
+        "description": "The name of the assessed field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "An optional field used to name your record."
+        "description": "An optional field used to name your record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "NumMatchedBlanks": {
         "type": "int",
-        "description": "The number of matched records that contain blank fields."
+        "description": "The number of matched records that contain blank fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumMatchedDifferent": {
         "type": "int",
-        "description": "The number of matched records that have a different value for this field."
+        "description": "The number of matched records that have a different value for this field.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumMatchedInSync": {
         "type": "int",
-        "description": "The number of matched records that have the same value for this field."
+        "description": "The number of matched records that have the same value for this field.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumUnmatchedBlanks": {
         "type": "int",
-        "description": "The number of unmatched records that contain blank fields."
+        "description": "The number of unmatched records that contain blank fields.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Data Assessment Field Metric ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dataassessmentfieldmetric.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dataassessmentfieldmetric.htm",
+    "keyPrefix": "03Q",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DataAssessmentValueMetric",
+        "field": "DataAssessmentFieldMetricId",
+        "relationshipName": "DataAssessmentValueMetrics",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

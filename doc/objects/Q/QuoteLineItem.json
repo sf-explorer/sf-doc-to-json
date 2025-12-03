@@ -25,11 +25,16 @@
       },
       "Description": {
         "type": "string",
-        "description": "Text description of the line item. Limit: 225 characters."
+        "description": "Text description of the line item. Limit: 225 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Discount": {
         "type": "percent",
-        "description": "Editable number from 0 to 100."
+        "description": "Editable number from 0 to 100.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "DiscountAmount": {
         "type": "currency",
@@ -69,23 +74,35 @@
       },
       "HasQuantitySchedule": {
         "type": "boolean",
-        "description": "Read-only. Indicates whether the opportunity line item that the quote line item is synced with has a quantity schedule."
+        "description": "Read-only. Indicates whether the opportunity line item that the quote line item is synced with has a quantity schedule.",
+        "nullable": false,
+        "readOnly": true
       },
       "HasRevenueSchedule": {
         "type": "boolean",
-        "description": "Read-only. Indicates whether the opportunity line item that the quote line item is synced with has a revenue schedule. If this object has a revenue schedule, the GrandTotal and TotalPrice fields can't be updated. In addition, the Quantity field can't be updated if this object has a quantity schedule. The system ignores any attempt to update this field. The update isn't rejected but the updated value is ignored."
+        "description": "Read-only. Indicates whether the opportunity line item that the quote line item is synced with has a revenue schedule. If this object has a revenue schedule, the GrandTotal and TotalPrice fields can't be updated. In addition, the Quantity field can't be updated if this object has a quantity schedule. The system ignores any attempt to update this field. The update isn't rejected but the updated value is ignored.",
+        "nullable": false,
+        "readOnly": true
       },
       "HasSchedule": {
         "type": "boolean",
-        "description": "Read-only. Indicates whether the line item uses schedules."
+        "description": "Read-only. Indicates whether the line item uses schedules.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LegalEntityId": {
         "type": "reference",
@@ -93,11 +110,18 @@
       },
       "LineNumber": {
         "type": "string",
-        "description": "Read-only. An automatically generated number identifying the quote line item. In the form of QL-XXXXX."
+        "description": "Read-only. An automatically generated number identifying the quote line item. In the form of QL-XXXXX.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ListPrice": {
         "type": "currency",
-        "description": "Read-only. Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard price book or a custom price book. A client application can use this information to show whether the unit price (or sales price) of the line item differs from the price book entry list price."
+        "description": "Read-only. Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard price book or a custom price book. A client application can use this information to show whether the unit price (or sales price) of the line item differs from the price book entry list price.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ListPriceTotal": {
         "type": "currency",
@@ -113,7 +137,12 @@
       },
       "OpportunityLineItemId": {
         "type": "reference",
-        "description": "ID of the related opportunity line item. This field is populated by the API during creation of the quote line item. Not editable. Available in API version 40.0 and later."
+        "description": "ID of the related opportunity line item. This field is populated by the API during creation of the quote line item. Not editable. Available in API version 40.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "OpportunityLineItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ParentQuoteLineItemId": {
         "type": "reference",
@@ -141,7 +170,12 @@
       },
       "PricebookEntryId": {
         "type": "reference",
-        "description": "Required. ID of the associated PricebookEntry. Exists only for orgs with Products enabled. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is made null, and PricebookEntryId is populated with the PricebookEntryId data."
+        "description": "Required. ID of the associated PricebookEntry. Exists only for orgs with Products enabled. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is made null, and PricebookEntryId is populated with the PricebookEntryId data.",
+        "format": "salesforce-id",
+        "x-object": "PricebookEntry",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PriceRevisionPolicyId": {
         "type": "reference",
@@ -169,7 +203,12 @@
       },
       "Product2Id": {
         "type": "reference",
-        "description": "Required. ID of the Product2 associated with this QuoteLineItem. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is made null, and PricebookEntryId is populated with the PricebookEntryId data."
+        "description": "Required. ID of the Product2 associated with this QuoteLineItem. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is made null, and PricebookEntryId is populated with the PricebookEntryId data.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ProductInstanceIdentifier": {
         "type": "string",
@@ -185,7 +224,9 @@
       },
       "Quantity": {
         "type": "double",
-        "description": "Required. The number of units for the line item."
+        "description": "Required. The number of units for the line item.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "QuantityUnitOfMeasureId": {
         "type": "reference",
@@ -197,7 +238,12 @@
       },
       "QuoteId": {
         "type": "reference",
-        "description": "Required. ID of the associated Quote."
+        "description": "Required. ID of the associated Quote.",
+        "format": "salesforce-id",
+        "x-object": "Quote",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "QuoteLineGroupId": {
         "type": "reference",
@@ -233,11 +279,14 @@
       },
       "ServiceDate": {
         "type": "date",
-        "description": "The date when the product revenue is recognized and the product quantity is shipped."
+        "description": "The date when the product revenue is recognized and the product quantity is shipped.",
+        "format": "date",
+        "nullable": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "The value of where the line item is in the sorted order, such as 1, 2, 3. The SortOrder value determines the order in which a quote line item displays in the Quote Line Items related list and the Quote PDF. Client applications can use this value to match the sort order in Salesforce. This field is only available in API versions 21.0 and greater."
+        "description": "The value of where the line item is in the sorted order, such as 1, 2, 3. The SortOrder value determines the order in which a quote line item displays in the Quote Line Items related list and the Quote PDF. Client applications can use this value to match the sort order in Salesforce. This field is only available in API versions 21.0 and greater.",
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
@@ -281,7 +330,11 @@
       },
       "Subtotal": {
         "type": "currency",
-        "description": "The line item's Quantity multiplied by the UnitPrice."
+        "description": "The line item's Quantity multiplied by the UnitPrice.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
@@ -293,11 +346,18 @@
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "Read-only. Calculated by applying the Discount to the Subtotal. This field is nillable, but you can't set both TotalPrice and UnitPrice to null in the same update. To insert the TotalPrice for a quote line item via the API (given only a unit price and the quantity), calculate this field as the unit price multiplied by the quantity. This field is read only if the quote line item has a revenue schedule."
+        "description": "Read-only. Calculated by applying the Discount to the Subtotal. This field is nillable, but you can't set both TotalPrice and UnitPrice to null in the same update. To insert the TotalPrice for a quote line item via the API (given only a unit price and the quantity), calculate this field as the unit price multiplied by the quantity. This field is read only if the quote line item has a revenue schedule.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "UnitPrice": {
         "type": "currency",
-        "description": "Required. The price per unit for the quote line item."
+        "description": "Required. The price per unit for the quote line item.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "UnitPriceUplift": {
         "type": "percent",
@@ -310,9 +370,202 @@
       "Visibility": {
         "type": "picklist",
         "description": "Specifies how Salesforce shows a quote line item in the Transaction Line Editor and a quote document."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Quote Line Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotelineitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotelineitem.htm",
+    "keyPrefix": "0QL",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "GroupReferenceEntityItemId",
+        "relationshipName": "GroupInvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "InvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "QuoteLineItemId",
+        "relationshipName": "OrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemChangeEvent",
+        "field": "QuoteLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteLineItem",
+        "field": "vlocity_cmt__PriorQuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__QuoteLineItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__ContractLineItem__c",
+        "field": "vlocity_cmt__QuoteLineItem__c",
+        "relationshipName": "vlocity_cmt__ContractLines__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__OrderItemAdPlacement__c",
+        "field": "vlocity_cmt__QuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__OrderItemAdPlacements__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteAppliedPromotionItem__c",
+        "field": "vlocity_cmt__QuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__QuoteAppliedPromotionAffectedItems__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteAppliedPromotion__c",
+        "field": "vlocity_cmt__QuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__QuoteAppliedPromotions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteLineItemAdPlacement__c",
+        "field": "vlocity_cmt__QuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__QuoteLineItemAdPlacements__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteLineItemPricingAdjustment__c",
+        "field": "vlocity_cmt__QuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__QuoteLineItemPricingAdjustments__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteLineItemRelationship__c",
+        "field": "vlocity_cmt__QuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__QuoteLineItemRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuoteLineItemRelationship__c",
+        "field": "vlocity_cmt__RelatedQuoteLineItemId__c",
+        "relationshipName": "vlocity_cmt__RelatedQuoteLineItemRelationships__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "vlocity_cmt__QuotePricingAdjustment__c",
+        "field": "vlocity_cmt__QuoteItemId__c",
+        "relationshipName": "vlocity_cmt__QuotePricingAdjustments__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

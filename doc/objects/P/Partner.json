@@ -5,30 +5,148 @@
     "properties": {
       "AccountFromId": {
         "type": "reference",
-        "description": "Required if OpportunityId is null. ID of the main account in a partner relationship between two accounts. Specifying this field when creating a Partner record creates two AccountPartner records, one for each direction of the relationship. If you specify the OpportunityId field, you can’t specify this field as well."
+        "description": "Required if OpportunityId is null. ID of the main account in a partner relationship between two accounts. Specifying this field when creating a Partner record creates two AccountPartner records, one for each direction of the relationship. If you specify the OpportunityId field, you can’t specify this field as well.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "AccountToId": {
         "type": "reference",
-        "description": "Required. ID of the Partner Account related to either an opportunity or an account. You must specify this field when creating an Opportunity Partner or an Account Partner record."
+        "description": "Required. ID of the Partner Account related to either an opportunity or an account. You must specify this field when creating an Opportunity Partner or an Account Partner record.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsPrimary": {
         "type": "boolean",
-        "description": "Valid for Opportunity Partners only. Indicates that the account is the primary partner for the opportunity. Only one account can be marked as primary for an opportunity. If you set this field to 1 (true) upon insert of a new opportunity partner, this field is automatically set to 0 (false) for any other primary partners for that opportunity. Label is Primary."
+        "description": "Valid for Opportunity Partners only. Indicates that the account is the primary partner for the opportunity. Only one account can be marked as primary for an opportunity. If you set this field to 1 (true) upon insert of a new opportunity partner, this field is automatically set to 0 (false) for any other primary partners for that opportunity. Label is Primary.",
+        "nullable": false,
+        "readOnly": true
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "Required if AccountFromId is null. ID of the opportunity in a partner relationship between an account and an opportunity. Specifying this field when creating a record creates an OpportunityPartner record. If you specify the AccountFromId field, you can’t also specify this field."
+        "description": "Required if AccountFromId is null. ID of the opportunity in a partner relationship between an account and an opportunity. Specifying this field when creating a record creates an OpportunityPartner record. If you specify the AccountFromId field, you can’t also specify this field.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ReversePartnerId": {
         "type": "reference",
-        "description": "ID of the reciprocal Parnter record in a partner relationship."
+        "description": "ID of the reciprocal Parnter record in a partner relationship.",
+        "format": "salesforce-id",
+        "x-object": "Partner",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Role": {
         "type": "picklist",
-        "description": "UserRole that the account has toward the related opportunity or account, such as consultant or distributor."
+        "description": "UserRole that the account has toward the related opportunity or account, such as consultant or distributor.",
+        "format": "enum",
+        "enum": [
+          "Advertiser",
+          "Agency",
+          "Broker",
+          "Consultant",
+          "Contractor",
+          "Dealer",
+          "Developer",
+          "Distributor",
+          "Institution",
+          "Lender",
+          "Supplier",
+          "System Integrator",
+          "VAR/Reseller",
+          "Lawyer",
+          "Spouse",
+          "Parent"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Partner/Relationship ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_partner.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_partner.htm",
+    "keyPrefix": "00I",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Partner",
+        "field": "ReversePartnerId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

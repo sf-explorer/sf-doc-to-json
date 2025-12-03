@@ -4,39 +4,118 @@
     "description": "Represents a comment that a user has submitted in response to an idea.",
     "properties": {
       "CommentBody": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 4000,
+        "nullable": true
       },
       "CommunityId": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "format": "salesforce-id",
+        "x-object": "Community",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "CreatorFullPhotoUrl": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "CreatorName": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 121,
+        "nullable": true,
+        "readOnly": true
       },
       "CreatorSmallPhotoUrl": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IdeaId": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "format": "salesforce-id",
+        "x-object": "Idea",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsHtml": {
-        "type": "",
-        "description": ""
+        "type": "boolean",
+        "description": "",
+        "nullable": false,
+        "readOnly": true
       },
       "UpVotes": {
-        "type": "",
-        "description": ""
+        "type": "integer",
+        "description": "",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Idea Comment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_ideacomment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_ideacomment.htm",
+    "keyPrefix": "00a",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "Idea",
+        "field": "LastCommentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Vote",
+        "field": "ParentId",
+        "relationshipName": "Votes",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

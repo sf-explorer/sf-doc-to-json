@@ -11,6 +11,10 @@ export const CONFIGURATION: Record<string, CloudConfiguration> = {
         label: 'Tooling API',
         description: 'Salesforce Tooling API objects for metadata management, deployment, and development operations.'
     },
+    'atlas.en-us.api_metadata.meta': {
+        label: 'Metadata API',
+        description: 'Salesforce metadata types including ApexClass, CustomObject, Flow, and other components used in deployments and package development.'
+    },
     'atlas.en-us.salesforce_feedback_management_dev_guide.meta': {
         label: 'Feedback Management',
         description: 'Objects for collecting, managing, and analyzing customer feedback and survey responses.'
@@ -70,5 +74,13 @@ export const CONFIGURATION: Record<string, CloudConfiguration> = {
     'atlas.en-us.revenue_lifecycle_management_dev_guide.meta': {
         label: 'Revenue Lifecycle Management',
         description: 'Objects for revenue lifecycle management including product configuration, pricing, billing, and revenue recognition.'
+    },
+    'atlas.en-us.sales_cloud.meta': {
+        label: 'Sales Cloud',
+        description: 'Objects for sales operations including leads, opportunities, quotes, forecasts, and sales performance management.'
+    },
+    'atlas.en-us.service_cloud.meta': {
+        label: 'Service Cloud',
+        description: 'Objects for customer service and support including cases, knowledge articles, service contracts, and omnichannel routing.'
     }
 };

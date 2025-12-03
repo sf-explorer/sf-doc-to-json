@@ -5,11 +5,17 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the account associated with the service contract."
+        "description": "ID of the account associated with the service contract.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "ActivationDate": {
         "type": "dateTime",
-        "description": "The initial day the service contract went into effect (whereas StartDate may include a renewal date)."
+        "description": "The initial day the service contract went into effect (whereas StartDate may include a renewal date).",
+        "format": "date-time",
+        "nullable": true
       },
       "AdditionalDiscount": {
         "type": "percent",
@@ -17,7 +23,15 @@
       },
       "ApprovalStatus": {
         "type": "picklist",
-        "description": "Approval status of the service contract."
+        "description": "Approval status of the service contract.",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "In Approval Process",
+          "Activated"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "BillingAddress (beta)": {
         "type": "address",
@@ -25,11 +39,15 @@
       },
       "BillingCity": {
         "type": "string",
-        "description": "Details for the billing address. Maximum size is 40 characters."
+        "description": "Details for the billing address. Maximum size is 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "BillingCountry": {
         "type": "string",
-        "description": "Details for the billing address. Maximum size is 40 characters."
+        "description": "Details for the billing address. Maximum size is 40 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "BillingCountryCode": {
         "type": "picklist",
@@ -37,19 +55,27 @@
       },
       "BillingLatitude": {
         "type": "double",
-        "description": "Used with BillingLongitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with BillingLongitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "BillingLongitude": {
         "type": "double",
-        "description": "Used with BillingLatitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with BillingLatitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "BillingPostalCode": {
         "type": "string",
-        "description": "Details for the billing address. Maximum size is 20 characters."
+        "description": "Details for the billing address. Maximum size is 20 characters.",
+        "maxLength": 20,
+        "nullable": true
       },
       "BillingState": {
         "type": "string",
-        "description": "Details for the billing address. Maximum size is 20 characters."
+        "description": "Details for the billing address. Maximum size is 20 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "BillingStateCode": {
         "type": "picklist",
@@ -57,67 +83,120 @@
       },
       "BillingStreet": {
         "type": "textarea",
-        "description": "Street address for the billing address."
+        "description": "Street address for the billing address.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ContactId": {
         "type": "reference",
-        "description": "Required. ID of the Contact associated with the service contract. Must be a valid ID."
+        "description": "Required. ID of the Contact associated with the service contract. Must be a valid ID.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "ContractNumber": {
         "type": "string",
-        "description": "Unique number automatically assigned to the service contract."
+        "description": "Unique number automatically assigned to the service contract.",
+        "maxLength": 30,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the service contract."
+        "description": "Description of the service contract.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "Discount": {
         "type": "percent",
-        "description": "Discount percentage for the service contract."
+        "description": "Discount percentage for the service contract.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "EndDate": {
         "type": "date",
-        "description": "The last day the service contract is in effect."
+        "description": "The last day the service contract is in effect.",
+        "format": "date",
+        "nullable": true
       },
       "GrandTotal": {
         "type": "currency",
-        "description": "Total price of the service contract plus shipping and taxes."
+        "description": "Total price of the service contract plus shipping and taxes.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "date",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LineItemCount": {
         "type": "int",
-        "description": "Number of ContractLineItem records associated with the service contract."
+        "description": "Number of ContractLineItem records associated with the service contract.",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the service contract."
+        "description": "Name of the service contract.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who currently owns the service contract."
+        "description": "The ID of the user who currently owns the service contract.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentServiceContractId": {
         "type": "reference",
-        "description": "The service contract’s parent service contract, if it has one."
+        "description": "The service contract’s parent service contract, if it has one.",
+        "format": "salesforce-id",
+        "x-object": "ServiceContract",
+        "maxLength": 18,
+        "nullable": true
       },
       "Pricebook2Id": {
         "type": "reference",
-        "description": "ID of the Pricebook2 associated with the service contract. Must be a valid ID."
+        "description": "ID of the Pricebook2 associated with the service contract. Must be a valid ID.",
+        "format": "salesforce-id",
+        "x-object": "Pricebook2",
+        "maxLength": 18,
+        "nullable": true
       },
       "RootServiceContractId": {
         "type": "reference",
-        "description": "(Read only) The top-level service contract in a service contract hierarchy. Depending on where a service contract lies in the hierarchy, its root could be the same as its parent."
+        "description": "(Read only) The top-level service contract in a service contract hierarchy. Depending on where a service contract lies in the hierarchy, its root could be the same as its parent.",
+        "format": "salesforce-id",
+        "x-object": "ServiceContract",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ShippingAddress (beta)": {
         "type": "address",
@@ -125,11 +204,15 @@
       },
       "ShippingCity": {
         "type": "string",
-        "description": "Details of the shipping address. Maximum size is 40 characters."
+        "description": "Details of the shipping address. Maximum size is 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ShippingCountry": {
         "type": "string",
-        "description": "Details of the shipping address. Country maximum size is 40 characters."
+        "description": "Details of the shipping address. Country maximum size is 40 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShippingCountryCode": {
         "type": "picklist",
@@ -137,19 +220,27 @@
       },
       "ShippingLatitude": {
         "type": "double",
-        "description": "Used with ShippingLongitude to specify the precise geolocation of a shipping address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with ShippingLongitude to specify the precise geolocation of a shipping address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShippingLongitude": {
         "type": "double",
-        "description": "Used with ShippingLatitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with ShippingLatitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShippingPostalCode": {
         "type": "string",
-        "description": "Details of the shipping address. Postal code maximum size is 20 characters."
+        "description": "Details of the shipping address. Postal code maximum size is 20 characters.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ShippingState": {
         "type": "string",
-        "description": "Details of the shipping address. State maximum size is 20 characters."
+        "description": "Details of the shipping address. State maximum size is 20 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShippingStateCode": {
         "type": "picklist",
@@ -157,38 +248,502 @@
       },
       "ShippingStreet": {
         "type": "textarea",
-        "description": "The street address of the shipping address. Maximum of 255 characters."
+        "description": "The street address of the shipping address. Maximum of 255 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SpecialTerms": {
         "type": "textarea",
-        "description": "Any terms specifically agreed to and tracked in the service contract."
+        "description": "Any terms specifically agreed to and tracked in the service contract.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The first day the service contract is in effect."
+        "description": "The first day the service contract is in effect.",
+        "format": "date",
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the service contract, such as Inactive."
+        "description": "The status of the service contract, such as Inactive.",
+        "format": "enum",
+        "enum": [
+          "Inactive",
+          "Active",
+          "Expired"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Subtotal": {
         "type": "currency",
-        "description": "Total of the service contract line items (products) before discounts, taxes, and shipping are applied."
+        "description": "Total of the service contract line items (products) before discounts, taxes, and shipping are applied.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Tax": {
         "type": "currency",
-        "description": "Total taxes for the service contract."
+        "description": "Total taxes for the service contract.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Term": {
         "type": "int",
-        "description": "Number of months that the service contract is valid."
+        "description": "Number of months that the service contract is valid.",
+        "nullable": true
       },
       "TotalPrice": {
         "type": "currency",
-        "description": "Total of the contract line items (products) after discounts and before taxes and shipping."
+        "description": "Total of the contract line items (products) after discounts and before taxes and shipping.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "Id": {
+        "type": "string",
+        "description": "Service Contract ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "BillingGeocodeAccuracy": {
+        "type": "string",
+        "description": "Billing Geocode Accuracy",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "BillingAddress": {
+        "type": "object",
+        "description": "Billing Address",
+        "nullable": true,
+        "readOnly": true
+      },
+      "ShippingGeocodeAccuracy": {
+        "type": "string",
+        "description": "Shipping Geocode Accuracy",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "ShippingAddress": {
+        "type": "object",
+        "description": "Shipping Address",
+        "nullable": true,
+        "readOnly": true
+      },
+      "ShippingHandling": {
+        "type": "number",
+        "description": "Shipping and Handling",
+        "format": "currency",
+        "nullable": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_servicecontract.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_servicecontract.htm",
+    "keyPrefix": "810",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "Service_Contract__c",
+        "relationshipName": "Assets__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItem",
+        "field": "ServiceContractId",
+        "relationshipName": "ContractLineItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContractLineItemChangeEvent",
+        "field": "ServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Entitlement",
+        "field": "ServiceContractId",
+        "relationshipName": "Entitlements",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitlementChangeEvent",
+        "field": "ServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlan",
+        "field": "ServiceContractId",
+        "relationshipName": "MaintenancePlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlanChangeEvent",
+        "field": "ServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContract",
+        "field": "ParentServiceContractId",
+        "relationshipName": "ChildServiceContracts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContract",
+        "field": "RootServiceContractId",
+        "relationshipName": "DescendantServiceContracts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractChangeEvent",
+        "field": "ParentServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractChangeEvent",
+        "field": "RootServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceContractHistory",
+        "field": "ServiceContractId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceContractShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "ServiceContractId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "ServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkPlanSelectionRule",
+        "field": "ServiceContractId",
+        "relationshipName": "WorkPlanSelectionRules",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

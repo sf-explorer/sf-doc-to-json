@@ -5,71 +5,145 @@
     "properties": {
       "AssetId": {
         "type": "reference",
-        "description": "The asset associated with the return order line item."
+        "description": "The asset associated with the return order line item.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the return order line item."
+        "description": "The description of the return order line item.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DestinationLocationId": {
         "type": "reference",
-        "description": "The location where the items are being returned to. For example, if the return order tracks the return of products from a technician center to a warehouse, the warehouse is the destination location."
+        "description": "The location where the items are being returned to. For example, if the return order tracks the return of products from a technician center to a warehouse, the warehouse is the destination location.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OrderItemId": {
         "type": "reference",
-        "description": "The order product associated with the return order line item."
+        "description": "The order product associated with the return order line item.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProcessingPlan": {
         "type": "picklist",
-        "description": "Specifies the preferred fate of the items after their return. Available values are: Repair—Repair the items and return them to the owner Discard—Discard the items Salvage—Salvage the items’ working parts Restock—Return the items to your inventory"
+        "description": "Specifies the preferred fate of the items after their return. Available values are: Repair—Repair the items and return them to the owner Discard—Discard the items Salvage—Salvage the items’ working parts Restock—Return the items to your inventory",
+        "format": "enum",
+        "enum": [
+          "Repair",
+          "Discard",
+          "Salvage",
+          "Restock"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The product associated with the return order line item."
+        "description": "The product associated with the return order line item.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProductItemId": {
         "type": "reference",
-        "description": "The product item representing the location of the product at the start of the return."
+        "description": "The product item representing the location of the product at the start of the return.",
+        "format": "salesforce-id",
+        "x-object": "ProductItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProductRequestLineItemId": {
         "type": "reference",
-        "description": "The product request line item associated with the return order line item."
+        "description": "The product request line item associated with the return order line item.",
+        "format": "salesforce-id",
+        "x-object": "ProductRequestLineItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "QuantityExpected": {
         "type": "double",
-        "description": "The quantity of items expected to be returned."
+        "description": "The quantity of items expected to be returned.",
+        "nullable": true
       },
       "QuantityReceived": {
         "type": "double",
-        "description": "The actual quantity of items received for return."
+        "description": "The actual quantity of items received for return.",
+        "nullable": true
       },
       "QuantityRejected": {
         "type": "double",
-        "description": "The quantity of items rejected for return."
+        "description": "The quantity of items rejected for return.",
+        "nullable": true
       },
       "QuantityReturned": {
         "type": "double",
-        "description": "The quantity of items being returned. If multiple types of products are being returned, track each product in a different return order line item."
+        "description": "The quantity of items being returned. If multiple types of products are being returned, track each product in a different return order line item.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "Units of the returned items. For example, kilograms or liters. Quantity Unit of Measure picklist values are inherited from the Quantity Unit of Measure field on products."
+        "description": "Units of the returned items. For example, kilograms or liters. Quantity Unit of Measure picklist values are inherited from the Quantity Unit of Measure field on products.",
+        "format": "enum",
+        "enum": [
+          "Each"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ReasonForRejection": {
         "type": "picklist",
-        "description": "Reason for rejecting returned items on this return order line item."
+        "description": "Reason for rejecting returned items on this return order line item.",
+        "format": "enum",
+        "enum": [
+          "Damaged Item",
+          "Missing Item or Part",
+          "Wrong Item",
+          "Expired Warranty"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ReasonForReturn": {
         "type": "picklist",
-        "description": "The reason the items are being returned. Available values are: Damaged Defective Duplicate Order Wrong Item Wrong Quantity Not Satisfied Outdated Other"
+        "description": "The reason the items are being returned. Available values are: Damaged Defective Duplicate Order Wrong Item Wrong Quantity Not Satisfied Outdated Other",
+        "format": "enum",
+        "enum": [
+          "Damaged",
+          "Defective",
+          "Duplicate Order",
+          "Wrong Item",
+          "Wrong Quantity",
+          "Not Satisfied",
+          "Outdated",
+          "Other"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ReasonForChangeText": {
         "type": "string",
@@ -77,22 +151,501 @@
       },
       "RepaymentMethod": {
         "type": "picklist",
-        "description": "The method by which the customer or owner will be reimbursed for the items being returned. Available values are: Replace—The items will be replaced Refund—The items will be returned and the owner will be refunded Credit—The items will be returned and the owner will receive credit for them Return—The items will be returned to the owner (for example, following their repair)"
+        "description": "The method by which the customer or owner will be reimbursed for the items being returned. Available values are: Replace—The items will be replaced Refund—The items will be returned and the owner will be refunded Credit—The items will be returned and the owner will receive credit for them Return—The items will be returned to the owner (for example, following their repair)",
+        "format": "enum",
+        "enum": [
+          "Replace",
+          "Refund",
+          "Credit",
+          "Return"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ReturnOrderId": {
         "type": "reference",
-        "description": "The return order that the return order line item belongs to."
+        "description": "The return order that the return order line item belongs to.",
+        "format": "salesforce-id",
+        "x-object": "ReturnOrder",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ReturnOrderLineItemNumber": {
         "type": "string",
-        "description": "The auto-generated number that identifies the return order line item."
+        "description": "The auto-generated number that identifies the return order line item.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SourceLocationId": {
         "type": "reference",
-        "description": "The items’ location at the start of the return or repair. For example, if the return order tracks the return of products from a technician’s service center to a warehouse, the service vehicle is the source location."
+        "description": "The items’ location at the start of the return or repair. For example, if the return order tracks the return of products from a technician’s service center to a warehouse, the service vehicle is the source location.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Return Order Line Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "OrderItemSummaryId": {
+        "type": "string",
+        "description": "Order Product Summary ID",
+        "format": "salesforce-id",
+        "x-object": "OrderItemSummary",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ChangeOrderItemId": {
+        "type": "string",
+        "description": "Order Product ID",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Type": {
+        "type": "string",
+        "description": "Type",
+        "format": "enum",
+        "enum": [
+          "Order Product",
+          "Delivery Charge",
+          "Fee"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "TypeCode": {
+        "type": "string",
+        "description": "Type Code",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "UnitPrice": {
+        "type": "number",
+        "description": "Unit Price",
+        "format": "currency",
+        "nullable": true
+      },
+      "GrossUnitPrice": {
+        "type": "number",
+        "description": "Gross Unit Price",
+        "format": "currency",
+        "nullable": true
+      },
+      "TotalLineAmount": {
+        "type": "number",
+        "description": "Line Subtotal",
+        "format": "currency",
+        "nullable": true
+      },
+      "TotalLineTaxAmount": {
+        "type": "number",
+        "description": "Line Subtotal Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentTaxAmount": {
+        "type": "number",
+        "description": "Adjustments Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentAmount": {
+        "type": "number",
+        "description": "Adjustments",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalLineAmountWithTax": {
+        "type": "number",
+        "description": "Line Subtotal with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAdjustmentAmountWithTax": {
+        "type": "number",
+        "description": "Adjustments with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalPrice": {
+        "type": "number",
+        "description": "Pretax Total",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalTaxAmount": {
+        "type": "number",
+        "description": "Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TotalAmount": {
+        "type": "number",
+        "description": "Total with Tax",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_returnorderlineitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_returnorderlineitem.htm",
+    "keyPrefix": "0Sn",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransfer",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": "ProductTransfers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransferChangeEvent",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderItemAdjustment",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": "ReturnOrderItemAdjustments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderItemTax",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": "ReturnOrderItemTaxes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderLineItemFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderLineItemHistory",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": "WorkOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemChangeEvent",
+        "field": "ReturnOrderLineItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

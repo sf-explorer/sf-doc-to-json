@@ -5,11 +5,35 @@
     "properties": {
       "Category": {
         "type": "picklist",
-        "description": "A customizable picklist that can be used to group multiple related quick text records together"
+        "description": "A customizable picklist that can be used to group multiple related quick text records together",
+        "format": "enum",
+        "enum": [
+          "Greetings",
+          "FAQ",
+          "Closings"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Channel": {
         "type": "multipicklist",
-        "description": "A multi-select picklist that can be used to specify where specific quick text messages are available, such as in Chat or in the Email publisher in Case Feed."
+        "description": "A multi-select picklist that can be used to specify where specific quick text messages are available, such as in Chat or in the Email publisher in Case Feed.",
+        "format": "enum",
+        "enum": [
+          "Email",
+          "Live Agent",
+          "Portal",
+          "Phone",
+          "Internal",
+          "Social",
+          "LiveText",
+          "Knowledge",
+          "Event",
+          "Task",
+          "Messaging"
+        ],
+        "maxLength": 4099,
+        "nullable": true
       },
       "FolderId": {
         "type": "reference",
@@ -21,34 +45,212 @@
       },
       "IsInsertable": {
         "type": "boolean",
-        "description": "If true, the quick text is available in the channels selected in the Channel field. If false, the quick text is not available. The label in the UI is Include in selected channels. By default: This field is set to true on quick text records created from the Quick Text page or via the API. This field is set to false on quick text records created during the Einstein Reply Recommendations reply publishing process."
+        "description": "If true, the quick text is available in the channels selected in the Channel field. If false, the quick text is not available. The label in the UI is Include in selected channels. By default: This field is set to true on quick text records created from the Quick Text page or via the API. This field is set to false on quick text records created during the Einstein Reply Recommendations reply publishing process.",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "datetime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Message": {
         "type": "textarea",
-        "description": "The content of the quick text record"
+        "description": "The content of the quick text record",
+        "maxLength": 4096,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "A descriptive label for the quick text record"
+        "description": "A descriptive label for the quick text record",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the User or Queue that owns the quick text record"
+        "description": "ID of the User or Queue that owns the quick text record",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "SourceType": {
         "type": "picklist",
-        "description": "(Used with Einstein Reply Recommendations.) Indicates how the text was composed. This field is not available in the UI."
+        "description": "(Used with Einstein Reply Recommendations.) Indicates how the text was composed. This field is not available in the UI.",
+        "format": "enum",
+        "enum": [
+          "EINSTEIN_GENERATED",
+          "USER_GENERATED",
+          "USER_EDITED"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Quick Text ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ShouldPredictInRr": {
+        "type": "boolean",
+        "description": "Include in reply recommendations",
+        "nullable": false
+      },
+      "SourceEntityId": {
+        "type": "string",
+        "description": "Reply Candidate ID",
+        "format": "salesforce-id",
+        "x-object": "ReplyText",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quicktext.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quicktext.htm",
+    "keyPrefix": "574",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CandidateAnswer",
+        "field": "AnswerEntityId",
+        "relationshipName": "AnswerSourceEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "AnswerEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuickTextHistory",
+        "field": "QuickTextId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "QuickTextShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "QuickTextUsage",
+        "field": "QuickTextId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReplyAIRecommendation",
+        "field": "ReplyEntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Reply_Rec_Demo_Helper_QuickText__c",
+        "field": "QuickText__c",
+        "relationshipName": "Reply_Rec_Demo_Helper_QuickTexts__r",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

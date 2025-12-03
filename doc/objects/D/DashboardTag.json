@@ -5,22 +5,74 @@
     "properties": {
       "ItemId": {
         "type": "reference",
-        "description": "ID of the tagged item."
+        "description": "ID of the tagged item.",
+        "format": "salesforce-id",
+        "x-object": "Dashboard",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the tag. If this value does not already exist, a new TagDefinition is created and becomes the parent of this Tag object. Otherwise, a TagDefinition with the same name becomes the parent of this Tag object. Parent relationships are created automatically."
+        "description": "Name of the tag. If this value does not already exist, a new TagDefinition is created and becomes the parent of this Tag object. Otherwise, a TagDefinition with the same name becomes the parent of this Tag object. Parent relationships are created automatically.",
+        "maxLength": 765,
+        "nullable": false,
+        "readOnly": true
       },
       "TagDefinitionId": {
         "type": "reference",
-        "description": "ID of the parent TagDefinition object that owns the tag."
+        "description": "ID of the parent TagDefinition object that owns the tag.",
+        "format": "salesforce-id",
+        "x-object": "TagDefinition",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "Defines the visibility of a tag."
+        "description": "Defines the visibility of a tag.",
+        "format": "enum",
+        "enum": [
+          "Public",
+          "Personal"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Tag ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dashboardtag.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dashboardtag.htm",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -1,0 +1,117 @@
+{
+  "DiscoveryRefreshJob": {
+    "name": "DiscoveryRefreshJob",
+    "description": "Discovery Refresh Jobs - DiscoveryRefreshJob",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Discovery Refresh Job ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ParentId": {
+        "type": "string",
+        "description": "Discovery Goal ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "DiscoveryDeployedModel",
+          "DiscoveryGoal"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Type": {
+        "type": "string",
+        "description": "Type of the job",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Status": {
+        "type": "string",
+        "description": "Status of the job",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "StartTime": {
+        "type": "string",
+        "description": "Start time of the job",
+        "format": "date-time",
+        "nullable": true
+      },
+      "EndTime": {
+        "type": "string",
+        "description": "End time of the job",
+        "format": "date-time",
+        "nullable": true
+      },
+      "Message": {
+        "type": "string",
+        "description": "Extended message for the status if available",
+        "maxLength": 32000,
+        "nullable": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "1OX",
+    "label": "Discovery Refresh Job",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DiscoveryRefreshTask",
+        "field": "ParentId",
+        "relationshipName": "DiscoveryRefreshTasks",
+        "cascadeDelete": true
+      }
+    ]
+  }
+}

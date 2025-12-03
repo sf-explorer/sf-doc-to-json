@@ -5,27 +5,41 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The associated account, which typically represents the customer receiving the maintenance service."
+        "description": "The associated account, which typically represents the customer receiving the maintenance service.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "ContactId": {
         "type": "reference",
-        "description": "The associated contact."
+        "description": "The associated contact.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "A brief description of the plan."
+        "description": "A brief description of the plan.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DoesAutoGenerateWorkOrders": {
         "type": "boolean",
-        "description": "Turns on auto-generation of work order batches for a maintenance plan and prohibits the manual generation of work orders via the Generate Work Orders action. If this option is selected, a new batch of work orders is generated for the maintenance plan on the NextSuggestedMaintenanceDate listed on each maintenance asset, or on the maintenance plan if no assets are included. If a GenerationHorizon is specified, the date of generation is that many days earlier."
+        "description": "Turns on auto-generation of work order batches for a maintenance plan and prohibits the manual generation of work orders via the Generate Work Orders action. If this option is selected, a new batch of work orders is generated for the maintenance plan on the NextSuggestedMaintenanceDate listed on each maintenance asset, or on the maintenance plan if no assets are included. If a GenerationHorizon is specified, the date of generation is that many days earlier.",
+        "nullable": false
       },
       "DoesGenerateUponCompletion": {
         "type": "boolean",
-        "description": "If both this option and DoesAutoGenerateWorkOrders are set to true, a new batch of work orders isn’t generated until the last work order generated from the maintenance plan is completed. A work order is considered completed when its status falls into one of the following status categories: Cannot Complete, Canceled, Completed, or Closed.If a maintenance plan covers multiple assets, work orders are generated per asset. If a maintenance asset’s final work order is completed late, its work order generation is delayed, which may cause a staggered generation schedule between maintenance assets."
+        "description": "If both this option and DoesAutoGenerateWorkOrders are set to true, a new batch of work orders isn’t generated until the last work order generated from the maintenance plan is completed. A work order is considered completed when its status falls into one of the following status categories: Cannot Complete, Canceled, Completed, or Closed.If a maintenance plan covers multiple assets, work orders are generated per asset. If a maintenance asset’s final work order is completed late, its work order generation is delayed, which may cause a staggered generation schedule between maintenance assets.",
+        "nullable": false
       },
       "EndDate": {
         "type": "date",
-        "description": "The last day the maintenance plan is valid."
+        "description": "The last day the maintenance plan is valid.",
+        "format": "date",
+        "nullable": true
       },
       "Frequency": {
         "type": "int",
@@ -37,78 +51,481 @@
       },
       "GenerationHorizon": {
         "type": "int",
-        "description": "Moves up the timing of batch generation if DoesAutoGenerateWorkOrders is set to true. A generation horizon of 5 means the new batch of work orders is generated 5 days before the maintenance asset’s (or maintenance plan’s, if there are no assets) NextSuggestedMaintenanceDate. The generation horizon must be a whole number."
+        "description": "Moves up the timing of batch generation if DoesAutoGenerateWorkOrders is set to true. A generation horizon of 5 means the new batch of work orders is generated 5 days before the maintenance asset’s (or maintenance plan’s, if there are no assets) NextSuggestedMaintenanceDate. The generation horizon must be a whole number.",
+        "nullable": true
       },
       "GenerationTimeframe": {
         "type": "int",
-        "description": "(Required) How far in advance work orders are generated in each batch. The unit is specified in the GenerationTimeframeType field."
+        "description": "(Required) How far in advance work orders are generated in each batch. The unit is specified in the GenerationTimeframeType field.",
+        "nullable": false
       },
       "GenerationTimeframeType": {
         "type": "picklist",
-        "description": "(Required) The generation timeframe unit: Days Weeks Months Years For example, if you need work orders for six months, enter 6 and select Months."
+        "description": "(Required) The generation timeframe unit: Days Weeks Months Years For example, if you need work orders for six months, enter 6 and select Months.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Weeks",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:"
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LocationId": {
         "type": "reference",
-        "description": "Where the service takes place."
+        "description": "Where the service takes place.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "MaintenancePlanNumber": {
         "type": "string",
-        "description": "(Read Only) An auto-assigned number that identifies the maintenance plan."
+        "description": "(Read Only) An auto-assigned number that identifies the maintenance plan.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "MaintenancePlanTitle": {
         "type": "string",
-        "description": "A name for the maintenance plan."
+        "description": "A name for the maintenance plan.",
+        "maxLength": 255,
+        "nullable": true
       },
       "MaintenanceWindowEndDays": {
         "type": "int",
-        "description": "Days after the suggested service date on the work order that its service appointment can be scheduled."
+        "description": "Days after the suggested service date on the work order that its service appointment can be scheduled.",
+        "nullable": true
       },
       "MaintenanceWindowStartDays": {
         "type": "int",
-        "description": "Days before the suggested service date on the work order that its service appointment can be scheduled.The maintenance window start and end fields affect the Earliest Start Permitted and Due Date fields on the maintenance plan’s work orders’ service appointments. For example, if you enter 3 for both the maintenance window start and end, the Earliest Start Permitted and the Due Date will be 3 days before and 3 days after, respectively, the Suggested Maintenance Date on each work order. If the maintenance window fields are left blank, the service appointment date fields list their work order’s suggested maintenance date."
+        "description": "Days before the suggested service date on the work order that its service appointment can be scheduled.The maintenance window start and end fields affect the Earliest Start Permitted and Due Date fields on the maintenance plan’s work orders’ service appointments. For example, if you enter 3 for both the maintenance window start and end, the Earliest Start Permitted and the Due Date will be 3 days before and 3 days after, respectively, the Suggested Maintenance Date on each work order. If the maintenance window fields are left blank, the service appointment date fields list their work order’s suggested maintenance date.",
+        "nullable": true
       },
       "NextSuggestedMaintenanceDate": {
         "type": "date",
-        "description": "The suggested date of service for the first work order (not the date the work order is created). This corresponds to the work order’s SuggestedMaintenanceDate. You can use this field to enforce a delay before the first maintenance visit (for example, if monthly maintenance should begin one year after the purchase date). Its label in the user interface is Date of the first work order in the next batch.For example, if you want the first maintenance visit to take place on May 1, enter May 1. When you generate work orders, the earliest work order will list a suggested maintenance date of May 1, and the dates on the later work orders will be based on the GenerationTimeframe and Frequency. Important Maintenance assets also list a NextSuggestedMaintenanceDate, which is initially inherited from the maintenance plan. If the plan has maintenance assets, this date auto-updates on the maintenance assets after each batch is generated, but doesn’t update on the maintenance plan itself because batch timing is calculated at the maintenance asset level. If the plan doesn’t have maintenance assets, this date auto-updates on the maintenance plan after each batch is generated."
+        "description": "The suggested date of service for the first work order (not the date the work order is created). This corresponds to the work order’s SuggestedMaintenanceDate. You can use this field to enforce a delay before the first maintenance visit (for example, if monthly maintenance should begin one year after the purchase date). Its label in the user interface is Date of the first work order in the next batch.For example, if you want the first maintenance visit to take place on May 1, enter May 1. When you generate work orders, the earliest work order will list a suggested maintenance date of May 1, and the dates on the later work orders will be based on the GenerationTimeframe and Frequency. Important Maintenance assets also list a NextSuggestedMaintenanceDate, which is initially inherited from the maintenance plan. If the plan has maintenance assets, this date auto-updates on the maintenance assets after each batch is generated, but doesn’t update on the maintenance plan itself because batch timing is calculated at the maintenance asset level. If the plan doesn’t have maintenance assets, this date auto-updates on the maintenance plan after each batch is generated.",
+        "format": "date",
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The owner of the maintenance plan."
+        "description": "The owner of the maintenance plan.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ServiceContractId": {
         "type": "reference",
-        "description": "The service contract associated with the maintenance plan. The service contract can’t be updated if any child maintenance asset is associated with a contract line item from the service contract."
+        "description": "The service contract associated with the maintenance plan. The service contract can’t be updated if any child maintenance asset is associated with a contract line item from the service contract.",
+        "format": "salesforce-id",
+        "x-object": "ServiceContract",
+        "maxLength": 18,
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The first day the maintenance plan is valid."
+        "description": "The first day the maintenance plan is valid.",
+        "format": "date",
+        "nullable": false
       },
       "SvcApptGenerationMethod": {
         "type": "picklist",
-        "description": "The service appointment generation method. One service appointment per work order One service appointment per work order line item If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method. If Work Order Generation Method is set to One work order line item per asset, you must select a Service Appointment Generation Method."
+        "description": "The service appointment generation method. One service appointment per work order One service appointment per work order line item If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method. If Work Order Generation Method is set to One work order line item per asset, you must select a Service Appointment Generation Method.",
+        "format": "enum",
+        "enum": [
+          "SvcApptPerWorkOrder",
+          "SvcApptPerWorkOrderLineItem"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "WorkOrderGenerationMethod": {
         "type": "picklist",
-        "description": "The work order generation method. One work order per asset One work order line item per asset If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is left as None, the generation is defaulted to one work order per asset. When One work order line item per asset is set, and all maintenance assets have the same Next Suggested Maintenance Date on the maintenance plan, they are grouped in one work order. However, if maintenance assets have different Next Suggested Maintenance Dates, multiple work orders are created for each date. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method."
+        "description": "The work order generation method. One work order per asset One work order line item per asset If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is left as None, the generation is defaulted to one work order per asset. When One work order line item per asset is set, and all maintenance assets have the same Next Suggested Maintenance Date on the maintenance plan, they are grouped in one work order. However, if maintenance assets have different Next Suggested Maintenance Dates, multiple work orders are created for each date. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method.",
+        "format": "enum",
+        "enum": [
+          "WorkOrderPerAsset",
+          "WorkOrderLineItemPerAsset"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "WorkOrderGenerationStatus": {
         "type": "picklist",
-        "description": "(Read Only) Indicates the status of work order generation: NotStarted—the default value, work order generation has not started InProgress—work order generation is underway Completed—work order generation is complete Unsuccessful—it was not possible to generate work orders You can generate only one batch at a time."
+        "description": "(Read Only) Indicates the status of work order generation: NotStarted—the default value, work order generation has not started InProgress—work order generation is underway Completed—work order generation is complete Unsuccessful—it was not possible to generate work orders You can generate only one batch at a time.",
+        "format": "enum",
+        "enum": [
+          "NotStarted",
+          "InProgress",
+          "Complete",
+          "Unsuccessful",
+          "NoWorkOrderGenerated",
+          "NeedsReview"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "WorkTypeId": {
         "type": "reference",
-        "description": "The associated work type. Work orders generated from the maintenance plan inherit its work type’s duration, required skills and products, and linked articles. Maintenance assets covered by the plan use the same work type, though you can update them to use a different one."
+        "description": "The associated work type. Work orders generated from the maintenance plan inherit its work type’s duration, required skills and products, and linked articles. Maintenance assets covered by the plan use the same work type, though you can update them to use a different one.",
+        "format": "salesforce-id",
+        "x-object": "WorkType",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Maintenance Plan ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Field Service Lightning",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_maintenanceplan.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_maintenanceplan.htm",
+    "keyPrefix": "1MP",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenanceAsset",
+        "field": "MaintenancePlanId",
+        "relationshipName": "MaintenanceAssets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MaintenanceAssetChangeEvent",
+        "field": "MaintenancePlanId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlanFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MaintenancePlanHistory",
+        "field": "MaintenancePlanId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MaintenancePlanShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "MaintenancePlanId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "MaintenancePlanId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "MaintenancePlanId",
+        "relationshipName": "WorkOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemChangeEvent",
+        "field": "MaintenancePlanId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

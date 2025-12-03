@@ -1,42 +1,264 @@
 {
   "Territory2Model": {
     "name": "Territory2Model",
-    "description": "Represents a territory model.",
+    "description": "Territory Models - Territory2Model",
     "properties": {
-      "ActivatedDate": {
-        "type": "dateTime",
-        "description": "The date when the territory model was activated."
-      },
-      "DeactivatedDate": {
-        "type": "dateTime",
-        "description": "The date when the territory model was archived."
-      },
-      "Description": {
-        "type": "textarea",
-        "description": "The description of the territory model."
-      },
-      "DeveloperName": {
+      "Id": {
         "type": "string",
-        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters and must be unique in your organization. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. The field label in the user interface is Territory Model Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record."
+        "description": "Territory Model ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "LastOppTerrAssignEndDate": {
-        "type": "dateTime",
-        "description": "Read-only. The date when the opportunity territory assignment filter was last run. Used for Filter-Based Opportunity Territory Assignment (Pilot in Spring ’15 / API version 33)."
-      },
-      "LastRunRulesEndDate": {
-        "type": "dateTime",
-        "description": "The date when the last rules run was completed."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The territory model name. The field label in the user interface is Label."
+        "description": "Label",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "ActivatedDate": {
+        "type": "string",
+        "description": "Activated Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "DeactivatedDate": {
+        "type": "string",
+        "description": "Deactivated Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "State": {
-        "type": "picklist",
-        "description": "The state of the territory model. Values are: Planning, Activating, Activation Failed, Active, Archiving, Archiving Failed, Archived, Deleting, and Deletion Failed."
+        "type": "string",
+        "description": "State",
+        "format": "enum",
+        "enum": [
+          "Planning",
+          "Activating",
+          "ActivationFailed",
+          "Active",
+          "Archiving",
+          "ArchivingFailed",
+          "Archived",
+          "Deleting",
+          "DeletionFailed",
+          "Cloning",
+          "CloningFailed"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "DeveloperName": {
+        "type": "string",
+        "description": "Developer Name",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "LastRunRulesEndDate": {
+        "type": "string",
+        "description": "Last successful model realign date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "IsCloneSource": {
+        "type": "boolean",
+        "description": "Clone source",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastOppTerrAssignEndDate": {
+        "type": "string",
+        "description": "Last successful opportunity territory assignment date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_territory2model.htm"
+    "module": "N/A",
+    "keyPrefix": "0MA",
+    "label": "Territory Model",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ForecastingType",
+        "field": "Territory2ModelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ObjectTerritory2AssignmentRule",
+        "field": "Territory2ModelId",
+        "relationshipName": "ObjectTerritory2AssignmentRules",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Territory2",
+        "field": "Territory2ModelId",
+        "relationshipName": "Territory2s",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Territory2ModelFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Territory2ModelHistory",
+        "field": "Territory2ModelId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

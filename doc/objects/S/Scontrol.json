@@ -1,42 +1,175 @@
 {
   "Scontrol": {
     "name": "Scontrol",
-    "description": "",
+    "description": "Custom S-Controls - Scontrol",
     "properties": {
-      "ContentSource": {
-        "type": "picklist",
-        "description": "Specify the source of the s-control content, either custom HTML, a snippet (s-controls that are included in other s-controls), or a URL."
-      },
-      "Description": {
+      "Id": {
         "type": "string",
-        "description": "Description of the custom s-control."
-      },
-      "DeveloperName": {
-        "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is S-Control Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, Salesforce generates one for each record, which slows performance."
-      },
-      "EncodingKey": {
-        "type": "picklist",
-        "description": "Picklist of character set encodings, including ISO-08859-1, UTF-8, EUC, JIS, Shift-JIS, Korean (ks_c_5601-1987), Simplified Chinese (GB2312), and Traditional Chinese (Big5)."
-      },
-      "ManageableState": {
-        "type": "ManageableState enumerated list",
-        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+        "description": "Custom S-Control ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of this custom s-control. Label is Label."
+        "description": "Label",
+        "maxLength": 80,
+        "nullable": false
       },
-      "NamespacePrefix": {
+      "DeveloperName": {
         "type": "string",
-        "description": "The namespace prefix associated with this object. Each Developer Edition organization that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values: In Developer Edition organizations, the namespace prefix is set to the namespace prefix of the organization for all objects that support it. There is an exception if an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field is the namespace prefix of the Developer Edition organization of the package developer. In organizations that are not Developer Edition organizations, NamespacePrefix is only set for objects that are part of an installed managed package. There is no namespace prefix for all other objects."
+        "description": "S-Control Name",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "EncodingKey": {
+        "type": "string",
+        "description": "Encoding",
+        "format": "enum",
+        "enum": [
+          "UTF-8",
+          "ISO-8859-1",
+          "Shift_JIS",
+          "ISO-2022-JP",
+          "EUC-JP",
+          "ks_c_5601-1987",
+          "Big5",
+          "GB2312",
+          "Big5-HKSCS",
+          "x-SJIS_0213"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "HtmlWrapper": {
+        "type": "string",
+        "description": "HTML Body",
+        "maxLength": 1048576,
+        "nullable": false
+      },
+      "Filename": {
+        "type": "string",
+        "description": "Filename",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "BodyLength": {
+        "type": "integer",
+        "description": "Binary Length",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Binary": {
+        "type": "string",
+        "description": "Binary",
+        "format": "byte",
+        "nullable": true
+      },
+      "ContentSource": {
+        "type": "string",
+        "description": "Type",
+        "format": "enum",
+        "enum": [
+          "HTML",
+          "URL",
+          "Snippet"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "SupportsCaching": {
         "type": "boolean",
-        "description": "Indicates whether the s-control supports caching (true) or not (false)."
+        "description": "Prebuild In Page",
+        "nullable": false
+      },
+      "NamespacePrefix": {
+        "type": "string",
+        "description": "Namespace Prefix",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_scontrol.htm"
+    "module": "N/A",
+    "keyPrefix": "01N",
+    "label": "Custom S-Control",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "OpportunitySplitType",
+        "field": "SplitField",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ScontrolLocalization",
+        "field": "ScontrolId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WebLink",
+        "field": "ScontrolId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

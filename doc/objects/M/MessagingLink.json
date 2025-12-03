@@ -5,26 +5,102 @@
     "properties": {
       "EntityType": {
         "type": "picklist",
-        "description": "Possible values are: Account Case Contact CustomEntityDefinition—Custom Object Definition Lead Opportunity"
+        "description": "Possible values are: Account Case Contact CustomEntityDefinition—Custom Object Definition Lead Opportunity",
+        "format": "enum",
+        "enum": [
+          "Account",
+          "Case",
+          "Contact",
+          "Lead",
+          "Opportunity",
+          "CustomEntityDefinition"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "MessagingChannelId": {
         "type": "reference",
-        "description": "The channel being shared. This is a relationship field."
+        "description": "The channel being shared. This is a relationship field.",
+        "format": "salesforce-id",
+        "x-object": "MessagingChannel",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "This is a relationship field."
+        "description": "This is a relationship field.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "ShouldAttemptAutoLink": {
         "type": "boolean",
-        "description": "No longer in use. Indicated that an incoming messaging session was auto-linked to a Salesforce contact or account based on information such as a phone number."
+        "description": "No longer in use. Indicated that an incoming messaging session was auto-linked to a Salesforce contact or account based on information such as a phone number.",
+        "nullable": false
       },
       "ShouldPromptCreate": {
         "type": "boolean",
-        "description": "No longer in use. Indicated that a contact or account was created for the messaging user if none existed."
+        "description": "No longer in use. Indicated that a contact or account was created for the messaging user if none existed.",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Messaging Link ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messaginglink.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messaginglink.htm",
+    "keyPrefix": "0Mm",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

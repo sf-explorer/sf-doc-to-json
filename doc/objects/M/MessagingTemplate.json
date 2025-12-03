@@ -5,26 +5,136 @@
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "The description of the Messaging template."
+        "description": "The description of the Messaging template.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The API name for the Messaging template."
+        "description": "The API name for the Messaging template.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the Messaging template."
+        "description": "The language of the Messaging template.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the Messaging template."
+        "description": "The label of the Messaging template.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Message": {
         "type": "textarea",
-        "description": "The body text of the Messaging template."
+        "description": "The body text of the Messaging template.",
+        "maxLength": 4000,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Messaging Template ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingtemplate.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingtemplate.htm",
+    "keyPrefix": "0TD",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "MessagingDeliveryError",
+        "field": "MessagingTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

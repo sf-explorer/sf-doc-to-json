@@ -5,27 +5,81 @@
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API."
+        "description": "The unique name of the object in the API.",
+        "maxLength": 80,
+        "nullable": false
       },
       "EffectiveDate": {
         "type": "dateTime",
-        "description": "The date a mobile security policy is enforced."
+        "description": "The date a mobile security policy is enforced.",
+        "format": "date-time",
+        "nullable": true
       },
       "IsEnabled": {
         "type": "boolean",
-        "description": "A value indicating whether a mobile security policy is enabled."
+        "description": "A value indicating whether a mobile security policy is enabled.",
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The two-to five-character code that represents the language and locale ISO."
+        "description": "The two-to five-character code that represents the language and locale ISO.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the mobile security policy."
+        "description": "The label of the mobile security policy.",
+        "maxLength": 80,
+        "nullable": false
       },
       "MobilePlatform": {
         "type": "picklist",
-        "description": "The mobile operating system."
+        "description": "The mobile operating system.",
+        "format": "enum",
+        "enum": [
+          "Android",
+          "iOS"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "MobileSecurityAssignmentId": {
         "type": "reference",
@@ -33,26 +87,142 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that aren’t Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that aren’t Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "RuleValue": {
         "type": "string",
-        "description": "Value of the mobile security policy rule."
+        "description": "Value of the mobile security policy rule.",
+        "maxLength": 255,
+        "nullable": false
       },
       "RuleValueType": {
         "type": "picklist",
-        "description": "The type of mobile security policy rule."
+        "description": "The type of mobile security policy rule.",
+        "format": "enum",
+        "enum": [
+          "Boolean",
+          "Text",
+          "TextList"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "SeverityLevel": {
         "type": "picklist",
-        "description": "The severity level of a mobile security policy."
+        "description": "The severity level of a mobile security policy.",
+        "format": "enum",
+        "enum": [
+          "Warn",
+          "Error",
+          "Critical",
+          "Info"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
-        "description": "The type of mobile security policy."
+        "description": "The type of mobile security policy.",
+        "format": "enum",
+        "enum": [
+          "JailbrokenDevice",
+          "MinimumOsVersion",
+          "MaximumOsVersion",
+          "MinimumSecurityPatchVersion",
+          "ManInMiddle",
+          "MinimumAppVersion",
+          "MininumAppVersion",
+          "MaximumAppVersion",
+          "DevicePasscode",
+          "BlockedDeviceList",
+          "BlockCustomKeyboard",
+          "BlockFileBackup",
+          "Block3dTouch",
+          "Screenshot",
+          "LogScreenshot",
+          "LogEmail",
+          "LogPhonecall",
+          "LogTextmessage",
+          "LogPolicyResult",
+          "BlockMicrophone",
+          "BlockCamera",
+          "MalwareDetection",
+          "DisableUrlCaching",
+          "MaxOffline",
+          "LogoutAfterRestart",
+          "LogoutOnBiometricChange",
+          "BlockOsSharing",
+          "BrowserUriScheme",
+          "CheckBiometric",
+          "BlockContacts",
+          "BlockCalendar",
+          "PhonecallUriScheme",
+          "AllowedDeviceList",
+          "LogCertPin",
+          "BlockEditingMenu"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Mobile Security Policy ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_mobilesecuritypolicy.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_mobilesecuritypolicy.htm",
+    "keyPrefix": "0g5",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

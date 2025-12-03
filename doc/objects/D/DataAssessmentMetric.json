@@ -5,34 +5,133 @@
     "properties": {
       "Name": {
         "type": "string",
-        "description": "An optional field used to name your record."
+        "description": "An optional field used to name your record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "NumDuplicates": {
         "type": "int",
-        "description": "The number of duplicate records."
+        "description": "The number of duplicate records.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumMatched": {
         "type": "int",
-        "description": "The number of matched records."
+        "description": "The number of matched records.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumMatchedDifferent": {
         "type": "int",
-        "description": "The number of records in your org matched with a Data.com record that have different fields."
+        "description": "The number of records in your org matched with a Data.com record that have different fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumProcessed": {
         "type": "int",
-        "description": "The number of records processed in the data assessment."
+        "description": "The number of records processed in the data assessment.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumTotal": {
         "type": "int",
-        "description": "The number of records available for data assessment processing."
+        "description": "The number of records available for data assessment processing.",
+        "nullable": true,
+        "readOnly": true
       },
       "NumUnmatched": {
         "type": "int",
-        "description": "The number of records not matched."
+        "description": "The number of records not matched.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Data Assessment Metric ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dataassessmentmetric.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dataassessmentmetric.htm",
+    "keyPrefix": "03P",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DataAssessmentFieldMetric",
+        "field": "DataAssessmentMetricId",
+        "relationshipName": "DataAssessmentMetrics",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

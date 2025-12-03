@@ -5,22 +5,71 @@
     "properties": {
       "ContentVersionId": {
         "type": "reference",
-        "description": "ID of the version of the file."
+        "description": "ID of the version of the file.",
+        "format": "salesforce-id",
+        "x-object": "ContentVersion",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Rating": {
         "type": "int",
-        "description": "Rating of the file."
+        "description": "Rating of the file.",
+        "nullable": true,
+        "readOnly": true
       },
       "UserComment": {
         "type": "textarea",
-        "description": "Comment made by the user who rated the file."
+        "description": "Comment made by the user who rated the file.",
+        "maxLength": 1000,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "ID of the user who rated the file."
+        "description": "ID of the user who rated the file.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ContentVersionRating ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentversionrating.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentversionrating.htm",
+    "keyPrefix": "05J",
+    "createable": false,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

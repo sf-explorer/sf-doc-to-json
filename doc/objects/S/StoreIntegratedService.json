@@ -5,18 +5,160 @@
     "properties": {
       "Integration": {
         "type": "picklist",
-        "description": "Required. The integration ID."
+        "description": "Required. The integration ID.",
+        "format": "enum",
+        "enum": [
+          "Flow__SDO_B2BCommerce_Checkout_One_Screen",
+          "Flow__SDO_B2BCommerce_Cirrus_Checkout",
+          "Flow__SDO_B2BCommerce_Cirrus_Checkout_Enhanced",
+          "Flow__SDO_B2BCommerce_Cirrus_Checkout_W21",
+          "Flow__SDO_B2BCommerce_LE_Checkout_with_Bundle",
+          "Flow__SDO_B2BCommerce_Subflow_Activate_Order_with_Bundle_Items",
+          "Flow__SDO_B2BCommerce_Subflow_Checkout_Summary_Enhanced",
+          "Flow__SDO_B2BCommerce_Subflow_Custom_Cart_Validation",
+          "Flow__SDO_B2BCommerce_Subflow_Payment_and_Billing_Address_Enhanced",
+          "Flow__SDO_B2BCommerce_Subflow_Shipping_Address_and_Delivery_Date",
+          "Flow__sfdc_checkout__ActivateOrder",
+          "Flow__sfdc_checkout__CartToOrder",
+          "Flow__sfdc_checkout__CheckoutSession",
+          "Flow__sfdc_checkout__CheckoutSummary",
+          "Flow__sfdc_checkout__CheckoutTemplate",
+          "Flow__sfdc_checkout__ConfirmPrice",
+          "Flow__sfdc_checkout__DeliveryMethod",
+          "Flow__sfdc_checkout__Error",
+          "Flow__sfdc_checkout__Inventory",
+          "Flow__sfdc_checkout__OrderConfirmation",
+          "Flow__sfdc_checkout__PaymentBillingAddress",
+          "Flow__sfdc_checkout__ShippingAddress",
+          "Flow__sfdc_checkout__ShippingCost",
+          "Flow__sfdc_checkout__Taxes",
+          "Flow__sfdc_checkout__UpdateCheckoutState",
+          "Inventory__B2BCheckInventorySample",
+          "Price__B2B_STOREFRONT__StandardPricing",
+          "Price__B2BPricingSample",
+          "Promotions__B2B_STOREFRONT__StandardPromotions",
+          "Shipment__B2B_STOREFRONT__StandardShipment",
+          "Shipment__B2BDeliverySample",
+          "Shipment__B2BShippingSample",
+          "Tax__B2B_STOREFRONT__SfPaymentsTax",
+          "Tax__B2B_STOREFRONT__StandardTax",
+          "Tax__B2BTaxSample"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "ServiceProviderType": {
         "type": "picklist",
-        "description": "Required. The type of integration service provider."
+        "description": "Required. The type of integration service provider.",
+        "format": "enum",
+        "enum": [
+          "Flow",
+          "Price",
+          "Promotions",
+          "Inventory",
+          "Shipment",
+          "Tax",
+          "Payment",
+          "Extension"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "StoreId": {
         "type": "reference",
-        "description": "Required. The unique ID for the store."
+        "description": "Required. The unique ID for the store.",
+        "format": "salesforce-id",
+        "x-object": "WebStore",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Store Integrated Service ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_storeintegratedservice.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_storeintegratedservice.htm",
+    "keyPrefix": "1ff",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

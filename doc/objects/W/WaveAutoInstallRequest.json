@@ -5,50 +5,162 @@
     "properties": {
       "Configuration": {
         "type": "textarea",
-        "description": "CRM Analytics application configuration for the auto-install request."
+        "description": "CRM Analytics application configuration for the auto-install request.",
+        "maxLength": 100000,
+        "nullable": true,
+        "readOnly": true
       },
       "FailedReason": {
         "type": "picklist",
-        "description": "If the CRM Analytics application fails to complete successfully, this value indicates why the failure occurred. Values can be: OrganizationIncompatible: the org didn't pass the template compatibility checks. AppInstallationSkipped: the org didn't pass the template compatibility checks and was skipped. RetriesExhausted: the request exhausted the maximum number of retries. RequestCancelled: the user canceled the request. AppCreateFailure: the app or folder creation failed. Check the request log and try again. AppUpdateFailure: the app or folder update failed. Check the request log and try again. AppConstructionFailure: the app or folder construction failed. Check the request log and try again. WaveDisabled: the org doesn't have the Wave org permission or preference enabled. Check the licenses for CRM Analytics and try again. CancelFailed: canceling an in-progress app failed. Check the request log and try again. DeleteFailed: deleting an app failed. Check the request log and try again. DependencyFailure: a dependent auto-install request failed. Check App Install History and try again. DependencyCancelled: the user canceled a dependent auto-install request. Check App Install History and try again. FailedToEnqueue: the request failed to enqueue. Check the request log and try again. FailedOther: the request failed for another reason. Check the request log and try again."
+        "description": "If the CRM Analytics application fails to complete successfully, this value indicates why the failure occurred. Values can be: OrganizationIncompatible: the org didn't pass the template compatibility checks. AppInstallationSkipped: the org didn't pass the template compatibility checks and was skipped. RetriesExhausted: the request exhausted the maximum number of retries. RequestCancelled: the user canceled the request. AppCreateFailure: the app or folder creation failed. Check the request log and try again. AppUpdateFailure: the app or folder update failed. Check the request log and try again. AppConstructionFailure: the app or folder construction failed. Check the request log and try again. WaveDisabled: the org doesn't have the Wave org permission or preference enabled. Check the licenses for CRM Analytics and try again. CancelFailed: canceling an in-progress app failed. Check the request log and try again. DeleteFailed: deleting an app failed. Check the request log and try again. DependencyFailure: a dependent auto-install request failed. Check App Install History and try again. DependencyCancelled: the user canceled a dependent auto-install request. Check App Install History and try again. FailedToEnqueue: the request failed to enqueue. Check the request log and try again. FailedOther: the request failed for another reason. Check the request log and try again.",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "FolderId": {
         "type": "reference",
-        "description": "The ID of the CRM Analytics application created by the auto-install request."
+        "description": "The ID of the CRM Analytics application created by the auto-install request.",
+        "format": "salesforce-id",
+        "x-object": "Folder",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IsLocked": {
         "type": "boolean",
-        "description": "Indicates if the auto-install request is locked or not."
+        "description": "Indicates if the auto-install request is locked or not.",
+        "nullable": false,
+        "readOnly": true
       },
       "MayEdit": {
         "type": "boolean",
-        "description": "Indicates if the auto-install request can be edited or not."
+        "description": "Indicates if the auto-install request can be edited or not.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the auto-install request, provided at creation by the user."
+        "description": "The name of the auto-install request, provided at creation by the user.",
+        "maxLength": 255,
+        "nullable": false
       },
       "RequestLog": {
         "type": "textarea",
-        "description": "A log of the auto-install progress and completion results."
+        "description": "A log of the auto-install progress and completion results.",
+        "maxLength": 100000,
+        "nullable": true
       },
       "RequestStatus": {
         "type": "picklist",
-        "description": "The status of the auto-install request. Values can be New, Enqueued, Cancelled, In Progress, AppInProgress, Failed, and Success."
+        "description": "The status of the auto-install request. Values can be New, Enqueued, Cancelled, In Progress, AppInProgress, Failed, and Success.",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false
       },
       "RequestType": {
         "type": "picklist",
-        "description": "The type of auto-install request. Values can be WaveEnable, OrgCompatibilityCheck, WaveAppCreate, WaveAppUpdate, WaveAppDelete, and StartDataflow."
+        "description": "The type of auto-install request. Values can be WaveEnable, OrgCompatibilityCheck, WaveAppCreate, WaveAppUpdate, WaveAppDelete, and StartDataflow.",
+        "format": "enum",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "TemplateApiName": {
         "type": "string",
-        "description": "The API name of the CRM Analytics template to create the CRM Analytics app from."
+        "description": "The API name of the CRM Analytics template to create the CRM Analytics app from.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "TemplateVersion": {
         "type": "string",
-        "description": "The version of the CRM Analytics template to create the CRM Analytics app from."
+        "description": "The version of the CRM Analytics template to create the CRM Analytics app from.",
+        "maxLength": 50,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Request Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_waveautoinstallrequest.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_waveautoinstallrequest.htm",
+    "keyPrefix": "0UZ",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveCompatibilityCheckItem",
+        "field": "WaveAutoInstallRequestId",
+        "relationshipName": "WaveCompatibilityCheckItems",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

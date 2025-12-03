@@ -5,30 +5,92 @@
     "properties": {
       "EntityIdentifierId": {
         "type": "reference",
-        "description": "ID of the object with the notification."
+        "description": "ID of the object with the notification.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "ContentDocument",
+          "ContentVersion",
+          "ContentWorkspace",
+          "ContentWorkspacePermission",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "EntityType": {
         "type": "string",
-        "description": "Type of object with the notification. One of the following. ContentDocument ContentTagName ContentVersion ContentWorkspace ContentWorkspacePermission User"
+        "description": "Type of object with the notification. One of the following. ContentDocument ContentTagName ContentVersion ContentWorkspace ContentWorkspacePermission User",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "Nature": {
         "type": "string",
-        "description": "Type of notification."
+        "description": "Type of notification.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "Subject": {
         "type": "textarea",
-        "description": "Subject of the notification."
+        "description": "Subject of the notification.",
+        "maxLength": 333,
+        "nullable": true,
+        "readOnly": true
       },
       "Text": {
         "type": "textarea",
-        "description": "Text of the notification."
+        "description": "Text of the notification.",
+        "maxLength": 666,
+        "nullable": true,
+        "readOnly": true
       },
       "UsersId": {
         "type": "reference",
-        "description": "ID of the user who received the notification."
+        "description": "ID of the user who received the notification.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ContentNotification ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentnotification.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentnotification.htm",
+    "keyPrefix": "05V",
+    "createable": false,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

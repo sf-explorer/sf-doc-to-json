@@ -9,7 +9,9 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Detailed description of the tier."
+        "description": "Detailed description of the tier.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "EligibleEnrollmentType": {
         "type": "picklist",
@@ -17,11 +19,17 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoyaltyProgramId": {
         "type": "reference",
@@ -29,7 +37,12 @@
       },
       "LoyaltyTierGroupId": {
         "type": "reference",
-        "description": "ID of the loyalty tier group."
+        "description": "ID of the loyalty tier group.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyTierGroup",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "MaximumEligibleBalance": {
         "type": "double",
@@ -41,14 +54,137 @@
       },
       "Name": {
         "type": "string",
-        "description": "The name of the loyalty tier."
+        "description": "The name of the loyalty tier.",
+        "maxLength": 255,
+        "nullable": false
       },
       "SequenceNumber": {
         "type": "int",
-        "description": "The sequence number indicates the ranking of the tier. The tier with the highest sequence number indicates the highest tier."
+        "description": "The sequence number indicates the ranking of the tier. The tier with the highest sequence number indicates the highest tier.",
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Loyalty Tier ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltytier.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltytier.htm",
+    "keyPrefix": "0lg",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyMemberTier",
+        "field": "LoyaltyTierId",
+        "relationshipName": "LoyaltyTier",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LoyaltyTierBenefit",
+        "field": "LoyaltyTierId",
+        "relationshipName": "LoyaltyTiers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyTierHistory",
+        "field": "LoyaltyTierId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

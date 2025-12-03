@@ -5,7 +5,11 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "(Required) ID of the Account associated with this asset. Must be a valid account ID. Required if ContactId isn’t specified."
+        "description": "(Required) ID of the Account associated with this asset. Must be a valid account ID. Required if ContactId isn’t specified.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "Address": {
         "type": "address",
@@ -13,15 +17,25 @@
       },
       "AssetLevel": {
         "type": "int",
-        "description": "The asset’s position in an asset hierarchy. If the asset has no parent or child assets, its level is 1. Assets that belong to a hierarchy have a level of 1 for the root asset, 2 for the child assets of the root asset, 3 for their children, and so forth. On assets created before the introduction of this field, the asset level defaults to –1. After the asset record is updated, the asset level is calculated and automatically updated."
+        "description": "The asset’s position in an asset hierarchy. If the asset has no parent or child assets, its level is 1. Assets that belong to a hierarchy have a level of 1 for the root asset, 2 for the child assets of the root asset, 3 for their children, and so forth. On assets created before the introduction of this field, the asset level defaults to –1. After the asset record is updated, the asset level is calculated and automatically updated.",
+        "nullable": true,
+        "readOnly": true
       },
       "AssetProvidedById": {
         "type": "reference",
-        "description": "The account that provided the asset, typically a manufacturer."
+        "description": "The account that provided the asset, typically a manufacturer.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "AssetServicedById": {
         "type": "reference",
-        "description": "The account in charge of servicing the asset."
+        "description": "The account in charge of servicing the asset.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "AssetTypeId": {
         "type": "reference",
@@ -29,7 +43,11 @@
       },
       "Availability": {
         "type": "percent",
-        "description": "The percentage of expected uptime where the asset was available for use."
+        "description": "The percentage of expected uptime where the asset was available for use.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AveragetimetoRepair": {
         "type": "double",
@@ -41,7 +59,9 @@
       },
       "AverageUptimePerDay": {
         "type": "double",
-        "description": "The average number of hours per day the asset is expected to be available for use."
+        "description": "The average number of hours per day the asset is expected to be available for use.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "City": {
         "type": "string",
@@ -53,7 +73,11 @@
       },
       "ContactId": {
         "type": "reference",
-        "description": "Required if AccountId isn’t specified. ID of the Contact associated with this asset. Must be a valid contact ID that has an account parent (but doesn’t need to match the asset’s AccountId)."
+        "description": "Required if AccountId isn’t specified. ID of the Contact associated with this asset. Must be a valid contact ID that has an account parent (but doesn’t need to match the asset’s AccountId).",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "Country": {
         "type": "String",
@@ -65,27 +89,52 @@
       },
       "CurrentAmount": {
         "type": "currency",
-        "description": "Reserved for future use. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+        "description": "Reserved for future use. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CurrentLifecycleEndDate": {
         "type": "dateTime",
-        "description": "Represents the end of the period shown as current. System-populated field inherited from the end date of the current asset state period. If that field is empty, as with an evergreen subscription, the Current Lifecycle End Date field is also empty. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+        "description": "Represents the end of the period shown as current. System-populated field inherited from the end date of the current asset state period. If that field is empty, as with an evergreen subscription, the Current Lifecycle End Date field is also empty. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "CurrentMrr": {
         "type": "currency",
-        "description": "The asset’s monthly recurring revenue during the current asset state period. System-populated field inherited from the monthly recurring revenue on the current asset state period. If no asset state period is current, the value is 0. Label is Current Monthly Recurring Revenue. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+        "description": "The asset’s monthly recurring revenue during the current asset state period. System-populated field inherited from the monthly recurring revenue on the current asset state period. If no asset state period is current, the value is 0. Label is Current Monthly Recurring Revenue. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CurrentQuantity": {
         "type": "double",
-        "description": "The asset’s quantity during the current asset state period. System-populated field inherited from the quantity on the current asset state period. If no asset state period is current, the value is 0. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+        "description": "The asset’s quantity during the current asset state period. System-populated field inherited from the quantity on the current asset state period. If no asset state period is current, the value is 0. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the asset."
+        "description": "Description of the asset.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DigitalAssetStatus": {
         "type": "picklist",
-        "description": "Status of digital tracking of the asset. The default picklist includes the following values: On Off Warning Error"
+        "description": "Status of digital tracking of the asset. The default picklist includes the following values: On Off Warning Error",
+        "format": "enum",
+        "enum": [
+          "On",
+          "Off",
+          "Warning",
+          "Error"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ExternalIdentifier": {
         "type": "string",
@@ -97,27 +146,39 @@
       },
       "HasLifecycleManagement": {
         "type": "boolean",
-        "description": "True if this asset is a lifecycle-managed asset, otherwise false. You can’t switch an asset to a lifecycle-managed asset or the reverse. This field is system populated."
+        "description": "True if this asset is a lifecycle-managed asset, otherwise false. You can’t switch an asset to a lifecycle-managed asset or the reverse. This field is system populated.",
+        "nullable": false,
+        "readOnly": true
       },
       "InstallDate": {
         "type": "date",
-        "description": "Date when the asset was installed."
+        "description": "Date when the asset was installed.",
+        "format": "date",
+        "nullable": true
       },
       "IsCompetitorProduct": {
         "type": "boolean",
-        "description": "Indicates whether this Asset represents a product sold by a competitor (true) or not (false). The default value is false. Its UI label is Competitor Asset."
+        "description": "Indicates whether this Asset represents a product sold by a competitor (true) or not (false). The default value is false. Its UI label is Competitor Asset.",
+        "nullable": false
       },
       "IsInternal": {
         "type": "boolean",
-        "description": "Indicates that the asset is produced or used internally (true) or not (false). The default value is false. Its UI label is Internal Asset."
+        "description": "Indicates that the asset is produced or used internally (true) or not (false). The default value is false. Its UI label is Internal Asset.",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date and time that the asset was last modified. Its UI label is Last Modified Date."
+        "description": "The date and time that the asset was last modified. Its UI label is Last Modified Date.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date and time that the asset was last viewed."
+        "description": "The date and time that the asset was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Latitude": {
         "type": "double",
@@ -125,15 +186,25 @@
       },
       "LifecycleEndDate": {
         "type": "dateTime",
-        "description": "Represents the end of the asset’s lifecycle. System-populated field inherited from the end date of the final asset state period. If that field is empty, as with an evergreen subscription, the lifecycle has no end date. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+        "description": "Represents the end of the asset’s lifecycle. System-populated field inherited from the end date of the final asset state period. If that field is empty, as with an evergreen subscription, the lifecycle has no end date. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LifecycleStartDate": {
         "type": "dateTime",
-        "description": "Represents the beginning of the asset’s lifecycle. System-populated field inherited from the start date of the earliest asset state period. This field can’t be edited. When a new asset action affects the start date of an asset state period, the period is deleted and a new one is generated. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled."
+        "description": "Represents the beginning of the asset’s lifecycle. System-populated field inherited from the start date of the earliest asset state period. This field can’t be edited. When a new asset action affects the start date of an asset state period, the period is deleted and a new one is generated. This field is available in API version 50.0 and later. This field is available when CPQ Plus, Salesforce Billing, or Subscription Management is enabled.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LocationId": {
         "type": "reference",
-        "description": "The asset’s location. Typically, this location is the place where the asset is stored, such as a warehouse or van."
+        "description": "The asset’s location. Typically, this location is the place where the asset is stored, such as a warehouse or van.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": true
       },
       "Longitude": {
         "type": "double",
@@ -145,15 +216,25 @@
       },
       "Name": {
         "type": "string",
-        "description": "(Required) Name of the asset. Label is Asset Name."
+        "description": "(Required) Name of the asset. Label is Asset Name.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The asset’s owner. By default, the asset owner is the user who created the asset record. Its UI label is Asset Owner."
+        "description": "The asset’s owner. By default, the asset owner is the user who created the asset record. Its UI label is Asset Owner.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "The asset’s parent asset. Its UI label is Parent Asset."
+        "description": "The asset’s parent asset. Its UI label is Parent Asset.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true
       },
       "PostalCode": {
         "type": "string",
@@ -161,7 +242,10 @@
       },
       "Price": {
         "type": "currency",
-        "description": "Price paid for this asset."
+        "description": "Price paid for this asset.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "PricingSource": {
         "type": "picklist",
@@ -169,27 +253,63 @@
       },
       "Product2Id": {
         "type": "reference",
-        "description": "(Optional) ID of the Product2 associated with this asset. Must be a valid Product2 ID. Its UI label is Product."
+        "description": "(Optional) ID of the Product2 associated with this asset. Must be a valid Product2 ID. Its UI label is Product.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProductCode": {
         "type": "string",
-        "description": "The product code of the related product."
+        "description": "The product code of the related product.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductDescription": {
         "type": "string",
-        "description": "The product description of the related product."
+        "description": "The product description of the related product.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductFamily": {
         "type": "picklist",
-        "description": "The product family of the related product."
+        "description": "The product family of the related product.",
+        "format": "enum",
+        "enum": [
+          "Internet",
+          "Product",
+          "Service",
+          "Services",
+          "Multiplay",
+          "Wireless",
+          "TV",
+          "Streaming",
+          "Home Security",
+          "Software",
+          "Mobile",
+          "Landline",
+          "Support",
+          "Accessories",
+          "Device",
+          "Networking"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "PurchaseDate": {
         "type": "date",
-        "description": "Date on which this asset was purchased."
+        "description": "Date on which this asset was purchased.",
+        "format": "date",
+        "nullable": true
       },
       "Quantity": {
         "type": "double",
-        "description": "Quantity purchased or installed. The Quantity field value isn’t set by Customer Asset Lifecycle Management. Instead, you can populate the field as you need."
+        "description": "Quantity purchased or installed. The Quantity field value isn’t set by Customer Asset Lifecycle Management. Instead, you can populate the field as you need.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "QuantityIncreasePricingType": {
         "type": "picklist",
@@ -197,11 +317,19 @@
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "The unique identifier for the asset."
+        "description": "The unique identifier for the asset.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "Reliability": {
         "type": "percent",
-        "description": "The percentage of expected uptime where the asset wasn’t subject to unplanned downtime."
+        "description": "The percentage of expected uptime where the asset wasn’t subject to unplanned downtime.",
+        "format": "percent",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "RenewalPricingType": {
         "type": "picklist",
@@ -217,7 +345,12 @@
       },
       "RootAssetId": {
         "type": "reference",
-        "description": "(Read only) The top-level asset in an asset hierarchy. Depending on where an asset lies in the hierarchy, its root could be the same as its parent. Its UI label is Root Asset."
+        "description": "(Read only) The top-level asset in an asset hierarchy. Depending on where an asset lies in the hierarchy, its root could be the same as its parent. Its UI label is Root Asset.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SalesStoreId": {
         "type": "reference",
@@ -225,7 +358,9 @@
       },
       "SerialNumber": {
         "type": "string",
-        "description": "Serial number for this asset."
+        "description": "Serial number for this asset.",
+        "maxLength": 80,
+        "nullable": true
       },
       "State": {
         "type": "string",
@@ -233,7 +368,21 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "Customizable picklist of values. The default picklist includes the following values: Purchased Shipped Installed Registered Obsolete"
+        "description": "Customizable picklist of values. The default picklist includes the following values: Purchased Shipped Installed Registered Obsolete",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Deinstalled",
+          "Installed",
+          "Manufactured",
+          "Obsolete",
+          "Purchased",
+          "Registered",
+          "Shipped",
+          "Subscribed"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "StatusReason": {
         "type": "picklist",
@@ -241,7 +390,10 @@
       },
       "StockKeepingUnit": {
         "type": "string",
-        "description": "The SKU assigned to the related product."
+        "description": "The SKU assigned to the related product.",
+        "maxLength": 180,
+        "nullable": true,
+        "readOnly": true
       },
       "Street": {
         "type": "textarea",
@@ -249,11 +401,17 @@
       },
       "SumDowntime": {
         "type": "double",
-        "description": "Accumulated downtime (planned and unplanned), determined as follows: When only UptimeRecordStart is set, the sum of all downtime from UptimeRecordStart When UptimeRecordStart and UptimeRecordEnd are set, the sum of all downtime from UptimeRecordStart to UptimeRecordEnd Otherwise, downtime isn’t accumulated."
+        "description": "Accumulated downtime (planned and unplanned), determined as follows: When only UptimeRecordStart is set, the sum of all downtime from UptimeRecordStart When UptimeRecordStart and UptimeRecordEnd are set, the sum of all downtime from UptimeRecordStart to UptimeRecordEnd Otherwise, downtime isn’t accumulated.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "SumUnplannedDowntime": {
         "type": "double",
-        "description": "Accumulated unplanned downtime, determined as follows: When only UptimeRecordStart is set, the sum of all unplanned downtime from UptimeRecordStart When UptimeRecordStart and UptimeRecordEnd are set, the sum of all unplanned downtime from UptimeRecordStart to UptimeRecordEnd Otherwise, unplanned downtime isn’t accumulated."
+        "description": "Accumulated unplanned downtime, determined as follows: When only UptimeRecordStart is set, the sum of all unplanned downtime from UptimeRecordStart When UptimeRecordStart and UptimeRecordEnd are set, the sum of all unplanned downtime from UptimeRecordStart to UptimeRecordEnd Otherwise, unplanned downtime isn’t accumulated.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLifecycleAmount": {
         "type": "currency",
@@ -261,22 +419,87 @@
       },
       "UptimeRecordEnd": {
         "type": "dateTime",
-        "description": "The date until which SumDowntime and SumUnplannedDowntime are accumulated."
+        "description": "The date until which SumDowntime and SumUnplannedDowntime are accumulated.",
+        "format": "date-time",
+        "nullable": true
       },
       "UptimeRecordStart": {
         "type": "dateTime",
-        "description": "The date from which SumDowntime and SumUnplannedDowntime are accumulated."
+        "description": "The date from which SumDowntime and SumUnplannedDowntime are accumulated.",
+        "format": "date-time",
+        "nullable": true
       },
       "UsageEndDate": {
         "type": "date",
-        "description": "Date when usage for this asset ends or expires."
+        "description": "Date when usage for this asset ends or expires.",
+        "format": "date",
+        "nullable": true
       },
       "Uuid": {
         "type": "string",
         "description": "The unique ID for the asset. This field is available in API version 49.0 and later."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Asset ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_asset.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_asset.htm",
+    "keyPrefix": "02i"
   }
 }

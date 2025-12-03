@@ -4,27 +4,124 @@
     "description": "Read-only object that represents a custom Web address assigned to a site in your organization.",
     "properties": {
       "CnameTarget": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 765,
+        "nullable": true,
+        "readOnly": true
       },
       "Domain": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "maxLength": 765,
+        "nullable": false,
+        "readOnly": true
       },
       "DomainType": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "format": "enum",
+        "enum": [
+          "DNS"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "HttpsOption": {
-        "type": "",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "format": "enum",
+        "enum": [
+          "CdnPartner",
+          "SitesRuntime",
+          "ExternalHttps",
+          "NoHttps",
+          "Community",
+          "CommunityAlt",
+          "SitesAlt",
+          "LegacyDomain",
+          "Sites",
+          "OrgDomain"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "OptionsHstsPreload": {
         "type": "",
         "description": ""
+      },
+      "Id": {
+        "type": "string",
+        "description": "Domain ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "OptionsHstsHeaders": {
+        "type": "boolean",
+        "description": "Enable Strict Transport Security headers",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_domain.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_domain.htm",
+    "keyPrefix": "0I4",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AppleDomainVerification",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DomainSite",
+        "field": "DomainId",
+        "relationshipName": "DomainSites",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

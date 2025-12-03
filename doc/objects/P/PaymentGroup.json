@@ -5,14 +5,135 @@
     "properties": {
       "PaymentGroupNumber": {
         "type": "string",
-        "description": "System-defined unique ID for the payment group."
+        "description": "System-defined unique ID for the payment group.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SourceObjectId": {
         "type": "reference",
-        "description": "The order or invoice related to all the payment transactions in the payment group."
+        "description": "The order or invoice related to all the payment transactions in the payment group.",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Payment Group ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgroup.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgroup.htm",
+    "keyPrefix": "9zx",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Payment",
+        "field": "PaymentGroupId",
+        "relationshipName": "Payments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentAuthorization",
+        "field": "PaymentGroupId",
+        "relationshipName": "PaymentAuthorizations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Refund",
+        "field": "PaymentGroupId",
+        "relationshipName": "Refunds",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebCart",
+        "field": "PaymentGroupId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

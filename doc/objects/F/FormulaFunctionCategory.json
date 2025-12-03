@@ -5,18 +5,49 @@
     "properties": {
       "DurableId": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Label": {
         "type": "string",
-        "description": "Label of the FormulaFunctionCategory that appears in the user interface."
+        "description": "Label of the FormulaFunctionCategory that appears in the user interface.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the FormulaFunctionCategory."
+        "description": "Name of the FormulaFunctionCategory.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Formula Function Category ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_formulafunctioncategory.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_formulafunctioncategory.htm",
+    "keyPrefix": "0Kh",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FormulaFunction",
+        "field": "CategoryId",
+        "relationshipName": "Functions",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

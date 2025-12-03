@@ -5,31 +5,45 @@
     "properties": {
       "Abandoned": {
         "type": "int",
-        "description": "The amount of time in seconds an incoming chat request remained unanswered by an agent before the chat was disconnected by the customer."
+        "description": "The amount of time in seconds an incoming chat request remained unanswered by an agent before the chat was disconnected by the customer.",
+        "nullable": true,
+        "readOnly": true
       },
       "AccountId": {
         "type": "ID",
-        "description": "ID of the account associated with the chat transcript."
+        "description": "ID of the account associated with the chat transcript.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "AverageResponseTimeOperator": {
         "type": "int",
-        "description": "The agent’s average response time (in seconds) to chat messages from the visitor."
+        "description": "The agent’s average response time (in seconds) to chat messages from the visitor.",
+        "nullable": true
       },
       "AverageResponseTimeVisitor": {
         "type": "int",
-        "description": "The visitor’s average response time (in seconds) to chat messages from the agent."
+        "description": "The visitor’s average response time (in seconds) to chat messages from the agent.",
+        "nullable": true
       },
       "Body": {
         "type": "textarea",
-        "description": "The contents of the chat."
+        "description": "The contents of the chat.",
+        "maxLength": 131072,
+        "nullable": true
       },
       "Browser": {
         "type": "string",
-        "description": "The browser the visitor used for the chat."
+        "description": "The browser the visitor used for the chat.",
+        "maxLength": 200,
+        "nullable": true
       },
       "BrowserLanguage": {
         "type": "string",
-        "description": "The language of the visitor’s browser."
+        "description": "The language of the visitor’s browser.",
+        "maxLength": 200,
+        "nullable": true
       },
       "CaseID": {
         "type": "reference",
@@ -37,11 +51,16 @@
       },
       "ChatDuration": {
         "type": "int",
-        "description": "The total duration of the chat in seconds."
+        "description": "The total duration of the chat in seconds.",
+        "nullable": true,
+        "readOnly": true
       },
       "ChatKey": {
         "type": "string",
-        "description": "The session ID of the chat before it is persisted. ChatKey can be used with advanced integrations in the Salesforce console. This field is available in API version 25.0 and later."
+        "description": "The session ID of the chat before it is persisted. ChatKey can be used with advanced integrations in the Salesforce console. This field is available in API version 25.0 and later.",
+        "maxLength": 200,
+        "nullable": true,
+        "readOnly": true
       },
       "ContactID": {
         "type": "reference",
@@ -49,27 +68,47 @@
       },
       "EndedBy": {
         "type": "picklist",
-        "description": "The way the chat was ended: by the operator, the visitor, or the system."
+        "description": "The way the chat was ended: by the operator, the visitor, or the system.",
+        "format": "enum",
+        "enum": [
+          "Agent",
+          "Visitor",
+          "System"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "EndTime": {
         "type": "dateTime",
-        "description": "The time the chat ended."
+        "description": "The time the chat ended.",
+        "format": "date-time",
+        "nullable": true
       },
       "IpAddress": {
         "type": "string",
-        "description": "The auto-populated visitor’s IP address. Do not edit. Create a custom field if you need an IP address field for your use case."
+        "description": "The auto-populated visitor’s IP address. Do not edit. Create a custom field if you need an IP address field for your use case.",
+        "maxLength": 39,
+        "nullable": true
       },
       "IsChatbotSession": {
         "type": "boolean",
-        "description": "Whether the visitor is chatting with a chatbot (true) or not (false)."
+        "description": "Whether the visitor is chatting with a chatbot (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "date",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "date",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LeadID": {
         "type": "reference",
@@ -89,23 +128,31 @@
       },
       "Location": {
         "type": "string",
-        "description": "The auto-populated best-guess approximation of the visitor’s location. Do not edit."
+        "description": "The auto-populated best-guess approximation of the visitor’s location. Do not edit.",
+        "maxLength": 200,
+        "nullable": true
       },
       "MaxResponseTimeOperator": {
         "type": "int",
-        "description": "The maximum time in seconds it took an agent to respond to a chat visitor’s message."
+        "description": "The maximum time in seconds it took an agent to respond to a chat visitor’s message.",
+        "nullable": true
       },
       "MaxResponseTimeVisitor": {
         "type": "int",
-        "description": "The maximum time in seconds it took a customer to respond to an agent’s message."
+        "description": "The maximum time in seconds it took a customer to respond to an agent’s message.",
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the transcript."
+        "description": "The name of the transcript.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OperatorMessageCount": {
         "type": "int",
-        "description": "The number of messages sent by one or more agents during the chat."
+        "description": "The number of messages sent by one or more agents during the chat.",
+        "nullable": true
       },
       "OwnerID": {
         "type": "reference",
@@ -113,54 +160,510 @@
       },
       "Platform": {
         "type": "string",
-        "description": "The visitor’s operating system platform."
+        "description": "The visitor’s operating system platform.",
+        "maxLength": 200,
+        "nullable": true
       },
       "ReferrerUri": {
         "type": "string",
-        "description": "The auto-populated URI where the chat request originated. Do not edit."
+        "description": "The auto-populated URI where the chat request originated. Do not edit.",
+        "maxLength": 200,
+        "nullable": true
       },
       "RequestTime": {
         "type": "dateTime",
-        "description": "The time the visitor requested the chat."
+        "description": "The time the visitor requested the chat.",
+        "format": "date-time",
+        "nullable": true
       },
       "ScreenResolution": {
         "type": "string",
-        "description": "The visitor’s screen resolution."
+        "description": "The visitor’s screen resolution.",
+        "maxLength": 200,
+        "nullable": true
       },
       "SkillId": {
         "type": "reference",
-        "description": "The auto-populated record ID of the primary Skill associated with the LiveChatButton the chat session originated from. Do not edit. To associate multiple skills with a LiveChatTranscript, use LiveChatTranscriptSkill junction objects."
+        "description": "The auto-populated record ID of the primary Skill associated with the LiveChatButton the chat session originated from. Do not edit. To associate multiple skills with a LiveChatTranscript, use LiveChatTranscriptSkill junction objects.",
+        "format": "salesforce-id",
+        "x-object": "Skill",
+        "maxLength": 18,
+        "nullable": true
       },
       "StartTime": {
         "type": "dateTime",
-        "description": "The time the chat started."
+        "description": "The time the chat started.",
+        "format": "date-time",
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The final status of the chat: completed, missed, or blocked."
+        "description": "The final status of the chat: completed, missed, or blocked.",
+        "format": "enum",
+        "enum": [
+          "Missed",
+          "Completed",
+          "Dropped",
+          "Blocked",
+          "Waiting",
+          "InProgress"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "SupervisorTranscriptBody": {
         "type": "textarea",
-        "description": "The text body of the supervisor’s chat transcript."
+        "description": "The text body of the supervisor’s chat transcript.",
+        "maxLength": 131072,
+        "nullable": true
       },
       "UserAgent": {
         "type": "string",
-        "description": "The visitor’s user agent string."
+        "description": "The visitor’s user agent string.",
+        "maxLength": 200,
+        "nullable": true
       },
       "VisitorMessageCount": {
         "type": "int",
-        "description": "The number of messages sent by the visitor during the chat."
+        "description": "The number of messages sent by the visitor during the chat.",
+        "nullable": true
       },
       "VisitorNetwork": {
         "type": "string",
-        "description": "The network or service provider the chat visitor used for the chat."
+        "description": "The network or service provider the chat visitor used for the chat.",
+        "maxLength": 200,
+        "nullable": true
       },
       "WaitTime": {
         "type": "int",
-        "description": "The total amount of time in seconds a chat request was waiting to be accepted by an agent."
+        "description": "The total amount of time in seconds a chat request was waiting to be accepted by an agent.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Chat Transcript ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "OwnerId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LiveChatVisitorId": {
+        "type": "string",
+        "description": "Chat Visitor ID",
+        "format": "salesforce-id",
+        "x-object": "LiveChatVisitor",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "ContactId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "LeadId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Lead",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "CaseId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "LiveChatDeploymentId": {
+        "type": "string",
+        "description": "Chat Deployment ID",
+        "format": "salesforce-id",
+        "x-object": "LiveChatDeployment",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "LiveChatButtonId": {
+        "type": "string",
+        "description": "Chat Button ID",
+        "format": "salesforce-id",
+        "x-object": "LiveChatButton",
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechattranscript.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechattranscript.htm",
+    "keyPrefix": "570",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AgentWork",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AnalyticsBotSession",
+        "field": "SourceId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "BotAnalytics",
+        "field": "LiveChatTranscriptId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CandidateAnswer",
+        "field": "QuestionId",
+        "relationshipName": "QuestionSourceEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "QuestionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "SourceId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "SourceId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ConversationContextEntry",
+        "field": "ParentId",
+        "relationshipName": "ConversationContextEntries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ConversationDefinitionSessionEngagement",
+        "field": "ConversationEngagementId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ConversationEntry",
+        "field": "ConversationId",
+        "relationshipName": "ConversationEntries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LinkedArticle",
+        "field": "LinkedEntityId",
+        "relationshipName": "LinkedArticles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscriptEvent",
+        "field": "LiveChatTranscriptId",
+        "relationshipName": "LiveChatTranscriptEvents",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscriptFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscriptHistory",
+        "field": "LiveChatTranscriptId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscriptShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "LiveChatTranscriptSkill",
+        "field": "TranscriptId",
+        "relationshipName": "LiveChatTranscriptSkills",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PendingServiceRouting",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

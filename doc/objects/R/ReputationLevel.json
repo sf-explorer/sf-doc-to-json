@@ -1,26 +1,115 @@
 {
   "ReputationLevel": {
     "name": "ReputationLevel",
-    "description": "Represents a reputation level defined for an Experience Cloud site.",
+    "description": "Reputation Levels - ReputationLevel",
     "properties": {
-      "Label": {
+      "Id": {
         "type": "string",
-        "description": "The label for the reputation level."
+        "description": "Reputation Level ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "LevelNumber": {
-        "type": "int",
-        "description": "The rank of the reputation level."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "ParentId": {
-        "type": "reference",
-        "description": "The ID of the parent Experience Cloud site the reputation level applies to."
+        "type": "string",
+        "description": "Parent ID",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Network",
+          "Organization"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Label": {
+        "type": "string",
+        "description": "Level Name",
+        "maxLength": 50,
+        "nullable": true,
+        "readOnly": true
       },
       "Threshold": {
-        "type": "double",
-        "description": "The lower limit of reputation points associated with this reputation level. The maximum number of reputation points a user can accrue is 999,999,999,999,999."
+        "type": "number",
+        "description": "Point Threshold",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LevelNumber": {
+        "type": "integer",
+        "description": "Level Number",
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_reputationlevel.htm"
+    "module": "N/A",
+    "keyPrefix": "0NU",
+    "label": "Reputation Level",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CustomBrand",
+        "field": "ParentId",
+        "relationshipName": "CustomBrands",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReputationLevelLocalization",
+        "field": "ParentId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -1,22 +1,94 @@
 {
   "MilestoneType": {
     "name": "MilestoneType",
-    "description": "Represents a milestone (required step in a customer support process).",
+    "description": "Milestones - MilestoneType",
     "properties": {
-      "Description": {
-        "type": "textarea",
-        "description": "A description of the milestone."
+      "Id": {
+        "type": "string",
+        "description": "Milestone Type ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the milestone."
+        "maxLength": 80,
+        "nullable": false
+      },
+      "Description": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
       },
       "RecurrenceType": {
-        "type": "picklist",
-        "description": "The type of recurrence for the milestone."
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "none",
+          "recursIndependently",
+          "recursChained"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_milestonetype.htm"
+    "module": "N/A",
+    "keyPrefix": "557",
+    "label": "Milestone",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CaseMilestone",
+        "field": "MilestoneTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntityMilestone",
+        "field": "MilestoneTypeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,19 +5,38 @@
     "properties": {
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The team member name. This read-only field is available in API version 30.0 and later."
+        "description": "The team member name. This read-only field is available in API version 30.0 and later.",
+        "maxLength": 361,
+        "nullable": true,
+        "readOnly": true
       },
       "OpportunityAccessLevel": {
         "type": "picklist",
-        "description": "Opportunity access level for this team member. Valid values:"
+        "description": "Opportunity access level for this team member. Valid values:",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit",
+          "All"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "Required. ID of the Opportunity associated with this opportunity team. This field can’t be updated."
+        "description": "Required. ID of the Opportunity associated with this opportunity team. This field can’t be updated.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PhotoURL": {
         "type": "URL",
@@ -25,18 +44,127 @@
       },
       "TeamMemberRole": {
         "type": "picklist",
-        "description": "Role that the team member has on the opportunity. The org’s admin sets the valid values in the Opportunity Team Roles picklist. Label is Team Role."
+        "description": "Role that the team member has on the opportunity. The org’s admin sets the valid values in the Opportunity Team Roles picklist. Label is Team Role.",
+        "format": "enum",
+        "enum": [
+          "Account Executive",
+          "Sales Manager",
+          "Executive Sponsor",
+          "Service Contact",
+          "Industry Specialist",
+          "Channel Manager",
+          "Competitive Expert",
+          "Opportunity Owner"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Title": {
         "type": "string",
-        "description": "Read only. Retrieves the user’s title. This field is available in API version 36.0 and later."
+        "description": "Read only. Retrieves the user’s title. This field is available in API version 36.0 and later.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "Required. ID of the User who is a member of the opportunity team. This field can’t be updated."
+        "description": "Required. ID of the User who is a member of the opportunity team. This field can’t be updated.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Opportunity Team Member ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "PhotoUrl": {
+        "type": "string",
+        "description": "Url for thumbnail sized photo",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunityteammember.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunityteammember.htm",
+    "keyPrefix": "00q",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityTeamMemberHistory",
+        "field": "OpportunityTeamMemberId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

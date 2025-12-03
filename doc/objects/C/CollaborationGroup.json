@@ -5,27 +5,50 @@
     "properties": {
       "AnnouncementId": {
         "type": "reference",
-        "description": "Contains the ID of the Announcement last associated with the group. This field is available in API version 30.0 and later."
+        "description": "Contains the ID of the Announcement last associated with the group. This field is available in API version 30.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "Announcement",
+        "maxLength": 18,
+        "nullable": true
       },
       "BannerPhotoUrl": {
         "type": "url",
-        "description": "The URL for the group's banner photo.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo has been uploaded, the URL returned for an older photo is not guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 36.0 and later."
+        "description": "The URL for the group's banner photo.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo has been uploaded, the URL returned for an older photo is not guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 36.0 and later.",
+        "format": "uri",
+        "maxLength": 1024,
+        "nullable": true,
+        "readOnly": true
       },
       "CanHaveGuests": {
         "type": "boolean",
-        "description": "If set to true, indicates that a group allows customers. Chatter customers are people outside your company's email domains. Customers can see only the groups they're invited to. They can interact only with members of those groups. Customers can’t see any Salesforce information.This field is available starting in API version 23.0, but groups that allow customers are accessible from earlier API versions. However, when accessed from earlier API versions, groups that allow customers aren't distinguishable from private groups. We strongly recommend that you upgrade to the latest API version. If you must use an earlier version, name groups that allow customers to indicate that they include customers."
+        "description": "If set to true, indicates that a group allows customers. Chatter customers are people outside your company's email domains. Customers can see only the groups they're invited to. They can interact only with members of those groups. Customers can’t see any Salesforce information.This field is available starting in API version 23.0, but groups that allow customers are accessible from earlier API versions. However, when accessed from earlier API versions, groups that allow customers aren't distinguishable from private groups. We strongly recommend that you upgrade to the latest API version. If you must use an earlier version, name groups that allow customers to indicate that they include customers.",
+        "nullable": false
       },
       "CollaborationType": {
         "type": "picklist",
-        "description": "The type of Chatter group. Available values are: Public—Anyone can see and post updates. Anyone can join a public group. Private—Only members can see the group feed and post updates. Non-members can only see the group name and a few other details in list views, search, and on the group page. The group's owner or managers must add members who request to join the group. Unlisted—Only members and users with the Manage Unlisted Groups permission can see the group and post updates. Other users can’t access the group or see it in lists, search, and feeds."
+        "description": "The type of Chatter group. Available values are: Public—Anyone can see and post updates. Anyone can join a public group. Private—Only members can see the group feed and post updates. Non-members can only see the group name and a few other details in list views, search, and on the group page. The group's owner or managers must add members who request to join the group. Unlisted—Only members and users with the Manage Unlisted Groups permission can see the group and post updates. Other users can’t access the group or see it in lists, search, and feeds.",
+        "format": "enum",
+        "enum": [
+          "Public",
+          "Private",
+          "Unlisted"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "Description": {
         "type": "textarea",
-        "description": "Description of the group."
+        "description": "Description of the group.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "FullPhotoUrl": {
         "type": "url",
-        "description": "The URL for the group's profile photo.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo has been uploaded, the URL returned for an older photo is not guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 20.0 and later."
+        "description": "The URL for the group's profile photo.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo has been uploaded, the URL returned for an older photo is not guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 20.0 and later.",
+        "format": "uri",
+        "maxLength": 1024,
+        "nullable": true,
+        "readOnly": true
       },
       "GroupEmail": {
         "type": "email",
@@ -33,66 +56,275 @@
       },
       "HasPrivateFieldsAccess": {
         "type": "boolean",
-        "description": "If set to true, indicates that a user can see the InformationBody and InformationTitle fields in a private group. This field is set to true for members of a private group and users with Modify All Data or View All Data permissions."
+        "description": "If set to true, indicates that a user can see the InformationBody and InformationTitle fields in a private group. This field is set to true for members of a private group and users with Modify All Data or View All Data permissions.",
+        "nullable": false,
+        "readOnly": true
       },
       "InformationBody": {
         "type": "textarea",
-        "description": "The text of the Information section. For private groups, only visible to members and users with Modify All Data or View All Data permissions."
+        "description": "The text of the Information section. For private groups, only visible to members and users with Modify All Data or View All Data permissions.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "InformationTitle": {
         "type": "string",
-        "description": "The title of the Information section. For private groups, only visible to members and users with Modify All Data or View All Data permissions."
+        "description": "The title of the Information section. For private groups, only visible to members and users with Modify All Data or View All Data permissions.",
+        "maxLength": 30,
+        "nullable": true
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicates whether the group is archived (true) or not (false).This field is available in API version 28.0 and later."
+        "description": "Indicates whether the group is archived (true) or not (false).This field is available in API version 28.0 and later.",
+        "nullable": false
       },
       "IsAutoArchiveDisabled": {
         "type": "boolean",
-        "description": "Indicates whether automatic archiving is disabled for the group (true) or not (false).This field is available in API version 29.0 and later."
+        "description": "Indicates whether automatic archiving is disabled for the group (true) or not (false).This field is available in API version 29.0 and later.",
+        "nullable": false
       },
       "IsBroadcast": {
         "type": "boolean",
-        "description": "Indicates whether the group is a broadcast group (true) or not (false).This field is available in API version 36.0 and later."
+        "description": "Indicates whether the group is a broadcast group (true) or not (false).This field is available in API version 36.0 and later.",
+        "nullable": false
       },
       "LastFeedModifiedDate": {
         "type": "dateTime",
-        "description": "The date of the last post or comment on the group."
+        "description": "The date of the last post or comment on the group.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "datetime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "datetime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MediumPhotoUrl": {
         "type": "url",
-        "description": "The URL for the larger, cropped photo size."
+        "description": "The URL for the larger, cropped photo size.",
+        "format": "uri",
+        "maxLength": 1024,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberCount": {
         "type": "int",
-        "description": "The number of members in the group."
+        "description": "The number of members in the group.",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the group. Group names must be unique across public and private groups. Unlisted groups don’t require unique names."
+        "description": "Name of the group. Group names must be unique across public and private groups. Unlisted groups don’t require unique names.",
+        "maxLength": 40,
+        "nullable": false
       },
       "NetworkId": {
         "type": "reference",
-        "description": "ID of the Experience Cloud site that this group is part of. This field is available only if digital experiences is enabled in your org.You can only add a NetworkId when creating a group. You can’t change or add a NetworkId for an existing group. This field is available in API version 26.0 and later."
+        "description": "ID of the Experience Cloud site that this group is part of. This field is available only if digital experiences is enabled in your org.You can only add a NetworkId when creating a group. You can’t change or add a NetworkId for an existing group. This field is available in API version 26.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "Network",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the owner of the group. Only the current group owner or people with the Modify All Data permission can update the OwnerId."
+        "description": "ID of the owner of the group. Only the current group owner or people with the Modify All Data permission can update the OwnerId.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "SmallPhotoUrl": {
         "type": "url",
-        "description": "The URL for a thumbnail of the group's profile photo.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo has been uploaded, the URL returned for an older photo is not guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 20.0 and later."
+        "description": "The URL for a thumbnail of the group's profile photo.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo has been uploaded, the URL returned for an older photo is not guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 20.0 and later.",
+        "format": "uri",
+        "maxLength": 1024,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Group Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationgroup.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_collaborationgroup.htm",
+    "keyPrefix": "0F9",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "Announcement",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationGroupFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationGroupMember",
+        "field": "CollaborationGroupId",
+        "relationshipName": "GroupMembers",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationGroupMemberRequest",
+        "field": "CollaborationGroupId",
+        "relationshipName": "GroupMemberRequests",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationGroupRecord",
+        "field": "CollaborationGroupId",
+        "relationshipName": "CollaborationGroupRecords",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CollaborationInvitation",
+        "field": "SharedEntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LightningOnboardingConfig",
+        "field": "CollaborationGroupId",
+        "relationshipName": "ChatterGroup",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,7 +5,9 @@
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FullName": {
         "type": "string",
@@ -17,11 +19,53 @@
       },
       "Language": {
         "type": "picklist",
-        "description": "Possible values are the languages that Omni-Channel supports."
+        "description": "Possible values are the languages that Omni-Channel supports.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the Omni-Channel supervisor configuration."
+        "description": "The label of the Omni-Channel supervisor configuration.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Metadata": {
         "type": "mns:OmniSupervisorConfig",
@@ -30,9 +74,83 @@
       "SkillVisibility": {
         "type": "picklist",
         "description": "Determines which work items based on skills are visible to the supervisors assigned to this supervisor configuration. Possible values are: AllSkills—Show work items with all skill requirements selected in this supervisor configuration. AnySkill—Show work items with at least one skill requirement selected in this supervisor configuration."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Omni Supervisor Configuration ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_omnisupervisorconfig.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_omnisupervisorconfig.htm",
+    "keyPrefix": "0Q2",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "OmniSupervisorConfigGroup",
+        "field": "OmniSupervisorConfigId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OmniSupervisorConfigProfile",
+        "field": "OmniSupervisorConfigId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OmniSupervisorConfigUser",
+        "field": "OmniSupervisorConfigId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

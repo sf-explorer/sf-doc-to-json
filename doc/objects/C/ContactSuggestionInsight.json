@@ -5,27 +5,44 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The ID of the related account."
+        "description": "The ID of the related account.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Address": {
         "type": "address",
-        "description": "The address of the suggested contact."
+        "description": "The address of the suggested contact.",
+        "nullable": true,
+        "readOnly": true
       },
       "City": {
         "type": "string",
-        "description": "The city of the suggested contact."
+        "description": "The city of the suggested contact.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ContactTitle": {
         "type": "string",
-        "description": "The title of the suggested contact."
+        "description": "The title of the suggested contact.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "The country of the suggested contact."
+        "description": "The country of the suggested contact.",
+        "maxLength": 80,
+        "nullable": true
       },
       "CreatedRecordId": {
         "type": "reference",
-        "description": "The ID of the created contact record."
+        "description": "The ID of the created contact record.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -37,66 +54,229 @@
       },
       "Email": {
         "type": "email",
-        "description": "The email address of the suggested contact."
+        "description": "The email address of the suggested contact.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
       },
       "FirstName": {
         "type": "string",
-        "description": "The first name of the suggested contact."
+        "description": "The first name of the suggested contact.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the address. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only."
+        "description": "Accuracy level of the geocode for the address. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastName": {
         "type": "string",
-        "description": "The last name of the suggested contact."
+        "description": "The last name of the suggested contact.",
+        "maxLength": 255,
+        "nullable": false
       },
       "LastOperationUserId": {
         "type": "reference",
-        "description": "The ID of the user who last performed a related operation."
+        "description": "The ID of the user who last performed a related operation.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Latitude": {
         "type": "double",
-        "description": "Used in conjunction with Longitude to specify the precise geolocation of an address."
+        "description": "Used in conjunction with Longitude to specify the precise geolocation of an address.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "double",
-        "description": "Used in conjunction with Latitude to specify the precise geolocation of an address."
+        "description": "Used in conjunction with Latitude to specify the precise geolocation of an address.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Phone": {
         "type": "phone",
-        "description": "The phone number of the suggested contact."
+        "description": "The phone number of the suggested contact.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The postal code of the suggested contact."
+        "description": "The postal code of the suggested contact.",
+        "maxLength": 20,
+        "nullable": true
       },
       "RationaleLabel": {
         "type": "string",
-        "description": "The reason why this entry is a suggested contact."
+        "description": "The reason why this entry is a suggested contact.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "State": {
         "type": "string",
-        "description": "The state of the suggested contact."
+        "description": "The state of the suggested contact.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the suggested contact. Possible values include: New Pending Added Declined"
+        "description": "The status of the suggested contact. Possible values include: New Pending Added Declined",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Pending",
+          "Accepted",
+          "Rejected"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Street": {
         "type": "textarea",
-        "description": "The street of the suggested contact."
+        "description": "The street of the suggested contact.",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Einstein Contact Suggestions ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Name": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Activity": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Score": {
+        "type": "number",
+        "nullable": true
+      },
+      "AccountName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contactsuggestioninsight.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contactsuggestioninsight.htm",
+    "keyPrefix": "0Qs",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordRecommendation",
+        "field": "InsightId",
+        "relationshipName": "InsightInformation",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

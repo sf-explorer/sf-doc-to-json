@@ -5,30 +5,94 @@
     "properties": {
       "ApexClassId": {
         "type": "reference",
-        "description": "The Apex class whose tests are to be executed. This field can't be updated."
+        "description": "The Apex class whose tests are to be executed. This field can't be updated.",
+        "format": "salesforce-id",
+        "x-object": "ApexClass",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the test. Valid values are: Queued Processing Aborted Completed Failed Preparing Holding To abort a class that is in the Apex job queue, perform an update operation on the ApexTestQueueItem object and set its Status field to Aborted."
+        "description": "The status of the test. Valid values are: Queued Processing Aborted Completed Failed Preparing Holding To abort a class that is in the Apex job queue, perform an update operation on the ApexTestQueueItem object and set its Status field to Aborted.",
+        "format": "enum",
+        "enum": [
+          "Queued",
+          "Processing",
+          "Aborted",
+          "Completed",
+          "Failed",
+          "Preparing",
+          "Holding"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "ExtendedStatus": {
         "type": "string",
-        "description": "The pass rate of the test run. For example: “(4/6)”. This means that four out of a total of six tests passed. If the class fails to execute, this field contains the cause of the failure."
+        "description": "The pass rate of the test run. For example: “(4/6)”. This means that four out of a total of six tests passed. If the class fails to execute, this field contains the cause of the failure.",
+        "maxLength": 1000,
+        "nullable": true,
+        "readOnly": true
       },
       "ParentJobId": {
         "type": "reference",
-        "description": "Read-only. Points to the AsyncApexJob that represents the entire test run. If you insert multiple Apex test queue items in a single bulk operation, the queue items will share the same parent job. This means that a test run can consist of the execution of the tests of several classes if all the test queue items are inserted in the same bulk operation."
+        "description": "Read-only. Points to the AsyncApexJob that represents the entire test run. If you insert multiple Apex test queue items in a single bulk operation, the queue items will share the same parent job. This means that a test run can consist of the execution of the tests of several classes if all the test queue items are inserted in the same bulk operation.",
+        "format": "salesforce-id",
+        "x-object": "AsyncApexJob",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ShouldSkipCodeCoverage": {
         "type": "boolean",
-        "description": "Indicates whether to opt out of collecting code coverage information during Apex test runs. Available in API version 43.0 and later."
+        "description": "Indicates whether to opt out of collecting code coverage information during Apex test runs. Available in API version 43.0 and later.",
+        "nullable": false
       },
       "TestRunResultID": {
         "type": "reference",
         "description": "The ID of the associated ApexTestRunResult object. Available in API version 37.0 and later."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Apex Test Queue Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "TestRunResultId": {
+        "type": "string",
+        "description": "ApexTestRunResult ID",
+        "format": "salesforce-id",
+        "x-object": "ApexTestRunResult",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextestqueueitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextestqueueitem.htm",
+    "keyPrefix": "709"
   }
 }

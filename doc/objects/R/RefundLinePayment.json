@@ -5,74 +5,308 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "The total amount applied to or unapplied from a payment by the refund line."
+        "description": "The total amount applied to or unapplied from a payment by the refund line.",
+        "format": "currency",
+        "nullable": false,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AppliedDate": {
         "type": "dateTime",
-        "description": "The date that the refund was applied to the linked payment."
+        "description": "The date that the refund was applied to the linked payment.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AssociatedAccountId": {
         "type": "reference",
-        "description": "The account for the payment that received the refund."
+        "description": "The account for the payment that received the refund.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "AssociatedRefundLinePaymentId": {
         "type": "reference",
-        "description": "The refundLine that was unapplied. Populated only when RefundLinePayment’s Type has a value of Unapplied."
+        "description": "The refundLine that was unapplied. Populated only when RefundLinePayment’s Type has a value of Unapplied.",
+        "format": "salesforce-id",
+        "x-object": "RefundLinePayment",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Comments": {
         "type": "textarea",
-        "description": "Users can add comments to provide additional information on the refund line payment."
+        "description": "Users can add comments to provide additional information on the refund line payment.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "Date": {
         "type": "dateTime",
-        "description": "By default, the day the refund line payment record was created. Users can also enter a different date."
+        "description": "By default, the day the refund line payment record was created. Users can also enter a different date.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveDate": {
         "type": "dateTime",
-        "description": "Defines the date and time when the refund line application or unapplication becomes effective."
+        "description": "Defines the date and time when the refund line application or unapplication becomes effective.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveImpactAmount": {
         "type": "currency",
-        "description": "Shows how this payment refund line impacts a customer’s accounts receivable. This value is positive when RefundLinePayment’s Type field is Applied, and negative when RefundLinePayment’s Type is Unapplied. If there’s an unapplied line related to this record, EffectiveImpactAmount has a value of 0."
+        "description": "Shows how this payment refund line impacts a customer’s accounts receivable. This value is positive when RefundLinePayment’s Type field is Applied, and negative when RefundLinePayment’s Type is Unapplied. If there’s an unapplied line related to this record, EffectiveImpactAmount has a value of 0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "HasBeenUnapplied": {
         "type": "picklist",
-        "description": "Shows whether this refund line has been unapplied."
+        "description": "Shows whether this refund line has been unapplied.",
+        "format": "enum",
+        "enum": [
+          "No"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ImpactAmount": {
         "type": "currency",
-        "description": "Shows how this payment refund line impacts a customer’s accounts receivable. This value is positive when RefundLinePayment’s Type field is Applied, and negative when RefundLinePayment’s Type is Unapplied."
+        "description": "Shows how this payment refund line impacts a customer’s accounts receivable. This value is positive when RefundLinePayment’s Type field is Applied, and negative when RefundLinePayment’s Type is Unapplied.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PaymentBalance": {
         "type": "currency",
-        "description": "The payment record’s balance following the application or unapplication of this refund line."
+        "description": "The payment record’s balance following the application or unapplication of this refund line.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PaymentId": {
         "type": "reference",
-        "description": "The payment record that this refund line targets. Refund applications and unapplications are made against this payment."
+        "description": "The payment record that this refund line targets. Refund applications and unapplications are made against this payment.",
+        "format": "salesforce-id",
+        "x-object": "Payment",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RefundBalance": {
         "type": "currency",
-        "description": "The refund record’s balance following the application or unapplication of this payment refund line."
+        "description": "The refund record’s balance following the application or unapplication of this payment refund line.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "RefundId": {
         "type": "reference",
-        "description": "The parent refund of this refund line."
+        "description": "The parent refund of this refund line.",
+        "format": "salesforce-id",
+        "x-object": "Refund",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RefundLinePaymentNumber": {
         "type": "string",
-        "description": "System-created unique ID for this refund line."
+        "description": "System-created unique ID for this refund line.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
-        "description": "Defines whether this line represents a refund that’s been applied or unapplied from a payment."
+        "description": "Defines whether this line represents a refund that’s been applied or unapplied from a payment.",
+        "format": "enum",
+        "enum": [
+          "Applied"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "UnappliedDate": {
         "type": "dateTime",
-        "description": "The date that this refund line was unapplied from a payment."
+        "description": "The date that this refund line was unapplied from a payment.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Refund Line Payment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_refundlinepayment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_refundlinepayment.htm",
+    "keyPrefix": "0dR",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshot",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceBalanceSnapshots",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshotChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "DestinationEntityId",
+        "relationshipName": "DestinationFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": "ParentFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "SourceEntityId",
+        "relationshipName": "SourceFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "DestinationEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "SourceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RefundLinePayment",
+        "field": "AssociatedRefundLinePaymentId",
+        "relationshipName": "RefundLinePayments",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

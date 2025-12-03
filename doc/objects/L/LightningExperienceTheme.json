@@ -1,38 +1,145 @@
 {
   "LightningExperienceTheme": {
     "name": "LightningExperienceTheme",
-    "description": "Represents information for a theme in Lightning Experience.",
+    "description": "Lightning Experience Themes - LightningExperienceTheme",
     "properties": {
-      "DefaultBrandingSetId": {
-        "type": "reference",
-        "description": "The ID of the default branding set."
+      "Id": {
+        "type": "string",
+        "description": "Theme ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "Description": {
-        "type": "textarea",
-        "description": "The description of the theme. Limit: 1,000 characters."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the theme in the API. This name can contain only underscores and alphanumeric characters and must be unique in your organization. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. The label corresponds to the theme name in the user interface. Limit: 70 characters. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field."
+        "description": "Name",
+        "maxLength": 70,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "Required. Language of the label. Possible values are: da (Danish) de (German) en_US (English) es (Spanish) es_MX (Spanish - Mexico) fi (Finnish) fr (French) it (Italian) ja (Japanese) ko (Korean) nl_NL (Dutch) no (Norwegian) pt_BR (Portuguese (Brazil)) ru (Russian) sv (Swedish) th (Thai) zh_CN (Chinese - Simplified) zh_TW (Chinese - Traditional)"
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Required. The name of the theme. Specify up to 70 characters."
+        "description": "Name",
+        "maxLength": 70,
+        "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "DefaultBrandingSetId": {
+        "type": "string",
+        "description": "Branding Set ID",
+        "format": "salesforce-id",
+        "x-object": "BrandingSet",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ShouldOverrideLoadingImage": {
         "type": "boolean",
-        "description": "Indicates whether a custom image overrides the Salesforce loading image (true) or not (false)."
+        "nullable": false
+      },
+      "Description": {
+        "type": "string",
+        "maxLength": 1000,
+        "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_lightningexperiencetheme.htm"
+    "module": "N/A",
+    "keyPrefix": "0S1",
+    "label": "Lightning Experience Theme",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

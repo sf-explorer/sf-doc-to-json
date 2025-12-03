@@ -5,22 +5,106 @@
     "properties": {
       "CasesId": {
         "type": "reference",
-        "description": "ID of the cases associated with this contact."
+        "description": "ID of the cases associated with this contact.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ContactId": {
         "type": "reference",
-        "description": "Required. ID of the contact."
+        "description": "Required. ID of the contact.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": false
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "Role": {
         "type": "picklist",
-        "description": "Name of the role played by the contact on this case, such as Technical Contact, Business Contact, Decision Maker, and so on. Must be unique—there can't be multiple records in which the CaseId, ContactId , and Role values are identical. Different contacts can play the same role on the same case. A contact can play different roles on the same case."
+        "description": "Name of the role played by the contact on this case, such as Technical Contact, Business Contact, Decision Maker, and so on. Must be unique—there can't be multiple records in which the CaseId, ContactId , and Role values are identical. Different contacts can play the same role on the same case. A contact can play different roles on the same case.",
+        "format": "enum",
+        "enum": [
+          "Technical Contact",
+          "Business Contact",
+          "Decision Maker",
+          "Other",
+          "Business Partner",
+          "Household Partner"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Contact Role ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_casecontactrole.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_casecontactrole.htm",
+    "keyPrefix": "03j",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

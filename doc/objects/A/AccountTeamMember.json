@@ -5,19 +5,51 @@
     "properties": {
       "AccountAccessLevel": {
         "type": "picklist",
-        "description": "Level of access that the User has to the Account. The possible values are: Read Edit All This field must be set to an access level that is at least equal to the organization’s default Account access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level."
+        "description": "Level of access that the User has to the Account. The possible values are: Read Edit All This field must be set to an access level that is at least equal to the organization’s default Account access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit",
+          "All"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "AccountId": {
         "type": "reference",
-        "description": "Required. ID of the Account to which this user is a team member. Must be a valid account ID."
+        "description": "Required. ID of the Account to which this user is a team member. Must be a valid account ID.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CaseAccessLevel": {
         "type": "picklist",
-        "description": "Level of access that the User has to cases associated with the account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default case access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level. This field is available in API version 37.0 and later."
+        "description": "Level of access that the User has to cases associated with the account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default case access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level. This field is available in API version 37.0 and later.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit",
+          "All"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ContactAccessLevel": {
         "type": "picklist",
-        "description": "Level of access that the User has to contacts associated with the account. The possible values are: None Read Edit Controlled By Parent This field must be set to an access level that is at least equal to the organization’s default contact access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level. If the org-wide default for contacts is set to Controlled By Parent, users can’t see or edit the Contact Access field. This field is available in API version 37.0 and later."
+        "description": "Level of access that the User has to contacts associated with the account. The possible values are: None Read Edit Controlled By Parent This field must be set to an access level that is at least equal to the organization’s default contact access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level. If the org-wide default for contacts is set to Controlled By Parent, users can’t see or edit the Contact Access field. This field is available in API version 37.0 and later.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit",
+          "ControlledByParent"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -25,11 +57,22 @@
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "OpportunityAccessLevel": {
         "type": "picklist",
-        "description": "Level of access that the User has to opportunities associated with the account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default opportunity access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level. This field is available in API version 37.0 and later."
+        "description": "Level of access that the User has to opportunities associated with the account. The possible values are: None Read Edit This field must be set to an access level that is at least equal to the organization’s default opportunity access level. In addition, the users’s AccountAccessLevel, ContactAccessLevel, OpportunityAccessLevel, or CaseAccessLevel field must be set higher than the organization’s default access level. This field is available in API version 37.0 and later.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "Read",
+          "Edit",
+          "All"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "PhotoURL": {
         "type": "URL",
@@ -37,18 +80,90 @@
       },
       "TeamMemberRole": {
         "type": "picklist",
-        "description": "Role associated with this team member. One of the valid team member roles defined for your organization. Label is Team Role."
+        "description": "Role associated with this team member. One of the valid team member roles defined for your organization. Label is Team Role.",
+        "format": "enum",
+        "enum": [
+          "Account Executive",
+          "Sales Manager",
+          "Executive Sponsor",
+          "Service Contact",
+          "Industry Specialist",
+          "Channel Manager",
+          "Competitive Expert",
+          "Opportunity Owner"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Title": {
         "type": "string",
-        "description": "Read only. Retrieves the user’s title. This field is available in API version 37.0 and later."
+        "description": "Read only. Retrieves the user’s title. This field is available in API version 37.0 and later.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "Required. ID of the User who is a member of this account team. Must be a valid User ID."
+        "description": "Required. ID of the User who is a member of this account team. Must be a valid User ID.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Account Team Member ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "PhotoUrl": {
+        "type": "string",
+        "description": "Url for thumbnail sized photo",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountteammember.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountteammember.htm",
+    "keyPrefix": "01M"
   }
 }

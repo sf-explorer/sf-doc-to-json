@@ -5,30 +5,100 @@
     "properties": {
       "ApproveComment": {
         "type": "string",
-        "description": "Text entered by the user when they approved or rejected this approval request. Required. Limit: 4,000 characters."
+        "description": "Text entered by the user when they approved or rejected this approval request. Required. Limit: 4,000 characters.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "Required. ID of the User being asked to approve or reject the approval request. Must be a valid User ID. Required."
+        "description": "Required. ID of the User being asked to approve or reject the approval request. Must be a valid User ID. Required.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "Required. ID of the Contract associated with this approval request. Must be a valid contract ID."
+        "description": "Required. ID of the Contract associated with this approval request. Must be a valid contract ID.",
+        "format": "salesforce-id",
+        "x-object": "Contract",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "RequestComment": {
         "type": "string",
-        "description": "Text entered by the User who created the approval request. Optional. This field can't be updated after the Approval has been created. Limit: 4,000 characters."
+        "description": "Text entered by the User who created the approval request. Optional. This field can't be updated after the Approval has been created. Limit: 4,000 characters.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Required. Status of this approval request. One of the following picklist values: Pending—Specified only when the Approval request is created (create() call) Approved—Specified only when the Approval request is approved (update() call) Rejected—Specified when the Approval request is rejected (update() call) or when it is created (create() call) and immediately rejected for archival/historical purposes."
+        "description": "Required. Status of this approval request. One of the following picklist values: Pending—Specified only when the Approval request is created (create() call) Approved—Specified only when the Approval request is approved (update() call) Rejected—Specified when the Approval request is rejected (update() call) or when it is created (create() call) and immediately rejected for archival/historical purposes.",
+        "format": "enum",
+        "enum": [
+          "Pending",
+          "Approved",
+          "Rejected"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Approval ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_approval.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_approval.htm",
+    "keyPrefix": "806"
   }
 }

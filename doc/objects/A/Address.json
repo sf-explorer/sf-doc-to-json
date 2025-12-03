@@ -5,31 +5,66 @@
     "properties": {
       "Address": {
         "type": "address",
-        "description": "The full address."
+        "description": "The full address.",
+        "nullable": true,
+        "readOnly": true
       },
       "AddressType": {
         "type": "picklist",
-        "description": "Picklist of address types. The values are: Mailing Shipping Billing Home"
+        "description": "Picklist of address types. The values are: Mailing Shipping Billing Home",
+        "format": "enum",
+        "enum": [
+          "Mailing",
+          "Shipping",
+          "Billing",
+          "Home"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "City": {
         "type": "string",
-        "description": "The address city."
+        "description": "The address city.",
+        "maxLength": 40,
+        "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "The address country."
+        "description": "The address country.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Description": {
         "type": "string",
-        "description": "A brief description of the address."
+        "description": "A brief description of the address.",
+        "maxLength": 255,
+        "nullable": true
       },
       "DrivingDirections": {
         "type": "string",
-        "description": "Directions to the address."
+        "description": "Directions to the address.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "GeocodeAccuracy": {
         "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates."
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
@@ -41,42 +76,234 @@
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "LocationType": {
         "type": "picklist",
-        "description": "Picklist of location types. The available values are: Warehouse (default) Site Van Plant"
+        "description": "Picklist of location types. The available values are: Warehouse (default) Site Van Plant",
+        "format": "enum",
+        "enum": [
+          "Warehouse",
+          "Site",
+          "Van",
+          "Plant",
+          "Virtual",
+          "Store",
+          "Depot"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Name": {
         "type": "string",
-        "description": "Name of the address."
+        "description": "Name of the address.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "A lookup field to the parent location."
+        "description": "A lookup field to the parent location.",
+        "format": "salesforce-id",
+        "x-object": "Location",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The address postal code."
+        "description": "The address postal code.",
+        "maxLength": 20,
+        "nullable": true
       },
       "State": {
         "type": "string",
-        "description": "The address state."
+        "description": "The address state.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Street": {
         "type": "textarea",
-        "description": "The address street."
+        "description": "The address street.",
+        "maxLength": 255,
+        "nullable": true
       },
       "TimeZone": {
         "type": "picklist",
-        "description": "Picklist of available time zones."
+        "description": "Picklist of available time zones.",
+        "format": "enum",
+        "enum": [
+          "Pacific/Kiritimati",
+          "Pacific/Chatham",
+          "Pacific/Auckland",
+          "Pacific/Enderbury",
+          "Pacific/Tongatapu",
+          "Asia/Kamchatka",
+          "Pacific/Fiji",
+          "Pacific/Norfolk",
+          "Australia/Lord_Howe",
+          "Australia/Sydney",
+          "Pacific/Guadalcanal",
+          "Australia/Adelaide",
+          "Australia/Brisbane",
+          "Australia/Darwin",
+          "Asia/Seoul",
+          "Asia/Tokyo",
+          "Asia/Hong_Kong",
+          "Asia/Kuala_Lumpur",
+          "Asia/Manila",
+          "Asia/Shanghai",
+          "Asia/Singapore",
+          "Asia/Taipei",
+          "Australia/Perth",
+          "Asia/Bangkok",
+          "Asia/Ho_Chi_Minh",
+          "Asia/Jakarta",
+          "Asia/Rangoon",
+          "Asia/Dhaka",
+          "Asia/Kathmandu",
+          "Asia/Colombo",
+          "Asia/Kolkata",
+          "Asia/Karachi",
+          "Asia/Tashkent",
+          "Asia/Yekaterinburg",
+          "Asia/Kabul",
+          "Asia/Baku",
+          "Asia/Dubai",
+          "Asia/Tbilisi",
+          "Asia/Yerevan",
+          "Africa/Nairobi",
+          "Asia/Baghdad",
+          "Asia/Kuwait",
+          "Asia/Riyadh",
+          "Europe/Istanbul",
+          "Europe/Minsk",
+          "Europe/Moscow",
+          "Africa/Cairo",
+          "Africa/Johannesburg",
+          "Asia/Beirut",
+          "Asia/Jerusalem",
+          "Europe/Athens",
+          "Europe/Bucharest",
+          "Europe/Helsinki",
+          "Africa/Algiers",
+          "Africa/Casablanca",
+          "Europe/Amsterdam",
+          "Europe/Berlin",
+          "Europe/Brussels",
+          "Europe/Paris",
+          "Europe/Prague",
+          "Europe/Rome",
+          "Europe/Dublin",
+          "Europe/Lisbon",
+          "Europe/London",
+          "GMT",
+          "Atlantic/Azores",
+          "Atlantic/Cape_Verde",
+          "America/Scoresbysund",
+          "Atlantic/South_Georgia",
+          "America/Argentina/Buenos_Aires",
+          "America/Santiago",
+          "America/Sao_Paulo",
+          "America/St_Johns",
+          "America/Caracas",
+          "America/Halifax",
+          "America/Puerto_Rico",
+          "Atlantic/Bermuda",
+          "America/Bogota",
+          "America/Indiana/Indianapolis",
+          "America/Lima",
+          "America/New_York",
+          "America/Panama",
+          "America/Chicago",
+          "America/El_Salvador",
+          "America/Mexico_City",
+          "America/Denver",
+          "America/Mazatlan",
+          "America/Phoenix",
+          "America/Los_Angeles",
+          "America/Tijuana",
+          "Pacific/Pitcairn",
+          "America/Anchorage",
+          "Pacific/Gambier",
+          "Pacific/Marquesas",
+          "America/Adak",
+          "Pacific/Honolulu",
+          "Pacific/Niue",
+          "Pacific/Pago_Pago"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Address ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_address.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_address.htm",
+    "keyPrefix": "130"
   }
 }

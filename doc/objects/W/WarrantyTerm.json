@@ -5,83 +5,163 @@
     "properties": {
       "Code": {
         "type": "string",
-        "description": "A code or other identifier associated with this warranty term."
+        "description": "A code or other identifier associated with this warranty term.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the warranty term."
+        "description": "The description of the warranty term.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "EffectiveStartDate": {
         "type": "picklist",
-        "description": "The date on which the warranty term became available for use."
+        "description": "The date on which the warranty term became available for use.",
+        "format": "enum",
+        "enum": [
+          "Install Date",
+          "Manufacture Date",
+          "Purchase Date"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "ExchangeType": {
         "type": "picklist",
-        "description": "The type of exchange offered."
+        "description": "The type of exchange offered.",
+        "format": "enum",
+        "enum": [
+          "Advance Exchange",
+          "Loaner",
+          "Return Exchange"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Exclusions": {
         "type": "textarea",
-        "description": "The description of any exclusions."
+        "description": "The description of any exclusions.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "ExpensesCovered": {
         "type": "percent",
-        "description": "The percentage of expenses covered."
+        "description": "The percentage of expenses covered.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ExpensesCoveredDuration": {
         "type": "int",
-        "description": "The duration for which expenses are covered."
+        "description": "The duration for which expenses are covered.",
+        "nullable": true
       },
       "ExpensesCoveredUnitOfTime": {
         "type": "picklist",
-        "description": "The unit in which expenses covered duration is measured."
+        "description": "The unit in which expenses covered duration is measured.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Weeks",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the warranty term is active (true) or not (false)."
+        "description": "Indicates whether the warranty term is active (true) or not (false).",
+        "nullable": false
       },
       "IsTransferable": {
         "type": "boolean",
-        "description": "Indicates whether the warranty can be transferred to a new owner (true) or not (false)."
+        "description": "Indicates whether the warranty can be transferred to a new owner (true) or not (false).",
+        "nullable": false
       },
       "LaborCovered": {
         "type": "percent",
-        "description": "The percentage of labor covered."
+        "description": "The percentage of labor covered.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "LaborCoveredDuration": {
         "type": "int",
-        "description": "The duration for which labor is covered."
+        "description": "The duration for which labor is covered.",
+        "nullable": true
       },
       "LaborCoveredUnitOfTime": {
         "type": "picklist",
-        "description": "The unit in which labor covered duration is measured."
+        "description": "The unit in which labor covered duration is measured.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Weeks",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the warranty term was last modified."
+        "description": "The date when the warranty term was last modified.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when the warranty term was last viewed."
+        "description": "The date when the warranty term was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The warranty term’s assigned owner."
+        "description": "The warranty term’s assigned owner.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "PartsCovered": {
         "type": "percent",
-        "description": "The percentage of parts covered."
+        "description": "The percentage of parts covered.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "PartsCoveredDuration": {
         "type": "int",
-        "description": "The duration for which parts are covered."
+        "description": "The duration for which parts are covered.",
+        "nullable": true
       },
       "PartsCoveredUnitOfTime": {
         "type": "picklist",
-        "description": "The unit in which parts covered duration is measured."
+        "description": "The unit in which parts covered duration is measured.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Weeks",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Pricebook2Id": {
         "type": "reference",
-        "description": "The ID of the price book item associated with this warranty term."
+        "description": "The ID of the price book item associated with this warranty term.",
+        "format": "salesforce-id",
+        "x-object": "Pricebook2",
+        "maxLength": 18,
+        "nullable": true
       },
       "UsageCovered": {
         "type": "int",
@@ -93,22 +173,355 @@
       },
       "WarrantyDuration": {
         "type": "int",
-        "description": "The duration of the warranty offered by this term."
+        "description": "The duration of the warranty offered by this term.",
+        "nullable": false
       },
       "WarrantyTermName": {
         "type": "string",
-        "description": "The name of the warranty term."
+        "description": "The name of the warranty term.",
+        "maxLength": 255,
+        "nullable": false
       },
       "WarrantyType": {
         "type": "picklist",
-        "description": "The type of warranty."
+        "description": "The type of warranty.",
+        "format": "enum",
+        "enum": [
+          "Repair",
+          "Standard",
+          "Supplier"
+        ],
+        "maxLength": 40,
+        "nullable": false
       },
       "WarrantyUnitOfTime": {
         "type": "picklist",
-        "description": "The unit in which the warranty duration is measured."
+        "description": "The unit in which the warranty duration is measured.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Weeks",
+          "Months",
+          "Years"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Warranty Term ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_warrantyterm.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_warrantyterm.htm",
+    "keyPrefix": "4V3",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetWarranty",
+        "field": "WarrantyTermId",
+        "relationshipName": "AssetWarrantyTerms",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetWarrantyChangeEvent",
+        "field": "WarrantyTermId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductWarrantyTerm",
+        "field": "WarrantyTermId",
+        "relationshipName": "ProductWarrantyTerms",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WarrantyTermFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WarrantyTermHistory",
+        "field": "WarrantyTermId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WarrantyTermShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

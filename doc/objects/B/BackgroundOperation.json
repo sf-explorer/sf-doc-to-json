@@ -5,75 +5,136 @@
     "properties": {
       "Error": {
         "type": "string",
-        "description": "The error message for the operation. Applies only if the operation has an error status."
+        "description": "The error message for the operation. Applies only if the operation has an error status.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ExecutionGroup": {
         "type": "string",
-        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the execution group."
+        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the execution group.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ExpiresAt": {
         "type": "dateTime",
-        "description": "After this time, the operation is removed from the asynchronous job queue. Applies only if the operation has a status of complete, canceled, error, or merged."
+        "description": "After this time, the operation is removed from the asynchronous job queue. Applies only if the operation has a status of complete, canceled, error, or merged.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "FinishedAt": {
         "type": "dateTime",
-        "description": "When the operation reached the status of completed or error."
+        "description": "When the operation reached the status of completed or error.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "GroupLeaderId": {
         "type": "reference",
-        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the operation that’s selected as the leader of the execution group."
+        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the operation that’s selected as the leader of the execution group.",
+        "format": "salesforce-id",
+        "x-object": "BackgroundOperation",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Identifies the background operation."
+        "description": "Identifies the background operation.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "NumFollowers": {
         "type": "int",
-        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Number of other operations that are in the execution group."
+        "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Number of other operations that are in the execution group.",
+        "nullable": true,
+        "readOnly": true
       },
       "ParentKey": {
         "type": "string",
-        "description": "Tag that identifies related sets of operations, if any."
+        "description": "Tag that identifies related sets of operations, if any.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ProcessAfter": {
         "type": "dateTime",
-        "description": "The operation is scheduled to be processed after this time."
+        "description": "The operation is scheduled to be processed after this time.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "RetryBackoff": {
         "type": "int",
-        "description": "Applies only if the operation has an error status. The first retry is attempted immediately. Each subsequent retry is increasingly delayed according to an exponential expression that’s multiplied by the RetryBackoff, in milliseconds.Specifically, the delay time is (2n-1)×R, where n is the RetryCount, and R is the RetryBackoff. The default value for RetryBackoff depends on the type of operation. For example, the RetryBackoff default for write operations on external objects is 1,000 milliseconds. For write operations, retries are attempted immediately, after 3 seconds, after 7 seconds, after 15 seconds, and so on."
+        "description": "Applies only if the operation has an error status. The first retry is attempted immediately. Each subsequent retry is increasingly delayed according to an exponential expression that’s multiplied by the RetryBackoff, in milliseconds.Specifically, the delay time is (2n-1)×R, where n is the RetryCount, and R is the RetryBackoff. The default value for RetryBackoff depends on the type of operation. For example, the RetryBackoff default for write operations on external objects is 1,000 milliseconds. For write operations, retries are attempted immediately, after 3 seconds, after 7 seconds, after 15 seconds, and so on.",
+        "nullable": true,
+        "readOnly": true
       },
       "RetryCount": {
         "type": "int",
-        "description": "Number of attempted retries. Applies only if the operation has an error status."
+        "description": "Number of attempted retries. Applies only if the operation has an error status.",
+        "nullable": true,
+        "readOnly": true
       },
       "RetryLimit": {
         "type": "int",
-        "description": "Maximum number of retries to attempt. Applies only if the operation has an error status."
+        "description": "Maximum number of retries to attempt. Applies only if the operation has an error status.",
+        "nullable": true,
+        "readOnly": true
       },
       "SequenceGroup": {
         "type": "string",
-        "description": "Identifies the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order."
+        "description": "Identifies the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SequenceNumber": {
         "type": "int",
-        "description": "Order position within the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order."
+        "description": "Order position within the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order.",
+        "nullable": true,
+        "readOnly": true
       },
       "StartedAt": {
         "type": "dateTime",
-        "description": "When the operation started running."
+        "description": "When the operation started running.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Status of the background operation. The options are: New Scheduled Canceled Merged Waiting Running Error Complete"
+        "description": "Status of the background operation. The options are: New Scheduled Canceled Merged Waiting Running Error Complete",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Scheduled",
+          "Canceled",
+          "Merged",
+          "Waiting",
+          "Running",
+          "Error",
+          "Complete"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SubmittedAt": {
         "type": "dateTime",
-        "description": "When the operation was added to the job queue."
+        "description": "When the operation was added to the job queue.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Timeout": {
         "type": "int",
-        "description": "Maximum time in milliseconds to wait for results after the operation started running."
+        "description": "Maximum time in milliseconds to wait for results after the operation started running.",
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
@@ -81,10 +142,72 @@
       },
       "WorkerUri": {
         "type": "string",
-        "description": "URI of the worker that performed the operation.Example for a Salesforce Connect OData operation: services/data/v35.0/xds/upsert"
+        "description": "URI of the worker that performed the operation.Example for a Salesforce Connect OData operation: services/data/v35.0/xds/upsert",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Background Operation ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_backgroundoperation.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_backgroundoperation.htm",
+    "keyPrefix": "08P"
   }
 }

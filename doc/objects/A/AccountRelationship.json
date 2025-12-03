@@ -9,30 +9,141 @@
       },
       "AccountToId": {
         "type": "reference",
-        "description": "ID of the account sharing data with AccountFrom."
+        "description": "ID of the account sharing data with AccountFrom.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user accessed this record or list view (LastReferencedDate) but didn’t viewed it."
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user accessed this record or list view (LastReferencedDate) but didn’t viewed it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the account relationship."
+        "description": "The name of the account relationship.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the user who created the account relationship."
+        "description": "ID of the user who created the account relationship.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
-        "description": "The relationship type. All account relationship sharing rules of that type are to this account relationship. Standard values are: System Integrator Agency Advertiser Reseller Distributor Developer Broker Lender Institution Contractor Dealer Consultant Client Vendor Agent Retailer SubContractor Supplier"
+        "description": "The relationship type. All account relationship sharing rules of that type are to this account relationship. Standard values are: System Integrator Agency Advertiser Reseller Distributor Developer Broker Lender Institution Contractor Dealer Consultant Client Vendor Agent Retailer SubContractor Supplier",
+        "format": "enum",
+        "enum": [
+          "System Integrator",
+          "Agency",
+          "Advertiser",
+          "VAR/Reseller",
+          "Distributor",
+          "Developer",
+          "Broker",
+          "Lender",
+          "Institution",
+          "Contractor",
+          "Dealer",
+          "Consultant",
+          "Client",
+          "Vendor",
+          "Agent",
+          "Retailer",
+          "Sub Contractor",
+          "Supplier"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Account Relationship ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "AccountFromId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountrelationship.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountrelationship.htm",
+    "keyPrefix": "0ar"
   }
 }

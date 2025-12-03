@@ -1,54 +1,189 @@
 {
   "NavigationMenuItem": {
     "name": "NavigationMenuItem",
-    "description": "Represents a single menu item in a NavigationLinkSet. Use this object to create, delete, or update menu items in your Experience Cloud site’s navigation menu.",
+    "description": "Navigation Menu Items - NavigationMenuItem",
     "properties": {
-      "AccessRestriction": {
-        "type": "picklist",
-        "description": "Determines if the menu item is available to guest users who aren’t required to log in to the Experience Cloud site."
+      "Id": {
+        "type": "string",
+        "description": "Navigation Menu Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "DefaultListViewId": {
-        "type": "reference",
-        "description": "If the value of the Type field is SalesforceObject, the value is the ID of the default list view for the object."
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
-      "DraftRowID": {
-        "type": "reference",
-        "description": "The ID of the draft navigation menu item. The ID is unique within your organization."
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "NavigationLinkSetId": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "NavigationLinkSet",
+        "maxLength": 18,
+        "nullable": false
       },
       "Label": {
         "type": "string",
-        "description": "The text that appears in the navigation menu for this item."
+        "maxLength": 50,
+        "nullable": false
       },
-      "NavigationLinkSetId": {
-        "type": "reference",
-        "description": "The navigation menu that this item is included in."
-      },
-      "ParentId": {
-        "type": "reference",
-        "description": "The parent navigation menu."
-      },
-      "Position": {
-        "type": "int",
-        "description": "The location of the menu item in the navigation menu."
-      },
-      "Status": {
-        "type": "reference",
-        "description": "Represents if the navigation menu item is published or not. The values can only be DRAFT, LIVE, or null. In API versions 42 and earlier, if the Status field is not set, the field defaults to LIVE. When queried and Status is not part of the query filter, only the NavigationMenuItem objects with a status of LIVE return. In API versions 43 and later, if the Status field is not set, the field defaults to DRAFT. When queried and Status is not part of the query filter, all NavigationMenuItem objects return regardless of status."
+      "Type": {
+        "type": "string",
+        "description": "Navigation Menu Item Type",
+        "format": "enum",
+        "enum": [
+          "SalesforceObject",
+          "ExternalLink",
+          "InternalLink",
+          "NavigationalTopic",
+          "MenuLabel",
+          "GlobalAction",
+          "DataSourceDriven",
+          "SystemLink",
+          "Event",
+          "Modal"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Target": {
         "type": "string",
-        "description": "If Type is ExternalLink or InternalLink, the target is the URL that the link points to. For ExternalLink, your entry looks like this: https://salesforce.com. For InternalLink, use a relative URL, such as /contactsupport."
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Position": {
+        "type": "integer",
+        "nullable": false
+      },
+      "ParentId": {
+        "type": "string",
+        "description": "Navigation Menu Item ID",
+        "format": "salesforce-id",
+        "x-object": "NavigationMenuItem",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "AccessRestriction": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "None",
+          "LoginRequired"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "DefaultListViewId": {
+        "type": "string",
+        "description": "List View ID",
+        "format": "salesforce-id",
+        "x-object": "ListView",
+        "maxLength": 18,
+        "nullable": true
       },
       "TargetPrefs": {
-        "type": "picklist",
-        "description": "If Type is ExternalLink, determines whether a navigation menu item opens in the same tab."
+        "type": "string",
+        "description": "Target Preferences",
+        "format": "enum",
+        "enum": [
+          "OpenExternalLinkInSameTab",
+          "None"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
-      "Type": {
-        "type": "picklist",
-        "description": "The type of navigation menu item. The available values are: SalesforceObject—Available objects include accounts, cases, contacts, and custom objects. ExternalLink—Links to a URL outside of your Experience Cloud site. For example, https://salesforce.com. Event—An event, such as logging in, logging out, or switching accounts. Event is internal only and can’t be used in custom components. GlobalAction—Enables users to create object records, but the new record has no relationship with other records. InternalLink—Links to a relative URL inside your Experience Cloud site. For example, /contactsupport. NavigationalTopic—A dropdown list with links to the navigational topics in your Experience Cloud site. SystemLink—A system link, such as a link to Experience Builder, Workspaces, or Salesforce setup."
+      "Status": {
+        "type": "string",
+        "description": "Publish Status",
+        "format": "enum",
+        "enum": [
+          "Draft",
+          "Live"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "DraftRowId": {
+        "type": "string",
+        "description": "Navigation Menu Item ID",
+        "format": "salesforce-id",
+        "x-object": "NavigationMenuItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_navigationmenuitem.htm"
+    "module": "N/A",
+    "keyPrefix": "0Mi",
+    "label": "Navigation Menu Item",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CustomBrand",
+        "field": "ParentId",
+        "relationshipName": "CustomBrands",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NavigationMenuItem",
+        "field": "DraftRowId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NavigationMenuItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NavigationMenuItemLocalization",
+        "field": "ParentId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

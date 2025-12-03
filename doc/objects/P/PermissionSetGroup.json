@@ -1,42 +1,165 @@
 {
   "PermissionSetGroup": {
     "name": "PermissionSetGroup",
-    "description": "Represents a group of permission sets and the permissions within them. Use permission set groups to organize permissions based on job functions or tasks. Then, you can package the groups as needed.",
+    "description": "Permission Set Groups - PermissionSetGroup",
     "properties": {
-      "Description": {
-        "type": "textarea",
-        "description": "The permission set group description."
+      "Id": {
+        "type": "string",
+        "description": "PermissionSetGroup ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The permission set group name used in the API."
-      },
-      "HasActivationRequired": {
-        "type": "boolean",
-        "description": "Indicates whether the permission set group requires an associated active session (true) or not (false). The default value is false.This field is available in API version 53.0 and later."
+        "description": "API Name",
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "The Permission Set Group language. Valid values are: Chinese (Simplified): zh_CN Chinese (Traditional): zh_TW Danish: da Dutch: nl_NL English: en_US Finnish: fi French: fr German: de Italian: it Japanese: ja Korean: ko Norwegian: no Portuguese (Brazil): pt_BR Russian: ru Spanish: es Spanish (Mexico): es_MX Spanish (Mexico) defaults to Spanish for customer-defined translations. Swedish: sv Thai: th The Salesforce user interface is fully translated to Thai, but Help is in English."
-      },
-      "ManageableState": {
-        "type": "ManageableState enumerated list",
-        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The permission set group label for the aggregated permissions."
+        "description": "Label",
+        "maxLength": 80,
+        "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The permission set group namespace prefix."
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
       },
       "Status": {
         "type": "string",
-        "description": "Indicates the permission set group recalculation status. Updated. The group is current. Outdated. The group requires recalculation. Updating. The group is in recalculation mode. Failed. The group recalculation failed."
+        "format": "enum",
+        "enum": [
+          "Updated",
+          "Outdated",
+          "Updating",
+          "Failed"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_permissionsetgroup.htm"
+    "module": "N/A",
+    "keyPrefix": "0PG",
+    "label": "Permission Set Group",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "PermissionSet",
+        "field": "PermissionSetGroupId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PermissionSetAssignment",
+        "field": "PermissionSetGroupId",
+        "relationshipName": "Assignments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PermissionSetGroupComponent",
+        "field": "PermissionSetGroupId",
+        "relationshipName": "PermissionSetGroupComponents",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

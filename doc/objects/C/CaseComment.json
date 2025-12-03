@@ -5,15 +5,27 @@
     "properties": {
       "CommentBody": {
         "type": "textarea",
-        "description": "Text of the CaseComment. The maximum size of the comment body is 4,000 bytes. Label is Body."
+        "description": "Text of the CaseComment. The maximum size of the comment body is 4,000 bytes. Label is Body.",
+        "maxLength": 4000,
+        "nullable": true
       },
       "ConnectionReceivedId": {
         "type": "reference",
-        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce."
+        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce.",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ConnectionSentId": {
         "type": "reference",
-        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections."
+        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections.",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "CreatorFullPhotoUrl": {
         "type": "string",
@@ -29,22 +41,79 @@
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsNotificationSelected": {
         "type": "boolean",
-        "description": "Indicates whether an email notification is sent to the case contact when a CaseComment is created or updated. When this field is queried, it always returns null. This field is available only when the Enable Case Comment Notification to Contacts setting is enabled on the Support Settings page in Setup. To send email notifications for CaseComment, you must use the EmailHeader triggerUserEmail. Available in API version 43.0 and later."
+        "description": "Indicates whether an email notification is sent to the case contact when a CaseComment is created or updated. When this field is queried, it always returns null. This field is available only when the Enable Case Comment Notification to Contacts setting is enabled on the Support Settings page in Setup. To send email notifications for CaseComment, you must use the EmailHeader triggerUserEmail. Available in API version 43.0 and later.",
+        "nullable": false
       },
       "IsPublished": {
         "type": "boolean",
-        "description": "Indicates whether the CaseComment is visible to customers in the Self-Service portal (true) or not (false). Label is Published. This is the only CaseComment field that can be updated via the API."
+        "description": "Indicates whether the CaseComment is visible to customers in the Self-Service portal (true) or not (false). Label is Published. This is the only CaseComment field that can be updated via the API.",
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "Required. ID of the parent Case of the CaseComment."
+        "description": "Required. ID of the parent Case of the CaseComment.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Case Comment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_casecomment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_casecomment.htm",
+    "keyPrefix": "00a",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true
   }
 }

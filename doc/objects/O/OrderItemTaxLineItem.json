@@ -5,7 +5,10 @@
     "properties": {
       "Amount": {
         "type": "currency",
-        "description": "The total amount of the tax line. The value is rounded to the nearest possible amount associated with the currency of the order item."
+        "description": "The total amount of the tax line. The value is rounded to the nearest possible amount associated with the currency of the order item.",
+        "format": "currency",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "CalculationReferenceNumber": {
         "type": "string",
@@ -13,27 +16,48 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Users can add a custom description to the record to provide additional detail."
+        "description": "Users can add a custom description to the record to provide additional detail.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the tax line."
+        "description": "Name of the tax line.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OrderId": {
         "type": "reference",
-        "description": "ID of the parent order for the order item related to the tax line"
+        "description": "ID of the parent order for the order item related to the tax line",
+        "format": "salesforce-id",
+        "x-object": "Order",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OrderItemAdjustmentLineItemId": {
         "type": "reference",
-        "description": "The order item adjustment line item that the tax line applies to."
+        "description": "The order item adjustment line item that the tax line applies to.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemAdjustmentLineItem",
+        "maxLength": 18,
+        "nullable": true
       },
       "OrderItemId": {
         "type": "reference",
-        "description": "The order item that the tax line applies to."
+        "description": "The order item that the tax line applies to.",
+        "format": "salesforce-id",
+        "x-object": "OrderItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Rate": {
         "type": "percent",
-        "description": "The percentage value of the tax. Null if the tax is a flat amount."
+        "description": "The percentage value of the tax. Null if the tax is a flat amount.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ReferenceNumber": {
         "type": "string",
@@ -41,18 +65,224 @@
       },
       "RelatedTaxLineItemId": {
         "type": "reference",
-        "description": "The original order item tax line. Useful for reference in change order scenarios."
+        "description": "The original order item tax line. Useful for reference in change order scenarios.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemTaxLineItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "TaxEffectiveDate": {
         "type": "date",
-        "description": "The date used to calculate the effective tax rate. This field may require an update to accommodate different buyer time zones."
+        "description": "The date used to calculate the effective tax rate. This field may require an update to accommodate different buyer time zones.",
+        "format": "date",
+        "nullable": false
       },
       "Type": {
         "type": "picklist",
-        "description": "Shows whether the amount on the tax line is an estimate or the final calculated amount. Doesn’t set a value by default. Users can define automation to set and change the value as needed."
+        "description": "Shows whether the amount on the tax line is an estimate or the final calculated amount. Doesn’t set a value by default. Users can define automation to set and change the value as needed.",
+        "format": "enum",
+        "enum": [
+          "Actual",
+          "Estimated"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Product Tax Line Item ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtaxlineitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtaxlineitem.htm",
+    "keyPrefix": "0au",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "ChangeLineId",
+        "relationshipName": "OrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "RelatedLineId",
+        "relationshipName": "RelatedOrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItem",
+        "field": "RelatedTaxLineItemId",
+        "relationshipName": "RelatedTaxLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItemFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemTaxLineItemHistory",
+        "field": "OrderItemTaxLineItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemTaxLineItemSummary",
+        "field": "OriginalOrderItemTaxLineItemId",
+        "relationshipName": "OrderItemTaxLineItemSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

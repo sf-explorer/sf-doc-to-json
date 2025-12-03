@@ -5,11 +5,15 @@
     "properties": {
       "Comments": {
         "type": "textarea",
-        "description": "Additional details about the gateway provider payment method type record. Max length is 1000 characters."
+        "description": "Additional details about the gateway provider payment method type record. Max length is 1000 characters.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, Salesforce generates one for each record, which slows performance. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field."
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, Salesforce generates one for each record, which slows performance. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field.",
+        "maxLength": 255,
+        "nullable": false
       },
       "Fullname": {
         "type": "string",
@@ -17,15 +21,60 @@
       },
       "GtwyProviderPaymentMethodType": {
         "type": "string",
-        "description": "Links the Salesforce payment method to the payment method used in the Salesforce Order Management storefront. Your payment gateway integration uses this field when finding a payment method to link to a payment."
+        "description": "Links the Salesforce payment method to the payment method used in the Salesforce Order Management storefront. Your payment gateway integration uses this field when finding a payment method to link to a payment.",
+        "maxLength": 60,
+        "nullable": true
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the payment gateway integration."
+        "description": "The language of the payment gateway integration.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. A null value may mean that the user only accessed this record or list view (LastReferencedDate) but did not view it."
+        "description": "The timestamp when the current user last viewed this record or list view. A null value may mean that the user only accessed this record or list view (LastReferencedDate) but did not view it.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -33,7 +82,9 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Required. Label for the GtwyProvPaymentMethodType. In the UI, this field is Gateway Provider Payment Method Type."
+        "description": "Required. Label for the GtwyProvPaymentMethodType. In the UI, this field is Gateway Provider Payment Method Type.",
+        "maxLength": 255,
+        "nullable": false
       },
       "Metadata": {
         "type": "GatewayProviderPaymentMethodType",
@@ -41,22 +92,90 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "PaymentGatewayProviderId": {
         "type": "reference",
-        "description": "Specifies the payment gateway provider that Salesforce Order Management should use when processing payments. One payment gateway provider can be related to multiple payment method types."
+        "description": "Specifies the payment gateway provider that Salesforce Order Management should use when processing payments. One payment gateway provider can be related to multiple payment method types.",
+        "format": "salesforce-id",
+        "x-object": "PaymentGatewayProvider",
+        "maxLength": 18,
+        "nullable": true
       },
       "PaymentMethodType": {
         "type": "picklist",
-        "description": "Specifies the type of payment method used on an order in Salesforce Order Management."
+        "description": "Specifies the type of payment method used on an order in Salesforce Order Management.",
+        "format": "enum",
+        "enum": [
+          "CardPaymentMethod",
+          "DigitalWallet"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "RecordTypeId": {
         "type": "reference",
         "description": "ID of the record type entity related to the gateway provider payment method type."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Gateway Provider Payment Method Type ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_gtwyprovpaymentmethodtype.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_gtwyprovpaymentmethodtype.htm",
+    "keyPrefix": "1gp",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true
   }
 }

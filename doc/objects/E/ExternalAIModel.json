@@ -2,7 +2,197 @@
   "ExternalAIModel": {
     "name": "ExternalAIModel",
     "description": "External AI Model (Tooling API)",
-    "properties": {},
-    "module": "Tooling API"
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "External AI Model ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "DeveloperName": {
+        "type": "string",
+        "description": "Name",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Language": {
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "MasterLabel": {
+        "type": "string",
+        "description": "Label",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ApplicationType": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "REPLY_RECOMMENDATION",
+          "ARTICLE_RECOMMENDATION",
+          "UTTERANCE_RECOMMENDATION",
+          "FAQ",
+          "EAR_FOR_CONVERSATION",
+          "USE_CASE_EXPLORER",
+          "EAR_FOR_VOICE",
+          "COPILOT_UTTERANCE_ANALYSIS",
+          "COPILOT_UTTERANCE_ANALYSIS_AGGREGATION",
+          "COPILOT_UTTERANCE_ANALYSIS_PROCESSING",
+          "AGENTFORCE_INTERACTION_EXPLORER_MOMENT_GENERATION",
+          "AGENTFORCE_INTERACTION_EXPLORER_CLUSTERING"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "ExternalModelKey": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Status": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "ENABLED",
+          "DISABLED",
+          "PAUSED"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Threshold": {
+        "type": "number",
+        "nullable": true,
+        "readOnly": true
+      },
+      "TrainingJobName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      }
+    },
+    "module": "Tooling API",
+    "keyPrefix": "0b4",
+    "createable": true,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "CandidateAnswer",
+        "field": "ExternalAiModelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CandidateAnswerChangeEvent",
+        "field": "ExternalAiModelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReplyAIRecommendation",
+        "field": "ExternalAiModelId",
+        "relationshipName": "ExternalAiModels",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReplyText",
+        "field": "ExternalAiModelId",
+        "relationshipName": "ReplyTextModel",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

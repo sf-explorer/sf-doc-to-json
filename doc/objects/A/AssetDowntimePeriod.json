@@ -5,42 +5,130 @@
     "properties": {
       "AssetDowntimePeriodNumber": {
         "type": "string",
-        "description": "The unique number of this asset downtime period record."
+        "description": "The unique number of this asset downtime period record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "AssetId": {
         "type": "reference",
-        "description": "The ID of the asset this asset downtime period record is for."
+        "description": "The ID of the asset this asset downtime period record is for.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of this asset downtime period."
+        "description": "The description of this asset downtime period.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DowntimeType": {
         "type": "picklist",
-        "description": "The type of this asset downtime period. Possible values are: Planned Unplanned"
+        "description": "The type of this asset downtime period. Possible values are: Planned Unplanned",
+        "format": "enum",
+        "enum": [
+          "Unplanned",
+          "Planned"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "EndTime": {
         "type": "dateTime",
-        "description": "The time this asset downtime period ended."
+        "description": "The time this asset downtime period ended.",
+        "format": "date-time",
+        "nullable": false
       },
       "IsExcluded": {
         "type": "boolean",
-        "description": "Whether this asset downtime period is excluded from the calculation of accumulated downtime and accumulated unplanned downtime, and therefore not included in availability and reliability calculations."
+        "description": "Whether this asset downtime period is excluded from the calculation of accumulated downtime and accumulated unplanned downtime, and therefore not included in availability and reliability calculations.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "StartTime": {
         "type": "dateTime",
-        "description": "The time this asset downtime period started."
+        "description": "The time this asset downtime period started.",
+        "format": "date-time",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Asset Downtime Period ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetdowntimeperiod.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetdowntimeperiod.htm",
+    "keyPrefix": "0gP"
   }
 }

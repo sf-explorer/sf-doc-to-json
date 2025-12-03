@@ -5,22 +5,76 @@
     "properties": {
       "Description": {
         "type": "textarea",
-        "description": "A description of this node, no longer than 3,000 bytes."
+        "description": "A description of this node, no longer than 3,000 bytes.",
+        "maxLength": 1000,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The external name of the node that’s seen by users."
+        "description": "The external name of the node that’s seen by users.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The unique node name."
+        "description": "The unique node name.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ProcessDefinitionId": {
         "type": "reference",
-        "description": "ID of the object affected by this approval instance."
+        "description": "ID of the object affected by this approval instance.",
+        "format": "salesforce-id",
+        "x-object": "ProcessDefinition",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Process Node ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processnode.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processnode.htm",
+    "keyPrefix": "04b",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "ProcessNodeId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstanceNode",
+        "field": "ProcessNodeId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceStep",
+        "field": "StepNodeId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -5,18 +5,55 @@
     "properties": {
       "DocumentId": {
         "type": "reference",
-        "description": "ID of the document that this object tracks."
+        "description": "ID of the document that this object tracks.",
+        "format": "salesforce-id",
+        "x-object": "Document",
+        "maxLength": 18,
+        "nullable": false
       },
       "DocumentSequence": {
         "type": "int",
-        "description": "Represents the order that the attachments will be included in the email defined by the EmailTemplate specified by the DocumentId. Label is Attachment Sequence. The first attachment is given a value of 0, and each subsequent attachment is given a value incremented by 1."
+        "description": "Represents the order that the attachments will be included in the email defined by the EmailTemplate specified by the DocumentId. Label is Attachment Sequence. The first attachment is given a value of 0, and each subsequent attachment is given a value incremented by 1.",
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the EmailTemplate parent. The attachment identified by DocumentId is attached to the EmailTemplate specified in this field."
+        "description": "ID of the EmailTemplate parent. The attachment identified by DocumentId is attached to the EmailTemplate specified in this field.",
+        "format": "salesforce-id",
+        "x-object": "EmailTemplate",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Document Entity Map Id",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_documentattachmentmap.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_documentattachmentmap.htm",
+    "keyPrefix": "05X",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -5,30 +5,118 @@
     "properties": {
       "AuthProviderId": {
         "type": "reference",
-        "description": "Salesforce ID of the authentication provider, which defines the service that provides the login process and approves access to the external system.Only users with the “Customize Application” and “Manage AuthProviders” permissions can view this field. This field is available in API version 39.0 and later."
+        "description": "Salesforce ID of the authentication provider, which defines the service that provides the login process and approves access to the external system.Only users with the “Customize Application” and “Manage AuthProviders” permissions can view this field. This field is available in API version 39.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "AuthProvider",
+        "maxLength": 18,
+        "nullable": true
       },
       "ExternalDataSourceId": {
         "type": "reference",
-        "description": "Salesforce ID of the external data source or named credential that defines the external system."
+        "description": "Salesforce ID of the external data source or named credential that defines the external system.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "ExternalDataSource",
+          "NamedCredential"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Password": {
         "type": "textarea",
-        "description": "Password portion of the credentials for the Salesforce user to access the external system."
+        "description": "Password portion of the credentials for the Salesforce user to access the external system.",
+        "maxLength": 6000,
+        "nullable": true
       },
       "Protocol": {
         "type": "picklist",
-        "description": "Specifies whether to use OAuth, password authentication, or no authentication when the user accesses the external system."
+        "description": "Specifies whether to use OAuth, password authentication, or no authentication when the user accesses the external system.",
+        "format": "enum",
+        "enum": [
+          "NoAuthentication",
+          "Oauth",
+          "Password",
+          "AwsSv4",
+          "Jwt",
+          "JwtExchange",
+          "C2c",
+          "Custom",
+          "Basic"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "UserId": {
         "type": "reference",
-        "description": "ID of the Salesforce user who’s accessing the external system."
+        "description": "ID of the Salesforce user who’s accessing the external system.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "Username": {
         "type": "string",
-        "description": "Username portion of the credentials for the Salesforce user to access the external system."
+        "description": "Username portion of the credentials for the Salesforce user to access the external system.",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "External Data User Authentication ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_externaldatauserauth.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_externaldatauserauth.htm",
+    "keyPrefix": "0XU",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

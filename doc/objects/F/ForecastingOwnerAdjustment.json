@@ -9,11 +9,27 @@
       },
       "ForecastCategoryName": {
         "type": "picklist",
-        "description": "The category within the sales cycle that an opportunity is assigned to based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted, and Closed. You can add a Most Likely category and can customize forecast category names in single category rollups. The forecast categories display information for that specific category; for example, Best Case only reflects amounts in the Best Case category."
+        "description": "The category within the sales cycle that an opportunity is assigned to based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted, and Closed. You can add a Most Likely category and can customize forecast category names in single category rollups. The forecast categories display information for that specific category; for example, Best Case only reflects amounts in the Best Case category.",
+        "format": "enum",
+        "enum": [
+          "Omitted",
+          "Pipeline",
+          "Best Case",
+          "Commit",
+          "Closed"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastOwnerId": {
         "type": "reference",
-        "description": "The ID of the forecast owner."
+        "description": "The ID of the forecast owner.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastingGroupItemId": {
         "type": "reference",
@@ -21,54 +37,191 @@
       },
       "ForecastingItemCategory": {
         "type": "picklist",
-        "description": "This field indicates which type of forecast rollup the owner adjustment belongs to. Depending on whether your organization uses individual forecast category rollups or cumulative forecast rollups, you have these possible values for the ForecastingItemCategory field. Individual forecast category rollups: PipelineOnly - Rollup from Pipeline opportunities only. BestCaseOnly - Rollup from Best Case opportunities only. Adjustable. MostLikelyOnly - Rollup from Most Likely opportunities only. Adjustable. CommitOnly - Rollup from Commit opportunities only. Adjustable. Cumulative forecast rollups: OpenPipeline - Rollup from Pipeline + Best Case + Most Likely + Commit opportunities. BestCaseForecast - Rollup from Best Case + Most Likely + Commit + Closed opportunities. Adjustable. MostLikelyForecast - Rollup from Most Likely + Commit + Closed opportunities. Adjustable. CommitForecast - Rollup from Commit + Closed opportunities. Adjustable. Either cumulative or individual forecast category rollups: ClosedOnly - Rollup from Closed opportunities only. The ForecastingItemCategory field differs from the ForecastCategoryName field. The ForecastCategoryName field represents the forecast category of the underlying opportunities rolling up to forecast amounts. In organizations using cumulative forecast rollups, the ForecastCategoryName field can be null because the cumulative forecast amounts include opportunities from multiple forecast categories. The new ForecastingItemCategory field represents the type of rollup a forecast amount or adjustment is from. In organizations using individual forecast category columns, it contains the individual forecast rollup categories. In organizations using cumulative forecast rollups, it contains the cumulative rollup categories. When inserting owner adjustments, the values you insert for ForecastCategoryName and ForecastingItemCategory must be compatible with each other. In organizations using cumulative forecast rollups, the ForecastCategoryName is nillable. These pairs are the valid pairs. Individual forecast category rollups: ForecastCategoryName: BestCase, ForecastingItemCategory: BestCaseOnly ForecastCategoryName: Commit, ForecastingItemCategory: CommitOnly Cumulative forecast category rollups: ForecastCategoryName: null, ForecastingItemCategory: BestCaseForecast ForecastCategoryName: null, ForecastingItemCategory: CommitForecast"
+        "description": "This field indicates which type of forecast rollup the owner adjustment belongs to. Depending on whether your organization uses individual forecast category rollups or cumulative forecast rollups, you have these possible values for the ForecastingItemCategory field. Individual forecast category rollups: PipelineOnly - Rollup from Pipeline opportunities only. BestCaseOnly - Rollup from Best Case opportunities only. Adjustable. MostLikelyOnly - Rollup from Most Likely opportunities only. Adjustable. CommitOnly - Rollup from Commit opportunities only. Adjustable. Cumulative forecast rollups: OpenPipeline - Rollup from Pipeline + Best Case + Most Likely + Commit opportunities. BestCaseForecast - Rollup from Best Case + Most Likely + Commit + Closed opportunities. Adjustable. MostLikelyForecast - Rollup from Most Likely + Commit + Closed opportunities. Adjustable. CommitForecast - Rollup from Commit + Closed opportunities. Adjustable. Either cumulative or individual forecast category rollups: ClosedOnly - Rollup from Closed opportunities only. The ForecastingItemCategory field differs from the ForecastCategoryName field. The ForecastCategoryName field represents the forecast category of the underlying opportunities rolling up to forecast amounts. In organizations using cumulative forecast rollups, the ForecastCategoryName field can be null because the cumulative forecast amounts include opportunities from multiple forecast categories. The new ForecastingItemCategory field represents the type of rollup a forecast amount or adjustment is from. In organizations using individual forecast category columns, it contains the individual forecast rollup categories. In organizations using cumulative forecast rollups, it contains the cumulative rollup categories. When inserting owner adjustments, the values you insert for ForecastCategoryName and ForecastingItemCategory must be compatible with each other. In organizations using cumulative forecast rollups, the ForecastCategoryName is nillable. These pairs are the valid pairs. Individual forecast category rollups: ForecastCategoryName: BestCase, ForecastingItemCategory: BestCaseOnly ForecastCategoryName: Commit, ForecastingItemCategory: CommitOnly Cumulative forecast category rollups: ForecastCategoryName: null, ForecastingItemCategory: BestCaseForecast ForecastCategoryName: null, ForecastingItemCategory: CommitForecast",
+        "format": "enum",
+        "enum": [
+          "OmittedOnly",
+          "PipelineOnly",
+          "BestCaseOnly",
+          "CommitOnly",
+          "ClosedOnly",
+          "OpenPipeline",
+          "BestCaseForecast",
+          "CommitForecast"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ForecastingItemId": {
         "type": "reference",
-        "description": "The ID of the related ForecastingItem."
+        "description": "The ID of the related ForecastingItem.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ForecastingTypeId": {
         "type": "reference",
-        "description": "The ID of the related ForecastingType."
+        "description": "The ID of the related ForecastingType.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingType",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IsAmount": {
         "type": "boolean",
-        "description": "If true, then the adjustment is made in a revenue amount. If false, then IsQuantity must be true."
+        "description": "If true, then the adjustment is made in a revenue amount. If false, then IsQuantity must be true.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsQuantity": {
         "type": "boolean",
-        "description": "If true, then the adjustment is made in a quantity amount. If false, then IsAmount must be true."
+        "description": "If true, then the adjustment is made in a quantity amount. If false, then IsAmount must be true.",
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerAdjustedAmount": {
         "type": "currency",
-        "description": "The revenue amount of an individual forecast item, after an adjustment."
+        "description": "The revenue amount of an individual forecast item, after an adjustment.",
+        "format": "currency",
+        "nullable": true
       },
       "OwnerAdjustedQuantity": {
         "type": "double",
-        "description": "The quantity amount of an individual forecast item, after an adjustment."
+        "description": "The quantity amount of an individual forecast item, after an adjustment.",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "OwnerAdjustmentNote": {
         "type": "textarea",
-        "description": "A text note providing information about the adjustment. The maximum length is 255 characters. This field does not appear in reports."
+        "description": "A text note providing information about the adjustment. The maximum length is 255 characters. This field does not appear in reports.",
+        "maxLength": 255,
+        "nullable": true
       },
       "PeriodId": {
         "type": "reference",
-        "description": "Period ID for the adjustment. Read only."
+        "description": "Period ID for the adjustment. Read only.",
+        "format": "salesforce-id",
+        "x-object": "Period",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductFamily": {
         "type": "picklist",
-        "description": "The Product Family for the adjustment. Read only."
+        "description": "The Product Family for the adjustment. Read only.",
+        "format": "enum",
+        "enum": [
+          "Internet",
+          "Product",
+          "Service",
+          "Services",
+          "Multiplay",
+          "Wireless",
+          "TV",
+          "Streaming",
+          "Home Security",
+          "Software",
+          "Mobile",
+          "Landline",
+          "Support",
+          "Accessories",
+          "Device",
+          "Networking"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The start of the adjustment, expressed as month and year. The date can include any day in a given month. Stored using the first date of the month."
+        "description": "The start of the adjustment, expressed as month and year. The date can include any day in a given month. Stored using the first date of the month.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Territory2Id": {
         "type": "reference",
-        "description": "The ID of the territory to forecast on. Available in API version 43.0 and later."
+        "description": "The ID of the territory to forecast on. Available in API version 43.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "Territory2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ForecastingAdjustment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingowneradjustment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingowneradjustment.htm",
+    "keyPrefix": "08Q",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

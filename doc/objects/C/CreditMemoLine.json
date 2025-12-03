@@ -5,15 +5,26 @@
     "properties": {
       "AdjustmentAmount": {
         "type": "currency",
-        "description": "The amount of this credit memo line item if its type is Adjustment."
+        "description": "The amount of this credit memo line item if its type is Adjustment.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "AdjustmentAmountWithTax": {
         "type": "currency",
-        "description": "The sum of the adjustment amount and the adjustment tax amount. Available in API versions 62.0 and 63.0."
+        "description": "The sum of the adjustment amount and the adjustment tax amount. Available in API versions 62.0 and 63.0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AdjustmentTaxAmount": {
         "type": "currency",
-        "description": "The amount of the tax related to the adjustment amount. Available in API versions 62.0 and 63.0."
+        "description": "The amount of the tax related to the adjustment amount. Available in API versions 62.0 and 63.0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Balance": {
         "type": "currency",
@@ -25,15 +36,26 @@
       },
       "ChargeAmount": {
         "type": "currency",
-        "description": "The amount of this credit memo line item if its type is Charge."
+        "description": "The amount of this credit memo line item if its type is Charge.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ChargeAmountWithTax": {
         "type": "currency",
-        "description": "The sum of the charge amount and the charge tax amount. Available in API versions 62.0 and 63.0."
+        "description": "The sum of the charge amount and the charge tax amount. Available in API versions 62.0 and 63.0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ChargeTaxAmount": {
         "type": "currency",
-        "description": "The amount of the tax related to the charge amount. Available in API versions 62.0 and 63.0."
+        "description": "The amount of the tax related to the charge amount. Available in API versions 62.0 and 63.0.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CorpCurrencyCnvChargeAmt": {
         "type": "double",
@@ -57,15 +79,24 @@
       },
       "CreditMemoId": {
         "type": "reference",
-        "description": "Required. The ID of the parent credit memo."
+        "description": "Required. The ID of the parent credit memo.",
+        "format": "salesforce-id",
+        "x-object": "CreditMemo",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Additional details about the credit memo line."
+        "description": "Additional details about the credit memo line.",
+        "maxLength": 255,
+        "nullable": true
       },
       "EndDate": {
         "type": "date",
-        "description": "The description of the credit memo line."
+        "description": "The description of the credit memo line.",
+        "format": "date",
+        "nullable": true
       },
       "LegalEntityAccountingPeriodId": {
         "type": "reference",
@@ -77,11 +108,17 @@
       },
       "LineAmount": {
         "type": "currency",
-        "description": "The amount of the credit memo line."
+        "description": "The amount of the credit memo line.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "Required. The name of the credit memo line."
+        "description": "Required. The name of the credit memo line.",
+        "maxLength": 255,
+        "nullable": false
       },
       "NetCreditsApplied": {
         "type": "currency",
@@ -89,19 +126,42 @@
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The ID of the product or service being credited in the credit memo line."
+        "description": "The ID of the product or service being credited in the credit memo line.",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": true
       },
       "ReferenceEntityItemId": {
         "type": "reference",
-        "description": "The order product or invoice line corresponding to this credit memo line."
+        "description": "The order product or invoice line corresponding to this credit memo line.",
+        "format": "salesforce-id",
+        "x-object": "OrderItemSummary",
+        "maxLength": 18,
+        "nullable": true
       },
       "ReferenceEntityItemType": {
         "type": "picklist",
-        "description": "The type of transaction that generated the credit memo line."
+        "description": "The type of transaction that generated the credit memo line.",
+        "format": "enum",
+        "enum": [
+          "Order Product",
+          "Delivery Charge",
+          "Fee"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ReferenceEntityItemTypeCode": {
         "type": "picklist",
-        "description": "The type of object that generated the credit memo line."
+        "description": "The type of object that generated the credit memo line.",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ShipFromAddressId": {
         "type": "reference",
@@ -113,22 +173,309 @@
       },
       "StartDate": {
         "type": "date",
-        "description": "The first date of the billing for the service for credit memo lines generated from a time-based service."
+        "description": "The first date of the billing for the service for credit memo lines generated from a time-based service.",
+        "format": "date",
+        "nullable": true
       },
       "Status": {
         "type": "string",
-        "description": "The status of the credit memo line. This field is inherited from the credit memo."
+        "description": "The status of the credit memo line. This field is inherited from the credit memo.",
+        "maxLength": 50,
+        "nullable": true,
+        "readOnly": true
       },
       "TaxAmount": {
         "type": "currency",
-        "description": "The total tax amount for the credit memo."
+        "description": "The total tax amount for the credit memo.",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TaxTreatmentId": {
         "type": "reference",
         "description": "The ID of the tax treatment record for the credit memo line."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Credit Memo Line ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "TaxEffectiveDate": {
+        "type": "string",
+        "format": "date",
+        "nullable": true
+      },
+      "Type": {
+        "type": "string",
+        "format": "enum",
+        "enum": [
+          "Charge",
+          "Tax",
+          "Adjustment"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "TaxCode": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "TaxRate": {
+        "type": "number",
+        "format": "percent",
+        "nullable": true
+      },
+      "RelatedLineId": {
+        "type": "string",
+        "description": "Credit Memo Line ID",
+        "format": "salesforce-id",
+        "x-object": "CreditMemoLine",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "TaxName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "GrossUnitPrice": {
+        "type": "number",
+        "format": "currency",
+        "nullable": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoline.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoline.htm",
+    "keyPrefix": "9yx",
+    "createable": false,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoLine",
+        "field": "RelatedLineId",
+        "relationshipName": "CreditMemoLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CreditMemoLineFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CreditMemoLineHistory",
+        "field": "CreditMemoLineId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FinanceBalanceSnapshot",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceBalanceSnapshots",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceBalanceSnapshotChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "DestinationEntityId",
+        "relationshipName": "DestinationFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": "ParentFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "ReferenceEntityId",
+        "relationshipName": "FinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransaction",
+        "field": "SourceEntityId",
+        "relationshipName": "SourceFinanceTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "DestinationEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ParentReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "ReferenceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FinanceTransactionChangeEvent",
+        "field": "SourceEntityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

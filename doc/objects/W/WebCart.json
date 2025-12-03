@@ -5,43 +5,79 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the account that owns this WebCart. In API version 51.0 and later, if the WebCart was created through Guest Browsing, this ID is the ID of the GuestBuyerProfile."
+        "description": "ID of the account that owns this WebCart. In API version 51.0 and later, if the WebCart was created through Guest Browsing, this ID is the ID of the GuestBuyerProfile.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "BillingAddress": {
         "type": "address",
-        "description": "The mailing address to which this WebCart is billed."
+        "description": "The mailing address to which this WebCart is billed.",
+        "nullable": true,
+        "readOnly": true
       },
       "BillingCity": {
         "type": "string",
-        "description": "The city of the billing address."
+        "description": "The city of the billing address.",
+        "maxLength": 40,
+        "nullable": true
       },
       "BillingCountry": {
         "type": "string",
-        "description": "The country of the billing address."
+        "description": "The country of the billing address.",
+        "maxLength": 80,
+        "nullable": true
       },
       "BillingGeocodeAccuracy": {
         "type": "picklist",
-        "description": "The accuracy rating of the geocode for the billing address. Possible values are: Address Block City County ExtendedZip NearAddress Neighborhood State Street Unknown Zip"
+        "description": "The accuracy rating of the geocode for the billing address. Possible values are: Address Block City County ExtendedZip NearAddress Neighborhood State Street Unknown Zip",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "BillingLatitude": {
         "type": "double",
-        "description": "The latitude of the geocode for the billing address."
+        "description": "The latitude of the geocode for the billing address.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "BillingLongitude": {
         "type": "double",
-        "description": "The longitude of the geocode for the billing address."
+        "description": "The longitude of the geocode for the billing address.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "BillingPostalCode": {
         "type": "string",
-        "description": "The postal code for the billing address."
+        "description": "The postal code for the billing address.",
+        "maxLength": 20,
+        "nullable": true
       },
       "BillingState": {
         "type": "string",
-        "description": "The state of the billing address."
+        "description": "The state of the billing address.",
+        "maxLength": 80,
+        "nullable": true
       },
       "BillingStreet": {
         "type": "textarea",
-        "description": "The street of the billing address. Enter up to 255 characters."
+        "description": "The street of the billing address. Enter up to 255 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -49,7 +85,11 @@
       },
       "GrandTotalAmount": {
         "type": "currency",
-        "description": "Sum of all cart items’ TotalAmount, or WebCart TotalAmount plus WebCart TotalTaxAmount. This value includes all taxes and adjustments."
+        "description": "Sum of all cart items’ TotalAmount, or WebCart TotalAmount plus WebCart TotalTaxAmount. This value includes all taxes and adjustments.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "GuestCompanyName": {
         "type": "string",
@@ -85,7 +125,8 @@
       },
       "IsRepricingNeeded": {
         "type": "boolean",
-        "description": "Whether the cart has changed since the last repricing. The default value is false."
+        "description": "Whether the cart has changed since the last repricing. The default value is false.",
+        "nullable": false
       },
       "IsSecondary": {
         "type": "boolean",
@@ -93,31 +134,66 @@
       },
       "LastRepricingDate": {
         "type": "dateTime",
-        "description": "Date when the last repricing was done."
+        "description": "Date when the last repricing was done.",
+        "format": "date-time",
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of this WebCart record. Name can be up to 255 characters."
+        "description": "The name of this WebCart record. Name can be up to 255 characters.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the owner of this WebCart."
+        "description": "The ID of the owner of this WebCart.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "PaymentGroupId": {
         "type": "reference",
-        "description": "The ID of the WebCart payment group."
+        "description": "The ID of the WebCart payment group.",
+        "format": "salesforce-id",
+        "x-object": "PaymentGroup",
+        "maxLength": 18,
+        "nullable": true
       },
       "PaymentMethodId": {
         "type": "reference",
-        "description": "The method of payment for this WebCart."
+        "description": "The method of payment for this WebCart.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "CardPaymentMethod",
+          "DigitalWallet"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "PoNumber": {
         "type": "string",
-        "description": "The purchase order number. Enter up to 80 characters."
+        "description": "The purchase order number. Enter up to 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of this WebCart. Possible values are: Active—Cart is created and available for modifications, like adding or removing products or promotions. Checkout—Cart is in checkout. If the customer modifies the cart, the current checkout session is canceled. Closed—Checkout is complete and an order was created. The cart cannot be modified. PendingClosed—Cart is marked to be closed, but the request isn't completed yet. The cart can’t be modified. This value is available in API version 57.0 and later. PendingDelete—Cart is marked for delete, but the request isn't completed yet. The cart can’t be modified. Processing—Cart is processing. For example, taxes are being calculated. The cart can’t be modified."
+        "description": "The status of this WebCart. Possible values are: Active—Cart is created and available for modifications, like adding or removing products or promotions. Checkout—Cart is in checkout. If the customer modifies the cart, the current checkout session is canceled. Closed—Checkout is complete and an order was created. The cart cannot be modified. PendingClosed—Cart is marked to be closed, but the request isn't completed yet. The cart can’t be modified. This value is available in API version 57.0 and later. PendingDelete—Cart is marked for delete, but the request isn't completed yet. The cart can’t be modified. Processing—Cart is processing. For example, taxes are being calculated. The cart can’t be modified.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Closed",
+          "PendingClosed",
+          "Processing",
+          "Checkout",
+          "PendingDelete"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "TaxLocaleType": {
         "type": "picklist",
@@ -133,7 +209,11 @@
       },
       "TotalAmount": {
         "type": "currency",
-        "description": "The sum of all cart items’ TotalPrice, or TotalProductAmount plus TotalChargeAmount. If the store tax type is Gross, the sum includes taxes."
+        "description": "The sum of all cart items’ TotalPrice, or TotalProductAmount plus TotalChargeAmount. If the store tax type is Gross, the sum includes taxes.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAmountAfterAllAdjustments": {
         "type": "currency",
@@ -145,27 +225,47 @@
       },
       "TotalChargeAmount": {
         "type": "currency",
-        "description": "The sum of all cart items’ TotalPrice for cart items of the type Charge."
+        "description": "The sum of all cart items’ TotalPrice for cart items of the type Charge.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalChargeTaxAmount": {
         "type": "currency",
-        "description": "The sum of all the cart items’ TotalTaxAmount for cart items of the type Charge."
+        "description": "The sum of all the cart items’ TotalTaxAmount for cart items of the type Charge.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineItemsWithErrors": {
         "type": "int",
-        "description": "A calculated field that shows the total number of cart line items of type Product with errors."
+        "description": "A calculated field that shows the total number of cart line items of type Product with errors.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalListAmount": {
         "type": "currency",
-        "description": "Sum of all the cart items’ TotalListPrice."
+        "description": "Sum of all the cart items’ TotalListPrice.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalProductAmount": {
         "type": "currency",
-        "description": "The sum of all the cart items’ TotalPrice for cart items of the type Product."
+        "description": "The sum of all the cart items’ TotalPrice for cart items of the type Product.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalProductCount": {
         "type": "double",
-        "description": "A count of all the products in the WebCart."
+        "description": "A count of all the products in the WebCart.",
+        "nullable": true,
+        "readOnly": true
       },
       "TotalProductItemAdjAmount": {
         "type": "currency",
@@ -181,7 +281,11 @@
       },
       "TotalProductTaxAmount": {
         "type": "currency",
-        "description": "The sum of all the cart items’ TotalTaxAmount for the CartItem type Product."
+        "description": "The sum of all the cart items’ TotalTaxAmount for the CartItem type Product.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPromoAdjustmentAmount": {
         "type": "currency",
@@ -193,22 +297,222 @@
       },
       "TotalTaxAmount": {
         "type": "currency",
-        "description": "The sum of all cart items’ TotalTaxAmount, or TotalProductTaxAmount plus TotalDeliveryTaxAmount."
+        "description": "The sum of all cart items’ TotalTaxAmount, or TotalProductTaxAmount plus TotalDeliveryTaxAmount.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Type": {
         "type": "picklist",
-        "description": "The WebCart type. Default value is Cart. Possible values are: Cart PayNowReadOnly ReadOnly Template"
+        "description": "The WebCart type. Default value is Cart. Possible values are: Cart PayNowReadOnly ReadOnly Template",
+        "format": "enum",
+        "enum": [
+          "Cart",
+          "Template",
+          "ReadOnly",
+          "PayNowReadOnly"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "UniqueProductCount": {
         "type": "int",
-        "description": "The count of unique product SKUs in the WebCart."
+        "description": "The count of unique product SKUs in the WebCart.",
+        "nullable": true,
+        "readOnly": true
       },
       "WebStoreId": {
         "type": "reference",
-        "description": "The store ID related to this WebCart."
+        "description": "The store ID related to this WebCart.",
+        "format": "salesforce-id",
+        "x-object": "WebStore",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Cart ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_webcart.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_webcart.htm",
+    "keyPrefix": "0a6",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AppUsageAssignment",
+        "field": "RecordId",
+        "relationshipName": "AppUsageAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartCheckoutSession",
+        "field": "WebCartId",
+        "relationshipName": "CartCheckoutSessions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartDeliveryGroup",
+        "field": "CartId",
+        "relationshipName": "CartDeliveryGroups",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartDeliveryGroupMethod",
+        "field": "WebCartId",
+        "relationshipName": "CartShippingOptions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartItem",
+        "field": "CartId",
+        "relationshipName": "CartItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartTax",
+        "field": "CartId",
+        "relationshipName": "CartItemTaxes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CartValidationOutput",
+        "field": "CartId",
+        "relationshipName": "WebCart",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CartValidationOutput",
+        "field": "RelatedEntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessException",
+        "field": "AttachedToId",
+        "relationshipName": "ProcessExceptions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessExceptionEvent",
+        "field": "AttachedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebCartHistory",
+        "field": "WebCartId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WebCartShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

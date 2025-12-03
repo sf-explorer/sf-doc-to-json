@@ -1,0 +1,65 @@
+{
+  "FlowStep": {
+    "name": "FlowStep",
+    "label": "Flow Step",
+    "description": "Represents FlowStep metadata component used in Salesforce deployments and package development.",
+    "properties": {
+      "FullName": {
+        "type": "string",
+        "description": "The unique identifier for this metadata component",
+        "nullable": false,
+        "readOnly": false
+      },
+      "connectors": {
+        "type": "array",
+        "itemType": "FlowConnector",
+        "nullable": false,
+        "description": "connectors field of FlowStep metadata component.",
+        "items": {
+          "type": "object",
+          "description": "FlowConnector complex type",
+          "properties": {
+            "processMetadataValues": {
+              "type": "array",
+              "itemType": "FlowMetadataValue",
+              "nullable": false,
+              "description": "process Metadata Values field of FlowBaseElement metadata component.",
+              "items": {
+                "type": "object",
+                "description": "FlowMetadataValue complex type",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "originalType": "string",
+                    "nullable": false,
+                    "readOnly": false,
+                    "description": "name field of FlowMetadataValue metadata component."
+                  },
+                  "value": {
+                    "type": "FlowElementReferenceOrValue",
+                    "originalType": "FlowElementReferenceOrValue",
+                    "nullable": true,
+                    "readOnly": false,
+                    "description": "value field of FlowMetadataValue metadata component.",
+                    "schema": {
+                      "$ref": "FlowElementReferenceOrValue"
+                    }
+                  }
+                }
+              }
+            },
+            "targetReference": {
+              "type": "string",
+              "originalType": "string",
+              "nullable": false,
+              "readOnly": false,
+              "description": "target Reference field of FlowConnector metadata component."
+            }
+          }
+        }
+      }
+    },
+    "module": "Metadata API",
+    "extends": "FlowNode"
+  }
+}

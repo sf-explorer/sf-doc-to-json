@@ -1,30 +1,180 @@
 {
   "StaticResource": {
     "name": "StaticResource",
-    "description": "Represents the working copy of a static resource file for editing or saving. Static resources allow you to upload content that you can reference in a Visualforce page, including images, stylesheets, JavaScript, and other files.",
+    "description": "Static Resources - StaticResource",
     "properties": {
-      "Body": {
+      "Id": {
         "type": "string",
-        "description": "The data for the static resource file."
+        "description": "Static Resource ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "ContentType": {
+      "NamespacePrefix": {
         "type": "string",
-        "description": "Required. The content type of the file, for example text/plain."
-      },
-      "CacheControl": {
-        "type": "string",
-        "description": "Required. Indicates whether the static resource is marked with a public caching tag so that a third-party delivery client can cache the content. The valid values are: Private Public"
-      },
-      "ManageableState": {
-        "type": "ManageableState enumerated list",
-        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+        "description": "Namespace Prefix",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The static resource name. The name can only contain characters, letters, and the underscore (_) character, must start with a letter, and cannot end with an underscore or contain two consecutive underscore characters"
+        "description": "Name",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "ContentType": {
+        "type": "string",
+        "description": "MIME Type",
+        "maxLength": 120,
+        "nullable": false
+      },
+      "BodyLength": {
+        "type": "integer",
+        "description": "Size",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Body": {
+        "type": "string",
+        "description": "Body",
+        "format": "byte",
+        "nullable": true
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CacheControl": {
+        "type": "string",
+        "description": "Cache Control",
+        "format": "enum",
+        "enum": [
+          "Private",
+          "Public"
+        ],
+        "maxLength": 40,
+        "nullable": false
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_staticresource.htm"
+    "module": "N/A",
+    "keyPrefix": "081",
+    "label": "Static Resource",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "ExternalDataSource",
+        "field": "LargeIconId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ExternalDataSource",
+        "field": "SmallIconId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InsightsApplication",
+        "field": "AssetIcon",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatButton",
+        "field": "InviteImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatButton",
+        "field": "OfflineImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatButton",
+        "field": "OnlineImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatDeployment",
+        "field": "BrandingId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LiveChatDeployment",
+        "field": "MobileBrandingId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveTemplate",
+        "field": "AssetIcon",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveTemplate",
+        "field": "TemplateBadgeIcon",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WaveTemplate",
+        "field": "TemplateDetailIcon",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,26 +5,91 @@
     "properties": {
       "ApiName": {
         "type": "string",
-        "description": "Uniquely identifies a picklist value so it can be retrieved without using an id or primary label."
+        "description": "Uniquely identifies a picklist value so it can be retrieved without using an id or primary label.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDefault": {
         "type": "boolean",
-        "description": "Indicates whether this is the default order item type status value (true) or not (false) in the picklist."
+        "description": "Indicates whether this is the default order item type status value (true) or not (false) in the picklist.",
+        "nullable": false,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Master label for this order item type status value. This display value is the internal label that doesn’t get translated."
+        "description": "Master label for this order item type status value. This display value is the internal label that doesn’t get translated.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SortOrder": {
         "type": "int",
-        "description": "Number used to sort this value in the order item status picklist. These numbers aren’t guaranteed to be sequential, as some previous contract status values might have been deleted."
+        "description": "Number used to sort this value in the order item status picklist. These numbers aren’t guaranteed to be sequential, as some previous contract status values might have been deleted.",
+        "nullable": true,
+        "readOnly": true
       },
       "TypeCode": {
         "type": "picklist",
-        "description": "Code indicating the type of order item."
+        "description": "Code indicating the type of order item.",
+        "format": "enum",
+        "enum": [
+          "Product",
+          "Charge"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Order Product Type ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtype.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtype.htm",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

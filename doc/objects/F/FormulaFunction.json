@@ -5,7 +5,10 @@
     "properties": {
       "DurableId": {
         "type": "FormulaFunctionCategory",
-        "description": "TheFormulaFunctionCategory to which the formula belongs."
+        "description": "TheFormulaFunctionCategory to which the formula belongs.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Functions": {
         "type": "string",
@@ -13,14 +16,61 @@
       },
       "Label": {
         "type": "string",
-        "description": "Description of the formula function."
+        "description": "Description of the formula function.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Formula Function ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CategoryId": {
+        "type": "string",
+        "description": "Formula Function Category ID",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ExampleString": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_formulafunction.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_formulafunction.htm",
+    "keyPrefix": "0Kn",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FormulaFunctionAllowedType",
+        "field": "FunctionId",
+        "relationshipName": "Types",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,11 +5,21 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "Lookup to the Account object."
+        "description": "Lookup to the Account object.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ContactId": {
         "type": "reference",
-        "description": "Lookup to the Contact object."
+        "description": "Lookup to the Contact object.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "DataRollupCategories": {
         "type": "multipicklist",
@@ -17,15 +27,20 @@
       },
       "EndDate": {
         "type": "date",
-        "description": "The date a relationship between a contact and account ended. Use with the Start Date to keep a history of the relationship."
+        "description": "The date a relationship between a contact and account ended. Use with the Start Date to keep a history of the relationship.",
+        "format": "date",
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether relationship is active (true) or not (false)."
+        "description": "Indicates whether relationship is active (true) or not (false).",
+        "nullable": false
       },
       "IsDirect": {
         "type": "boolean",
-        "description": "Indicates whether relationship is direct (true) or not (false)."
+        "description": "Indicates whether relationship is direct (true) or not (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "IsIncludedInGroup": {
         "type": "boolean",
@@ -41,14 +56,79 @@
       },
       "Roles": {
         "type": "multipicklist",
-        "description": ""
+        "description": "",
+        "format": "enum",
+        "enum": [
+          "Business User",
+          "Decision Maker",
+          "Economic Buyer",
+          "Economic Decision Maker",
+          "Evaluator",
+          "Executive Sponsor",
+          "Influencer",
+          "Technical Buyer",
+          "Other"
+        ],
+        "maxLength": 4099,
+        "nullable": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The date a relationship between a contact and account began. Use with the End Date to keep a history of the relationship"
+        "description": "The date a relationship between a contact and account began. Use with the End Date to keep a history of the relationship",
+        "format": "date",
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Account Contact Relationship ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Nonprofit Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_accountcontactrelation.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_accountcontactrelation.htm",
+    "keyPrefix": "07k"
   }
 }

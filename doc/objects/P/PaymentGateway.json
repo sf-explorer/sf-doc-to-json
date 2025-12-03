@@ -5,7 +5,9 @@
     "properties": {
       "Comments": {
         "type": "textarea",
-        "description": "Admin-provided details about a record. Maximum of 1000 characters."
+        "description": "Admin-provided details about a record. Maximum of 1000 characters.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "DefaultTapToPayLocation": {
         "type": "string",
@@ -13,7 +15,9 @@
       },
       "ExternalReference": {
         "type": "string",
-        "description": "Identifier of an external payment gateway. This field is unique within your organization."
+        "description": "Identifier of an external payment gateway. This field is unique within your organization.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GatewayMode": {
         "type": "picklist",
@@ -21,11 +25,17 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it's possible this record is only referenced (LastReferencedDate) but not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it's possible this record is only referenced (LastReferencedDate) but not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MerchantAccountId": {
         "type": "reference",
@@ -33,11 +43,17 @@
       },
       "MerchantCredentialId": {
         "type": "reference",
-        "description": "ID of the merchant credential setup entity to reference merchant information."
+        "description": "ID of the merchant credential setup entity to reference merchant information.",
+        "format": "salesforce-id",
+        "x-object": "NamedCredential",
+        "maxLength": 18,
+        "nullable": true
       },
       "PaymentGatewayName": {
         "type": "string",
-        "description": "Admin-defined name for the payment gateway."
+        "description": "Admin-defined name for the payment gateway.",
+        "maxLength": 255,
+        "nullable": false
       },
       "PaymentProcessor": {
         "type": "picklist",
@@ -53,7 +69,11 @@
       },
       "PaymentGatewayProviderId": {
         "type": "reference",
-        "description": "ID of the payment gateway that handles transactions between the merchant account and the payment processor."
+        "description": "ID of the payment gateway that handles transactions between the merchant account and the payment processor.",
+        "format": "salesforce-id",
+        "x-object": "PaymentGatewayProvider",
+        "maxLength": 18,
+        "nullable": true
       },
       "ProviderAccount": {
         "type": "string",
@@ -61,10 +81,149 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "Defines whether Salesforce Payments can use this payment gateway for calls to the external payment gateway. Inactive payment gateways can’t be used."
+        "description": "Defines whether Salesforce Payments can use this payment gateway for calls to the external payment gateway. Inactive payment gateways can’t be used.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Inactive"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Payment Gateway ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgateway.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgateway.htm",
+    "keyPrefix": "0b0",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CardPaymentMethod",
+        "field": "PaymentGatewayId",
+        "relationshipName": "CardPaymentMethods",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DigitalWallet",
+        "field": "PaymentGatewayId",
+        "relationshipName": "DigitalWallets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Payment",
+        "field": "PaymentGatewayId",
+        "relationshipName": "Payments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentAuthorization",
+        "field": "PaymentGatewayId",
+        "relationshipName": "PaymentAuthorizations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PaymentGatewayLog",
+        "field": "PaymentGatewayId",
+        "relationshipName": "PaymentGatewayLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Refund",
+        "field": "PaymentGatewayId",
+        "relationshipName": "Refunds",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "StoreIntegratedService",
+        "field": "Integration",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

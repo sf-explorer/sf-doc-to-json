@@ -5,15 +5,59 @@
     "properties": {
       "Category": {
         "type": "string",
-        "description": "Text that categorizes the label, limited to 255 characters. Separate each category with a comma. This field can be used in filter criteria when creating custom label list views."
+        "description": "Text that categorizes the label, limited to 255 characters. Separate each category with a comma. This field can be used in filter criteria when creating custom label list views.",
+        "maxLength": 255,
+        "nullable": true
       },
       "IsProtected": {
         "type": "boolean",
-        "description": "Indicates whether the custom label is protected (true) or not (false). The default value is false ."
+        "description": "Indicates whether the custom label is protected (true) or not (false). The default value is false .",
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the custom label. Note You can’t change the language of an existing custom label."
+        "description": "The language of the custom label. Note You can’t change the language of an existing custom label.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -21,22 +65,94 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "An easily recognizable internal label to identify this custom label. This description is used in merge fields and is not translated."
+        "description": "An easily recognizable internal label to identify this custom label. This description is used in merge fields and is not translated.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "The name used in Apex and Visualforce pages to reference the custom label. Names must contain only alphanumeric characters, start with a letter, contain no spaces or double underscores, and be unique from all other labels in your org."
+        "description": "The name used in Apex and Visualforce pages to reference the custom label. Names must contain only alphanumeric characters, start with a letter, contain no spaces or double underscores, and be unique from all other labels in your org.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace of the package of which the custom label is a part."
+        "description": "The namespace of the package of which the custom label is a part.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "Value": {
         "type": "string",
-        "description": "The custom label value, limited to 1,000 characters. This value can be translated into any language that Salesforce supports."
+        "description": "The custom label value, limited to 1,000 characters. This value can be translated into any language that Salesforce supports.",
+        "maxLength": 1000,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Custom Label ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_externalstring.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_externalstring.htm",
+    "keyPrefix": "101",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ExternalStringLocalization",
+        "field": "ExternalStringId",
+        "relationshipName": "Localization",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

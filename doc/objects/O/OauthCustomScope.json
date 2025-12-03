@@ -1,34 +1,139 @@
 {
   "OauthCustomScope": {
     "name": "OauthCustomScope",
-    "description": "Represents a permission defining the protected data that a connected app can access from an external entity when Salesforce is the OAuth authorization provider.",
+    "description": "OAuth Custom Scopes - OauthCustomScope",
     "properties": {
-      "Description": {
+      "Id": {
         "type": "string",
-        "description": "The description of the permission provided to the connected app by the scope. The custom scope’s description must be unique, can only include alphanumeric characters, and can be up to 60 characters long."
+        "description": "OAuth Custom Scope ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Use when referring to the OAuth custom scope from a program. This label must be unique, and can include only alphanumeric characters and underscores."
-      },
-      "IsPublic": {
-        "type": "boolean",
-        "description": "Indicates whether the object is included in the connected app’s OpenID Connect discovery endpoint. For more information, see OpenID Connect Discovery Endpoint."
+        "description": "Name",
+        "maxLength": 80,
+        "nullable": false
       },
       "Language": {
-        "type": "picklist",
-        "description": "Indicates the default language defined for the developing org."
+        "type": "string",
+        "description": "Master Language",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The master label for the custom scope record. This label must be unique, and can include only alphanumeric characters and underscores."
+        "description": "Label",
+        "maxLength": 80,
+        "nullable": false
       },
-      "NamespacePrefix": {
+      "CreatedDate": {
         "type": "string",
-        "description": "The namespace prefix for an OAuth custom scope that's been installed as part of a second-generation managed package. If the custom scope isn't packaged, this value is empty. This field is available in API version 61.0 and later."
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "IsPublic": {
+        "type": "boolean",
+        "description": "Include on well known endpoint",
+        "nullable": false
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_oauthcustomscope.htm"
+    "module": "N/A",
+    "keyPrefix": "7ud",
+    "label": "OAuth Custom Scope",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "OauthCustomScopeApp",
+        "field": "OauthCustomScopeId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      }
+    ]
   }
 }

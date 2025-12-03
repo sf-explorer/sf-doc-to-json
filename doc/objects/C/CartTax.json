@@ -9,15 +9,28 @@
       },
       "Amount": {
         "type": "currency",
-        "description": "Calculated tax amount."
+        "description": "Calculated tax amount.",
+        "format": "currency",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "CartId": {
         "type": "reference",
-        "description": "The ID of the WebCart being taxed."
+        "description": "The ID of the WebCart being taxed.",
+        "format": "salesforce-id",
+        "x-object": "WebCart",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "CartItemId": {
         "type": "reference",
-        "description": "The ID of a cart item being taxed."
+        "description": "The ID of a cart item being taxed.",
+        "format": "salesforce-id",
+        "x-object": "CartItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CartItemPriceAdjustmentId": {
         "type": "reference",
@@ -29,26 +42,150 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "A description of the tax. Enter up to 2000 characters."
+        "description": "A description of the tax. Enter up to 2000 characters.",
+        "maxLength": 2000,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of this CartTax record. Name can be up to 255 characters."
+        "description": "The name of this CartTax record. Name can be up to 255 characters.",
+        "maxLength": 255,
+        "nullable": false
       },
       "TaxCalculationDate": {
         "type": "date",
-        "description": "The date this tax was calculated."
+        "description": "The date this tax was calculated.",
+        "format": "date",
+        "nullable": false
       },
       "TaxRate": {
         "type": "percent",
-        "description": "The applied tax rate for this line of tax."
+        "description": "The applied tax rate for this line of tax.",
+        "format": "percent",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TaxType": {
         "type": "picklist",
-        "description": "The type of tax for this line of tax. Possible values are: Actual Estimated"
+        "description": "The type of tax for this line of tax. Possible values are: Actual Estimated",
+        "format": "enum",
+        "enum": [
+          "Actual",
+          "Estimated"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Cart Tax ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_carttax.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_carttax.htm",
+    "keyPrefix": "0gT",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CartValidationOutput",
+        "field": "RelatedEntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -5,11 +5,30 @@
     "properties": {
       "ForecastCategoryName": {
         "type": "picklist",
-        "description": "A forecast category is the category within the sales cycle to which an opportunity is assigned based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted (not included in forecasts), and Closed. Salesforce admins can customize the forecast category names."
+        "description": "A forecast category is the category within the sales cycle to which an opportunity is assigned based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted (not included in forecasts), and Closed. Salesforce admins can customize the forecast category names.",
+        "format": "enum",
+        "enum": [
+          "Omitted",
+          "Pipeline",
+          "Best Case",
+          "Commit",
+          "Closed"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ForecastedObjectId": {
         "type": "reference",
-        "description": "Contains the Split ID of the forecasted OpportunitySplit object if the forecast data source is opportunity splits or the OpportunityLineItem ID of the forecasted opportunity if the data source is product families. If the data source is product families and the opportunity has no line item, this field is null. If the forecast data source is opportunities, this field is null. This field is available in API version 29 and later. Read-only."
+        "description": "Contains the Split ID of the forecasted OpportunitySplit object if the forecast data source is opportunity splits or the OpportunityLineItem ID of the forecasted opportunity if the data source is product families. If the data source is product families and the opportunity has no line item, this field is null. If the forecast data source is opportunities, this field is null. This field is available in API version 29 and later. Read-only.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "OpportunityLineItem",
+          "OpportunitySplit"
+        ],
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastedSubObjectId": {
         "type": "reference",
@@ -17,23 +36,48 @@
       },
       "ForecastingItemId": {
         "type": "reference",
-        "description": "The ID of the ForecastingItem."
+        "description": "The ID of the ForecastingItem.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingItem",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastingTypeId": {
         "type": "reference",
-        "description": "The ID of the related ForecastingType."
+        "description": "The ID of the related ForecastingType.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingType",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OpportunityId": {
         "type": "reference",
-        "description": "The opportunity ID."
+        "description": "The opportunity ID.",
+        "format": "salesforce-id",
+        "x-object": "Opportunity",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the opportunity owner."
+        "description": "The ID of the opportunity owner.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "PeriodId": {
         "type": "reference",
-        "description": "Period ID for the forecast."
+        "description": "Period ID for the forecast.",
+        "format": "salesforce-id",
+        "x-object": "Period",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "TargetValue": {
         "type": "double",
@@ -41,10 +85,49 @@
       },
       "Territory2Id": {
         "type": "reference",
-        "description": "The ID of the territory to forecast on. Available in API version 43 and later."
+        "description": "The ID of the territory to forecast on. Available in API version 43 and later.",
+        "format": "salesforce-id",
+        "x-object": "Territory2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Forecasting Fact ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingfact.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingfact.htm",
+    "keyPrefix": "0G6",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

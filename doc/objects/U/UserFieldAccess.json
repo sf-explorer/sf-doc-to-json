@@ -5,7 +5,10 @@
     "properties": {
       "DurableId": {
         "type": "string",
-        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field."
+        "description": "Unique identifier for the field. Always retrieve this value before using it, as the value isn’t guaranteed to stay the same from one release to the next. To simplify queries, use this field.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "EntityDefinition": {
         "type": "EntityDefinition",
@@ -13,19 +16,28 @@
       },
       "EntityDefinitionId": {
         "type": "string",
-        "description": "ID of the EntityDefinition."
+        "description": "ID of the EntityDefinition.",
+        "maxLength": 150,
+        "nullable": true,
+        "readOnly": true
       },
       "IsAccessible": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to view the associated field."
+        "description": "If true, the user specified in the User field has access to view the associated field.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsCreatable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to create records of the associated field."
+        "description": "If true, the user specified in the User field has access to create records of the associated field.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsUpdatable": {
         "type": "boolean",
-        "description": "If true, the user specified in the User field has access to edit the associated field."
+        "description": "If true, the user specified in the User field has access to edit the associated field.",
+        "nullable": false,
+        "readOnly": true
       },
       "User": {
         "type": "User",
@@ -33,10 +45,44 @@
       },
       "UserId": {
         "type": "ID",
-        "description": "ID of the user specified in the User field."
+        "description": "ID of the user specified in the User field.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Field Access ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "FieldDefinitionId": {
+        "type": "string",
+        "description": "Field Definition ID",
+        "maxLength": 150,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_userfieldaccess.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_userfieldaccess.htm",
+    "keyPrefix": "4fp",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FieldDefinition",
+        "field": "RunningUserFieldAccessId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

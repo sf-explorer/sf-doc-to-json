@@ -5,15 +5,23 @@
     "properties": {
       "DecisionTableId": {
         "type": "reference",
-        "description": "Required. The unique identifier of the associated decision table."
+        "description": "Required. The unique identifier of the associated decision table.",
+        "format": "salesforce-id",
+        "x-object": "DecisionTable",
+        "maxLength": 18,
+        "nullable": false
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the dataset link."
+        "description": "The description of the dataset link.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The developer name of the dataset link."
+        "description": "The developer name of the dataset link.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FullName": {
         "type": "string",
@@ -21,11 +29,52 @@
       },
       "IsDefault": {
         "type": "boolean",
-        "description": "Indicates whether a dataset link is the default dataset link for a decision table."
+        "description": "Indicates whether a dataset link is the default dataset link for a decision table.",
+        "nullable": false
       },
       "Language": {
         "type": "picklist",
-        "description": "The language in which the dataset link is created."
+        "description": "The language in which the dataset link is created.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no",
+          "hu",
+          "pl",
+          "cs",
+          "tr",
+          "in",
+          "ro",
+          "vi",
+          "uk",
+          "iw",
+          "el",
+          "bg",
+          "en_GB",
+          "ar",
+          "sk",
+          "pt_PT",
+          "hr",
+          "sl"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ManageableState": {
         "type": "ManageableState enumerated list",
@@ -33,7 +82,9 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the dataset link."
+        "description": "The label of the dataset link.",
+        "maxLength": 80,
+        "nullable": false
       },
       "Metadata": {
         "type": "complexvalue",
@@ -41,18 +92,93 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "SetupName": {
         "type": "string",
-        "description": "Required. The name of the dataset link, which appears in Setup."
+        "description": "Required. The name of the dataset link, which appears in Setup.",
+        "maxLength": 120,
+        "nullable": false
       },
       "SourceObject": {
         "type": "string",
-        "description": "The name of the dataset link's source object."
+        "description": "The name of the dataset link's source object.",
+        "maxLength": 120,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Decision Table Payload ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Public Sector Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/tooling_api_objects_decisiontabledatasetlink.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.psc_api.meta/psc_api/tooling_api_objects_decisiontabledatasetlink.htm",
+    "keyPrefix": "0lX",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightAction",
+        "field": "ActionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DecisionTblDatasetParameter",
+        "field": "DecisionTableDatasetLinkId",
+        "relationshipName": "DecisionTableDatasetParameters",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

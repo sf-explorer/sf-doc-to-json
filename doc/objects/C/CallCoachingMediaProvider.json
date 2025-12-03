@@ -5,18 +5,93 @@
     "properties": {
       "IsActive": {
         "type": "boolean",
-        "description": "Whether the connection with the provider is active or not."
+        "description": "Whether the connection with the provider is active or not.",
+        "nullable": false,
+        "readOnly": true
       },
       "ProviderDescription": {
         "type": "string",
-        "description": "The description of the media provider."
+        "description": "The description of the media provider.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ProviderName": {
         "type": "string",
-        "description": "The name of the media provider."
+        "description": "The name of the media provider.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "CallCoachingMediaProvider ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_callcoachingmediaprovider.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_callcoachingmediaprovider.htm",
+    "keyPrefix": "0hn",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "VoiceCall",
+        "field": "MediaProviderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "MediaProviderId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

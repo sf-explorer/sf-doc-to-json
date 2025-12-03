@@ -5,15 +5,25 @@
     "properties": {
       "CorporateNumber": {
         "type": "phone",
-        "description": "The standard number that users can choose to display when making outgoing calls."
+        "description": "The standard number that users can choose to display when making outgoing calls.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Specifies whether the vendor is active or not."
+        "description": "Specifies whether the vendor is active or not.",
+        "nullable": false,
+        "readOnly": true
       },
       "LocalPresenceDefaultNumber": {
         "type": "phone",
-        "description": "The default routing number that’s available for incoming local presence calls."
+        "description": "The default routing number that’s available for incoming local presence calls.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "TenantConfigVersion": {
         "type": "string",
@@ -21,18 +31,107 @@
       },
       "VendorAccountKey": {
         "type": "string",
-        "description": "The account key of the vendor."
+        "description": "The account key of the vendor.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "VendorProviderName": {
         "type": "string",
-        "description": "The name of the vendor."
+        "description": "The name of the vendor.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "VendorType": {
         "type": "picklist",
-        "description": "The name of the telephony vendor."
+        "description": "The name of the telephony vendor.",
+        "format": "enum",
+        "enum": [
+          "Twilio",
+          "Custom",
+          "TwilioTrial",
+          "ContactCenter",
+          "RingCentral",
+          "DialPad",
+          "AmazonConnect",
+          "AirCall",
+          "VirtualVoiceAgent",
+          "NativeVoice"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Voice Vendor Info ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicevendorinfo.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicevendorinfo.htm",
+    "keyPrefix": "0L1",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "VoiceVendorLine",
+        "field": "VoiceVendorInfoId",
+        "relationshipName": "VoiceVendorLines",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

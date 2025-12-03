@@ -5,42 +5,197 @@
     "properties": {
       "DayOfWeek": {
         "type": "picklist",
-        "description": "The day of the week when the time slot takes place."
+        "description": "The day of the week when the time slot takes place.",
+        "format": "enum",
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "EndTime": {
         "type": "time",
-        "description": "The time when the time slot ends."
+        "description": "The time when the time slot ends.",
+        "format": "time",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record."
+        "description": "The timestamp for when the current user last viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MaxAppointments": {
         "type": "int",
-        "description": "Maximum number of appointments for a single time slot."
+        "description": "Maximum number of appointments for a single time slot.",
+        "nullable": true
       },
       "OperatingHoursId": {
         "type": "reference",
-        "description": "The operating hours that the time slot belongs to. An operating hours’ time slots appear in the Operating Hours related list."
+        "description": "The operating hours that the time slot belongs to. An operating hours’ time slots appear in the Operating Hours related list.",
+        "format": "salesforce-id",
+        "x-object": "OperatingHours",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "StartTime": {
         "type": "time",
-        "description": "The time when the time slot starts."
+        "description": "The time when the time slot starts.",
+        "format": "time",
+        "nullable": false
       },
       "TimeSlotNumber": {
         "type": "string",
-        "description": "The name of the time slot. The name is auto-populated to a day and time format—for example, Monday 9:00 AM - 10:00 PM—but you can manually update it."
+        "description": "The name of the time slot. The name is auto-populated to a day and time format—for example, Monday 9:00 AM - 10:00 PM—but you can manually update it.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "WorkTypeGroupId": {
         "type": "reference",
-        "description": "Work type group assigned to the time slot."
+        "description": "Work type group assigned to the time slot.",
+        "format": "salesforce-id",
+        "x-object": "WorkTypeGroup",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Time Slot ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Type": {
+        "type": "string",
+        "description": "Type",
+        "format": "enum",
+        "enum": [
+          "Normal",
+          "Extended"
+        ],
+        "maxLength": 255,
+        "nullable": false
       }
     },
     "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_timeslot.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_timeslot.htm",
+    "keyPrefix": "0Gj",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

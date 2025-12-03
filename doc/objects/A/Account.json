@@ -5,51 +5,102 @@
     "properties": {
       "AccountNumber": {
         "type": "string",
-        "description": "Account number assigned to the account (not the unique, auto-generated ID assigned during creation). Can have up to 40 characters."
+        "description": "Account number assigned to the account (not the unique, auto-generated ID assigned during creation). Can have up to 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "AccountSource": {
         "type": "picklist",
-        "description": "Source of the account record:"
+        "description": "Source of the account record:",
+        "format": "enum",
+        "enum": [
+          "Website",
+          "Social Media",
+          "Marketing Event",
+          "Referral",
+          "Cold Call",
+          "Data.com",
+          "Partner",
+          "Community",
+          "Inbound Call",
+          "Salesforce IoT"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "AnnualRevenue": {
         "type": "currency",
-        "description": "Estimated annual revenue of the account."
+        "description": "Estimated annual revenue of the account.",
+        "format": "currency",
+        "nullable": true
       },
       "BillingAddress": {
         "type": "address",
-        "description": "Compound form of the billing address. Read-only. See Address Compound Fields for details on compound address fields."
+        "description": "Compound form of the billing address. Read-only. See Address Compound Fields for details on compound address fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "BillingCity": {
         "type": "string",
-        "description": "Details for the billing address of the account. Can have up to 40 characters."
+        "description": "Details for the billing address of the account. Can have up to 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "BillingCountry": {
         "type": "string",
-        "description": "Details for the billing address of the account. Can have up to 80 characters."
+        "description": "Details for the billing address of the account. Can have up to 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "BillingGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the billing address:"
+        "description": "Accuracy level of the geocode for the billing address:",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "BillingLatitude": {
         "type": "double",
-        "description": "Used with BillingLongitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "description": "Used with BillingLongitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "BillingLongitude": {
         "type": "double",
-        "description": "Used with BillingLatitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "description": "Used with BillingLatitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "BillingPostalCode": {
         "type": "string",
-        "description": "Details for the billing address of the account. Can have up to 20 characters."
+        "description": "Details for the billing address of the account. Can have up to 20 characters.",
+        "maxLength": 20,
+        "nullable": true
       },
       "BillingState": {
         "type": "string",
-        "description": "Details for the billing address of this account. Can have up to 80 characters."
+        "description": "Details for the billing address of this account. Can have up to 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "BillingStreet": {
         "type": "textarea",
-        "description": "Street name in the billing address of the account."
+        "description": "Street name in the billing address of the account.",
+        "maxLength": 255,
+        "nullable": true
       },
       "CleanStatus": {
         "type": "picklist",
@@ -61,7 +112,9 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "Text description of the account. Limited to 32,000 KB."
+        "description": "Text description of the account. Limited to 32,000 KB.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "DunsNumber": {
         "type": "string",
@@ -69,35 +122,94 @@
       },
       "Fax": {
         "type": "phone",
-        "description": "Fax number of the account."
+        "description": "Fax number of the account.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "Industry": {
         "type": "picklist",
-        "description": "Industry associated with the account. Can have up to 40 characters."
+        "description": "Industry associated with the account. Can have up to 40 characters.",
+        "format": "enum",
+        "enum": [
+          "Agriculture",
+          "Apparel",
+          "Banking",
+          "Biotechnology",
+          "Chemicals",
+          "Communications",
+          "Construction",
+          "Consulting",
+          "Education",
+          "Electronics",
+          "Energy",
+          "Engineering",
+          "Entertainment",
+          "Environmental",
+          "Food & Beverage",
+          "Government",
+          "Healthcare & Life Sciences",
+          "Hospitality",
+          "Insurance",
+          "Machinery",
+          "Manufacturing",
+          "Media",
+          "Not For Profit",
+          "Other",
+          "Recreation",
+          "Retail",
+          "Shipping",
+          "Technology",
+          "Telecommunications",
+          "Transportation",
+          "Utilities",
+          "Financial Services"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Jigsaw": {
         "type": "string",
-        "description": "References the ID of a company in Data.com. Accounts imported from Data.com always have a value in this field, while accounts not imported from Data.com have a null value. Can have up to 20 characters. Available in API version 22.0 and later. Label is Data.com Key. This field is available only on business accounts."
+        "description": "References the ID of a company in Data.com. Accounts imported from Data.com always have a value in this field, while accounts not imported from Data.com have a null value. Can have up to 20 characters. Available in API version 22.0 and later. Label is Data.com Key. This field is available only on business accounts.",
+        "maxLength": 20,
+        "nullable": true
       },
       "JigsawCompanyId": {
         "type": "string",
-        "description": "ID of a company in Data.com."
+        "description": "ID of a company in Data.com.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "LastActivityDate": {
         "type": "date",
-        "description": "Date when a user last modified the record."
+        "description": "Date when a user last modified the record.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "Most recent date on which a user referenced the record."
+        "description": "Most recent date on which a user referenced the record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "Most recent date on which a user viewed the record."
+        "description": "Most recent date on which a user viewed the record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MasterRecordId": {
         "type": "reference",
-        "description": "If this object was deleted as the result of a merge, then this field contains the ID of the record that was kept. If this object was deleted for any other reason, or hasn’t been deleted, the value is null."
+        "description": "If this object was deleted as the result of a merge, then this field contains the ID of the record that was kept. If this object was deleted for any other reason, or hasn’t been deleted, the value is null.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "NaicsCode": {
         "type": "string",
@@ -109,95 +221,178 @@
       },
       "Name": {
         "type": "string",
-        "description": "Unique identification of the account."
+        "description": "Unique identification of the account.",
+        "maxLength": 255,
+        "nullable": true
       },
       "NumberOfEmployees": {
         "type": "int",
-        "description": "Number of employees working at the company that’s represented by the account. Can have up to eight digits."
+        "description": "Number of employees working at the company that’s represented by the account. Can have up to eight digits.",
+        "nullable": true
       },
       "OperatingHoursId": {
         "type": "reference",
-        "description": "Operating hours associated with the account. Available only if Field Service is enabled."
+        "description": "Operating hours associated with the account. Available only if Field Service is enabled.",
+        "format": "salesforce-id",
+        "x-object": "OperatingHours",
+        "maxLength": 18,
+        "nullable": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the user who currently owns the account. Default value is the user logged in to the API to perform the create. If you have set up account teams in your company, the result of updating this field depends on your version of the API:"
+        "description": "ID of the user who currently owns the account. Default value is the user logged in to the API to perform the create. If you have set up account teams in your company, the result of updating this field depends on your version of the API:",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "Ownership": {
         "type": "picklist",
-        "description": "Ownership type of the account:"
+        "description": "Ownership type of the account:",
+        "format": "enum",
+        "enum": [
+          "Public",
+          "Private",
+          "Subsidiary",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the parent object, if any."
+        "description": "ID of the parent object, if any.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "Phone": {
         "type": "phone",
-        "description": "Phone number of the account. Can have up to 40 characters."
+        "description": "Phone number of the account. Can have up to 40 characters.",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
       },
       "PhotoUrl": {
         "type": "url",
-        "description": "Path to be combined with the URL of a Salesforce instance (for example, https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the account. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the account. Returns a blank if Social Accounts and Contacts aren’t enabled for the company or are disabled for the requesting user."
+        "description": "Path to be combined with the URL of a Salesforce instance (for example, https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the account. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the account. Returns a blank if Social Accounts and Contacts aren’t enabled for the company or are disabled for the requesting user.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Rating": {
         "type": "picklist",
-        "description": "Account’s prospect rating:"
+        "description": "Account’s prospect rating:",
+        "format": "enum",
+        "enum": [
+          "Hot",
+          "Warm",
+          "Cool"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "ID of the record type assigned to the object."
+        "description": "ID of the record type assigned to the object.",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
       },
       "ShippingAddress": {
         "type": "address",
-        "description": "Read-only. Compound form of the shipping address. See Address Compound Fields for details on compound address fields."
+        "description": "Read-only. Compound form of the shipping address. See Address Compound Fields for details on compound address fields.",
+        "nullable": true,
+        "readOnly": true
       },
       "ShippingCity": {
         "type": "string",
-        "description": "City in the shipping address of the account. Can have up to 40 characters."
+        "description": "City in the shipping address of the account. Can have up to 40 characters.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ShippingCountry": {
         "type": "string",
-        "description": "Country in the shipping address of the account. Can have up to 80 characters."
+        "description": "Country in the shipping address of the account. Can have up to 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShippingGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the shipping address:"
+        "description": "Accuracy level of the geocode for the shipping address:",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ShippingLatitude": {
         "type": "double",
-        "description": "Used with ShippingLongitude to specify the precise geolocation of a shipping address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "description": "Used with ShippingLongitude to specify the precise geolocation of a shipping address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShippingLongitude": {
         "type": "double",
-        "description": "Used with ShippingLatitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "description": "Used with ShippingLatitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "ShippingPostalCode": {
         "type": "string",
-        "description": "Postal code in the shipping address of the account. Can have up to 20 characters."
+        "description": "Postal code in the shipping address of the account. Can have up to 20 characters.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ShippingState": {
         "type": "string",
-        "description": "State in the shipping address of the account. Can have up to 80 characters."
+        "description": "State in the shipping address of the account. Can have up to 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ShippingStreet": {
         "type": "textarea",
-        "description": "Street name in the shipping address of the account. Can have up to 255 characters."
+        "description": "Street name in the shipping address of the account. Can have up to 255 characters.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Sic": {
         "type": "string",
-        "description": "Standard Industrial Classification code of the company’s main business categorization. For example, 57340 for Electronics. Can have up to 20 characters. This field is available only on business accounts."
+        "description": "Standard Industrial Classification code of the company’s main business categorization. For example, 57340 for Electronics. Can have up to 20 characters. This field is available only on business accounts.",
+        "maxLength": 20,
+        "nullable": true
       },
       "SicDesc": {
         "type": "string",
-        "description": "Brief description of an company line of business, based on the SIC code. Can have up to 80 characters. This field is available only on business accounts."
+        "description": "Brief description of an company line of business, based on the SIC code. Can have up to 80 characters. This field is available only on business accounts.",
+        "maxLength": 80,
+        "nullable": true
       },
       "Site": {
         "type": "string",
-        "description": "Name of the account’s location. For example, Headquarters or London. Can have up to 80 characters."
+        "description": "Name of the account’s location. For example, Headquarters or London. Can have up to 80 characters.",
+        "maxLength": 80,
+        "nullable": true
       },
       "TickerSymbol": {
         "type": "string",
-        "description": "Stock market symbol for the account. Can have up to 20 characters. This field is available only on business accounts."
+        "description": "Stock market symbol for the account. Can have up to 20 characters. This field is available only on business accounts.",
+        "maxLength": 20,
+        "nullable": true
       },
       "Tradestyle": {
         "type": "string",
@@ -205,50 +400,1502 @@
       },
       "Type": {
         "type": "picklist",
-        "description": "Type of account"
+        "description": "Type of account",
+        "format": "enum",
+        "enum": [
+          "Enterprise",
+          "Mid-Market",
+          "Small Business",
+          "Person",
+          "Partner",
+          "Billing",
+          "Consumer",
+          "Service",
+          "Business"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Website": {
         "type": "url",
-        "description": "Website of the account. Can have up to 255 characters."
+        "description": "Website of the account. Can have up to 255 characters.",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
       },
       "YearStarted": {
         "type": "string",
         "description": "Date when an org was legally established. Can have up to four characters. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
       },
-      "cgcloud_Account_Email__c": {
-        "type": "email",
-        "description": "Email address of the account. Label is Email."
-      },
-      "cgcloud_Account_Number__c": {
+      "Id": {
         "type": "string",
-        "description": "Account number assigned to the account (not the unique, auto-generated ID assigned during creation). Can have up to 40 characters."
+        "description": "Account ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
-      "cgcloud_Account_Template_Description__c": {
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastName": {
         "type": "string",
-        "description": "The account template description."
+        "maxLength": 80,
+        "nullable": true
       },
-      "cgcloud_Account_Template__c": {
-        "type": "reference",
-        "description": "References the account template object used for accounts."
-      },
-      "cgcloud__ExternalId__c": {
+      "FirstName": {
         "type": "string",
-        "description": "Unique identifier of the external object record to account."
+        "maxLength": 40,
+        "nullable": true
       },
-      "cgcloud__Name_2__c": {
+      "Salutation": {
         "type": "string",
-        "description": "Unique identification of the account."
+        "format": "enum",
+        "enum": [
+          "Mr.",
+          "Ms.",
+          "Mrs.",
+          "Dr.",
+          "Prof.",
+          "Mx."
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
-      "cgcloud__Number_Of_Extensions__c": {
-        "type": "double",
-        "description": "Number of extensions for the account."
-      },
-      "cgcloud__Sales_Org__c": {
+      "CreatedDate": {
         "type": "string",
-        "description": "Sales org of the template."
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsExcludedFromRealign": {
+        "type": "boolean",
+        "description": "Exclude from territory assignment rules",
+        "nullable": false
+      },
+      "IsPartner": {
+        "type": "boolean",
+        "description": "Partner/Relationship Account",
+        "nullable": false
+      },
+      "IsCustomerPortal": {
+        "type": "boolean",
+        "description": "Customer Portal Account",
+        "nullable": false
+      },
+      "PersonContactId": {
+        "type": "string",
+        "description": "Contact ID",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "IsPersonAccount": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ChannelProgramName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ChannelProgramLevelName": {
+        "type": "string",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "PersonMailingStreet": {
+        "type": "string",
+        "description": "Mailing Street",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PersonMailingCity": {
+        "type": "string",
+        "description": "Mailing City",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonMailingState": {
+        "type": "string",
+        "description": "Mailing State/Province",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonMailingPostalCode": {
+        "type": "string",
+        "description": "Mailing Zip/Postal Code",
+        "maxLength": 20,
+        "nullable": true
+      },
+      "PersonMailingCountry": {
+        "type": "string",
+        "description": "Mailing Country",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonMailingLatitude": {
+        "type": "number",
+        "description": "Mailing Latitude",
+        "nullable": true,
+        "multipleOf": 1e-15
+      },
+      "PersonMailingLongitude": {
+        "type": "number",
+        "description": "Mailing Longitude",
+        "nullable": true,
+        "multipleOf": 1e-15
+      },
+      "PersonMailingGeocodeAccuracy": {
+        "type": "string",
+        "description": "Mailing Geocode Accuracy",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonMailingAddress": {
+        "type": "object",
+        "description": "Mailing Address",
+        "nullable": true,
+        "readOnly": true
+      },
+      "PersonOtherStreet": {
+        "type": "string",
+        "description": "Other Street",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PersonOtherCity": {
+        "type": "string",
+        "description": "Other City",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonOtherState": {
+        "type": "string",
+        "description": "Other State/Province",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonOtherPostalCode": {
+        "type": "string",
+        "description": "Other Zip/Postal Code",
+        "maxLength": 20,
+        "nullable": true
+      },
+      "PersonOtherCountry": {
+        "type": "string",
+        "description": "Other Country",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonOtherLatitude": {
+        "type": "number",
+        "description": "Other Latitude",
+        "nullable": true,
+        "multipleOf": 1e-15
+      },
+      "PersonOtherLongitude": {
+        "type": "number",
+        "description": "Other Longitude",
+        "nullable": true,
+        "multipleOf": 1e-15
+      },
+      "PersonOtherGeocodeAccuracy": {
+        "type": "string",
+        "description": "Other Geocode Accuracy",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonOtherAddress": {
+        "type": "object",
+        "description": "Other Address",
+        "nullable": true,
+        "readOnly": true
+      },
+      "PersonMobilePhone": {
+        "type": "string",
+        "description": "Mobile",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonHomePhone": {
+        "type": "string",
+        "description": "Home Phone",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonOtherPhone": {
+        "type": "string",
+        "description": "Other Phone",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonAssistantPhone": {
+        "type": "string",
+        "description": "Asst. Phone",
+        "format": "phone",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonEmail": {
+        "type": "string",
+        "description": "Email",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonTitle": {
+        "type": "string",
+        "description": "Title",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonDepartment": {
+        "type": "string",
+        "description": "Department",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PersonAssistantName": {
+        "type": "string",
+        "description": "Assistant",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "PersonLeadSource": {
+        "type": "string",
+        "description": "Lead Source",
+        "format": "enum",
+        "enum": [
+          "Website",
+          "Social Media",
+          "Marketing Event",
+          "Referral",
+          "Cold Call",
+          "Data.com",
+          "Partner",
+          "Community",
+          "Inbound Call",
+          "Salesforce IoT"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PersonBirthdate": {
+        "type": "string",
+        "description": "Birthdate",
+        "format": "date",
+        "nullable": true
+      },
+      "PersonHasOptedOutOfEmail": {
+        "type": "boolean",
+        "description": "Email Opt Out",
+        "nullable": false
+      },
+      "PersonHasOptedOutOfFax": {
+        "type": "boolean",
+        "description": "Fax Opt Out",
+        "nullable": false
+      },
+      "PersonDoNotCall": {
+        "type": "boolean",
+        "description": "Do Not Call",
+        "nullable": false
+      },
+      "PersonLastCURequestDate": {
+        "type": "string",
+        "description": "Last Stay-in-Touch Request Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "PersonLastCUUpdateDate": {
+        "type": "string",
+        "description": "Last Stay-in-Touch Save Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "PersonEmailBouncedReason": {
+        "type": "string",
+        "description": "Email Bounced Reason",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "PersonEmailBouncedDate": {
+        "type": "string",
+        "description": "Email Bounced Date",
+        "format": "date-time",
+        "nullable": true
+      },
+      "PersonIndividualId": {
+        "type": "string",
+        "description": "Individual ID",
+        "format": "salesforce-id",
+        "x-object": "Individual",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ConnectionReceivedId": {
+        "type": "string",
+        "description": "Received Connection ID",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "ConnectionSentId": {
+        "type": "string",
+        "description": "Sent Connection ID",
+        "format": "salesforce-id",
+        "x-object": "PartnerNetworkConnection",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "IsBuyer": {
+        "type": "boolean",
+        "description": "Buyer Account",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SDO_SFS_ShippingGeo__Latitude__s": {
+        "type": "number",
+        "description": "ShippingGeo (Latitude)",
+        "nullable": true,
+        "multipleOf": 0.000001
+      },
+      "SDO_SFS_ShippingGeo__Longitude__s": {
+        "type": "number",
+        "description": "ShippingGeo (Longitude)",
+        "nullable": true,
+        "multipleOf": 0.000001
+      },
+      "vlocity_cmt__Age__pc": {
+        "type": "number",
+        "description": "Age",
+        "nullable": true,
+        "readOnly": true
+      },
+      "vlocity_cmt__AnnualIncome__pc": {
+        "type": "number",
+        "description": "Annual Income",
+        "format": "currency",
+        "nullable": true
+      },
+      "Notes__pc": {
+        "type": "string",
+        "description": "Notes",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "EDY_ORGCUSTOM__DB__pc": {
+        "type": "boolean",
+        "description": "DB",
+        "nullable": false
+      },
+      "EDY_ORGCUSTOM__Old_Title__pc": {
+        "type": "string",
+        "description": "Old Title",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "vlocity_cmt__Authorized__pc": {
+        "type": "boolean",
+        "description": "Authorized",
+        "nullable": false
+      },
+      "vlocity_cmt__ContactNumber__pc": {
+        "type": "string",
+        "description": "Contact Number",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "External_ID__pc": {
+        "type": "string",
+        "description": "External ID",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__CustomerSentiment__pc": {
+        "type": "string",
+        "description": "Customer Sentiment",
+        "format": "enum",
+        "enum": [
+          "Promoter",
+          "Satisfied",
+          "Neutral",
+          "Dissatisfied",
+          "Disgruntled"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__DaysSinceLastContact__pc": {
+        "type": "number",
+        "description": "Days Since Last Contact",
+        "nullable": true,
+        "readOnly": true
+      },
+      "vlocity_cmt__DriversLicenseNumber__pc": {
+        "type": "string",
+        "description": "Driver's License Number",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "vlocity_cmt__EmploymentStatus__pc": {
+        "type": "string",
+        "description": "Employment Status",
+        "format": "enum",
+        "enum": [
+          "Employed Full-Time",
+          "Employed Part-Time",
+          "Self-Employed",
+          "Unemployed",
+          "Student",
+          "Retired"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__HasFraud__pc": {
+        "type": "boolean",
+        "description": "Fraud",
+        "nullable": false
+      },
+      "et4ae5__HasOptedOutOfMobile__pc": {
+        "type": "boolean",
+        "description": "Mobile Opt Out",
+        "nullable": false
+      },
+      "pi__last_activity__pc": {
+        "type": "string",
+        "description": "Account Engagement Last Activity",
+        "format": "date-time",
+        "nullable": true
+      },
+      "Total_of_Activities__pc": {
+        "type": "number",
+        "description": "Total # of Activities",
+        "nullable": true
+      },
+      "SDO_PA_Activity_Indicator__pc": {
+        "type": "string",
+        "description": "Activity Indicator",
+        "maxLength": 1300,
+        "nullable": true,
+        "readOnly": true
+      },
+      "vlocity_cmt__Image__pc": {
+        "type": "string",
+        "description": "Image",
+        "maxLength": 32768,
+        "nullable": true
+      },
+      "analyticsdemo_batch_id__pc": {
+        "type": "string",
+        "description": "analyticsdemo_batch_id__c",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "SDO_Service_Month_of_Birth__pc": {
+        "type": "string",
+        "description": "Month of Birth",
+        "format": "enum",
+        "enum": [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_PA_Year_of_Birth__pc": {
+        "type": "string",
+        "description": "Year of Birth",
+        "format": "enum",
+        "enum": [
+          "2012",
+          "2011",
+          "2010",
+          "2009",
+          "2008",
+          "2007",
+          "2006",
+          "2005",
+          "2004",
+          "2003",
+          "2002",
+          "2001",
+          "2000",
+          "1999",
+          "1998",
+          "1997",
+          "1996",
+          "1995",
+          "1994",
+          "1993",
+          "1992",
+          "1991",
+          "1990",
+          "1989",
+          "1988",
+          "1987",
+          "1986",
+          "1985",
+          "1984",
+          "1983",
+          "1982",
+          "1981",
+          "1980",
+          "1979",
+          "1978",
+          "1977",
+          "1976",
+          "1975",
+          "1974",
+          "1973",
+          "1972",
+          "1971",
+          "1970",
+          "1969",
+          "1968",
+          "1967",
+          "1966",
+          "1965",
+          "1964",
+          "1963",
+          "1962",
+          "1961",
+          "1960",
+          "1959",
+          "1958",
+          "1957",
+          "1956",
+          "1955",
+          "1954",
+          "1953",
+          "1952",
+          "1951",
+          "1950",
+          "1949",
+          "1948",
+          "1947",
+          "1946",
+          "1945",
+          "1944",
+          "1943",
+          "1942",
+          "1941",
+          "1940",
+          "1939",
+          "1938",
+          "1937",
+          "1936",
+          "1935",
+          "1934",
+          "1933",
+          "1932",
+          "1931",
+          "1930",
+          "1929",
+          "1928",
+          "1927",
+          "1926",
+          "1925",
+          "1924",
+          "1923",
+          "1922",
+          "1921",
+          "1920"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "et4ae5__Mobile_Country_Code__pc": {
+        "type": "string",
+        "description": "Mobile Country Code",
+        "format": "enum",
+        "enum": [
+          "US",
+          "AC",
+          "AD",
+          "AE",
+          "AF",
+          "AG",
+          "AI",
+          "AL",
+          "AM",
+          "AO",
+          "AQ",
+          "AR",
+          "AS",
+          "AT",
+          "AU",
+          "AW",
+          "AX",
+          "AZ",
+          "BA",
+          "BB",
+          "BD",
+          "BE",
+          "BF",
+          "BG",
+          "BH",
+          "BI",
+          "BJ",
+          "BL",
+          "BM",
+          "BN",
+          "BO",
+          "BQ",
+          "BR",
+          "BS",
+          "BT",
+          "BV",
+          "BW",
+          "BY",
+          "BZ",
+          "CA",
+          "CC",
+          "CD",
+          "CF",
+          "CG",
+          "CH",
+          "CI",
+          "CK",
+          "CL",
+          "CM",
+          "CN",
+          "CO",
+          "CR",
+          "CU",
+          "CV",
+          "CW",
+          "CX",
+          "CY",
+          "CZ",
+          "DE",
+          "DJ",
+          "DK",
+          "DM",
+          "DO",
+          "DZ",
+          "EC",
+          "EE",
+          "EG",
+          "ER",
+          "ES",
+          "ET",
+          "FI",
+          "FJ",
+          "FK",
+          "FM",
+          "FO",
+          "FR",
+          "GA",
+          "GB",
+          "GD",
+          "GE",
+          "GF",
+          "GG",
+          "GH",
+          "GI",
+          "GL",
+          "GM",
+          "GN",
+          "GP",
+          "GQ",
+          "GR",
+          "GS",
+          "GT",
+          "GU",
+          "GW",
+          "GY",
+          "HK",
+          "HM",
+          "HN",
+          "HR",
+          "HT",
+          "HU",
+          "ID",
+          "IE",
+          "IL",
+          "IM",
+          "IN",
+          "IO",
+          "IQ",
+          "IR",
+          "IS",
+          "IT",
+          "JE",
+          "JM",
+          "JO",
+          "JP",
+          "KE",
+          "KG",
+          "KH",
+          "KI",
+          "KM",
+          "KN",
+          "KP",
+          "KR",
+          "KW",
+          "KY",
+          "KZ",
+          "LA",
+          "LB",
+          "LC",
+          "LI",
+          "LK",
+          "LR",
+          "LS",
+          "LT",
+          "LU",
+          "LV",
+          "LY",
+          "MA",
+          "MC",
+          "MD",
+          "ME",
+          "MF",
+          "MG",
+          "MH",
+          "MK",
+          "ML",
+          "MM",
+          "MN",
+          "MO",
+          "MP",
+          "MQ",
+          "MR",
+          "MS",
+          "MT",
+          "MU",
+          "MV",
+          "MW",
+          "MX",
+          "MY",
+          "MZ",
+          "NA",
+          "NC",
+          "NE",
+          "NF",
+          "NG",
+          "NI",
+          "NL",
+          "NO",
+          "NP",
+          "NR",
+          "NU",
+          "NZ",
+          "OM",
+          "PA",
+          "PE",
+          "PF",
+          "PG",
+          "PH",
+          "PK",
+          "PL",
+          "PM",
+          "PN",
+          "PR",
+          "PS",
+          "PT",
+          "PW",
+          "PY",
+          "QA",
+          "RE",
+          "RO",
+          "RS",
+          "RU",
+          "RW",
+          "SA",
+          "SB",
+          "SC",
+          "SD",
+          "SE",
+          "SG",
+          "SH",
+          "SI",
+          "SJ",
+          "SK",
+          "SL",
+          "SM",
+          "SN",
+          "SO",
+          "SR",
+          "SS",
+          "ST",
+          "SV",
+          "SX",
+          "SY",
+          "SZ",
+          "TA",
+          "TC",
+          "TD",
+          "TG",
+          "TH",
+          "TJ",
+          "TK",
+          "TL",
+          "TM",
+          "TN",
+          "TO",
+          "TR",
+          "TT",
+          "TV",
+          "TW",
+          "TZ",
+          "UA",
+          "UG",
+          "UY",
+          "UZ",
+          "VA",
+          "VC",
+          "VE",
+          "VG",
+          "VI",
+          "VN",
+          "VU",
+          "WF",
+          "WS",
+          "YE",
+          "YT",
+          "ZA",
+          "ZM",
+          "ZW"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__IsActive__pc": {
+        "type": "boolean",
+        "description": "Active",
+        "nullable": false
+      },
+      "vlocity_cmt__IsEmployee__pc": {
+        "type": "boolean",
+        "description": "Employee",
+        "nullable": false
+      },
+      "vlocity_cmt__IsPartner__pc": {
+        "type": "boolean",
+        "description": "Partner",
+        "nullable": false
+      },
+      "vlocity_cmt__IsPersonAccount__pc": {
+        "type": "boolean",
+        "description": "Is Person Account",
+        "nullable": false
+      },
+      "vlocity_cmt__LastContactbyRecordOwner__pc": {
+        "type": "string",
+        "description": "Last Contact by Record Owner",
+        "format": "date",
+        "nullable": true
+      },
+      "vlocity_cmt__Location__pc": {
+        "type": "string",
+        "description": "Region",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "pi__notes__pc": {
+        "type": "string",
+        "description": "Account Engagement Notes",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "pi__pardot_hard_bounced__pc": {
+        "type": "boolean",
+        "description": "Account Engagement Hard Bounced",
+        "nullable": false
+      },
+      "pi__score__pc": {
+        "type": "number",
+        "description": "Account Engagement Score",
+        "nullable": true
+      },
+      "pi__url__pc": {
+        "type": "string",
+        "description": "Account Engagement URL",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "pi__utm_campaign__pc": {
+        "type": "string",
+        "description": "Google Analytics Campaign",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "pi__utm_content__pc": {
+        "type": "string",
+        "description": "Google Analytics Content",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "pi__utm_medium__pc": {
+        "type": "string",
+        "description": "Google Analytics Medium",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "pi__utm_source__pc": {
+        "type": "string",
+        "description": "Google Analytics Source",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "pi__utm_term__pc": {
+        "type": "string",
+        "description": "Google Analytics Term",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__MiddleName__pc": {
+        "type": "string",
+        "description": "Middle Name",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "vlocity_cmt__NetWorth__pc": {
+        "type": "number",
+        "description": "Net Worth",
+        "format": "currency",
+        "nullable": true
+      },
+      "vlocity_cmt__Occupation__pc": {
+        "type": "string",
+        "description": "Occupation",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "vlocity_cmt__PartyId__pc": {
+        "type": "string",
+        "description": "Party",
+        "format": "salesforce-id",
+        "x-object": "vlocity_cmt__Party__c",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "vlocity_cmt__PrimaryEmployerId__pc": {
+        "type": "string",
+        "description": "Employer",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "vlocity_cmt__SSN__pc": {
+        "type": "string",
+        "description": "SSN",
+        "maxLength": 9,
+        "nullable": true
+      },
+      "vlocity_cmt__SocialSecurityNumber__pc": {
+        "type": "string",
+        "description": "Social Security Number",
+        "maxLength": 11,
+        "nullable": true
+      },
+      "vlocity_cmt__StateOfIssuance__pc": {
+        "type": "string",
+        "description": "State of Issuance",
+        "format": "enum",
+        "enum": [
+          "AL",
+          "AZ",
+          "AR",
+          "CA",
+          "AK",
+          "CO",
+          "CT",
+          "DE",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WY"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__Status__pc": {
+        "type": "string",
+        "description": "Status",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Inactive",
+          "Expired",
+          "Pending"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__TaxId__pc": {
+        "type": "string",
+        "description": "Tax ID",
+        "maxLength": 10,
+        "nullable": true
+      },
+      "SDO_Service_Primary_Messaging_User__pc": {
+        "type": "string",
+        "description": "Primary Messaging User",
+        "format": "salesforce-id",
+        "x-object": "MessagingEndUser",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "vlocity_cmt__Type__pc": {
+        "type": "string",
+        "description": "Type",
+        "format": "enum",
+        "enum": [
+          "Licensed Agent",
+          "Broker",
+          "Associate Agent",
+          "Managing Agent"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_Certification_Level__pc": {
+        "type": "string",
+        "description": "Certification Level",
+        "format": "enum",
+        "enum": [
+          "Associate",
+          "Professional",
+          "Expert",
+          "Architect"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_URLsrc__pc": {
+        "type": "string",
+        "description": "URLsrc",
+        "maxLength": 1300,
+        "nullable": true,
+        "readOnly": true
+      },
+      "vlocity_cmt__UserEmployeeNumber__pc": {
+        "type": "string",
+        "description": "Employee Number",
+        "maxLength": 1300,
+        "nullable": true,
+        "readOnly": true
+      },
+      "vlocity_cmt__UserId__pc": {
+        "type": "string",
+        "description": "UserId",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "vlocity_cmt__WebSite__pc": {
+        "type": "string",
+        "description": "Web Site",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Vlocity_Rel_Graph__pc": {
+        "type": "string",
+        "description": "Vlocity Rel Graph",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "pi__first_activity__pc": {
+        "type": "string",
+        "description": "Account Engagement First Activity",
+        "format": "date-time",
+        "nullable": true
+      },
+      "pi__first_search_term__pc": {
+        "type": "string",
+        "description": "Account Engagement First Referrer Query",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "pi__first_search_type__pc": {
+        "type": "string",
+        "description": "Account Engagement First Referrer Type",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Vlocity_Rel_Graph_Image__pc": {
+        "type": "string",
+        "description": "Vlocity Rel Graph Image",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "LinkedIn_Area__pc": {
+        "type": "string",
+        "description": "LinkedIn Area",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "pi__first_touch_url__pc": {
+        "type": "string",
+        "description": "Account Engagement First Referrer",
+        "maxLength": 65000,
+        "nullable": true
+      },
+      "pi__grade__pc": {
+        "type": "string",
+        "description": "Account Engagement Grade",
+        "maxLength": 10,
+        "nullable": true
+      },
+      "pi__Needs_Score_Synced__pc": {
+        "type": "boolean",
+        "description": "Needs Score Synced",
+        "nullable": false
+      },
+      "pi__Pardot_Last_Scored_At__pc": {
+        "type": "string",
+        "description": "Account Engagement Last Scored At",
+        "format": "date-time",
+        "nullable": true
+      },
+      "LinkedIn_Connections__pc": {
+        "type": "string",
+        "description": "LinkedIn Connections",
+        "maxLength": 15,
+        "nullable": true
+      },
+      "LinkedIn_Industry__pc": {
+        "type": "string",
+        "description": "LinkedIn Industry",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "LinkedIn_Time_in_role__pc": {
+        "type": "string",
+        "description": "LinkedIn Time in role",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "SDO_Cust360_CSAT__pc": {
+        "type": "number",
+        "description": "Cust360 CSAT",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "SDO_Cust360_ChurnRisk__pc": {
+        "type": "number",
+        "description": "Risk of Churn",
+        "nullable": true,
+        "multipleOf": 0.01
+      },
+      "SDO_Cust360_Contact_Picture_URL__pc": {
+        "type": "string",
+        "description": "Cust360 Contact Picture URL",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_Cust360_Id__pc": {
+        "type": "string",
+        "description": "Cust360 Id",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_Cust360_Metric1__pc": {
+        "type": "string",
+        "description": "Cust360 Metric 1",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_Cust360_Metric2__pc": {
+        "type": "string",
+        "description": "Cust360 Metric 2",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "COM_Profile_URL__pc": {
+        "type": "string",
+        "description": "COM - Profile URL",
+        "format": "uri",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "vlocity_cmt__Gender__pc": {
+        "type": "string",
+        "description": "Gender",
+        "format": "enum",
+        "enum": [
+          "Male",
+          "Female"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_Einstein_Projected_ltv__pc": {
+        "type": "number",
+        "description": "Projected Lifetime Value",
+        "nullable": true
+      },
+      "vlocity_cmt__UserLeaseExpires__pc": {
+        "type": "string",
+        "description": "UserLeaseExpiration",
+        "format": "date-time",
+        "nullable": true
+      },
+      "SDO_SFS_Rider_BotContext__pc": {
+        "type": "string",
+        "description": "Rider Context",
+        "format": "salesforce-id",
+        "x-object": "ServiceAppointment",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "SDO_SFS_Rider_Enabled__pc": {
+        "type": "boolean",
+        "description": "Rider Enabled",
+        "nullable": false
+      },
+      "SDO_SFS_Rider_ServiceTerritory__pc": {
+        "type": "string",
+        "description": "Rider Service Territory",
+        "format": "salesforce-id",
+        "x-object": "ServiceTerritory",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "SDO_SFS_Tracker_BotContext__pc": {
+        "type": "string",
+        "description": "Tracker BotContext",
+        "format": "salesforce-id",
+        "x-object": "ServiceAppointment",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "SDO_Service_GlitchBot_Verification_Code__pc": {
+        "type": "string",
+        "description": "Bot Verification Code",
+        "maxLength": 6,
+        "nullable": true
+      },
+      "SDO_Scheduler_Service_Territory__pc": {
+        "type": "string",
+        "description": "Chronos Bot Service Territory",
+        "format": "salesforce-id",
+        "x-object": "ServiceTerritory",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "SDO_B2B_Account_Total_Order_Amount__pc": {
+        "type": "number",
+        "description": "B2B Account Total Order Amount",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
+      },
+      "SDO_PA_Preferred_Contact_Channel__pc": {
+        "type": "string",
+        "description": "Preferred Contact Channel",
+        "format": "enum",
+        "enum": [
+          "Email",
+          "Facebook Messenger",
+          "Home Phone",
+          "Mobile Phone",
+          "SMS",
+          "WhatsApp"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_Service_SMS_Message__pc": {
+        "type": "string",
+        "description": "SMS Message",
+        "maxLength": 800,
+        "nullable": true
+      },
+      "SDO_PA_Inclusive_Preferred_Name__pc": {
+        "type": "string",
+        "description": "Preferred Name",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_PA_Inclusive_Pronouns__pc": {
+        "type": "string",
+        "description": "Preferred Pronoun",
+        "format": "enum",
+        "enum": [
+          "He/Him/His",
+          "She/Her/Hers",
+          "They/Them/Theirs",
+          "Other"
+        ],
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SDO_PA_Inclusive_TDD_TTY__pc": {
+        "type": "boolean",
+        "description": "TDD / TTY Required",
+        "nullable": false
+      },
+      "vlocity_cmt__UserLeaseToken__pc": {
+        "type": "string",
+        "description": "UserLeaseToken",
+        "maxLength": 100,
+        "nullable": true
+      },
+      "vlocity_cmt__UserName__pc": {
+        "type": "string",
+        "description": "UserName",
+        "maxLength": 64,
+        "nullable": true
+      },
+      "vlocity_cmt__UserPassSalt__pc": {
+        "type": "string",
+        "description": "UserPassSalt",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "vlocity_cmt__UserPass__pc": {
+        "type": "string",
+        "description": "UserPass",
+        "maxLength": 50,
+        "nullable": true
+      },
+      "COM_Golden_Record__pc": {
+        "type": "boolean",
+        "description": "COM Golden Record",
+        "nullable": false
       }
     },
     "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_account.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_account.htm",
+    "keyPrefix": "001"
   }
 }

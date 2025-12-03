@@ -6,9 +6,437 @@
       "ApprovalStatus": {
         "type": "picklist",
         "description": "Specifies the approval status of the absense request made by the service resource."
+      },
+      "Id": {
+        "type": "string",
+        "description": "Absence ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "AbsenceNumber": {
+        "type": "string",
+        "description": "Absence Number",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "RecordTypeId": {
+        "type": "string",
+        "description": "Record Type ID",
+        "format": "salesforce-id",
+        "x-object": "RecordType",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastViewedDate": {
+        "type": "string",
+        "description": "Last Viewed Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "LastReferencedDate": {
+        "type": "string",
+        "description": "Last Referenced Date",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "ResourceId": {
+        "type": "string",
+        "description": "Resource ID",
+        "format": "salesforce-id",
+        "x-object": "ServiceResource",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Type": {
+        "type": "string",
+        "description": "Type",
+        "format": "enum",
+        "enum": [
+          "Vacation",
+          "Meeting",
+          "Training",
+          "Medical"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description",
+        "maxLength": 32000,
+        "nullable": true
+      },
+      "Start": {
+        "type": "string",
+        "description": "Start Time",
+        "format": "date-time",
+        "nullable": false
+      },
+      "End": {
+        "type": "string",
+        "description": "End Time",
+        "format": "date-time",
+        "nullable": false
+      },
+      "Street": {
+        "type": "string",
+        "description": "Address",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "City": {
+        "type": "string",
+        "description": "City",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "State": {
+        "type": "string",
+        "description": "State/Province",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "PostalCode": {
+        "type": "string",
+        "description": "Zip/Postal Code",
+        "maxLength": 20,
+        "nullable": true
+      },
+      "Country": {
+        "type": "string",
+        "description": "Country",
+        "maxLength": 80,
+        "nullable": true
+      },
+      "Latitude": {
+        "type": "number",
+        "description": "Latitude",
+        "nullable": true
+      },
+      "Longitude": {
+        "type": "number",
+        "description": "Longitude",
+        "nullable": true
+      },
+      "GeocodeAccuracy": {
+        "type": "string",
+        "description": "Geocode Accuracy",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Address": {
+        "type": "object",
+        "description": "Address",
+        "nullable": true,
+        "readOnly": true
+      },
+      "FSL__InternalSLRGeolocation__Latitude__s": {
+        "type": "number",
+        "description": "Internal SLR Geolocation (Latitude)",
+        "nullable": true
+      },
+      "FSL__InternalSLRGeolocation__Longitude__s": {
+        "type": "number",
+        "description": "Internal SLR Geolocation (Longitude)",
+        "nullable": true
       }
     },
     "module": "Energy and Utilities Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_resourceabsence.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_resourceabsence.htm",
+    "keyPrefix": "0Hw",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FSL__Optimization_Request__c",
+        "field": "FSL__Originating_Resource_Absence__c",
+        "relationshipName": "FSL__Optimization_Requests__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ResourceAbsenceFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ResourceAbsenceHistory",
+        "field": "ResourceAbsenceId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

@@ -5,30 +5,96 @@
     "properties": {
       "ActorId": {
         "type": "reference",
-        "description": "ID of the user responsible for approving an approval request."
+        "description": "ID of the user responsible for approving an approval request.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ElapsedTimeInDays": {
         "type": "double",
-        "description": "The total time in days since this approval request was started."
+        "description": "The total time in days since this approval request was started.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.001
       },
       "ElapsedTimeInHours": {
         "type": "double",
-        "description": "The total time in hours since this approval request was started."
+        "description": "The total time in hours since this approval request was started.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ElapsedTimeInMinutes": {
         "type": "double",
-        "description": "The total time in minutes since this approval request was started."
+        "description": "The total time in minutes since this approval request was started.",
+        "nullable": true,
+        "readOnly": true
       },
       "OriginalActorId": {
         "type": "reference",
-        "description": "ID of the user originally assigned this approval request."
+        "description": "ID of the user originally assigned this approval request.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ProcessInstanceId": {
         "type": "reference",
-        "description": "ID of the ProcessInstance associated with this approval request."
+        "description": "ID of the ProcessInstance associated with this approval request.",
+        "format": "salesforce-id",
+        "x-object": "ProcessInstance",
+        "maxLength": 18,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Process Instance Workitem ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processinstanceworkitem.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processinstanceworkitem.htm",
+    "keyPrefix": "04i",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

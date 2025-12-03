@@ -5,22 +5,85 @@
     "properties": {
       "DistributionId": {
         "type": "reference",
-        "description": "ID of the content delivery that the document is part of."
+        "description": "ID of the content delivery that the document is part of.",
+        "format": "salesforce-id",
+        "x-object": "ContentDistribution",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsDownload": {
         "type": "boolean",
-        "description": "true if the shared document is downloaded; false if the shared document is viewed."
+        "description": "true if the shared document is downloaded; false if the shared document is viewed.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsInternal": {
         "type": "boolean",
-        "description": "true if the shared document is viewed by a user in the same organization; false if viewed by an external user."
+        "description": "true if the shared document is viewed by a user in the same organization; false if viewed by an external user.",
+        "nullable": false,
+        "readOnly": true
       },
       "ParentViewId": {
         "type": "reference",
-        "description": "ID of this instance of accessing the shared document."
+        "description": "ID of this instance of accessing the shared document.",
+        "format": "salesforce-id",
+        "x-object": "ContentDistributionView",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Content Delivery View ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "View Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentdistributionview.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentdistributionview.htm",
+    "keyPrefix": "05H",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ContentDistributionView",
+        "field": "ParentViewId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

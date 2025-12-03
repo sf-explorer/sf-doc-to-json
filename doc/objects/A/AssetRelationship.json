@@ -5,11 +5,19 @@
     "properties": {
       "AssetId": {
         "type": "reference",
-        "description": "The unique identifier of the new asset, which is the asset that is taking the place of the existing asset."
+        "description": "The unique identifier of the new asset, which is the asset that is taking the place of the existing asset.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "AssetRelationshipNumber": {
         "type": "string",
-        "description": "An auto-generated number identifying the asset relationship."
+        "description": "An auto-generated number identifying the asset relationship.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "AssetRole": {
         "type": "picklist",
@@ -21,7 +29,9 @@
       },
       "FromDate": {
         "type": "dateTime",
-        "description": "The date when the new asset was installed."
+        "description": "The date when the new asset was installed.",
+        "format": "date-time",
+        "nullable": true
       },
       "GroupingKey": {
         "type": "string",
@@ -37,7 +47,11 @@
       },
       "RelatedAssetId": {
         "type": "reference",
-        "description": "The existing asset that is being modified."
+        "description": "The existing asset that is being modified.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": false
       },
       "RelatedAssetPricing": {
         "type": "picklist",
@@ -53,14 +67,100 @@
       },
       "RelationshipType": {
         "type": "picklist",
-        "description": "The type of relationship between the existing asset and the new asset. This field comes with three values—Replacement, Upgrade, and Crossgrade—, but you can create more values in Setup."
+        "description": "The type of relationship between the existing asset and the new asset. This field comes with three values—Replacement, Upgrade, and Crossgrade—, but you can create more values in Setup.",
+        "format": "enum",
+        "enum": [
+          "Crossgrade",
+          "Movement",
+          "Reassignment",
+          "ReliesOn",
+          "Replacement",
+          "Resume",
+          "Suspend",
+          "Upgrade"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ToDate": {
         "type": "dateTime",
-        "description": "The date when the modified asset is uninstalled."
+        "description": "The date when the modified asset is uninstalled.",
+        "format": "date-time",
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Asset Relationship ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastViewedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "LastReferencedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetrelationship.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetrelationship.htm",
+    "keyPrefix": "1AR"
   }
 }

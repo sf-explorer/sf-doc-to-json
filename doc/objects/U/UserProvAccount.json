@@ -5,43 +5,72 @@
     "properties": {
       "ConnectedAppId": {
         "type": "reference",
-        "description": "The 15 character application ID."
+        "description": "The 15 character application ID.",
+        "format": "salesforce-id",
+        "x-object": "ConnectedApplication",
+        "maxLength": 18,
+        "nullable": true
       },
       "DeletedDate": {
         "type": "dateTime",
-        "description": "The date and time when the associated user account in the target system was deleted. This value is automatically updated during the provisioning and reconciling processes."
+        "description": "The date and time when the associated user account in the target system was deleted. This value is automatically updated during the provisioning and reconciling processes.",
+        "format": "date-time",
+        "nullable": true
       },
       "ExternalEmail": {
         "type": "string",
-        "description": "The email address as stored in the target system for the associated user account."
+        "description": "The email address as stored in the target system for the associated user account.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ExternalFirstName": {
         "type": "string",
-        "description": "The first name as stored in the target system for the associated user account."
+        "description": "The first name as stored in the target system for the associated user account.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ExternalLastName": {
         "type": "string",
-        "description": "The last name as stored in the target system for the associated user account."
+        "description": "The last name as stored in the target system for the associated user account.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ExternalUserId": {
         "type": "string",
-        "description": "The unique identifier for the user as stored in the target system."
+        "description": "The unique identifier for the user as stored in the target system.",
+        "maxLength": 150,
+        "nullable": true
       },
       "ExternalUsername": {
         "type": "string",
-        "description": "The username as stored in the target system for the associated user account."
+        "description": "The username as stored in the target system for the associated user account.",
+        "maxLength": 150,
+        "nullable": true
       },
       "IsKnownLink": {
         "type": "boolean",
-        "description": "Setting the IsKnownLink value to true implies the administrator or another user is managing the relationship between the Salesforce user account and the third-party user account, manually. This field helps Salesforce coordinate updates between the UserProvAccountStaging object and the UserProvAccount object while committing staged accounts. Typically, for a matching user account (the same ExternalUserId for both objects), Salesforce copies the values from the UserProvAccountStaging object to the UserProvAccount object. However, if Salesforce encounters a UserProvAccountStaging object with a matching ExternalUserId but different LinkState and SalesforceUserId values during this process, Salesforce checks the UserProvAccount IsKnownLink value. If the IsKnownLinkvalue is true, Salesforce doesn’t copy the LinkState and SalesforceUserId values from the UserProvAccountStaging object to the UserProvAccount object (all other values are copied). The default is false, meaning Salesforce manages the account relationship."
+        "description": "Setting the IsKnownLink value to true implies the administrator or another user is managing the relationship between the Salesforce user account and the third-party user account, manually. This field helps Salesforce coordinate updates between the UserProvAccountStaging object and the UserProvAccount object while committing staged accounts. Typically, for a matching user account (the same ExternalUserId for both objects), Salesforce copies the values from the UserProvAccountStaging object to the UserProvAccount object. However, if Salesforce encounters a UserProvAccountStaging object with a matching ExternalUserId but different LinkState and SalesforceUserId values during this process, Salesforce checks the UserProvAccount IsKnownLink value. If the IsKnownLinkvalue is true, Salesforce doesn’t copy the LinkState and SalesforceUserId values from the UserProvAccountStaging object to the UserProvAccount object (all other values are copied). The default is false, meaning Salesforce manages the account relationship.",
+        "nullable": false
       },
       "LinkState": {
         "type": "picklist",
-        "description": "The state of the current connection between the user account in the Salesforce organization and the associated user account in the target system. The valid values are: linked— changes to the account in the Salesforce organization are queued to be updated for the associated user account in the target system. duplicate— an associated account in the target system exists. orphaned—no associated account exists in the target system. ignored— changes to the account in the Salesforce organization have no effect on the associated user account in the target system."
+        "description": "The state of the current connection between the user account in the Salesforce organization and the associated user account in the target system. The valid values are: linked— changes to the account in the Salesforce organization are queued to be updated for the associated user account in the target system. duplicate— an associated account in the target system exists. orphaned—no associated account exists in the target system. ignored— changes to the account in the Salesforce organization have no effect on the associated user account in the target system.",
+        "format": "enum",
+        "enum": [
+          "Linked",
+          "Duplicate",
+          "Orphaned",
+          "Ignored"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "The unique name for this object."
+        "description": "The unique name for this object.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
@@ -49,14 +78,117 @@
       },
       "SalesforceUserId": {
         "type": "reference",
-        "description": "The user ID for the user account in the Salesforce organization that is associated with the user account in the target system."
+        "description": "The user ID for the user account in the Salesforce organization that is associated with the user account in the target system.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the account in the target system. The valid values are: Active Deactivated Deleted"
+        "description": "The status of the account in the target system. The valid values are: Active Deactivated Deleted",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Deactivated",
+          "Deleted"
+        ],
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "User Provisioning Account ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "May Edit",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Is Locked",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovaccount.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovaccount.htm",
+    "keyPrefix": "0Ni",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserProvisioningRequest",
+        "field": "UserProvAccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

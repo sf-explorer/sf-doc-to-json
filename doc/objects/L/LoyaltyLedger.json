@@ -5,15 +5,24 @@
     "properties": {
       "ActivityDate": {
         "type": "dateTime",
-        "description": "The date on which the transaction was performed by the loyalty program member."
+        "description": "The date on which the transaction was performed by the loyalty program member.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AdditionalNotes": {
         "type": "string",
-        "description": "The notes about the transactions performed by the loyalty program members."
+        "description": "The notes about the transactions performed by the loyalty program members.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Correlation": {
         "type": "string",
-        "description": "The ID of any Salesforce or external record.The field lets you store IDs that are up to 15 characters. If you store IDs that are fewer than 15 characters and use the field to query the object, add spaces after your query term to ensure that the query term is 15 characters."
+        "description": "The ID of any Salesforce or external record.The field lets you store IDs that are up to 15 characters. If you store IDs that are fewer than 15 characters and use the field to query the object, add spaces after your query term to ensure that the query term is 15 characters.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "EscrowPointsCreditDate": {
         "type": "date",
@@ -21,23 +30,44 @@
       },
       "EventType": {
         "type": "picklist",
-        "description": "The type of the loyalty transaction."
+        "description": "The type of the loyalty transaction.",
+        "format": "enum",
+        "enum": [
+          "Credit",
+          "Debit",
+          "Expiry"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ExpiryDate": {
         "type": "date",
-        "description": "The date on which the transaction expires."
+        "description": "The date on which the transaction expires.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Flow": {
         "type": "string",
-        "description": "The name of the flow."
+        "description": "The name of the flow.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoyaltyPgmCrcySubtypeId": {
         "type": "reference",
@@ -45,15 +75,28 @@
       },
       "LoyaltyProgramCurrencyId": {
         "type": "reference",
-        "description": "ID of the loyalty program currency."
+        "description": "ID of the loyalty program currency.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramCurrency",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "LoyaltyProgramMemberId": {
         "type": "reference",
-        "description": "ID of the loyalty program member."
+        "description": "ID of the loyalty program member.",
+        "format": "salesforce-id",
+        "x-object": "LoyaltyProgramMember",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Points": {
         "type": "double",
-        "description": "The points available for the loyalty program member."
+        "description": "The points available for the loyalty program member.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PromotionId": {
         "type": "reference",
@@ -61,10 +104,105 @@
       },
       "TransactionJournalId": {
         "type": "reference",
-        "description": "ID of the transaction journal."
+        "description": "ID of the transaction journal.",
+        "format": "salesforce-id",
+        "x-object": "TransactionJournal",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Loyalty Ledger ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyledger.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyledger.htm",
+    "keyPrefix": "05w",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

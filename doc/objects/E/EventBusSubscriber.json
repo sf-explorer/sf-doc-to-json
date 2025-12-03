@@ -5,7 +5,10 @@
     "properties": {
       "ExternalId": {
         "type": "string",
-        "description": "The ID of the subscriber. For example, the trigger ID."
+        "description": "The ID of the subscriber. For example, the trigger ID.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "IsPartitioned": {
         "type": "boolean",
@@ -13,38 +16,81 @@
       },
       "LastError": {
         "type": "string",
-        "description": "The error message that the last thrown EventBus.RetryableException contains. This field applies to Apex triggers only. Available in API version 43.0 and later."
+        "description": "The error message that the last thrown EventBus.RetryableException contains. This field applies to Apex triggers only. Available in API version 43.0 and later.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the subscribed item, such as the trigger or process name. If the subscribed item’s name is “Process”, at least one flow Pause element is subscribed to the event."
+        "description": "The name of the subscribed item, such as the trigger or process name. If the subscribed item’s name is “Process”, at least one flow Pause element is subscribed to the event.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "Position": {
         "type": "int",
-        "description": "The replay ID of the last event that the subscriber processed."
+        "description": "The replay ID of the last event that the subscriber processed.",
+        "nullable": true,
+        "readOnly": true
       },
       "Retries": {
         "type": "int",
-        "description": "The number of times the trigger was retried due to throwing the EventBus.RetryableException. This field applies to Apex triggers only. Available in API version 43.0 and later."
+        "description": "The number of times the trigger was retried due to throwing the EventBus.RetryableException. This field applies to Apex triggers only. Available in API version 43.0 and later.",
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Indicates the status of the subscriber. Can be one of these values: Error— The subscriber was disconnected and stopped receiving published events. A trigger reaches this state when it exceeds the number of maximum retries with the EventBus.RetryableException. Trigger assertion failures and unhandled exceptions don’t cause the error state. We recommend limiting the retries to fewer than nine times to avoid reaching this state. When you fix and save the trigger, or for a managed package trigger, if you redeploy the package, the trigger resumes automatically from the tip, starting from new events. Also, you can resume a trigger subscription in the subscription detail page that you access from the platform event page. Repartitioning—The system is in the process of modifying the trigger's parallel subscription configuration. Running—The subscriber is actively listening to events. If you modify the subscriber, the subscription continues to process events. Suspended—The subscriber is disconnected and can’t receive events because a Salesforce admin suspended it or due to an internal error. You can resume a trigger subscription in the subscription detail page that you access from the platform event page. To resume a process, deactivate it and then reactivate it. If you modify the subscriber, the subscription resumes automatically from the tip, starting from new events."
+        "description": "Indicates the status of the subscriber. Can be one of these values: Error— The subscriber was disconnected and stopped receiving published events. A trigger reaches this state when it exceeds the number of maximum retries with the EventBus.RetryableException. Trigger assertion failures and unhandled exceptions don’t cause the error state. We recommend limiting the retries to fewer than nine times to avoid reaching this state. When you fix and save the trigger, or for a managed package trigger, if you redeploy the package, the trigger resumes automatically from the tip, starting from new events. Also, you can resume a trigger subscription in the subscription detail page that you access from the platform event page. Repartitioning—The system is in the process of modifying the trigger's parallel subscription configuration. Running—The subscriber is actively listening to events. If you modify the subscriber, the subscription continues to process events. Suspended—The subscriber is disconnected and can’t receive events because a Salesforce admin suspended it or due to an internal error. You can resume a trigger subscription in the subscription detail page that you access from the platform event page. To resume a process, deactivate it and then reactivate it. If you modify the subscriber, the subscription resumes automatically from the tip, starting from new events.",
+        "format": "enum",
+        "enum": [
+          "Running",
+          "Suspended",
+          "Expired",
+          "Error",
+          "Repartitioning"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Tip": {
         "type": "int",
-        "description": "The replay ID of the last published event. Note For high-volume platform events and change events, the value for Tip isn’t available and is always -1."
+        "description": "The replay ID of the last published event. Note For high-volume platform events and change events, the value for Tip isn’t available and is always -1.",
+        "nullable": true,
+        "readOnly": true
       },
       "Topic": {
         "type": "string",
-        "description": "The name of the subscription channel that corresponds to a platform event or change event. For a platform event, the topic name is the event name appended with __e, such as MyEvent__e. For a change event, the topic is the name of the change event, such as AccountChangeEvent."
+        "description": "The name of the subscription channel that corresponds to a platform event or change event. For a platform event, the topic name is the event name appended with __e, such as MyEvent__e. For a change event, the topic is the name of the change event, such as AccountChangeEvent.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "Type": {
         "type": "string",
-        "description": "The subscriber type (ApexTrigger). If the subscriber is a process or flow Pause element, the type is blank."
+        "description": "The subscriber type (ApexTrigger). If the subscriber is a process or flow Pause element, the type is blank.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Event ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventbussubscriber.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventbussubscriber.htm",
+    "keyPrefix": "0Cd",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false
   }
 }

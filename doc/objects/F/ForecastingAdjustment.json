@@ -5,15 +5,21 @@
     "properties": {
       "AdjustedAmount": {
         "type": "double",
-        "description": "The revenue amount of an individual forecast item, after an adjustment."
+        "description": "The revenue amount of an individual forecast item, after an adjustment.",
+        "format": "currency",
+        "nullable": false
       },
       "AdjustedQuantity": {
         "type": "double",
-        "description": "The quantity amount of an individual forecast item, after an adjustment. This field is available in API version 28.0 and later."
+        "description": "The quantity amount of an individual forecast item, after an adjustment. This field is available in API version 28.0 and later.",
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "AdjustmentNote": {
         "type": "textarea",
-        "description": "A text note providing information about the adjustment. The maximum length is 255 characters. This field doesn’t appear in reports."
+        "description": "A text note providing information about the adjustment. The maximum length is 255 characters. This field doesn’t appear in reports.",
+        "maxLength": 255,
+        "nullable": true
       },
       "CurrencyIsoCode": {
         "type": "picklist",
@@ -21,7 +27,18 @@
       },
       "ForecastCategoryName": {
         "type": "picklist",
-        "description": "The category within the sales cycle that an opportunity is assigned to based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted, and Closed. You can add a Most Likely category and can customize forecast category names in single category rollups. The forecast categories display information for that specific category; for example, Best Case only reflects amounts in the Best Case category."
+        "description": "The category within the sales cycle that an opportunity is assigned to based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted, and Closed. You can add a Most Likely category and can customize forecast category names in single category rollups. The forecast categories display information for that specific category; for example, Best Case only reflects amounts in the Best Case category.",
+        "format": "enum",
+        "enum": [
+          "Omitted",
+          "Pipeline",
+          "Best Case",
+          "Commit",
+          "Closed"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastingGroupItemId": {
         "type": "reference",
@@ -29,46 +46,175 @@
       },
       "ForecastingItemCategory": {
         "type": "picklist",
-        "description": "The category the forecast belongs to. For individual forecast category rollups, the possible values are: PipelineOnly—Rollup from Pipeline opportunities only. BestCaseOnly—Rollup from Best Case opportunities only. The value in this category is adjustable. MostLikelyOnly—Rollup from Most Likely opportunities only. The value in this category is adjustable. CommitOnly—Rollup from Commit opportunities only. The value in this category is adjustable. For cumulative forecast rollups, the possible values are: OpenPipeline—Rollup from Pipeline, Best Case, Most Likely, and Commit opportunities. BestCaseForecast—Rollup from Best Case, Most Likely, Commit, and Closed opportunities. The value in this category is adjustable. MostLikelyForecast—Rollup from Most Likely, Commit, and Closed opportunities. The value in this category is adjustable. CommitForecast—Rollup from Commit and Closed opportunities. The value in this category is adjustable. For either cumulative or individual forecast category rollups, the possible values are: ClosedOnly —Rollup from Closed opportunities only."
+        "description": "The category the forecast belongs to. For individual forecast category rollups, the possible values are: PipelineOnly—Rollup from Pipeline opportunities only. BestCaseOnly—Rollup from Best Case opportunities only. The value in this category is adjustable. MostLikelyOnly—Rollup from Most Likely opportunities only. The value in this category is adjustable. CommitOnly—Rollup from Commit opportunities only. The value in this category is adjustable. For cumulative forecast rollups, the possible values are: OpenPipeline—Rollup from Pipeline, Best Case, Most Likely, and Commit opportunities. BestCaseForecast—Rollup from Best Case, Most Likely, Commit, and Closed opportunities. The value in this category is adjustable. MostLikelyForecast—Rollup from Most Likely, Commit, and Closed opportunities. The value in this category is adjustable. CommitForecast—Rollup from Commit and Closed opportunities. The value in this category is adjustable. For either cumulative or individual forecast category rollups, the possible values are: ClosedOnly —Rollup from Closed opportunities only.",
+        "format": "enum",
+        "enum": [
+          "OmittedOnly",
+          "PipelineOnly",
+          "BestCaseOnly",
+          "CommitOnly",
+          "ClosedOnly",
+          "OpenPipeline",
+          "BestCaseForecast",
+          "CommitForecast"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ForecastingItemId": {
         "type": "reference",
-        "description": "The ID of the related ForecastingItem."
+        "description": "The ID of the related ForecastingItem.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingItem",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ForecastingTypeId": {
         "type": "reference",
-        "description": "The ID of the related ForecastingType."
+        "description": "The ID of the related ForecastingType.",
+        "format": "salesforce-id",
+        "x-object": "ForecastingType",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "IsAmount": {
         "type": "boolean",
-        "description": "If true, then the adjustment is made in a revenue amount. If false, then IsQuantity must be true. This field is available in API version 28.0 and later."
+        "description": "If true, then the adjustment is made in a revenue amount. If false, then IsQuantity must be true. This field is available in API version 28.0 and later.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsQuantity": {
         "type": "boolean",
-        "description": "If true, then the adjustment is made in a quantity amount. If false, then IsAmount must be true. This field is available in API version 28.0 and later."
+        "description": "If true, then the adjustment is made in a quantity amount. If false, then IsAmount must be true. This field is available in API version 28.0 and later.",
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the forecast owner."
+        "description": "The ID of the forecast owner.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "PeriodId": {
         "type": "reference",
-        "description": "Period ID for the adjustment. Read only."
+        "description": "Period ID for the adjustment. Read only.",
+        "format": "salesforce-id",
+        "x-object": "Period",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ProductFamily": {
         "type": "picklist",
-        "description": "The Product Family for the adjustment. Read only. This field is available in API version 29.0 and later."
+        "description": "The Product Family for the adjustment. Read only. This field is available in API version 29.0 and later.",
+        "format": "enum",
+        "enum": [
+          "Internet",
+          "Product",
+          "Service",
+          "Services",
+          "Multiplay",
+          "Wireless",
+          "TV",
+          "Streaming",
+          "Home Security",
+          "Software",
+          "Mobile",
+          "Landline",
+          "Support",
+          "Accessories",
+          "Device",
+          "Networking"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "StartDate": {
         "type": "date",
-        "description": "The start of the adjustment, expressed as month and year. The date can include any day in a given month. Stored using the first date of the month."
+        "description": "The start of the adjustment, expressed as month and year. The date can include any day in a given month. Stored using the first date of the month.",
+        "format": "date",
+        "nullable": false,
+        "readOnly": true
       },
       "Territory2Id": {
         "type": "reference",
-        "description": "The ID of the territory to forecast on. Available in API version 43.0 and later."
+        "description": "The ID of the territory to forecast on. Available in API version 43.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "Territory2",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ForecastingAdjustment ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingadjustment.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingadjustment.htm",
+    "keyPrefix": "0G7",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

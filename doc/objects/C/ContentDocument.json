@@ -5,23 +5,40 @@
     "properties": {
       "ArchivedById": {
         "type": "reference",
-        "description": "The ID of the user who archived the document.This field is available in API version 24.0 and later."
+        "description": "The ID of the user who archived the document.This field is available in API version 24.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ArchivedDate": {
         "type": "date",
-        "description": "The date when the document was archived.This field is available in API version 24.0 and later."
+        "description": "The date when the document was archived.This field is available in API version 24.0 and later.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "ContentAssetId": {
         "type": "reference",
-        "description": "If the ContentDocument is an asset file, this field points to the asset. For most entities, the value of this field is null.This field is available in API version 38.0 and later."
+        "description": "If the ContentDocument is an asset file, this field points to the asset. For most entities, the value of this field is null.This field is available in API version 38.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "ContentAsset",
+        "maxLength": 18,
+        "nullable": true
       },
       "ContentModifiedDate": {
         "type": "dateTime",
-        "description": "Date the document was modified.ContentModifiedDate updates when, for example, the document is renamed or a new document version is uploaded. When you’re uploading the first version of a document, ContentModifiedDate can be set to the current time or anytime in the past. This field is available in API version 32.0 and later."
+        "description": "Date the document was modified.ContentModifiedDate updates when, for example, the document is renamed or a new document version is uploaded. When you’re uploading the first version of a document, ContentModifiedDate can be set to the current time or anytime in the past. This field is available in API version 32.0 and later.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ContentSize": {
         "type": "int",
-        "description": "The size of the document in bytes for files smaller than 2 GB. If the file is 2 GB or larger, use the ContentSizeLong field This field is available in API version 31.0 and later."
+        "description": "The size of the document in bytes for files smaller than 2 GB. If the file is 2 GB or larger, use the ContentSizeLong field This field is available in API version 31.0 and later.",
+        "nullable": true,
+        "readOnly": true
       },
       "ContentSizeLong": {
         "type": "long",
@@ -29,7 +46,9 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "A description of the document. This field is available in API version 31.0 and later."
+        "description": "A description of the document. This field is available in API version 31.0 and later.",
+        "maxLength": 1000,
+        "nullable": true
       },
       "Division": {
         "type": "picklist",
@@ -37,15 +56,22 @@
       },
       "FileExtension": {
         "type": "string",
-        "description": "File extension of the document. This field is available in API version 31.0 and later."
+        "description": "File extension of the document. This field is available in API version 31.0 and later.",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "FileType": {
         "type": "string",
-        "description": "Type of document, determined by the file extension. This field is available in API version 31.0 and later."
+        "description": "Type of document, determined by the file extension. This field is available in API version 31.0 and later.",
+        "maxLength": 20,
+        "nullable": true,
+        "readOnly": true
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicates whether the document has been archived (true) or not (false)."
+        "description": "Indicates whether the document has been archived (true) or not (false).",
+        "nullable": false
       },
       "IsInternalOnly": {
         "type": "boolean",
@@ -53,42 +79,340 @@
       },
       "LastReferencedDate": {
         "type": "datetime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "datetime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LatestPublishedVersionId": {
         "type": "reference",
-        "description": "ID of the latest document version (ContentVersion)."
+        "description": "ID of the latest document version (ContentVersion).",
+        "format": "salesforce-id",
+        "x-object": "ContentVersion",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the owner of this document."
+        "description": "ID of the owner of this document.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentId": {
         "type": "reference",
-        "description": "ID of the library that owns the document. Created automatically when inserting a ContentVersion via the API for the first time.This field is available in API version 24.0 and later when Salesforce CRM Content is enabled."
+        "description": "ID of the library that owns the document. Created automatically when inserting a ContentVersion via the API for the first time.This field is available in API version 24.0 and later when Salesforce CRM Content is enabled.",
+        "format": "salesforce-id",
+        "x-object": "ContentWorkspace",
+        "maxLength": 18,
+        "nullable": true
       },
       "PublishStatus": {
         "type": "picklist",
-        "description": "Indicates if and how the document is published. Valid values are: P—The document is published to a public library and is visible to other users. Label is Public. R—The document is published to a personal library and is not visible to other users. Label is Personal Library. U—The document is not published because publishing was interrupted. Label is Upload Interrupted."
+        "description": "Indicates if and how the document is published. Valid values are: P—The document is published to a public library and is visible to other users. Label is Public. R—The document is published to a personal library and is not visible to other users. Label is Personal Library. U—The document is not published because publishing was interrupted. Label is Upload Interrupted.",
+        "format": "enum",
+        "enum": [
+          "U",
+          "P",
+          "R"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "SharingOption": {
         "type": "picklist",
-        "description": "Controls whether sharing is frozen for a file. Only administrators and file owners with Collaborator access to the file can modify this field. Default is Allowed, which means that new shares are allowed. When set to Restricted, new shares are prevented without affecting existing shares.This field is available in API versions 35.0 and later."
+        "description": "Controls whether sharing is frozen for a file. Only administrators and file owners with Collaborator access to the file can modify this field. Default is Allowed, which means that new shares are allowed. When set to Restricted, new shares are prevented without affecting existing shares.This field is available in API versions 35.0 and later.",
+        "format": "enum",
+        "enum": [
+          "A",
+          "R"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "SharingPrivacy": {
         "type": "picklist",
-        "description": "Controls sharing privacy for a file. Only administrators and file owners with Collaborator access to the file can modify this field."
+        "description": "Controls sharing privacy for a file. Only administrators and file owners with Collaborator access to the file can modify this field.",
+        "format": "enum",
+        "enum": [
+          "N",
+          "P"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Title": {
         "type": "string",
-        "description": "The title of a document."
+        "description": "The title of a document.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "ContentDocument ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentdocument.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentdocument.htm",
+    "keyPrefix": "069",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentDocumentId",
+        "relationshipName": "AssessmentTaskContentDocuments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormText",
+        "field": "ContentDocumentId",
+        "relationshipName": "AuthorizationFormTexts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Campaign",
+        "field": "CampaignImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignChangeEvent",
+        "field": "CampaignImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentAsset",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDistribution",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentDistributions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDocumentFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentHistory",
+        "field": "ContentDocumentId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentListViewMapping",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentDocListViewMappings",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentSubscription",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentFolderMember",
+        "field": "ChildRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentNotification",
+        "field": "EntityIdentifierId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentVersions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersionComment",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentWorkspaceDoc",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedAttachment",
+        "field": "RecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FolderedContentDocument",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Image",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "EntityId",
+        "relationshipName": "AuditableEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkModeration",
+        "field": "EntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OwnedContentDocument",
+        "field": "ContentDocumentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCallRecording",
+        "field": "MediaContentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCallRecordingChangeEvent",
+        "field": "MediaContentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

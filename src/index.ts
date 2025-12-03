@@ -102,7 +102,16 @@ export async function loadCloud(
 async function loadObjectFromFile(objectName: string, expectedCloud?: string): Promise<SalesforceObject | null> {
     try {
         const firstLetter = objectName[0].toUpperCase();
-        // Dynamic import - bundlers handle JSON automatically
+        
+        // Check if this is a metadata type (stored in metadata/ folder)
+        if (expectedCloud === 'Metadata API') {
+            const objectData = await import(`../doc/metadata/${firstLetter}/${objectName}.json`);
+            const data = objectData.default || objectData;
+            const obj = data[objectName];
+            return obj || null;
+        }
+        
+        // Regular objects (stored in objects/ folder)
         const objectData = await import(`../doc/objects/${firstLetter}/${objectName}.json`);
         const data = objectData.default || objectData;
         const obj = data[objectName];
@@ -138,7 +147,7 @@ export async function loadAllClouds(useCache = true): Promise<CloudData> {
     const cloudFiles = new Set<string>();
     
     for (const obj of Object.values(index.objects)) {
-        if (obj.file.startsWith('objects/')) {
+        if (obj.file.startsWith('objects/') || obj.file.startsWith('metadata/')) {
             // New format: derive cloud file name from cloud name
             const cloudFileName = obj.cloud
                 .toLowerCase()
@@ -184,7 +193,7 @@ export async function getObject(
     const entry = index.objects[objectName];
     
     // Check if file path points to individual object file (new format)
-    if (entry.file.startsWith('objects/')) {
+    if (entry.file.startsWith('objects/') || entry.file.startsWith('metadata/')) {
         return await loadObjectFromFile(objectName, entry.cloud);
     }
     
@@ -246,9 +255,9 @@ export async function getObjectsByCloud(
         return [];
     }
     
-    // Check if using new format (objects/ path)
+    // Check if using new format (objects/ or metadata/ path)
     const firstEntry = index.objects[objectsInCloud[0]];
-    if (firstEntry.file.startsWith('objects/')) {
+    if (firstEntry.file.startsWith('objects/') || firstEntry.file.startsWith('metadata/')) {
         // New format: Load each object individually with the correct cloud name
         const objects = await Promise.all(
             objectsInCloud.map(name => loadObjectFromFile(name, cloudName))
