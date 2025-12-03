@@ -19,12 +19,17 @@ import { getObject, getObjectDescription, searchObjectsByDescription } from '@sf
 
 // Get full object with all field properties
 const account = await getObject('Account');
-console.log(account?.properties);
+if (account) {
+  console.log(Object.keys(account.properties).length + ' fields');
+}
 
 // 🆕 Get just description and field count (100x faster!)
 const desc = await getObjectDescription('Account');
-console.log(desc?.description);  // "Represents an individual account..."
-console.log(desc?.fieldCount);   // 106
+if (desc) {
+  console.log(desc.description);  // "Represents an individual account..."
+  console.log(desc.fieldCount);   // 106
+  console.log(desc.keyPrefix);    // "001" - 3-char ID prefix
+}
 
 // 🆕 Search by description content
 const results = await searchObjectsByDescription('invoice');
@@ -37,6 +42,7 @@ const results = await searchObjectsByDescription('invoice');
 - ✅ Works in Node.js and browsers
 - ✅ Tree-shakeable and async for optimal bundle size
 - ✅ 🆕 **Descriptions API** - access metadata without loading full objects (100x faster!)
+- ✅ 🆕 **Key Prefixes** - 3-character Salesforce record ID prefixes for 1,648+ objects
 
 ---
 
@@ -106,8 +112,11 @@ if (account) {
 
 // NEW: Get just the description and field count (much faster!)
 const accountDesc = await getObjectDescription('Account');
-console.log(accountDesc.description);  // "Represents an individual account..."
-console.log(accountDesc.fieldCount);   // 106
+if (accountDesc) {
+  console.log(accountDesc.description);  // "Represents an individual account..."
+  console.log(accountDesc.fieldCount);   // 106
+  console.log(accountDesc.keyPrefix);    // "001"
+}
 
 // Search for objects by name
 const fscObjects = await searchObjects(/financial/i);
@@ -152,12 +161,16 @@ import { getObject, getObjectDescription } from '@sf-explorer/salesforce-object-
 
 // Get full object details
 const account = await getObject('Account');
-console.log('Fields:', Object.keys(account.properties).length);
+if (account) {
+  console.log('Fields:', Object.keys(account.properties).length);
+}
 
 // Or get just the description (faster!)
 const desc = await getObjectDescription('Account');
-console.log('Description:', desc.description);
-console.log('Field count:', desc.fieldCount);
+if (desc) {
+  console.log('Description:', desc.description);
+  console.log('Field count:', desc.fieldCount);
+}
 ```
 
 ```bash
@@ -209,20 +222,31 @@ Load the master index containing all objects and their cloud associations.
 
 ```typescript
 const index = await loadIndex();
+if (index) {
+  console.log(`${index.totalObjects} objects across ${index.totalClouds} clouds`);
+}
 // { version, totalObjects, totalClouds, objects: {...} }
 ```
 
 **Note:** The index now includes `description` and `fieldCount` for each object, allowing you to access metadata without loading full object files.
+
+**Returns `null` if:** The index file cannot be loaded.
 
 #### `getObject(objectName: string, useCache?: boolean): Promise<SalesforceObject | null>`
 Get detailed information about a specific Salesforce object.
 
 ```typescript
 const account = await getObject('Account');
+if (account) {
+  console.log(account.name, account.description);
+  console.log('Fields:', Object.keys(account.properties).length);
+}
 // { name, description, module, properties: {...} }
 ```
 
 **Use this when:** You need full object details including all field properties.
+
+**Returns `null` if:** The object is not found.
 
 #### `searchObjects(pattern: string | RegExp, useCache?: boolean): Promise<Array<{name, cloud, file}>>`
 Search for objects by name pattern.
@@ -252,7 +276,12 @@ Load all objects for a specific cloud file.
 
 ```typescript
 const coreData = await loadCloud('core-salesforce');
+if (coreData) {
+  console.log(`Loaded ${Object.keys(coreData).length} objects`);
+}
 ```
+
+**Returns `null` if:** The cloud file cannot be loaded.
 
 #### `clearCache(): void`
 Clear all cached data.
@@ -282,11 +311,18 @@ Load descriptions and field counts for all objects at once.
 
 ```typescript
 const descriptions = await loadAllDescriptions();
-console.log(descriptions['Account']);
+if (descriptions) {
+  console.log(`Loaded ${Object.keys(descriptions).length} object descriptions`);
+  console.log(descriptions['Account']);
+}
 // {
-//   description: "Represents an individual account, which is an organization...",
-//   cloud: "Core Salesforce",
-//   fieldCount: 106
+//   "Account": {
+//     description: "Represents an individual account, which is an organization...",
+//     cloud: "Core Salesforce",
+//     fieldCount: 106,
+//     keyPrefix: "001"
+//   },
+//   ...
 // }
 ```
 
@@ -294,8 +330,11 @@ console.log(descriptions['Account']);
 - `description` - Object description text
 - `cloud` - Cloud/module name
 - `fieldCount` - Number of fields
+- `keyPrefix` - Optional 3-character Salesforce ID prefix (e.g., "001" for Account)
 
 **Performance:** Loads ~1.5MB vs ~100MB+ for full objects
+
+**Returns `null` if:** The index cannot be loaded.
 
 #### `getObjectDescription(objectName: string, useCache?: boolean): Promise<DescriptionInfo | null>`
 
@@ -303,12 +342,17 @@ Get description and field count for a specific object.
 
 ```typescript
 const desc = await getObjectDescription('Account');
-console.log(desc.description);  // "Represents an individual account..."
-console.log(desc.cloud);        // "Core Salesforce"
-console.log(desc.fieldCount);   // 106
+if (desc) {
+  console.log(desc.description);  // "Represents an individual account..."
+  console.log(desc.cloud);        // "Core Salesforce"
+  console.log(desc.fieldCount);   // 106
+  console.log(desc.keyPrefix);    // "001"
+}
 ```
 
 **Use this when:** You need basic object info without loading all field properties.
+
+**Returns `null` if:** The object is not found in the index.
 
 #### `searchObjectsByDescription(pattern: string | RegExp, useCache?: boolean): Promise<DescriptionSearchResult[]>`
 
@@ -321,9 +365,10 @@ const invoiceObjects = await searchObjectsByDescription('invoice');
 // Regex search
 const healthObjects = await searchObjectsByDescription(/patient|health|medical/i);
 
-// Results include name, description, cloud, and fieldCount
+// Results include name, description, cloud, fieldCount, and keyPrefix
 invoiceObjects.forEach(obj => {
   console.log(`${obj.name} (${obj.cloud}) - ${obj.fieldCount} fields`);
+  console.log(`Key Prefix: ${obj.keyPrefix || 'N/A'}`);
   console.log(obj.description);
 });
 ```
@@ -333,8 +378,9 @@ invoiceObjects.forEach(obj => {
 - `description` - Full description text
 - `cloud` - Cloud/module name  
 - `fieldCount` - Number of fields
+- `keyPrefix` - Optional 3-character Salesforce ID prefix
 
-#### `getDescriptionsByCloud(cloudName: string, useCache?: boolean): Promise<Record<string, {description, fieldCount}>>`
+#### `getDescriptionsByCloud(cloudName: string, useCache?: boolean): Promise<Record<string, {description, fieldCount, keyPrefix?}>>`
 
 Get descriptions for all objects in a specific cloud.
 
@@ -344,7 +390,7 @@ console.log(Object.keys(fscDescriptions).length); // 238 objects
 
 // Access each object's info
 Object.entries(fscDescriptions).forEach(([name, info]) => {
-  console.log(`${name}: ${info.fieldCount} fields`);
+  console.log(`${name}: ${info.fieldCount} fields, prefix: ${info.keyPrefix || 'N/A'}`);
   console.log(info.description);
 });
 ```

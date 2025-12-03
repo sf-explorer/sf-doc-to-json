@@ -20,6 +20,7 @@ export interface ObjectIndexEntry {
     file: string;
     description: string;
     fieldCount: number;
+    keyPrefix?: string;
 }
 
 export interface DocumentIndex {

@@ -29,6 +29,41 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject }) => {
         size: 180,
       },
       {
+        accessorKey: 'keyPrefix',
+        header: 'Prefix',
+        size: 80,
+        Cell: ({ cell }) => {
+          const prefix = cell.getValue();
+          return prefix ? (
+            <Box 
+              sx={{ 
+                fontFamily: 'monospace',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                color: '#014486',
+                backgroundColor: '#ecebea',
+                padding: '2px 6px',
+                borderRadius: '3px',
+                display: 'inline-block'
+              }}
+            >
+              {prefix}
+            </Box>
+          ) : (
+            <Box 
+              sx={{ 
+                fontSize: '0.75rem',
+                color: '#c9c7c5',
+                fontStyle: 'italic',
+                textAlign: 'center'
+              }}
+            >
+              —
+            </Box>
+          );
+        },
+      },
+      {
         accessorKey: 'description',
         header: 'Description',
         size: 300,

@@ -2,10 +2,10 @@
  * Salesforce Object Reference - API Quick Reference
  * 
  * Import:
- *   import { ... } from '@ndespres/salesforce-object-reference';
+ *   import { ... } from '@sf-explorer/salesforce-object-reference';
  * 
  * Or:
- *   const { ... } = require('@ndespres/salesforce-object-reference');
+ *   const { ... } = require('@sf-explorer/salesforce-object-reference');
  */
 
 // ============================================
@@ -21,7 +21,13 @@ Returns: {
   totalObjects: 1500,
   totalClouds: 13,
   objects: {
-    "Account": { cloud: "Core Salesforce", file: "core-salesforce.json" },
+    "Account": { 
+      cloud: "Core Salesforce", 
+      file: "objects/A/Account.json",
+      description: "An organization or individual involved...",
+      fieldCount: 76,
+      keyPrefix: "001"  // 3-character ID prefix for records
+    },
     ...
   }
 }
@@ -49,7 +55,7 @@ Returns: {
 // ============================================
 // 3. SEARCH OBJECTS
 // ============================================
-import { searchObjects } from '@ndespres/salesforce-object-reference';
+import { searchObjects } from '@sf-explorer/salesforce-object-reference';
 
 // String search (case-insensitive)
 const results1 = searchObjects('financial');
@@ -67,7 +73,7 @@ Returns: [
 // ============================================
 // 4. GET OBJECTS BY CLOUD
 // ============================================
-import { getObjectsByCloud } from '@ndespres/salesforce-object-reference';
+import { getObjectsByCloud } from '@sf-explorer/salesforce-object-reference';
 
 const fscObjects = getObjectsByCloud('Financial Services Cloud');
 /*
@@ -85,7 +91,7 @@ Returns: [
 // ============================================
 // 5. GET AVAILABLE CLOUDS
 // ============================================
-import { getAvailableClouds } from '@ndespres/salesforce-object-reference';
+import { getAvailableClouds } from '@sf-explorer/salesforce-object-reference';
 
 const clouds = getAvailableClouds();
 /*
@@ -106,13 +112,76 @@ Returns: [
 // ============================================
 // 6. LOAD ENTIRE CLOUD
 // ============================================
-import { loadCloud } from '@ndespres/salesforce-object-reference';
+import { loadCloud } from '@sf-explorer/salesforce-object-reference';
 
 const fscData = loadCloud('financial-services-cloud');
 /*
 Returns: {
   "FinancialAccount": { name: "...", description: "...", properties: {...} },
   "FinancialAccountRole": { ... },
+  ...
+}
+*/
+
+// ============================================
+// 7. LOAD OBJECT DESCRIPTIONS (EFFICIENT)
+// ============================================
+import { loadAllDescriptions, getObjectDescription } from '@sf-explorer/salesforce-object-reference';
+
+// Get all descriptions at once (much faster than loading full objects)
+const descriptions = loadAllDescriptions();
+/*
+Returns: {
+  "Account": {
+    description: "An organization or individual involved...",
+    cloud: "Core Salesforce",
+    fieldCount: 76,
+    keyPrefix: "001"
+  },
+  ...
+}
+*/
+
+// Get description for a specific object
+const accountDesc = getObjectDescription('Account');
+/*
+Returns: {
+  description: "An organization or individual involved...",
+  cloud: "Core Salesforce",
+  fieldCount: 76,
+  keyPrefix: "001"
+}
+*/
+
+// ============================================
+// 8. SEARCH BY DESCRIPTION
+// ============================================
+import { searchObjectsByDescription, getDescriptionsByCloud } from '@sf-explorer/salesforce-object-reference';
+
+// Search for objects by description text
+const results = searchObjectsByDescription('financial');
+/*
+Returns: [
+  {
+    name: "FinancialAccount",
+    description: "A financial account...",
+    cloud: "Financial Services Cloud",
+    fieldCount: 45,
+    keyPrefix: "01k"
+  },
+  ...
+]
+*/
+
+// Get all descriptions for a specific cloud
+const fscDescriptions = getDescriptionsByCloud('Financial Services Cloud');
+/*
+Returns: {
+  "FinancialAccount": {
+    description: "A financial account...",
+    fieldCount: 45,
+    keyPrefix: "01k"
+  },
   ...
 }
 */
@@ -125,7 +194,9 @@ import {
   getObject,
   searchObjects,
   getObjectsByCloud,
-  getAvailableClouds
+  getAvailableClouds,
+  loadAllDescriptions,
+  getObjectDescription
 } from '@ndespres/salesforce-object-reference';
 
 function example() {
@@ -141,19 +212,37 @@ function example() {
   const accountObjs = searchObjects(/account/i);
   console.log(`Found ${accountObjs.length} account objects`);
   
-  // 4. Get specific object
+  // 4. Get object description (fast, no field data)
+  const accountDesc = getObjectDescription('Account');
+  if (accountDesc) {
+    console.log(`${accountDesc.description}`);
+    console.log(`Key Prefix: ${accountDesc.keyPrefix}`);
+    console.log(`Fields: ${accountDesc.fieldCount}`);
+  }
+  
+  // 5. Get full object (when you need field details)
   const account = getObject('Account');
   if (account) {
     console.log(`${account.name}: ${account.description}`);
     console.log(`Fields: ${Object.keys(account.properties).length}`);
   }
   
-  // 5. Get all FSC objects
+  // 6. Get all FSC objects
   const fscObjs = getObjectsByCloud('Financial Services Cloud');
   console.log(`FSC has ${fscObjs.length} objects`);
   fscObjs.forEach(obj => {
     console.log(`  - ${obj.name}`);
   });
+  
+  // 7. Load all descriptions efficiently
+  const descriptions = loadAllDescriptions();
+  if (descriptions) {
+    // Find all objects with a specific key prefix pattern
+    const objectsWithPrefix = Object.entries(descriptions)
+      .filter(([_, meta]) => meta.keyPrefix?.startsWith('0'))
+      .map(([name, meta]) => ({ name, prefix: meta.keyPrefix }));
+    console.log(`Objects with 0-prefix: ${objectsWithPrefix.length}`);
+  }
 }
 
 // ============================================
@@ -166,7 +255,7 @@ import type {
   ObjectIndexEntry,
   CloudData,
   SalesforceObjectCollection
-} from '@ndespres/salesforce-object-reference';
+} from '@sf-explorer/salesforce-object-reference';
 
 const myObject: SalesforceObject = {
   name: 'CustomObject',
@@ -178,6 +267,15 @@ const myObject: SalesforceObject = {
       description: 'A custom field'
     }
   }
+};
+
+// ObjectIndexEntry includes keyPrefix field
+const indexEntry: ObjectIndexEntry = {
+  cloud: 'Core Salesforce',
+  file: 'objects/A/Account.json',
+  description: 'An organization or individual involved...',
+  fieldCount: 76,
+  keyPrefix: '001'  // Optional: 3-character Salesforce ID prefix
 };
 
 // ============================================

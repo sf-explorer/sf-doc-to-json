@@ -30,7 +30,7 @@ const ObjectExplorer = () => {
               apiName: objectName,
               label: objectName,
               pluralLabel: objectName,
-              keyPrefix: '',
+              keyPrefix: metadata.keyPrefix || '',
               isCustom: objectName.endsWith('__c') || objectName.includes('__'),
               category: metadata.cloud,
               description: metadata.description || '',

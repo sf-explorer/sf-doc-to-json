@@ -288,20 +288,21 @@ export async function getAvailableClouds(useCache = true): Promise<string[]> {
  * @param useCache - Whether to use cached data (default: true)
  * @returns Object mapping object names to their descriptions and metadata
  */
-export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number }> | null> {
+export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string }> | null> {
     const index = await loadIndex(useCache);
     
     if (!index) {
         return null;
     }
 
-    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number }> = {};
+    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
         descriptions[name] = {
             description: entry.description,
             cloud: entry.cloud,
-            fieldCount: entry.fieldCount
+            fieldCount: entry.fieldCount,
+            keyPrefix: entry.keyPrefix
         };
     }
     
@@ -317,7 +318,7 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
 export async function getObjectDescription(
     objectName: string,
     useCache = true
-): Promise<{ description: string; cloud: string; fieldCount: number } | null> {
+): Promise<{ description: string; cloud: string; fieldCount: number; keyPrefix?: string } | null> {
     const index = await loadIndex(useCache);
     
     if (!index || !index.objects[objectName]) {
@@ -328,7 +329,8 @@ export async function getObjectDescription(
     return {
         description: entry.description,
         cloud: entry.cloud,
-        fieldCount: entry.fieldCount
+        fieldCount: entry.fieldCount,
+        keyPrefix: entry.keyPrefix
     };
 }
 
@@ -341,7 +343,7 @@ export async function getObjectDescription(
 export async function searchObjectsByDescription(
     pattern: string | RegExp,
     useCache = true
-): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number }>> {
+): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number; keyPrefix?: string }>> {
     const index = await loadIndex(useCache);
     
     if (!index) {
@@ -356,7 +358,8 @@ export async function searchObjectsByDescription(
             name,
             description: entry.description,
             cloud: entry.cloud,
-            fieldCount: entry.fieldCount
+            fieldCount: entry.fieldCount,
+            keyPrefix: entry.keyPrefix
         }));
 }
 
@@ -369,20 +372,21 @@ export async function searchObjectsByDescription(
 export async function getDescriptionsByCloud(
     cloudName: string,
     useCache = true
-): Promise<Record<string, { description: string; fieldCount: number }>> {
+): Promise<Record<string, { description: string; fieldCount: number; keyPrefix?: string }>> {
     const index = await loadIndex(useCache);
     
     if (!index) {
         return {};
     }
     
-    const result: Record<string, { description: string; fieldCount: number }> = {};
+    const result: Record<string, { description: string; fieldCount: number; keyPrefix?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
         if (entry.cloud === cloudName) {
             result[name] = {
                 description: entry.description,
-                fieldCount: entry.fieldCount
+                fieldCount: entry.fieldCount,
+                keyPrefix: entry.keyPrefix
             };
         }
     }
