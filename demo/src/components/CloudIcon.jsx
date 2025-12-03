@@ -47,11 +47,14 @@ const CloudIcon = ({ cloudName, metadata, size = 20, showLabel = false, classNam
 
   // If we have an icon file, render it
   if (iconFile) {
+    // Use import.meta.env.BASE_URL to respect the base path in production
+    const iconPath = `${import.meta.env.BASE_URL}icons/${iconFile}`;
+    
     return (
       <span style={containerStyle} className={className} title={friendlyName}>
         <span style={iconContainerStyle}>
           <img 
-            src={`/icons/${iconFile}`} 
+            src={iconPath} 
             alt={friendlyName}
             style={iconStyle}
             onError={(e) => {
