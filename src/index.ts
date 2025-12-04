@@ -181,6 +181,26 @@ export async function loadCloud(
 }
 
 /**
+ * Check if we're running in a browser environment
+ */
+function isBrowser(): boolean {
+    return typeof window !== 'undefined';
+}
+
+/**
+ * Get the base path for fetching assets (only works in browser)
+ */
+function getBasePath(): string {
+    if (typeof window === 'undefined') return '/';
+    try {
+        // @ts-ignore - import.meta.env is a Vite-specific feature
+        return import.meta.env?.BASE_URL || '/';
+    } catch {
+        return '/';
+    }
+}
+
+/**
  * Load a single object from its individual file
  * @param objectName - The name of the Salesforce object
  * @param expectedCloud - Optional cloud name to set on the object (for multi-cloud objects)
@@ -191,15 +211,27 @@ async function loadObjectFromFile(objectName: string, expectedCloud?: string): P
         const firstLetter = objectName[0].toUpperCase();
         let data;
         
-        // Use dynamic import for individual object files (too many to statically import)
-        if (expectedCloud === 'Metadata API') {
-            // @ts-ignore
-            const objectData = await import(/* @vite-ignore */ `./doc/metadata/${firstLetter}/${objectName}.json`);
-            data = objectData.default || objectData;
+        // Individual object files are too numerous to statically import
+        // In browser, fetch from public folder; in Node.js, use dynamic import
+        if (isBrowser()) {
+            const basePath = getBasePath();
+            const folder = expectedCloud === 'Metadata API' ? 'metadata' : 'objects';
+            const response = await fetch(`${basePath}doc/${folder}/${firstLetter}/${objectName}.json`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            data = await response.json();
         } else {
-            // @ts-ignore
-            const objectData = await import(/* @vite-ignore */ `./doc/objects/${firstLetter}/${objectName}.json`);
-            data = objectData.default || objectData;
+            // In Node.js, use dynamic import
+            if (expectedCloud === 'Metadata API') {
+                // @ts-ignore
+                const objectData = await import(`./doc/metadata/${firstLetter}/${objectName}.json`);
+                data = objectData.default || objectData;
+            } else {
+                // @ts-ignore
+                const objectData = await import(`./doc/objects/${firstLetter}/${objectName}.json`);
+                data = objectData.default || objectData;
+            }
         }
         
         const obj = data[objectName];
