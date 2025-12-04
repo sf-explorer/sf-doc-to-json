@@ -34,14 +34,13 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
         // Import the salesforce object reference package
         const { loadAllDescriptions, getAllCloudMetadata } = await import('@sf-explorer/salesforce-object-reference');
         
-        // Load cloud metadata (includes emoji and iconFile)
+        // Load cloud metadata
         const clouds = await getAllCloudMetadata();
         const cloudMap = {};
         clouds.forEach(cloud => {
           cloudMap[cloud.cloud] = cloud;
         });
         
-        console.log('Loaded cloud metadata:', cloudMap);
         setCloudMetadata(cloudMap);
         
         // Load object descriptions
@@ -54,19 +53,19 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
           for (const [objectName, metadata] of Object.entries(descriptionsData)) {
             allObjects.push({
               apiName: objectName,
-              name: objectName, // Add name property for icon matching
+              name: objectName,
               label: metadata.label || objectName,
               pluralLabel: objectName,
               keyPrefix: metadata.keyPrefix || '',
               isCustom: objectName.endsWith('__c') || objectName.includes('__'),
               category: metadata.cloud,
               description: metadata.description || '',
-              fields: null, // Fields not loaded until object is selected
+              fields: null,
               fieldCount: metadata.fieldCount,
               module: metadata.cloud,
               cloud: metadata.cloud,
               sourceUrl: metadata.sourceUrl,
-              icon: metadata.icon // Add icon property
+              icon: metadata.icon
             });
           }
         }

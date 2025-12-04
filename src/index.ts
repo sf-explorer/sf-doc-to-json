@@ -35,17 +35,18 @@ export async function loadIndex(useCache = true): Promise<DocumentIndex | null> 
     }
 
     try {
-        // Dynamic import - bundlers handle JSON automatically
-        // Works with Vite, Webpack, Rollup, esbuild
-        const index = await import('../doc/index.json');
-        const data = index.default || index;
+        // Dynamic import works with Vite and other bundlers
+        // @ts-ignore - TypeScript doesn't like JSON imports but bundlers handle them
+        const index = await import('./doc/index.json');
+        const data = (index.default || index) as DocumentIndex;
         
-        indexCache.data = data as DocumentIndex;
+        indexCache.data = data;
         indexCache.loaded = true;
         
         return indexCache.data;
     } catch (error) {
         console.warn('Index file not found. Make sure the package is properly installed.');
+        console.warn('Error details:', error);
         indexCache.data = null;
         indexCache.loaded = true;
         return null;
@@ -67,7 +68,7 @@ export async function loadCloud(
 
     try {
         // Dynamic import - bundlers handle JSON automatically
-        const cloudIndex = await import(`../doc/${cloudFileName}.json`);
+        const cloudIndex = await import(`./doc/${cloudFileName}.json`);
         const cloudData = cloudIndex.default || cloudIndex;
         
         // Check if this is the new format (has 'objects' array) or old format (direct object collection)
@@ -118,14 +119,14 @@ async function loadObjectFromFile(objectName: string, expectedCloud?: string): P
         
         // Check if this is a metadata type (stored in metadata/ folder)
         if (expectedCloud === 'Metadata API') {
-            const objectData = await import(`../doc/metadata/${firstLetter}/${objectName}.json`);
+            const objectData = await import(`./doc/metadata/${firstLetter}/${objectName}.json`);
             const data = objectData.default || objectData;
             const obj = data[objectName];
             return obj || null;
         }
         
         // Regular objects (stored in objects/ folder)
-        const objectData = await import(`../doc/objects/${firstLetter}/${objectName}.json`);
+        const objectData = await import(`./doc/objects/${firstLetter}/${objectName}.json`);
         const data = objectData.default || objectData;
         const obj = data[objectName];
         
@@ -313,15 +314,13 @@ export async function getAllCloudMetadata(useCache = true): Promise<CloudMetadat
     const index = await loadIndex(useCache);
     
     if (!index || !index.clouds) {
-        console.warn('Cloud index not found. Please regenerate the index.');
         return [];
     }
     
-    // Load cloud metadata from files
-    const cloudMetadataPromises = Object.values(index.clouds).map(async (cloudEntry) => {
+    // Load cloud metadata using dynamic imports
+    const cloudPromises = Object.values(index.clouds).map(async (cloudEntry) => {
         try {
-            // Load just the cloud metadata file (not the objects)
-            const cloudModule = await import(`../doc/${cloudEntry.fileName}.json`);
+            const cloudModule = await import(`./doc/${cloudEntry.fileName}`);
             const cloudData = cloudModule.default || cloudModule;
             
             return {
@@ -337,9 +336,10 @@ export async function getAllCloudMetadata(useCache = true): Promise<CloudMetadat
         }
     });
     
-    const results = (await Promise.all(cloudMetadataPromises)).filter(
+    const results = (await Promise.all(cloudPromises)).filter(
         (result): result is NonNullable<typeof result> => result !== null
     );
+    
     return results.sort((a, b) => a.cloud.localeCompare(b.cloud));
 }
 
@@ -356,11 +356,9 @@ export async function getCloudMetadata(
     const index = await loadIndex(useCache);
     
     if (!index || !index.clouds) {
-        console.warn('Cloud index not found. Please regenerate the index.');
         return null;
     }
     
-    // Find the cloud in the index - no guessing
     const cloudEntry = Object.values(index.clouds).find(
         entry => entry.cloud === cloudName
     );
@@ -370,8 +368,7 @@ export async function getCloudMetadata(
     }
     
     try {
-        // Load just the cloud metadata file
-        const cloudModule = await import(`../doc/${cloudEntry.fileName}.json`);
+        const cloudModule = await import(`./doc/${cloudEntry.fileName}`);
         const cloudData = cloudModule.default || cloudModule;
         
         return {

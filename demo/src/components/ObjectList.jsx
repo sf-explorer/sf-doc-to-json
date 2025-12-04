@@ -126,6 +126,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
           const friendlyName = cloudName
             .replace(/-/g, ' ')
             .replace(/\b\w/g, l => l.toUpperCase());
+          
           return (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <CloudIcon cloudName={cloudName} metadata={cloudMetadata[cloudName]} size={20} />

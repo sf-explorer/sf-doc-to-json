@@ -10,16 +10,11 @@ import React from 'react';
 const CloudIcon = ({ cloudName, metadata, size = 20, showLabel = false, className = '' }) => {
   if (!cloudName) return null;
 
-  // Get emoji and iconFile from metadata if provided
+  // Get emoji and iconFile from metadata
   const emoji = metadata?.emoji;
   const iconFile = metadata?.iconFile;
-  
-  // Debug: log if metadata is missing
-  if (!metadata) {
-    console.warn(`CloudIcon: No metadata provided for cloud "${cloudName}"`);
-  }
 
-  // Use emoji from metadata or default to cloud emoji
+  // Use emoji from metadata (should always exist)
   const finalEmoji = emoji || '☁️';
 
   // Format friendly name

@@ -46,11 +46,7 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
 
   // Get cloud description from metadata
   const getCloudDescription = (cloudName) => {
-    const description = cloudMetadata[cloudName]?.description || 'Discover objects and features for this Salesforce cloud.';
-    if (description === 'Discover objects and features for this Salesforce cloud.') {
-      console.log(`Missing description for cloud: ${cloudName}`, cloudMetadata[cloudName]);
-    }
-    return description;
+    return cloudMetadata[cloudName]?.description || 'Discover objects and features for this Salesforce cloud.';
   };
 
   // Get accent color - use a default Salesforce blue
@@ -317,7 +313,6 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
                         flexShrink: 0,
                       }}
                     >
-                      {category === 'Metadata API' && console.log('Metadata API metadata:', JSON.stringify(cloudMetadata[category], null, 2))}
                       <CloudIcon 
                         cloudName={category} 
                         size={32} 

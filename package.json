@@ -11,16 +11,17 @@
       "require": "./dist/cjs/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./doc/*.json": "./doc/*.json",
+    "./dist/doc/*.json": "./dist/doc/*.json",
     "./package.json": "./package.json"
   },
   "bin": {
     "sf-doc-fetch": "./dist/cli.js"
   },
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run fix:cli",
+    "build": "npm run build:esm && npm run build:cjs && npm run copy:doc && npm run fix:cli",
     "build:esm": "tsc",
     "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "copy:doc": "node scripts/copy-doc.js",
     "fix:cli": "node scripts/fix-cli.js",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
@@ -61,7 +62,6 @@
   },
   "files": [
     "dist",
-    "doc",
     "README.md",
     "LICENSE"
   ],
