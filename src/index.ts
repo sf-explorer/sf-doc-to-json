@@ -50,29 +50,30 @@ import serviceCloudJson from './doc/service-cloud.json';
 // @ts-ignore
 import toolingApiJson from './doc/tooling-api.json';
 
-// Create a lookup map for cloud data by filename
-const CLOUD_DATA_MAP: Record<string, any> = {
-    'automotive-cloud.json': automotiveCloudJson,
-    'consumer-goods-cloud.json': consumerGoodsCloudJson,
-    'core-salesforce.json': coreSalesforceJson,
-    'education-cloud.json': educationCloudJson,
-    'energy-and-utilities-cloud.json': energyAndUtilitiesCloudJson,
-    'feedback-management.json': feedbackManagementJson,
-    'field-service-lightning.json': fieldServiceLightningJson,
-    'financial-services-cloud.json': financialServicesCloudJson,
-    'health-cloud.json': healthCloudJson,
-    'loyalty-cloud.json': loyaltyCloudJson,
-    'manufacturing-cloud.json': manufacturingCloudJson,
-    'metadata.json': metadataJson,
-    'net-zero-cloud.json': netZeroCloudJson,
-    'nonprofit-cloud.json': nonprofitCloudJson,
-    'public-sector-cloud.json': publicSectorCloudJson,
-    'revenue-lifecycle-management.json': revenueLifecycleManagementJson,
-    'sales-cloud.json': salesCloudJson,
-    'scheduler.json': schedulerJson,
-    'service-cloud.json': serviceCloudJson,
-    'tooling-api.json': toolingApiJson
+// Map for easy lookup by filename
+const CLOUD_DATA: Record<string, any> = {
+    'automotive-cloud': automotiveCloudJson,
+    'consumer-goods-cloud': consumerGoodsCloudJson,
+    'core-salesforce': coreSalesforceJson,
+    'education-cloud': educationCloudJson,
+    'energy-and-utilities-cloud': energyAndUtilitiesCloudJson,
+    'feedback-management': feedbackManagementJson,
+    'field-service-lightning': fieldServiceLightningJson,
+    'financial-services-cloud': financialServicesCloudJson,
+    'health-cloud': healthCloudJson,
+    'loyalty-cloud': loyaltyCloudJson,
+    'manufacturing-cloud': manufacturingCloudJson,
+    'metadata': metadataJson,
+    'net-zero-cloud': netZeroCloudJson,
+    'nonprofit-cloud': nonprofitCloudJson,
+    'public-sector-cloud': publicSectorCloudJson,
+    'revenue-lifecycle-management': revenueLifecycleManagementJson,
+    'sales-cloud': salesCloudJson,
+    'scheduler': schedulerJson,
+    'service-cloud': serviceCloudJson,
+    'tooling-api': toolingApiJson
 };
+
 
 // Cache to avoid re-loading data
 const indexCache: { data: DocumentIndex | null; loaded: boolean } = { data: null, loaded: false };
@@ -101,8 +102,8 @@ export async function loadIndex(useCache = true): Promise<DocumentIndex | null> 
     }
 
     try {
-        // Static import works in both Node.js and bundlers
-        // @ts-ignore - TypeScript doesn't like JSON imports but bundlers handle them
+        // Dynamic import - Vite handles JSON automatically (no attribute needed)
+        // @ts-ignore
         const index = await import('./doc/index.json');
         const data = (index.default || index) as DocumentIndex;
         
@@ -133,16 +134,14 @@ export async function loadCloud(
     }
 
     try {
-        // Get cloud data from static imports
-        const fileName = cloudFileName.endsWith('.json') ? cloudFileName : `${cloudFileName}.json`;
-        const cloudModule = CLOUD_DATA_MAP[fileName];
+        // Get cloud data from static imports for faster loading
+        const fileName = cloudFileName.endsWith('.json') ? cloudFileName : cloudFileName;
+        const cloudData = CLOUD_DATA[fileName];
         
-        if (!cloudModule) {
-            console.warn(`Cloud file not found in static imports: ${fileName}`);
+        if (!cloudData) {
+            console.warn(`Cloud file not found: ${fileName}`);
             return null;
         }
-        
-        const cloudData = cloudModule.default || cloudModule;
         
         // Check if this is the new format (has 'objects' array) or old format (direct object collection)
         if (cloudData.objects && Array.isArray(cloudData.objects)) {
@@ -181,26 +180,6 @@ export async function loadCloud(
 }
 
 /**
- * Check if we're running in a browser environment
- */
-function isBrowser(): boolean {
-    return typeof window !== 'undefined';
-}
-
-/**
- * Get the base path for fetching assets (only works in browser)
- */
-function getBasePath(): string {
-    if (typeof window === 'undefined') return '/';
-    try {
-        // @ts-ignore - import.meta.env is a Vite-specific feature
-        return import.meta.env?.BASE_URL || '/';
-    } catch {
-        return '/';
-    }
-}
-
-/**
  * Load a single object from its individual file
  * @param objectName - The name of the Salesforce object
  * @param expectedCloud - Optional cloud name to set on the object (for multi-cloud objects)
@@ -209,30 +188,12 @@ function getBasePath(): string {
 async function loadObjectFromFile(objectName: string, expectedCloud?: string): Promise<SalesforceObject | null> {
     try {
         const firstLetter = objectName[0].toUpperCase();
-        let data;
+        const folder = expectedCloud === 'Metadata API' ? 'metadata' : 'objects';
         
-        // Individual object files are too numerous to statically import
-        // In browser, fetch from public folder; in Node.js, use dynamic import
-        if (isBrowser()) {
-            const basePath = getBasePath();
-            const folder = expectedCloud === 'Metadata API' ? 'metadata' : 'objects';
-            const response = await fetch(`${basePath}doc/${folder}/${firstLetter}/${objectName}.json`);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-            data = await response.json();
-        } else {
-            // In Node.js, use dynamic import
-            if (expectedCloud === 'Metadata API') {
-                // @ts-ignore
-                const objectData = await import(`./doc/metadata/${firstLetter}/${objectName}.json`);
-                data = objectData.default || objectData;
-            } else {
-                // @ts-ignore
-                const objectData = await import(`./doc/objects/${firstLetter}/${objectName}.json`);
-                data = objectData.default || objectData;
-            }
-        }
+        // Dynamic import - Vite handles JSON automatically (no attribute needed)
+        // @ts-ignore
+        const objectData = await import(`./doc/${folder}/${firstLetter}/${objectName}.json`);
+        const data = objectData.default || objectData;
         
         const obj = data[objectName];
         
@@ -423,34 +384,19 @@ export async function getAllCloudMetadata(useCache = true): Promise<CloudMetadat
         return [];
     }
     
-    // Load cloud metadata from static imports
-    const cloudPromises = Object.values(index.clouds).map(async (cloudEntry) => {
-        try {
-            const cloudModule = CLOUD_DATA_MAP[cloudEntry.fileName];
-            
-            if (!cloudModule) {
-                console.warn(`Cloud file not found in static imports: ${cloudEntry.fileName}`);
-                return null;
-            }
-            
-            const cloudData = cloudModule.default || cloudModule;
-            
-            return {
-                cloud: cloudEntry.cloud,
-                description: cloudData.description || `Discover objects and features for ${cloudEntry.cloud}.`,
-                emoji: cloudData.emoji || '☁️',
-                iconFile: cloudData.iconFile || null,
-                objectCount: cloudData.objectCount || 0
-            };
-        } catch (error) {
-            console.warn(`Failed to load cloud metadata for ${cloudEntry.cloud}:`, error);
-            return null;
-        }
+    // Map cloud entries - get metadata from CLOUD_DATA using fileName
+    const results = Object.values(index.clouds).map((cloudEntry) => {
+        const fileName = cloudEntry.fileName.replace('.json', '');
+        const cloudData = CLOUD_DATA[fileName] || {};
+        
+        return {
+            cloud: cloudEntry.cloud,
+            description: cloudData.description || `Discover objects and features for ${cloudEntry.cloud}.`,
+            emoji: cloudData.emoji || '☁️',
+            iconFile: cloudData.iconFile || null,
+            objectCount: cloudData.objectCount || 0
+        };
     });
-    
-    const results = (await Promise.all(cloudPromises)).filter(
-        (result): result is NonNullable<typeof result> => result !== null
-    );
     
     return results.sort((a, b) => a.cloud.localeCompare(b.cloud));
 }
@@ -479,27 +425,17 @@ export async function getCloudMetadata(
         return null;
     }
     
-    try {
-        const cloudModule = CLOUD_DATA_MAP[cloudEntry.fileName];
-        
-        if (!cloudModule) {
-            console.warn(`Cloud file not found in static imports: ${cloudEntry.fileName}`);
-            return null;
-        }
-        
-        const cloudData = cloudModule.default || cloudModule;
-        
-        return {
-            cloud: cloudEntry.cloud,
-            description: cloudData.description || `Discover objects and features for ${cloudEntry.cloud}.`,
-            emoji: cloudData.emoji || '☁️',
-            iconFile: cloudData.iconFile || null,
-            objectCount: cloudData.objectCount || 0
-        };
-    } catch (error) {
-        console.warn(`Failed to load cloud metadata for ${cloudName}:`, error);
-        return null;
-    }
+    // Get metadata from CLOUD_DATA
+    const fileName = cloudEntry.fileName.replace('.json', '');
+    const cloudData = CLOUD_DATA[fileName] || {};
+    
+    return {
+        cloud: cloudEntry.cloud,
+        description: cloudData.description || `Discover objects and features for ${cloudEntry.cloud}.`,
+        emoji: cloudData.emoji || '☁️',
+        iconFile: cloudData.iconFile || null,
+        objectCount: cloudData.objectCount || 0
+    };
 }
 
 /**

@@ -190,7 +190,7 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         return chunks;
     };
 
-    const docFolder = './doc';
+    const docFolder = './src/doc';
     try {
         await fs.access(docFolder);
     } catch {

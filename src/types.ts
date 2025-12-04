@@ -32,6 +32,10 @@ export interface ObjectIndexEntry {
 export interface CloudIndexEntry {
     cloud: string;
     fileName: string;
+    description?: string;
+    objectCount?: number;
+    emoji?: string;
+    iconFile?: string;
 }
 
 export interface DocumentIndex {
