@@ -8,6 +8,72 @@ import {
 export * from './types.js';
 export { CONFIGURATION } from './config.js';
 
+// Statically import all cloud JSON files for bundlers
+// @ts-ignore
+import automotiveCloudJson from './doc/automotive-cloud.json';
+// @ts-ignore
+import consumerGoodsCloudJson from './doc/consumer-goods-cloud.json';
+// @ts-ignore
+import coreSalesforceJson from './doc/core-salesforce.json';
+// @ts-ignore
+import educationCloudJson from './doc/education-cloud.json';
+// @ts-ignore
+import energyAndUtilitiesCloudJson from './doc/energy-and-utilities-cloud.json';
+// @ts-ignore
+import feedbackManagementJson from './doc/feedback-management.json';
+// @ts-ignore
+import fieldServiceLightningJson from './doc/field-service-lightning.json';
+// @ts-ignore
+import financialServicesCloudJson from './doc/financial-services-cloud.json';
+// @ts-ignore
+import healthCloudJson from './doc/health-cloud.json';
+// @ts-ignore
+import loyaltyCloudJson from './doc/loyalty-cloud.json';
+// @ts-ignore
+import manufacturingCloudJson from './doc/manufacturing-cloud.json';
+// @ts-ignore
+import metadataJson from './doc/metadata.json';
+// @ts-ignore
+import netZeroCloudJson from './doc/net-zero-cloud.json';
+// @ts-ignore
+import nonprofitCloudJson from './doc/nonprofit-cloud.json';
+// @ts-ignore
+import publicSectorCloudJson from './doc/public-sector-cloud.json';
+// @ts-ignore
+import revenueLifecycleManagementJson from './doc/revenue-lifecycle-management.json';
+// @ts-ignore
+import salesCloudJson from './doc/sales-cloud.json';
+// @ts-ignore
+import schedulerJson from './doc/scheduler.json';
+// @ts-ignore
+import serviceCloudJson from './doc/service-cloud.json';
+// @ts-ignore
+import toolingApiJson from './doc/tooling-api.json';
+
+// Create a lookup map for cloud data by filename
+const CLOUD_DATA_MAP: Record<string, any> = {
+    'automotive-cloud.json': automotiveCloudJson,
+    'consumer-goods-cloud.json': consumerGoodsCloudJson,
+    'core-salesforce.json': coreSalesforceJson,
+    'education-cloud.json': educationCloudJson,
+    'energy-and-utilities-cloud.json': energyAndUtilitiesCloudJson,
+    'feedback-management.json': feedbackManagementJson,
+    'field-service-lightning.json': fieldServiceLightningJson,
+    'financial-services-cloud.json': financialServicesCloudJson,
+    'health-cloud.json': healthCloudJson,
+    'loyalty-cloud.json': loyaltyCloudJson,
+    'manufacturing-cloud.json': manufacturingCloudJson,
+    'metadata.json': metadataJson,
+    'net-zero-cloud.json': netZeroCloudJson,
+    'nonprofit-cloud.json': nonprofitCloudJson,
+    'public-sector-cloud.json': publicSectorCloudJson,
+    'revenue-lifecycle-management.json': revenueLifecycleManagementJson,
+    'sales-cloud.json': salesCloudJson,
+    'scheduler.json': schedulerJson,
+    'service-cloud.json': serviceCloudJson,
+    'tooling-api.json': toolingApiJson
+};
+
 // Cache to avoid re-loading data
 const indexCache: { data: DocumentIndex | null; loaded: boolean } = { data: null, loaded: false };
 const cloudCache = new Map<string, SalesforceObjectCollection>();
@@ -35,7 +101,7 @@ export async function loadIndex(useCache = true): Promise<DocumentIndex | null> 
     }
 
     try {
-        // Dynamic import works with Vite and other bundlers
+        // Static import works in both Node.js and bundlers
         // @ts-ignore - TypeScript doesn't like JSON imports but bundlers handle them
         const index = await import('./doc/index.json');
         const data = (index.default || index) as DocumentIndex;
@@ -67,9 +133,16 @@ export async function loadCloud(
     }
 
     try {
-        // Dynamic import - bundlers handle JSON automatically
-        const cloudIndex = await import(`./doc/${cloudFileName}.json`);
-        const cloudData = cloudIndex.default || cloudIndex;
+        // Get cloud data from static imports
+        const fileName = cloudFileName.endsWith('.json') ? cloudFileName : `${cloudFileName}.json`;
+        const cloudModule = CLOUD_DATA_MAP[fileName];
+        
+        if (!cloudModule) {
+            console.warn(`Cloud file not found in static imports: ${fileName}`);
+            return null;
+        }
+        
+        const cloudData = cloudModule.default || cloudModule;
         
         // Check if this is the new format (has 'objects' array) or old format (direct object collection)
         if (cloudData.objects && Array.isArray(cloudData.objects)) {
@@ -116,18 +189,19 @@ export async function loadCloud(
 async function loadObjectFromFile(objectName: string, expectedCloud?: string): Promise<SalesforceObject | null> {
     try {
         const firstLetter = objectName[0].toUpperCase();
+        let data;
         
-        // Check if this is a metadata type (stored in metadata/ folder)
+        // Use dynamic import for individual object files (too many to statically import)
         if (expectedCloud === 'Metadata API') {
-            const objectData = await import(`./doc/metadata/${firstLetter}/${objectName}.json`);
-            const data = objectData.default || objectData;
-            const obj = data[objectName];
-            return obj || null;
+            // @ts-ignore
+            const objectData = await import(/* @vite-ignore */ `./doc/metadata/${firstLetter}/${objectName}.json`);
+            data = objectData.default || objectData;
+        } else {
+            // @ts-ignore
+            const objectData = await import(/* @vite-ignore */ `./doc/objects/${firstLetter}/${objectName}.json`);
+            data = objectData.default || objectData;
         }
         
-        // Regular objects (stored in objects/ folder)
-        const objectData = await import(`./doc/objects/${firstLetter}/${objectName}.json`);
-        const data = objectData.default || objectData;
         const obj = data[objectName];
         
         // If expectedCloud is provided and different from the object's module, override it
@@ -317,10 +391,16 @@ export async function getAllCloudMetadata(useCache = true): Promise<CloudMetadat
         return [];
     }
     
-    // Load cloud metadata using dynamic imports
+    // Load cloud metadata from static imports
     const cloudPromises = Object.values(index.clouds).map(async (cloudEntry) => {
         try {
-            const cloudModule = await import(`./doc/${cloudEntry.fileName}`);
+            const cloudModule = CLOUD_DATA_MAP[cloudEntry.fileName];
+            
+            if (!cloudModule) {
+                console.warn(`Cloud file not found in static imports: ${cloudEntry.fileName}`);
+                return null;
+            }
+            
             const cloudData = cloudModule.default || cloudModule;
             
             return {
@@ -368,7 +448,13 @@ export async function getCloudMetadata(
     }
     
     try {
-        const cloudModule = await import(`./doc/${cloudEntry.fileName}`);
+        const cloudModule = CLOUD_DATA_MAP[cloudEntry.fileName];
+        
+        if (!cloudModule) {
+            console.warn(`Cloud file not found in static imports: ${cloudEntry.fileName}`);
+            return null;
+        }
+        
         const cloudData = cloudModule.default || cloudModule;
         
         return {
