@@ -5,34 +5,188 @@
     "properties": {
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Response": {
         "type": "picklist",
-        "description": "Describes the severity of the threat."
+        "description": "Describes the severity of the threat.",
+        "format": "enum",
+        "enum": [
+          "Malicious",
+          "Suspicious",
+          "Not a Threat",
+          "Unknown"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "ThreatDetectionEventId": {
         "type": "reference",
-        "description": "Reference to the unique ID of one of these associated Threat Detection storage events: ApiAnomalyEventStore CredentialStuffingEventStore ReportAnomalyEventStore SessionHijackingEventStore For example, 0fjRM000000005p."
+        "description": "Reference to the unique ID of one of these associated Threat Detection storage events: ApiAnomalyEventStore CredentialStuffingEventStore ReportAnomalyEventStore SessionHijackingEventStore For example, 0fjRM000000005p.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "ApiAnomalyEventStore",
+          "CredentialStuffingEventStore",
+          "ReportAnomalyEventStore",
+          "SessionHijackingEventStore"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "ThreatDetectionFeedbackNumber": {
         "type": "string",
-        "description": "Auto-generated number used as the unique name for this object."
+        "description": "Auto-generated number used as the unique name for this object.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The origin user’s unique ID. For example, 005000000000123."
+        "description": "The origin user’s unique ID. For example, 005000000000123.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "Username": {
         "type": "string",
-        "description": "The origin username in the format of user@company.com at the time the object was created."
+        "description": "The origin username in the format of user@company.com at the time the object was created.",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Threat Detection Feedback ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Updated Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_threatdetectionfeedback.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_threatdetectionfeedback.htm",
+    "keyPrefix": "0hY",
+    "createable": true,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ThreatDetectionFeedbackFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

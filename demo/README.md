@@ -1,101 +1,109 @@
-# Salesforce Object Explorer
+# Salesforce Object Explorer Demo
 
-A React-based application for exploring Salesforce objects with metadata-driven insights. This application uses the Salesforce Lightning Design System (SLDS) for visual styling and Material UI React Table for an enhanced user experience.
+Interactive demo showcasing the `@sf-explorer/salesforce-object-reference` package with **pure browser-based graph visualization**.
 
-## Features
+## 🎯 Features
 
-- 🔍 **Browse Objects**: View all standard and custom Salesforce objects
-- 📊 **Object Metadata**: Display object labels, API names, key prefixes, and field counts
-- 📋 **Field Details**: Explore field metadata including types, lengths, required status, and more
-- 🎨 **SLDS Styling**: Uses Salesforce Lightning Design System for authentic Salesforce look and feel
-- 🎯 **Icon Categories**: Each object displays with the correct Salesforce icon category
-- 🔎 **Search & Filter**: Quickly find objects and fields using built-in search functionality
-- 📱 **Responsive Design**: Works seamlessly across different screen sizes
+- **Cloud Explorer** - Browse objects by Salesforce cloud
+- **Object Details** - View comprehensive object and field information
+- **Graph Visualization** - Interactive relationship viewer (100% browser-based, no server required!)
 
-## Technology Stack
+## 🚀 Quick Start
 
-- **React 18** - Modern React with hooks
-- **Vite** - Fast build tool and dev server
-- **@sf-explorer/salesforce-object-reference@1.0.1** - Salesforce object metadata package
-- **@salesforce-ux/design-system** - Official Salesforce Lightning Design System
-- **Material UI React Table** - Enhanced table component with sorting, filtering, and pagination
-- **Material UI** - Component library for enhanced UX
+No setup needed! Works entirely in the browser.
 
-## Installation
-
-1. Install dependencies:
 ```bash
 npm install
-```
-
-2. Start the development server:
-```bash
 npm run dev
 ```
 
-3. Open your browser to the URL shown in the terminal (typically `http://localhost:3000`)
+Visit http://localhost:5173 (or whatever port) and click the **"Graph View"** button in the header.
 
-## Build for Production
+## 📦 Dependencies
 
-```bash
-npm run build
+- `@sf-explorer/salesforce-object-reference` - Salesforce object data
+- `vis-network` - Graph visualization library
+- React + Vite - UI framework
+
+That's it! No database, no server, no complicated setup.
+
+## 📊 Example Use Cases
+
+### 1. Object Relationship Explorer
+Show how objects connect to each other:
+```jsx
+<SimpleGraphVisualization objectName="Account" />
 ```
 
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── ObjectExplorer.jsx    # Main container component
-│   ├── ObjectList.jsx         # Object list with Material UI React Table
-│   ├── FieldDetail.jsx        # Field details display
-│   └── SalesforceIcon.jsx     # Icon component for objects
-├── App.jsx                     # Root application component
-├── App.css                     # Application styles
-├── main.jsx                    # Application entry point
-└── index.css                   # Global styles with SLDS import
+### 2. Impact Analysis
+Visualize what's affected by changes:
+```jsx
+<SimpleGraphVisualization objectName="Contact" />
 ```
 
-## Usage
+### 3. Cloud Architecture
+See how objects in a cloud relate:
+```jsx
+// Load all FSC objects and show relationships
+<SimpleGraphVisualization objectName="FinServ__FinancialAccount__c" />
+```
 
-1. **Browse Objects**: The left panel displays all available Salesforce objects with search and filtering capabilities
-2. **Select an Object**: Click on any object row to view its detailed information
-3. **View Fields**: The right panel shows all fields for the selected object with their metadata
-4. **Search**: Use the search boxes to quickly find specific objects or fields
-5. **Sort & Filter**: Click column headers to sort, and use the filter icon to filter data
+## 🔧 Adding Graph Visualization to Your Own App
 
-## Features in Detail
+```jsx
+import SimpleGraphVisualization from './components/SimpleGraphVisualization';
 
-### Object List
-- Displays object icon, label, API name, type (standard/custom), and field count
-- Sortable columns
-- Global search across all columns
-- Pagination with configurable page size
-- Click-to-select functionality
+function MyApp() {
+  return (
+    <div>
+      <h1>Salesforce Object Graph</h1>
+      <SimpleGraphVisualization objectName="Account" />
+    </div>
+  );
+}
+```
 
-### Field Details
-- Shows comprehensive field metadata
-- Displays field type, length, required status, unique status, and external ID status
-- Expandable rows for additional field information (descriptions, picklist values)
-- Reference field relationships
-- Color-coded chips for quick visual identification
+## 🎓 Learning Resources
 
-### Icons
-- Automatic icon selection based on object type
-- Custom objects display with purple color scheme
-- Standard objects use appropriate Salesforce color schemes
-- Icon displays object initials for quick recognition
+- [vis-network documentation](https://visjs.github.io/vis-network/docs/network/) - The graph library used
+- Customize the visualization by editing `SimpleGraphVisualization.jsx`
 
-## Package Information
+## 🐛 Troubleshooting
 
-This application uses the `@sf-explorer/salesforce-object-reference@1.0.1` package which provides:
-- Metadata for standard Salesforce objects
-- Field definitions and properties
-- Object relationships
-- Picklist values
-- And more...
+### Graph not showing?
+1. Check browser console for errors
+2. Verify object name is valid
+3. Make sure `vis-network` is installed: `npm install vis-network`
 
-## License
+### Performance issues?
+- Reduce the number of objects loaded by editing `SimpleGraphVisualization.jsx`
+- Limit depth of relationship traversal (currently set to 1-2 levels)
+- Filter which objects to include in the graph
+
+## 🔒 Security Notes
+
+All data is client-side and safe for public demos. No backend = no security concerns!
+
+## 🚀 Production Deployment
+
+Deploy like any React app - works everywhere! No server or database needed:
+- Vercel
+- Netlify  
+- GitHub Pages
+- Any static hosting
+
+Just run `npm run build` and deploy the `dist` folder.
+
+## 💡 Want More Power?
+
+If you need advanced graph features like:
+- Deep path queries (5+ levels)
+- Complex graph analytics (PageRank, community detection)
+- Real-time graph updates
+- Graph algorithms
+
+Check out the **Neo4j integration** in the `/neo4j` folder. But for most use cases, the browser-based version is perfect!
+
+## 📝 License
 
 MIT
-

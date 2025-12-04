@@ -13,6 +13,11 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
   const fields = useMemo(() => {
     if (!object || !object.fields) return [];
     
+    // Check if fields is an empty object
+    if (Object.keys(object.fields).length === 0) {
+      return [];
+    }
+    
     return Object.entries(object.fields).map(([apiName, fieldData]) => {
       // Parse type to extract additional information
       const typeString = fieldData.type || 'Unknown';
@@ -389,16 +394,49 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
               {fields.length}
             </Typography>
           </Box>
-          {object.childRelationships && object.childRelationships.length > 0 && (
+          {object.childRelationships && object.childRelationships.length > 0 && (() => {
+            // Filter out noisy child relationships
+            const excludedChildObjects = [
+              'User', 'ContentVersion', 'AttachedContentDocument', 'AttachedContentNote',
+              'FeedItem', 'FeedComment', 'Note', 'NoteAndAttachment', 'Attachment',
+              'Task', 'Event', 'EmailMessage', 'ContentDocumentLink',
+              'ProcessInstance', 'ProcessInstanceHistory', 'FlowRecordRelation',
+              'TopicAssignment', 'EntitySubscription', 'CollaborationGroupRecord',
+              'ActivityHistory', 'OpenActivity', 'CombinedAttachment',
+              'RecordAction', 'RecordActionHistory', 'RecordType'
+            ];
+            
+            const shouldExcludeChildObject = (objectName) => {
+              if (excludedChildObjects.includes(objectName)) return true;
+              if (objectName.endsWith('Feed')) return true;
+              if (objectName.endsWith('History')) return true;
+              if (objectName.endsWith('Share')) return true;
+              if (objectName.endsWith('Event')) return true;
+              if (objectName.endsWith('ChangeEvent')) return true;
+              if (objectName.endsWith('EventRelation')) return true;
+              if (objectName.endsWith('TaskRelation')) return true;
+              if (objectName.startsWith('AI')) return true;
+              if (objectName.endsWith('__hd')) return true;
+              return false;
+            };
+            
+            const filteredCount = object.childRelationships.filter(
+              rel => !shouldExcludeChildObject(rel.childObject)
+            ).length;
+            
+            if (filteredCount === 0) return null;
+            
+            return (
             <Box>
               <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
                 Child Relationships:
               </Typography>
               <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                {object.childRelationships.length}
+                {filteredCount}
               </Typography>
             </Box>
-          )}
+            );
+          })()}
         </Box>
         {object.description && (
           <Box sx={{ mt: 1 }}>
@@ -443,7 +481,61 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
       </Box>
 
       {/* Fields Table */}
-      <MaterialReactTable
+      {fields.length === 0 ? (
+        <Box 
+          sx={{ 
+            textAlign: 'center', 
+            py: 8, 
+            px: 2,
+            backgroundColor: '#fafaf9',
+            borderRadius: '0.5rem',
+            border: '1px dashed #dddbda'
+          }}
+        >
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: '#706e6b', 
+              mb: 1,
+              fontSize: '1.125rem',
+              fontWeight: 600
+            }}
+          >
+            Field Data Not Available
+          </Typography>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              color: '#706e6b',
+              maxWidth: '500px',
+              margin: '0 auto',
+              lineHeight: 1.6
+            }}
+          >
+            The detailed field information for <strong>{object.label || object.apiName}</strong> hasn't been 
+            generated yet. The field count ({object.fieldCount}) indicates fields exist, but the detailed 
+            schema file needs to be created.
+          </Typography>
+          {object.sourceUrl && (
+            <Box sx={{ mt: 3 }}>
+              <a 
+                href={object.sourceUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{
+                  color: '#0176d3',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                  fontSize: '0.875rem'
+                }}
+              >
+                View Official Documentation →
+              </a>
+            </Box>
+          )}
+        </Box>
+      ) : (
+        <MaterialReactTable
         columns={columns}
         data={fields}
         enableRowSelection={false}
@@ -628,12 +720,51 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
           ) : null
         )}
       />
+      )}
 
       {/* Child Relationships Section */}
-      {object.childRelationships && object.childRelationships.length > 0 && (
+      {object.childRelationships && object.childRelationships.length > 0 && (() => {
+        // Filter out noisy child relationships (same as graph visualization)
+        const excludedChildObjects = [
+          'User', 'ContentVersion', 'AttachedContentDocument', 'AttachedContentNote',
+          'FeedItem', 'FeedComment', 'Note', 'NoteAndAttachment', 'Attachment',
+          'Task', 'Event', 'EmailMessage', 'ContentDocumentLink',
+          'ProcessInstance', 'ProcessInstanceHistory', 'FlowRecordRelation',
+          'TopicAssignment', 'EntitySubscription', 'CollaborationGroupRecord',
+          'ActivityHistory', 'OpenActivity', 'CombinedAttachment',
+          'RecordAction', 'RecordActionHistory', 'RecordType'
+        ];
+        
+        const shouldExcludeChildObject = (objectName) => {
+          if (excludedChildObjects.includes(objectName)) return true;
+          if (objectName.endsWith('Feed')) return true;
+          if (objectName.endsWith('History')) return true;
+          if (objectName.endsWith('Share')) return true;
+          if (objectName.endsWith('Event')) return true;
+          if (objectName.endsWith('ChangeEvent')) return true;
+          if (objectName.endsWith('EventRelation')) return true;
+          if (objectName.endsWith('TaskRelation')) return true;
+          if (objectName.startsWith('AI')) return true;
+          if (objectName.endsWith('__hd')) return true;
+          return false;
+        };
+        
+        const filteredRelationships = object.childRelationships.filter(
+          rel => {
+            // Skip excluded patterns
+            if (shouldExcludeChildObject(rel.childObject)) return false;
+            // Only show if object exists in availableObjects (passed from parent)
+            if (availableObjects && !availableObjects.find(obj => obj.apiName === rel.childObject)) return false;
+            return true;
+          }
+        );
+        
+        if (filteredRelationships.length === 0) return null;
+        
+        return (
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" sx={{ mb: 2, fontSize: '1rem', fontWeight: 700 }}>
-            Child Relationships ({object.childRelationships.length})
+            Child Relationships ({filteredRelationships.length})
           </Typography>
           <Box 
             sx={{ 
@@ -642,7 +773,7 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
               gap: 2
             }}
           >
-            {object.childRelationships.map((relationship, index) => {
+            {filteredRelationships.map((relationship, index) => {
               const childObjectExists = objectExists(relationship.childObject);
               
               return (
@@ -763,7 +894,8 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
             })}
           </Box>
         </Box>
-      )}
+        );
+      })()}
     </Box>
   );
 };

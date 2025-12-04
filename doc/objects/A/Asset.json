@@ -138,7 +138,9 @@
       },
       "ExternalIdentifier": {
         "type": "string",
-        "description": "The ID of the matching record in an external system. This field is available in API version 49.0 and later."
+        "description": "The ID of the matching record in an external system. This field is available in API version 49.0 and later.",
+        "maxLength": 255,
+        "nullable": true
       },
       "GeocodeAccuracy": {
         "type": "picklist",
@@ -212,7 +214,9 @@
       },
       "ManufactureDate": {
         "type": "date",
-        "description": "The date when the asset was manufactured. This field is available from API version 49.0 and later."
+        "description": "The date when the asset was manufactured. This field is available from API version 49.0 and later.",
+        "format": "date",
+        "nullable": true
       },
       "Name": {
         "type": "string",
@@ -278,22 +282,7 @@
         "description": "The product family of the related product.",
         "format": "enum",
         "enum": [
-          "Internet",
-          "Product",
-          "Service",
-          "Services",
-          "Multiplay",
-          "Wireless",
-          "TV",
-          "Streaming",
-          "Home Security",
-          "Software",
-          "Mobile",
-          "Landline",
-          "Support",
-          "Accessories",
-          "Device",
-          "Networking"
+          "None"
         ],
         "maxLength": 255,
         "nullable": true,
@@ -371,22 +360,29 @@
         "description": "Customizable picklist of values. The default picklist includes the following values: Purchased Shipped Installed Registered Obsolete",
         "format": "enum",
         "enum": [
-          "Active",
-          "Deinstalled",
-          "Installed",
-          "Manufactured",
-          "Obsolete",
           "Purchased",
-          "Registered",
           "Shipped",
-          "Subscribed"
+          "Installed",
+          "Registered",
+          "Obsolete"
         ],
         "maxLength": 255,
         "nullable": true
       },
       "StatusReason": {
         "type": "picklist",
-        "description": "The explanation of the device status. This field is available from API version 49.0 and later."
+        "description": "The explanation of the device status. This field is available from API version 49.0 and later.",
+        "format": "enum",
+        "enum": [
+          "Online",
+          "Paused",
+          "Standby",
+          "Offline",
+          "Not Ready",
+          "Off"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "StockKeepingUnit": {
         "type": "string",
@@ -437,7 +433,9 @@
       },
       "Uuid": {
         "type": "string",
-        "description": "The unique ID for the asset. This field is available in API version 49.0 and later."
+        "description": "The unique ID for the asset. This field is available in API version 49.0 and later.",
+        "maxLength": 255,
+        "nullable": true
       },
       "Id": {
         "type": "string",
@@ -500,6 +498,363 @@
     },
     "module": "Revenue Lifecycle Management",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_asset.htm",
-    "keyPrefix": "02i"
+    "keyPrefix": "02i",
+    "iconUrl": "icon/t4v35/standard/asset_object_120.png",
+    "iconColor": "107CAD",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActionPlan",
+        "field": "TargetId",
+        "relationshipName": "ActionPlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "ParentId",
+        "relationshipName": "ChildAssets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "RootAssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "RootAssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetContactRole__c",
+        "field": "Asset__c",
+        "relationshipName": "Asset__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetHistory",
+        "field": "AssetId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetRelationship",
+        "field": "AssetId",
+        "relationshipName": "PrimaryAssets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetRelationship",
+        "field": "RelatedAssetId",
+        "relationshipName": "RelatedAssets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetShare",
+        "field": "AssetId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetTokenEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Case",
+        "field": "AssetId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItem",
+        "field": "AssetId",
+        "relationshipName": "ContractLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItemChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Entitlement",
+        "field": "AssetId",
+        "relationshipName": "Entitlements",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitlementChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Visit",
+        "field": "ContextId",
+        "relationshipName": "Contexts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "AssetId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "AssetId",
+        "relationshipName": "WorkOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

@@ -187,40 +187,7 @@
         "format": "enum",
         "enum": [
           "en_US",
-          "de",
-          "es",
-          "fr",
-          "it",
-          "ja",
-          "sv",
-          "ko",
-          "zh_TW",
-          "zh_CN",
-          "pt_BR",
-          "nl_NL",
-          "da",
-          "th",
-          "fi",
-          "ru",
-          "es_MX",
-          "no",
-          "hu",
-          "pl",
-          "cs",
-          "tr",
-          "in",
-          "ro",
-          "vi",
-          "uk",
-          "iw",
-          "el",
-          "bg",
-          "en_GB",
-          "ar",
-          "sk",
-          "pt_PT",
-          "hr",
-          "sl"
+          "fr"
         ],
         "maxLength": 40,
         "nullable": true
@@ -254,19 +221,11 @@
         "format": "enum",
         "enum": [
           "Email",
-          "Phone",
-          "Website",
-          "Community",
-          "Text Session",
-          "Q&A",
-          "Facebook",
-          "Twitter",
-          "Chat",
-          "Google",
-          "Mobile Device",
-          "Instagram",
-          "LinkedIn",
-          "Salesforce IoT"
+          "Telephone",
+          "FormulaireWeb",
+          "Courrier",
+          "Formulaire SGE",
+          "GRCCampagne"
         ],
         "maxLength": 255,
         "nullable": true
@@ -295,7 +254,6 @@
         "description": "The importance or urgency of the case, such as High, Medium, or Low.",
         "format": "enum",
         "enum": [
-          "Critical",
           "High",
           "Medium",
           "Low"
@@ -312,14 +270,9 @@
         "description": "The reason why the case was created, such as Instructions not clear, or User didn’t attend training.",
         "format": "enum",
         "enum": [
-          "Problem Resolved",
-          "Documentation Issue",
-          "Existing problem",
-          "Mail delivery issue",
-          "New problem",
-          "Software Issue",
-          "Feature Request",
-          "Hardware Issue"
+          "ClotureeAnnuleeParClient",
+          "ClotureeTraitee",
+          "ClotureeNonTraitee"
         ],
         "maxLength": 255,
         "nullable": true
@@ -334,7 +287,11 @@
       },
       "ServiceContractId": {
         "type": "reference",
-        "description": "Required. ID of the ServiceContract associated with the entitlement. Must be a valid ID."
+        "description": "Required. ID of the ServiceContract associated with the entitlement. Must be a valid ID.",
+        "format": "salesforce-id",
+        "x-object": "ServiceContract",
+        "maxLength": 18,
+        "nullable": true
       },
       "SlaStartDate": {
         "type": "dateTime",
@@ -348,9 +305,7 @@
         "format": "salesforce-id",
         "x-objects": [
           "EmailMessage",
-          "LiveChatTranscript",
           "MessagingSession",
-          "SOSSession",
           "SocialPost"
         ],
         "maxLength": 18,
@@ -361,16 +316,10 @@
         "description": "The status of the case, such as New, Closed, or Escalated. This field directly controls the IsClosed flag. Each predefined Status value implies an IsClosed flag value. For more information, see CaseStatus.",
         "format": "enum",
         "enum": [
-          "Applied",
-          "Approved",
-          "On Hold",
-          "Pending",
-          "Rejected",
-          "Waiting on Customer",
-          "Working",
-          "Closed",
-          "New",
-          "Escalated"
+          "Initialisee",
+          "EnTraitement",
+          "EnAttente",
+          "Cloturee"
         ],
         "maxLength": 255,
         "nullable": true
@@ -418,9 +367,27 @@
         "description": "The type of case, such as Feature Request or Question.",
         "format": "enum",
         "enum": [
-          "Product Support",
-          "Account Support",
-          "General"
+          "AssistanceAuxServicesDigitaux",
+          "AutresDemandes",
+          "Comptage",
+          "DepannageIncident",
+          "Distributeur",
+          "DonneesClientRGPD",
+          "Fournisseur",
+          "GestionContratProducteur",
+          "LigneFournisseur",
+          "Raccordement",
+          "ReseauExploitation",
+          "Accueil",
+          "QualiteTraitementPrestationDemandee",
+          "QTP",
+          "TravauxHorsRaccordement",
+          "Releve",
+          "FacturationAcheminement",
+          "Autre",
+          "PoseLinky",
+          "ReappelPDTS",
+          "TRAICLT"
         ],
         "maxLength": 255,
         "nullable": true
@@ -518,11 +485,78 @@
         "maxLength": 30,
         "nullable": true,
         "readOnly": true
+      },
+      "RequestLocation__Street__s": {
+        "type": "string",
+        "description": "Localisation (Street)",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "RequestLocation__City__s": {
+        "type": "string",
+        "description": "Localisation (City)",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "RequestLocation__PostalCode__s": {
+        "type": "string",
+        "description": "Localisation (ZIP/Postal Code)",
+        "maxLength": 20,
+        "nullable": true
+      },
+      "RequestLocation__StateCode__s": {
+        "type": "string",
+        "description": "Localisation (State/Province)",
+        "format": "enum",
+        "maxLength": 10,
+        "nullable": true
+      },
+      "RequestLocation__CountryCode__s": {
+        "type": "string",
+        "description": "Localisation (Country/Territory)",
+        "format": "enum",
+        "enum": [
+          "FR"
+        ],
+        "maxLength": 10,
+        "nullable": true
+      },
+      "RequestLocation__Latitude__s": {
+        "type": "number",
+        "description": "Localisation (Latitude)",
+        "nullable": true
+      },
+      "RequestLocation__Longitude__s": {
+        "type": "number",
+        "description": "Localisation (Longitude)",
+        "nullable": true
+      },
+      "RequestLocation__GeocodeAccuracy__s": {
+        "type": "string",
+        "description": "Localisation (Geocode Accuracy)",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_case.htm",
     "keyPrefix": "500",
+    "iconUrl": "icon/t4v35/standard/case_120.png",
+    "iconColor": "FF538A",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -554,12 +588,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "AgentWork",
-        "field": "WorkItemId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "AssessmentTaskContentDocument",
         "field": "ContentContextId",
         "relationshipName": "ContentDocumentContext",
@@ -584,15 +612,9 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "CandidateAnswer",
-        "field": "QuestionId",
-        "relationshipName": "QuestionSourceEntity",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CandidateAnswerChangeEvent",
-        "field": "QuestionId",
-        "relationshipName": null,
+        "childObject": "Case",
+        "field": "CaseOpenClaim__c",
+        "relationshipName": "Demandes__r",
         "cascadeDelete": false
       },
       {
@@ -644,12 +666,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "CaseHistory__c",
-        "field": "CaseId__c",
-        "relationshipName": "CaseHistoryRelated__r",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "CaseMilestone",
         "field": "CaseId",
         "relationshipName": "CaseMilestones",
@@ -668,12 +684,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "CaseTag",
-        "field": "ItemId",
-        "relationshipName": "Tags",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "CaseTeamMember",
         "field": "ParentId",
         "relationshipName": "TeamMembers",
@@ -683,12 +693,6 @@
         "childObject": "CaseTeamTemplateRecord",
         "field": "ParentId",
         "relationshipName": "TeamTemplateRecords",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CaseTimer19__Session_Time__c",
-        "field": "CaseTimer19__Case__c",
-        "relationshipName": "CaseTimer19__Session_Times__r",
         "cascadeDelete": true
       },
       {
@@ -710,12 +714,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ContentDistribution",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "ContentDocumentLink",
         "field": "LinkedEntityId",
         "relationshipName": "ContentDocumentLinks",
@@ -728,27 +726,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Customer_Survey__c",
-        "field": "Case__c",
-        "relationshipName": "Customer_Surveys__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "DocumentChecklistItem",
         "field": "ParentRecordId",
         "relationshipName": "DocumentChecklistItemPR",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "EinsteinAnswerFeedback",
-        "field": "FeedbackEntityId",
-        "relationshipName": "SuggestionFeedbackEntities",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "EinsteinAnswerFeedbackChangeEvent",
-        "field": "FeedbackEntityId",
-        "relationshipName": null,
         "cascadeDelete": false
       },
       {
@@ -806,12 +786,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "FAQ__kav",
-        "field": "SourceId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "FeedComment",
         "field": "ParentId",
         "relationshipName": null,
@@ -842,21 +816,21 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "IndividualApplication",
+        "field": "ApplicationCaseId",
+        "relationshipName": "IndividualApplicationCase",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Knowledge__kav",
         "field": "SourceId",
         "relationshipName": null,
         "cascadeDelete": false
       },
       {
-        "childObject": "LiveChatTranscript",
-        "field": "CaseId",
-        "relationshipName": "LiveChatTranscripts",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "LiveChatTranscriptChangeEvent",
-        "field": "CaseId",
-        "relationshipName": null,
+        "childObject": "LookedUpFromActivity",
+        "field": "Case__c",
+        "relationshipName": "Activities__r",
         "cascadeDelete": false
       },
       {
@@ -866,56 +840,14 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "NetworkUserHistoryRecent",
-        "field": "RecordId",
-        "relationshipName": "NetworkUserHistoryRecentToRecord",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "OpenActivity",
         "field": "WhatId",
         "relationshipName": "OpenActivities",
         "cascadeDelete": true
       },
       {
-        "childObject": "Opportunity",
-        "field": "Case__c",
-        "relationshipName": "Opportunities__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Opportunity__hd",
         "field": "ParentId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "LocalRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "PartnerRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PendingServiceRouting",
-        "field": "WorkItemId",
         "relationshipName": null,
         "cascadeDelete": true
       },
@@ -974,64 +906,10 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "RecordRecommendation",
-        "field": "TargetId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ReturnOrder",
-        "field": "CaseId",
-        "relationshipName": "ReturnOrders",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ReturnOrderChangeEvent",
-        "field": "CaseId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Quote__c",
+        "childObject": "ReferenceAffaire__c",
         "field": "Case__c",
-        "relationshipName": "Quotes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SFBD__CollectionsPlan__c",
-        "field": "SFBD__Case__c",
-        "relationshipName": "SFBD__Collections_Plans__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SOSSession",
-        "field": "CaseId",
-        "relationshipName": "SOSSessions",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "Case__c",
-        "relationshipName": "Service_Appointments__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "ParentRecordId",
-        "relationshipName": "ServiceAppointments",
+        "relationshipName": "ReferenceAffaire__r",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceAppointmentChangeEvent",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Slack_Channel__c",
-        "field": "COM_Case__c",
-        "relationshipName": "Slack_Channels__r",
-        "cascadeDelete": false
       },
       {
         "childObject": "SocialPost",
@@ -1043,30 +921,6 @@
         "childObject": "SocialPostChangeEvent",
         "field": "ParentId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SurveyInvitation",
-        "field": "Case__c",
-        "relationshipName": "Survey_Invitations__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SurveySubject",
-        "field": "SubjectId",
-        "relationshipName": "SurveySubjectEntities",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Swarm_Member__c",
-        "field": "Case__c",
-        "relationshipName": "Swarm_Members__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Swarm__c",
-        "field": "Case__c",
-        "relationshipName": "Swarms__r",
         "cascadeDelete": false
       },
       {
@@ -1106,24 +960,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "VoiceCall",
-        "field": "Case__c",
-        "relationshipName": "Voice_Calls__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "VoiceCall",
-        "field": "RelatedRecordId",
-        "relationshipName": "RelatedRecords",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "VoiceCallChangeEvent",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "WorkOrder",
         "field": "CaseId",
         "relationshipName": "WorkOrders",
@@ -1133,66 +969,6 @@
         "childObject": "WorkOrderChangeEvent",
         "field": "CaseId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__AdvRouteVisitWindows__c",
-        "field": "maps__VW_Case__c",
-        "relationshipName": "maps__AdvRouteVisitWindows__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__AdvRouteWaypoint__c",
-        "field": "maps__RW_Case__c",
-        "relationshipName": "maps__AdvRouteWaypoints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__Waypoint__c",
-        "field": "maps__Case__c",
-        "relationshipName": "maps__Maps_Waypoints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "scrubDemo_Interaction_Analysis__c",
-        "field": "Case__c",
-        "relationshipName": "Interaction_Analyses__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "slackv2__Slack_Message__c",
-        "field": "slackv2__Case__c",
-        "relationshipName": "slackv2__Slack_Messages__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "tspa__TechSeeSessions__c",
-        "field": "tspa__Case__c",
-        "relationshipName": "tspa__Visual_Remote_Assistant_Session_Invites__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "tspa__Visual_History__c",
-        "field": "tspa__Case__c",
-        "relationshipName": "tspa__Visual_Remote_Assistant_Reports__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CustomerInteractionTopic__c",
-        "field": "vlocity_cmt__CaseId__c",
-        "relationshipName": "vlocity_cmt__CustomerInteractionTopics__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PaymentAdjustment__c",
-        "field": "vlocity_cmt__DisputeId__c",
-        "relationshipName": "vlocity_cmt__Payment_Adjustments__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
-        "field": "vlocity_cmt__CaseId__c",
-        "relationshipName": "vlocity_cmt__TrackingEntries__r",
         "cascadeDelete": false
       }
     ]

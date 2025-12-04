@@ -1,0 +1,203 @@
+{
+  "EmailServicesFunction": {
+    "name": "EmailServicesFunction",
+    "description": "Email Services - EmailServicesFunction",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Service ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsActive": {
+        "type": "boolean",
+        "description": "Active",
+        "nullable": false
+      },
+      "FunctionName": {
+        "type": "string",
+        "description": "Email Service Name",
+        "maxLength": 64,
+        "nullable": false
+      },
+      "AuthorizedSenders": {
+        "type": "string",
+        "description": "Accept Email From",
+        "maxLength": 4000,
+        "nullable": true
+      },
+      "IsAuthenticationRequired": {
+        "type": "boolean",
+        "description": "Advanced Email Security Settings",
+        "nullable": false
+      },
+      "IsTlsRequired": {
+        "type": "boolean",
+        "description": "TLS Required",
+        "nullable": false
+      },
+      "AttachmentOption": {
+        "type": "string",
+        "description": "Accept Attachments",
+        "format": "enum",
+        "enum": [
+          "None",
+          "TextOnly",
+          "BinaryOnly",
+          "All",
+          "NoContent"
+        ],
+        "maxLength": 40,
+        "nullable": false
+      },
+      "ApexClassId": {
+        "type": "string",
+        "description": "Class ID",
+        "format": "salesforce-id",
+        "x-object": "ApexClass",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "OverLimitAction": {
+        "type": "string",
+        "description": "Over email rate limit action",
+        "format": "enum",
+        "enum": [
+          "UseSystemDefault",
+          "Bounce",
+          "Discard",
+          "Requeue"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "FunctionInactiveAction": {
+        "type": "string",
+        "description": "Deactivated Email Service Action",
+        "format": "enum",
+        "enum": [
+          "UseSystemDefault",
+          "Bounce",
+          "Discard",
+          "Requeue"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "AddressInactiveAction": {
+        "type": "string",
+        "description": "Deactivated Email Address Action",
+        "format": "enum",
+        "enum": [
+          "UseSystemDefault",
+          "Bounce",
+          "Discard",
+          "Requeue"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "AuthenticationFailureAction": {
+        "type": "string",
+        "description": "Unauthenticated sender action",
+        "format": "enum",
+        "enum": [
+          "UseSystemDefault",
+          "Bounce",
+          "Discard",
+          "Requeue"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "AuthorizationFailureAction": {
+        "type": "string",
+        "description": "Unauthorized sender action",
+        "format": "enum",
+        "enum": [
+          "UseSystemDefault",
+          "Bounce",
+          "Discard",
+          "Requeue"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "IsErrorRoutingEnabled": {
+        "type": "boolean",
+        "description": "Enable Error Routing",
+        "nullable": false
+      },
+      "ErrorRoutingAddress": {
+        "type": "string",
+        "description": "Route Error Emails to This Email Address",
+        "format": "email",
+        "maxLength": 270,
+        "nullable": true
+      },
+      "IsTextAttachmentsAsBinary": {
+        "type": "boolean",
+        "description": "Convert Text Attachments to Binary Attachments",
+        "nullable": false
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      }
+    },
+    "module": "N/A",
+    "keyPrefix": "091",
+    "label": "Email Service",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "EmailServicesAddress",
+        "field": "FunctionId",
+        "relationshipName": "Addresses",
+        "cascadeDelete": false
+      }
+    ]
+  }
+}

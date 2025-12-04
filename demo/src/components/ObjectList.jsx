@@ -4,7 +4,7 @@ import { Box, Chip, useMediaQuery, useTheme } from '@mui/material';
 import SalesforceIcon from './SalesforceIcon';
 import CloudIcon from './CloudIcon';
 
-const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMetadata = {} }) => {
+const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMetadata = {}, hideCloudColumn = false }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
@@ -62,7 +62,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
                 textAlign: 'center'
               }}
             >
-              —
+              
             </Box>
           );
         },
@@ -104,23 +104,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
           );
         },
       },
-      {
-        accessorKey: 'isCustom',
-        header: 'Type',
-        size: 100,
-        Cell: ({ cell }) => (
-          <Chip 
-            label={cell.getValue() ? 'Custom' : 'Standard'} 
-            size="small"
-            color={cell.getValue() ? 'primary' : 'default'}
-            sx={{ 
-              borderRadius: '4px',
-              fontWeight: 600,
-              fontSize: '0.75rem'
-            }}
-          />
-        ),
-      },
+     
       {
         accessorKey: 'fieldCount',
         header: 'Fields',
@@ -175,7 +159,9 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
           description: false,
           fieldCount: false,
           cloud: false,
-        } : {}
+        } : {
+          cloud: !hideCloudColumn // Hide cloud column if hideCloudColumn is true
+        }
       }}
       enableRowSelection={false}
       enableColumnActions={true}
@@ -188,7 +174,8 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
       enableHiding={true}
       initialState={{ 
         density: isMobile ? 'compact' : 'comfortable',
-        pagination: { pageSize: isMobile ? 10 : 15, pageIndex: 0 }
+        pagination: { pageSize: isMobile ? 10 : 15, pageIndex: 0 },
+        sorting: [{ id: 'fieldCount', desc: true }] // Sort by field count descending by default
       }}
       muiTableBodyRowProps={({ row }) => ({
         onClick: () => onObjectSelect(row.original),

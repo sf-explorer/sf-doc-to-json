@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salesforce Object Graph - Pure Browser Demo</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "vis-network": "https://unpkg.com/vis-network@9.1.9/standalone/esm/vis-network.min.js",
+        "@sf-explorer/salesforce-object-reference": "./node_modules/@sf-explorer/salesforce-object-reference/dist/index.js"
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+      color: #032d60;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    input, select, button {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      background: #0176d3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #014486;
+    }
+    #graph {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f9ff;
+      border-left: 4px solid #0176d3;
+      border-radius: 4px;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+    .error {
+      background: #fee;
+      border-left-color: #c00;
+      color: #900;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌐 Salesforce Object Graph Viewer</h1>
+    <p>Pure browser-based visualization - No server required!</p>
+
+    <div class="controls">
+      <label>
+        Object:
+        <input type="text" id="objectInput" value="Account" placeholder="Enter object name">
+      </label>
+      
+      <label>
+        Quick select:
+        <select id="quickSelect">
+          <option value="">-- Popular Objects --</option>
+          <option value="Account">Account</option>
+          <option value="Contact">Contact</option>
+          <option value="Opportunity">Opportunity</option>
+          <option value="Lead">Lead</option>
+          <option value="Case">Case</option>
+          <option value="User">User</option>
+          <option value="Campaign">Campaign</option>
+          <option value="Product2">Product</option>
+        </select>
+      </label>
+
+      <button id="loadBtn">Load Graph</button>
+      <button id="fitBtn">Fit to Screen</button>
+    </div>
+
+    <div id="loading" class="loading" style="display:none;">
+      Loading graph data...
+    </div>
+
+    <div id="error" class="info error" style="display:none;"></div>
+
+    <div id="stats" class="info" style="display:none;"></div>
+
+    <div id="graph"></div>
+
+    <div class="info">
+      <strong>💡 How to use:</strong>
+      <ul>
+        <li>Enter an object name (e.g., "Account") and click "Load Graph"</li>
+        <li>Click nodes to see details in console</li>
+        <li>Drag nodes to rearrange</li>
+        <li>Scroll to zoom, drag canvas to pan</li>
+        <li>Hover over nodes/edges for tooltips</li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="module">
+    import { Network } from 'vis-network';
+    import { getObject } from '@sf-explorer/salesforce-object-reference';
+
+    let network = null;
+
+    // Elements
+    const graphDiv = document.getElementById('graph');
+    const loadBtn = document.getElementById('loadBtn');
+    const fitBtn = document.getElementById('fitBtn');
+    const objectInput = document.getElementById('objectInput');
+    const quickSelect = document.getElementById('quickSelect');
+    const loadingDiv = document.getElementById('loading');
+    const errorDiv = document.getElementById('error');
+    const statsDiv = document.getElementById('stats');
+
+    // Event listeners
+    loadBtn.addEventListener('click', () => loadGraph(objectInput.value));
+    fitBtn.addEventListener('click', () => network?.fit());
+    quickSelect.addEventListener('change', (e) => {
+      if (e.target.value) {
+        objectInput.value = e.target.value;
+        loadGraph(e.target.value);
+      }
+    });
+    objectInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') loadGraph(objectInput.value);
+    });
+
+    // Load graph function
+    async function loadGraph(objectName) {
+      if (!objectName) {
+        showError('Please enter an object name');
+        return;
+      }
+
+      try {
+        loadingDiv.style.display = 'block';
+        errorDiv.style.display = 'none';
+        statsDiv.style.display = 'none';
+        graphDiv.style.display = 'none';
+
+        const mainObject = await getObject(objectName);
+        if (!mainObject) {
+          throw new Error(`Object "${objectName}" not found`);
+        }
+
+        // Build graph
+        const nodes = [];
+        const edges = [];
+        const processedObjects = new Set();
+
+        // Main object
+        nodes.push({
+          id: objectName,
+          label: objectName,
+          title: `<b>${objectName}</b><br/>${mainObject.description?.substring(0, 150)}...`,
+          color: '#0176d3',
+          size: 30,
+          font: { color: '#fff' }
+        });
+        processedObjects.add(objectName);
+
+        // Process references
+        let edgeCount = 0;
+        for (const [fieldName, fieldData] of Object.entries(mainObject.properties)) {
+          if (fieldData.referenceTo && Array.isArray(fieldData.referenceTo)) {
+            for (const refObj of fieldData.referenceTo) {
+              if (!processedObjects.has(refObj)) {
+                nodes.push({
+                  id: refObj,
+                  label: refObj,
+                  title: `Referenced by ${fieldName}`,
+                  color: '#ff9e2c',
+                  size: 20
+                });
+                processedObjects.add(refObj);
+              }
+              edges.push({
+                from: objectName,
+                to: refObj,
+                label: fieldName,
+                title: fieldData.relationshipName || fieldName,
+                arrows: 'to'
+              });
+              edgeCount++;
+            }
+          }
+        }
+
+        // Load one level of secondary relationships (limit to first 5 for performance)
+        const refObjects = [...processedObjects].filter(n => n !== objectName).slice(0, 5);
+        for (const refObjName of refObjects) {
+          try {
+            const refObject = await getObject(refObjName);
+            if (refObject?.properties) {
+              for (const [fieldName, fieldData] of Object.entries(refObject.properties)) {
+                if (fieldData.referenceTo && Array.isArray(fieldData.referenceTo)) {
+                  for (const secondRef of fieldData.referenceTo) {
+                    if (processedObjects.has(secondRef)) {
+                      edges.push({
+                        from: refObjName,
+                        to: secondRef,
+                        label: fieldName,
+                        arrows: 'to',
+                        color: { color: '#ccc' },
+                        dashes: true
+                      });
+                      edgeCount++;
+                    }
+                  }
+                }
+              }
+            }
+          } catch (err) {
+            console.warn(`Failed to load ${refObjName}:`, err);
+          }
+        }
+
+        // Render graph
+        const data = { nodes, edges };
+        const options = {
+          nodes: {
+            shape: 'dot',
+            font: { size: 14 },
+            borderWidth: 2,
+            shadow: true
+          },
+          edges: {
+            width: 2,
+            smooth: { type: 'continuous' },
+            font: { size: 11, align: 'middle' }
+          },
+          physics: {
+            stabilization: { iterations: 200 },
+            barnesHut: {
+              gravitationalConstant: -8000,
+              springConstant: 0.001,
+              springLength: 200
+            }
+          },
+          interaction: {
+            hover: true,
+            tooltipDelay: 100,
+            navigationButtons: true
+          }
+        };
+
+        if (network) network.destroy();
+        network = new Network(graphDiv, data, options);
+
+        // Show stats
+        statsDiv.innerHTML = `
+          <strong>📊 Loaded:</strong> 
+          ${nodes.length} objects, 
+          ${edges.length} relationships
+        `;
+        statsDiv.style.display = 'block';
+        graphDiv.style.display = 'block';
+        loadingDiv.style.display = 'none';
+
+        // Event handlers
+        network.on('click', (params) => {
+          if (params.nodes.length > 0) {
+            console.log('Clicked node:', params.nodes[0]);
+            // Could load and display this object
+          }
+        });
+
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    function showError(message) {
+      errorDiv.textContent = '❌ Error: ' + message;
+      errorDiv.style.display = 'block';
+      loadingDiv.style.display = 'none';
+      graphDiv.style.display = 'none';
+    }
+
+    // Load default object on start
+    loadGraph('Account');
+  </script>
+</body>
+</html>
+

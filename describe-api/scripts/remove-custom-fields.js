@@ -82,3 +82,5 @@ const result = cleanDirectory(objectsDir);
 
 console.log(`\n✅ Removed ${result.removed} custom fields from ${result.files} files`);
 
+
+

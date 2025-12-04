@@ -61,3 +61,5 @@ export function shouldResume(outputDir: string): boolean {
   return loadProgress(outputDir) !== null;
 }
 
+
+

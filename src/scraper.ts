@@ -25,6 +25,19 @@ function cleanWhitespace(text: string): string {
         .trim();                  // Remove leading/trailing whitespace
 }
 
+/**
+ * Convert a cloud display name to its file name
+ * This ensures consistent naming across the codebase
+ * @param cloudName - The cloud display name (e.g., "Financial Services Cloud")
+ * @returns The file name (e.g., "financial-services-cloud")
+ */
+function cloudNameToFileName(cloudName: string): string {
+    return cloudName
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '');
+}
+
 function removeDuplicates<T>(arr: T[], prop: keyof T): T[] {
     const unique = new Set();
     const result = arr.filter((item) => {
@@ -255,8 +268,48 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         const firstLetter = item.name[0].toUpperCase();
         const objectFilePath = path.join(objectsFolder, firstLetter, `${item.name}.json`);
         
+        // Check if object file already exists and merge data if it does
+        let existingObjectData: SalesforceObject | null = null;
+        try {
+            const existingContent = await fs.readFile(objectFilePath, 'utf-8');
+            const existingFile = JSON.parse(existingContent);
+            existingObjectData = existingFile[item.name];
+        } catch {
+            // File doesn't exist yet, that's fine
+        }
+        
+        // Merge with existing data if found
+        let mergedObject: SalesforceObject;
+        if (existingObjectData) {
+            // Enrich existing object with new data
+            mergedObject = {
+                ...existingObjectData,
+                ...item,
+                // Merge properties (fields) - keep all fields from both sources
+                properties: {
+                    ...existingObjectData.properties,
+                    ...item.properties
+                },
+                // If description is empty in new data, keep the old one
+                description: item.description || existingObjectData.description,
+                // Keep the most detailed sourceUrl (prefer the new one if it exists)
+                sourceUrl: item.sourceUrl || existingObjectData.sourceUrl,
+                // Track multiple clouds if object appears in multiple places
+                clouds: [
+                    ...(existingObjectData.clouds || [existingObjectData.module].filter(Boolean)),
+                    item.module
+                ].filter((v, i, arr) => arr.indexOf(v) === i) // Remove duplicates
+            };
+        } else {
+            // New object, just use the scraped data
+            mergedObject = {
+                ...item,
+                clouds: [item.module].filter(Boolean)
+            };
+        }
+        
         const objectData = {
-            [item.name]: item
+            [item.name]: mergedObject
         };
         
         await fs.writeFile(objectFilePath, JSON.stringify(objectData, null, 2), 'utf-8');
@@ -268,12 +321,16 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         cloudStats[cloudName].objects.push(item.name);
         cloudStats[cloudName].count++;
         
+        // Update index entry with enriched data
+        const existingIndexEntry = objectIndex[item.name];
         objectIndex[item.name] = {
-            cloud: cloudName,
+            cloud: existingIndexEntry?.cloud || cloudName,
             file: `objects/${firstLetter}/${item.name}.json`,
-            description: item.description || '',
-            fieldCount: Object.keys(item.properties || {}).length,
-            sourceUrl: item.sourceUrl
+            description: item.description || existingIndexEntry?.description || '',
+            fieldCount: Object.keys(mergedObject.properties || {}).length,
+            sourceUrl: item.sourceUrl || existingIndexEntry?.sourceUrl,
+            // Track all clouds this object appears in
+            clouds: mergedObject.clouds
         };
         
         totalObjects++;
@@ -281,10 +338,7 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
     
     // Create cloud index files (just list of object names per cloud)
     for (const [cloudName, stats] of Object.entries(cloudStats)) {
-        const fileName = cloudName
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^a-z0-9-]/g, '');
+        const fileName = cloudNameToFileName(cloudName);
         
         const cloudIndexPath = path.join(docFolder, `${fileName}.json`);
         
@@ -311,6 +365,35 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
             return acc;
         }, {} as Record<string, ObjectIndexEntry>);
     
+    // Build cloud index by reading all cloud JSON files
+    const cloudIndex: Record<string, any> = {};
+    const cloudFiles = await fs.readdir(docFolder);
+    
+    for (const file of cloudFiles) {
+        if (file.endsWith('.json') && file !== 'index.json' && file !== 'globalDescribe.json' && file !== 'toolingGlobalDescribe.json') {
+            const cloudFilePath = path.join(docFolder, file);
+            try {
+                const cloudContent = await fs.readFile(cloudFilePath, 'utf-8');
+                const cloudData = JSON.parse(cloudContent);
+                
+                // Only include files that have the cloud index structure (with 'cloud' and 'objects' fields)
+                if (cloudData.cloud && cloudData.objects) {
+                    const fileName = file.replace('.json', '');
+                    cloudIndex[fileName] = {
+                        cloud: cloudData.cloud,
+                        fileName: fileName,
+                        description: cloudData.description || '',
+                        objectCount: cloudData.objectCount || 0,
+                        emoji: cloudData.emoji,
+                        iconFile: cloudData.iconFile
+                    };
+                }
+            } catch (e) {
+                // Skip files that can't be parsed or don't match the expected structure
+            }
+        }
+    }
+    
     // Calculate totals from all objects in index (existing + newly scraped)
     const allClouds = new Set(Object.values(sortedIndex).map(obj => obj.cloud));
     const totalObjectsInIndex = Object.keys(sortedIndex).length;
@@ -319,13 +402,14 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         generated: new Date().toISOString(),
         version: version,
         totalObjects: totalObjectsInIndex,
-        totalClouds: allClouds.size,
-        objects: sortedIndex
+        totalClouds: Object.keys(cloudIndex).length,
+        objects: sortedIndex,
+        clouds: cloudIndex
     };
     
     await fs.writeFile(indexPath, JSON.stringify(indexData, null, 2), 'utf-8');
     
-    console.log(`\n✓ Created main index with ${totalObjectsInIndex} objects across ${allClouds.size} cloud(s): ${indexPath}`);
+    console.log(`\n✓ Created main index with ${totalObjectsInIndex} objects across ${Object.keys(cloudIndex).length} cloud(s): ${indexPath}`);
     console.log(`✓ This scrape: ${totalObjects} objects saved from ${Object.keys(resultsByCloud).length} cloud(s)`);
     console.log(`✓ All objects stored in: ${objectsFolder}/[A-Z]/`);
 }

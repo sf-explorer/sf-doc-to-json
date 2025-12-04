@@ -9,6 +9,7 @@ export interface SalesforceObject {
     properties: Record<string, FieldProperty>;
     module: string;
     sourceUrl?: string;
+    clouds?: string[]; // Track multiple clouds if object appears in multiple places
 }
 
 export interface CloudConfiguration {
@@ -25,6 +26,12 @@ export interface ObjectIndexEntry {
     label?: string;
     sourceUrl?: string;
     icon?: string;
+    clouds?: string[]; // Track all clouds this object appears in
+}
+
+export interface CloudIndexEntry {
+    cloud: string;
+    fileName: string;
 }
 
 export interface DocumentIndex {
@@ -33,6 +40,7 @@ export interface DocumentIndex {
     totalObjects: number;
     totalClouds: number;
     objects: Record<string, ObjectIndexEntry>;
+    clouds?: Record<string, CloudIndexEntry>; // Maps cloud file name to metadata (optional for backwards compatibility)
 }
 
 export interface DocumentMapping {

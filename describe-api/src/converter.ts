@@ -177,7 +177,12 @@ export function convertToJsonSchema(
     // Add icon metadata from UI API if available
     if (describe.themeInfo) {
       if (describe.themeInfo.iconUrl) {
-        schema['x-salesforce'].iconUrl = describe.themeInfo.iconUrl;
+        // Extract only the last part of the icon URL (e.g., "standard/category_120.png")
+        // from URLs like: https://.../img/icon/t4v35/standard/category_120.png
+        const iconUrlMatch = describe.themeInfo.iconUrl.match(/\/icon\/[^/]+\/(.+)$/);
+        if (iconUrlMatch) {
+          schema['x-salesforce'].iconUrl = iconUrlMatch[1];
+        }
       }
       if (describe.themeInfo.color) {
         schema['x-salesforce'].iconColor = describe.themeInfo.color;
@@ -188,6 +193,7 @@ export function convertToJsonSchema(
     if (describe.childRelationships && describe.childRelationships.length > 0) {
       schema['x-child-relations'] = describe.childRelationships
         .filter(rel => !rel.deprecatedAndHidden && rel.childSObject)
+        .filter(rel => !rel.childSObject.endsWith('Feed')) // Exclude Feed objects
         .map(rel => ({
           childObject: rel.childSObject,
           field: rel.field,

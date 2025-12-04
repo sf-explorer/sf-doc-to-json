@@ -5,50 +5,175 @@
     "properties": {
       "DuplicateJobDefinitionId": {
         "type": "reference",
-        "description": "The ID of the corresponding duplicate job definition."
+        "description": "The ID of the corresponding duplicate job definition.",
+        "format": "salesforce-id",
+        "x-object": "DuplicateJobDefinition",
+        "maxLength": 18,
+        "nullable": false
       },
       "DuplicateJobStatus": {
         "type": "picklist",
-        "description": "The current status of a duplicate job. Valid values are Not Started, In Progress, Completed, Canceled, Failed, Results Deleted."
+        "description": "The current status of a duplicate job. Valid values are Not Started, In Progress, Completed, Canceled, Failed, Results Deleted.",
+        "format": "enum",
+        "enum": [
+          "NotStarted",
+          "InProgress",
+          "Completed",
+          "Failed",
+          "Canceled",
+          "ResultsDeleted"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "EndDateTime": {
         "type": "dateTime",
-        "description": "The date and time when a duplicate job was completed."
+        "description": "The date and time when a duplicate job was completed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when a duplicate job was last referenced."
+        "description": "The date when a duplicate job was last referenced.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The date when a duplicate job was last viewed."
+        "description": "The date when a duplicate job was last viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of a duplicate job."
+        "description": "The name of a duplicate job.",
+        "maxLength": 255,
+        "nullable": false
       },
       "NumDuplicateRecordItems": {
         "type": "int",
-        "description": "The total number of duplicate records identified as a result of invoking a duplicate job."
+        "description": "The total number of duplicate records identified as a result of invoking a duplicate job.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumDuplicateRecordSets": {
         "type": "int",
-        "description": "The number of duplicate record sets identified as a result of invoking a duplicate job."
+        "description": "The number of duplicate record sets identified as a result of invoking a duplicate job.",
+        "nullable": false,
+        "readOnly": true
       },
       "NumRecordsScanned": {
         "type": "int",
-        "description": "The number of records scanned as a result of invoking a duplicate job."
+        "description": "The number of records scanned as a result of invoking a duplicate job.",
+        "nullable": false,
+        "readOnly": true
       },
       "ResultListViewId": {
         "type": "reference",
-        "description": "List view metadata for displaying the duplicate record sets identified as result of invoking a duplicate job."
+        "description": "List view metadata for displaying the duplicate record sets identified as result of invoking a duplicate job.",
+        "format": "salesforce-id",
+        "x-object": "ListView",
+        "maxLength": 18,
+        "nullable": true
       },
       "StartDateTime": {
         "type": "dateTime",
-        "description": "The date and time when a duplicate job was invoked."
+        "description": "The date and time when a duplicate job was invoked.",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Duplicate Job ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_duplicatejob.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_duplicatejob.htm",
+    "keyPrefix": "0PB",
+    "createable": false,
+    "updateable": true,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DuplicateJobMatchingRule",
+        "field": "DuplicateJobId",
+        "relationshipName": "DuplicateJobMatchingRules",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DuplicateRecordSet",
+        "field": "ParentId",
+        "relationshipName": "AllDuplicateRecordSets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

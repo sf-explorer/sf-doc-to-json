@@ -21,27 +21,31 @@
         "format": "enum",
         "enum": [
           "Email",
-          "Live Agent",
           "Portal",
           "Phone",
           "Internal",
-          "Social",
-          "LiveText",
-          "Knowledge",
           "Event",
           "Task",
-          "Messaging"
+          "Messaging",
+          "Knowledge"
         ],
         "maxLength": 4099,
         "nullable": true
       },
       "FolderId": {
         "type": "reference",
-        "description": "Returns the ID of the folder that contains the quick text. Available in API version 44.0 and later."
+        "description": "Returns the ID of the folder that contains the quick text. Available in API version 44.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "Folder",
+        "maxLength": 18,
+        "nullable": true
       },
       "FolderName": {
         "type": "string",
-        "description": "Name of the folder that contains the quick text. Available in API version 44.0 and later."
+        "description": "Name of the folder that contains the quick text. Available in API version 44.0 and later.",
+        "maxLength": 256,
+        "nullable": true,
+        "readOnly": true
       },
       "IsInsertable": {
         "type": "boolean",
@@ -198,18 +202,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "CandidateAnswer",
-        "field": "AnswerEntityId",
-        "relationshipName": "AnswerSourceEntity",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CandidateAnswerChangeEvent",
-        "field": "AnswerEntityId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "FlowExecutionErrorEvent",
         "field": "ContextRecordId",
         "relationshipName": null,
@@ -237,18 +229,6 @@
         "childObject": "QuickTextUsage",
         "field": "QuickTextId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ReplyAIRecommendation",
-        "field": "ReplyEntityId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "Reply_Rec_Demo_Helper_QuickText__c",
-        "field": "QuickText__c",
-        "relationshipName": "Reply_Rec_Demo_Helper_QuickTexts__r",
         "cascadeDelete": false
       }
     ]

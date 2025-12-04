@@ -1,20 +1,33 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import ObjectList from './ObjectList';
-import FieldDetail from './FieldDetail';
-import CategoryFilter from './CategoryFilter';
+import ObjectDetailTabs from './ObjectDetailTabs';
+import CloudTiles from './CloudTiles';
+import CloudDetailView from './CloudDetailView';
 import Breadcrumb from './Breadcrumb';
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-const ObjectExplorer = () => {
+const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, hideCloudFilter = false, cloudName: externalCloudName }) => {
+  const navigate = useNavigate();
+  const { cloudName: urlCloudName, objectName: urlObjectName } = useParams();
+  const location = useLocation();
+  
   const [selectedObject, setSelectedObject] = useState(null);
-  const [objects, setObjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [objects, setObjects] = useState(initialObjects || []);
+  const [loading, setLoading] = useState(!initialObjects);
   const [loadingObjectDetails, setLoadingObjectDetails] = useState(false);
-  const [cloudMetadata, setCloudMetadata] = useState({});
+  const [cloudMetadata, setCloudMetadata] = useState(externalCloudMetadata || {});
   const [navigationHistory, setNavigationHistory] = useState([]);
 
+  // Determine the current cloud from URL or props
+  const selectedCloud = urlCloudName || externalCloudName || null;
+
   useEffect(() => {
+    // Skip loading if initialObjects provided (used when called from CloudDetailView)
+    if (initialObjects) {
+      return;
+    }
+
     // Load object metadata from the package
     const loadObjects = async () => {
       try {
@@ -27,6 +40,8 @@ const ObjectExplorer = () => {
         clouds.forEach(cloud => {
           cloudMap[cloud.cloud] = cloud;
         });
+        
+        console.log('Loaded cloud metadata:', cloudMap);
         setCloudMetadata(cloudMap);
         
         // Load object descriptions
@@ -65,9 +80,22 @@ const ObjectExplorer = () => {
     };
 
     loadObjects();
-  }, []);
+  }, [initialObjects]);
 
-  const handleObjectSelect = async (object) => {
+  // Load object details when URL changes
+  useEffect(() => {
+    if (urlObjectName && objects.length > 0) {
+      const objectToLoad = objects.find(obj => obj.apiName === urlObjectName);
+      if (objectToLoad) {
+        handleObjectSelect(objectToLoad, true);
+      }
+    } else {
+      setSelectedObject(null);
+      setNavigationHistory([]);
+    }
+  }, [urlObjectName, objects]);
+
+  const handleObjectSelect = async (object, fromUrl = false) => {
     setLoadingObjectDetails(true);
     
     // If fields are not loaded yet, fetch the full object data
@@ -84,9 +112,16 @@ const ObjectExplorer = () => {
             childRelationships: fullObjectData.childRelationships || []
           };
           
-          // Add to navigation history
-          setNavigationHistory(prev => [...prev, updatedObject]);
           setSelectedObject(updatedObject);
+          
+          // Update navigation only if not from URL
+          if (!fromUrl) {
+            if (selectedCloud) {
+              navigate(`/cloud/${selectedCloud}/object/${object.apiName}`);
+            } else {
+              navigate(`/object/${object.apiName}`);
+            }
+          }
           
           // Also update the object in the list for caching
           setObjects(prevObjects => 
@@ -95,43 +130,76 @@ const ObjectExplorer = () => {
             )
           );
         } else {
-          setNavigationHistory(prev => [...prev, object]);
           setSelectedObject(object);
+          if (!fromUrl) {
+            if (selectedCloud) {
+              navigate(`/cloud/${selectedCloud}/object/${object.apiName}`);
+            } else {
+              navigate(`/object/${object.apiName}`);
+            }
+          }
         }
       } catch (error) {
         console.error('Error loading object details:', error);
-        setNavigationHistory(prev => [...prev, object]);
         setSelectedObject(object);
+        if (!fromUrl) {
+          if (selectedCloud) {
+            navigate(`/cloud/${selectedCloud}/object/${object.apiName}`);
+          } else {
+            navigate(`/object/${object.apiName}`);
+          }
+        }
       }
     } else {
-      // Add to navigation history
-      setNavigationHistory(prev => [...prev, object]);
       setSelectedObject(object);
+      if (!fromUrl) {
+        if (selectedCloud) {
+          navigate(`/cloud/${selectedCloud}/object/${object.apiName}`);
+        } else {
+          navigate(`/object/${object.apiName}`);
+        }
+      }
     }
     
     setLoadingObjectDetails(false);
   };
 
   const handleBackToList = () => {
-    setSelectedObject(null);
-    setNavigationHistory([]);
+    if (selectedCloud) {
+      navigate(`/cloud/${selectedCloud}`);
+    } else {
+      navigate('/');
+    }
   };
 
-  // Build breadcrumb items from navigation history
+  const handleBackToClouds = () => {
+    navigate('/');
+  };
+
+  const handleCloudSelect = (cloudName) => {
+    navigate(`/cloud/${cloudName}`);
+  };
+
+  // Build breadcrumb items based on URL
   const breadcrumbItems = useMemo(() => {
-    const items = [{ label: 'All Objects', path: 'list', index: -1 }];
+    const items = [];
     
-    navigationHistory.forEach((obj, index) => {
+    if (selectedCloud) {
+      items.push({ label: selectedCloud === 'all' ? 'All Objects' : selectedCloud, path: 'cloud', cloudName: selectedCloud });
+    } else {
+      items.push({ label: 'All Objects', path: 'list' });
+    }
+    
+    if (selectedObject) {
       items.push({ 
-        label: obj.label || obj.apiName, 
-        path: 'detail',
-        index: index,
-        object: obj
+        label: selectedObject.label || selectedObject.apiName, 
+        path: 'object',
+        object: selectedObject
       });
-    });
+    }
     
     return items;
-  }, [navigationHistory]);
+  }, [selectedCloud, selectedObject]);
 
   // Get unique categories for filtering - collect all clouds from objects
   const categories = useMemo(() => {
@@ -147,86 +215,94 @@ const ObjectExplorer = () => {
     return [...allClouds].sort();
   }, [objects]);
 
-  // Filter objects by selected categories - match if ANY selected cloud is in the object's clouds array
-  const filteredObjects = useMemo(() => {
-    if (selectedCategories.length === 0) {
-      return objects;
-    }
-    return objects.filter(obj => {
-      // Support both single cloud and multiple clouds
-      const objectClouds = obj.clouds || [obj.cloud];
-      return selectedCategories.some(category => objectClouds.includes(category));
-    });
-  }, [objects, selectedCategories]);
+  // Don't filter if showing within CloudDetailView (hideCloudFilter is true)
+  const filteredObjects = hideCloudFilter ? objects : objects;
 
   return (
     <div className="object-explorer-container">
-      <div className="single-panel">
-        {/* Breadcrumb Navigation */}
-        <Breadcrumb 
-          items={breadcrumbItems} 
-          onNavigate={(item) => {
-            if (item.path === 'list') {
-              handleBackToList();
-            } else if (item.index >= 0) {
-              // Navigate to a specific object in the history
-              const newHistory = navigationHistory.slice(0, item.index + 1);
-              setNavigationHistory(newHistory);
-              setSelectedObject(item.object);
-            }
-          }}
-        />
-        
-        {/* Panel Header */}
-        <div className="panel-header">
-          <h2 className="panel-title">
-            {selectedObject 
-              ? `${selectedObject.label} Fields`
-              : `Salesforce Objects (${filteredObjects.length}${selectedCategories.length > 0 ? ` of ${objects.length}` : ''})`
-            }
-          </h2>
+      {!hideCloudFilter && !selectedCloud && !urlObjectName ? (
+        // Cloud Selection View (only when no cloud and no object in URL)
+        <div className="single-panel">
+          <CloudTiles 
+            categories={categories}
+            onCloudSelect={handleCloudSelect}
+            cloudMetadata={cloudMetadata}
+            allObjects={objects}
+          />
         </div>
+      ) : !hideCloudFilter && selectedCloud && !urlObjectName ? (
+        // Cloud Detail View with Tabs (only when cloud selected but no object)
+        <div className="single-panel">
+          <CloudDetailView 
+            cloudName={selectedCloud}
+            cloudMetadata={cloudMetadata}
+            onBack={handleBackToClouds}
+            allObjects={objects}
+          />
+        </div>
+      ) : (
+        // Object Explorer View (when hideCloudFilter is true OR object is selected)
+        <div className="single-panel">
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb 
+            items={breadcrumbItems} 
+            onNavigate={(item) => {
+              if (item.path === 'list') {
+                navigate('/');
+              } else if (item.path === 'cloud') {
+                navigate(`/cloud/${item.cloudName}`);
+              } else if (item.path === 'object') {
+                // Don't navigate to the same object
+                if (item.object && item.object.apiName !== selectedObject?.apiName) {
+                  handleObjectSelect(item.object);
+                }
+              }
+            }}
+          />
+          
+          {/* Panel Header */}
+          <div className="panel-header">
+            <h2 className="panel-title">
+              {selectedObject 
+                ? `${selectedObject.label} Fields`
+                : `Salesforce Objects (${filteredObjects.length})`
+              }
+            </h2>
+          </div>
 
-        {/* Content Area */}
-        {!selectedObject ? (
-          <>
-            <CategoryFilter 
-              categories={categories}
-              selectedCategories={selectedCategories}
-              onCategoryChange={setSelectedCategories}
-              cloudMetadata={cloudMetadata}
-            />
+          {/* Content Area */}
+          {!selectedObject ? (
             <ObjectList 
               objects={filteredObjects} 
               loading={loading}
               onObjectSelect={handleObjectSelect} 
               selectedObject={selectedObject}
               cloudMetadata={cloudMetadata}
+              hideCloudColumn={hideCloudFilter} // Hide cloud column when embedded in CloudDetailView
             />
-          </>
-        ) : loadingObjectDetails ? (
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              minHeight: '400px' 
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <FieldDetail 
-            object={selectedObject} 
-            onObjectSelect={handleObjectSelect}
-            availableObjects={objects}
-            cloudMetadata={cloudMetadata}
-          />
-        )}
-      </div>
+          ) : loadingObjectDetails ? (
+            <Box 
+              sx={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                minHeight: '400px' 
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <ObjectDetailTabs 
+              object={selectedObject} 
+              onObjectSelect={handleObjectSelect}
+              availableObjects={objects}
+              cloudMetadata={cloudMetadata}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
 export default ObjectExplorer;
-

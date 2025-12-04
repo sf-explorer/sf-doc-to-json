@@ -14,10 +14,10 @@
         "description": "Picklist of address types. The values are: Mailing Shipping Billing Home",
         "format": "enum",
         "enum": [
-          "Mailing",
-          "Shipping",
-          "Billing",
-          "Home"
+          "Messagerie",
+          "Expédition",
+          "Facturation",
+          "Accueil"
         ],
         "maxLength": 40,
         "nullable": true
@@ -85,13 +85,14 @@
         "description": "Picklist of location types. The available values are: Warehouse (default) Site Van Plant",
         "format": "enum",
         "enum": [
+          "Building",
           "Warehouse",
           "Site",
-          "Van",
           "Plant",
-          "Virtual",
           "Store",
-          "Depot"
+          "Campus",
+          "Floor",
+          "Space"
         ],
         "maxLength": 40,
         "nullable": false
@@ -304,6 +305,99 @@
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_address.htm",
-    "keyPrefix": "130"
+    "keyPrefix": "130",
+    "iconUrl": "icon/t4v35/standard/address_120.png",
+    "iconColor": "3BA755",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AddressHistory",
+        "field": "AddressId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DuplicateRecordItem",
+        "field": "RecordId",
+        "relationshipName": "DuplicateRecordItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Location",
+        "field": "VisitorAddressId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LocationChangeEvent",
+        "field": "VisitorAddressId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Visit",
+        "field": "PlaceId",
+        "relationshipName": "Places",
+        "cascadeDelete": false
+      }
+    ]
   }
 }

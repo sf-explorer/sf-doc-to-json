@@ -14,16 +14,17 @@
         "description": "Source of the account record:",
         "format": "enum",
         "enum": [
-          "Website",
-          "Social Media",
-          "Marketing Event",
-          "Referral",
-          "Cold Call",
-          "Data.com",
+          "Advertisement",
+          "Customer Event",
+          "Employee Referral",
+          "External Referral",
+          "Google AdWords",
+          "Other",
           "Partner",
-          "Community",
-          "Inbound Call",
-          "Salesforce IoT"
+          "Purchased List",
+          "Trade Show",
+          "Webinar",
+          "Website"
         ],
         "maxLength": 255,
         "nullable": true
@@ -146,9 +147,10 @@
           "Engineering",
           "Entertainment",
           "Environmental",
+          "Finance",
           "Food & Beverage",
           "Government",
-          "Healthcare & Life Sciences",
+          "Healthcare",
           "Hospitality",
           "Insurance",
           "Machinery",
@@ -162,8 +164,7 @@
           "Technology",
           "Telecommunications",
           "Transportation",
-          "Utilities",
-          "Financial Services"
+          "Utilities"
         ],
         "maxLength": 255,
         "nullable": true
@@ -223,7 +224,7 @@
         "type": "string",
         "description": "Unique identification of the account.",
         "maxLength": 255,
-        "nullable": true
+        "nullable": false
       },
       "NumberOfEmployees": {
         "type": "int",
@@ -289,7 +290,7 @@
         "enum": [
           "Hot",
           "Warm",
-          "Cool"
+          "Cold"
         ],
         "maxLength": 255,
         "nullable": true
@@ -403,15 +404,16 @@
         "description": "Type of account",
         "format": "enum",
         "enum": [
-          "Enterprise",
-          "Mid-Market",
-          "Small Business",
-          "Person",
+          "Analyst",
+          "Competitor",
+          "Customer",
+          "Integrator",
+          "Investor",
           "Partner",
-          "Billing",
-          "Consumer",
-          "Service",
-          "Business"
+          "Press",
+          "Prospect",
+          "Reseller",
+          "Other"
         ],
         "maxLength": 255,
         "nullable": true
@@ -1892,10 +1894,911 @@
         "type": "boolean",
         "description": "COM Golden Record",
         "nullable": false
+      },
+      "SIRENAddress__Street__s": {
+        "type": "string",
+        "description": "Adresse SIREN (Street)",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SIRENAddress__City__s": {
+        "type": "string",
+        "description": "Adresse SIREN (City)",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "SIRENAddress__PostalCode__s": {
+        "type": "string",
+        "description": "Adresse SIREN (ZIP/Postal Code)",
+        "maxLength": 20,
+        "nullable": true
+      },
+      "SIRENAddress__StateCode__s": {
+        "type": "string",
+        "description": "Adresse SIREN (State/Province)",
+        "format": "enum",
+        "maxLength": 10,
+        "nullable": true
+      },
+      "SIRENAddress__CountryCode__s": {
+        "type": "string",
+        "description": "Adresse SIREN (Country/Territory)",
+        "format": "enum",
+        "enum": [
+          "FR"
+        ],
+        "maxLength": 10,
+        "nullable": true
+      },
+      "SIRENAddress__Latitude__s": {
+        "type": "number",
+        "description": "Adresse SIREN (Latitude)",
+        "nullable": true
+      },
+      "SIRENAddress__Longitude__s": {
+        "type": "number",
+        "description": "Adresse SIREN (Longitude)",
+        "nullable": true
+      },
+      "SIRENAddress__GeocodeAccuracy__s": {
+        "type": "string",
+        "description": "Adresse SIREN (Geocode Accuracy)",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "SIRETAddress__Street__s": {
+        "type": "string",
+        "description": "Adresse SIRET (Street)",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "SIRETAddress__City__s": {
+        "type": "string",
+        "description": "Adresse SIRET (City)",
+        "maxLength": 40,
+        "nullable": true
+      },
+      "SIRETAddress__PostalCode__s": {
+        "type": "string",
+        "description": "Adresse SIRET (ZIP/Postal Code)",
+        "maxLength": 20,
+        "nullable": true
+      },
+      "SIRETAddress__StateCode__s": {
+        "type": "string",
+        "description": "Adresse SIRET (State/Province)",
+        "format": "enum",
+        "maxLength": 10,
+        "nullable": true
+      },
+      "SIRETAddress__CountryCode__s": {
+        "type": "string",
+        "description": "Adresse SIRET (Country/Territory)",
+        "format": "enum",
+        "enum": [
+          "FR"
+        ],
+        "maxLength": 10,
+        "nullable": true
+      },
+      "SIRETAddress__Latitude__s": {
+        "type": "number",
+        "description": "Adresse SIRET (Latitude)",
+        "nullable": true
+      },
+      "SIRETAddress__Longitude__s": {
+        "type": "number",
+        "description": "Adresse SIRET (Longitude)",
+        "nullable": true
+      },
+      "SIRETAddress__GeocodeAccuracy__s": {
+        "type": "string",
+        "description": "Adresse SIRET (Geocode Accuracy)",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       }
     },
     "module": "Consumer Goods Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_account.htm",
-    "keyPrefix": "001"
+    "keyPrefix": "001",
+    "iconUrl": "icon/t4v35/standard/account_120.png",
+    "iconColor": "5867E8",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AcceptedEventRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "ParentId",
+        "relationshipName": "ChildAccounts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountContactRelation",
+        "field": "AccountId",
+        "relationshipName": "AccountContactRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountContactRole",
+        "field": "AccountId",
+        "relationshipName": "AccountContactRoles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountContactRoleChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountFeed",
+        "field": "ParentId",
+        "relationshipName": "Feeds",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountHistory",
+        "field": "AccountId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountPartner",
+        "field": "AccountFromId",
+        "relationshipName": "AccountPartnersFrom",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountPartner",
+        "field": "AccountToId",
+        "relationshipName": "AccountPartnersTo",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AccountShare",
+        "field": "AccountId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Account_Opportunity_Junction__c",
+        "field": "Account__c",
+        "relationshipName": "Account_Opportunities__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ActionPlan",
+        "field": "TargetId",
+        "relationshipName": "ActionPlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "AccountId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "PrimaryAccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "AccountId",
+        "relationshipName": "Assets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Asset",
+        "field": "AssetProvidedById",
+        "relationshipName": "ProvidedAssets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "AssetServicedById",
+        "relationshipName": "ServicedAssets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "IdContratFournisseur__c",
+        "relationshipName": "Assets1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Asset",
+        "field": "ParentAccount__c",
+        "relationshipName": "Assets2__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "AssetProvidedById",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetChangeEvent",
+        "field": "AssetServicedById",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetContactRole__c",
+        "field": "Account__c",
+        "relationshipName": "Account__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssociatedLocation",
+        "field": "ParentRecordId",
+        "relationshipName": "AssociatedLocations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AuthorizationFormConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "AuthorizationFormConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsent",
+        "field": "RelatedRecordId",
+        "relationshipName": "RelatedAuthorizationFormConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AuthorizationFormConsentChangeEvent",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignMember",
+        "field": "LeadOrContactId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "AccountId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "IdContratFournisseur__c",
+        "relationshipName": "Cases__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CollaborationGroupRecord",
+        "field": "RecordId",
+        "relationshipName": "RecordAssociatedGroups",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CommSubscriptionConsent",
+        "field": "ConsentGiverId",
+        "relationshipName": "CommSubscriptionConsents",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CommSubscriptionConsentChangeEvent",
+        "field": "ConsentGiverId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Contact",
+        "field": "AccountId",
+        "relationshipName": "Contacts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointAddress",
+        "field": "ParentId",
+        "relationshipName": "ContactPointAddresses",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointAddressChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointEmail",
+        "field": "ParentId",
+        "relationshipName": "ContactPointEmails",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointEmailChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactPointPhone",
+        "field": "ParentId",
+        "relationshipName": "ContactPointPhones",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactPointPhoneChangeEvent",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContactRequest",
+        "field": "WhatId",
+        "relationshipName": "ContactRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Contract",
+        "field": "AccountId",
+        "relationshipName": "Contracts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContractChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DeclinedEventRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "AccountId",
+        "relationshipName": "DocumentChecklistItemAccount",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DuplicateRecordItem",
+        "field": "RecordId",
+        "relationshipName": "DuplicateRecordItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Entitlement",
+        "field": "AccountId",
+        "relationshipName": "Entitlements",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EntitlementChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelation",
+        "field": "RelationId",
+        "relationshipName": "EventRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventWhoRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "IndividualApplication",
+        "field": "AccountId",
+        "relationshipName": "IndividualApplicationAccount",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Lead",
+        "field": "ConvertedAccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LeadChangeEvent",
+        "field": "ConvertedAccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingEndUser",
+        "field": "AccountId",
+        "relationshipName": "MessagingEndUsers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingSession",
+        "field": "EndUserAccountId",
+        "relationshipName": "MessagingSessions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "AccountId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "PrimaryAccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Opportunity",
+        "field": "AccountId",
+        "relationshipName": "Opportunities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpportunityChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityPartner",
+        "field": "AccountToId",
+        "relationshipName": "OpportunityPartnersTo",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Order",
+        "field": "AccountId",
+        "relationshipName": "Orders",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Partner",
+        "field": "AccountFromId",
+        "relationshipName": "PartnersFrom",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Partner",
+        "field": "AccountToId",
+        "relationshipName": "PartnersTo",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductFulfillmentLocation",
+        "field": "AccountId",
+        "relationshipName": "ProductFulfillmentLocations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequest",
+        "field": "AccountId",
+        "relationshipName": "ProductRequests",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItem",
+        "field": "AccountId",
+        "relationshipName": "ProductRequestLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequestLineItemChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Quote",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContract",
+        "field": "AccountId",
+        "relationshipName": "ServiceContracts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPersona",
+        "field": "ParentId",
+        "relationshipName": "Personas",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SocialPost",
+        "field": "WhoId",
+        "relationshipName": "Posts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SocialPostChangeEvent",
+        "field": "WhoId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelation",
+        "field": "RelationId",
+        "relationshipName": "TaskRelations",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TaskWhoRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "UndecidedEventRelation",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "User",
+        "field": "AccountId",
+        "relationshipName": "Users",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "UserRole",
+        "field": "PortalAccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Visit",
+        "field": "AccountId",
+        "relationshipName": "Visits",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "AccountId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "AccountId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
+    ]
   }
 }

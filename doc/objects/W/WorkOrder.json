@@ -189,12 +189,14 @@
       "Latitude": {
         "type": "number",
         "description": "Latitude",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "number",
         "description": "Longitude",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "GeocodeAccuracy": {
         "type": "string",
@@ -261,12 +263,12 @@
         "format": "enum",
         "enum": [
           "New",
-          "Scheduled",
-          "Assigned",
-          "On Route",
           "In Progress",
+          "On Hold",
           "Completed",
-          "Closed"
+          "Closed",
+          "Cannot Complete",
+          "Canceled"
         ],
         "maxLength": 255,
         "nullable": true
@@ -288,21 +290,24 @@
         "type": "number",
         "description": "Tax",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Subtotal": {
         "type": "number",
         "description": "Subtotal",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "number",
         "description": "Total Price",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "LineItemCount": {
         "type": "integer",
@@ -323,14 +328,16 @@
         "description": "Discount",
         "format": "percent",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "GrandTotal": {
         "type": "number",
         "description": "Grand Total",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ParentWorkOrderId": {
         "type": "string",
@@ -389,7 +396,8 @@
       "Duration": {
         "type": "number",
         "description": "Duration",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "DurationType": {
         "type": "string",
@@ -406,7 +414,8 @@
         "type": "number",
         "description": "Duration in Minutes",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ServiceAppointmentCount": {
         "type": "integer",
@@ -559,6 +568,8 @@
     "module": "Energy and Utilities Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_workorder.htm",
     "keyPrefix": "0WO",
+    "iconUrl": "icon/t4v35/standard/work_order_120.png",
+    "iconColor": "06A59A",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -587,12 +598,6 @@
         "childObject": "ActivityHistory",
         "field": "WhatId",
         "relationshipName": "ActivityHistories",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "AgentWork",
-        "field": "WorkItemId",
-        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -642,12 +647,6 @@
         "field": "FirstPublishLocationId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "DigitalSignature",
-        "field": "ParentId",
-        "relationshipName": "DigitalSignatures",
-        "cascadeDelete": true
       },
       {
         "childObject": "DocumentChecklistItem",
@@ -704,12 +703,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Expense",
-        "field": "WorkOrderId",
-        "relationshipName": "Expenses",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "FeedComment",
         "field": "ParentId",
         "relationshipName": null,
@@ -740,18 +733,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "NetworkUserHistoryRecent",
-        "field": "RecordId",
-        "relationshipName": "NetworkUserHistoryRecentToRecord",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "Note",
         "field": "ParentId",
         "relationshipName": "Notes",
@@ -770,22 +751,10 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "Opportunity",
-        "field": "Work_Order__c",
-        "relationshipName": "Opportunities__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "OutgoingEmail",
         "field": "RelatedToId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "PendingServiceRouting",
-        "field": "WorkItemId",
-        "relationshipName": null,
-        "cascadeDelete": true
       },
       {
         "childObject": "ProcessInstance",
@@ -797,18 +766,6 @@
         "childObject": "ProcessInstanceHistory",
         "field": "TargetObjectId",
         "relationshipName": "ProcessSteps",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ProductConsumed",
-        "field": "WorkOrderId",
-        "relationshipName": "ProductsConsumed",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ProductConsumedChangeEvent",
-        "field": "WorkOrderId",
-        "relationshipName": null,
         "cascadeDelete": false
       },
       {
@@ -836,12 +793,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ProductRequired",
-        "field": "ParentRecordId",
-        "relationshipName": "ProductsRequired",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "RecordAction",
         "field": "RecordId",
         "relationshipName": "RecordActions",
@@ -851,60 +802,6 @@
         "childObject": "RecordActionHistory",
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ResourcePreference",
-        "field": "RelatedRecordId",
-        "relationshipName": "ResourcePreferences",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SBQQ__QuoteLine__c",
-        "field": "Work_Order__c",
-        "relationshipName": "Quote_Lines__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Quote__c",
-        "field": "Work_Order__c",
-        "relationshipName": "Quotes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "ParentRecordId",
-        "relationshipName": "ServiceAppointments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "Parent_Work_Order__c",
-        "relationshipName": "Service_Appointments__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceAppointmentChangeEvent",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceReport",
-        "field": "ParentId",
-        "relationshipName": "ServiceReports",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SkillRequirement",
-        "field": "RelatedRecordId",
-        "relationshipName": "SkillRequirements",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SurveySubject",
-        "field": "SubjectId",
-        "relationshipName": "SurveySubjectEntities",
         "cascadeDelete": false
       },
       {
@@ -928,18 +825,6 @@
       {
         "childObject": "TaskRelationChangeEvent",
         "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TimeSheetEntry",
-        "field": "WorkOrderId",
-        "relationshipName": "TimeSheetEntries",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TimeSheetEntryChangeEvent",
-        "field": "WorkOrderId",
         "relationshipName": null,
         "cascadeDelete": false
       },

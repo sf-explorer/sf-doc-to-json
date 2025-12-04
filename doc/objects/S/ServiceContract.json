@@ -26,9 +26,9 @@
         "description": "Approval status of the service contract.",
         "format": "enum",
         "enum": [
-          "Draft",
-          "In Approval Process",
-          "Activated"
+          "Brouillon",
+          "Processus d'approbation en cours",
+          "Activé"
         ],
         "maxLength": 40,
         "nullable": true
@@ -420,12 +420,15 @@
         "type": "number",
         "description": "Shipping and Handling",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       }
     },
     "module": "Field Service Lightning",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.field_service_dev.meta/field_service_dev/sforce_api_objects_servicecontract.htm",
     "keyPrefix": "810",
+    "iconUrl": "icon/t4v35/standard/service_contract_120.png",
+    "iconColor": "5867E8",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -457,12 +460,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Asset",
-        "field": "Service_Contract__c",
-        "relationshipName": "Assets__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "AttachedContentDocument",
         "field": "LinkedEntityId",
         "relationshipName": "AttachedContentDocuments",
@@ -479,6 +476,18 @@
         "field": "ParentId",
         "relationshipName": "Attachments",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "Case",
+        "field": "ServiceContractId",
+        "relationshipName": "Cases",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CaseChangeEvent",
+        "field": "ServiceContractId",
+        "relationshipName": null,
+        "cascadeDelete": false
       },
       {
         "childObject": "CombinedAttachment",
@@ -592,24 +601,6 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "MaintenancePlan",
-        "field": "ServiceContractId",
-        "relationshipName": "MaintenancePlans",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "MaintenancePlanChangeEvent",
-        "field": "ServiceContractId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -736,12 +727,6 @@
         "childObject": "WorkOrderChangeEvent",
         "field": "ServiceContractId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkPlanSelectionRule",
-        "field": "ServiceContractId",
-        "relationshipName": "WorkPlanSelectionRules",
         "cascadeDelete": false
       }
     ]

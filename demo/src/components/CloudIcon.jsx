@@ -3,8 +3,8 @@ import React from 'react';
 /**
  * CloudIcon component - displays cloud-specific icons
  * 
- * Gets emoji and iconFile from cloudMetadata prop if provided,
- * otherwise falls back to hardcoded mappings
+ * Gets emoji and iconFile from cloudMetadata prop loaded from cloud JSON files.
+ * Falls back to generic cloud emoji if metadata is not available.
  */
 
 const CloudIcon = ({ cloudName, metadata, size = 20, showLabel = false, className = '' }) => {
@@ -13,6 +13,14 @@ const CloudIcon = ({ cloudName, metadata, size = 20, showLabel = false, classNam
   // Get emoji and iconFile from metadata if provided
   const emoji = metadata?.emoji;
   const iconFile = metadata?.iconFile;
+  
+  // Debug: log if metadata is missing
+  if (!metadata) {
+    console.warn(`CloudIcon: No metadata provided for cloud "${cloudName}"`);
+  }
+
+  // Use emoji from metadata or default to cloud emoji
+  const finalEmoji = emoji || '☁️';
 
   // Format friendly name
   const friendlyName = cloudName
@@ -74,36 +82,31 @@ const CloudIcon = ({ cloudName, metadata, size = 20, showLabel = false, classNam
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          {emoji || '☁️'}
+          {finalEmoji}
         </span>
         {showLabel && <span>{friendlyName}</span>}
       </span>
     );
   }
 
-  // Fallback to emoji
-  if (emoji) {
-    return (
-      <span style={containerStyle} className={className} title={friendlyName}>
-        <span style={{ 
-          fontSize: `${size}px`, 
-          lineHeight: 1,
-          width: `${size}px`,
-          height: `${size}px`,
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0
-        }}>
-          {emoji}
-        </span>
-        {showLabel && <span>{friendlyName}</span>}
+  // Fallback to emoji (no icon file available)
+  return (
+    <span style={containerStyle} className={className} title={friendlyName}>
+      <span style={{ 
+        fontSize: `${size}px`, 
+        lineHeight: 1,
+        width: `${size}px`,
+        height: `${size}px`,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0
+      }}>
+        {finalEmoji}
       </span>
-    );
-  }
-
-  // Ultimate fallback - just show the label
-  return showLabel ? <span className={className}>{friendlyName}</span> : null;
+      {showLabel && <span>{friendlyName}</span>}
+    </span>
+  );
 };
 
 export default CloudIcon;

@@ -172,8 +172,11 @@
         "enum": [
           "New",
           "In Progress",
+          "On Hold",
           "Completed",
-          "Closed"
+          "Closed",
+          "Cannot Complete",
+          "Canceled"
         ],
         "maxLength": 40,
         "nullable": true
@@ -189,45 +192,52 @@
       "Quantity": {
         "type": "number",
         "description": "Quantity",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "UnitPrice": {
         "type": "number",
         "description": "Unit Price",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Discount": {
         "type": "number",
         "description": "Discount",
         "format": "percent",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "ListPrice": {
         "type": "number",
         "description": "List Price",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Subtotal": {
         "type": "number",
         "description": "Subtotal",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "number",
         "description": "Total Price",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "Duration": {
         "type": "number",
         "description": "Duration",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "DurationType": {
         "type": "string",
@@ -244,7 +254,8 @@
         "type": "number",
         "description": "Duration in Minutes",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "WorkTypeId": {
         "type": "string",
@@ -287,12 +298,14 @@
       "Latitude": {
         "type": "number",
         "description": "Latitude",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "number",
         "description": "Longitude",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 1e-15
       },
       "GeocodeAccuracy": {
         "type": "string",
@@ -461,6 +474,8 @@
     "module": "Energy and Utilities Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_workorderlineitem.htm",
     "keyPrefix": "1WL",
+    "iconUrl": "icon/t4v35/standard/work_order_item_120.png",
+    "iconColor": "1B96FF",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -498,12 +513,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "AssetActionSource",
-        "field": "ReferenceEntityItemId",
-        "relationshipName": "AssetActionSourceReferences",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "AttachedContentDocument",
         "field": "LinkedEntityId",
         "relationshipName": "AttachedContentDocuments",
@@ -538,12 +547,6 @@
         "field": "FirstPublishLocationId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "DigitalSignature",
-        "field": "ParentId",
-        "relationshipName": "DigitalSignatures",
-        "cascadeDelete": true
       },
       {
         "childObject": "DocumentChecklistItem",
@@ -624,12 +627,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Note",
         "field": "ParentId",
         "relationshipName": "Notes",
@@ -666,18 +663,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ProductConsumed",
-        "field": "WorkOrderLineItemId",
-        "relationshipName": "ProductsConsumed",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ProductConsumedChangeEvent",
-        "field": "WorkOrderLineItemId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "ProductRequest",
         "field": "WorkOrderLineItemId",
         "relationshipName": "ProductRequests",
@@ -702,12 +687,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ProductRequired",
-        "field": "ParentRecordId",
-        "relationshipName": "ProductsRequired",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "RecordAction",
         "field": "RecordId",
         "relationshipName": "RecordActions",
@@ -718,42 +697,6 @@
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "ResourcePreference",
-        "field": "RelatedRecordId",
-        "relationshipName": "ResourcePreferences",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SBQQ__QuoteLine__c",
-        "field": "Work_Order_Line_Item__c",
-        "relationshipName": "Quote_Lines__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "ParentRecordId",
-        "relationshipName": "ServiceAppointments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceAppointmentChangeEvent",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceReport",
-        "field": "ParentId",
-        "relationshipName": "ServiceReports",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SkillRequirement",
-        "field": "RelatedRecordId",
-        "relationshipName": "SkillRequirements",
-        "cascadeDelete": true
       },
       {
         "childObject": "Task",
@@ -776,18 +719,6 @@
       {
         "childObject": "TaskRelationChangeEvent",
         "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TimeSheetEntry",
-        "field": "WorkOrderLineItemId",
-        "relationshipName": "TimeSheetEntries",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TimeSheetEntryChangeEvent",
-        "field": "WorkOrderLineItemId",
         "relationshipName": null,
         "cascadeDelete": false
       },

@@ -7,7 +7,8 @@
         "type": "currency",
         "description": "The amount of money spent to run the campaign. Label is Actual Cost in Campaign.",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "AmountAllOpportunities": {
         "type": "currency",
@@ -31,7 +32,8 @@
         "type": "currency",
         "description": "Amount of money budgeted for the campaign. Label is Budgeted Cost in Campaign.",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "CampaignImageId": {
         "type": "reference",
@@ -47,7 +49,8 @@
         "format": "salesforce-id",
         "x-object": "RecordType",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "CampaignStage": {
         "type": "picklist",
@@ -65,26 +68,30 @@
         "type": "textarea",
         "description": "Description of the campaign. Limit: 32 KB. Only the first 255 characters display in reports.",
         "maxLength": 32000,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "EndDate": {
         "type": "date",
         "description": "Ending date for the campaign. Responses received after this date are still counted.",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "ExpectedResponse": {
         "type": "percent",
         "description": "Percentage of responses you expect to receive for the campaign.",
         "format": "percent",
         "nullable": true,
+        "readOnly": true,
         "multipleOf": 0.01
       },
       "ExpectedRevenue": {
         "type": "currency",
         "description": "Amount of money you expect to generate from the campaign.",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "HierarchyActualCost": {
         "type": "currency",
@@ -214,7 +221,8 @@
       "IsActive": {
         "type": "boolean",
         "description": "Indicates whether this campaign is active (true) or not (false). The default value is false. The label is Active.",
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "LastActivityDate": {
         "type": "date",
@@ -250,7 +258,8 @@
         "type": "string",
         "description": "Required. Name of the campaign. Limit: is 80 characters.",
         "maxLength": 80,
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfContacts": {
         "type": "int",
@@ -291,7 +300,8 @@
       "NumberSent": {
         "type": "double",
         "description": "The number of individuals targeted by the campaign. For example, the number of emails sent. Label is Num Sent.",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
@@ -299,7 +309,8 @@
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "ParentCampaign": {
         "type": "reference",
@@ -311,7 +322,8 @@
         "format": "salesforce-id",
         "x-object": "Campaign",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "RecordTypeId": {
         "type": "reference",
@@ -325,20 +337,22 @@
         "type": "date",
         "description": "Starting date for the campaign.",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
         "description": "Status of the campaign, for example, Planned, In Progress. Limit: 40 characters.",
         "format": "enum",
         "enum": [
-          "Planned",
           "In Progress",
           "Completed",
-          "Cancelled"
+          "Aborted",
+          "Planned"
         ],
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "TenantId": {
         "type": "reference",
@@ -408,18 +422,19 @@
         "description": "Type of campaign, for example, Direct Mail or Referral Program. Limit: 40 characters.",
         "format": "enum",
         "enum": [
-          "Email",
-          "Social Media",
           "Event",
-          "Web Marketing",
-          "Direct Marketing",
-          "Print Marketing",
-          "Direct Mail",
-          "Multi-Channel",
+          "Demo Signup / Trial",
+          "Email",
+          "Referral Program",
+          "Search",
+          "Social Media",
+          "Thought Leadership",
+          "Website Direct",
           "Other"
         ],
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "UniqueEmailOpens": {
         "type": "int",
@@ -493,9 +508,11 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_campaign.htm",
     "keyPrefix": "701",
-    "createable": true,
-    "updateable": true,
-    "deletable": true,
+    "iconUrl": "icon/t4v35/standard/campaign_120.png",
+    "iconColor": "9050E9",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -548,12 +565,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "COM_Qualification_Question__c",
-        "field": "COM_Campaign__c",
-        "relationshipName": "Qualification_Questions__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Campaign",
         "field": "ParentId",
         "relationshipName": "ChildCampaigns",
@@ -575,18 +586,6 @@
         "childObject": "CampaignHistory",
         "field": "CampaignId",
         "relationshipName": "Histories",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CampaignInfluence",
-        "field": "CampaignId",
-        "relationshipName": "CampaignInfluences",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "CampaignInsight",
-        "field": "CampaignId",
-        "relationshipName": "CampaignInsights",
         "cascadeDelete": true
       },
       {
@@ -620,18 +619,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "CampaignTag",
-        "field": "ItemId",
-        "relationshipName": "Tags",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CareProgramCampaign",
-        "field": "CampaignId",
-        "relationshipName": "CampaignCareProgramCampaigns",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "CollaborationGroupRecord",
         "field": "RecordId",
         "relationshipName": "RecordAssociatedGroups",
@@ -644,12 +631,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "ContentDistribution",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "ContentDocumentLink",
         "field": "LinkedEntityId",
         "relationshipName": "ContentDocumentLinks",
@@ -659,18 +640,6 @@
         "childObject": "ContentVersion",
         "field": "FirstPublishLocationId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ContentVersion",
-        "field": "Related_Campaign__c",
-        "relationshipName": "Content__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "DataUsePurpose",
-        "field": "PurposeId",
-        "relationshipName": "DataUsePurposes",
         "cascadeDelete": false
       },
       {
@@ -746,18 +715,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "LandingPage",
-        "field": "CampaignId",
-        "relationshipName": "LandingPages",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "LandingPageChangeEvent",
-        "field": "CampaignId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "ListEmail",
         "field": "CampaignId",
         "relationshipName": "ListEmails",
@@ -774,36 +731,6 @@
         "field": "SourceListId",
         "relationshipName": "ListEmailRecipientSources",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "MarketingForm",
-        "field": "CampaignId",
-        "relationshipName": "MarketingForms",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "MarketingFormChangeEvent",
-        "field": "CampaignId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "MarketingLink",
-        "field": "CampaignId",
-        "relationshipName": "MarketingLinks",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "MarketingLinkChangeEvent",
-        "field": "CampaignId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
-        "cascadeDelete": false
       },
       {
         "childObject": "OpenActivity",
@@ -824,21 +751,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Order",
-        "field": "vlocity_cmt__CampaignId__c",
-        "relationshipName": "vlocity_cmt__Orders__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "OutgoingEmail",
         "field": "RelatedToId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PartnerFundRequest",
-        "field": "CampaignId",
-        "relationshipName": "PartnerFundRequests",
         "cascadeDelete": false
       },
       {
@@ -854,18 +769,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Promotion",
-        "field": "CampaignId",
-        "relationshipName": "CampaignPromotions",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Quote",
-        "field": "vlocity_cmt__CampaignId__c",
-        "relationshipName": "vlocity_cmt__Quotes__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "RecordAction",
         "field": "RecordId",
         "relationshipName": "RecordActions",
@@ -875,24 +778,6 @@
         "childObject": "RecordActionHistory",
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "RecordRecommendation",
-        "field": "TargetId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SnippetAssignment",
-        "field": "ParentId",
-        "relationshipName": "SnippetReferenceEntities",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SurveySubject",
-        "field": "SubjectId",
-        "relationshipName": "SurveySubjectEntities",
         "cascadeDelete": false
       },
       {
@@ -923,54 +808,6 @@
         "childObject": "TopicAssignment",
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "et4ae5__SMSDefinition__c",
-        "field": "et4ae5__Campaign__c",
-        "relationshipName": "et4ae5__SMSDefinitions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__SMSDefinition__c",
-        "field": "et4ae5__ExclusionCampaign__c",
-        "relationshipName": "et4ae5__SMS_Definitions1__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__SMSJunction__c",
-        "field": "et4ae5__Campaign__c",
-        "relationshipName": "et4ae5__SMS_Definitions__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "et4ae5__SendDefinition__c",
-        "field": "et4ae5__Campaign__c",
-        "relationshipName": "et4ae5__SendDefinitions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__SendDefinition__c",
-        "field": "et4ae5__ExclusionCampaign__c",
-        "relationshipName": "et4ae5__Send_Definitions1__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__SendJunction__c",
-        "field": "et4ae5__Campaign__c",
-        "relationshipName": "et4ae5__Send_Definitions__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "mcdm_15__ApprovalsPageSettings__c",
-        "field": "mcdm_15__Campaign__c",
-        "relationshipName": "mcdm_15__Campaign__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CampaignContentDocument__c",
-        "field": "vlocity_cmt__CampaignId__c",
-        "relationshipName": "vlocity_cmt__Campaign_Content__r",
         "cascadeDelete": true
       }
     ]

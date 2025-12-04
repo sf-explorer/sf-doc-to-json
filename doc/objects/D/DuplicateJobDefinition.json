@@ -5,26 +5,132 @@
     "properties": {
       "DeveloperName": {
         "type": "string",
-        "description": "The developer name of the DuplicateJobDefinition."
+        "description": "The developer name of the DuplicateJobDefinition.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Language": {
         "type": "picklist",
-        "description": "The language in the user’s personal settings."
+        "description": "The language in the user’s personal settings.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "fr"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label of the DuplicateJobDefinition."
+        "description": "The label of the DuplicateJobDefinition.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "SobjectSubtype": {
         "type": "picklist",
-        "description": "The object subtype. Valid values are PersonAccount and None."
+        "description": "The object subtype. Valid values are PersonAccount and None.",
+        "format": "enum",
+        "enum": [
+          "None",
+          "PersonAccount"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SobjectType": {
         "type": "picklist",
-        "description": "The object type:Account, Contact, or Lead."
+        "description": "The object type:Account, Contact, or Lead.",
+        "format": "enum",
+        "enum": [
+          "Account",
+          "Address",
+          "Contact",
+          "Individual",
+          "Lead"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Duplicate Job Definition ID",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Deleted",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Created Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "Created By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Last Modified Date",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "Last Modified By ID",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "System Modstamp",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_duplicatejobdefinition.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_duplicatejobdefinition.htm",
+    "keyPrefix": "0PO",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DuplicateJob",
+        "field": "DuplicateJobDefinitionId",
+        "relationshipName": "DuplicateJobs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DuplicateJobMatchingRuleDefinition",
+        "field": "DuplicateJobDefinitionId",
+        "relationshipName": "DuplicateJobMatchingRuleDefinitions",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

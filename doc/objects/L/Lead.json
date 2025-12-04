@@ -53,7 +53,7 @@
         "type": "string",
         "description": "Required. The lead’s company. If person account record types have been enabled, and if the value of Company is null, the lead converts to a person account.",
         "maxLength": 255,
-        "nullable": true
+        "nullable": false
       },
       "CompanyDunsNumber": {
         "type": "string",
@@ -244,9 +244,10 @@
           "Engineering",
           "Entertainment",
           "Environmental",
+          "Finance",
           "Food & Beverage",
           "Government",
-          "Healthcare & Life Sciences",
+          "Healthcare",
           "Hospitality",
           "Insurance",
           "Machinery",
@@ -260,8 +261,7 @@
           "Technology",
           "Telecommunications",
           "Transportation",
-          "Utilities",
-          "Financial Services"
+          "Utilities"
         ],
         "maxLength": 255,
         "nullable": true
@@ -338,16 +338,17 @@
         "description": "The origin or source of the lead.",
         "format": "enum",
         "enum": [
-          "Website",
-          "Social Media",
-          "Marketing Event",
-          "Referral",
-          "Cold Call",
-          "Data.com",
+          "Advertisement",
+          "Customer Event",
+          "Employee Referral",
+          "External Referral",
+          "Google AdWords",
+          "Other",
           "Partner",
-          "Community",
-          "Inbound Call",
-          "Salesforce IoT"
+          "Purchased List",
+          "Trade Show",
+          "Webinar",
+          "Website"
         ],
         "maxLength": 255,
         "nullable": true
@@ -442,7 +443,7 @@
         "enum": [
           "Hot",
           "Warm",
-          "Cool"
+          "Cold"
         ],
         "maxLength": 255,
         "nullable": true
@@ -460,12 +461,8 @@
         "description": "Salutation for the lead.",
         "format": "enum",
         "enum": [
-          "Mr.",
-          "Ms.",
-          "Mrs.",
-          "Dr.",
-          "Prof.",
-          "Mx."
+          "MONSIEUR",
+          "MADAME"
         ],
         "maxLength": 40,
         "nullable": true
@@ -498,16 +495,11 @@
         "description": "Status code for this converted lead. Status codes are defined in Status and represented in the API by the LeadStatus object.",
         "format": "enum",
         "enum": [
+          "Unqualified",
           "New",
           "Working",
-          "Qualified",
-          "Converted",
-          "Unqualified",
-          "Draft",
-          "Submitted",
-          "Approved",
-          "Pending",
-          "Rejected"
+          "Nurturing",
+          "Qualified"
         ],
         "maxLength": 255,
         "nullable": false
@@ -618,6 +610,8 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_lead.htm",
     "keyPrefix": "00Q",
+    "iconUrl": "icon/t4v35/standard/lead_120.png",
+    "iconColor": "06A59A",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -661,12 +655,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "AgentWork",
-        "field": "WorkItemId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "AssessmentTaskContentDocument",
         "field": "ContentContextId",
         "relationshipName": "ContentDocumentContext",
@@ -703,12 +691,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "COM_Qualification_Answer__c",
-        "field": "COM_Lead__c",
-        "relationshipName": "Qualification_Answers__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "CampaignMember",
         "field": "LeadId",
         "relationshipName": "CampaignMembers",
@@ -724,12 +706,6 @@
         "childObject": "CampaignMemberChangeEvent",
         "field": "LeadId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "CareProgramEnrollee",
-        "field": "LeadId",
-        "relationshipName": "LeadCareProgramEnrollees",
         "cascadeDelete": false
       },
       {
@@ -749,12 +725,6 @@
         "field": "WhoId",
         "relationshipName": "ContactRequests",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "ContentDistribution",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
       },
       {
         "childObject": "ContentDocumentLink",
@@ -796,12 +766,6 @@
         "childObject": "EmailStatus",
         "field": "WhoId",
         "relationshipName": "EmailStatuses",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "EngagementScore",
-        "field": "BaseId",
-        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -877,28 +841,10 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "LeadInsight",
-        "field": "ParentId",
-        "relationshipName": "LeadInsights",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "LeadShare",
         "field": "LeadId",
         "relationshipName": "Shares",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "LeadTag",
-        "field": "ItemId",
-        "relationshipName": "Tags",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "Linkedin_Lead__c",
-        "field": "Lead__c",
-        "relationshipName": "LinkedIn_Leads__r",
-        "cascadeDelete": false
       },
       {
         "childObject": "ListEmailIndividualRecipient",
@@ -907,33 +853,9 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "LiveChatTranscript",
-        "field": "LeadId",
-        "relationshipName": "LiveChatTranscripts",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "LiveChatTranscriptChangeEvent",
-        "field": "LeadId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "MOCK_Score__c",
-        "field": "Lead__c",
-        "relationshipName": "Scores__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "MessagingSession",
         "field": "LeadId",
         "relationshipName": "MessagingSessions",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -946,12 +868,6 @@
         "childObject": "NoteAndAttachment",
         "field": "ParentId",
         "relationshipName": "NotesAndAttachments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ObjectTerritory2Association",
-        "field": "ObjectId",
-        "relationshipName": "ObjectTerritory2Associations",
         "cascadeDelete": true
       },
       {
@@ -979,30 +895,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "LocalRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "PartnerRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PendingServiceRouting",
-        "field": "WorkItemId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "ProcessInstance",
         "field": "TargetObjectId",
         "relationshipName": "ProcessInstances",
@@ -1027,24 +919,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ScoreIntelligence",
-        "field": "BaseId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "ParentRecordId",
-        "relationshipName": "ServiceAppointments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceAppointmentChangeEvent",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "SocialPersona",
         "field": "ParentId",
         "relationshipName": "Personas",
@@ -1060,30 +934,6 @@
         "childObject": "SocialPostChangeEvent",
         "field": "WhoId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SurveyInvitation",
-        "field": "LeadId",
-        "relationshipName": "ContactSurveyInvitations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SurveyInvitation",
-        "field": "ParticipantId",
-        "relationshipName": "SurveyInvitations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SurveyResponse",
-        "field": "SubmitterId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SurveySubject",
-        "field": "SubjectId",
-        "relationshipName": "SurveySubjectEntities",
         "cascadeDelete": false
       },
       {
@@ -1133,102 +983,6 @@
         "field": "PersonRecordId",
         "relationshipName": "PersonRecord",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "VoiceCall",
-        "field": "RelatedRecordId",
-        "relationshipName": "RelatedRecords",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "VoiceCallChangeEvent",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "engage_reports__Engage_Lead_Stat__c",
-        "field": "engage_reports__Lead__c",
-        "relationshipName": "engage_reports__Engage_Lead_Stats__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__IndividualEmailResult__c",
-        "field": "et4ae5__Lead__c",
-        "relationshipName": "et4ae5__IndividualEmailResults__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__SMSDefinition__c",
-        "field": "et4ae5__Lead__c",
-        "relationshipName": "et4ae5__SMSDefinitions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "et4ae5__SendDefinition__c",
-        "field": "et4ae5__Lead__c",
-        "relationshipName": "et4ae5__SendDefinitions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__AdvRouteVisitWindows__c",
-        "field": "maps__VW_Lead__c",
-        "relationshipName": "maps__AdvRouteVisitWindows__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__AdvRouteWaypoint__c",
-        "field": "maps__RW_Lead__c",
-        "relationshipName": "maps__AdvRouteWaypoints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__DebugLog__c",
-        "field": "maps__Lead__c",
-        "relationshipName": "maps__LeadAutoAssignmentLogs__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__LiveEventAssociation__c",
-        "field": "maps__AssociatedLead__c",
-        "relationshipName": "maps__LiveEventAssociations__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__Waypoint__c",
-        "field": "maps__Lead__c",
-        "relationshipName": "maps__Maps_Waypoints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "pi__Category_Lead_Score__c",
-        "field": "pi__Lead__c",
-        "relationshipName": "pi__Category_Lead_Scores__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "pi__EngageCampaignRecipient__c",
-        "field": "pi__LeadId__c",
-        "relationshipName": "pi__EngageCampaign_Lead__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "slackv2__Slack_Message__c",
-        "field": "slackv2__Lead__c",
-        "relationshipName": "slackv2__Slack_Messages__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__Cart__c",
-        "field": "vlocity_cmt__LeadId__c",
-        "relationshipName": "vlocity_cmt__Cart__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
-        "field": "vlocity_cmt__LeadId__c",
-        "relationshipName": "vlocity_cmt__TrackingEntries__r",
-        "cascadeDelete": false
       }
     ]
   }

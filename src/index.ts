@@ -13,6 +13,19 @@ const indexCache: { data: DocumentIndex | null; loaded: boolean } = { data: null
 const cloudCache = new Map<string, SalesforceObjectCollection>();
 
 /**
+ * Convert a cloud display name to its file name
+ * This ensures consistent naming across the codebase
+ * @param cloudName - The cloud display name (e.g., "Financial Services Cloud")
+ * @returns The file name (e.g., "financial-services-cloud")
+ */
+function cloudNameToFileName(cloudName: string): string {
+    return cloudName
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '');
+}
+
+/**
  * Load the index file containing all objects and their cloud associations
  * @param useCache - Whether to use cached data (default: true)
  */
@@ -139,31 +152,17 @@ async function loadObjectFromFile(objectName: string, expectedCloud?: string): P
 export async function loadAllClouds(useCache = true): Promise<CloudData> {
     const index = await loadIndex(useCache);
     
-    if (!index) {
+    if (!index || !index.clouds) {
+        console.warn('Cloud index not found. Please regenerate the index.');
         return {};
     }
     
-    // Get unique cloud file names from index
-    const cloudFiles = new Set<string>();
-    
-    for (const obj of Object.values(index.objects)) {
-        if (obj.file.startsWith('objects/') || obj.file.startsWith('metadata/')) {
-            // New format: derive cloud file name from cloud name
-            const cloudFileName = obj.cloud
-                .toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^a-z0-9-]/g, '');
-            cloudFiles.add(cloudFileName);
-        } else {
-            // Old format: use file name directly
-            cloudFiles.add(obj.file.replace('.json', ''));
-        }
-    }
-    
+    // Use the cloud index from index.json - no guessing
+    const cloudFiles = Object.keys(index.clouds);
     const cloudData: CloudData = {};
     
     await Promise.all(
-        Array.from(cloudFiles).map(async (cloudFileName) => {
+        cloudFiles.map(async (cloudFileName) => {
             const data = await loadCloud(cloudFileName, useCache);
             if (data) {
                 cloudData[cloudFileName] = data;
@@ -283,12 +282,15 @@ export async function getObjectsByCloud(
 export async function getAvailableClouds(useCache = true): Promise<string[]> {
     const index = await loadIndex(useCache);
     
-    if (!index) {
+    if (!index || !index.clouds) {
+        console.warn('Cloud index not found. Please regenerate the index.');
         return [];
     }
     
-    const clouds = new Set(Object.values(index.objects).map(entry => entry.cloud));
-    return Array.from(clouds).sort();
+    // Use the cloud index from index.json - no guessing
+    return Object.values(index.clouds)
+        .map(cloudEntry => cloudEntry.cloud)
+        .sort();
 }
 
 /**
@@ -310,46 +312,35 @@ export interface CloudMetadata {
 export async function getAllCloudMetadata(useCache = true): Promise<CloudMetadata[]> {
     const index = await loadIndex(useCache);
     
-    if (!index) {
+    if (!index || !index.clouds) {
+        console.warn('Cloud index not found. Please regenerate the index.');
         return [];
     }
     
-    // Get unique cloud names
-    const cloudNames = new Set(Object.values(index.objects).map(entry => entry.cloud));
-    
-    // Load metadata for each cloud
-    const cloudMetadata: CloudMetadata[] = [];
-    
-    for (const cloudName of cloudNames) {
-        // Convert cloud name to file name (lowercase with dashes)
-        const cloudFileName = cloudName
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^a-z0-9-]/g, '');
-        
+    // Load cloud metadata from files
+    const cloudMetadataPromises = Object.values(index.clouds).map(async (cloudEntry) => {
         try {
-            // Load the cloud file to get its metadata
-            const cloudFile = await import(`../doc/${cloudFileName}.json`);
-            const cloudData = cloudFile.default || cloudFile;
+            // Load just the cloud metadata file (not the objects)
+            const cloudModule = await import(`../doc/${cloudEntry.fileName}.json`);
+            const cloudData = cloudModule.default || cloudModule;
             
-            cloudMetadata.push({
-                cloud: cloudData.cloud,
-                description: cloudData.description || '',
-                emoji: cloudData.emoji,
-                iconFile: cloudData.iconFile,
+            return {
+                cloud: cloudEntry.cloud,
+                description: cloudData.description || `Discover objects and features for ${cloudEntry.cloud}.`,
+                emoji: cloudData.emoji || '☁️',
+                iconFile: cloudData.iconFile || null,
                 objectCount: cloudData.objectCount || 0
-            });
+            };
         } catch (error) {
-            // If cloud file not found, just include the name
-            cloudMetadata.push({
-                cloud: cloudName,
-                description: '',
-                objectCount: 0
-            });
+            console.warn(`Failed to load cloud metadata for ${cloudEntry.cloud}:`, error);
+            return null;
         }
-    }
+    });
     
-    return cloudMetadata.sort((a, b) => a.cloud.localeCompare(b.cloud));
+    const results = (await Promise.all(cloudMetadataPromises)).filter(
+        (result): result is NonNullable<typeof result> => result !== null
+    );
+    return results.sort((a, b) => a.cloud.localeCompare(b.cloud));
 }
 
 /**
@@ -362,24 +353,36 @@ export async function getCloudMetadata(
     cloudName: string,
     useCache = true
 ): Promise<CloudMetadata | null> {
-    // Convert cloud name to file name
-    const cloudFileName = cloudName
-        .toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9-]/g, '');
+    const index = await loadIndex(useCache);
+    
+    if (!index || !index.clouds) {
+        console.warn('Cloud index not found. Please regenerate the index.');
+        return null;
+    }
+    
+    // Find the cloud in the index - no guessing
+    const cloudEntry = Object.values(index.clouds).find(
+        entry => entry.cloud === cloudName
+    );
+    
+    if (!cloudEntry) {
+        return null;
+    }
     
     try {
-        const cloudFile = await import(`../doc/${cloudFileName}.json`);
-        const cloudData = cloudFile.default || cloudFile;
+        // Load just the cloud metadata file
+        const cloudModule = await import(`../doc/${cloudEntry.fileName}.json`);
+        const cloudData = cloudModule.default || cloudModule;
         
         return {
-            cloud: cloudData.cloud,
-            description: cloudData.description || '',
-            emoji: cloudData.emoji,
-            iconFile: cloudData.iconFile,
+            cloud: cloudEntry.cloud,
+            description: cloudData.description || `Discover objects and features for ${cloudEntry.cloud}.`,
+            emoji: cloudData.emoji || '☁️',
+            iconFile: cloudData.iconFile || null,
             objectCount: cloudData.objectCount || 0
         };
     } catch (error) {
+        console.warn(`Failed to load cloud metadata for ${cloudName}:`, error);
         return null;
     }
 }

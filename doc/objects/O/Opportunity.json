@@ -272,16 +272,17 @@
         "description": "",
         "format": "enum",
         "enum": [
-          "Website",
-          "Social Media",
-          "Marketing Event",
-          "Referral",
-          "Cold Call",
-          "Data.com",
+          "Advertisement",
+          "Customer Event",
+          "Employee Referral",
+          "External Referral",
+          "Google AdWords",
+          "Other",
           "Partner",
-          "Community",
-          "Inbound Call",
-          "Salesforce IoT"
+          "Purchased List",
+          "Trade Show",
+          "Webinar",
+          "Website"
         ],
         "maxLength": 255,
         "nullable": true
@@ -351,8 +352,8 @@
         "format": "enum",
         "enum": [
           "Qualification",
-          "Discovery",
-          "Proposal/Quote",
+          "Needs Analysis",
+          "Proposal",
           "Negotiation",
           "Closed Won",
           "Closed Lost"
@@ -383,9 +384,8 @@
         "description": "",
         "format": "enum",
         "enum": [
-          "New Business",
-          "Add-On Business",
-          "Services"
+          "Existing Business",
+          "New Business"
         ],
         "maxLength": 255,
         "nullable": true
@@ -462,6 +462,8 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunity.htm",
     "keyPrefix": "006",
+    "iconUrl": "icon/t4v35/standard/opportunity_120.png",
+    "iconColor": "FF5D2D",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -481,15 +483,15 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Account",
-        "field": "SBQQ__DefaultOpportunity__c",
-        "relationshipName": "SBQQ__WebAccounts__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "AccountPartner",
         "field": "OpportunityId",
         "relationshipName": "AccountPartners",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Account_Opportunity_Junction__c",
+        "field": "Opportunity__c",
+        "relationshipName": "Related_Accounts__r",
         "cascadeDelete": true
       },
       {
@@ -502,12 +504,6 @@
         "childObject": "ActivityHistory",
         "field": "WhatId",
         "relationshipName": "ActivityHistories",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "AgentWork",
-        "field": "WorkItemId",
-        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -535,24 +531,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "Bookmark",
-        "field": "FromId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "Bookmark",
-        "field": "ToId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CampaignInfluence",
-        "field": "OpportunityId",
-        "relationshipName": "CampaignInfluences",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "CollaborationGroupRecord",
         "field": "RecordId",
         "relationshipName": "RecordAssociatedGroups",
@@ -571,12 +549,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ContentDistribution",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "ContentDocumentLink",
         "field": "LinkedEntityId",
         "relationshipName": "ContentDocumentLinks",
@@ -586,24 +558,6 @@
         "childObject": "ContentVersion",
         "field": "FirstPublishLocationId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Contract",
-        "field": "SBQQ__Opportunity__c",
-        "relationshipName": "SBQQ__Contracts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Contract",
-        "field": "SBQQ__RenewalOpportunity__c",
-        "relationshipName": "SBQQ__RenewedContracts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Contract",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__Contracts__r",
         "cascadeDelete": false
       },
       {
@@ -703,21 +657,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "MOCK_Score__c",
-        "field": "Opportunity__c",
-        "relationshipName": "Scores__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "MessagingSession",
         "field": "OpportunityId",
         "relationshipName": "MessagingSessions",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "NetworkActivityAudit",
-        "field": "ParentEntityId",
-        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -757,12 +699,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "OpportunityContactRoleSuggestionInsight",
-        "field": "OpportunityId",
-        "relationshipName": "OpportunityContactRoleSuggestionInsights",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "OpportunityFeed",
         "field": "ParentId",
         "relationshipName": "Feeds",
@@ -793,39 +729,9 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "OpportunityScore",
-        "field": "BaseId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
         "childObject": "OpportunityShare",
         "field": "OpportunityId",
         "relationshipName": "Shares",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "OpportunitySplit",
-        "field": "OpportunityId",
-        "relationshipName": "OpportunitySplits",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "OpportunitySplitChangeEvent",
-        "field": "OpportunityId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OpportunityTag",
-        "field": "ItemId",
-        "relationshipName": "Tags",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "OpportunityTeamMember",
-        "field": "OpportunityId",
-        "relationshipName": "OpportunityTeamMembers",
         "cascadeDelete": true
       },
       {
@@ -833,24 +739,6 @@
         "field": "ParentId",
         "relationshipName": null,
         "cascadeDelete": true
-      },
-      {
-        "childObject": "Order",
-        "field": "OpportunityId",
-        "relationshipName": "Orders",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Order",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__Orders__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderChangeEvent",
-        "field": "OpportunityId",
-        "relationshipName": null,
-        "cascadeDelete": false
       },
       {
         "childObject": "OutgoingEmail",
@@ -862,30 +750,6 @@
         "childObject": "Partner",
         "field": "OpportunityId",
         "relationshipName": "Partners",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "LocalRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "PartnerRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PendingServiceRouting",
-        "field": "WorkItemId",
-        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -925,60 +789,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "RecordRecommendation",
-        "field": "TargetId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "SBQQ__QuoteDocument__c",
-        "field": "SBQQ__Opportunity__c",
-        "relationshipName": "SBQQ__R00N700000029COgEAM__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Quote__c",
-        "field": "SBQQ__Opportunity2__c",
-        "relationshipName": "SBQQ__Quotes2__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__RelatedContent__c",
-        "field": "SBQQ__Opportunity__c",
-        "relationshipName": "SBQQ__Additional_Documents__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__WebQuote__c",
-        "field": "SBQQ__Opportunity__c",
-        "relationshipName": "SBQQ__WebQuotes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SFDC_Objective_Opportunity_Association__c",
-        "field": "Opportunity__c",
-        "relationshipName": "R00NHo00000FIrYkMAL",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ServiceAppointment",
-        "field": "ParentRecordId",
-        "relationshipName": "ServiceAppointments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceAppointmentChangeEvent",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SurveySubject",
-        "field": "SubjectId",
-        "relationshipName": "SurveySubjectEntities",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -1007,132 +817,6 @@
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "VoiceCall",
-        "field": "RelatedRecordId",
-        "relationshipName": "RelatedRecords",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "VoiceCallChangeEvent",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkOrder",
-        "field": "Opportunity__c",
-        "relationshipName": "Work_Orders__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__AdvRouteVisitWindows__c",
-        "field": "maps__VW_Opportunity__c",
-        "relationshipName": "maps__AdvRouteVisitWindows__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__AdvRouteWaypoint__c",
-        "field": "maps__RW_Opportunity__c",
-        "relationshipName": "maps__AdvRouteWaypoints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__LiveEventAssociation__c",
-        "field": "maps__AssociatedOpportunity__c",
-        "relationshipName": "maps__LiveEventAssociations__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "maps__Waypoint__c",
-        "field": "maps__Opportunity__c",
-        "relationshipName": "maps__Maps_Waypoints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "sbaa__Approval__c",
-        "field": "sbaa__Opportunity__c",
-        "relationshipName": "sbaa__Approvals__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "sbaa__TrackedValue__c",
-        "field": "sbaa__Opportunity__c",
-        "relationshipName": "sbaa__TrackedValues__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "slackv2__Slack_Message__c",
-        "field": "slackv2__Opportunity__c",
-        "relationshipName": "slackv2__Slack_Messages__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__Application__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__Applications__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ContractEnvelope__c",
-        "field": "vlocity_cmt__ContractOpportunityId__c",
-        "relationshipName": "vlocity_cmt__ContractEnvelopes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__GenericEnvelope__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__GenericDocuSignEnvelopes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityAppliedPromotion__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__OpportunityAppliedPromotions__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityDiscount__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__OpportunityDiscounts__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityGroup__c",
-        "field": "vlocity_cmt__GroupCartId__c",
-        "relationshipName": "vlocity_cmt__OpportunityCartGroups__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityGroup__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__OpportunityGroups__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityLineItemRelationship__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__OpportunityLineItemRelationships__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityMember__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__OpportunityMembers__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityPriceAdjustment__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__OpportunityPriceAdjustments__r",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
-        "field": "vlocity_cmt__OpportunityId__c",
-        "relationshipName": "vlocity_cmt__TrackingEntries__r",
-        "cascadeDelete": false
       }
     ]
   }
