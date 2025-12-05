@@ -10,6 +10,7 @@ export interface SalesforceObject {
     module: string;
     sourceUrl?: string;
     clouds?: string[]; // Track multiple clouds if object appears in multiple places
+    accessRules?: string; // Special Access Rules / permissions required to access this object
 }
 
 export interface CloudConfiguration {
@@ -27,6 +28,7 @@ export interface ObjectIndexEntry {
     sourceUrl?: string;
     icon?: string;
     clouds?: string[]; // Track all clouds this object appears in
+    accessRules?: string; // Special Access Rules / permissions required
 }
 
 export interface CloudIndexEntry {

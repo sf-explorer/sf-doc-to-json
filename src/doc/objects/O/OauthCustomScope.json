@@ -1,7 +1,7 @@
 {
   "OauthCustomScope": {
     "name": "OauthCustomScope",
-    "description": "OAuth Custom Scopes - OauthCustomScope",
+    "description": "Represents a permission defining the protected data that a connected app can access from an external entity when Salesforce is the OAuth authorization provider.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Name",
+        "description": "Use when referring to the OAuth custom scope from a program. This label must be unique, and can include only alphanumeric characters and underscores.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "Indicates the default language defined for the developing org.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -36,7 +36,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "The master label for the custom scope record. This label must be unique, and can include only alphanumeric characters and underscores.",
         "maxLength": 80,
         "nullable": false
       },
@@ -77,16 +77,21 @@
       "Description": {
         "type": "string",
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "description": "The description of the permission provided to the connected app by the scope. The custom scope’s description must be unique, can only include alphanumeric characters, and can be up to 60 characters long."
       },
       "IsPublic": {
         "type": "boolean",
-        "description": "Include on well known endpoint",
+        "description": "Indicates whether the object is included in the connected app’s OpenID Connect discovery endpoint. For more information, see OpenID Connect Discovery Endpoint.",
         "nullable": false
+      },
+      "NamespacePrefix": {
+        "type": "string",
+        "description": "The namespace prefix for an OAuth custom scope that's been installed as part of a second-generation managed package. If the custom scope isn't packaged, this value is empty. This field is available in API version 61.0 and later."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_oauthcustomscope.htm",
     "keyPrefix": "7ud",
     "label": "OAuth Custom Scope",
     "createable": true,
@@ -101,6 +106,11 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "You must have the “Manage Connected Apps” permission to access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

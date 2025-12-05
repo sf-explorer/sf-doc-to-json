@@ -1,7 +1,7 @@
 {
   "ResourceAbsence": {
     "name": "ResourceAbsence",
-    "description": "Fields associated with a time period in which a service resource is unavailable to work in Field Service.",
+    "description": "Represents a time period in which a service resource is unavailable to work in Field Service, Salesforce Scheduler, or Workforce Engagement.",
     "properties": {
       "ApprovalStatus": {
         "type": "picklist",
@@ -23,7 +23,7 @@
       },
       "AbsenceNumber": {
         "type": "string",
-        "description": "Absence Number",
+        "description": "(Read only) An auto-generated number identifying the absence.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
@@ -88,22 +88,22 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The date when the resource absence was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The date when the resource absence was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ResourceId": {
-        "type": "string",
-        "description": "Resource ID",
+        "type": "reference",
+        "description": "The absent service resource.",
         "format": "salesforce-id",
         "x-object": "ServiceResource",
         "maxLength": 18,
@@ -111,8 +111,8 @@
         "readOnly": true
       },
       "Type": {
-        "type": "string",
-        "description": "Type",
+        "type": "picklist",
+        "description": "The type of absence: Meeting, Training, Medical, or Vacation. The default value is Vacation. You can add custom values if needed, but the name Break is reserved for the Field Service managed package.",
         "format": "enum",
         "enum": [
           "Vacation",
@@ -124,38 +124,38 @@
         "nullable": false
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of the absence.",
         "maxLength": 32000,
         "nullable": true
       },
       "Start": {
-        "type": "string",
-        "description": "Start Time",
+        "type": "dateTime",
+        "description": "The date and time when the absence begins.",
         "format": "date-time",
         "nullable": false
       },
       "End": {
-        "type": "string",
-        "description": "End Time",
+        "type": "dateTime",
+        "description": "The date and time when the absence ends.",
         "format": "date-time",
         "nullable": false
       },
       "Street": {
-        "type": "string",
-        "description": "Address",
+        "type": "textarea",
+        "description": "The street number and name of the address associated with the absence.",
         "maxLength": 255,
         "nullable": true
       },
       "City": {
         "type": "string",
-        "description": "City",
+        "description": "The city of the address associated with the absence. Maximum length is 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "State": {
         "type": "string",
-        "description": "State/Province",
+        "description": "The state of the address associated with the absence. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
@@ -167,23 +167,23 @@
       },
       "Country": {
         "type": "string",
-        "description": "Country",
+        "description": "The country of the address associated with the absence. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "Latitude": {
-        "type": "number",
-        "description": "Latitude",
+        "type": "double",
+        "description": "Used with Longitude to specify the precise geolocation of the address associated with the absence. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. Note This field is available in the API only.",
         "nullable": true
       },
       "Longitude": {
-        "type": "number",
-        "description": "Longitude",
+        "type": "double",
+        "description": "Used with Latitude to specify the precise geolocation of the address associated with the absence. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. Note This field is available in the API only.",
         "nullable": true
       },
       "GeocodeAccuracy": {
-        "type": "string",
-        "description": "Geocode Accuracy",
+        "type": "picklist",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only.",
         "format": "enum",
         "enum": [
           "Address",
@@ -202,8 +202,8 @@
         "nullable": true
       },
       "Address": {
-        "type": "object",
-        "description": "Address",
+        "type": "address",
+        "description": "The compound form of the address associated with the absence.",
         "nullable": true,
         "readOnly": true
       },
@@ -216,10 +216,14 @@
         "type": "number",
         "description": "Internal SLR Geolocation (Longitude)",
         "nullable": true
+      },
+      "Postal Code": {
+        "type": "string",
+        "description": "The postal code of the address associated with the absence. Maximum length is 20 characters."
       }
     },
-    "module": "Energy and Utilities Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_resourceabsence.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_resourceabsence.htm",
     "keyPrefix": "0Hw",
     "createable": true,
     "updateable": true,
@@ -437,6 +441,11 @@
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Field Service or Workforce Engagement must be enabled.",
+    "clouds": [
+      "Energy and Utilities Cloud",
+      "Core Salesforce"
     ]
   }
 }

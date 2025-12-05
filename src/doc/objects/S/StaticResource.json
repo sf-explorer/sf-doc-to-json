@@ -1,7 +1,7 @@
 {
   "StaticResource": {
     "name": "StaticResource",
-    "description": "Static Resources - StaticResource",
+    "description": "Represents the working copy of a static resource file for editing or saving. Static resources allow you to upload content that you can reference in a Visualforce page, including images, stylesheets, JavaScript, and other files.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,38 +13,38 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name",
+        "description": "The static resource name. The name can only contain characters, letters, and the underscore (_) character, must start with a letter, and cannot end with an underscore or contain two consecutive underscore characters",
         "maxLength": 255,
         "nullable": false
       },
       "ContentType": {
         "type": "string",
-        "description": "MIME Type",
+        "description": "Required. The content type of the file, for example text/plain.",
         "maxLength": 120,
         "nullable": false
       },
       "BodyLength": {
-        "type": "integer",
-        "description": "Size",
+        "type": "int",
+        "description": "Size of the file (in bytes).",
         "nullable": false,
         "readOnly": true
       },
       "Body": {
         "type": "string",
-        "description": "Body",
+        "description": "The data for the static resource file.",
         "format": "byte",
         "nullable": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "Text description of the static resource. Limit: 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
@@ -89,7 +89,7 @@
       },
       "CacheControl": {
         "type": "string",
-        "description": "Cache Control",
+        "description": "Required. Indicates whether the static resource is marked with a public caching tag so that a third-party delivery client can cache the content. The valid values are: Private Public",
         "format": "enum",
         "enum": [
           "Private",
@@ -97,10 +97,14 @@
         ],
         "maxLength": 40,
         "nullable": false
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_staticresource.htm",
     "keyPrefix": "081",
     "label": "Static Resource",
     "createable": true,
@@ -121,6 +125,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

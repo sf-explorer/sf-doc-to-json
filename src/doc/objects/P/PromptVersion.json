@@ -1,7 +1,7 @@
 {
   "PromptVersion": {
     "name": "PromptVersion",
-    "description": "Prompt Versions - PromptVersion",
+    "description": "Represents an in-app guidance prompt or walkthrough.",
     "properties": {
       "Id": {
         "type": "string",
@@ -52,8 +52,8 @@
         "readOnly": true
       },
       "ParentId": {
-        "type": "string",
-        "description": "Prompt ID",
+        "type": "reference",
+        "description": "ID of the in-app guidance.",
         "format": "salesforce-id",
         "x-object": "Prompt",
         "maxLength": 18,
@@ -63,16 +63,18 @@
       "MasterLabel": {
         "type": "string",
         "maxLength": 80,
-        "nullable": false
+        "nullable": false,
+        "description": "The label. Maximum of 80 characters."
       },
       "Description": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "Description. Maximum of 255 characters."
       },
       "DisplayType": {
-        "type": "string",
-        "description": "Type",
+        "type": "picklist",
+        "description": "The type of prompt. Valid values are: DockedComposer—A docked prompt FloatingPanel—A floating prompt Targeted—A targeted prompt. Available in API version 52.0 and later.",
         "format": "enum",
         "enum": [
           "DockedComposer",
@@ -83,8 +85,8 @@
         "nullable": false
       },
       "DisplayPosition": {
-        "type": "string",
-        "description": "Position",
+        "type": "picklist",
+        "description": "The position of a floating prompt on the page. Valid values are: TopLeft TopCenter TopRight MiddleLeft MiddleCenter MiddleRight BottomLeft BottomCenter BottomRight",
         "format": "enum",
         "enum": [
           "TopLeft",
@@ -101,28 +103,30 @@
         "nullable": true
       },
       "TimesToDisplay": {
-        "type": "integer",
-        "description": "Number Of Times To Repeat",
+        "type": "int",
+        "description": "Required if recurrences are scheduled. The maximum number of times to show the in-app guidance. Salesforce detects whether the user interacts with the in-app guidance, then determines whether to show the in-app guidance again or cancel scheduled recurrences. Maximum value of 30. For a walkthrough, specify this value on the first step.",
         "nullable": true
       },
       "DelayDays": {
-        "type": "integer",
-        "description": "Days In Between Displays",
+        "type": "int",
+        "description": "Number of days between occurrences. For a walkthrough, specify this value on the first step.",
         "nullable": true
       },
       "StartDate": {
-        "type": "string",
+        "type": "date",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "description": "Indicates the date to start showing the in-app guidance. For a walkthrough, specify this value on the first step.In API version 48.0 and earlier, this field is required."
       },
       "EndDate": {
-        "type": "string",
+        "type": "date",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "description": "The date to stop showing the in-app guidance. For a walkthrough, specify this value on the first step."
       },
       "UserAccess": {
-        "type": "string",
-        "description": "Access Permissions",
+        "type": "picklist",
+        "description": "Indicates which permissions can see the in-app guidance. Valid values are: Everyone, which indicates that there’s no permission restrictions SpecificPermissions, which indicates that only users with all the specific user permissions specified can see the in-app guidance In API version 48.0 and earlier, this field is required.",
         "format": "enum",
         "enum": [
           "Everyone",
@@ -133,18 +137,18 @@
       },
       "IsPublished": {
         "type": "boolean",
-        "description": "Is Active",
+        "description": "Indicates whether the in-app guidance is active (true) or not (false).",
         "nullable": false
       },
       "PublishedDate": {
-        "type": "string",
-        "description": "Active Date",
+        "type": "date",
+        "description": "Indicates the date the in-app guidance was activated. If installed from a package, this value is the date when the package was installed. For walkthroughs, this field can only be specified on the first step.",
         "format": "date",
         "nullable": true
       },
       "PublishedByUserId": {
-        "type": "string",
-        "description": "User ID",
+        "type": "reference",
+        "description": "The ID of the user who activated the in-app guidance. If the in-app guidance is part of a package, this value is the user who installed the package.",
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
@@ -153,82 +157,88 @@
       "Header": {
         "type": "string",
         "maxLength": 36,
-        "nullable": true
+        "nullable": true,
+        "description": "Label for the header of a docked prompt. This value is the label contained in the window’s browser bar. Maximum of 36 characters."
       },
       "DismissButtonLabel": {
         "type": "string",
         "maxLength": 15,
-        "nullable": true
+        "nullable": true,
+        "description": "Label for the dismiss button of a floating or targeted prompt. Maximum of 15 characters."
       },
       "ShouldDisplayActionButton": {
         "type": "boolean",
-        "description": "Display Action Button",
+        "description": "Indicates whether an action button or link is included (true) or not (false).",
         "nullable": false
       },
       "ActionButtonLabel": {
         "type": "string",
         "maxLength": 25,
-        "nullable": true
+        "nullable": true,
+        "description": "Label for the action button or link. Maximum of 25 characters. For a walkthrough, specify this value on the last step."
       },
       "ActionButtonLink": {
-        "type": "string",
-        "description": "Action Button URL",
+        "type": "url",
+        "description": "URL for the action button or link. Maximum of 1,000 characters. You can’t use the GROUP BY option in a SOQL query for this field. For a walkthrough, specify this value on the last step.",
         "format": "uri",
         "maxLength": 1000,
         "nullable": true
       },
       "Title": {
         "type": "string",
-        "description": "Title Label",
+        "description": "Required. The label for the title. Maximum of 36 characters.",
         "maxLength": 36,
         "nullable": false
       },
       "VersionNumber": {
-        "type": "integer",
-        "nullable": false
+        "type": "int",
+        "nullable": false,
+        "description": "Required. The number remains 1 since multiple versions aren’t saved in the org."
       },
       "TargetPageType": {
         "type": "string",
         "maxLength": 80,
-        "nullable": true
+        "nullable": true,
+        "description": "The type of page where the in-app guidance appears."
       },
       "TargetPageKey1": {
         "type": "string",
-        "description": "Target Page Key 1",
+        "description": "Required. Used by Salesforce to identity the prompt’s page location along with targetPageKey2, targetPageKey3, targetPageKey4, and targetPageType.",
         "maxLength": 80,
         "nullable": true
       },
       "TargetPageKey2": {
         "type": "string",
-        "description": "Target Page Key 2",
+        "description": "Used by Salesforce to identify the prompt’s page location along with TargetPageKey1, TargetPageKey3, TargetPageKey4, and TargetPageType.",
         "maxLength": 80,
         "nullable": true
       },
       "TargetAppNamespacePrefix": {
         "type": "string",
-        "description": "Target Application Namespace Prefix",
+        "description": "The app’s namespace prefix where the in-app guidance appears. This value must match the target app’s NamespacePrefix in the org that the package is being installed into. Maximum of 15 characters. Deprecated in API version 51.0 and later.",
         "maxLength": 15,
         "nullable": true
       },
       "TargetAppDeveloperName": {
         "type": "string",
-        "description": "Target Application Developer Name",
+        "description": "The app’s developer name where the in-app guidance appears. Deprecated in API version 51.0 and later.",
         "maxLength": 80,
         "nullable": true
       },
       "Body": {
-        "type": "string",
+        "type": "textarea",
         "maxLength": 4000,
-        "nullable": false
+        "nullable": false,
+        "description": "Body content. In API version 60.0 and later, enter up to 4,000 characters for all prompt types. In earlier API versions, enter up to 240 characters for floating prompts and targeted prompts. Enter up to 4,000 characters for docked prompts. For docked prompts, the maximum characters include HTML markup, not just readable text."
       },
       "ShouldIgnoreGlobalDelay": {
         "type": "boolean",
-        "description": "Ignore Global Delay",
+        "description": "Indicates whether the in-app guidance ignores the global time delay and instead shows on page load (true) or not (false). This field is available in API version 48.0 and later.",
         "nullable": false
       },
       "UserProfileAccess": {
-        "type": "string",
-        "description": "Access Profiles",
+        "type": "picklist",
+        "description": "Indicates which profiles can see the in-app guidance. This field is available in API version 48.0 and later. Valid values are: Everyone, which indicates that there are no profile restrictions SpecificProfiles, which indicates that users with any of the specified user profiles can see the in-app guidance",
         "format": "enum",
         "enum": [
           "Everyone",
@@ -238,18 +248,19 @@
         "nullable": true
       },
       "VideoLink": {
-        "type": "string",
-        "description": "Video URL",
+        "type": "url",
+        "description": "The embed URL for a video in a docked prompt. Maximum of 1,000 characters. You can specify this field or the image field, but not both. This field is available in API version 48.0 and later. See Considerations for Creating In-App Guidance.",
         "format": "uri",
         "maxLength": 1000,
         "nullable": true
       },
       "StepNumber": {
-        "type": "integer",
-        "nullable": true
+        "type": "int",
+        "nullable": true,
+        "description": "Required for walkthroughs only. Indicates the number of the last step the user viewed or interacted with in a walkthrough. Include up to 10 steps. Numbers must be consecutive without repeated or skipped numbers. Available in API version 49.0 and later."
       },
       "ThemeColor": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Theme1",
@@ -258,35 +269,81 @@
           "Theme4"
         ],
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "Indicates which custom theme color is applied to the in-app guidance. Required if ThemeSaturation is specified. For a walkthrough, specify this value on the first step. Valid values are: Theme1—derived from the current brand color Theme2—derived from the current page background color Theme3—derived from the current global header color Theme4—derived from the current app theme color"
       },
       "ThemeSaturation": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Dark",
           "Light"
         ],
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "Indicates which color value, or saturation, is applied to the in-app guidance that has a custom theme color. Required if ThemeColor is specified. For a walkthrough, specify this value on the first step. Valid values are: Dark Light"
       },
       "IndexWithIsPublished": {
         "type": "string",
-        "description": "Index Formula Field With Is Published Data",
+        "description": "Used by Salesforce for efficient querying.",
         "maxLength": 400,
         "nullable": true,
         "readOnly": true
       },
       "IndexWithoutIsPublished": {
         "type": "string",
-        "description": "Index Formula Field Without Is Published Data",
+        "description": "Used by Salesforce for efficient querying.",
         "maxLength": 400,
         "nullable": true,
         "readOnly": true
+      },
+      "ElementRelativePosition": {
+        "type": "picklist",
+        "description": "The location of a targeted prompt relative to the element. This field is available in API version 52.0 and later. Valid values are: BottomCenter BottomLeft BottomRight LeftBottom LeftCenter LeftTop RightBottom RightCenter RightTop TopCenter TopLeft TopRight"
+      },
+      "Experience": {
+        "type": "picklist",
+        "description": "This field corresponds to the Environment picklist in In-App Guidance Builder. Available in version 60.0 and later."
+      },
+      "ExperienceContextId": {
+        "type": "reference",
+        "description": "Required if the value of Experience is Site. The ID of the Experience Cloud site context associated with the in-app guidance prompt. Available in version 60.0 and later."
+      },
+      "ImageAltText": {
+        "type": "string",
+        "description": "Indicates the alt text of an image. Required if ImageLocation or ImageID is specified."
+      },
+      "ImageId": {
+        "type": "reference",
+        "description": "The ID of the ContentAsset that holds the image. Required if ImageLocation or ImageAltText is specified."
+      },
+      "ImageLocation": {
+        "type": "picklist",
+        "description": "Indicates the location of the image in relation to the body text. Required if ImageID or ImageAltText is specified. Valid values are: Top Bottom Right, which is for floating or targeted prompts only Left, which is for floating or targeted prompts only"
+      },
+      "ReferenceElementContext": {
+        "type": "textarea",
+        "description": "Used by Salesforce to identify the element that the targeted prompt is associated with. Available in API version 52.0 and later."
+      },
+      "TargetPageKey1Ref": {
+        "type": "picklist",
+        "description": "Used by Salesforce to identify the prompt’s page location along with TargetPageKey2, TargetPageKey3, TargetPageKey4, and TargetPageType."
+      },
+      "TargetPageKey3": {
+        "type": "string",
+        "description": "Used by Salesforce to identify the prompt’s page location along with TargetPageKey1, TargetPageKey2, TargetPageKey4, and TargetPageType."
+      },
+      "TargetPageKey4": {
+        "type": "string",
+        "description": "Used by Salesforce to identify the page location along with TargetPageKey1, TargetPageKey2, TargetPageKey3, and TargetPageType. This field is available in API version 53.0 and later."
+      },
+      "TargetRecordType": {
+        "type": "reference",
+        "description": "Used by Salesforce to determine if in-app guidance is specific to a record type. This field is available in API version 53.0 and later."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_promptversion.htm",
     "keyPrefix": "0bt",
     "label": "Prompt Version",
     "createable": true,
@@ -313,6 +370,11 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "To add, edit, manage, and view prompts and walkthroughs in Lightning Experience or in Experience Cloud sites, see Considerations for Creating In-App Guidance and Permissions for Creating and Accessing In-App Guidance in Salesforce Help for permissions.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

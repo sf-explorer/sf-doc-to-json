@@ -1,7 +1,7 @@
 {
   "PermissionSetGroup": {
     "name": "PermissionSetGroup",
-    "description": "Permission Set Groups - PermissionSetGroup",
+    "description": "Represents a group of permission sets and the permissions within them. Use permission set groups to organize permissions based on job functions or tasks. Then, you can package the groups as needed.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "API Name",
+        "description": "The permission set group name used in the API.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
         "type": "string",
-        "description": "Master Language",
+        "description": "The Permission Set Group language. Valid values are: Chinese (Simplified): zh_CN Chinese (Traditional): zh_TW Danish: da Dutch: nl_NL English: en_US Finnish: fi French: fr German: de Italian: it Japanese: ja Korean: ko Norwegian: no Portuguese (Brazil): pt_BR Russian: ru Spanish: es Spanish (Mexico): es_MX Spanish (Mexico) defaults to Spanish for customer-defined translations. Swedish: sv Thai: th The Salesforce user interface is fully translated to Thai, but Help is in English.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -36,7 +36,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "The permission set group label for the aggregated permissions.",
         "maxLength": 80,
         "nullable": false
       },
@@ -44,7 +44,8 @@
         "type": "string",
         "maxLength": 15,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The permission set group namespace prefix."
       },
       "CreatedDate": {
         "type": "string",
@@ -83,7 +84,8 @@
       "Description": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "The permission set group description."
       },
       "Status": {
         "type": "string",
@@ -96,11 +98,20 @@
         ],
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates the permission set group recalculation status. Updated. The group is current. Outdated. The group requires recalculation. Updating. The group is in recalculation mode. Failed. The group recalculation failed."
+      },
+      "HasActivationRequired": {
+        "type": "boolean",
+        "description": "Indicates whether the permission set group requires an associated active session (true) or not (false). The default value is false.This field is available in API version 53.0 and later."
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_permissionsetgroup.htm",
     "keyPrefix": "0PG",
     "label": "Permission Set Group",
     "createable": true,
@@ -127,6 +138,12 @@
         "relationshipName": "PermissionSetGroupComponents",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "As of Summer ’20 and later, to view this object, users must have one of these permissions:",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

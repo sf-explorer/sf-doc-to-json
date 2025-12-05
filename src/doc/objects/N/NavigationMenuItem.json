@@ -1,7 +1,7 @@
 {
   "NavigationMenuItem": {
     "name": "NavigationMenuItem",
-    "description": "Navigation Menu Items - NavigationMenuItem",
+    "description": "Represents a single menu item in a NavigationLinkSet. Use this object to create, delete, or update menu items in your Experience Cloud site’s navigation menu.",
     "properties": {
       "Id": {
         "type": "string",
@@ -52,20 +52,22 @@
         "readOnly": true
       },
       "NavigationLinkSetId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "NavigationLinkSet",
         "maxLength": 18,
-        "nullable": false
+        "nullable": false,
+        "description": "The navigation menu that this item is included in."
       },
       "Label": {
         "type": "string",
         "maxLength": 50,
-        "nullable": false
+        "nullable": false,
+        "description": "The text that appears in the navigation menu for this item."
       },
       "Type": {
-        "type": "string",
-        "description": "Navigation Menu Item Type",
+        "type": "picklist",
+        "description": "The type of navigation menu item. The available values are: SalesforceObject—Available objects include accounts, cases, contacts, and custom objects. ExternalLink—Links to a URL outside of your Experience Cloud site. For example, https://salesforce.com. Event—An event, such as logging in, logging out, or switching accounts. Event is internal only and can’t be used in custom components. GlobalAction—Enables users to create object records, but the new record has no relationship with other records. InternalLink—Links to a relative URL inside your Experience Cloud site. For example, /contactsupport. NavigationalTopic—A dropdown list with links to the navigational topics in your Experience Cloud site. SystemLink—A system link, such as a link to Experience Builder, Workspaces, or Salesforce setup.",
         "format": "enum",
         "enum": [
           "SalesforceObject",
@@ -85,41 +87,44 @@
       "Target": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "If Type is ExternalLink or InternalLink, the target is the URL that the link points to. For ExternalLink, your entry looks like this: https://salesforce.com. For InternalLink, use a relative URL, such as /contactsupport."
       },
       "Position": {
-        "type": "integer",
-        "nullable": false
+        "type": "int",
+        "nullable": false,
+        "description": "The location of the menu item in the navigation menu."
       },
       "ParentId": {
-        "type": "string",
-        "description": "Navigation Menu Item ID",
+        "type": "reference",
+        "description": "The parent navigation menu.",
         "format": "salesforce-id",
         "x-object": "NavigationMenuItem",
         "maxLength": 18,
         "nullable": true
       },
       "AccessRestriction": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "None",
           "LoginRequired"
         ],
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "description": "Determines if the menu item is available to guest users who aren’t required to log in to the Experience Cloud site."
       },
       "DefaultListViewId": {
-        "type": "string",
-        "description": "List View ID",
+        "type": "reference",
+        "description": "If the value of the Type field is SalesforceObject, the value is the ID of the default list view for the object.",
         "format": "salesforce-id",
         "x-object": "ListView",
         "maxLength": 18,
         "nullable": true
       },
       "TargetPrefs": {
-        "type": "string",
-        "description": "Target Preferences",
+        "type": "picklist",
+        "description": "If Type is ExternalLink, determines whether a navigation menu item opens in the same tab.",
         "format": "enum",
         "enum": [
           "OpenExternalLinkInSameTab",
@@ -129,8 +134,8 @@
         "nullable": true
       },
       "Status": {
-        "type": "string",
-        "description": "Publish Status",
+        "type": "reference",
+        "description": "Represents if the navigation menu item is published or not. The values can only be DRAFT, LIVE, or null. In API versions 42 and earlier, if the Status field is not set, the field defaults to LIVE. When queried and Status is not part of the query filter, only the NavigationMenuItem objects with a status of LIVE return. In API versions 43 and later, if the Status field is not set, the field defaults to DRAFT. When queried and Status is not part of the query filter, all NavigationMenuItem objects return regardless of status.",
         "format": "enum",
         "enum": [
           "Draft",
@@ -148,12 +153,16 @@
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
+      },
+      "DraftRowID": {
+        "type": "reference",
+        "description": "The ID of the draft navigation menu item. The ID is unique within your organization."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0Mi",
     "label": "Navigation Menu Item",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_navigationmenuitem.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -184,6 +193,11 @@
         "relationshipName": "Localization",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Experience Cloud sites created using Experience Builder templates",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

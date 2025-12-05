@@ -1,7 +1,7 @@
 {
   "PermissionSetTabSetting": {
     "name": "PermissionSetTabSetting",
-    "description": "Permission Set Tab Setting - PermissionSetTabSetting",
+    "description": "Represents a tab’s settings for a profile or permission set. Use PermissionSetTabSetting for manipulating tab visibility on profiles and permission sets.",
     "properties": {
       "Id": {
         "type": "string",
@@ -17,7 +17,8 @@
         "x-object": "PermissionSet",
         "maxLength": 18,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The ID of the permission set to which this tab setting belongs. For profile tab settings, ParentId is the ID of the permission set owned by the profile."
       },
       "Visibility": {
         "type": "string",
@@ -27,11 +28,12 @@
           "DefaultOn"
         ],
         "maxLength": 40,
-        "nullable": false
+        "nullable": false,
+        "description": "The default visibility setting for this tab. Valid values are: Default Off Default On Note There’s no hidden value. Instead, a hidden tab is indicated by having no PermissionSetTabSetting row in the database."
       },
       "Name": {
         "type": "string",
-        "description": "Tab Name",
+        "description": "The tab’s API name. For standard tabs, the name is in the form “standard-Account”. For custom tabs, it’s the developer name.",
         "maxLength": 60,
         "nullable": false,
         "readOnly": true
@@ -43,14 +45,20 @@
         "readOnly": true
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_permissionsettabsetting.htm",
     "keyPrefix": "01P",
     "label": "Permission Set Tab Setting",
     "createable": true,
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "accessRules": "As of Spring ’20 and later, only users with View Setup and Configuration permission can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "RecordType": {
     "name": "RecordType",
-    "description": "Record Types - RecordType",
+    "description": "Represents a custom record type.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,32 +13,32 @@
       },
       "Name": {
         "type": "string",
-        "description": "Name",
+        "description": "The record type name.",
         "maxLength": 80,
         "nullable": false
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Record Type Name",
+        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Record Type Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
         "maxLength": 80,
         "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "A unique string to distinguish this type from any others.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Description",
+        "description": "The record type description, limited to 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "BusinessProcessId": {
         "type": "string",
-        "description": "Business Process ID",
+        "description": "ID of an associated BusinessProcess.",
         "format": "salesforce-id",
         "x-object": "BusinessProcess",
         "maxLength": 18,
@@ -46,7 +46,7 @@
       },
       "SobjectType": {
         "type": "string",
-        "description": "SObject Type Name",
+        "description": "The type of standard object that this record type is derived from.",
         "format": "enum",
         "enum": [
           "Account",
@@ -567,12 +567,12 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Active",
+        "description": "Indicates whether this record is active (true) or not (false). Only active record types can be applied to records.",
         "nullable": false
       },
       "IsPersonType": {
         "type": "boolean",
-        "description": "Is Person Type",
+        "description": "Indicates whether this record has been designated as a person account (true) or not (false). Visible only if the organization has the person account feature enabled.",
         "nullable": false,
         "readOnly": true
       },
@@ -614,10 +614,26 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "EntityDefinitionId": {
+        "type": "string",
+        "description": "The ID of the entity containing the record."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated metadata object in Metadata API."
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
+      "Metadata": {
+        "type": "string",
+        "description": "Record metadata."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_recordtype.htm",
     "keyPrefix": "012",
     "label": "Record Type",
     "createable": true,
@@ -662,6 +678,11 @@
         "relationshipName": "Localization",
         "cascadeDelete": true
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

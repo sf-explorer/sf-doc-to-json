@@ -1,7 +1,7 @@
 {
   "GoalAssignment": {
     "name": "GoalAssignment",
-    "description": "Represents the assignment of a goal.",
+    "description": "Represents the goals that are part of a care plan.",
     "properties": {
       "CompletionDate": {
         "type": "date",
@@ -9,7 +9,7 @@
       },
       "CompletionPercentage": {
         "type": "percent",
-        "description": "Indicates the progress made on the assigned goal in percentage."
+        "description": "Records the progress of the goal with a percentage value."
       },
       "CustomGoalName": {
         "type": "string",
@@ -17,62 +17,119 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the goal assignment record."
+        "description": "The description of the goal."
       },
       "GoalAssigneeId": {
-        "type": "reference",
-        "description": "The assigees associated with the goal assignment."
+        "type": "Polymorphic lookup",
+        "description": "The person to whom the goal is assigned."
       },
       "GoalDefinitionId": {
-        "type": "reference",
-        "description": "The goal definition associated with the goal assignment."
+        "type": "Lookup",
+        "description": "References the goal definition in the PGI library that defines the details of the goal."
       },
       "DescriptionCodeId": {
-        "type": "reference",
+        "type": "Polymorphic lookup",
         "description": "The system-defined code that represents the description of a standardized goal."
       },
       "GoalType": {
-        "type": "string",
-        "description": "Specifies if the goal applies to a group or an individual."
+        "type": "String",
+        "description": "Specifies the type of the goal."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "type": "DateTime",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "type": "DateTime",
+        "description": "The date and time when the record was last viewed."
       },
       "Name": {
-        "type": "string",
+        "type": "String",
         "description": "The name of the goal assignment record."
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "ID of the goal assignment record owner."
+        "type": "Polymorphic lookup",
+        "description": "The ID of the owner of this goal assignment record."
       },
       "ParentRecordId": {
-        "type": "reference",
-        "description": "The care plan or benefit assignment object associated with the goal assignment."
+        "type": "Polymorphic lookup",
+        "description": "The parent record that the goal is associated with."
       },
       "Priority": {
         "type": "picklist",
-        "description": "Specifies the priority of the goal assignment."
+        "description": "Specifies the priority of the goal."
       },
       "StartDate": {
         "type": "date",
-        "description": "The start date of the assigned goal."
+        "description": "The date when the goal is intended to start."
       },
       "Status": {
         "type": "picklist",
-        "description": "Specifies the status of the assigned goal."
+        "description": "Specifies the status of the goal."
       },
       "TargetCompletionDate": {
         "type": "date",
-        "description": "The date by when the assigned goal is targeted to be completed."
+        "description": "The date when the goal is targeted to be completed."
+      },
+      "AssignedById": {
+        "type": "Polymorphic lookup",
+        "description": "References the person who assigned the goal."
+      },
+      "ExtlGoalDefIdentifier": {
+        "type": "string",
+        "description": "The ID of the goal in an external source system."
+      },
+      "IsContinuousGoal": {
+        "type": "Boolean",
+        "description": "Indicates whether the goal is a continuous goal (true) or not (false). For instance, setting a goal to quit smoking."
+      },
+      "ProgressionStatus": {
+        "type": "picklist",
+        "description": "Specifies the progression status of the goal."
+      },
+      "SortOrder": {
+        "type": "double",
+        "description": "Determines the spot of the goal in the list of all goals in a care plan."
+      },
+      "SourceSystemIdentifier": {
+        "type": "string",
+        "description": "The identifier of the record in its source system."
+      },
+      "SourceSystemModifiedDateTime": {
+        "type": "dateTime",
+        "description": "The date on which this item was last changed on the source system."
+      },
+      "SourceSystemName": {
+        "type": "string",
+        "description": "The name of the system this record came from."
+      },
+      "StartEventCodeId": {
+        "type": "Polymorphic lookup",
+        "description": "The system-defined code that represents the event that initiates progression towards the goal."
+      },
+      "StatusDate": {
+        "type": "dateTime",
+        "description": "Records the date and time when the current status was set."
+      },
+      "StatusReason": {
+        "type": "string",
+        "description": "Describes the reason for the current status."
+      },
+      "TaskJobStatus": {
+        "type": "picklist",
+        "description": "This field is not used in Integrated Care Management."
+      },
+      "TaskJobStatusMessage": {
+        "type": "textarea",
+        "description": "This field is not used in Integrated Care Management."
       }
     },
-    "module": "Nonprofit Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_goalassignment.htm"
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_goalassignment.htm",
+    "accessRules": "In Health Cloud, this object is available in API version 57.0 and later.",
+    "clouds": [
+      "Nonprofit Cloud",
+      "Health Cloud"
+    ]
   }
 }

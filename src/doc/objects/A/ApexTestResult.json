@@ -4,7 +4,7 @@
     "description": "Represents the result of an Apex test method execution.",
     "properties": {
       "ApexClassId": {
-        "type": "reference",
+        "type": "string",
         "description": "The Apex class whose test methods were executed.",
         "format": "salesforce-id",
         "x-object": "ApexClass",
@@ -12,7 +12,7 @@
         "nullable": true
       },
       "ApexLogId": {
-        "type": "reference",
+        "type": "string",
         "description": "Points to the ApexLog for this test method execution if debug logging is enabled; otherwise, null.",
         "format": "salesforce-id",
         "x-object": "ApexLog",
@@ -20,7 +20,7 @@
         "nullable": true
       },
       "ApexTestRunResultId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the ApexTestRunResult that represents the entire test run.",
         "format": "salesforce-id",
         "x-object": "ApexTestRunResult",
@@ -28,7 +28,7 @@
         "nullable": true
       },
       "AsyncApexJobId": {
-        "type": "reference",
+        "type": "string",
         "description": "Points to the AsyncApexJob that represents the entire test run. This field points to the same object as ApexTestQueueItem.ParentJobId.",
         "format": "salesforce-id",
         "x-object": "AsyncApexJob",
@@ -52,7 +52,7 @@
         "nullable": true
       },
       "Outcome": {
-        "type": "picklist",
+        "type": "string",
         "description": "The result of the test. Valid values are: Pass Fail CompileFail Skip",
         "format": "enum",
         "enum": [
@@ -65,7 +65,7 @@
         "nullable": false
       },
       "QueueItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "Points to the ApexTestQueueItem which is the class that this test method is part of.",
         "format": "salesforce-id",
         "x-object": "ApexTestQueueItem",
@@ -73,7 +73,7 @@
         "nullable": true
       },
       "RunTime": {
-        "type": "int",
+        "type": "number",
         "description": "The time it took the test method to run, in seconds.",
         "nullable": true
       },
@@ -119,6 +119,11 @@
         "relationshipName": "ApexTestResults",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "In API version 49.0 and later, users must have the View Setup and Configuration permission to access this object.",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
     ]
   }
 }

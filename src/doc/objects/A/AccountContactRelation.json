@@ -1,11 +1,11 @@
 {
   "AccountContactRelation": {
     "name": "AccountContactRelation",
-    "description": "Standard and custom fields extend the standard Account object for use in Public Sector Solutions to represent information of members in a household",
+    "description": "Represents a relationship between a contact and one or more accounts.",
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "Lookup to the Account object.",
+        "description": "ID of the account that is related to the contact. Field can't be modified when updating existing account-contact relationship records.",
         "format": "salesforce-id",
         "x-object": "Account",
         "maxLength": 18,
@@ -14,7 +14,7 @@
       },
       "ContactId": {
         "type": "reference",
-        "description": "Lookup to the Contact object.",
+        "description": "ID of the contact that is related to the account. Field can't be modified when updating existing account-contact relationship records.",
         "format": "salesforce-id",
         "x-object": "Contact",
         "maxLength": 18,
@@ -38,7 +38,7 @@
       },
       "IsDirect": {
         "type": "boolean",
-        "description": "Indicates whether relationship is direct (true) or not (false).",
+        "description": "Indicates whether the account associated with the contact is the contact's primary account (true) or not (false).",
         "nullable": false,
         "readOnly": true
       },
@@ -56,7 +56,7 @@
       },
       "Roles": {
         "type": "multipicklist",
-        "description": "",
+        "description": "The contact’s participating role in the account. Values are Business User, Decision Maker, Economic Buyer, Economic Decision Maker, Evaluator, Executive Sponsor, Influencer, Technical Buyer, and Other.",
         "format": "enum",
         "enum": [
           "Business User",
@@ -74,7 +74,7 @@
       },
       "StartDate": {
         "type": "date",
-        "description": "The date a relationship between a contact and account began. Use with the End Date to keep a history of the relationship",
+        "description": "The date a relationship between a contact and account began. Use with the End Date to keep a history of the relationship.",
         "format": "date",
         "nullable": true
       },
@@ -125,10 +125,14 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "AccountContactRelationshipCurrency": {
+        "type": "picklist",
+        "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
       }
     },
-    "module": "Nonprofit Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_accountcontactrelation.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountcontactrelation.htm",
     "keyPrefix": "07k",
     "iconUrl": "icon/t4v35/standard/relationship_120.png",
     "iconColor": "1B96FF",
@@ -162,6 +166,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Nonprofit Cloud",
+      "Core Salesforce"
     ]
   }
 }

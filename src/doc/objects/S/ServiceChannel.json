@@ -1,7 +1,7 @@
 {
   "ServiceChannel": {
     "name": "ServiceChannel",
-    "description": "Service Channels - ServiceChannel",
+    "description": "Represents a channel for work items that are received from your customers. This object is available in API version 65.0 and later.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer Name",
+        "description": "The unique name of the object in the API.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
         "type": "string",
-        "description": "Master Language",
+        "description": "The language for the service channel.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -69,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Service Channel Name",
+        "description": "The label for the service channel.",
         "maxLength": 80,
         "nullable": false
       },
@@ -114,7 +114,7 @@
       },
       "RelatedEntity": {
         "type": "string",
-        "description": "Custom Object Definition ID",
+        "description": "The type of object that’s associated with this service channel. This field is unique within your organization.",
         "format": "enum",
         "enum": [
           "Account",
@@ -142,14 +142,74 @@
       },
       "DoesMinimizeWidgetOnAccept": {
         "type": "boolean",
-        "description": "Minimize Omni-Channel component when work is accepted",
+        "description": "Indicates whether the Omni-Channel widget automatically minimizes when an agent accepts work (true) or not (false).",
         "nullable": false
+      },
+      "AcwExtensionDuration": {
+        "type": "number",
+        "description": "The maximum length of time, measured in seconds, an agent can spend on After Conversation Work (ACW) each time they extend the timer. You must set this field if HasAcwExtensionEnabled is set to true. Specify a value from 10 through 3600. Available only for service channels of type Messaging or Voice."
+      },
+      "AfterConvoWorkMaxTime": {
+        "type": "number",
+        "description": "The maximum length of time, measured in seconds, an agent has to complete ACW. You must set this field if HasAfterConvoWorkTimer is set to true. Specify a value from 10 through 3600. Available only for service channels of type Messaging or Voice."
+      },
+      "CapacityModel": {
+        "type": "string",
+        "description": "The method that determines when an agent's capacity for a work item is released. With the Status-Based capacity routing model, work remains assigned and applied to an agent’s capacity until the work is completed or reassigned to a different agent. In contrast, the tab-based capacity model releases an agent’s capacity when a work tab is closed in the service console."
+      },
+      "CustomSoundId": {
+        "type": "reference",
+        "description": "CustomSound"
+      },
+      "DoesCheckCapOnOwnerChange": {
+        "type": "boolean",
+        "description": "Indicates whether the override the capacity check is set to on (true) or not (false). In Status-Based capacity routing model, when work is reassigned to an agent, you can choose to override the capacity check and keep the work assigned to a specific agent. This field is available in API version 65.0 and later."
+      },
+      "DoesCheckCapOnStatusChange": {
+        "type": "boolean",
+        "description": "Indicates whether the override the capacity check is set to on (true) or not (false). In the Status-Based capacity routing model, when work is reopened, you can choose to override the capacity check and keep the work assigned to a specific agent. This field is available in API version 65.0 and later."
+      },
+      "DoesOverridePresenceAudio": {
+        "type": "boolean",
+        "description": "Service channel settings override the audio settings for each agent’s presence configuration. The default value is false."
+      },
+      "HasAcwExtensionEnabled": {
+        "type": "boolean",
+        "description": "Indicates whether agents can extend their ACW (true) or not (false). Available only if HasAfterConvoWorkTimer is set to true. If set to true, you must also set the AcwExtensionDuration and MaxExtensions fields. Available only for service channels of type Messaging or Voice."
+      },
+      "HasAfterConvoWorkTimer": {
+        "type": "boolean",
+        "description": "Indicates whether ACW time can be configured for the channel (true) or not (false). If set to true, you must also set the AfterConvoWorkMaxTime field. Available only for service channels of type Messaging or Voice."
+      },
+      "HasAutoAcceptEnabled": {
+        "type": "boolean",
+        "description": "Indicates whether work items in a service channel open automatically in the agent’s workspace so that the agent doesn’t have to manually accept them (true) or not (false)."
+      },
+      "MaxExtensions": {
+        "type": "string",
+        "description": "The maximum number of times an agent can extend their ACW time. Specify a value from 1 through 10. You must set this field if hasAcwExtensionEnabled is set to true. Available only for service channels of type Messaging or Voice."
+      },
+      "RoutingConfigurationId": {
+        "type": "reference",
+        "description": "RoutingConfiguration"
+      },
+      "SecRoutingPriorityField": {
+        "type": "picklist",
+        "description": "The name of the standard field or the id of the custom field that is used for secondary routing priority. This field is unique within your organization."
+      },
+      "SoundLength": {
+        "type": "int",
+        "description": "The length of time that a sound plays when new work is assigned to an agent."
+      },
+      "StatusField": {
+        "type": "picklist",
+        "description": "The picklist field that you use to track work status in the Status-Based capacity routing model. Use ServiceChannelStatusField to specify the values that indicate completed and in-progress work-item status."
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "0N9",
     "label": "Service Channel",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_servicechannel.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -174,6 +234,12 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Available only if Omni-Channel is enabled in your org.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

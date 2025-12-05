@@ -1,7 +1,7 @@
 {
   "ActionLinkGroupTemplate": {
     "name": "ActionLinkGroupTemplate",
-    "description": "Action Link Group Templates - ActionLinkGroupTemplate",
+    "description": "Action link templates let you reuse action link definitions and package and distribute action links. An action link is a button on a feed element. Clicking on an action link can take a user to another Web page, initiate a file download, or invoke an API call to an external server or Salesforce. Use action links to integrate Salesforce and third-party services into the feed. Every action link belongs to an action link group and action links within the group are mutually exclusive.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer Name",
+        "description": "The name of the action link group template to use in code.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language of the MasterLabel.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -36,13 +36,13 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Name",
+        "description": "The name of the action link group template.",
         "maxLength": 80,
         "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
@@ -87,8 +87,8 @@
         "readOnly": true
       },
       "ExecutionsAllowed": {
-        "type": "string",
-        "description": "Executions Allowed",
+        "type": "picklist",
+        "description": "The number of times an action link can be executed. Values are: Once—An action link can be executed only once across all users. OncePerUser—An action link can be executed only once for each user. Unlimited—An action link can be executed an unlimited number of times by each user. If the action link’s actionType is Api or ApiAsync, you can’t use this value.",
         "format": "enum",
         "enum": [
           "Once",
@@ -99,13 +99,13 @@
         "nullable": false
       },
       "HoursUntilExpiration": {
-        "type": "integer",
-        "description": "Hours until Expiration",
+        "type": "int",
+        "description": "The number of hours from when the action link group is created until it's removed from associated feed elements and can no longer be executed. The maximum value is 8,760.",
         "nullable": true
       },
       "Category": {
-        "type": "string",
-        "description": "Category",
+        "type": "picklist",
+        "description": "The location of the action link group within the feed element. Values are: Primary—The action link group is displayed in the body of the feed element. Overflow—The action link group is displayed in the overflow menu of the feed element.",
         "format": "enum",
         "enum": [
           "Primary",
@@ -116,14 +116,14 @@
       },
       "IsPublished": {
         "type": "boolean",
-        "description": "Published",
+        "description": "If true, the action link group template is published. Action link group templates shouldn’t be published until at least one ActionLinkTemplate is associated with it. Once set to true, this can’t be set back to false.",
         "nullable": false
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "07g",
     "label": "Action Link Group Template",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_actionlinkgrouptemplate.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -136,6 +136,11 @@
         "relationshipName": "ActionLinkTemplates",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Only users with the “Customize Application” permission can modify or delete this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

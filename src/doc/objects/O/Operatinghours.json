@@ -1,7 +1,7 @@
 {
   "OperatingHours": {
     "name": "OperatingHours",
-    "description": "Operating Hours - OperatingHours",
+    "description": "Represents the hours in which a service territory, service resource, or account is available for work. OperatingHours is used by Field Service, Salesforce Scheduler, Salesforce Meetings, Sales Engagement, and Workforce Engagement.",
     "properties": {
       "Id": {
         "type": "string",
@@ -20,7 +20,8 @@
       "Name": {
         "type": "string",
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "description": "The name of the operating hours. For example, Summer Hours, Winter Hours, or Peak Season Hours."
       },
       "CreatedDate": {
         "type": "string",
@@ -67,24 +68,27 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
+        "type": "dateTime",
         "format": "date-time",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The date when the operating hours record was last viewed."
       },
       "LastReferencedDate": {
-        "type": "string",
+        "type": "dateTime",
         "format": "date-time",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The date when the operating hours record was last modified. Its label in the user interface is Last Modified Date."
       },
       "Description": {
-        "type": "string",
+        "type": "textarea",
         "maxLength": 32000,
-        "nullable": true
+        "nullable": true,
+        "description": "The description of the operating hours. Add any details that aren’t included in the name."
       },
       "TimeZone": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Pacific/Kiritimati",
@@ -187,7 +191,8 @@
           "Pacific/Pago_Pago"
         ],
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "description": "The time zone that the operating hours fall within."
       },
       "Default_for_FSL_Snap_Ins__c": {
         "type": "boolean",
@@ -199,12 +204,16 @@
         "description": "External ID",
         "maxLength": 255,
         "nullable": true
+      },
+      "OwnerId": {
+        "type": "reference",
+        "description": "The ID of the owner of the operating hours record."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0OH",
     "label": "Operating Hours",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_operatinghours.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -403,6 +412,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

@@ -20,8 +20,8 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "The work order’s assigned owner.",
         "format": "salesforce-id",
         "x-objects": [
           "Group",
@@ -38,7 +38,7 @@
       },
       "WorkOrderNumber": {
         "type": "string",
-        "description": "Work Order Number",
+        "description": "An eight-digit, auto-generated number that identifies the work order.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
@@ -95,112 +95,112 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The date when the work order was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The date when the work order was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "AccountId": {
-        "type": "string",
-        "description": "Account ID",
+        "type": "reference",
+        "description": "The account associated with the work order.",
         "format": "salesforce-id",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ContactId": {
-        "type": "string",
-        "description": "Contact ID",
+        "type": "reference",
+        "description": "The contact associated with the work order.",
         "format": "salesforce-id",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "CaseId": {
-        "type": "string",
-        "description": "Case ID",
+        "type": "reference",
+        "description": "The case associated with the work order.",
         "format": "salesforce-id",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
       },
       "EntitlementId": {
-        "type": "string",
-        "description": "Entitlement ID",
+        "type": "reference",
+        "description": "The entitlement associated with the work order.",
         "format": "salesforce-id",
         "x-object": "Entitlement",
         "maxLength": 18,
         "nullable": true
       },
       "ServiceContractId": {
-        "type": "string",
-        "description": "Service Contract ID",
+        "type": "reference",
+        "description": "The service contract associated with the work order.",
         "format": "salesforce-id",
         "x-object": "ServiceContract",
         "maxLength": 18,
         "nullable": true
       },
       "AssetId": {
-        "type": "string",
-        "description": "Asset ID",
+        "type": "reference",
+        "description": "The asset associated with the work order.",
         "format": "salesforce-id",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": true
       },
       "Street": {
-        "type": "string",
-        "description": "Street",
+        "type": "textarea",
+        "description": "The street number and name where the work order is completed.",
         "maxLength": 255,
         "nullable": true
       },
       "City": {
         "type": "string",
-        "description": "City",
+        "description": "The city where the work order is completed. Maximum length is 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "State": {
         "type": "string",
-        "description": "State/Province",
+        "description": "The state where the work order is completed. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "Zip/Postal Code",
+        "description": "The postal code where the work order is completed. Maximum length is 20 characters.",
         "maxLength": 20,
         "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "Country",
+        "description": "The country where the work order is completed. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "Latitude": {
-        "type": "number",
-        "description": "Latitude",
+        "type": "double",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the work order is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "Longitude": {
-        "type": "number",
-        "description": "Longitude",
+        "type": "double",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the work order is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "GeocodeAccuracy": {
-        "type": "string",
-        "description": "Geocode Accuracy",
+        "type": "picklist",
+        "description": "Accuracy level of the geocode for the address. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note conref=\"sforce_api_objects_workorderlineitem.xml#sforce_api_objects_workorderlineitem/api_only\"",
         "format": "enum",
         "enum": [
           "Address",
@@ -219,38 +219,38 @@
         "nullable": true
       },
       "Address": {
-        "type": "object",
-        "description": "Address",
+        "type": "address",
+        "description": "The compound form of the address where the work order is completed.",
         "nullable": true,
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of the work order. Try to include the steps needed to change the work order’s status to Completed.",
         "maxLength": 32000,
         "nullable": true
       },
       "StartDate": {
-        "type": "string",
-        "description": "Start Date",
+        "type": "dateTime",
+        "description": "The date when the work order goes into effect. This field is blank unless you set up an Apex trigger or quick action to populate it. For example, you can create a quick action that sets the StartDate to the date when the Status changes to In Progress.",
         "format": "date-time",
         "nullable": true
       },
       "EndDate": {
-        "type": "string",
-        "description": "End Date",
+        "type": "dateTime",
+        "description": "The date when the work order is completed. This field is blank unless you set up an Apex trigger or quick action to populate it. For example, you can create a quick action that sets the EndDate to 365 days after the StartDate.",
         "format": "date-time",
         "nullable": true
       },
       "Subject": {
         "type": "string",
-        "description": "Subject",
+        "description": "The subject of the work order. Try to describe the nature and purpose of the job to be completed. For example, “Annual On-Site Well Maintenance.” Maximum length is 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "RootWorkOrderId": {
-        "type": "string",
-        "description": "Root Work Order ID",
+        "type": "reference",
+        "description": "(Read only) The top-level work order in a work order hierarchy. Depending on where a work order lies in the hierarchy, its root could be the same as its parent. Note View a work order’s child work order in the Child Work Orders related list.",
         "format": "salesforce-id",
         "x-object": "WorkOrder",
         "maxLength": 18,
@@ -258,8 +258,8 @@
         "readOnly": true
       },
       "Status": {
-        "type": "string",
-        "description": "Status",
+        "type": "picklist",
+        "description": "The status of the work order. The picklist includes the following values, which can be customized: New—Work order was created, but there hasn’t yet been any activity. In Progress—Work has begun. On Hold—Work is paused. Completed—Work is complete. Cannot Complete—Work could not be completed. Closed—All work and associated activity is complete. Canceled—Work is canceled, typically before any work began. Changing a work order’s status does not affect the status of its work order line items or associated service appointments.",
         "format": "enum",
         "enum": [
           "New",
@@ -274,8 +274,8 @@
         "nullable": true
       },
       "Priority": {
-        "type": "string",
-        "description": "Priority",
+        "type": "picklist",
+        "description": "The priority of the work order. The picklist includes the following values, which can be customized: Low Medium High Critical",
         "format": "enum",
         "enum": [
           "Low",
@@ -287,61 +287,61 @@
         "nullable": true
       },
       "Tax": {
-        "type": "number",
-        "description": "Tax",
+        "type": "currency",
+        "description": "The total tax on the work order. You can enter a number with or without the currency symbol and use up to two decimal places. For example, in a work order whose total price is $100, enter $10 to apply a 10% tax.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "Subtotal": {
-        "type": "number",
-        "description": "Subtotal",
+        "type": "currency",
+        "description": "Read only. The total of the work order line items’ subtotals before discounts and taxes are applied.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalPrice": {
-        "type": "number",
-        "description": "Total Price",
+        "type": "currency",
+        "description": "Read only. The total of the work order line items’ prices. This value has discounts applied but not tax.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "LineItemCount": {
-        "type": "integer",
-        "description": "Line Items",
+        "type": "int",
+        "description": "The number of work order line items in the work order. Its label in the user interface is Line Items.",
         "nullable": true,
         "readOnly": true
       },
       "Pricebook2Id": {
-        "type": "string",
-        "description": "Price Book ID",
+        "type": "reference",
+        "description": "The price book associated with the work order. Adding a price book to the work order lets you assign different price book entries to the work order’s line items. This is only available if Product2 is enabled.",
         "format": "salesforce-id",
         "x-object": "Pricebook2",
         "maxLength": 18,
         "nullable": true
       },
       "Discount": {
-        "type": "number",
-        "description": "Discount",
+        "type": "percent",
+        "description": "Read only. The weighted average of the discounts on all line items in the work order. It can be any positive number up to 100.",
         "format": "percent",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "GrandTotal": {
-        "type": "number",
-        "description": "Grand Total",
+        "type": "currency",
+        "description": "Read only. The total price of the work order with tax added.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "ParentWorkOrderId": {
-        "type": "string",
-        "description": "Parent Work Order ID",
+        "type": "reference",
+        "description": "The work order’s parent work order, if it has one. Tip Create a custom report to view a work order’s child work orders.",
         "format": "salesforce-id",
         "x-object": "WorkOrder",
         "maxLength": 18,
@@ -349,38 +349,38 @@
       },
       "IsClosed": {
         "type": "boolean",
-        "description": "Is Closed",
+        "description": "Indicates whether the work order is closed (true) or open (false). Tip Use this field to report on closed versus open work orders.",
         "nullable": false,
         "readOnly": true
       },
       "IsStopped": {
         "type": "boolean",
-        "description": "Stopped",
+        "description": "Indicates whether a milestone is paused (true) or counting down (false). This field is available only if Enable stopped time and actual elapsed time is selected on the Entitlement Settings page.",
         "nullable": false
       },
       "StopStartDate": {
-        "type": "string",
-        "description": "Stopped Since",
+        "type": "dateTime",
+        "description": "Indicates when the milestone was paused. The label in the user interface is Stopped Since.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "SlaStartDate": {
-        "type": "string",
-        "description": "Sla Policy Start Time",
+        "type": "dateTime",
+        "description": "The time that the work order enters the entitlement process. You can update or reset the time if you have “Edit” permission on work orders.",
         "format": "date-time",
         "nullable": true
       },
       "SlaExitDate": {
-        "type": "string",
-        "description": "Sla Policy End Time",
+        "type": "dateTime",
+        "description": "The time that the work order exits the entitlement process.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "BusinessHoursId": {
-        "type": "string",
-        "description": "Business Hours ID",
+        "type": "reference",
+        "description": "The business hours associated with the work order.",
         "format": "salesforce-id",
         "x-object": "BusinessHours",
         "maxLength": 18,
@@ -388,20 +388,20 @@
       },
       "MilestoneStatus": {
         "type": "string",
-        "description": "Milestone Status",
+        "description": "Indicates the status of a milestone. This field is visible if an entitlement process is applied to a work order.",
         "maxLength": 30,
         "nullable": true,
         "readOnly": true
       },
       "Duration": {
-        "type": "number",
-        "description": "Duration",
+        "type": "double",
+        "description": "The estimated time required to complete the work order. Specify the duration unit in the Duration Type field. If the Duration field on a Work Order is null, it adopts the duration value from the Work Type object when the work type is updated or inserted. Note Work order duration and work order line item duration are independent of each other. If you want work order duration to automatically show the sum of the work order line items’ duration, replace the Duration field on work orders with a custom roll-up summary field.",
         "nullable": true,
         "multipleOf": 0.01
       },
       "DurationType": {
-        "type": "string",
-        "description": "Duration Type",
+        "type": "picklist",
+        "description": "The unit of the duration: Minutes or Hours.",
         "format": "enum",
         "enum": [
           "Hours",
@@ -411,37 +411,37 @@
         "nullable": true
       },
       "DurationInMinutes": {
-        "type": "number",
-        "description": "Duration in Minutes",
+        "type": "double",
+        "description": "The estimated duration in minutes. For internal use only.",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "ServiceAppointmentCount": {
-        "type": "integer",
-        "description": "Service Appointment Count",
+        "type": "int",
+        "description": "The number of service appointments on the work order.",
         "nullable": true,
         "readOnly": true
       },
       "WorkTypeId": {
-        "type": "string",
-        "description": "Work Type ID",
+        "type": "reference",
+        "description": "The work type associated with the work order. When a work type is selected, the work order automatically inherits the work type’s Duration, Duration Type, and required skills. If the Duration field for the work type is null, enter the duration value.",
         "format": "salesforce-id",
         "x-object": "WorkType",
         "maxLength": 18,
         "nullable": true
       },
       "ServiceTerritoryId": {
-        "type": "string",
-        "description": "Territory ID",
+        "type": "reference",
+        "description": "The service territory where the work order is taking place.",
         "format": "salesforce-id",
         "x-object": "ServiceTerritory",
         "maxLength": 18,
         "nullable": true
       },
       "StatusCategory": {
-        "type": "string",
-        "description": "Status Category",
+        "type": "picklist",
+        "description": "The category that each Status value falls into. The Status Category field has eight default values: seven values which are identical to the default Status values, and a None value for statuses without a status category.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Waiting for Response value, you may decide that it belongs in the On Hold category. To learn which processes reference StatusCategory, see How are Status Categories Used?",
         "format": "enum",
         "enum": [
           "New",
@@ -458,56 +458,56 @@
         "readOnly": true
       },
       "LocationId": {
-        "type": "string",
-        "description": "Location ID",
+        "type": "reference",
+        "description": "The location associated with the work order. For example, a work site.",
         "format": "salesforce-id",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "MaintenancePlanId": {
-        "type": "string",
-        "description": "Maintenance Plan ID",
+        "type": "reference",
+        "description": "The maintenance plan associated with the work order. When the work order is auto-generated from a maintenance plan, this field automatically lists the related plan.",
         "format": "salesforce-id",
         "x-object": "MaintenancePlan",
         "maxLength": 18,
         "nullable": true
       },
       "SuggestedMaintenanceDate": {
-        "type": "string",
-        "description": "Suggested Maintenance Date",
+        "type": "date",
+        "description": "The suggested date that the work order is completed. When the work order is auto-generated from a maintenance plan, this field is automatically populated based on the maintenance plan’s settings.",
         "format": "date",
         "nullable": true
       },
       "MinimumCrewSize": {
-        "type": "integer",
-        "description": "Minimum Crew Size",
+        "type": "int",
+        "description": "The minimum crew size allowed for a crew assigned to the work order. If you’re not using the Field Service managed package, this field serves as a suggestion rather than a rule. If you are using the managed package, the scheduling optimizer counts the number of service crew members on a service crew to determine whether it fits a work order’s minimum crew size requirement.",
         "nullable": true
       },
       "RecommendedCrewSize": {
-        "type": "integer",
-        "description": "Recommended Crew Size",
+        "type": "int",
+        "description": "The recommended number of people on the service crew assigned to the work order. For example, you might have a Minimum Crew Size of 2 and a Recommended Crew Size of 3.",
         "nullable": true
       },
       "ServiceReportTemplateId": {
-        "type": "string",
-        "description": "Service Report Layout ID",
+        "type": "reference",
+        "description": "The service report template that the work order uses. If you don’t specify a service report template on a work order, it uses the service report template listed on its work type. If the work type doesn’t list a template or no work type is specified, the work order uses the default service report template.",
         "format": "salesforce-id",
         "x-object": "ServiceReportLayout",
         "maxLength": 18,
         "nullable": true
       },
       "ReturnOrderLineItemId": {
-        "type": "string",
-        "description": "Return Order Line Item ID",
+        "type": "reference",
+        "description": "The return order line item associated with the work order.",
         "format": "salesforce-id",
         "x-object": "ReturnOrderLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "ReturnOrderId": {
-        "type": "string",
-        "description": "Return Order ID",
+        "type": "reference",
+        "description": "The return order associated with the work order.",
         "format": "salesforce-id",
         "x-object": "ReturnOrder",
         "maxLength": 18,
@@ -516,13 +516,13 @@
       },
       "IsGeneratedFromMaintenancePlan": {
         "type": "boolean",
-        "description": "Generated from maintenance plan",
+        "description": "(Read Only) Indicates that the work order was generated from a maintenance plan (true), rather than manually created (false). Note This option is deselected for work orders that were generated from maintenance plans before Summer ’18.",
         "nullable": false,
         "readOnly": true
       },
       "ServiceReportLanguage": {
-        "type": "string",
-        "description": "Service Report Language",
+        "type": "picklist",
+        "description": "The language used for all service reports and service report previews created for the work order, its service appointments, and its work order line items and their service appointments. If the field is blank, service reports are generated in the default language in Salesforce of the person creating the report.To appear as an option in the ServiceReportLanguage field, a language must be set up in Translation Workbench or be one of Salesforce’s 18 fully supported languages. Rich text fields and service report section names aren’t translated.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -563,10 +563,42 @@
         ],
         "maxLength": 255,
         "nullable": true
+      },
+      "AssetWarrantyId": {
+        "type": "reference",
+        "description": "The asset warranty term associated with the work order. This field is available in API version 50.0 and above."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code."
+      },
+      "MaintenanceWorkRuleId": {
+        "type": "reference",
+        "description": "ID of the maintenance work rule that generated this work order. This field is available in API version 50.0 and above."
+      },
+      "PostWorkSummary": {
+        "type": "textarea",
+        "description": "The summary of a completed work order that’s either entered manually or created by an AI agent."
+      },
+      "PreWorkBriefPromptTemplate": {
+        "type": "string",
+        "description": "The ID of the activated Pre-Work Brief prompt template."
+      },
+      "ProductServiceCampaignId": {
+        "type": "reference",
+        "description": "The product service campaign associated with the work order."
+      },
+      "ProductServiceCampaignItemId": {
+        "type": "reference",
+        "description": "The product service campaign item associated with the work order."
+      },
+      "ServiceDocumentTemplate": {
+        "type": "string",
+        "description": "The template ID which sets the template for each service document for the Document Builder feature."
       }
     },
-    "module": "Energy and Utilities Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_workorder.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_workorder.htm",
     "keyPrefix": "0WO",
     "iconUrl": "icon/t4v35/standard/work_order_120.png",
     "iconColor": "06A59A",
@@ -900,6 +932,11 @@
         "relationshipName": "WorkSteps",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Work orders or Field Service must be enabled. The following fields can’t be edited, regardless of your field-level security settings: Discount GrandTotal IsGeneratedFromMaintenancePlan RootWorkOrderId Discount GrandTotal IsGeneratedFromMaintenancePlan RootWorkOrderId",
+    "clouds": [
+      "Energy and Utilities Cloud",
+      "Core Salesforce"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "NavigationLinkSet": {
     "name": "NavigationLinkSet",
-    "description": "Navigation Link Sets - NavigationLinkSet",
+    "description": "Represents the navigation menu in an Experience Cloud site. A navigation menu consists of items that users can click to go to other parts of the site.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Name",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "Language for the navigation menu. Valid values are: Chinese (Simplified): zh_CN Chinese (Traditional): zh_TW Danish: da Dutch: nl_NL English: en_US Finnish: fi French: fr German: de Italian: it Japanese: ja Korean: ko Norwegian: no Portuguese (Brazil): pt_BR Russian: ru Spanish: es Spanish (Mexico): es_MX Spanish (Mexico) defaults to Spanish for customer-defined translations. Swedish: sv Thai: th The Salesforce user interface is fully translated to Thai, but Help is in English.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -69,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "Label for the navigation menu.",
         "maxLength": 80,
         "nullable": false
       },
@@ -114,8 +114,8 @@
         "readOnly": true
       },
       "NetworkId": {
-        "type": "string",
-        "description": "Parent ID",
+        "type": "reference",
+        "description": "ID of the Experience Cloud site.",
         "format": "salesforce-id",
         "x-object": "Network",
         "maxLength": 18,
@@ -123,10 +123,10 @@
         "readOnly": true
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0Lm",
     "label": "Navigation Link Set",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_navigationlinkset.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -139,6 +139,11 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Experience Cloud sites created using Experience Builder templates",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

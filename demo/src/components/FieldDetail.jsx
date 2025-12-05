@@ -457,6 +457,26 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
             </Typography>
           </Box>
         )}
+        {object.accessRules && (
+          <Box sx={{ mt: 2, p: 2, backgroundColor: '#fef9e7', border: '1px solid #f9e79f', borderRadius: '4px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+              <span style={{ fontSize: '1.2rem' }}>🔒</span>
+              <Typography variant="caption" sx={{ color: '#856404', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Special Access Required
+              </Typography>
+            </Box>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#856404',
+                lineHeight: 1.6,
+                fontWeight: 500
+              }}
+            >
+              {object.accessRules}
+            </Typography>
+          </Box>
+        )}
         {object.sourceUrl && (
           <Box sx={{ mt: 1 }}>
             <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>

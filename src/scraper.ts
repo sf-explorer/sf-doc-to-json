@@ -17,12 +17,213 @@ const __dirname = path.dirname(__filename);
 
 const documentMapping: Record<string, DocumentMapping> = {};
 
+/**
+ * Normalize Salesforce types to JSON standard types
+ * Salesforce documentation uses types like "textarea", "picklist", etc.
+ * which should be normalized to standard JSON types
+ */
+function normalizeType(sfType: string): string {
+    if (!sfType) return 'string';
+    
+    const type = sfType.toLowerCase().trim();
+    
+    // Map of Salesforce types to JSON standard types
+    const typeMap: Record<string, string> = {
+        // Text types
+        'textarea': 'string',
+        'email': 'string',
+        'phone': 'string',
+        'url': 'string',
+        'picklist': 'string',
+        'multipicklist': 'string',
+        'combobox': 'string',
+        'reference': 'string',
+        'id': 'string',
+        'encryptedstring': 'string',
+        'datacategorygroupreference': 'string',
+        'base64': 'string',
+        'address': 'string',
+        'location': 'string',
+        
+        // Numeric types
+        'currency': 'number',
+        'percent': 'number',
+        'int': 'number',
+        'long': 'number',
+        'decimal': 'number',
+        
+        // Date/Time types
+        'date': 'date',
+        'datetime': 'dateTime',
+        'time': 'time',
+        
+        // Boolean types
+        'checkbox': 'boolean',
+        
+        // Already standard types
+        'string': 'string',
+        'boolean': 'boolean',
+        'number': 'number',
+        'integer': 'integer',
+        'double': 'double',
+        'object': 'object',
+        'array': 'array'
+    };
+    
+    return typeMap[type] || 'string'; // Default to string for unknown types
+}
+
 function cleanWhitespace(text: string): string {
     return text
         .replace(/\n/g, ' ')      // Replace newlines with spaces
         .replace(/\t/g, ' ')      // Replace tabs with spaces
         .replace(/\s+/g, ' ')     // Replace multiple spaces with single space
         .trim();                  // Remove leading/trailing whitespace
+}
+
+/**
+ * Extract permission names from access rules text
+ * Examples:
+ * - "To access this object, you must have the View Event Log Object Data user permission."
+ *   -> ["View Event Log Object Data"]
+ * - "You must have the "Email Administration," "Customize Application," and "View Setup" user permissions."
+ *   -> ["Email Administration", "Customize Application", "View Setup"]
+ * - "You must have the "Edit" permission on documents."
+ *   -> ["Edit"]
+ * - "You must have the Manage Chatter Messages and Direct Messages permission enabled."
+ *   -> ["Manage Chatter Messages and Direct Messages"]
+ * - "To access this object, you must have Tableau Next enabled in your org and a Tableau Next permission set."
+ *   -> ["Tableau Next"]
+ * - "This object is available as part of the Shield and Salesforce Platform Encryption add-on subscriptions."
+ *   -> ["Shield", "Salesforce Platform Encryption"]
+ * - "Users that have access to Data Cloud."
+ *   -> ["Data Cloud"]
+ * - "Your org must have one or more of these licenses: A, B, or C."
+ *   -> ["A", "B", "C"]
+ * - "This object is available if sales account plans are turned on."
+ *   -> ["sales account plans"]
+ * - "Research results are only available in orgs that have Einstein features with Einstein generative AI enabled."
+ *   -> ["Einstein features with Einstein generative AI"]
+ */
+function extractPermissions(text: string): string[] {
+    const permissions: string[] = [];
+    
+    // Pattern 1: "must have one or more of these licenses:" followed by list
+    const pattern1 = /must have one or more of these licenses?:\s*(.+?)(?:\.|$)/gi;
+    let match = pattern1.exec(text);
+    if (match) {
+        const licensesText = match[1].trim();
+        // Split by comma, "or", and "and" to extract individual licenses
+        const licenses = licensesText
+            .split(/[,;]|\s+or\s+|\s+and\s+/i)
+            .map(l => l.trim())
+            .filter(l => l.length > 0);
+        licenses.forEach(license => permissions.push(license));
+    }
+    
+    // Pattern 2: Multiple quoted permissions like "PermA," "PermB," and "PermC" user permissions
+    // Check if text contains quoted permissions
+    if (/["']/.test(text) && /(?:user )?permissions?/i.test(text)) {
+        // Extract the part with quoted permissions
+        const quotedSection = text.match(/(?:you must have|requires?)(.*?)(?:user )?permissions?/i);
+        if (quotedSection) {
+            // Find all quoted strings
+            const quotedPattern = /["']([^"']+?)["']/g;
+            let quotedMatch;
+            while ((quotedMatch = quotedPattern.exec(quotedSection[1])) !== null) {
+                // Clean up trailing punctuation from quoted strings
+                const cleaned = quotedMatch[1].trim().replace(/[,;]$/, '');
+                if (cleaned) {
+                    permissions.push(cleaned);
+                }
+            }
+        }
+    }
+    
+    // Pattern 3: "This object is available if [FEATURE] is/are turned on"
+    const pattern3 = /(?:is|are) available if (.+?) (?:is|are) turned on/gi;
+    while ((match = pattern3.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 4: "available in orgs that have [FEATURE] enabled"
+    const pattern4 = /available in orgs that have (.+?) enabled/gi;
+    while ((match = pattern4.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 5: "you must have the [PERMISSION] permission enabled"
+    const pattern5 = /(?:you must have|requires?) the (.+?) permission enabled/gi;
+    while ((match = pattern5.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 6: "you must have the [PERMISSION] user permission"
+    // Only apply this if we haven't already captured quoted permissions
+    const pattern6 = /the (.+?) user permission/gi;
+    while ((match = pattern6.exec(text)) !== null) {
+        const perm = match[1].trim();
+        // Skip if already captured by quoted pattern or if it contains quotes
+        if (!permissions.includes(perm) && !/["']/.test(perm)) {
+            permissions.push(perm);
+        }
+    }
+    
+    // Pattern 7: "appropriate access to [FEATURE/OBJECT]"
+    const pattern7 = /appropriate access to (?:the )?(.+?)(?:\s+that|\s+in order to|\.|\s+and|$)/gi;
+    while ((match = pattern7.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 8: "you must have [FEATURE] enabled in your org"
+    const pattern8 = /(?:you must have|requires?) (.+?) enabled in your org/gi;
+    while ((match = pattern8.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 9: "[PERMISSION] permission set"
+    const pattern9 = /(?:and a |with a |have a )(.+?) permission set/gi;
+    while ((match = pattern9.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 10: "available as part of the [FEATURE] add-on subscription(s)"
+    const pattern10 = /available as part of the (.+?) add-on subscriptions?/gi;
+    while ((match = pattern10.exec(text)) !== null) {
+        const featuresText = match[1].trim();
+        // Split by "and" to handle multiple features
+        const features = featuresText.split(/\s+and\s+/i);
+        features.forEach(feature => permissions.push(feature.trim()));
+    }
+    
+    // Pattern 11: "Users that have access to [FEATURE]"
+    const pattern11 = /users? (?:that|who) have access to (.+?)(?:\.|$)/gi;
+    while ((match = pattern11.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 12: "available only in [EXPERIENCE]"
+    const pattern12 = /available only in (.+?)(?:\.|$)/gi;
+    while ((match = pattern12.exec(text)) !== null) {
+        permissions.push(match[1].trim());
+    }
+    
+    // Pattern 13: "requires [PERMISSION]" or "need [PERMISSION]" (fallback if no other patterns matched)
+    if (permissions.length === 0) {
+        const pattern13 = /(?:requires?|needs?) (.+?)(?:\.|$)/gi;
+        match = pattern13.exec(text);
+        if (match) {
+            permissions.push(match[1].trim());
+        }
+    }
+    
+    // If no patterns matched, return the full text (fallback)
+    if (permissions.length === 0 && text.length > 0) {
+        permissions.push(text);
+    }
+    
+    // Remove duplicates
+    return [...new Set(permissions)];
 }
 
 /**
@@ -140,6 +341,42 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
             headers = $('[data-title="Field"]');
         }
 
+        // Extract Special Access Rules section and parse permissions
+        let accessRules: string | undefined = undefined;
+        const specialAccessHeading = $('h2, h3').filter(function(this: cheerio.Element) {
+            const text = $(this).text().trim();
+            return text === 'Special Access Rules' || text === 'Special Access Rule';
+        });
+        
+        if (specialAccessHeading.length > 0) {
+            // Get the content after the Special Access Rules heading
+            // Look for the next paragraph or list items
+            const nextElement = specialAccessHeading.next();
+            if (nextElement.length > 0) {
+                let rulesText = '';
+                
+                // Check if it's a list
+                if (nextElement.is('ul') || nextElement.is('ol')) {
+                    const listItems: string[] = [];
+                    nextElement.find('li').each((_index, el) => {
+                        listItems.push(cleanWhitespace($(el).text()));
+                    });
+                    rulesText = listItems.join(' ');
+                } else if (nextElement.is('p')) {
+                    // It's a paragraph
+                    rulesText = cleanWhitespace(nextElement.text());
+                }
+                
+                if (rulesText) {
+                    // Extract permission names from the text
+                    const permissions = extractPermissions(rulesText);
+                    if (permissions.length > 0) {
+                        accessRules = permissions.join(', ');
+                    }
+                }
+            }
+        }
+
         const headerNames: string[] = [];
         const headerDesc: string[] = [];
 
@@ -158,7 +395,7 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
         const properties: Record<string, { type: string; description: string }> = {};
         headerNames.forEach((name, i) => {
             properties[name] = {
-                type: headerTypes[i] || '',
+                type: normalizeType(headerTypes[i] || ''),
                 description: headerDesc[i] || '',
             };
         });
@@ -168,13 +405,20 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
         // The public URL uses: /${documentationId}/${deliverable}/${url}
         const publicUrl = `https://developer.salesforce.com/docs/${documentationId}/${header.deliverable}/${url}`;
         
-        return { 
+        const result: Partial<SalesforceObject> = { 
             name: data.title, 
             description: cleanWhitespace(desc?.text() || ''), 
             properties, 
             module: CONFIGURATION[documentationId]?.label || '',
             sourceUrl: publicUrl
         };
+        
+        // Only add accessRules if it was found
+        if (accessRules) {
+            result.accessRules = accessRules;
+        }
+        
+        return result;
     } catch (e) {
         console.error(`Error fetching content for ${url}:`, (e as Error).message);
         return {};
@@ -182,14 +426,6 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
 }
 
 async function loadAllDocuments(items: any[], version: string): Promise<void> {
-    const chunkList = <T,>(list: T[], size: number): T[][] => {
-        const chunks: T[][] = [];
-        for (let i = 0; i < list.length; i += size) {
-            chunks.push(list.slice(i, i + size));
-        }
-        return chunks;
-    };
-
     const docFolder = './src/doc';
     try {
         await fs.access(docFolder);
@@ -198,33 +434,6 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         console.log(`Created ${docFolder} directory`);
     }
 
-    const itemChunks = chunkList(items.map(x => ({ url: x.a_attr.href, ...x })), CHUNK_SIZE);
-    let finalResult: SalesforceObject[] = [];
-    
-    console.log(`\nProcessing ${items.length} objects in ${itemChunks.length} chunks...`);
-    
-    for (let i = 0; i < itemChunks.length; i++) {
-        const chunk = itemChunks[i];
-        const promises = chunk.map(x => fetchContentDocument(x.documentationId, x.url));
-        const results = (await Promise.all(promises)).filter(item => item.name) as SalesforceObject[];
-        finalResult = [...finalResult, ...results];
-        
-        const progress = Math.round((finalResult.length / items.length) * 100);
-        console.log(`Progress: ${finalResult.length}/${items.length} (${progress}%) - Chunk ${i + 1}/${itemChunks.length}`);
-    }
-
-    const resultsByCloud = finalResult.reduce((acc, item) => {
-        const module = item.module || 'Unknown';
-        if (!acc[module]) {
-            acc[module] = [];
-        }
-        acc[module].push(item);
-        return acc;
-    }, {} as Record<string, SalesforceObject[]>);
-
-    console.log('\n');
-    let totalObjects = 0;
-    
     // Load existing index if it exists, otherwise create new
     const indexPath = path.join(docFolder, 'index.json');
     let existingIndex: DocumentIndex | null = null;
@@ -261,79 +470,182 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
     // Track stats for each cloud
     const cloudStats: Record<string, { objects: string[], count: number }> = {};
     
-    // Write individual object files
-    for (const item of finalResult) {
-        if (!item.name) continue;
-        
-        const firstLetter = item.name[0].toUpperCase();
-        const objectFilePath = path.join(objectsFolder, firstLetter, `${item.name}.json`);
-        
-        // Check if object file already exists and merge data if it does
-        let existingObjectData: SalesforceObject | null = null;
-        try {
-            const existingContent = await fs.readFile(objectFilePath, 'utf-8');
-            const existingFile = JSON.parse(existingContent);
-            existingObjectData = existingFile[item.name];
-        } catch {
-            // File doesn't exist yet, that's fine
+    // Process items in chunks but save files immediately after each object is fetched
+    const chunkList = <T,>(list: T[], size: number): T[][] => {
+        const chunks: T[][] = [];
+        for (let i = 0; i < list.length; i += size) {
+            chunks.push(list.slice(i, i + size));
         }
+        return chunks;
+    };
+
+    const itemChunks = chunkList(items.map(x => ({ url: x.a_attr.href, ...x })), CHUNK_SIZE);
+    let totalObjects = 0;
+    let processedCount = 0;
+    
+    console.log(`\nProcessing ${items.length} objects in ${itemChunks.length} chunks...`);
+    console.log('💾 Files will be saved progressively as objects are fetched\n');
+    
+    for (let i = 0; i < itemChunks.length; i++) {
+        const chunk = itemChunks[i];
         
-        // Merge with existing data if found
-        let mergedObject: SalesforceObject;
-        if (existingObjectData) {
-            // Enrich existing object with new data
-            mergedObject = {
-                ...existingObjectData,
-                ...item,
-                // Merge properties (fields) - keep all fields from both sources
-                properties: {
-                    ...existingObjectData.properties,
-                    ...item.properties
-                },
-                // If description is empty in new data, keep the old one
-                description: item.description || existingObjectData.description,
-                // Keep the most detailed sourceUrl (prefer the new one if it exists)
-                sourceUrl: item.sourceUrl || existingObjectData.sourceUrl,
+        // Fetch all objects in the chunk concurrently
+        const promises = chunk.map(x => fetchContentDocument(x.documentationId, x.url));
+        const results = (await Promise.all(promises)).filter(item => item.name) as SalesforceObject[];
+        
+        // Immediately save each fetched object to disk
+        for (const item of results) {
+            if (!item.name) continue;
+            
+            const firstLetter = item.name[0].toUpperCase();
+            const objectFilePath = path.join(objectsFolder, firstLetter, `${item.name}.json`);
+            
+            // Check if object file already exists and merge data if it does
+            let existingObjectData: SalesforceObject | null = null;
+            try {
+                const existingContent = await fs.readFile(objectFilePath, 'utf-8');
+                const existingFile = JSON.parse(existingContent);
+                existingObjectData = existingFile[item.name];
+            } catch {
+                // File doesn't exist yet, that's fine
+            }
+            
+            // Merge with existing data if found
+            let mergedObject: SalesforceObject;
+            if (existingObjectData) {
+                // ENRICH existing object with new data - preserve ALL existing fields
+                // Start with existing data, then selectively add/update only fields that have values in new data
+                mergedObject = {
+                    ...existingObjectData, // Keep everything from existing object
+                };
+                
+                // Only update/add fields if the new item has actual values for them
+                if (item.name) {
+                    mergedObject.name = item.name;
+                }
+                
+                // Merge properties (fields) - ALWAYS keep ALL existing properties AND their metadata
+                // This is CRITICAL: Properties from describe API have rich metadata (format, maxLength, nullable, etc.)
+                // Documentation scraping only provides type & description
+                // We must merge at the PROPERTY LEVEL to preserve all metadata
+                const existingProps = existingObjectData.properties || {};
+                const newProps = item.properties || {};
+                
+                // Count properties for logging
+                const existingCount = Object.keys(existingProps).length;
+                const newCount = Object.keys(newProps).length;
+                
+                // IMPORTANT: Documentation scraping might return fewer fields than describe API
+                // We should ADD new fields but NEVER remove existing ones
+                if (existingCount > 0 && newCount === 0) {
+                    // New data has NO properties - keep existing entirely
+                    mergedObject.properties = existingProps;
+                    console.log(`ℹ️  ${item.name}: Kept ${existingCount} existing properties (new data had none)`);
+                } else {
+                    // Merge properties: Start with existing, then merge each property individually
+                    const merged: Record<string, any> = {};
+                    
+                    // First, copy all existing properties with their full metadata
+                    for (const [key, value] of Object.entries(existingProps)) {
+                        merged[key] = { ...value };
+                    }
+                    
+                    // Then, merge in new properties (add new ones or update existing ones)
+                    for (const [key, newValue] of Object.entries(newProps)) {
+                        if (merged[key]) {
+                            // Property exists - merge metadata, don't replace
+                            merged[key] = {
+                                ...merged[key],     // Keep all existing metadata
+                                ...newValue         // Update/add from new data
+                            };
+                        } else {
+                            // New property - add it
+                            merged[key] = { ...newValue };
+                        }
+                    }
+                    
+                    mergedObject.properties = merged;
+                    
+                    const mergedCount = Object.keys(merged).length;
+                    
+                    // Log if we're potentially losing properties
+                    if (mergedCount < existingCount) {
+                        console.warn(`⚠️  ${item.name}: Properties reduced from ${existingCount} to ${mergedCount}`);
+                    } else if (newCount > 0) {
+                        const added = mergedCount - existingCount;
+                        if (added > 0) {
+                            console.log(`  ${item.name}: ${existingCount} existing + ${added} new = ${mergedCount} total properties`);
+                        }
+                    }
+                }
+                
+                // Only update description if new one exists and is not empty
+                if (item.description) {
+                    mergedObject.description = item.description;
+                }
+                
+                // Only update module if new one exists
+                if (item.module) {
+                    mergedObject.module = item.module;
+                }
+                
+                // Only update sourceUrl if new one exists
+                if (item.sourceUrl) {
+                    mergedObject.sourceUrl = item.sourceUrl;
+                }
+                
+                // Only add/update accessRules if new one exists
+                if (item.accessRules) {
+                    mergedObject.accessRules = item.accessRules;
+                }
+                
                 // Track multiple clouds if object appears in multiple places
-                clouds: [
-                    ...(existingObjectData.clouds || [existingObjectData.module].filter(Boolean)),
-                    item.module
-                ].filter((v, i, arr) => arr.indexOf(v) === i) // Remove duplicates
+                const existingClouds = existingObjectData.clouds || [existingObjectData.module].filter(Boolean);
+                const newClouds = item.module ? [...existingClouds, item.module] : existingClouds;
+                mergedObject.clouds = [...new Set(newClouds)]; // Remove duplicates
+            } else {
+                // New object, just use the scraped data
+                mergedObject = {
+                    ...item,
+                    clouds: [item.module].filter(Boolean)
+                };
+            }
+            
+            const objectData = {
+                [item.name]: mergedObject
             };
-        } else {
-            // New object, just use the scraped data
-            mergedObject = {
-                ...item,
-                clouds: [item.module].filter(Boolean)
+            
+            // 💾 Save file immediately
+            await fs.writeFile(objectFilePath, JSON.stringify(objectData, null, 2), 'utf-8');
+            
+            // Default to "Core Salesforce" instead of "Unknown" for objects without a specific cloud
+            const cloudName = item.module && item.module !== 'N/A' ? item.module : 'Core Salesforce';
+            if (!cloudStats[cloudName]) {
+                cloudStats[cloudName] = { objects: [], count: 0 };
+            }
+            cloudStats[cloudName].objects.push(item.name);
+            cloudStats[cloudName].count++;
+            
+            // Update index entry with enriched data
+            const existingIndexEntry = objectIndex[item.name];
+            objectIndex[item.name] = {
+                cloud: existingIndexEntry?.cloud || cloudName,
+                file: `objects/${firstLetter}/${item.name}.json`,
+                description: item.description || existingIndexEntry?.description || '',
+                fieldCount: Object.keys(mergedObject.properties || {}).length,
+                sourceUrl: item.sourceUrl || existingIndexEntry?.sourceUrl,
+                // Track all clouds this object appears in
+                clouds: mergedObject.clouds,
+                // Include access rules if they exist
+                accessRules: mergedObject.accessRules || existingIndexEntry?.accessRules
             };
+            
+            totalObjects++;
         }
         
-        const objectData = {
-            [item.name]: mergedObject
-        };
-        
-        await fs.writeFile(objectFilePath, JSON.stringify(objectData, null, 2), 'utf-8');
-        
-        const cloudName = item.module || 'Unknown';
-        if (!cloudStats[cloudName]) {
-            cloudStats[cloudName] = { objects: [], count: 0 };
-        }
-        cloudStats[cloudName].objects.push(item.name);
-        cloudStats[cloudName].count++;
-        
-        // Update index entry with enriched data
-        const existingIndexEntry = objectIndex[item.name];
-        objectIndex[item.name] = {
-            cloud: existingIndexEntry?.cloud || cloudName,
-            file: `objects/${firstLetter}/${item.name}.json`,
-            description: item.description || existingIndexEntry?.description || '',
-            fieldCount: Object.keys(mergedObject.properties || {}).length,
-            sourceUrl: item.sourceUrl || existingIndexEntry?.sourceUrl,
-            // Track all clouds this object appears in
-            clouds: mergedObject.clouds
-        };
-        
-        totalObjects++;
+        processedCount += results.length;
+        const progress = Math.round((processedCount / items.length) * 100);
+        console.log(`Progress: ${processedCount}/${items.length} (${progress}%) - Chunk ${i + 1}/${itemChunks.length} - ✅ ${results.length} files saved`);
     }
     
     // Create cloud index files (just list of object names per cloud)
@@ -410,7 +722,7 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
     await fs.writeFile(indexPath, JSON.stringify(indexData, null, 2), 'utf-8');
     
     console.log(`\n✓ Created main index with ${totalObjectsInIndex} objects across ${Object.keys(cloudIndex).length} cloud(s): ${indexPath}`);
-    console.log(`✓ This scrape: ${totalObjects} objects saved from ${Object.keys(resultsByCloud).length} cloud(s)`);
+    console.log(`✓ This scrape: ${totalObjects} objects saved from ${Object.keys(cloudStats).length} cloud(s)`);
     console.log(`✓ All objects stored in: ${objectsFolder}/[A-Z]/`);
 }
 

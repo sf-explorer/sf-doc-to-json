@@ -27,7 +27,7 @@
       },
       "LineItemNumber": {
         "type": "string",
-        "description": "WOLI Number",
+        "description": "An auto-generated number that identifies the work order line item. Each work order’s line items start at 1.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
@@ -84,22 +84,22 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The date when the line item was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The date when the line item was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "WorkOrderId": {
-        "type": "string",
-        "description": "Work Order ID",
+        "type": "reference",
+        "description": "The line item’s parent work order. Because work order line items must be associated with a work order, this is a required field.",
         "format": "salesforce-id",
         "x-object": "WorkOrder",
         "maxLength": 18,
@@ -107,40 +107,40 @@
         "readOnly": true
       },
       "ParentWorkOrderLineItemId": {
-        "type": "string",
-        "description": "Parent Work Order Line Item ID",
+        "type": "reference",
+        "description": "The line item’s parent work order line item, if it has one. Tip Create a custom report to view a line item’s child line items.",
         "format": "salesforce-id",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "Product2Id": {
-        "type": "string",
-        "description": "Product ID",
+        "type": "reference",
+        "description": "(Read only) The product associated with the price book entry. This field is not available in the user interface. For best results, use the PricebookEntryId field in any custom code or layouts.",
         "format": "salesforce-id",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true
       },
       "AssetId": {
-        "type": "string",
-        "description": "Asset ID",
+        "type": "reference",
+        "description": "The asset associated with the work order line item. The asset is not automatically inherited from the parent work order.",
         "format": "salesforce-id",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": true
       },
       "OrderId": {
-        "type": "string",
-        "description": "Order ID",
+        "type": "reference",
+        "description": "The order associated with the line item. For example, you may need to order replacement parts before you can complete the line item.",
         "format": "salesforce-id",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": true
       },
       "RootWorkOrderLineItemId": {
-        "type": "string",
-        "description": "Root Work Order Line Item ID",
+        "type": "reference",
+        "description": "(Read only) The top-level line item in a work order line item hierarchy. Depending on where a line item lies in the hierarchy, its root could be the same as its parent. Note View a line item’s child line items in the Child Work Order Line Items related list.",
         "format": "salesforce-id",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
@@ -148,26 +148,26 @@
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of the work order line item. Try to describe the steps needed to mark the line item Completed.",
         "maxLength": 32000,
         "nullable": true
       },
       "StartDate": {
-        "type": "string",
-        "description": "Start Date",
+        "type": "dateTime",
+        "description": "The date on which the line item goes into effect. This field is blank unless you set up an Apex trigger or quick action to populate it. For example, you can create a quick action that sets the StartDate to the date when the Status changes to In Progress.",
         "format": "date-time",
         "nullable": true
       },
       "EndDate": {
-        "type": "string",
-        "description": "End Date",
+        "type": "dateTime",
+        "description": "The date on which the line item is completed. This field is blank unless you set up an Apex trigger or quick action to populate it. For example, you can create a quick action that sets the EndDate to 365 days after the StartDate.",
         "format": "date-time",
         "nullable": true
       },
       "Status": {
-        "type": "string",
-        "description": "Status",
+        "type": "picklist",
+        "description": "The status of the line item. The picklist includes the following values, which can be customized: New—Line item was created, but there hasn’t yet been any activity. In Progress—Work has begun. On Hold—Work is paused. Completed—Work is complete. Cannot Complete—Work could not be completed. Closed—All work and associated activity is complete. Canceled—Work is canceled, typically before any work began.",
         "format": "enum",
         "enum": [
           "New",
@@ -182,66 +182,66 @@
         "nullable": true
       },
       "PricebookEntryId": {
-        "type": "string",
-        "description": "Product ID",
+        "type": "reference",
+        "description": "The price book entry (product) associated with the line item. The label in the user interface is Product. This field’s lookup search only returns products that are included in the work order’s price book.",
         "format": "salesforce-id",
         "x-object": "PricebookEntry",
         "maxLength": 18,
         "nullable": true
       },
       "Quantity": {
-        "type": "number",
-        "description": "Quantity",
+        "type": "double",
+        "description": "Number of units of the line item included in the associated work order.",
         "nullable": true,
         "multipleOf": 0.01
       },
       "UnitPrice": {
-        "type": "number",
-        "description": "Unit Price",
+        "type": "currency",
+        "description": "Initially, the unit price for a work order line item is the line item’s list price from the price book, but you can change it.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "Discount": {
-        "type": "number",
-        "description": "Discount",
+        "type": "percent",
+        "description": "The percent discount to apply to the line item. You can enter a number with or without the percent symbol, and you can use up to two decimal places.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "ListPrice": {
-        "type": "number",
-        "description": "List Price",
+        "type": "currency",
+        "description": "The price of the line item (product) as listed in its corresponding price book entry. If a price book entry isn’t specified, the list price defaults to zero.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "Subtotal": {
-        "type": "number",
-        "description": "Subtotal",
+        "type": "currency",
+        "description": "(Read only) The line item’s unit price multiplied by the quantity.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalPrice": {
-        "type": "number",
-        "description": "Total Price",
+        "type": "currency",
+        "description": "Read only. The line item’s subtotal with discounts applied.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "Duration": {
-        "type": "number",
-        "description": "Duration",
+        "type": "double",
+        "description": "The estimated time required to complete the line item. Specify the duration unit in the Duration Type field. If the Duration field on a Work Order is null, it adopts the duration value from the Work Type object when the work type is updated or inserted. Note Work order duration and work order line item duration are independent of each other. If you want work order duration to automatically show the sum of the work order line items’ duration, replace the Duration field on work orders with a custom roll-up summary field.",
         "nullable": true,
         "multipleOf": 0.01
       },
       "DurationType": {
-        "type": "string",
-        "description": "Duration Type",
+        "type": "picklist",
+        "description": "The unit of the duration: Minutes or Hours.",
         "format": "enum",
         "enum": [
           "Hours",
@@ -251,65 +251,65 @@
         "nullable": true
       },
       "DurationInMinutes": {
-        "type": "number",
-        "description": "Duration in Minutes",
+        "type": "double",
+        "description": "The estimated duration in minutes. For internal use only.",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "WorkTypeId": {
-        "type": "string",
-        "description": "Work Type ID",
+        "type": "reference",
+        "description": "The work type associated with the line item. When a work type is selected, the line item automatically inherits the work type’s Duration, Duration Type, and required skills. If the Duration field for the work type is null, enter the duration value.",
         "format": "salesforce-id",
         "x-object": "WorkType",
         "maxLength": 18,
         "nullable": true
       },
       "Street": {
-        "type": "string",
-        "description": "Street",
+        "type": "textarea",
+        "description": "The street number and name where the line item is completed.",
         "maxLength": 255,
         "nullable": true
       },
       "City": {
         "type": "string",
-        "description": "City",
+        "description": "The city where the line item is completed. Maximum length is 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "State": {
         "type": "string",
-        "description": "State/Province",
+        "description": "The state where the line item is completed. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "Zip/Postal Code",
+        "description": "The postal code where the line item is completed. Maximum length is 20 characters.",
         "maxLength": 20,
         "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "Country",
+        "description": "The country where the line item is completed. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "Latitude": {
-        "type": "number",
-        "description": "Latitude",
+        "type": "double",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the line item is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "Longitude": {
-        "type": "number",
-        "description": "Longitude",
+        "type": "double",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the line item is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "GeocodeAccuracy": {
-        "type": "string",
-        "description": "Geocode Accuracy",
+        "type": "picklist",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only.",
         "format": "enum",
         "enum": [
           "Address",
@@ -328,14 +328,14 @@
         "nullable": true
       },
       "Address": {
-        "type": "object",
-        "description": "Address",
+        "type": "address",
+        "description": "The compound form of the address where the line item is completed.",
         "nullable": true,
         "readOnly": true
       },
       "ServiceTerritoryId": {
-        "type": "string",
-        "description": "Territory ID",
+        "type": "reference",
+        "description": "The service territory where the line item is completed.",
         "format": "salesforce-id",
         "x-object": "ServiceTerritory",
         "maxLength": 18,
@@ -343,13 +343,13 @@
       },
       "Subject": {
         "type": "string",
-        "description": "Subject",
+        "description": "A word or phrase describing the line item.",
         "maxLength": 255,
         "nullable": true
       },
       "StatusCategory": {
-        "type": "string",
-        "description": "Status Category",
+        "type": "picklist",
+        "description": "The category that each Status value falls into. The Status Category field has eight default values: seven values which are identical to the default Status values, and a None value for statuses without a status category.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Waiting for Response value, you may decide that it belongs in the On Hold category. To learn which processes reference StatusCategory, see How are Status Categories Used?",
         "format": "enum",
         "enum": [
           "New",
@@ -367,13 +367,13 @@
       },
       "IsClosed": {
         "type": "boolean",
-        "description": "Is Closed",
+        "description": "Indicates whether the line item has been closed. Changing the line item’s status to Closed causes this checkbox to be selected in the user interface (sets IsClosed to true). Tip Use this field to report on closed versus open work order line items.",
         "nullable": false,
         "readOnly": true
       },
       "Priority": {
-        "type": "string",
-        "description": "Priority",
+        "type": "picklist",
+        "description": "The priority of the line item. The picklist includes the following values, which can be customized: Low Medium High Critical",
         "format": "enum",
         "enum": [
           "Low",
@@ -385,48 +385,48 @@
         "nullable": true
       },
       "ServiceAppointmentCount": {
-        "type": "integer",
-        "description": "Service Appointment Count",
+        "type": "int",
+        "description": "The number of service appointments on the work order line item.",
         "nullable": true,
         "readOnly": true
       },
       "LocationId": {
-        "type": "string",
-        "description": "Location ID",
+        "type": "reference",
+        "description": "A location associated with the work order line item. For example, a work site.",
         "format": "salesforce-id",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "MinimumCrewSize": {
-        "type": "integer",
-        "description": "Minimum Crew Size",
+        "type": "int",
+        "description": "The minimum crew size allowed for a crew assigned to the line item. If you’re not using the Field Service managed package, this field serves as a suggestion rather than a rule. If you are using the managed package, the scheduling optimizer counts the number of service crew members on a service crew to determine whether it fits a work order line item’s minimum crew size requirement.",
         "nullable": true
       },
       "RecommendedCrewSize": {
-        "type": "integer",
-        "description": "Recommended Crew Size",
+        "type": "int",
+        "description": "The recommended number of people on the service crew assigned to the line item. For example, you might have a Minimum Crew Size of 2 and a Recommended Crew Size of 3.",
         "nullable": true
       },
       "ServiceReportTemplateId": {
-        "type": "string",
-        "description": "Service Report Layout ID",
+        "type": "reference",
+        "description": "The service report template that the line item uses. If you don’t specify a service report template on a work order line item, it uses the service report template listed on its work type. If the work type doesn’t list a template or no work type is specified, the line item uses the default service report template.",
         "format": "salesforce-id",
         "x-object": "ServiceReportLayout",
         "maxLength": 18,
         "nullable": true
       },
       "ReturnOrderLineItemId": {
-        "type": "string",
-        "description": "Return Order Line Item ID",
+        "type": "reference",
+        "description": "The return order line item associated with the work order line item.",
         "format": "salesforce-id",
         "x-object": "ReturnOrderLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "ReturnOrderId": {
-        "type": "string",
-        "description": "Return Order ID",
+        "type": "reference",
+        "description": "The return order associated with the work order line item.",
         "format": "salesforce-id",
         "x-object": "ReturnOrder",
         "maxLength": 18,
@@ -434,14 +434,14 @@
         "readOnly": true
       },
       "SuggestedMaintenanceDate": {
-        "type": "string",
-        "description": "Suggested Maintenance Date",
+        "type": "date",
+        "description": "Date when maintenance work is planned.",
         "format": "date",
         "nullable": true
       },
       "MaintenancePlanId": {
-        "type": "string",
-        "description": "Maintenance Plan ID",
+        "type": "reference",
+        "description": "The maintenance plan associated with the work order line item.",
         "format": "salesforce-id",
         "x-object": "MaintenancePlan",
         "maxLength": 18,
@@ -449,13 +449,13 @@
       },
       "IsGeneratedFromMaintenancePlan": {
         "type": "boolean",
-        "description": "Generated from maintenance plan",
+        "description": "Identifies whether the work order line item is generated from a maintenance plan.",
         "nullable": false,
         "readOnly": true
       },
       "MaintenanceWorkRuleId": {
-        "type": "string",
-        "description": "Maintenance Work Rule ID",
+        "type": "reference",
+        "description": "ID of the maintenance work rule that generated this line item. This field is available in API version 50.0 and above.",
         "format": "salesforce-id",
         "x-object": "MaintenanceWorkRule",
         "maxLength": 18,
@@ -463,16 +463,32 @@
         "readOnly": true
       },
       "AssetWarrantyId": {
-        "type": "string",
-        "description": "Asset Warranty ID",
+        "type": "reference",
+        "description": "The asset warranty term associated with the work order line item. This field is available in API version 50.0 and above.",
         "format": "salesforce-id",
         "x-object": "AssetWarranty",
         "maxLength": 18,
         "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code."
+      },
+      "ProductServiceCampaignId": {
+        "type": "reference",
+        "description": "The product service campaign associated with the work order line item."
+      },
+      "ProductServiceCampaignItemId": {
+        "type": "reference",
+        "description": "The product service campaign item associated with the work order line item."
+      },
+      "ServiceDocumentTemplate": {
+        "type": "string",
+        "description": "The template ID which sets the template for each service document for the Document Builder feature."
       }
     },
-    "module": "Energy and Utilities Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_workorderlineitem.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_workorderlineitem.htm",
     "keyPrefix": "1WL",
     "iconUrl": "icon/t4v35/standard/work_order_item_120.png",
     "iconColor": "1B96FF",
@@ -776,6 +792,11 @@
         "relationshipName": "WorkSteps",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Work orders or Field Service must be enabled.",
+    "clouds": [
+      "Energy and Utilities Cloud",
+      "Core Salesforce"
     ]
   }
 }

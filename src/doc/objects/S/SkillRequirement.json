@@ -1,7 +1,7 @@
 {
   "SkillRequirement": {
     "name": "SkillRequirement",
-    "description": "Represents a skill that is required to complete a particular work type.",
+    "description": "Represents a skill that is required to complete a particular task in Field Service, Omni-Channel, Salesforce Scheduler, or Workforce Engagement. Skill requirements can be added to pending service routing objects in Omni-Channel. They can be added to work types, work orders, and work order line items in Field Service and Lightning Scheduler. And they can be added to job profiles in Workforce Engagement.",
     "properties": {
       "LastReferencedDate": {
         "type": "dateTime",
@@ -12,14 +12,14 @@
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record.",
+        "description": "The timestamp when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "RelatedRecordId": {
         "type": "reference",
-        "description": "The record that the skill is required for. The related record is a work type in Automotive Cloud.",
+        "description": "The record that the skill is required for. The related record can be a work order, work order line item, work type, or pending service routing record.",
         "format": "salesforce-id",
         "x-objects": [
           "JobProfile",
@@ -42,7 +42,7 @@
       },
       "SkillLevel": {
         "type": "double",
-        "description": "he level of the skill required. Skill levels can range from zero to 99.99.",
+        "description": "The level of the skill required. Skill levels can range from zero to 99.99. Depending on your business needs, you can have the skill level to reflect years of experience, certification levels, or license classes.",
         "nullable": true,
         "multipleOf": 0.01
       },
@@ -120,17 +120,17 @@
       },
       "IsAdditionalSkill": {
         "type": "boolean",
-        "description": "Is Additional Skill",
+        "description": "Indicates that a skill is additional. After a designated timeout period, a skill marked as additional is dropped from Omni-Channel routing. The case is then routed to the best-matched agent even if they don’t have all the skills.",
         "nullable": false
       },
       "SkillPriority": {
-        "type": "integer",
-        "description": "Skill Priority",
+        "type": "int",
+        "description": "For additional skills, specify the order in which skills are dropped if after the specified timeout no agent with that skill is available. Higher priority-value skills are dropped first. Lower priority-value skills, for example 0, are dropped last. Skills with the same priority value are dropped as a group. You can set skill priority using skills-based routing rules or Apex code.",
         "nullable": true
       }
     },
-    "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_skillrequirement.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_skillrequirement.htm",
     "keyPrefix": "0Hx",
     "createable": true,
     "updateable": true,
@@ -252,6 +252,11 @@
         "relationshipName": "Histories",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "If you want to use SkillRequirement for Field Service use cases, then Field Service must be enabled.",
+    "clouds": [
+      "Automotive Cloud",
+      "Core Salesforce"
     ]
   }
 }

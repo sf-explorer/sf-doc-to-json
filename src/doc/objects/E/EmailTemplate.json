@@ -1,7 +1,7 @@
 {
   "EmailTemplate": {
     "name": "EmailTemplate",
-    "description": "Email Templates - EmailTemplate",
+    "description": "Represents a template for an email, mass email, list email, or Sales Engagement email. Supported in first-generation managed packages only.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,34 +13,34 @@
       },
       "Name": {
         "type": "string",
-        "description": "Email Template Name",
+        "description": "The email template name.",
         "maxLength": 80,
         "nullable": false
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Template Unique Name",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Template Unique Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record.",
         "maxLength": 80,
         "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "A unique string to distinguish this template from any others. For example, if this template is being using by a flow, use the NamespacePrefix to uniquely identify the templates in multiple flow instances.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "ID of the owner of the template.",
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false
       },
       "FolderId": {
-        "type": "string",
-        "description": "Folder ID",
+        "type": "reference",
+        "description": "ID of the folder that contains the template.",
         "format": "salesforce-id",
         "x-objects": [
           "Folder",
@@ -52,30 +52,30 @@
       },
       "FolderName": {
         "type": "string",
-        "description": "Folder Name",
+        "description": "The name of the folder that contains the template.",
         "maxLength": 256,
         "nullable": true,
         "readOnly": true
       },
       "BrandTemplateId": {
-        "type": "string",
-        "description": "Letterhead ID",
+        "type": "reference",
+        "description": "Required. ID of the BrandTemplate associated with this email template. The brand template supplies letterhead information for the email template.",
         "format": "salesforce-id",
         "x-object": "BrandTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "EnhancedLetterheadId": {
-        "type": "string",
-        "description": "Enhanced Letterhead ID",
+        "type": "reference",
+        "description": "ID of the enhanced letterhead associated with the email template. Note To use an enhanced letterhead, associate it with a Lightning email template that uses the HML merge language.",
         "format": "salesforce-id",
         "x-object": "EnhancedLetterhead",
         "maxLength": 18,
         "nullable": true
       },
       "TemplateStyle": {
-        "type": "string",
-        "description": "Style",
+        "type": "picklist",
+        "description": "Style of the template.",
         "format": "enum",
         "enum": [
           "none",
@@ -92,12 +92,12 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Available For Use",
+        "description": "Indicates that this template is active if true, or inactive if false.",
         "nullable": false
       },
       "TemplateType": {
-        "type": "string",
-        "description": "Template Type",
+        "type": "picklist",
+        "description": "Type of template.",
         "format": "enum",
         "enum": [
           "text",
@@ -110,8 +110,8 @@
         "readOnly": true
       },
       "Encoding": {
-        "type": "string",
-        "description": "Encoding",
+        "type": "picklist",
+        "description": "Character set encoding for the template.",
         "format": "enum",
         "enum": [
           "UTF-8",
@@ -130,37 +130,37 @@
       },
       "Description": {
         "type": "string",
-        "description": "Description",
+        "description": "The email template description. This can be useful to describe the reason for creating the template or its intended use.",
         "maxLength": 4000,
         "nullable": true
       },
       "Subject": {
         "type": "string",
-        "description": "Subject",
+        "description": "The email subject.",
         "maxLength": 1000,
         "nullable": true
       },
       "HtmlValue": {
-        "type": "string",
-        "description": "HTML Value",
+        "type": "textarea",
+        "description": "This field contains the content of the email message, including HTML coding to render the email message. Limit: 384 KB.",
         "maxLength": 384000,
         "nullable": true
       },
       "Body": {
-        "type": "string",
-        "description": "Email Body",
+        "type": "textarea",
+        "description": "Content of the email. Limit: 384 KB.",
         "maxLength": 384000,
         "nullable": true
       },
       "TimesUsed": {
-        "type": "integer",
-        "description": "Times Used",
+        "type": "int",
+        "description": "Number of times this email template has been used.",
         "nullable": true,
         "readOnly": true
       },
       "LastUsedDate": {
-        "type": "string",
-        "description": "Last Used Date",
+        "type": "dateTime",
+        "description": "Date and time when this email template was last used.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -205,13 +205,13 @@
         "readOnly": true
       },
       "ApiVersion": {
-        "type": "number",
-        "description": "API Version",
+        "type": "double",
+        "description": "The API version if this is a Visualforce email template. Every Visualforce email template has an API version specified at creation.",
         "nullable": true
       },
       "Markup": {
-        "type": "string",
-        "description": "Markup",
+        "type": "textarea",
+        "description": "The Visualforce markup, HTML, JavaScript, or any other Web-enabled code that defines the content of the template.",
         "maxLength": 1048576,
         "nullable": true
       },
@@ -229,7 +229,7 @@
       },
       "RelatedEntityType": {
         "type": "string",
-        "description": "Custom Object Definition ID",
+        "description": "When UIType is 2 (Lightning Experience) or 3 (Lightning ExperienceSample), RelatedEntityType indicates which entities this template can be used with. Valid values are the entity API name: \"Account\" for account, \"Contact\" for contact, \"Opportunity\" for opportunity, \"Lead\" for lead, and so on. The value can be any entity the user has read access to (including custom entities) but not virtual entities, setup entities, or platform entities.",
         "format": "enum",
         "enum": [
           "AcceptedEventRelation",
@@ -988,15 +988,63 @@
       },
       "IsBuilderContent": {
         "type": "boolean",
-        "description": "Made in Email Template Builder",
+        "description": "If the email template was made in Email Template Builder. The default value is false.",
         "nullable": false,
         "readOnly": true
+      },
+      "DeliveryRate": {
+        "type": "percent",
+        "description": "Read-only. The percentage of the emails that were delivered compared to the number that bounced (soft and hard). Note: this data includes emails that were delivered to the recipient's spam folder. This field is available in API version 46.0 and later. To access this field, your org must use Sales Engagement and users need the Sales Engagement User or Sales Engagement Cadence Creator permission set. This field value includes emails sent via the ListEmail object or Sales Engagement cadences."
+      },
+      "EntityType": {
+        "type": "picklist",
+        "description": "When UIType is 2 (Lightning Experience) or 3 (Lightning ExperienceSample), EntityType indicates which entities this template can be used with (for example, account or lead). Valid values are standard object ID prefixes: 001 for account, 003 for contact, 006 for opportunity, and 00Q for lead, 500 for case, and 701 for campaign."
+      },
+      "HasSalesforceFiles": {
+        "type": "boolean",
+        "description": "If the email template has attachments from Salesforce Files. The default value is false."
+      },
+      "TotalDelivered": {
+        "type": "int",
+        "description": "Read-only. The total number of emails sent minus hard and soft bounces. Note: this data includes emails that were delivered to the recipient's spam folder. This field is available in API version 46.0 and later. To access this field, your org must use Sales Engagement and users need the Sales Engagement User or Sales Engagement Cadence Creator permission set. This field value includes emails sent via the ListEmail object or Sales Engagement cadences."
+      },
+      "TotalHardBounced": {
+        "type": "int",
+        "description": "Read-only. The total number of emails that permanently bounced back to the sender because the address is invalid. A hard bounce can occur because the domain name doesn't exist or because the recipient is unknown. This field is available in API version 46.0 and later. To access this field, your org must use Sales Engagement and users need the Sales Engagement User or Sales Engagement Cadence Creator permission set. This field value includes emails sent via the ListEmail object or Sales Engagement cadences."
+      },
+      "TotalOpens": {
+        "type": "int",
+        "description": "Read-only. The total number of times a prospect’s email client loaded the images in the HTML version of the email. We also record an open if the prospect clicks a link within the HTML or text email without downloading images. A click indicates that they viewed the message. Some email clients (Outlook, Apple Mail, Thunderbird) don’t display images by default. Pardot counts an open each time the images load. This field is available in API version 46.0 and later. To access this field, your org must use Sales Engagement and users need the Sales Engagement User or Sales Engagement Cadence Creator permission set. This field value includes emails sent via the ListEmail object or Sales Engagement cadences."
+      },
+      "TotalSent": {
+        "type": "int",
+        "description": "Read-only. The total number of emails sent, including bounced, opted-out, and invalid To: addresses. This field is available in API version 46.0 and later. To access this field, your org must use Sales Engagement and users need the Sales Engagement User or Sales Engagement Cadence Creator permission set. This field value includes emails sent via the ListEmail object or Sales Engagement cadences."
+      },
+      "TotalSoftBounced": {
+        "type": "int",
+        "description": "Read-only. The total number of times a recipient’s mail server acknowledged the email, but returned it to the sender. Sometimes it is because the recipient's mailbox is full or the mail server is temporarily unavailable. A soft bounce message can sometimes be delivered at another time. After 5 soft bounces, Pardot opts the prospect out of emails. This field is available in API version 46.0 and later. To access this field, your org must use Sales Engagement and users need the Sales Engagement User or Sales Engagement Cadence Creator permission set. This field value includes emails sent via the ListEmail object or Sales Engagement cadences."
+      },
+      "UIType": {
+        "type": "string",
+        "description": "Indicates the user interface where this template is usable. Valid values are: 1 (Salesforce Classic), 2 (Lightning Experience), and 3 (Lightning Experience Sample)."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The unique name used as the template identifier for API access. The fullName can contain only underscores and alphanumeric characters. It must be unique, begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores."
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
+      "Metadata": {
+        "type": "string",
+        "description": "Email template metadata."
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "00X",
     "label": "Email Template",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_emailtemplate.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -1063,6 +1111,12 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Customer Portal users can’t access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

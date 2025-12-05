@@ -1,7 +1,7 @@
 {
   "ProductRequestLineItem": {
     "name": "ProductRequestLineItem",
-    "description": "Represents a product that’s requested as a part of a product request. Product request line items are components of product requests. Each line item is associated with a specific product being requested.",
+    "description": "Represents a request for a part in field service. Product request line items are components of product requests.",
     "properties": {
       "AccountId": {
         "type": "reference",
@@ -21,13 +21,13 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the product request line item.",
+        "description": "Details not recorded in the provided fields.",
         "maxLength": 32000,
         "nullable": true
       },
       "DestinationLocationId": {
         "type": "reference",
-        "description": "The destination of the product delivery.",
+        "description": "Where the product is delivered.",
         "format": "salesforce-id",
         "x-object": "Location",
         "maxLength": 18,
@@ -35,27 +35,27 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "NeedByDate": {
         "type": "dateTime",
-        "description": "The date when the product must be delivered by.",
+        "description": "Date the product must be delivered by.",
         "format": "date-time",
         "nullable": true
       },
       "ParentId": {
         "type": "reference",
-        "description": "The product request that’s associated with the product request line item.",
+        "description": "The product request that the line item belongs to.",
         "format": "salesforce-id",
         "x-object": "ProductRequest",
         "maxLength": 18,
@@ -72,20 +72,20 @@
       },
       "ProductRequestLineItemNumber": {
         "type": "string",
-        "description": "An auto-generated number for the product request line item.",
+        "description": "(Read Only) An auto-assigned number that identifies the product request line item.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "QuantityRequested": {
         "type": "double",
-        "description": "The quantity of the requested product.",
+        "description": "The amount requested.",
         "nullable": false,
         "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "The units of the requested product; for example, grams, liters, or units. The picklist values can be customized.",
+        "description": "Units of the requested product; for example, grams, liters, or units. The picklist values can be customized.",
         "format": "enum",
         "enum": [
           "Each"
@@ -113,7 +113,7 @@
       },
       "ShipToGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the product is needed.",
+        "description": "Accuracy level of the geocode for the address where the product is needed. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "format": "enum",
         "enum": [
           "Address",
@@ -133,13 +133,13 @@
       },
       "ShipToLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShipToLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -260,15 +260,16 @@
         "readOnly": true
       },
       "CareProgramEnrolleeId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "CareProgramEnrollee",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "description": "The ID of the care program enrollee associated with the product request line item. This field is available from API version 49.0 and later."
       }
     },
-    "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productrequestlineitem.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productrequestlineitem.htm",
     "keyPrefix": "0Tw",
     "createable": true,
     "updateable": true,
@@ -492,6 +493,11 @@
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Field Service must be enabled. You can't use product request line item as a master in an master detail relationship (through a custom field) with a custom object with data.",
+    "clouds": [
+      "Manufacturing Cloud",
+      "Core Salesforce"
     ]
   }
 }

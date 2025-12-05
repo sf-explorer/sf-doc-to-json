@@ -1,7 +1,7 @@
 {
   "DuplicateRule": {
     "name": "DuplicateRule",
-    "description": "Duplicate Rules - DuplicateRule",
+    "description": "Represents a duplicate rule for detecting duplicate records.",
     "properties": {
       "Id": {
         "type": "string",
@@ -34,14 +34,14 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Object Name",
+        "description": "The developer name for the duplicate rule.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language for the duplicate rule.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -53,14 +53,14 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Rule Name",
+        "description": "The label for the duplicate rule.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
@@ -106,13 +106,13 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Active",
+        "description": "Indicates whether a duplicate rule is active (true) or not (false). This field is read only.",
         "nullable": false,
         "readOnly": true
       },
       "SobjectSubtype": {
-        "type": "string",
-        "description": "Object Subtype",
+        "type": "picklist",
+        "description": "The subtype of object the duplicate rule is defined for. This field is available in API version 39.0 or later.",
         "format": "enum",
         "enum": [
           "None",
@@ -123,17 +123,21 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The timestamp when the current user last viewed this record or list view. This field is available in API version 41.0 or later.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
+      },
+      "sObjectType": {
+        "type": "picklist",
+        "description": "The type of object the duplicate rule is defined for."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0Bm",
     "label": "Duplicate Rule",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_duplicaterule.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -146,6 +150,11 @@
         "relationshipName": "DuplicateRecordSets",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "As of Summer ’20 and later, only users with the View Setup and Configuration permission can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

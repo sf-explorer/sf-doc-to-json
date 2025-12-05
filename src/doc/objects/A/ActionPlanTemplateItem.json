@@ -1,7 +1,7 @@
 {
   "ActionPlanTemplateItem": {
     "name": "ActionPlanTemplateItem",
-    "description": "Action Plan Template Items - ActionPlanTemplateItem",
+    "description": "Represents the instance of an item on an action plan template version.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,7 +19,7 @@
       },
       "Name": {
         "type": "string",
-        "description": "Item Name",
+        "description": "The unique identifier for this action plan template item record.",
         "maxLength": 255,
         "nullable": false
       },
@@ -63,22 +63,22 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ActionPlanTemplateVersionId": {
-        "type": "string",
-        "description": "Action Plan Template Version ID",
+        "type": "reference",
+        "description": "The version of the action plan template this item is for.",
         "format": "salesforce-id",
         "x-object": "ActionPlanTemplateVersion",
         "maxLength": 18,
@@ -86,13 +86,13 @@
         "readOnly": true
       },
       "DisplayOrder": {
-        "type": "integer",
-        "description": "Display Order",
+        "type": "int",
+        "description": "The order in which this item is displayed within the action plan template version.",
         "nullable": true
       },
       "ItemEntityType": {
-        "type": "string",
-        "description": "Item Entity Type",
+        "type": "picklist",
+        "description": "The type of action plan template item entity..",
         "format": "enum",
         "enum": [
           "AssessmentTask",
@@ -107,26 +107,34 @@
       },
       "IsRequired": {
         "type": "boolean",
-        "description": "Required",
+        "description": "Indicates whether the task created from this template item is required. The default value is false.",
         "nullable": false
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Is Active",
+        "description": "Indicates whether the task created from this template item is active. The default value is false.",
         "nullable": false
       },
       "UniqueName": {
         "type": "string",
-        "description": "Unique Name",
+        "description": "The unique name for this action plan template item. This field is unique within your organization.",
         "maxLength": 80,
         "nullable": false
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Indicates whether this action plan template item is locked or not. The default value is false."
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "Indicates whether this action plan template item can be edited or not. The default value is false."
       }
     },
-    "module": "N/A",
+    "module": "Health Cloud",
     "keyPrefix": "0PJ",
     "label": "Action Plan Template Item",
     "iconColor": "747E96",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_actionplantemplateitem.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -163,6 +171,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Health Cloud"
     ]
   }
 }

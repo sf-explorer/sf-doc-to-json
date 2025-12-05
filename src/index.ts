@@ -49,6 +49,8 @@ import schedulerJson from './doc/scheduler.json';
 import serviceCloudJson from './doc/service-cloud.json';
 // @ts-ignore
 import toolingApiJson from './doc/tooling-api.json';
+// @ts-ignore
+import shieldJson from './doc/shield.json';
 
 // Map for easy lookup by filename
 const CLOUD_DATA: Record<string, any> = {
@@ -71,7 +73,8 @@ const CLOUD_DATA: Record<string, any> = {
     'sales-cloud': salesCloudJson,
     'scheduler': schedulerJson,
     'service-cloud': serviceCloudJson,
-    'tooling-api': toolingApiJson
+    'tooling-api': toolingApiJson,
+    'shield': shieldJson
 };
 
 
@@ -444,14 +447,14 @@ export async function getCloudMetadata(
  * @param useCache - Whether to use cached data (default: true)
  * @returns Object mapping object names to their descriptions and metadata
  */
-export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string }> | null> {
+export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string; accessRules?: string }> | null> {
     const index = await loadIndex(useCache);
     
     if (!index) {
         return null;
     }
 
-    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string }> = {};
+    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string; accessRules?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
         descriptions[name] = {
@@ -461,7 +464,8 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
             keyPrefix: entry.keyPrefix,
             label: entry.label,
             sourceUrl: entry.sourceUrl,
-            icon: entry.icon
+            icon: entry.icon,
+            accessRules: entry.accessRules
         };
     }
     
@@ -477,7 +481,7 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
 export async function getObjectDescription(
     objectName: string,
     useCache = true
-): Promise<{ description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string } | null> {
+): Promise<{ description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; accessRules?: string } | null> {
     const index = await loadIndex(useCache);
     
     if (!index || !index.objects[objectName]) {
@@ -491,7 +495,8 @@ export async function getObjectDescription(
         fieldCount: entry.fieldCount,
         keyPrefix: entry.keyPrefix,
         label: entry.label,
-        sourceUrl: entry.sourceUrl
+        sourceUrl: entry.sourceUrl,
+        accessRules: entry.accessRules
     };
 }
 
@@ -504,7 +509,7 @@ export async function getObjectDescription(
 export async function searchObjectsByDescription(
     pattern: string | RegExp,
     useCache = true
-): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string }>> {
+): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; accessRules?: string }>> {
     const index = await loadIndex(useCache);
     
     if (!index) {
@@ -522,7 +527,8 @@ export async function searchObjectsByDescription(
             fieldCount: entry.fieldCount,
             keyPrefix: entry.keyPrefix,
             label: entry.label,
-            sourceUrl: entry.sourceUrl
+            sourceUrl: entry.sourceUrl,
+            accessRules: entry.accessRules
         }));
 }
 
@@ -535,14 +541,14 @@ export async function searchObjectsByDescription(
 export async function getDescriptionsByCloud(
     cloudName: string,
     useCache = true
-): Promise<Record<string, { description: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string }>> {
+): Promise<Record<string, { description: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; accessRules?: string }>> {
     const index = await loadIndex(useCache);
     
     if (!index) {
         return {};
     }
     
-    const result: Record<string, { description: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string }> = {};
+    const result: Record<string, { description: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; accessRules?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
         if (entry.cloud === cloudName) {
@@ -551,12 +557,91 @@ export async function getDescriptionsByCloud(
                 fieldCount: entry.fieldCount,
                 keyPrefix: entry.keyPrefix,
                 label: entry.label,
-                sourceUrl: entry.sourceUrl
+                sourceUrl: entry.sourceUrl,
+                accessRules: entry.accessRules
             };
         }
     }
     
     return result;
+}
+
+/**
+ * Search for objects by access rules pattern
+ * @param pattern - Regex pattern or string to search for in access rules
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Array of matching objects with their access rules
+ */
+export async function searchObjectsByAccessRules(
+    pattern: string | RegExp,
+    useCache = true
+): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number; accessRules: string }>> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return [];
+    }
+    
+    const regex = typeof pattern === 'string' ? new RegExp(pattern, 'i') : pattern;
+    
+    return Object.entries(index.objects)
+        .filter(([, entry]) => entry.accessRules && regex.test(entry.accessRules))
+        .map(([name, entry]) => ({
+            name,
+            description: entry.description,
+            cloud: entry.cloud,
+            fieldCount: entry.fieldCount,
+            accessRules: entry.accessRules!
+        }));
+}
+
+/**
+ * Get all objects that require special access (have access rules)
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Array of objects with their access rules
+ */
+export async function getObjectsWithAccessRules(
+    useCache = true
+): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number; accessRules: string }>> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return [];
+    }
+    
+    return Object.entries(index.objects)
+        .filter(([, entry]) => entry.accessRules)
+        .map(([name, entry]) => ({
+            name,
+            description: entry.description,
+            cloud: entry.cloud,
+            fieldCount: entry.fieldCount,
+            accessRules: entry.accessRules!
+        }));
+}
+
+/**
+ * Get all objects with standard access (no special access rules)
+ * @param useCache - Whether to use cached data (default: true)
+ * @returns Array of object names with standard access
+ */
+export async function getObjectsWithStandardAccess(
+    useCache = true
+): Promise<Array<{ name: string; description: string; cloud: string; fieldCount: number }>> {
+    const index = await loadIndex(useCache);
+    
+    if (!index) {
+        return [];
+    }
+    
+    return Object.entries(index.objects)
+        .filter(([, entry]) => !entry.accessRules)
+        .map(([name, entry]) => ({
+            name,
+            description: entry.description,
+            cloud: entry.cloud,
+            fieldCount: entry.fieldCount
+        }));
 }
 
 /**

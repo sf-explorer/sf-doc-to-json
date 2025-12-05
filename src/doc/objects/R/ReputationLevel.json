@@ -1,7 +1,7 @@
 {
   "ReputationLevel": {
     "name": "ReputationLevel",
-    "description": "Reputation Levels - ReputationLevel",
+    "description": "Represents a reputation level defined for an Experience Cloud site.",
     "properties": {
       "Id": {
         "type": "string",
@@ -57,8 +57,8 @@
         "readOnly": true
       },
       "ParentId": {
-        "type": "string",
-        "description": "Parent ID",
+        "type": "reference",
+        "description": "The ID of the parent Experience Cloud site the reputation level applies to.",
         "format": "salesforce-id",
         "x-objects": [
           "Network",
@@ -70,28 +70,28 @@
       },
       "Label": {
         "type": "string",
-        "description": "Level Name",
+        "description": "The label for the reputation level.",
         "maxLength": 50,
         "nullable": true,
         "readOnly": true
       },
       "Threshold": {
-        "type": "number",
-        "description": "Point Threshold",
+        "type": "double",
+        "description": "The lower limit of reputation points associated with this reputation level. The maximum number of reputation points a user can accrue is 999,999,999,999,999.",
         "nullable": false,
         "readOnly": true
       },
       "LevelNumber": {
-        "type": "integer",
-        "description": "Level Number",
+        "type": "int",
+        "description": "The rank of the reputation level.",
         "nullable": false,
         "readOnly": true
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0NU",
     "label": "Reputation Level",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_reputationlevel.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -110,6 +110,11 @@
         "relationshipName": "Localization",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "This object is available only if digital experiences is enabled in your org. Only users with permissions to create or manage an Experience Cloud site can view the ReputationPointsRule records.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

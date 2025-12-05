@@ -1,7 +1,7 @@
 {
   "PersonalizationTargetInfo": {
     "name": "PersonalizationTargetInfo",
-    "description": "Personalization Target Info - PersonalizationTargetInfo",
+    "description": "Represents a target for an audience.",
     "properties": {
       "Id": {
         "type": "string",
@@ -52,7 +52,7 @@
         "readOnly": true
       },
       "TargetType": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "AacObjectSetting",
@@ -3760,22 +3760,25 @@
         ],
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The type of the target."
       },
       "GroupName": {
         "type": "string",
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Group name of the target. Groups bundle related targets.You can have up to 2,000 groups and 500 targets per group."
       },
       "TargetValue": {
         "type": "string",
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Value of the target. For ExperienceVariation, this is the developer name of the Experience Variation or the record ID for the object."
       },
       "PublishStatus": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Draft",
@@ -3783,11 +3786,12 @@
         ],
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Publish status of the target."
       },
       "DraftRowId": {
-        "type": "string",
-        "description": "Personalization Target Info ID",
+        "type": "reference",
+        "description": "ID of the draft PersonalizationTargetInfo.",
         "format": "salesforce-id",
         "x-object": "PersonalizationTargetInfo",
         "maxLength": 18,
@@ -3795,7 +3799,7 @@
         "readOnly": true
       },
       "ContainerId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-objects": [
           "Network",
@@ -3803,13 +3807,14 @@
         ],
         "maxLength": 18,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "ID of the Experience Cloud site or org that contains the target."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "6At",
     "label": "Personalization Target Info",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_personalizationtargetinfo.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -3822,6 +3827,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

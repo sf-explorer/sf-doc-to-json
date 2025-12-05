@@ -1,7 +1,7 @@
 {
   "Product2": {
     "name": "Product2",
-    "description": "Represents a product that your company sells. Custom fields extend the standard Product object for use in Consumer Goods Cloud.",
+    "description": "Represents a product that your org sells.",
     "properties": {
       "Description": {
         "type": "textarea",
@@ -32,7 +32,7 @@
       },
       "Family": {
         "type": "picklist",
-        "description": "Name of the product family associated with this record.",
+        "description": "Name of the product family associated with this record. Product families are configured as picklists in the user interface. Label is Product Family.",
         "format": "enum",
         "enum": [
           "Internet",
@@ -57,25 +57,25 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this record is active (true) or not (false). Inactive Product2 records are hidden in many areas in the user interface. You can change the IsActive flag on a Product2 object as often as necessary. Label is Active.",
+        "description": "Indicates whether this record is active.",
         "nullable": false
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicates whether the product is archived.",
+        "description": "Indicated whether the product is archived.",
         "nullable": false,
         "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this object.",
+        "description": "Time stamp for the last time this record was referenced.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this object.",
+        "description": "",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -94,7 +94,7 @@
       },
       "QuantityUnitOfMeasure": {
         "type": "picklist",
-        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value (Each) so consider creating your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values.",
+        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value, Each, so you may want to create your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values.",
         "format": "enum",
         "enum": [
           "Each"
@@ -125,17 +125,18 @@
         "readOnly": true
       },
       "QuantityScheduleType": {
-        "type": "string",
+        "type": "",
         "format": "enum",
         "enum": [
           "Divide",
           "Repeat"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": ""
       },
       "QuantityInstallmentPeriod": {
-        "type": "string",
+        "type": "",
         "format": "enum",
         "enum": [
           "Daily",
@@ -145,24 +146,27 @@
           "Yearly"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": ""
       },
       "NumberOfQuantityInstallments": {
-        "type": "integer",
-        "nullable": true
+        "type": "",
+        "nullable": true,
+        "description": ""
       },
       "RevenueScheduleType": {
-        "type": "string",
+        "type": "",
         "format": "enum",
         "enum": [
           "Divide",
           "Repeat"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": ""
       },
       "RevenueInstallmentPeriod": {
-        "type": "string",
+        "type": "",
         "format": "enum",
         "enum": [
           "Daily",
@@ -172,20 +176,22 @@
           "Yearly"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": ""
       },
       "NumberOfRevenueInstallments": {
-        "type": "integer",
-        "nullable": true
+        "type": "",
+        "nullable": true,
+        "description": ""
       },
       "CanUseQuantitySchedule": {
         "type": "boolean",
-        "description": "Quantity Scheduling Enabled",
+        "description": "Indicates whether the product can have a quantity schedule (true) or not (false). Label is Quantity Scheduling Enabled.",
         "nullable": false
       },
       "CanUseRevenueSchedule": {
         "type": "boolean",
-        "description": "Revenue Scheduling Enabled",
+        "description": "Indicates whether the product can have a revenue schedule (true) or not (false). Label is Revenue Scheduling Enabled.",
         "nullable": false
       },
       "CreatedDate": {
@@ -224,12 +230,12 @@
       },
       "IsSerialized": {
         "type": "boolean",
-        "description": "Serialized",
+        "description": "Indicates whether the product supports serial numbers. If an associated product item record already exists, this boolean can’t be set to true unless the product item’s quantity is zero.",
         "nullable": false
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Deleted",
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
         "nullable": false,
         "readOnly": true
       },
@@ -244,8 +250,8 @@
         "readOnly": true
       },
       "ConnectionReceivedId": {
-        "type": "string",
-        "description": "Received Connection ID",
+        "type": "reference",
+        "description": "ID of the PartnerNetworkConnection that shared this record with your org. This field is available when Salesforce to Salesforce is enabled.",
         "format": "salesforce-id",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
@@ -253,8 +259,8 @@
         "readOnly": true
       },
       "ConnectionSentId": {
-        "type": "string",
-        "description": "Sent Connection ID",
+        "type": "reference",
+        "description": "ID of the PartnerNetworkConnection that this record is shared with. This field is available Salesforce to Salesforce is enabled. In API version 16.0 and later, this value is null. Use PartnerNetworkRecordConnection object to forward records to connections.",
         "format": "salesforce-id",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
@@ -262,8 +268,8 @@
         "readOnly": true
       },
       "Type": {
-        "type": "string",
-        "description": "Product Type",
+        "type": "picklist",
+        "description": "The type of product. This field's value affects the read-only value of the ProductClassfield on the Product2 object. field. Base—When Type = Base, then ProductClass = VariationParent. Null—When Type = Null, then ProductClass = Simple. This field is available when B2B or B2C Commerce is enabled. This field is available in API version 50.0 and later.",
         "format": "enum",
         "enum": [
           "Base",
@@ -275,7 +281,7 @@
         "readOnly": true
       },
       "ProductClass": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Simple",
@@ -286,11 +292,48 @@
         ],
         "maxLength": 40,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "This field is read-only. Its value is determined by the value of the Type field and whether the product is associated with a ProductAttribute record. It describes whether a product is a bundle, set, or simple product, a variation parent, or a product variation. Possible values are: Bundle—This product is a parent or component in a product bundle. Set—This product is included in a product set. Simple—This product has no variations VariationParent—This product is a variation parent. It’s the base product for one or more product variations and, though it has its own stock-keeping unit (SKU), isn’t a sellable entity. Instead, it’s the parent of sellable entities—its variations. Variation—This product is a variation of a parent product. Each variation has its own SKU. When the value of ProductClass = VariationParent, it never changes. The value of ProductClass changes between Simple and Variation when you attach or detach a ProductAttribute record to the product. If you attach a ProductAttribute record to a product, then the product’s ProductClass value changes to Variation. Conversely, when you detach all ProductAttribute records from a product, the ProductClass value changes to Simple. The default value is Simple. This field is available in API version 50.0 and later. It was introduced to support of B2B and B2C Commerce implementations."
+      },
+      "BillingPolicyId": {
+        "type": "reference",
+        "description": "The ID of the related billing policy. This field is available when Subscription Management is enabled. This field is available in API version 55.0 and later."
+      },
+      "ConfigureDuringSale": {
+        "type": "picklist",
+        "description": "Determines whether a user can edit a configuration when creating a bundle order or quote."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the org."
+      },
+      "IsSoldOnlyWithOtherProds": {
+        "type": "boolean",
+        "description": "Determines whether the product can be sold independently or only as part of a bundle."
+      },
+      "RecalculateTotalPrice": {
+        "type": "boolean",
+        "description": "Changes behavior of OpportunityLineItem calculations when a line item has child schedule rows for the Quantity value. When enabled, if the rollup quantity changes, then the quantity rollup value is multiplied against the sales price to change the total price."
+      },
+      "StockCheckMethod": {
+        "type": "picklist",
+        "description": "The method for how a product's inventory is checked. Stock checks on parent products are common when bundles are prepackaged and individual child components can't be sold separately. Stock checks on child products are common when bundles aren't prepackaged and must be put together during fulfillment. If bundles aren’t prepackaged, child components can usually be sold separately."
+      },
+      "TaxPolicyId": {
+        "type": "reference",
+        "description": "The ID of the related tax policy."
+      },
+      "TransferRecordMode": {
+        "type": "picklist",
+        "description": "If serialized, indicates when the serial number is recorded. This field is visible based on field-level security."
+      },
+      "UnitOfMeasureId": {
+        "type": "reference",
+        "description": "The ID of the unit of measure associated with the product."
       }
     },
-    "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm",
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_product2.htm",
     "keyPrefix": "01t",
     "createable": true,
     "updateable": true,
@@ -1474,6 +1517,12 @@
         "relationshipName": "vlocity_cmt__Vlocity_Intelligence_Resources__r",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "The ConfigureDuringSale and IsSoldOnlyWithOtherProds fields are available in version 58.0 and later when Industry Automotive or Subscription Management is enabled.",
+    "clouds": [
+      "Consumer Goods Cloud",
+      "Core Salesforce",
+      "Health Cloud"
     ]
   }
 }

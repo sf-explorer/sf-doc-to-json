@@ -1,10 +1,10 @@
 {
   "FormulaFunction": {
     "name": "FormulaFunction",
-    "description": "",
+    "description": "Represents a function used when building a formula, including examples and uses.",
     "properties": {
       "DurableId": {
-        "type": "FormulaFunctionCategory",
+        "type": "string",
         "description": "TheFormulaFunctionCategory to which the formula belongs.",
         "maxLength": 255,
         "nullable": true,
@@ -38,7 +38,7 @@
       },
       "CategoryId": {
         "type": "string",
-        "description": "Formula Function Category ID",
+        "description": "The ID of the FormulaFunctionCategory.",
         "maxLength": 80,
         "nullable": true,
         "readOnly": true
@@ -47,13 +47,27 @@
         "type": "string",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Description of the formula function."
       },
       "ExampleString": {
         "type": "string",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Describes the function and what arguments you can use with it."
+      },
+      "IsAllowedInEntityContext": {
+        "type": "boolean",
+        "description": "Indicates whether you can use the formula function on an Entity (true) or not (false). For example, you cannot use the PRIORVALUE function in a custom Account formula field. The default value is false. This field is removed in API version 48.0 and later. Use the FormulaFunctionAllowedType object instead."
+      },
+      "IsAllowedInFlowContext": {
+        "type": "boolean",
+        "description": "Indicates whether the formula function is allowed in a Flow (true) or not (false). The default value is false. This field is removed in API version 48.0 and later. Use the FormulaFunctionAllowedType object instead."
+      },
+      "IsAllowedInVisualforceContext": {
+        "type": "boolean",
+        "description": "Indicates whether the formula function is allowed in Visualforce (true) or not (false). The default value is false. This field is removed in API version 48.0 and later. Use the FormulaFunctionAllowedType object instead."
       }
     },
     "module": "Tooling API",
@@ -71,6 +85,11 @@
         "relationshipName": "Types",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
+    ],
+    "accessRules": "In API version 45.0 and later, only users with the ViewSetup and Configuration permission can access FormulaFunction or FormulaFunctionCategory."
   }
 }

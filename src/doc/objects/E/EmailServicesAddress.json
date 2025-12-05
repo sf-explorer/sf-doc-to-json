@@ -1,7 +1,7 @@
 {
   "EmailServicesAddress": {
     "name": "EmailServicesAddress",
-    "description": "Email Services Address - EmailServicesAddress",
+    "description": "An email service address.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,39 +13,39 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Active",
+        "description": "Indicates whether this object is active (true) or not (false).",
         "nullable": false
       },
       "LocalPart": {
         "type": "string",
-        "description": "Email address",
+        "description": "The local-part of the email service address. The local-part of the address is the string that comes before the @ symbol.",
         "maxLength": 64,
         "nullable": false
       },
       "EmailDomainName": {
         "type": "string",
-        "description": "Email address domain",
+        "description": "A read only field you can query that contains the system-generated domain part of this email service address. The system generates a unique domain-part for each email service address to ensure that no two email service addresses are identical.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "AuthorizedSenders": {
-        "type": "string",
-        "description": "Accept Email From",
+        "type": "textarea",
+        "description": "Configures the email service address to only accept messages from the email addresses or domains listed in this field. If the email service address receives a message from an unlisted email address or domain, the email service performs the action specified in the AuthorizationFailureAction field of its associated email service. Leave this field blank if you want the email service address to receive email from any email address.",
         "maxLength": 4000,
         "nullable": true
       },
       "RunAsUserId": {
-        "type": "string",
-        "description": "User ID",
+        "type": "reference",
+        "description": "The username of the user whose permissions the email service assumes when processing messages sent to this address.",
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false
       },
       "FunctionId": {
-        "type": "string",
-        "description": "Service ID",
+        "type": "reference",
+        "description": "The ID of the email service for which the email service address receives messages.",
         "format": "salesforce-id",
         "x-object": "EmailServicesFunction",
         "maxLength": 18,
@@ -53,7 +53,7 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Email Address Name",
+        "description": "The name of the object in the API. This name can contain only underscores and alphanumeric characters and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. This 25-character field must be unique among other EmailServicesAddress records under the same EmailServiceFunction parent.In managed packages, this field prevents naming conflicts on package installations. This field is automatically generated, but you can supply your own value if you create the record using the API. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance might be slow while Salesforce generates one for each record.",
         "maxLength": 25,
         "nullable": false
       },
@@ -97,10 +97,10 @@
         "readOnly": true
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "093",
     "label": "Email Services Address",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailservicesaddress.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -113,6 +113,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "As of Summer ’20 and later, only authenticated internal and external users can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

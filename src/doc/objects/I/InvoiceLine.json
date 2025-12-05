@@ -354,8 +354,8 @@
         "readOnly": true
       },
       "RelatedLineId": {
-        "type": "string",
-        "description": "Invoice Line ID",
+        "type": "reference",
+        "description": "The original invoice line that was adjusted or taxed.",
         "format": "salesforce-id",
         "x-object": "InvoiceLine",
         "maxLength": 18,
@@ -364,27 +364,39 @@
       "TaxName": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "User-defined name for the applied tax."
       },
       "TaxCode": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "The code used to calculate tax rate for the invoice line."
       },
       "TaxRate": {
-        "type": "number",
+        "type": "percent",
         "format": "percent",
-        "nullable": true
+        "nullable": true,
+        "description": "Percentage value used for calculating tax."
       },
       "TaxEffectiveDate": {
-        "type": "string",
+        "type": "date",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "description": "The date used to calculate the invoice line’s TaxAmount."
       },
       "GrossUnitPrice": {
         "type": "number",
         "format": "currency",
         "nullable": true
+      },
+      "TaxDocumentNumber": {
+        "type": "string",
+        "description": "Represents the latest record in the external tax engine in which this invoice line item is included."
+      },
+      "TaxTransactionNumber": {
+        "type": "string",
+        "description": "Represents the transaction in the external tax engine in which the taxes for the line were calculated for the invoice line."
       }
     },
     "module": "Revenue Lifecycle Management",
@@ -570,6 +582,11 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "the Billing Admin permission set to access this object",
+    "clouds": [
+      "Revenue Lifecycle Management",
+      "Core Salesforce"
     ]
   }
 }

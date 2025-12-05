@@ -1,7 +1,7 @@
 {
   "NetworkMemberGroup": {
     "name": "NetworkMemberGroup",
-    "description": "Network Member Group - NetworkMemberGroup",
+    "description": "Represents a group of members in an Experience Cloud site. Members can be either users in your internal org or external users assigned portal profiles. An administrator adds members to an Experience Cloud site by adding a profile or a permission set, and any user with the profile or permission set becomes a member of the site. This object is available in API version 26.0 and later.",
     "properties": {
       "Id": {
         "type": "string",
@@ -46,15 +46,16 @@
         "readOnly": true
       },
       "NetworkId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "Network",
         "maxLength": 18,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The ID of the Experience Cloud site that this group of members is associated with."
       },
       "ParentId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-objects": [
           "PermissionSet",
@@ -62,10 +63,11 @@
         ],
         "maxLength": 18,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The ID of the profile or permission set associated with the Experience Cloud site."
       },
       "AssignmentStatus": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Added",
@@ -77,17 +79,23 @@
           "RemoveCalculated"
         ],
         "maxLength": 40,
-        "nullable": false
+        "nullable": false,
+        "description": "The status of a profile or permission set within an Experience Cloud site. Values are: Add Calculated—The number of users that need to be added are calculated and the add operation is in progress. Added—Users with this profile or permission set are members. Failed Add—Users with this profile or permission set were not successfully made members. Failed Remove—Users with this profile or permission set were not successfully removed from membership. Remove Calculated—The number of users that need to be removed are calculated and the remove operation is in progress. Waiting for Add—The profile or permission set was added to the Experience Cloud site, but the async process hasn’t completed yet. After the process is complete, the status is updated to Added. Waiting for Remove—Use this status to remove all the members belonging to a profile or permission set and remove a profile or permission set from an Experience Cloud site."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_networkmembergroup.htm",
     "keyPrefix": "0DL",
     "label": "Network Member Group",
     "createable": true,
     "updateable": true,
     "deletable": false,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "accessRules": "This object is available only when your org has digital experiences enabled.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
+    ]
   }
 }

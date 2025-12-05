@@ -5,19 +5,19 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "ID of the organization holding the license."
+        "description": "The ID of the organization holding the license. This field is a relationship field."
       },
       "ContactId": {
         "type": "reference",
-        "description": "ID of the person who holds the license and is listed as a contact."
+        "description": "The ID of the person who holds the license and is listed as a contact. This field is a relationship field."
       },
       "Identifier": {
         "type": "string",
-        "description": "Issuer's ID for the licensee."
+        "description": "Issuer's ID for the licensee. This field is unique within your organization."
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the license is active."
+        "description": "Indicates whether the license is active (true) or not (false). The default value is false."
       },
       "Issuer": {
         "type": "string",
@@ -37,7 +37,7 @@
       },
       "JurisdictionType": {
         "type": "picklist",
-        "description": "Jurisdiction for the license. Example values: State County Province Country"
+        "description": "Jurisdiction for the license."
       },
       "LastReferencedDate": {
         "type": "dateTime",
@@ -49,7 +49,7 @@
       },
       "LicenseClass": {
         "type": "picklist",
-        "description": "The class that the distributor’s license belongs to. This field is available from API version 48.0 and later."
+        "description": "The class that the distributor’s license belongs to."
       },
       "LineOfAuthority": {
         "type": "picklist",
@@ -61,7 +61,7 @@
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who owns this record."
+        "description": "The ID of the user who owns this record. This field is a polymorphic relationship field."
       },
       "PeriodEnd": {
         "type": "dateTime",
@@ -77,15 +77,15 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "Current status of the license. Example values: Inactive Revoked Draft Verified"
+        "description": "Current status of the license."
       },
       "UserId": {
         "type": "reference",
-        "description": "Person who holds the license and is listed as a user."
+        "description": "The person who holds the license and is listed as a user. This field is a relationship field."
       },
       "VerificationStatus": {
         "type": "picklist",
-        "description": "Current status for the license. Example values: Authorized Pending Unverified"
+        "description": "Current status for the license."
       },
       "VerifiedDate": {
         "type": "date",
@@ -143,10 +143,34 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "Description": {
+        "type": "string",
+        "description": "Description of the license."
+      },
+      "HealthcareProviderId": {
+        "type": "reference",
+        "description": "The ID of the Healthcare Provider who holds this license. This field is a relationship field. This field is a lookup to HealthcareProvider."
+      },
+      "IsPrimaryLicense": {
+        "type": "boolean",
+        "description": "Indicates if the license is the primary license. The default value is false."
+      },
+      "IssueDate": {
+        "type": "date",
+        "description": "The date the license or certification was issued."
+      },
+      "LicenseNumber": {
+        "type": "string",
+        "description": "The number of the license."
+      },
+      "SourceSystemUpdateDate": {
+        "type": "date",
+        "description": "Represents the date when the record was last updated in the source system."
       }
     },
-    "module": "Financial Services Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_businesslicense.htm",
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_businesslicense.htm",
     "keyPrefix": "0cE",
     "iconUrl": "icon/t4v35/standard/contact_120.png",
     "iconColor": "FF538A",
@@ -374,7 +398,9 @@
       }
     ],
     "clouds": [
-      "Financial Services Cloud"
-    ]
+      "Financial Services Cloud",
+      "Health Cloud"
+    ],
+    "accessRules": "In Health Cloud, this object is available in API version 46.0 and later."
   }
 }

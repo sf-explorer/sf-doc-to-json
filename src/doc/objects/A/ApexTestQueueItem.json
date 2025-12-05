@@ -4,7 +4,7 @@
     "description": "Represents a single Apex class in the Apex job queue.",
     "properties": {
       "ApexClassId": {
-        "type": "reference",
+        "type": "string",
         "description": "The Apex class whose tests are to be executed. This field can't be updated.",
         "format": "salesforce-id",
         "x-object": "ApexClass",
@@ -13,7 +13,7 @@
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the test. Valid values are: Queued Processing Aborted Completed Failed Preparing Holding To abort a class that is in the Apex job queue, perform an update operation on the ApexTestQueueItem object and set its Status field to Aborted.",
         "format": "enum",
         "enum": [
@@ -36,7 +36,7 @@
         "readOnly": true
       },
       "ParentJobId": {
-        "type": "reference",
+        "type": "string",
         "description": "Read-only. Points to the AsyncApexJob that represents the entire test run. If you insert multiple Apex test queue items in a single bulk operation, the queue items will share the same parent job. This means that a test run can consist of the execution of the tests of several classes if all the test queue items are inserted in the same bulk operation.",
         "format": "salesforce-id",
         "x-object": "AsyncApexJob",
@@ -50,7 +50,7 @@
         "nullable": false
       },
       "TestRunResultID": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the associated ApexTestRunResult object. Available in API version 37.0 and later."
       },
       "Id": {
@@ -82,8 +82,8 @@
         "readOnly": true
       },
       "TestRunResultId": {
-        "type": "string",
-        "description": "ApexTestRunResult ID",
+        "type": "",
+        "description": "",
         "format": "salesforce-id",
         "x-object": "ApexTestRunResult",
         "maxLength": 18,
@@ -118,6 +118,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "In API version 49.0 and later, users must have the View Setup and Configuration permission to access this object.",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
     ]
   }
 }

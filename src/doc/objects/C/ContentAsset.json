@@ -1,7 +1,7 @@
 {
   "ContentAsset": {
     "name": "ContentAsset",
-    "description": "Asset Files - ContentAsset",
+    "description": "Represents a Salesforce file that has been converted to an asset file in a custom app in Lightning Experience. Use asset files for org setup and configuration. Asset files can be packaged and referenced by other components.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Unique Name",
+        "description": "The unique name of the asset file in the API. ContentAsset.DeveloperName: must be 40 characters or fewer must begin with a letter can contain only underscores and alphanumeric characters can’t include spaces can’t end with an underscore can’t contain 2 consecutive underscores In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language for this document. This field defaults to the user's language unless the org is multi-language enabled. Specifies the language of the labels returned. The value must be a valid user locale (language and country), such as de_DE or en_GB. For more information on locales, see the Language field on the CategoryNodeLocalization object.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -36,13 +36,13 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "The label for the asset file. This internal label doesn’t get translated.",
         "maxLength": 80,
         "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix associated with this object. Each Developer Edition organization that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
@@ -87,8 +87,8 @@
         "readOnly": true
       },
       "ContentDocumentId": {
-        "type": "string",
-        "description": "ContentDocument ID",
+        "type": "reference",
+        "description": "ID of the document.",
         "format": "salesforce-id",
         "x-object": "ContentDocument",
         "maxLength": 18,
@@ -97,14 +97,14 @@
       },
       "IsVisibleByExternalUsers": {
         "type": "boolean",
-        "description": "Let unauthenticated users see this asset file",
+        "description": "Indicates whether unauthenticated users can see the asset file.",
         "nullable": false
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "03S",
     "label": "Asset File",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentasset.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -159,6 +159,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "Territory2Model": {
     "name": "Territory2Model",
-    "description": "Territory Models - Territory2Model",
+    "description": "Represents a territory model.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,7 +19,7 @@
       },
       "Name": {
         "type": "string",
-        "description": "Label",
+        "description": "The territory model name. The field label in the user interface is Label.",
         "maxLength": 80,
         "nullable": false
       },
@@ -75,28 +75,28 @@
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of the territory model.",
         "maxLength": 255,
         "nullable": true
       },
       "ActivatedDate": {
-        "type": "string",
-        "description": "Activated Date",
+        "type": "dateTime",
+        "description": "The date when the territory model was activated.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "DeactivatedDate": {
-        "type": "string",
-        "description": "Deactivated Date",
+        "type": "dateTime",
+        "description": "The date when the territory model was archived.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "State": {
-        "type": "string",
-        "description": "State",
+        "type": "picklist",
+        "description": "The state of the territory model. Values are: Planning, Activating, Activation Failed, Active, Archiving, Archiving Failed, Archived, Deleting, and Deletion Failed.",
         "format": "enum",
         "enum": [
           "Planning",
@@ -116,13 +116,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer Name",
+        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters and must be unique in your organization. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. The field label in the user interface is Territory Model Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
         "maxLength": 80,
         "nullable": false
       },
       "LastRunRulesEndDate": {
-        "type": "string",
-        "description": "Last successful model realign date",
+        "type": "dateTime",
+        "description": "The date when the last rules run was completed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -134,17 +134,17 @@
         "readOnly": true
       },
       "LastOppTerrAssignEndDate": {
-        "type": "string",
-        "description": "Last successful opportunity territory assignment date",
+        "type": "dateTime",
+        "description": "Read-only. The date when the opportunity territory assignment filter was last run. Used for Filter-Based Opportunity Territory Assignment (Pilot in Spring ’15 / API version 33).",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0MA",
     "label": "Territory Model",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_territory2model.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -259,6 +259,11 @@
         "relationshipName": "Histories",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Standard and partner users can access this object. If a territory model is in Active state, any standard or partner user can view that model, including its territories and assignment rules. For territories in an active model, any standard or partner user can view assigned records and assigned users subject to your Salesforce sharing settings. Users cannot view territory models in other states (such as Planning or Archived).",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

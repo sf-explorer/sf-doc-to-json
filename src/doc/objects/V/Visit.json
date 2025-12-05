@@ -1,11 +1,11 @@
 {
   "Visit": {
     "name": "Visit",
-    "description": "Represents information about a visit that a manager schedules for a field rep to perform, usually at distributor, supplier, and partner locations.",
+    "description": "Track information related to a field rep’s visit to a health care provider.",
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The account associated with the visit.",
+        "description": "The account that is associated with a visit.",
         "format": "salesforce-id",
         "x-object": "Account",
         "maxLength": 18,
@@ -90,7 +90,7 @@
       },
       "InstructionDescription": {
         "type": "textarea",
-        "description": "Special instructions provided by a manager that the visitor refers to during a visit.",
+        "description": "Special instructions provided by a sales manager or an admin that a sales rep refers to during a visit.",
         "maxLength": 1000,
         "nullable": true
       },
@@ -136,7 +136,7 @@
       },
       "PlaceId": {
         "type": "reference",
-        "description": "ID of the place that the visitor visits.",
+        "description": "ID of the location that sales reps visit.",
         "format": "salesforce-id",
         "x-objects": [
           "Address",
@@ -164,7 +164,7 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the visit. Visitors can’t edit this field.",
+        "description": "The status of a visit.",
         "format": "enum",
         "enum": [
           "Planned",
@@ -180,7 +180,7 @@
       },
       "StatusRemarks": {
         "type": "textarea",
-        "description": "The reasons for abandoning or completing the visit as provided by the visitor.",
+        "description": "The reasons for abandoning or completing the visit as provided by the sales rep.",
         "maxLength": 1000,
         "nullable": true
       },
@@ -210,7 +210,7 @@
       },
       "VisitorId": {
         "type": "reference",
-        "description": "The name of the person visiting the place.",
+        "description": "ID of the sales representative visiting the store.",
         "format": "salesforce-id",
         "x-objects": [
           "Contact",
@@ -285,8 +285,8 @@
         "readOnly": true
       }
     },
-    "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_visit.htm",
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_visit.htm",
     "keyPrefix": "0Z5",
     "iconUrl": "icon/t4v35/standard/maintenance_plan_120.png",
     "iconColor": "0176D3",
@@ -548,6 +548,11 @@
         "relationshipName": "Visitors",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "In Health Cloud, this object is available in API version 47.0 and later.",
+    "clouds": [
+      "Manufacturing Cloud",
+      "Health Cloud"
     ]
   }
 }

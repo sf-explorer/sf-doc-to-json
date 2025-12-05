@@ -1,7 +1,7 @@
 {
   "ProductServiceCampaignItem": {
     "name": "ProductServiceCampaignItem",
-    "description": "Represents an item, such as an asset or a serialized product, that’s included in a product service campaign.",
+    "description": "Represents a product service campaign's asset.",
     "properties": {
       "ActionableListMemberId": {
         "type": "reference",
@@ -9,7 +9,7 @@
       },
       "AssetId": {
         "type": "reference",
-        "description": "The asset associated with the product service campaign item."
+        "description": "The asset associated with the product service campaign. Must be present if Product2Id is not present."
       },
       "GeneratedTargetRecordType": {
         "type": "picklist",
@@ -17,23 +17,23 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "description": "The date and time that the asset was last modified. Its UI label is Last Modified Date."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly."
+        "description": "The date and time that the asset was last viewed."
       },
       "Product2Id": {
         "type": "reference",
-        "description": "The product associated with the product service campaign item."
+        "description": "The ID of the Product2 associated with this campaign. The UI label is Product. Must be present if AssetID is not present."
       },
       "ProductServiceCampaignId": {
         "type": "reference",
-        "description": "The product service campaign that includes the product service campaign item."
+        "description": "Required. The item’s parent product service campaign record."
       },
       "ProductServiceCampaignItemNumber": {
         "type": "string",
-        "description": "The unique identifier of the product service campaign item."
+        "description": "The ID of the product service campaign item."
       },
       "SerializedProductId": {
         "type": "reference",
@@ -41,14 +41,19 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the product service campaign item."
+        "description": "The status of the product service campaign item. The picklist includes the following values, which can be customized: New—Product service campaign item created, but there hasn’t yet been any activity. In Progress—Product service campaign item has begun. On Hold—Product service campaign item is paused. Completed—Product service campaign item is complete. Cannot Complete—Product service campaign item couldn’t be completed. Closed—All product service campaign item and associated activity is complete. Canceled—Product service campaign item is canceled, typically before any work began."
       },
       "StatusCategory": {
         "type": "picklist",
-        "description": "The category for a status value."
+        "description": "The category that each Status value falls into. The StatusCategory field has eight default values: seven values that are identical to the default Status values, and None for statuses without a status category.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Waiting for Response value, add it to the On Hold category. To learn which processes reference StatusCategory, see How are Status Categories Used?"
       }
     },
-    "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productservicecampaignitem.htm"
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productservicecampaignitem.htm",
+    "accessRules": "Field Service must be enabled.",
+    "clouds": [
+      "Manufacturing Cloud",
+      "Core Salesforce"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "InsurancePolicy": {
     "name": "InsurancePolicy",
-    "description": "Represents the type of insurance policy, such as auto, home, life, or annuity.",
+    "description": "Represents a type of insurance policy. Available with the Provider Network Management permission set license.",
     "properties": {
       "ActualRenewalDate": {
         "type": "date",
@@ -21,7 +21,7 @@
       },
       "CancellationDate": {
         "type": "dateTime",
-        "description": "The date the insurance policy was canceled."
+        "description": "The date on which the insurance policy was canceled."
       },
       "CancellationReason": {
         "type": "textarea",
@@ -41,7 +41,7 @@
       },
       "ChangeType": {
         "type": "picklist",
-        "description": "The type of the change in the policy. For example: life event, house renovation."
+        "description": "The type of the change in the policy. For example, life event, house renovation."
       },
       "CommissionFrequency": {
         "type": "picklist",
@@ -65,7 +65,7 @@
       },
       "EffectiveDate": {
         "type": "dateTime",
-        "description": "The date the policy is in effect."
+        "description": "The date from which the policy is in effect."
       },
       "EffectiveFromDate": {
         "type": "date",
@@ -89,7 +89,7 @@
       },
       "ExpirationDate": {
         "type": "dateTime",
-        "description": "The date the policy expires."
+        "description": "The date on which the policy expires."
       },
       "FinalRenewalDate": {
         "type": "dateTime",
@@ -105,7 +105,7 @@
       },
       "HasAnyAutoCoverage": {
         "type": "boolean",
-        "description": "Indicates whether the insurance policy has an Any Auto coverage, which extends the coverage to hired and other non-owned vehicles. The default value is False."
+        "description": "Indicates whether the insurance policy has an Any Auto coverage, which extends the coverage to hired and other non-owned vehicles."
       },
       "IntermediaryAccountId": {
         "type": "reference",
@@ -113,11 +113,11 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the policy is active. The default value is False.Creating or updating an InsurancePolicy sets IsActive automatically based on the Status field value. For example, you can set IsActive to False by setting Status to Inactive."
+        "description": "Indicates whether the policy is active."
       },
       "IsLoanEligibile": {
         "type": "boolean",
-        "description": "Indicates whether a loan can be requested against the insurance policy. The default value is False."
+        "description": "Indicates whether a loan can be requested against the insurance policy."
       },
       "IsPolicyEditLocked": {
         "type": "boolean",
@@ -125,7 +125,7 @@
       },
       "IsRenewedPolicy": {
         "type": "boolean",
-        "description": "Indicates whether the policy is a renewed policy. The default value is False."
+        "description": "Indicates whether the policy is a renewed policy."
       },
       "LastReferencedDate": {
         "type": "dateTime",
@@ -145,7 +145,7 @@
       },
       "Name": {
         "type": "string",
-        "description": "The insurance policy number."
+        "description": "The insurance policy number. Label is Policy Number."
       },
       "NameInsuredId": {
         "type": "reference",
@@ -153,7 +153,7 @@
       },
       "OriginalEffectiveDate": {
         "type": "dateTime",
-        "description": "The date the original policy went into effect. This field is available from API version 51.0 and later."
+        "description": "The date on which the original policy went into effect. This field is available from API version 51.0 and later."
       },
       "OriginalEffectiveFromDate": {
         "type": "date",
@@ -189,7 +189,7 @@
       },
       "PaymentDueDate": {
         "type": "dateTime",
-        "description": "The due date for the next payment of the premium."
+        "description": "The date on which the next payment of the premium is due."
       },
       "PlannedRenewalDate": {
         "type": "date",
@@ -245,7 +245,7 @@
       },
       "PreviousRenewalDate": {
         "type": "dateTime",
-        "description": "The most recent renewal date for the insurance policy."
+        "description": "The date on which the insurance policy was renewed in the last renewal cycle."
       },
       "PriorPolicyId": {
         "type": "reference",
@@ -269,15 +269,15 @@
       },
       "RenewalChannel": {
         "type": "picklist",
-        "description": "The channel used to renew the insurance policy."
+        "description": "The channel through which the insurance policy was renewed."
       },
       "RenewalDate": {
         "type": "dateTime",
-        "description": "The next expected policy renewal date. The actual renewal date may be different."
+        "description": "The date on which the policy is expected to be renewed. The actual renewal date may be different."
       },
       "SaleDate": {
         "type": "dateTime",
-        "description": "The date the policy was sold."
+        "description": "The date on which the policy was sold."
       },
       "ServicingOffice": {
         "type": "address",
@@ -293,7 +293,7 @@
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "The ID of this record in the source system."
+        "description": "The unique ID of this record in the source system."
       },
       "StandardFeeAmount": {
         "type": "currency",
@@ -362,12 +362,37 @@
       "WritingCarrierAccountId": {
         "type": "reference",
         "description": "The Writing Carrier Account associated with the Insurance Policy."
+      },
+      "AttributesSelectedValues__c": {
+        "type": "textarea",
+        "description": "Values of root product attributes set at the InsurancePolicy level."
+      },
+      "ContractLineItemId__c": {
+        "type": "reference",
+        "description": "The ID of a line item in the contract for the policy."
+      },
+      "FnolChannel": {
+        "type": "picklist",
+        "description": "The channel through which the loss for the claim associated with this policy was reported. This field is deprecated in API version 48.0 and will be removed in API version 52 (the Summer ’21 release)."
+      },
+      "ProductCode__c": {
+        "type": "string",
+        "description": "The code of the product that this policy belongs to."
+      },
+      "SourceQuoteId": {
+        "type": "reference",
+        "description": "The ID of the quote from which the policy was created."
+      },
+      "TotalCommissionAmount": {
+        "type": "currency",
+        "description": "The total commission amount for the policy."
       }
     },
-    "module": "Financial Services Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_insurancepolicy.htm",
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_insurancepolicy.htm",
     "clouds": [
-      "Financial Services Cloud"
+      "Financial Services Cloud",
+      "Health Cloud"
     ]
   }
 }

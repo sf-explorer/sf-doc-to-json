@@ -1,7 +1,7 @@
 {
   "PresenceUserConfig": {
     "name": "PresenceUserConfig",
-    "description": "Presence Configurations - PresenceUserConfig",
+    "description": "Represents a configuration that determines a presence user’s settings. This object is available in API version 65.0 and later.",
     "properties": {
       "Id": {
         "type": "string",
@@ -20,11 +20,12 @@
       "DeveloperName": {
         "type": "string",
         "maxLength": 80,
-        "nullable": false
+        "nullable": false,
+        "description": "The unique name of the object in the API."
       },
       "Language": {
         "type": "string",
-        "description": "Master Language",
+        "description": "The language of the presence configuration.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -68,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Presence Configuration Name",
+        "description": "The label of the presence configuration.",
         "maxLength": 80,
         "nullable": false
       },
@@ -107,55 +108,104 @@
         "readOnly": true
       },
       "Capacity": {
-        "type": "integer",
-        "nullable": false
+        "type": "number",
+        "nullable": false,
+        "description": "The maximum number of work units an agent can be assigned at one time."
       },
       "OptionsIsAutoAcceptEnabled": {
         "type": "boolean",
-        "description": "IsAutoAcceptEnabled",
+        "description": "Indicates whether work items that are routed to agents are automatically accepted (true) or not (false). Available only if OptionsIsDeclineEnabled is set to false.",
         "nullable": false
       },
       "OptionsIsDeclineEnabled": {
         "type": "boolean",
-        "description": "IsDeclineEnabled",
+        "description": "Indicates whether agents can decline work items that are routed to them (true) or not (false). Available only if OptionsIsAutoAcceptEnabled is set to false.",
         "nullable": false
       },
       "OptionsIsDeclineReasonEnabled": {
         "type": "boolean",
-        "description": "IsDeclineReasonEnabled",
+        "description": "Indicates whether agents can select a reason for declining work requests (true) or not (false). This can be selected only if decline reasons are enabled.",
         "nullable": false
       },
       "OptionsIsRequestSoundEnabled": {
         "type": "boolean",
-        "description": "IsRequestSoundEnabled",
+        "description": "Indicates whether a sound plays with incoming work requests (true) or not (false). Set to true by default.",
         "nullable": false
       },
       "OptionsIsDisconnectSoundEnabled": {
         "type": "boolean",
-        "description": "IsDisconnectSoundEnabled",
+        "description": "Indicates whether a sound is played when agents are disconnected from Omni-Channel (true) or not (false).",
         "nullable": false
       },
       "PresenceStatusOnDeclineId": {
-        "type": "string",
-        "description": "Service Presence Status ID",
+        "type": "reference",
+        "description": "The ID of the presence status that’s automatically assigned to the agent when the agent declines a work item. Available only if OptionsIsDeclineEnabled is set to true.",
         "format": "salesforce-id",
         "x-object": "ServicePresenceStatus",
         "maxLength": 18,
         "nullable": true
       },
       "PresenceStatusOnPushTimeoutId": {
-        "type": "string",
-        "description": "Service Presence Status ID",
+        "type": "reference",
+        "description": "The ID of the presence status that’s automatically assigned to the agent when the agent doesn’t respond to a work item before push timeout occurs. Available in API version 36.0 and later.",
         "format": "salesforce-id",
         "x-object": "ServicePresenceStatus",
         "maxLength": 18,
         "nullable": true
+      },
+      "AcwExtensionDuration": {
+        "type": "number",
+        "description": "The maximum length of time, measured in seconds, an agent can spend on After Conversation Work (ACW) each time they extend the timer. You must set this field if HasAcwExtensionEnabled is set to true. Specify a value from 10 through 3600."
+      },
+      "AfterConvoWorkMaxTime": {
+        "type": "number",
+        "description": "The maximum length of time, measured in seconds, an agent has to complete ACW. You must set this field if HasAfterConvoWorkTimer is set to true. Specify a value from 10 through 3600."
+      },
+      "": {
+        "type": "",
+        "description": ""
+      },
+      "CustomSoundId": {
+        "type": "reference",
+        "description": "CustomSound"
+      },
+      "HasAcwExtensionEnabled": {
+        "type": "boolean",
+        "description": "Indicates whether agents can extend their ACW time (true) or not (false). Available only if HasAfterConvoWorkTimer is set to true. If this field is set to true, you must also set the AcwExtensionDuration and MaxExtensions fields."
+      },
+      "HasAfterConvoWorkTimer": {
+        "type": "boolean",
+        "description": "Indicates whether ACW time can be configured for the agent (true) or not (false). If set to true, you must also set the AfterConvoWorkMaxTime field to true."
+      },
+      "MaxExtensions": {
+        "type": "string",
+        "description": "Maximum number of times an agent can extend their ACW time. Specify a value from 1 through 10. You must set this field if HasAcwExtensionEnabled is set to true."
+      },
+      "OptionsIsAllowAnyDestinationQueueForTransferEnabled": {
+        "type": "boolean",
+        "description": "Indicates that a rep can transfer a message from an enhanced Messaging channel to any queue (true) or only the selected queues (false). This field is available in API version 61.0 and later."
+      },
+      "OptionsIsAllowAnyDestinationFlowForTransferEnabled": {
+        "type": "boolean",
+        "description": "Indicates that a rep can transfer a message from an enhanced Messaging channel to any flow (true) or only the selected flows (false). This field is available in API version 61.0 and later."
+      },
+      "OptionsIsAllowAnyDestinationProfileForTransferEnabled": {
+        "type": "boolean",
+        "description": "Indicates that a rep can transfer a message from an enhanced Messaging channel to any profile (true) or only the selected profiles (false). This field is available in API version 61.0 and later."
+      },
+      "SoundLength": {
+        "type": "int",
+        "description": "The length of time that a sound plays when new work is assigned to an agent."
+      },
+      "InterruptibleCapacity": {
+        "type": "number",
+        "description": "The maximum number of work units using interruptible capacity that can be assigned to an agent at a time. If the value in this field is empty it defaults to the value set in the Capacity field. This field is available only when the Interruptible Capacity feature is enabled."
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "0Nd",
     "label": "Presence Configuration",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_presenceuserconfig.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -180,6 +230,12 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Available only if Omni-Channel is enabled in your org.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

@@ -363,7 +363,7 @@
         "readOnly": true
       },
       "TaxLocaleType": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Net",
@@ -371,7 +371,12 @@
           "Automatic"
         ],
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "The system used to handle tax on the original Order associated with the Invoice. Gross usually applies to taxes like value-added tax (VAT), and Net usually applies to taxes like sales tax. This field is available when Order Management or B2B Commerce is enabled."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "The three-letter ISO 4217 currency code associated with the invoice."
       }
     },
     "module": "Revenue Lifecycle Management",
@@ -695,6 +700,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Billing Operations",
+    "clouds": [
+      "Revenue Lifecycle Management",
+      "Core Salesforce"
     ]
   }
 }

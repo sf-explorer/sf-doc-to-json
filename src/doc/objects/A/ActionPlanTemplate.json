@@ -1,7 +1,7 @@
 {
   "ActionPlanTemplate": {
     "name": "ActionPlanTemplate",
-    "description": "Action Plan Templates - ActionPlanTemplate",
+    "description": "Represents the instance of an action plan template.",
     "properties": {
       "Id": {
         "type": "string",
@@ -12,8 +12,8 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "The ID of the user who owns this action plan template. This field is a polymorphic relationship field.",
         "format": "salesforce-id",
         "x-objects": [
           "Group",
@@ -30,7 +30,7 @@
       },
       "Name": {
         "type": "string",
-        "description": "Name",
+        "description": "The name of this action plan template.",
         "maxLength": 255,
         "nullable": false
       },
@@ -74,22 +74,22 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ActionPlanType": {
-        "type": "string",
-        "description": "Action Plan Type",
+        "type": "picklist",
+        "description": "This action plan template’s type. Possible values are: Industries Sales—This value is available in API version 63.0 and later with the Sales Action Plans add-on license and the Sales Action Plans default permission set. Service",
         "format": "enum",
         "enum": [
           "Industries",
@@ -100,8 +100,8 @@
         "readOnly": true
       },
       "TargetEntityType": {
-        "type": "string",
-        "description": "Target Object",
+        "type": "picklist",
+        "description": "The parent object this action plan template relates to. Possible values are organized by the API version in which they were introduced. Values are available in all versions after introduction unless noted otherwise. API Version 62.0 and later with Financial Services: AccountPlanObjective FinancialDeal PartyProfile API Version 62.0 and later with Public Sector Solutions: ApplicationFormEvaluation VettingEvaluation API version 60.0 and later with Education Cloud ProgramEnrollment API version 58.0 and later with Health Cloud CareBarrier API version 58.0 and later with Nonprofit Cloud: Benefit Program API Version 58.0 and later with Public Sector Solution and Education Cloud: ApplicationDecision ApplicationReview Benefit Program API Version 56.0 and later with Automotive Cloud: Account Asset Asset Account Participant Asset Contact Participant Asset Milestone Fleet Lead Opportunity Record Alert Vehicle Case Claim Contact API Version 58.0 and later with Grantmaking: ApplicationDecision ApplicationReview Benefit Budget BudgetAllocation CareBarrier FundingAward FundingAwardAmendment FundingAwardRequirement FundingDisbursement FundingOpportunity Program API Version 52.0 and later: BusinessLicenseApplication IndividualApplication PublicComplaint RegulatoryCodeViolation ViolationEnforcementAction API Version 47.0 and later: BusinessMilestone Claim InsurancePolicy InsurancePolicyCoverage PersonLifeEvent Visit API Version 46.0 and later: Campaign—Unsupported for Grantmaking. Case Contact Contract Lead Opportunity Custom objects with activities enabled API Version 44.0 and later: Account",
         "format": "enum",
         "enum": [
           "Account",
@@ -133,29 +133,61 @@
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of this action plan template.",
         "maxLength": 255,
         "nullable": true
       },
       "UniqueName": {
         "type": "string",
-        "description": "Unique Name",
+        "description": "The unique name for this action plan template. This field is unique within your organization.",
         "maxLength": 80,
         "nullable": false
       },
       "IsAdHocItemCreationEnabled": {
         "type": "boolean",
-        "description": "Let users add items to action plans",
+        "description": "Indicates whether users can add tasks or other items to generated action plans (true) or not (false).",
         "nullable": false
+      },
+      "Category": {
+        "type": "picklist",
+        "description": "Specifies the category that the action plan template belongs to.Available in API version 64.0 and later."
+      },
+      "EstimatedCompletionDays": {
+        "type": "int",
+        "description": "The estimated number of days to complete the action plan.Available in API version 64.0 and later."
+      },
+      "FileBasedTemplatePath": {
+        "type": "string",
+        "description": "The path of the file based template using which the action plan template is created.Available in API version 64.0 and later."
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "Indicates whether this action plan template is locked or not. The default value is false."
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "Indicates whether this action plan template can be edited or not. The default value is false."
+      },
+      "SourceType": {
+        "type": "picklist",
+        "description": "Specifies the source type to which the action plan template belongs to.Available in API version 64.0 and later."
+      },
+      "Status": {
+        "type": "picklist",
+        "description": "The status of this action plan template."
+      },
+      "Subcategory": {
+        "type": "picklist",
+        "description": "The subcategory to which the action plan template belongs.Available in API version 64.0 and later."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0PR",
     "label": "Action Plan Template",
     "iconUrl": "icon/t4v35/standard/entitlement_120.png",
     "iconColor": "06A59A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_actionplantemplate.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -186,6 +218,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

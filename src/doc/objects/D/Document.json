@@ -1,7 +1,7 @@
 {
   "Document": {
     "name": "Document",
-    "description": "Documents - Document",
+    "description": "Represents a file that a user has uploaded. Unlike Attachment records, documents are not attached to a parent object.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,7 +13,7 @@
       },
       "FolderId": {
         "type": "string",
-        "description": "Folder ID",
+        "description": "Required. ID of the folder that contains the document.",
         "format": "salesforce-id",
         "x-objects": [
           "Folder",
@@ -24,84 +24,84 @@
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Deleted",
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
         "nullable": false,
         "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Document Name",
+        "description": "Required. Name of the document. Label is Document Name.",
         "maxLength": 255,
         "nullable": false
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Document Unique Name",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Document Unique Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record.",
         "maxLength": 80,
         "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "ContentType": {
         "type": "string",
-        "description": "MIME Type",
+        "description": "Type of content. Label is Mime Type. Limit: 120 characters.If the Don't allow HTML uploads as attachments or document records security setting is enabled for your organization, you cannot upload files with the following file extensions: .htm, .html, .htt, .htx, .mhtm, .mhtml, .shtm, .shtml, .acgi, .svg.",
         "maxLength": 120,
         "nullable": true
       },
       "Type": {
         "type": "string",
-        "description": "File Extension",
+        "description": "File type of the document. In general, the values match the file extension for the type of document (such as pdf or jpg). Label is File Extension.",
         "maxLength": 40,
         "nullable": true
       },
       "IsPublic": {
         "type": "boolean",
-        "description": "Externally Available",
+        "description": "Indicates whether the object is available for external use (true) or not (false). Label is Externally Available.",
         "nullable": false
       },
       "BodyLength": {
-        "type": "integer",
-        "description": "Body Length",
+        "type": "number",
+        "description": "Size of the file (in bytes). If specified, then do not specify a URL.",
         "nullable": false,
         "readOnly": true
       },
       "Body": {
         "type": "string",
-        "description": "Body",
+        "description": "Required. Encoded file data. If specified, then do not specify a URL.",
         "format": "byte",
         "nullable": true
       },
       "Url": {
         "type": "string",
-        "description": "Url",
+        "description": "URL reference to the file (used instead of storing it in the database). If specified, do not specify the Body or BodyLength.",
         "maxLength": 255,
         "nullable": true
       },
       "Description": {
         "type": "string",
-        "description": "Description",
+        "description": "Text description of the document. Limit: 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "Keywords": {
         "type": "string",
-        "description": "Keywords",
+        "description": "Keywords. Limit: 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "IsInternalUseOnly": {
         "type": "boolean",
-        "description": "Internal Use Only",
+        "description": "Indicates whether the object is only available for internal use (true) or not (false). Label is Internal Use Only.",
         "nullable": false
       },
       "AuthorId": {
         "type": "string",
-        "description": "Author ID",
+        "description": "ID of the user who is responsible for the document.",
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
@@ -148,29 +148,41 @@
       },
       "IsBodySearchable": {
         "type": "boolean",
-        "description": "Document Content Searchable",
+        "description": "Indicates whether the contents of the object can be searched using a SOSL FIND call. The ALL FIELDS search group includes the content as a searchable field.",
         "nullable": false,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated metadata object in Metadata API. Query this field only if the query result contains no more than one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
+      "Metadata": {
+        "type": "string",
+        "description": "The metadata for this object as defined in the Metadata API. Query this field only if the query result contains no more than one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "015",
     "label": "Document",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_document.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -201,6 +213,12 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Folder",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

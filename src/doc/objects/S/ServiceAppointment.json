@@ -1,11 +1,11 @@
 {
   "ServiceAppointment": {
     "name": "ServiceAppointment",
-    "description": "Represents a service appointment booked through Automotive Scheduler, for test drives or vehicle services.",
+    "description": "Represents an appointment to complete work for a customer in Field Service, Lightning Scheduler,Intelligent Appointment Management, and Virtual Care.",
     "properties": {
       "ActualDuration": {
         "type": "double",
-        "description": "The number of minutes that it took the resource to complete the appointment. When values are first added to the Actual Start and Actual End fields, the Actual Duration is automatically populated to list the difference between the Actual Start and Actual End. If the Actual Start and Actual End fields are subsequently updated, the Actual Duration field doesn’t re-update, but you can manually update it.",
+        "description": "The number of minutes that it took the resource to complete the appointment after arriving at the address. When values are first added to the Actual Start and Actual End fields, the Actual Duration is automatically populated to list the difference between the Actual Start and Actual End. If the Actual Start and Actual End fields are subsequently updated, the Actual Duration field doesn’t re-update, but you can manually update it.",
         "nullable": true,
         "multipleOf": 0.01
       },
@@ -29,7 +29,7 @@
       },
       "Address": {
         "type": "address",
-        "description": "The address where the appointment is taking place.",
+        "description": "The address where the appointment is taking place. The address is inherited from the parent record if the parent record is a work order or work order line item.",
         "nullable": false,
         "readOnly": true
       },
@@ -42,13 +42,13 @@
       },
       "ArrivalWindowEndTime": {
         "type": "dateTime",
-        "description": "The end of the window of time in which the technician is scheduled to arrive at the site.",
+        "description": "The end of the window of time in which the technician is scheduled to arrive at the site. This window is typically larger than the Scheduled Start and End window to allow time for delays and scheduling changes. You may choose to share the Arrival Window Start and End with the customer, but keep the Scheduled Start and End internal-only.",
         "format": "date-time",
         "nullable": true
       },
       "ArrivalWindowStartTime": {
         "type": "dateTime",
-        "description": "The beginning of the window of time in which the technician is scheduled to arrive at the site.",
+        "description": "The beginning of the window of time in which the technician is scheduled to arrive at the site. This window is typically larger than the Scheduled Start and End window to allow time for delays and scheduling changes. You may choose to share the Arrival Window Start and End with the customer, but keep the Scheduled Start and End internal-only.",
         "format": "date-time",
         "nullable": true
       },
@@ -72,7 +72,7 @@
       },
       "Country": {
         "type": "string",
-        "description": "The country where the appointment is completed. Maximum length is 80 characters.",
+        "description": "The country where the work order is completed. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
@@ -84,19 +84,19 @@
       },
       "DueDate": {
         "type": "dateTime",
-        "description": "The date by which the appointment must be completed.",
+        "description": "The date by which the appointment must be completed. Earliest Start Permitted and Due Date typically reflect terms in the customer’s service-level agreement.",
         "format": "date-time",
         "nullable": false
       },
       "Duration": {
         "type": "double",
-        "description": "The estimated length of the appointment as derived from the associated work type. The duration is in minutes or hours based on the value selected in the Duration Type field.",
+        "description": "The estimated length of the appointment. If the parent record is work order or work order line item, the appointment inherits its parent’s duration, but it can be manually updated. The duration is in minutes or hours based on the value selected in the Duration Type field.",
         "nullable": true,
         "multipleOf": 0.01
       },
       "DurationType": {
         "type": "picklist",
-        "description": "The unit of duration as specified for the associated work type.",
+        "description": "The unit of the Duration: Minutes or Hours.",
         "format": "enum",
         "enum": [
           "Hours",
@@ -107,13 +107,13 @@
       },
       "EarliestStartTime": {
         "type": "dateTime",
-        "description": "The date after which the appointment must be completed.",
+        "description": "The date after which the appointment must be completed. Earliest Start Permitted and Due Date typically reflect terms in the customer’s service-level agreement.",
         "format": "date-time",
         "nullable": false
       },
       "GeocodeAccuracy": {
         "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates.",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only.",
         "format": "enum",
         "enum": [
           "Address",
@@ -133,7 +133,7 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The date when the service appointment was last modified.",
+        "description": "The date when the service appointment was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -147,19 +147,19 @@
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the service appointments is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the service appointments is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. To integrate data from an external data source for latitude, map your data to the ServiceAppointment.Latitude and not the ServiceAppointment.FSL__InternalSLRGeolocation__Latitude__s field. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the service appointment is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the service appointment is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. To integrate data from an external data source for longitude, map your data to the ServiceAppointment.Longitude and not the ServiceAppointment.FSL__InternalSLRGeolocation__Longitude__s field. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The owner of the appointment.",
+        "description": "The owner of the service appointment.",
         "format": "salesforce-id",
         "x-objects": [
           "Group",
@@ -170,7 +170,7 @@
       },
       "ParentRecordId": {
         "type": "reference",
-        "description": "The parent record related to the appointment. The parent record can’t be updated after the service appointment is created. For test drive appointments, the parent record is a lead or an opportunity. For vehicle service appointments, theparent record is an asset that’s related to the vehicle.",
+        "description": "The parent record associated with the appointment. The parent record can’t be updated after the service appointment is created.",
         "format": "salesforce-id",
         "x-objects": [
           "Account",
@@ -188,32 +188,32 @@
       },
       "ParentRecordType": {
         "type": "string",
-        "description": "(Read only) The type of parent record that provides context for the appointment, such as Asset, Lead, or Opportunity.",
+        "description": "(Read only) The type of parent record: Account, Asset, Lead, Opportunity, Work Order, or Work Order Line Item.",
         "maxLength": 50,
         "nullable": true,
         "readOnly": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The postal code where the appointment is completed. Maximum length is 20 characters.",
+        "description": "The postal code where the work order is completed. Maximum length is 20 characters.",
         "maxLength": 20,
         "nullable": true
       },
       "SchedEndTime": {
         "type": "dateTime",
-        "description": "The time at which the appointment is scheduled to end.",
+        "description": "The time at which the appointment is scheduled to end. If you are using the Field Service managed package with the scheduling optimizer, this field is populated once the appointment is assigned to a resource. Scheduled End – Scheduled Start = Estimated Duration.",
         "format": "date-time",
         "nullable": true
       },
       "SchedStartTime": {
         "type": "dateTime",
-        "description": "The time at which the appointment is scheduled to start.",
+        "description": "The time at which the appointment is scheduled to start. If you are using the Field Service managed package with the scheduling optimizer, this field is populated once the appointment is assigned to a resource.",
         "format": "date-time",
         "nullable": true
       },
       "ServiceTerritoryId": {
         "type": "reference",
-        "description": "The service territory associated with the appointment.",
+        "description": "The service territory associated with the appointment. If the parent record is a work order or work order line item, the appointment inherits its parent’s service territory.",
         "format": "salesforce-id",
         "x-object": "ServiceTerritory",
         "maxLength": 18,
@@ -227,7 +227,7 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the appointment. The picklist values can be customized.",
+        "description": "The status of the appointment. The picklist includes the following values, which can be customized: None—Default value. Scheduled—Appointment has been assigned to a service resource. Dispatched—Assigned service resource has been notified about their assignment. In Progress—Work has begun. Completed—Work is complete. Cannot Complete—Work could not be completed. Canceled—Work is canceled, typically before any work began While you can set the status to null via the API, setting the status to null returns an error. To prevent errors, use one of the picklist values.",
         "format": "enum",
         "enum": [
           "None",
@@ -245,7 +245,7 @@
       },
       "StatusCategory": {
         "type": "picklist",
-        "description": "The category that each Status value falls into. The Status Category field’s values are identical to the default Status values.",
+        "description": "The category that each Status value falls into. The Status Category field’s values are identical to the default Status values.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Customer Absent value, you may decide that it belongs in the Cannot Complete category. To learn which processes reference StatusCategory, see How are Status Categories Used?",
         "format": "enum",
         "enum": [
           "None",
@@ -269,13 +269,13 @@
       },
       "Subject": {
         "type": "string",
-        "description": "An autopopulated phrase describing the type of appointment, such as Test Drive Appointment or Vehicle Service Appointment.",
+        "description": "A short phrase describing the appointment.",
         "maxLength": 255,
         "nullable": true
       },
       "WorkTypeId": {
         "type": "reference",
-        "description": "The work type associated with the service appointment.",
+        "description": "The work type associated with the service appointment. The work type is inherited from the appointment’s parent record if the parent is a work order or work order line item. Note If Lightning Scheduler is also in use, this field is editable. However, users see an error if they update it to list a different work type than the parent record’s work type.",
         "format": "salesforce-id",
         "x-object": "WorkType",
         "maxLength": 18,
@@ -347,8 +347,8 @@
         "readOnly": true
       },
       "AccountId": {
-        "type": "string",
-        "description": "Account ID",
+        "type": "reference",
+        "description": "(Read only) The account associated with the appointment. If the parent record is a work order or work order line item, this field’s value is inherited from the parent. Otherwise, it remains blank.",
         "format": "salesforce-id",
         "x-object": "Account",
         "maxLength": 18,
@@ -356,8 +356,8 @@
         "readOnly": true
       },
       "ContactId": {
-        "type": "string",
-        "description": "Contact ID",
+        "type": "reference",
+        "description": "The contact associated with the parent record. If needed, you can manually update the service appointment contact.",
         "format": "salesforce-id",
         "x-object": "Contact",
         "maxLength": 18,
@@ -370,8 +370,8 @@
         "readOnly": true
       },
       "ParentRecordStatusCategory": {
-        "type": "string",
-        "description": "Parent Record Status Category",
+        "type": "picklist",
+        "description": "(Read only) The Status Category of the parent record. If the parent record is a work order or work order line item, this field is populated; otherwise, it remains blank.",
         "format": "enum",
         "enum": [
           "New",
@@ -420,7 +420,7 @@
       },
       "IsAnonymousBooking": {
         "type": "boolean",
-        "description": "Anonymous Booking",
+        "description": "Indicates whether a service resource was automatically assigned to the appointment. The default value is false.",
         "nullable": false
       },
       "FSL__InternalSLRGeolocation__Latitude__s": {
@@ -432,10 +432,42 @@
         "type": "number",
         "description": "Internal SLR Geolocation (Longitude)",
         "nullable": true
+      },
+      "BundlePolicyId": {
+        "type": "reference",
+        "description": "Reference to the bundle policy associated with this service appointment."
+      },
+      "IsBundle": {
+        "type": "boolean",
+        "description": "Indicates if this service appointment is a bundle service appointment. The default value is false."
+      },
+      "IsBundleMember": {
+        "type": "boolean",
+        "description": "Indicates if this service appointment is a bundle member service appointment. The default value is false."
+      },
+      "IsManuallyBundled": {
+        "type": "boolean",
+        "description": "Indicates if this bundle was created manually. The default value is false."
+      },
+      "IsOffsiteAppointment": {
+        "type": "boolean",
+        "description": "Any type of work that can be done remotely."
+      },
+      "RelatedBundleId": {
+        "type": "reference",
+        "description": "The bundle that this service appointment is a member of."
+      },
+      "ServiceDocumentTemplate": {
+        "type": "string",
+        "description": "The template ID which sets the template for each service document for the Document Builder feature."
+      },
+      "Transaction": {
+        "type": "string",
+        "description": "The last transaction ID of the scheduling and optimization request that updated this object. The transaction ID is automatically generated and populated by the Enhanced Scheduling and Optimization engine. Available in API version 63.0 and later."
       }
     },
-    "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_serviceappointment.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_serviceappointment.htm",
     "keyPrefix": "08p",
     "createable": true,
     "updateable": true,
@@ -785,6 +817,11 @@
         "relationshipName": "Contexts",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Field Service must be enabled.",
+    "clouds": [
+      "Automotive Cloud",
+      "Core Salesforce"
     ]
   }
 }

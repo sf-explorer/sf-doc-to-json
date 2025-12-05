@@ -1,17 +1,17 @@
 {
   "Account": {
     "name": "Account",
-    "description": "Standard and custom fields extend the standard Account object for use in Consumer Goods Cloud to represent an individual account, which is an company or person involved with your business, such as customers, competitors, and partners.",
+    "description": "Represents an individual account, which is an organization or person involved with your business (such as customers, competitors, and partners).",
     "properties": {
       "AccountNumber": {
         "type": "string",
-        "description": "Account number assigned to the account (not the unique, auto-generated ID assigned during creation). Can have up to 40 characters.",
+        "description": "Account number assigned to this account (not the unique, system-generated ID assigned during creation). Maximum size is 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "AccountSource": {
         "type": "picklist",
-        "description": "Source of the account record:",
+        "description": "The source of the account record. For example, Advertisement or Trade Show. The source is selected from a picklist of available values, which are set by an administrator. Each picklist value can have up to 40 characters.",
         "format": "enum",
         "enum": [
           "Advertisement",
@@ -37,25 +37,25 @@
       },
       "BillingAddress": {
         "type": "address",
-        "description": "Compound form of the billing address. Read-only. See Address Compound Fields for details on compound address fields.",
+        "description": "The compound form of the billing address. Read-only. For details on compound address fields, see Address Compound Fields.",
         "nullable": true,
         "readOnly": true
       },
       "BillingCity": {
         "type": "string",
-        "description": "Details for the billing address of the account. Can have up to 40 characters.",
+        "description": "Details for the billing address of this account. Maximum size is 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "BillingCountry": {
         "type": "string",
-        "description": "Details for the billing address of the account. Can have up to 80 characters.",
+        "description": "Details for the billing address of this account. Maximum size is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "BillingGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the billing address:",
+        "description": "Accuracy level of the geocode for the billing address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "format": "enum",
         "enum": [
           "Address",
@@ -75,37 +75,37 @@
       },
       "BillingLatitude": {
         "type": "double",
-        "description": "Used with BillingLongitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "description": "Used with BillingLongitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "BillingLongitude": {
         "type": "double",
-        "description": "Used with BillingLatitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "description": "Used with BillingLatitude to specify the precise geolocation of a billing address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "BillingPostalCode": {
         "type": "string",
-        "description": "Details for the billing address of the account. Can have up to 20 characters.",
+        "description": "Details for the billing address of this account. Maximum size is 20 characters.",
         "maxLength": 20,
         "nullable": true
       },
       "BillingState": {
         "type": "string",
-        "description": "Details for the billing address of this account. Can have up to 80 characters.",
+        "description": "Details for the billing address of this account. Maximum size is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "BillingStreet": {
         "type": "textarea",
-        "description": "Street name in the billing address of the account.",
+        "description": "Street address for the billing address of this account.",
         "maxLength": 255,
         "nullable": true
       },
       "CleanStatus": {
         "type": "picklist",
-        "description": "Indicates the record’s clean status compared with Data.com:"
+        "description": "Indicates the record’s clean status as compared with Data.com.."
       },
       "DandbCompanyId": {
         "type": "reference",
@@ -119,18 +119,18 @@
       },
       "DunsNumber": {
         "type": "string",
-        "description": "The Data Universal Numbering System (D-U-N-S) number is a unique, nine-digit number assigned to every business location in the Dun & Bradstreet database that has a unique, separate, and distinct operation. D-U-N-S numbers are used by industries and organizations around the world as a global standard for business identification and tracking. Maximum size is nine characters. This field is available only on business accounts. Note This field is available only to companies that use Data.com Prospector or Data.com Clean."
+        "description": "The Data Universal Numbering System (D-U-N-S) number is a unique, nine-digit number assigned to every business location in the Dun & Bradstreet database that has a unique, separate, and distinct operation. D-U-N-S numbers are used by industries and organizations around the world as a global standard for business identification and tracking. Maximum size is 9 characters. This field is available on business accounts, not person accounts. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
       },
       "Fax": {
         "type": "phone",
-        "description": "Fax number of the account.",
+        "description": "Fax number for the account.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "Industry": {
         "type": "picklist",
-        "description": "Industry associated with the account. Can have up to 40 characters.",
+        "description": "An industry associated with this account. For example, Biotechnology. Maximum size is 40 characters.",
         "format": "enum",
         "enum": [
           "Agriculture",
@@ -171,41 +171,41 @@
       },
       "Jigsaw": {
         "type": "string",
-        "description": "References the ID of a company in Data.com. Accounts imported from Data.com always have a value in this field, while accounts not imported from Data.com have a null value. Can have up to 20 characters. Available in API version 22.0 and later. Label is Data.com Key. This field is available only on business accounts.",
+        "description": "References the ID of a company in Data.com. If an account has a value in this field, it means that the account was imported from Data.com. If the field value is null, the account was not imported from Data.com. Maximum size is 20 characters. Available in API version 22.0 and later. Label is Data.com Key. This field is available on business accounts, not person accounts. Important The Jigsaw field is exposed in the API to support troubleshooting for import errors and reimporting of corrected data. Do not modify the value in the Jigsaw field.",
         "maxLength": 20,
         "nullable": true
       },
       "JigsawCompanyId": {
         "type": "string",
-        "description": "ID of a company in Data.com.",
+        "description": "The ID of the company in reference to Jigsaw. Important The Jigsaw field is exposed in the API to support troubleshooting for import errors and reimporting of corrected data. Don’t modify the value in the Jigsaw field.",
         "maxLength": 20,
         "nullable": true,
         "readOnly": true
       },
       "LastActivityDate": {
         "type": "date",
-        "description": "Date when a user last modified the record.",
+        "description": "Value is one of the following, whichever is the most recent: Due date of the most recent event logged against the record. Due date of the most recently closed task associated with the record.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "Most recent date on which a user referenced the record.",
+        "type": "datetime",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "Most recent date on which a user viewed the record.",
+        "type": "datetime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MasterRecordId": {
         "type": "reference",
-        "description": "If this object was deleted as the result of a merge, then this field contains the ID of the record that was kept. If this object was deleted for any other reason, or hasn’t been deleted, the value is null.",
+        "description": "If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or has not been deleted, the value is null.",
         "format": "salesforce-id",
         "x-object": "Account",
         "maxLength": 18,
@@ -214,26 +214,26 @@
       },
       "NaicsCode": {
         "type": "string",
-        "description": "The six-digit North American Industry Classification System (NAICS) code is the standard used by businesses and the government to classify business establishments into industries, according to their economic activity for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. Can have up to eight characters. This field is available only on business accounts. Note This field is available only to companies that use Data.com Prospector or Data.com Clean."
+        "description": "The six-digit North American Industry Classification System (NAICS) code is the standard used by business and government to classify business establishments into industries, according to their economic activity for the purpose of collecting, analyzing, and publishing statistical data related to the U.S. business economy. Maximum size is 8 characters. This field is available on business accounts, not person accounts. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
       },
       "NaicsDesc": {
         "type": "string",
-        "description": "Brief description of an company line of business based on the org’s NAICS code. Can have up to 120 characters. The field is available only on business accounts. Note The field is available only to companies that use Data.com Prospector or Data.com Clean."
+        "description": "A brief description of an org’s line of business, based on its NAICS code. Maximum size is 120 characters. This field is available on business accounts, not person accounts. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
       },
       "Name": {
         "type": "string",
-        "description": "Unique identification of the account.",
+        "description": "Required. Label is Account Name. Name of the account. Maximum size is 255 characters. If the account has a record type of Person Account: This value is the concatenation of the FirstName, MiddleName, LastName, and Suffix of the associated person contact. You can't modify this value.",
         "maxLength": 255,
         "nullable": false
       },
       "NumberOfEmployees": {
         "type": "int",
-        "description": "Number of employees working at the company that’s represented by the account. Can have up to eight digits.",
+        "description": "Label is Employees. Number of employees working at the company represented by this account. Maximum size is eight digits.",
         "nullable": true
       },
       "OperatingHoursId": {
         "type": "reference",
-        "description": "Operating hours associated with the account. Available only if Field Service is enabled.",
+        "description": "The operating hours associated with the account. Available only if Field Service is enabled.",
         "format": "salesforce-id",
         "x-object": "OperatingHours",
         "maxLength": 18,
@@ -241,7 +241,7 @@
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the user who currently owns the account. Default value is the user logged in to the API to perform the create. If you have set up account teams in your company, the result of updating this field depends on your version of the API:",
+        "description": "The ID of the user who currently owns this account. Default value is the user logged in to the API to perform the create.If you have set up account teams in your org, updating this field has different consequences depending on your version of the API: For API version 12.0 and later, sharing records are kept, as they are for all objects. For API version before 12.0, sharing records are deleted. For API version 16.0 and later, users must have the “Transfer Record” permission in order to update (transfer) account ownership using this field.",
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
@@ -249,7 +249,7 @@
       },
       "Ownership": {
         "type": "picklist",
-        "description": "Ownership type of the account:",
+        "description": "Ownership type for the account, for example Private, Public, or Subsidiary.",
         "format": "enum",
         "enum": [
           "Public",
@@ -270,14 +270,14 @@
       },
       "Phone": {
         "type": "phone",
-        "description": "Phone number of the account. Can have up to 40 characters.",
+        "description": "Phone number for this account. Maximum size is 40 characters.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PhotoUrl": {
         "type": "url",
-        "description": "Path to be combined with the URL of a Salesforce instance (for example, https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the account. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the account. Returns a blank if Social Accounts and Contacts aren’t enabled for the company or are disabled for the requesting user.",
+        "description": "Path to be combined with the URL of a Salesforce instance (for example, https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the account. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the account. Blank if Social Accounts and Contacts isn't enabled for the org or if Social Accounts and Contacts is disabled for the requesting user.",
         "format": "uri",
         "maxLength": 255,
         "nullable": true,
@@ -285,7 +285,7 @@
       },
       "Rating": {
         "type": "picklist",
-        "description": "Account’s prospect rating:",
+        "description": "The account’s prospect rating, for example Hot, Warm, or Cold.",
         "format": "enum",
         "enum": [
           "Hot",
@@ -297,7 +297,7 @@
       },
       "RecordTypeId": {
         "type": "reference",
-        "description": "ID of the record type assigned to the object.",
+        "description": "ID of the record type assigned to this object.",
         "format": "salesforce-id",
         "x-object": "RecordType",
         "maxLength": 18,
@@ -305,25 +305,25 @@
       },
       "ShippingAddress": {
         "type": "address",
-        "description": "Read-only. Compound form of the shipping address. See Address Compound Fields for details on compound address fields.",
+        "description": "The compound form of the shipping address. Read-only. See Address Compound Fields for details on compound address fields.",
         "nullable": true,
         "readOnly": true
       },
       "ShippingCity": {
         "type": "string",
-        "description": "City in the shipping address of the account. Can have up to 40 characters.",
+        "description": "Details of the shipping address for this account. City maximum size is 40 characters",
         "maxLength": 40,
         "nullable": true
       },
       "ShippingCountry": {
         "type": "string",
-        "description": "Country in the shipping address of the account. Can have up to 80 characters.",
+        "description": "Details of the shipping address for this account. Country maximum size is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "ShippingGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the shipping address:",
+        "description": "Accuracy level of the geocode for the shipping address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "format": "enum",
         "enum": [
           "Address",
@@ -343,65 +343,65 @@
       },
       "ShippingLatitude": {
         "type": "double",
-        "description": "Used with ShippingLongitude to specify the precise geolocation of a shipping address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "description": "Used with ShippingLongitude to specify the precise geolocation of a shipping address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShippingLongitude": {
         "type": "double",
-        "description": "Used with ShippingLatitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "description": "Used with ShippingLatitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShippingPostalCode": {
         "type": "string",
-        "description": "Postal code in the shipping address of the account. Can have up to 20 characters.",
+        "description": "Details of the shipping address for this account. Postal code maximum size is 20 characters.",
         "maxLength": 20,
         "nullable": true
       },
       "ShippingState": {
         "type": "string",
-        "description": "State in the shipping address of the account. Can have up to 80 characters.",
+        "description": "Details of the shipping address for this account. State maximum size is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "ShippingStreet": {
         "type": "textarea",
-        "description": "Street name in the shipping address of the account. Can have up to 255 characters.",
+        "description": "The street address of the shipping address for this account. Maximum of 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "Sic": {
         "type": "string",
-        "description": "Standard Industrial Classification code of the company’s main business categorization. For example, 57340 for Electronics. Can have up to 20 characters. This field is available only on business accounts.",
+        "description": "Standard Industrial Classification code of the company’s main business categorization, for example, 57340 for Electronics. Maximum of 20 characters. This field is available on business accounts, not person accounts.",
         "maxLength": 20,
         "nullable": true
       },
       "SicDesc": {
         "type": "string",
-        "description": "Brief description of an company line of business, based on the SIC code. Can have up to 80 characters. This field is available only on business accounts.",
+        "description": "A brief description of an org’s line of business, based on its SIC code. Maximum length is 80 characters. This field is available on business accounts, not person accounts.",
         "maxLength": 80,
         "nullable": true
       },
       "Site": {
         "type": "string",
-        "description": "Name of the account’s location. For example, Headquarters or London. Can have up to 80 characters.",
+        "description": "Name of the account’s location, for example Headquarters or London. Label is Account Site. Maximum of 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "TickerSymbol": {
         "type": "string",
-        "description": "Stock market symbol for the account. Can have up to 20 characters. This field is available only on business accounts.",
+        "description": "The stock market symbol for this account. Maximum of 20 characters. This field is available on business accounts, not person accounts.",
         "maxLength": 20,
         "nullable": true
       },
       "Tradestyle": {
         "type": "string",
-        "description": "Non-legal name that an company uses for conducting business. Similar to Doing business as or DBA. Can have up to 255 characters. This field is available only on business accounts. Note This field is available only to companies that use Data.com Prospector or Data.com Clean."
+        "description": "A name, different from its legal name, that an org may use for conducting business. Similar to “Doing business as” or “DBA”. Maximum length is 255 characters. This field is available on business accounts, not person accounts. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
       },
       "Type": {
         "type": "picklist",
-        "description": "Type of account",
+        "description": "Type of account, for example, Customer, Competitor, or Partner.",
         "format": "enum",
         "enum": [
           "Analyst",
@@ -420,14 +420,14 @@
       },
       "Website": {
         "type": "url",
-        "description": "Website of the account. Can have up to 255 characters.",
+        "description": "The website of this account. Maximum of 255 characters.",
         "format": "uri",
         "maxLength": 255,
         "nullable": true
       },
       "YearStarted": {
         "type": "string",
-        "description": "Date when an org was legally established. Can have up to four characters. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
+        "description": "The date when an org was legally established. Maximum length is 4 characters. This field is available on business accounts, not person accounts. Note This field is only available to organizations that use Data.com Prospector or Data.com Clean."
       },
       "Id": {
         "type": "string",
@@ -446,15 +446,17 @@
       "LastName": {
         "type": "string",
         "maxLength": 80,
-        "nullable": true
+        "nullable": true,
+        "description": "Last name of the person for a person account. Required if the record type is a person account record type. Maximum size is 80 characters."
       },
       "FirstName": {
         "type": "string",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": "First name of the person for a person account. Maximum size is 40 characters."
       },
       "Salutation": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Mr.",
@@ -465,7 +467,8 @@
           "Mx."
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": "Honorific added to the name for use in letters, etc. This field is available on person accounts."
       },
       "CreatedDate": {
         "type": "string",
@@ -518,17 +521,17 @@
       },
       "IsPartner": {
         "type": "boolean",
-        "description": "Partner/Relationship Account",
+        "description": "Indicates whether the account has at least one contact enabled to use the org's partner portal (true) or not (false). This field is available if partner relationship management (partner portal) is enabled OR digital experiences is enabled and you have partner portal licenses.If you change this field's value from true to false, you can disable up to 15 partner portal users associated with the account and permanently delete all of the account's partner portal roles and groups. You can't restore deleted partner portal roles and groups. Disabling a partner portal user in the Salesforce user interface or the API doesn’t change this field's value from true to false. Even if this field's value is false, you can enable a contact on an account as a partner portal user via the API. Exclude this field when merging accounts. This field can be updated in API version 16.0 and later. Tip We recommend that you update up to 50 contacts simultaneously when changing the accounts on contacts enabled for an Experience Cloud site. We also recommend that you make this update after business hours.",
         "nullable": false
       },
       "IsCustomerPortal": {
         "type": "boolean",
-        "description": "Customer Portal Account",
+        "description": "Indicates whether the account has at least one contact enabled to use the org's Experience Cloud site or Customer Portal (true) or not (false). This field is available if Customer Portal is enabled OR digital experiences is enabled.If your org is enabled to use Content Security Policy (CSP) features, then this field is visible on the Account object even if those features are later disabled. If you change this field's value from true to false, you can disable up to 100 Experience Cloud site or Customer Portal users associated with the account and permanently delete all of the account's site roles and groups. You can't restore deleted site roles and groups. Exclude this field when merging accounts. This field can be updated in API version 16.0 and later. Tip We recommend that you update up to 50 contacts simultaneously when changing the accounts on contacts enabled for an Experience Cloud site. We also recommend that you make this update after business hours.",
         "nullable": false
       },
       "PersonContactId": {
-        "type": "string",
-        "description": "Contact ID",
+        "type": "reference",
+        "description": "The ID for the contact associated with this person account. Label is Contact ID.",
         "format": "salesforce-id",
         "x-object": "Contact",
         "maxLength": 18,
@@ -538,23 +541,26 @@
       "IsPersonAccount": {
         "type": "boolean",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Read only. Label is Is Person Account. Indicates whether this account has a record type of Person Account (true) or not (false)."
       },
       "ChannelProgramName": {
         "type": "string",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Read only. Name of the channel program the account has enrolled. If this account has enrolled more than one channel program, the oldest channel program name is displayed."
       },
       "ChannelProgramLevelName": {
         "type": "string",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Read only. Name of the channel program level the account has enrolled. If this account has enrolled more than one channel program level, the oldest channel program name is displayed."
       },
       "PersonMailingStreet": {
-        "type": "string",
-        "description": "Mailing Street",
+        "type": "textarea",
+        "description": "The mailing street address for this person account. Label is Mailing Street. Maximum size is 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
@@ -583,20 +589,20 @@
         "nullable": true
       },
       "PersonMailingLatitude": {
-        "type": "number",
-        "description": "Mailing Latitude",
+        "type": "double",
+        "description": "Used with PersonMailingLongitude to specify the precise geolocation of a person account’s mailing address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "PersonMailingLongitude": {
-        "type": "number",
-        "description": "Mailing Longitude",
+        "type": "double",
+        "description": "Used with PersonMailingLatitude to specify the precise geolocation of a person account’s mailing address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "PersonMailingGeocodeAccuracy": {
-        "type": "string",
-        "description": "Mailing Geocode Accuracy",
+        "type": "picklist",
+        "description": "Accuracy level of the geocode for the person’s mailing address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "format": "enum",
         "enum": [
           "Address",
@@ -615,14 +621,14 @@
         "nullable": true
       },
       "PersonMailingAddress": {
-        "type": "object",
-        "description": "Mailing Address",
+        "type": "address",
+        "description": "The compound form of the person account mailing address. Read-only. For details on compound address fields, see Address Compound Fields.",
         "nullable": true,
         "readOnly": true
       },
       "PersonOtherStreet": {
-        "type": "string",
-        "description": "Other Street",
+        "type": "textarea",
+        "description": "The person account’s alternate street address. Label is Other Street.",
         "maxLength": 255,
         "nullable": true
       },
@@ -651,14 +657,14 @@
         "nullable": true
       },
       "PersonOtherLatitude": {
-        "type": "number",
-        "description": "Other Latitude",
+        "type": "double",
+        "description": "Used with PersonOtherLongitude to specify the precise geolocation of a person account’s alternate address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "PersonOtherLongitude": {
-        "type": "number",
-        "description": "Other Longitude",
+        "type": "double",
+        "description": "Used with PersonOtherLatitude to specify the precise geolocation of a person account’s alternate address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -689,61 +695,61 @@
         "readOnly": true
       },
       "PersonMobilePhone": {
-        "type": "string",
-        "description": "Mobile",
+        "type": "phone",
+        "description": "The mobile phone number for this person account. Label is Mobile.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PersonHomePhone": {
-        "type": "string",
-        "description": "Home Phone",
+        "type": "phone",
+        "description": "The home phone number for this person account. Label is Home Phone.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PersonOtherPhone": {
-        "type": "string",
-        "description": "Other Phone",
+        "type": "phone",
+        "description": "The alternate phone number for this person account. Label is Other Phone.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PersonAssistantPhone": {
-        "type": "string",
-        "description": "Asst. Phone",
+        "type": "phone",
+        "description": "The person account’s assistant phone. Label is Asst. Phone. Maximum size is 40 characters.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PersonEmail": {
-        "type": "string",
-        "description": "Email",
+        "type": "email",
+        "description": "Email address for this person account. Label is Email.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "PersonTitle": {
         "type": "string",
-        "description": "Title",
+        "description": "The person account’s title. Label is Title. Maximum size is 80 characters. When converting a lead to a person account, the conversion fails if the lead’s Title field contains more than 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "PersonDepartment": {
         "type": "string",
-        "description": "Department",
+        "description": "The department. Label is Department. Maximum size is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "PersonAssistantName": {
         "type": "string",
-        "description": "Assistant",
+        "description": "The person account’s assistant name. Label is Assistant. Maximum size is 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "PersonLeadSource": {
-        "type": "string",
-        "description": "Lead Source",
+        "type": "picklist",
+        "description": "The person account’s lead source. Label is Lead Source.",
         "format": "enum",
         "enum": [
           "Website",
@@ -768,7 +774,7 @@
       },
       "PersonHasOptedOutOfEmail": {
         "type": "boolean",
-        "description": "Email Opt Out",
+        "description": "Indicates whether the person account has opted out of email (true) or not (false). Label is Email Opt Out.",
         "nullable": false
       },
       "PersonHasOptedOutOfFax": {
@@ -797,27 +803,27 @@
       },
       "PersonEmailBouncedReason": {
         "type": "string",
-        "description": "Email Bounced Reason",
+        "description": "If bounce management is activated and an email sent to the person account bounces, the reason the bounce occurred",
         "maxLength": 255,
         "nullable": true
       },
       "PersonEmailBouncedDate": {
-        "type": "string",
-        "description": "Email Bounced Date",
+        "type": "dateTime",
+        "description": "If bounce management is activated and an email sent to the person account bounces, the date and time the bounce occurred.",
         "format": "date-time",
         "nullable": true
       },
       "PersonIndividualId": {
-        "type": "string",
-        "description": "Individual ID",
+        "type": "reference",
+        "description": "ID of the data privacy record associated with this person’s account. This field is available if you enabled Data Protection and Privacy in Setup.",
         "format": "salesforce-id",
         "x-object": "Individual",
         "maxLength": 18,
         "nullable": true
       },
       "ConnectionReceivedId": {
-        "type": "string",
-        "description": "Received Connection ID",
+        "type": "reference",
+        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce.",
         "format": "salesforce-id",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
@@ -825,8 +831,8 @@
         "readOnly": true
       },
       "ConnectionSentId": {
-        "type": "string",
-        "description": "Sent Connection ID",
+        "type": "reference",
+        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections.",
         "format": "salesforce-id",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
@@ -835,7 +841,7 @@
       },
       "IsBuyer": {
         "type": "boolean",
-        "description": "Buyer Account",
+        "description": "Indicates that the account is enabled as a buyer for Lightning B2B Commerce. The default value is false. This field is available in API version 48.0 and later. Note This field is only available to organizations that have the B2B Commerce license enabled.",
         "nullable": false,
         "readOnly": true
       },
@@ -2024,10 +2030,94 @@
         ],
         "maxLength": 40,
         "nullable": true
+      },
+      "ActivityMetricId": {
+        "type": "reference",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric."
+      },
+      "ActivityMetricRollupId": {
+        "type": "reference",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup."
+      },
+      "BillingCountryCode": {
+        "type": "picklist",
+        "description": "The ISO country code for the account’s billing address."
+      },
+      "BillingStateCode": {
+        "type": "picklist",
+        "description": "The ISO state code for the account’s billing address."
+      },
+      "IsPriorityRecord": {
+        "type": "boolean",
+        "description": "Shows whether the user has marked the account as important (True) or not (False). The default value is false. Available in API version 60.0 and later."
+      },
+      "PersonActionCadenceAssigneeId": {
+        "type": "reference",
+        "description": "The ID of the sales rep designated to work the lead through their assigned cadence. This field is available in API version 47.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+      },
+      "PersonActionCadenceId": {
+        "type": "reference",
+        "description": "The ID of the lead’s assigned cadence. This field is available in API version 46.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+      },
+      "PersonActionCadenceState": {
+        "type": "picklist",
+        "description": "The state of the current action cadence tracker. This field is available in API version 50.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+      },
+      "PersonScheduledResumeDateTime": {
+        "type": "dateTime",
+        "description": "The date and time when the action cadence tracker is going to resume after it’s paused or on a wait step. This field is available in API version 54.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+      },
+      "ShippingCountryCode": {
+        "type": "picklist",
+        "description": "The ISO country code for the account’s shipping address."
+      },
+      "ShippingStateCode": {
+        "type": "picklist",
+        "description": "The ISO state code for the account’s shipping address."
+      },
+      "MiddleName": {
+        "type": "string",
+        "description": "Middle name of the person for a person account. Maximum size is 40 characters."
+      },
+      "PersonBirthDate": {
+        "type": "date",
+        "description": "The birthday of the contact associated with this person account. Label is Birthdate. The year portion of the PersonBirthDate field is ignored in filter criteria, including report filters, list view filters, and SOQL queries. For example, the following SOQL query returns person accounts with birthdays later in the year than today:SELECT FirstName, LastName, PersonBirthDate FROM Account WHERE Birthdate > TODAY"
+      },
+      "PersonGenderIdentity": {
+        "type": "picklist",
+        "description": "The person’s internal experience of their gender, which may or may not correspond to the person’s designated sex at birth. Label is Gender Identity."
+      },
+      "PersonMailingCity PersonMailingCountry PersonMailingPostalCode PersonMailingState": {
+        "type": "string",
+        "description": "Details about the mailing address for this person account. Labels are Mailing City, Mailing Country, Postal Code, and State. Maximum size for city and country is 40 characters. Maximum size for postal code and state is 20 characters."
+      },
+      "PersonMailingCountryCode PersonMailingStateCode": {
+        "type": "picklist",
+        "description": "The ISO country or state code for the mailing address of the person account."
+      },
+      "PersonOtherCity PersonOtherCountry PersonOtherPostalCode PersonOtherState": {
+        "type": "string",
+        "description": "Details about the alternate address for this person account. Labels are Other City, Other Country, Other Zip/Postal Code, and Other State."
+      },
+      "PersonOtherCountryCode PersonOtherStateCode": {
+        "type": "picklist",
+        "description": "The ISO country or state code for the alternate address of the person account."
+      },
+      "PersonPronouns": {
+        "type": "picklist",
+        "description": "The individual’s personal pronouns, reflecting their gender identity. Others can use these pronouns to refer to the individual in the third person. The entry is selected from a picklist of available values, which the administrator sets. Maximum 40 characters. Label is Pronouns."
+      },
+      "PersonReportsToId": {
+        "type": "reference",
+        "description": "ID of the person account or contact that this person account reports to."
+      },
+      "Suffix": {
+        "type": "string",
+        "description": "Name suffix of the person for a person account. Maximum size is 40 characters."
       }
     },
-    "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_account.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_account.htm",
     "keyPrefix": "001",
     "iconUrl": "icon/t4v35/standard/account_120.png",
     "iconColor": "5867E8",
@@ -2799,6 +2889,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Experience Cloud site or Customer Portal users can access their own accounts and any account shared with them.",
+    "clouds": [
+      "Consumer Goods Cloud",
+      "Core Salesforce"
     ]
   }
 }

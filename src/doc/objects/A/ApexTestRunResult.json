@@ -4,7 +4,7 @@
     "description": "Contains summary information about all the test methods that were run in a particular Apex job.",
     "properties": {
       "AsyncApexJobId": {
-        "type": "reference",
+        "type": "string",
         "description": "The parent Apex job ID for the result.",
         "format": "salesforce-id",
         "x-object": "AsyncApexJob",
@@ -12,12 +12,12 @@
         "nullable": true
       },
       "ClassesCompleted": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of classes executed during the test run.",
         "nullable": true
       },
       "ClassesEnqueued": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of classes enqueued during the test run.",
         "nullable": false
       },
@@ -39,17 +39,17 @@
         "nullable": true
       },
       "MethodsCompleted": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of methods completed during the test run. This value is updated after each class is run.",
         "nullable": true
       },
       "MethodsEnqueued": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of methods enqueued for the test run. This value is initialized before the test runs.",
         "nullable": true
       },
       "MethodsFailed": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of methods that failed during this test run. This value is updated after each class is run.",
         "nullable": true
       },
@@ -66,7 +66,7 @@
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the test run. Can be one of these values: Queued Preparing Processing Aborted Completed Failed",
         "format": "enum",
         "enum": [
@@ -82,16 +82,16 @@
         "nullable": false
       },
       "TestSetupTime": {
-        "type": "int",
+        "type": "number",
         "description": "The time it took the setup methods to run, in milliseconds."
       },
       "TestTime": {
-        "type": "int",
+        "type": "number",
         "description": "The time it took the test to run, in milliseconds.",
         "nullable": true
       },
       "UserId": {
-        "type": "reference",
+        "type": "string",
         "description": "The user who ran the test run.",
         "format": "salesforce-id",
         "x-object": "User",
@@ -168,6 +168,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "In API version 49.0 and later, users must have the View Setup and Configuration permission to access this object.",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
     ]
   }
 }

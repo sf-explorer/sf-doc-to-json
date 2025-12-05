@@ -1,7 +1,7 @@
 {
   "Attachment": {
     "name": "Attachment",
-    "description": "Attachments - Attachment",
+    "description": "Represents a file that a User has uploaded and attached to a parent object.",
     "properties": {
       "Id": {
         "type": "string",
@@ -18,8 +18,8 @@
         "readOnly": true
       },
       "ParentId": {
-        "type": "string",
-        "description": "Parent ID",
+        "type": "reference",
+        "description": "Required. ID of the parent object of the attachment. The following objects are supported as parents of attachments: Account Asset Campaign Case Contact Contract Custom objects EmailMessage EmailTemplate Event Lead Opportunity Product2 Solution Task",
         "format": "salesforce-id",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
@@ -105,36 +105,36 @@
       },
       "Name": {
         "type": "string",
-        "description": "File Name",
+        "description": "Required. Name of the attached file. Maximum size is 255 characters. Label is File Name.",
         "maxLength": 255,
         "nullable": false
       },
       "IsPrivate": {
         "type": "boolean",
-        "description": "Private",
+        "description": "Indicates whether this record is viewable only by the owner and administrators (true) or viewable by all otherwise-allowed users (false). During a create or update call, it is possible to mark an Attachment record as private even if you are not the owner. This can result in a situation in which you can no longer access the record that you just inserted or updated. Label is Private.Attachments on tasks or events can't be marked private.",
         "nullable": false
       },
       "ContentType": {
         "type": "string",
-        "description": "Content Type",
+        "description": "The content type of the attachment.If the Don't allow HTML uploads as attachments or document records security setting is enabled for your organization, you cannot upload files with the following file extensions: .htm, .html, .htt, .htx, .mhtm, .mhtml, .shtm, .shtml, .acgi, .svg. When you insert a document or attachment through the API, make sure that this field is set to the appropriate MIME type.",
         "maxLength": 120,
         "nullable": true
       },
       "BodyLength": {
-        "type": "integer",
-        "description": "Body Length",
+        "type": "int",
+        "description": "Size of the file (in bytes).",
         "nullable": true,
         "readOnly": true
       },
       "Body": {
-        "type": "string",
-        "description": "Body",
+        "type": "base64",
+        "description": "Required. Encoded file data.",
         "format": "byte",
         "nullable": false
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "ID of the User who owns the attachment. This field isn’t required for API version 9.0 or later. The owner of an attachment on a task or event must be the same as the owner of the task or event.",
         "format": "salesforce-id",
         "x-objects": [
           "Calendar",
@@ -183,22 +183,34 @@
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "Description of the attachment. Maximum size is 500 characters. This field is available in API version 18.0 and later.",
         "maxLength": 500,
         "nullable": true
       },
       "IsEncrypted": {
         "type": "boolean",
-        "description": "Is Encrypted",
+        "description": "Indicates whether the attachment is encrypted using Shield Platform Encryption (true) or not (false). This field is available in API version 34.0 and later.",
         "nullable": false,
         "readOnly": true
+      },
+      "ConnectionReceivedId": {
+        "type": "reference",
+        "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce."
+      },
+      "ConnectionSentId": {
+        "type": "reference",
+        "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections."
+      },
+      "IsPartnerShared": {
+        "type": "boolean",
+        "description": "Indicates whether this record is shared with a connection using Salesforce to Salesforce. Label is Is Shared With Partner."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "00P",
     "label": "Attachment",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_attachment.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -217,6 +229,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

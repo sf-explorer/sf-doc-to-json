@@ -4,7 +4,7 @@
     "description": "Represents a forecast type.",
     "properties": {
       "DateType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The date type that forecast amounts are based on.",
         "format": "enum",
         "enum": [
@@ -38,7 +38,7 @@
         "readOnly": true
       },
       "Language": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language of the forecast type.",
         "format": "enum",
         "enum": [
@@ -55,11 +55,11 @@
         "nullable": false
       },
       "Metadata": {
-        "type": "ForecastingType",
+        "type": "string",
         "description": "The metadata of the forecast type."
       },
       "OpportunitySplitTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "For a forecast type based on a split, the ID of the opportunity split type.",
         "format": "salesforce-id",
         "x-object": "OpportunitySplitType",
@@ -68,11 +68,11 @@
         "readOnly": true
       },
       "OpptyLineItemSplitTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "For a forecast type based on an opportunity product split, the ID of the opportunity line item split type."
       },
       "RoleType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. Indicates whether the role type has a ForecastingType, and if so, which ForecastingType.",
         "format": "enum",
         "enum": [
@@ -143,27 +143,48 @@
       },
       "IsActive": {
         "type": "boolean",
-        "nullable": false
+        "nullable": false,
+        "description": "Indicates whether the forecasting type is enabled. The default value is false."
       },
       "IsQuantity": {
         "type": "boolean",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates whether the forecasting type is based on the quantity measure. The default value is false."
       },
       "IsAmount": {
         "type": "boolean",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates whether the forecasting type is based on the revenue measure. The default value is false."
       },
       "CanDisplayQuotas": {
         "type": "boolean",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates whether a forecast type can show quota information. The default value is false. Available in API version 38.0 and later."
       },
       "IsPlatformType": {
         "type": "boolean",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates a legacy forecast type that wasn’t available before Summer ’21. The default value is false. Available in API version 52.0 and later."
+      },
+      "ForecastingGroupID": {
+        "type": "reference",
+        "description": "Indicates whether the forecasting type has a group assignment, and if so, the name of the group. This field is a relationship field. Available in API version 60.0 and later."
+      },
+      "HasAdjustments": {
+        "type": "boolean",
+        "description": "Indicates whether forecast managers can adjust forecasts of their immediate subordinates and child territories. The default value is false. Available in API version 60.0 and later."
+      },
+      "HasOwnerAdjustments": {
+        "type": "boolean",
+        "description": "Indicates whether all forecast users can adjust their own forecasts, including the territory forecasts that they own. The default value is false. Available in API version 60.0 and later."
+      },
+      "LastActivatedDate": {
+        "type": "dateTime",
+        "description": "The date when a forecast type was activated. Read only. Available in API version 53.0 and later."
       }
     },
     "module": "Tooling API",
@@ -223,6 +244,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "As of Spring ’20 and later, only standard users with the View All Forecasts or Allow Forecasting permission or delegated forecast manager status can access this object.",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "CarePlan": {
     "name": "CarePlan",
-    "description": "Represents an instantiation of a care plan template for a particular individual in order to reach specific goals.",
+    "description": "Stores information about a care plan associated with a medication therapy review. Care plans are used to assign tasks to patients as part of medication therapy reviews.",
     "properties": {
       "CarePlanTemplateId": {
         "type": "reference",
@@ -21,7 +21,7 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "The description for the care plan record."
+        "description": "A description of the care plan."
       },
       "EndDate": {
         "type": "dateTime",
@@ -29,15 +29,15 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced the record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed the record."
       },
       "Name": {
         "type": "string",
-        "description": "The name of the care plan record."
+        "description": "The unique name of the care plan."
       },
       "ParticipantId": {
         "type": "reference",
@@ -49,18 +49,42 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "Specifies the status of the care plan."
+        "description": "The status of the care plan."
       },
       "TaskJobStatus": {
         "type": "picklist",
-        "description": "Specifies the status of the task in the task queue."
+        "description": "The job status of tasks associated with the care plan. This field is currently not used."
       },
       "TaskJobStatusMessage": {
         "type": "textarea",
-        "description": "The message that describes the status of the task in the queue."
+        "description": "The job status message of tasks associated with the care plan. This field is currently not used."
+      },
+      "AuthorId": {
+        "type": "Polymorphic lookup",
+        "description": "The author of the care plan."
+      },
+      "AuthorizationType": {
+        "type": "picklist",
+        "description": "The type of authorization provided for the care plan."
+      },
+      "ClinicalEncounterId": {
+        "type": "Lookup",
+        "description": "The encounter during which the care plan was created."
+      },
+      "RecordedDateTime": {
+        "type": "dateTime",
+        "description": "The date and time when the care plan was first recorded."
+      },
+      "MedicationTherapyReviewId": {
+        "type": "reference",
+        "description": "The medication therapy review that's associated with this care plan."
       }
     },
-    "module": "Nonprofit Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_careplan.htm"
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_careplan.htm",
+    "clouds": [
+      "Nonprofit Cloud",
+      "Health Cloud"
+    ]
   }
 }

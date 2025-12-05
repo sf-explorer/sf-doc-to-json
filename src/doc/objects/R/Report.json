@@ -1,7 +1,7 @@
 {
   "Report": {
     "name": "Report",
-    "description": "Reports - Report",
+    "description": "Represents a report, a set of data that meets certain criteria, displayed in an organized way. Access is read-only.",
     "properties": {
       "Id": {
         "type": "string",
@@ -12,8 +12,8 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "The ID of the folder that contains the report. There are 2 special folders: Private, where the ID is the user ID Public, where the ID is the org ID",
         "format": "salesforce-id",
         "x-objects": [
           "Folder",
@@ -26,7 +26,7 @@
       },
       "FolderName": {
         "type": "string",
-        "description": "Folder Name",
+        "description": "Name of the folder that contains the report. Available in API version 35.0 and later.",
         "maxLength": 256,
         "nullable": true,
         "readOnly": true
@@ -65,41 +65,41 @@
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Deleted",
+        "description": "Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
         "nullable": false,
         "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Report Name",
+        "description": "Required. The report label used in the user interface.",
         "maxLength": 40,
         "nullable": false,
         "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Description",
+        "description": "The description of the report. Limit: 255 characters.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Report Unique Name",
+        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Label is Report Unique Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "LastRunDate": {
-        "type": "string",
-        "description": "Last Run",
+        "type": "dateTime",
+        "description": "Returns the date the report was last run. Label is Last Run.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -112,8 +112,8 @@
         "readOnly": true
       },
       "Format": {
-        "type": "string",
-        "description": "Format",
+        "type": "picklist",
+        "description": "Required. Indicates the format of the report. This field is available in API version 29.0 and later. Can have one of these values: Tabular for reports in that format. In the application, the label is Tabular. Summary for reports in that format. In the application, the label is Summary. Matrix for reports in that format. In the application, the label is Matrix. Multiblock for reports in joined format. In the application, the label is Joined.",
         "format": "enum",
         "enum": [
           "MultiBlock",
@@ -126,15 +126,15 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "datetime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "datetime",
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -147,8 +147,8 @@
         "readOnly": true
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_report.htm",
     "keyPrefix": "00O",
     "label": "Report",
     "createable": false,
@@ -235,6 +235,10 @@
         "relationshipName": "Feeds",
         "cascadeDelete": true
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

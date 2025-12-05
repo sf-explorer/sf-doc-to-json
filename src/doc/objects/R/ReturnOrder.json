@@ -1,7 +1,7 @@
 {
   "ReturnOrder": {
     "name": "ReturnOrder",
-    "description": "Represents the repair, return, or recall of product items.",
+    "description": "Represents the return or repair of inventory or products in Field Service, or the return of order products in Order Management.",
     "properties": {
       "AccountId": {
         "type": "reference",
@@ -29,7 +29,7 @@
       },
       "Description": {
         "type": "textarea",
-        "description": "The description of the return order.",
+        "description": "Notes or context about the return order.",
         "maxLength": 32000,
         "nullable": true
       },
@@ -49,20 +49,20 @@
       },
       "ExpirationDate": {
         "type": "dateTime",
-        "description": "The date after which authorizations can’t be captured.",
+        "description": "Authorizations can’t be captured after their expiration dates.",
         "format": "date-time",
         "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "description": "The date when the return order was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
+        "description": "The date when the return order was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -96,14 +96,14 @@
       },
       "ReturnOrderNumber": {
         "type": "string",
-        "description": "The auto-generated number identifying the return order.",
+        "description": "(Read only) Auto-generated number identifying the return order.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "ReturnedById": {
         "type": "reference",
-        "description": "The user returning the items.",
+        "description": "ID of the user returning the items.",
         "format": "salesforce-id",
         "x-object": "User",
         "maxLength": 18,
@@ -129,7 +129,7 @@
       },
       "ShipFromGeocodeAccuracy": {
         "type": "picklist",
-        "description": "Accuracy level of the geocode for the return shipping address.",
+        "description": "Accuracy level of the geocode for the return shipping address. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "format": "enum",
         "enum": [
           "Address",
@@ -149,13 +149,13 @@
       },
       "ShipFromLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the return shipping address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "description": "Used with Longitude to specify the precise geolocation of the return shipping address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShipFromLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the return shipping address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "description": "Used with Latitude to specify the precise geolocation of the return shipping address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -193,7 +193,7 @@
       },
       "SourceLocationId": {
         "type": "reference",
-        "description": "The items’ location at the start of the return or repair. For example, if the return order tracks the return of products from a technician’s service center to a warehouse, the service center is the source location.",
+        "description": "The items’ location at the start of the return or repair. For example, if the return order tracks the return of products from a technician’s service vehicle to a warehouse, the service vehicle is the source location.",
         "format": "salesforce-id",
         "x-object": "Location",
         "maxLength": 18,
@@ -297,8 +297,8 @@
         "readOnly": true
       },
       "OrderSummaryId": {
-        "type": "string",
-        "description": "Order Summary ID",
+        "type": "reference",
+        "description": "ID of the order summary associated with the return order.",
         "format": "salesforce-id",
         "x-object": "OrderSummary",
         "maxLength": 18,
@@ -306,78 +306,78 @@
         "readOnly": true
       },
       "TotalProductAmount": {
-        "type": "number",
-        "description": "Product Subtotal",
+        "type": "currency",
+        "description": "Total of the product charges on the return order. This value only includes return order line items of type code Product.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalProductTaxAmount": {
-        "type": "number",
-        "description": "Product Subtotal Tax",
+        "type": "currency",
+        "description": "Tax on the TotalProductAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalDeliveryAmount": {
-        "type": "number",
-        "description": "Shipping Subtotal",
+        "type": "currency",
+        "description": "Total of the delivery charges on the return order. This value only includes return order line items of type code Charge.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalDeliveryTaxAmount": {
-        "type": "number",
-        "description": "Shipping Subtotal Tax",
+        "type": "currency",
+        "description": "Tax on the TotalDeliveryAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalProductAdjustAmount": {
-        "type": "number",
-        "description": "Product Adjustments",
+        "type": "currency",
+        "description": "Total amount of the price adjustments applied to the products on the return order. This value only includes adjustments to return order line items of type code Product.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalProductAdjustTaxAmount": {
-        "type": "number",
-        "description": "Product Adjustments Tax",
+        "type": "currency",
+        "description": "Tax on the TotalProductAdjustmentAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalDeliveryAdjustAmount": {
-        "type": "number",
-        "description": "Shipping Adjustments",
+        "type": "currency",
+        "description": "Total amount of the price adjustments applied to the delivery charges on the return order. This value only includes adjustments to return order line items of type code Charge.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalDeliveryAdjustTaxAmount": {
-        "type": "number",
-        "description": "Shipping Adjustments Tax",
+        "type": "currency",
+        "description": "Tax on the TotalDeliveryAdjustAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalAmount": {
-        "type": "number",
-        "description": "Pretax Total",
+        "type": "currency",
+        "description": "Adjusted total, not including tax, of the return order line items, including products, fees, and delivery charges, on the ReturnOrder.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalTaxAmount": {
-        "type": "number",
-        "description": "Tax",
+        "type": "currency",
+        "description": "Tax on the TotalAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TaxLocaleType": {
-        "type": "string",
-        "description": "Tax Locale Type",
+        "type": "picklist",
+        "description": "The system used to handle tax on the original order associated with the return order. Gross usually applies to taxes like value-added tax (VAT), and Net usually applies to taxes like sales tax.",
         "format": "enum",
         "enum": [
           "Net",
@@ -389,43 +389,43 @@
         "readOnly": true
       },
       "TotalProductAmtWithTax": {
-        "type": "number",
-        "description": "Product Subtotal with Tax",
+        "type": "currency",
+        "description": "Total amount of the product charges on the return order, inclusive of tax. This value only includes return order line items of type code Product. This amount is equal to TotalProductAmount + TotalProductTaxAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalDeliveryAmtWithTax": {
-        "type": "number",
-        "description": "Shipping Subtotal with Tax",
+        "type": "currency",
+        "description": "Total amount of the delivery charges on the return order, inclusive of tax. This value only includes return order line items of type code Charge. This amount is equal to TotalDeliveryAmount + TotalDeliveryTaxAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalProductAdjustAmtWithTax": {
-        "type": "number",
-        "description": "Product Adjustments with Tax",
+        "type": "currency",
+        "description": "Total amount of the price adjustments applied to the products on the return order, inclusive of tax. This value only includes adjustments to return order line items of type code Product. This amount is equal to TotalProductAdjustAmount + TotalProductAdjustTaxAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "TotalDeliveryAdjustAmtWithTax": {
-        "type": "number",
-        "description": "Shipping Adjustments with Tax",
+        "type": "currency",
+        "description": "Total amount of the price adjustments applied to the delivery charges on the return order, inclusive of tax. This value only includes adjustments to return order line items of type code Charge. This amount is equal to TotalDeliveryAdjustAmount + TotalDeliveryAdjustTaxAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "GrandTotalAmount": {
-        "type": "number",
-        "description": "Total with Tax",
+        "type": "currency",
+        "description": "Total, including adjustments and tax, of the products, fees, and delivery charges on the return order. This includes all return order line items associated with the return order. This amount is equal to TotalAmount + TotalTaxAmount.",
         "format": "currency",
         "nullable": true,
         "readOnly": true
       },
       "LifeCycleType": {
-        "type": "string",
-        "description": "Life Cycle Type",
+        "type": "picklist",
+        "description": "Specifies whether the order summary is managed by Salesforce Order Management (MANAGED) or by an external system (UNMANAGED). An unmanaged order summary is stored in Salesforce for reference purposes.",
         "format": "enum",
         "enum": [
           "MANAGED",
@@ -434,10 +434,46 @@
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. ISO code for the currency of the OrderSummary associated with the ReturnOrder."
+      },
+      "ProductServiceCampaignId": {
+        "type": "reference",
+        "description": "The product service campaign associated with the return order"
+      },
+      "RefundInstructionsHint": {
+        "type": "textarea",
+        "description": "Stores a JSON representation of the payment credit and refund sequences for ensure credit, ensure refund, and the change orders associated with it."
+      },
+      "TotalFeeAdjustAmount": {
+        "type": "currency",
+        "description": "Total amount of the price adjustments applied to the fees on the return order. This value only includes adjustments to return order line items of type Fee."
+      },
+      "TotalFeeAdjustAmtWithTax": {
+        "type": "currency",
+        "description": "Total amount of the price adjustments applied to the fees on the return order, inclusive of tax. This value only includes adjustments to return order line items of type Fee. This amount is equal to TotalFeeAdjustAmount + TotalFeeAdjustTaxAmount."
+      },
+      "TotalFeeAdjustTaxAmount": {
+        "type": "currency",
+        "description": "Tax on the TotalFeeAdjustAmount."
+      },
+      "TotalFeeAmount": {
+        "type": "currency",
+        "description": "Total of the fees on the return order. This value only includes return order line items of type Fee."
+      },
+      "TotalFeeAmtWithTax": {
+        "type": "currency",
+        "description": "Total amount of the fees on the return order, inclusive of tax. This value only includes return order line items of type Fee. This amount is equal to TotalFeeAmount + TotalFeeTaxAmount."
+      },
+      "TotalFeeTaxAmount": {
+        "type": "currency",
+        "description": "Tax on the TotalFeeAmount."
       }
     },
-    "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_returnorder.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_returnorder.htm",
     "keyPrefix": "2oN",
     "createable": true,
     "updateable": true,
@@ -727,6 +763,11 @@
         "relationshipName": "WorkOrderLineItems",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Field Service or Order Management must be enabled. If return orders are enabled by a Salesforce Order Management license, they must be created with a Status corresponding to the Status Category Activated. The default Statuses corresponding to Activated are Submitted and Approved.",
+    "clouds": [
+      "Manufacturing Cloud",
+      "Core Salesforce"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "MutingPermissionSet": {
     "name": "MutingPermissionSet",
-    "description": "Muting Permission Sets - MutingPermissionSet",
+    "description": "Represents a set of disabled permissions and is used in conjunction with PermissionSetGroup.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Muting Permission Set Name",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language of the muting permission set.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -36,7 +36,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Muting Permission Set Label",
+        "description": "The muting permission set label for the aggregated, disabled permissions.",
         "maxLength": 80,
         "nullable": false
       },
@@ -2138,16 +2138,24 @@
         "type": "boolean",
         "description": "Enable ALM Simple Deploy User Permission ",
         "nullable": false
+      },
+      "PermissionsPermissionName": {
+        "type": "boolean",
+        "description": "One field for each permission. If true, the permission is disabled in the related permission set group. The number of fields varies depending on the permissions for the organization and license type.To get a list of available permissions, use describeSObjects()."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_mutingpermissionset.htm",
     "keyPrefix": "0QM",
     "label": "Muting Permission Set",
     "createable": true,
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
+    ]
   }
 }

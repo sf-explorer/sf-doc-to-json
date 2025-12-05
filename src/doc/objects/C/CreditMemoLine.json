@@ -254,12 +254,13 @@
         "readOnly": true
       },
       "TaxEffectiveDate": {
-        "type": "string",
+        "type": "date",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "description": "The date used to calculate the credit memo line’s TaxAmount."
       },
       "Type": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Charge",
@@ -268,21 +269,24 @@
         ],
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The type of transaction for the invoice line."
       },
       "TaxCode": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "The code used to calculate the tax rate for the invoice line."
       },
       "TaxRate": {
-        "type": "number",
+        "type": "percent",
         "format": "percent",
-        "nullable": true
+        "nullable": true,
+        "description": "Percentage value used for calculating tax."
       },
       "RelatedLineId": {
-        "type": "string",
-        "description": "Credit Memo Line ID",
+        "type": "reference",
+        "description": "The credit memo line related to this line item.",
         "format": "salesforce-id",
         "x-object": "CreditMemoLine",
         "maxLength": 18,
@@ -291,12 +295,37 @@
       "TaxName": {
         "type": "string",
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "User-defined name for applied tax."
       },
       "GrossUnitPrice": {
         "type": "number",
         "format": "currency",
         "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Three-letter ISO 4217 currency code associated with the credit memo line."
+      },
+      "TaxDocumentNumber": {
+        "type": "string",
+        "description": "The document number that tracks taxes calculated for this credit memo line."
+      },
+      "TotalAmount": {
+        "type": "currency",
+        "description": "The total amount of the credit memo line before any applicable tax."
+      },
+      "TotalAmountWithTax": {
+        "type": "currency",
+        "description": "Total amount of tax for this credit memo line, with tax included. Sum of TotalAmount and TaxAmount."
+      },
+      "TaxStatus": {
+        "type": "picklist",
+        "description": "Tracks whether the taxes were calculated for this credit memo line."
+      },
+      "TaxTransactionNumber": {
+        "type": "string",
+        "description": "Tracks the transaction number of the tax calculated for this credit memo line. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled."
       }
     },
     "module": "Revenue Lifecycle Management",
@@ -476,6 +505,11 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Credit Memo Operations",
+    "clouds": [
+      "Revenue Lifecycle Management",
+      "Core Salesforce"
     ]
   }
 }

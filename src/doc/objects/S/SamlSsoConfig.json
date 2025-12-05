@@ -19,14 +19,14 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Name",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package, and the changes are reflected in a subscriber’s organization. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language for the organization.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -38,14 +38,14 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "The text that’s used to identify the Visualforce page in the Setup area of Salesforce.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
@@ -90,8 +90,8 @@
         "readOnly": true
       },
       "Version": {
-        "type": "string",
-        "description": "SAML Version",
+        "type": "picklist",
+        "description": "The SAML version. Valid values are: SAML1_1 SAML2_2",
         "format": "enum",
         "enum": [
           "SAML1_1",
@@ -103,53 +103,53 @@
       },
       "Issuer": {
         "type": "string",
-        "description": "Issuer",
+        "description": "Also called the “Entity ID.” The value is a URL that uniquely identifies the SAML identity provider.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "OptionsSpInitBinding": {
         "type": "boolean",
-        "description": "SpInitBinding",
+        "description": "The service provider initiated request binding, either HTTP Redirect (true) or HTTP POST (false).",
         "nullable": false,
         "readOnly": true
       },
       "OptionsUserProvisioning": {
         "type": "boolean",
-        "description": "UserProvisioning",
+        "description": "If true, Just-in-Time user provisioning is enabled, which creates users on the fly the first time that they try to log in. Specify Federation ID for the identityMapping value to use this feature.",
         "nullable": false,
         "readOnly": true
       },
       "OptionsUseConfigRequestMethod": {
         "type": "boolean",
-        "description": "UseConfigRequestMethod",
+        "description": "If true, applies the selected Request Signature Method (RSM) during single logout. If false, the default RSM (RSA-SHA1) is applied.",
         "nullable": false,
         "readOnly": true
       },
       "AttributeFormat": {
         "type": "string",
-        "description": "Name ID Format",
+        "description": "For SAML 2.0 only and when identityLocation is set to Attribute. Possible values include unspecified, emailAddress, or persistent. All legal values can be found in the “Name Identifier Format Identifiers” section of the Assertions and Protocols SAML 2.0 specification.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "AttributeName": {
         "type": "string",
-        "description": "Attribute Name",
+        "description": "The name of the identity provider’s application. Get this name value from your identity provider.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "Audience": {
         "type": "string",
-        "description": "Entity ID",
+        "description": "The Issuer, also called the “Entity ID.” The value is a URL that uniquely identifies the SAML identity provider.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "IdentityMapping": {
-        "type": "string",
-        "description": "SAML Identity Type",
+        "type": "picklist",
+        "description": "The identifier that the service provider uses for the user during Just-in-Time user provisioning. Valid values are: Username—The user’s Salesforce username. FederationId—The federation ID from the user object; the identifier that’s used by the service provider for the user. UserId—The user ID from the user’s Salesforce organization.",
         "format": "enum",
         "enum": [
           "Username",
@@ -161,8 +161,8 @@
         "readOnly": true
       },
       "IdentityLocation": {
-        "type": "string",
-        "description": "SAML Identity Location",
+        "type": "picklist",
+        "description": "The location in the assertion where a user is identified. Valid values are: SubjectNameId—The identity is in the <Subject> statement of the assertion. Attribute—The identity is specified in an <AttributeValue>, located in the <Attribute> of the assertion.",
         "format": "enum",
         "enum": [
           "SubjectNameId",
@@ -173,8 +173,8 @@
         "readOnly": true
       },
       "SamlJitHandlerId": {
-        "type": "string",
-        "description": "Class ID",
+        "type": "reference",
+        "description": "The name of an existing Apex class that implements the Auth.SamlJitHandler interface.",
         "format": "salesforce-id",
         "x-object": "ApexClass",
         "maxLength": 18,
@@ -192,35 +192,35 @@
       },
       "LoginUrl": {
         "type": "string",
-        "description": "Identity Provider Login URL",
+        "description": "For SAML 2.0 only: The URL where Salesforce sends a SAML request to start the login sequence.",
         "maxLength": 1500,
         "nullable": true,
         "readOnly": true
       },
       "LogoutUrl": {
         "type": "string",
-        "description": "Identity Provider Logout URL",
+        "description": "For SAML 2.0 only: The URL to direct users to where they click the Logout link. The default is https://salesforce.com.",
         "maxLength": 1500,
         "nullable": true,
         "readOnly": true
       },
       "ErrorUrl": {
         "type": "string",
-        "description": "Custom Error URL",
+        "description": "When there's an error during login, specify the URL of the page where users are directed. It must be publicly accessible, such as a public site Visualforce page. The URL can be absolute or relative.",
         "maxLength": 500,
         "nullable": true,
         "readOnly": true
       },
       "ValidationCert": {
         "type": "string",
-        "description": "Identity Provider Certificate",
+        "description": "The certificate that’s used to validate the request. Get this certificate value from your identity provider.",
         "maxLength": 4000,
         "nullable": false,
         "readOnly": true
       },
       "RequestSignatureMethod": {
-        "type": "string",
-        "description": "Request Signature Method",
+        "type": "picklist",
+        "description": "The method that’s used to sign the SAML request. Valid values are: RSA-SHA1 RSA-SHA256",
         "format": "enum",
         "enum": [
           "RSA-SHA1",
@@ -232,14 +232,14 @@
       },
       "SingleLogoutUrl": {
         "type": "string",
-        "description": "Identity Provider Single Logout URL",
+        "description": "The SAML single logout endpoint. This URL is the endpoint where Salesforce sends LogoutRequests (when Salesforce initiates a logout), or LogoutResponses (when the identity provider initiates a logout).",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "SingleLogoutBinding": {
-        "type": "string",
-        "description": "Single Logout Request Binding",
+        "type": "picklist",
+        "description": "Determines where to put the LogoutRequest or LogoutResponse in the SAML request during single logout (SLO). The value is base64 encoded. Valid values are: RedirectBinding — Sent in the query string, deflated. PostBinding — Sent in the POST body, not deflated.",
         "format": "enum",
         "enum": [
           "RedirectBinding",
@@ -248,10 +248,22 @@
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
+      },
+      "ExecutionUserID": {
+        "type": "reference",
+        "description": "The user that runs the Apex handler class. The user must have the “Manage Users” permission. A user is required if you specify a SAML JIT handler class."
+      },
+      "OptionsUseSameDigestAlgoForSigning": {
+        "type": "boolean",
+        "description": "If true, uses a SAML digest algorithm based on the selected Request Signature Method (RSM). For example, if the selected RSM is RSA-SHA256, the digest algorithm is set to SHA-256. If false, uses the default digest algorithm (SHA-1), regardless of the selected RSM. This field is available in API version 55.0 and later. You can edit this field only for legacy SAML configurations created before the Spring ’22 release. For configurations created after Spring ’22, this field is true by default."
+      },
+      "OptionsRequireMfaSaml": {
+        "type": "boolean",
+        "description": "Requires multi-factor authentication (MFA) for single sign-on with this SAML configuration based on the MFA status of each user. For this setting to trigger MFA, you must apply MFA directly to users via one of two methods. 1) Assign the user permission Multi-Factor Authentication for User Interface Logins. 2) Enable the org setting Require multi-factor authentication (MFA) for all direct UI logins to your Salesforce org."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_samlssoconfig.htm",
     "keyPrefix": "0LE",
     "label": "SAML Single Sign-On Setting",
     "createable": false,
@@ -272,6 +284,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "As of Summer ’20 and later, only users with the View Setup and Configuration permission or both the Customize Application and Modify All Data permissions can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "Skill": {
     "name": "Skill",
-    "description": "Skills - Skill",
+    "description": "Represents the settings for a skill used for field service or to route chats to agents in Chat, such as the name of the skill and which agents the skills are assigned to. This object is available in API version 65.0 and later.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer Name",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. This field is automatically generated, but you can supply your own value if you create the record using the API.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
         "type": "string",
-        "description": "Master Language",
+        "description": "The language for the Skill.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -69,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Name",
+        "description": "The label for Skill.",
         "maxLength": 80,
         "nullable": false
       },
@@ -113,23 +113,27 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "datetime",
+        "description": "The timestamp for when the current user last viewed the skill.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Description",
+        "description": "Specifies the description of the skill.",
         "maxLength": 32000,
         "nullable": true
+      },
+      "TypeId": {
+        "type": "reference",
+        "description": "The skill type associated with the skill. This field is a relationship field. This field is available in API version 58.0 and later."
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "0C5",
     "label": "Skill",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_skill.htm",
     "createable": true,
     "updateable": true,
     "deletable": false,
@@ -220,6 +224,11 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

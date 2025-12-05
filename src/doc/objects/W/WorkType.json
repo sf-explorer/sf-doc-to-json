@@ -1,7 +1,7 @@
 {
   "WorkType": {
     "name": "WorkType",
-    "description": "Work Types - WorkType",
+    "description": "Represents a type of work to be performed in Field Service and Lightning Scheduler. Work types are templates that can be applied to work order or work order line items.",
     "properties": {
       "Id": {
         "type": "string",
@@ -12,8 +12,8 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "The work type’s owner.",
         "format": "salesforce-id",
         "x-objects": [
           "Group",
@@ -30,7 +30,7 @@
       },
       "Name": {
         "type": "string",
-        "description": "Work Type Name",
+        "description": "The name of the work type. Try to use a name that helps users quickly understand the type of work orders that can be created from the work type. For example, “Annual Refrigerator Maintenance” or “Valve Replacement.”",
         "maxLength": 255,
         "nullable": false
       },
@@ -86,33 +86,33 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The date when the work type was last viewed by the current user.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The date when the work type was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of the work type. Try to add details about the task or tasks that this work type represents.",
         "maxLength": 32000,
         "nullable": true
       },
       "EstimatedDuration": {
-        "type": "number",
-        "description": "Estimated Duration",
+        "type": "double",
+        "description": "The estimated length of the work. The estimated duration is in minutes or hours based on the value selected in the Duration Type field.",
         "nullable": false
       },
       "DurationType": {
-        "type": "string",
-        "description": "Duration Type",
+        "type": "picklist",
+        "description": "The unit of the Estimated Duration: Minutes or Hours.",
         "format": "enum",
         "enum": [
           "Hours",
@@ -129,25 +129,25 @@
       },
       "ShouldAutoCreateSvcAppt": {
         "type": "boolean",
-        "description": "Auto-Create Service Appointment",
+        "description": "Select this option to have a service appointment automatically created on work orders and work order line items that use the work type. Note By default, the Due Date on auto-created service appointments is seven days after the created date. Admins can adjust this offset from the Field Service Settings page in Setup. If a work type with the Auto-Create Service Appointment option selected is added to an existing work order or work order line item, a service appointment is only created for the work order or work order line item if it doesn’t yet have one. If someone updates an existing work type by selecting the Auto-Create Service Appointment option, service appointments aren’t created on work orders and work order line items that were already using the work type.",
         "nullable": false
       },
       "ServiceReportTemplateId": {
-        "type": "string",
-        "description": "Service Report Layout ID",
+        "type": "reference",
+        "description": "The service report template associated with the work type. When users create service reports from a work order or work order line item that uses this work type, the reports use this template.",
         "format": "salesforce-id",
         "x-object": "ServiceReportLayout",
         "maxLength": 18,
         "nullable": true
       },
       "MinimumCrewSize": {
-        "type": "integer",
-        "description": "Minimum Crew Size",
+        "type": "int",
+        "description": "The minimum crew size allowed for a crew assigned to the work. Work orders and work order line items inherit their work type’s minimum crew size.If you’re not using the Field Service managed package, this field serves as a suggestion rather than a rule. If you are using the managed package, the scheduling optimizer counts the number of service crew members on a service crew to determine whether it fits the minimum crew size requirement.",
         "nullable": true
       },
       "RecommendedCrewSize": {
-        "type": "integer",
-        "description": "Recommended Crew Size",
+        "type": "int",
+        "description": "The recommended number of people on the service crew assigned to the work. For example, you might have a Minimum Crew Size of 2 and a Recommended Crew Size of 3. Work orders and work order line items inherit their work type’s recommended crew size.",
         "nullable": true
       },
       "TimeframeStart": {
@@ -269,12 +269,24 @@
         "type": "boolean",
         "description": "SDO_Record",
         "nullable": false
+      },
+      "SaDocumentTemplate": {
+        "type": "string",
+        "description": "The document template ID. If ServiceDocumentTemplateId isn’t specified, this document template ID determines which service document template is used for service documents generated from a service appointment. The ID is 15 to 18 characters long."
+      },
+      "WoDocumentTemplate": {
+        "type": "string",
+        "description": "The document template ID. If ServiceDocumentTemplateId isn’t specified, this document template ID determines which service document template is used for service documents generated from a work order. The ID is 15 to 18 characters long."
+      },
+      "WoliDocumentTemplate": {
+        "type": "string",
+        "description": "The document template ID. If ServiceDocumentTemplateId isn’t specified, this document template ID determines which service document template is used for service documents generated from a work order line item. The ID is 15 to 18 characters long."
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "08q",
     "label": "Work Type",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_worktype.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -533,6 +545,11 @@
         "relationshipName": "Shares",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Field Service must be enabled.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

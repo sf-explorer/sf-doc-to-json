@@ -4,7 +4,7 @@
     "description": "Represents a user’s assignment to a permission set or permission set group.",
     "properties": {
       "AssigneeId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user that is assigned the permission set indicated in PermissionSetId or the permission set group indicated in PermissionSetGroupId.",
         "format": "salesforce-id",
         "x-object": "User",
@@ -25,15 +25,15 @@
         "description": "Indicates whether the assignment was revoked (true) or not (false). This field is available in API version 57.0 and later. Note This feature is a Beta Service. Customer may opt to try such Beta Service in its sole discretion. Any use of the Beta Service is subject to the applicable Beta Services Terms provided at Agreements and Terms."
       },
       "LastCreatedByChangeId (Beta)": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user access change record related to this permission set or permission set group assignment. This field is available in API version 57.0 and later."
       },
       "LastDeletedByChangeId (Beta)": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user access change record related to this permission set or permission set group assignment being revoked. This field is available in API version 57.0 and later."
       },
       "PermissionSetGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the permission set group assigned to the user specified in AssigneeId. This field is available in API version 45.0 and later.",
         "format": "salesforce-id",
         "x-object": "PermissionSetGroup",
@@ -42,7 +42,7 @@
         "readOnly": true
       },
       "PermissionSetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the permission set assigned to the user specified in AssigneeId.",
         "format": "salesforce-id",
         "x-object": "PermissionSet",
@@ -64,6 +64,18 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "IsRevoked": {
+        "type": "boolean",
+        "description": "Indicates whether the assignment was revoked (true) or not (false). Defaults to false. This field is available only if user access policies are enabled. This field is available in API version 57.0 and later."
+      },
+      "LastCreatedByChangeId": {
+        "type": "reference",
+        "description": "The ID of the user access change record related to this permission set or permission set group assignment. This field is available only if user access policies are enabled. This field is available in API version 57.0 and later."
+      },
+      "LastDeletedByChangeId": {
+        "type": "reference",
+        "description": "The ID of the user access change record related to this permission set or permission set group assignment being revoked. This field is available only if user access policies are enabled. This field is available in API version 57.0 and later."
       }
     },
     "module": "Tooling API",
@@ -73,6 +85,11 @@
     "updateable": false,
     "deletable": true,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "accessRules": "As of Summer ’20 and later, only users who have one of these permissions can access this object:",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
+    ]
   }
 }

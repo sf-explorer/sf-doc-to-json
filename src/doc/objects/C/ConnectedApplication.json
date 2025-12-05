@@ -13,7 +13,7 @@
       },
       "Name": {
         "type": "string",
-        "description": "Connected App Name",
+        "description": "The unique name for this object.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
@@ -54,37 +54,37 @@
       },
       "OptionsAllowAdminApprovedUsersOnly": {
         "type": "boolean",
-        "description": "AllowAdminApprovedUsersOnly",
+        "description": "Indicates whether access is limited to users granted approval to use the connected app by an administrator. Manage profiles for the app by editing each profile’s Access list.",
         "nullable": false,
         "readOnly": true
       },
       "OptionsRefreshTokenValidityMetric": {
         "type": "boolean",
-        "description": "RefreshTokenValidityMetric",
+        "description": "Specifies whether the refresh token validity is based on duration or inactivity. If true, the token validity is measured based on the last use of the token; otherwise, it’s based on the token duration.",
         "nullable": false,
         "readOnly": true
       },
       "OptionsHasSessionLevelPolicy": {
         "type": "boolean",
-        "description": "HasSessionLevelPolicy",
+        "description": "Specifies whether the connected app requires a High Assurance level session.",
         "nullable": false,
         "readOnly": true
       },
       "OptionsIsInternal": {
-        "type": "boolean",
-        "description": "isInternal",
+        "type": "",
+        "description": "",
         "nullable": false,
         "readOnly": true
       },
       "OptionsFullContentPushNotifications": {
-        "type": "boolean",
-        "description": "FullContentPushNotifications",
+        "type": "",
+        "description": "",
         "nullable": false,
         "readOnly": true
       },
       "MobileSessionTimeout": {
-        "type": "string",
-        "description": "Lock App After",
+        "type": "picklist",
+        "description": "Length of time after which the system logs out inactive mobile users.",
         "format": "enum",
         "enum": [
           "1",
@@ -101,7 +101,7 @@
         "readOnly": true
       },
       "PinLength": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "4",
@@ -112,27 +112,50 @@
         ],
         "maxLength": 40,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "For mobile apps, this field is the PIN length requirement for users of the connected app. Valid values are 4, 5, 6, 7, or 8."
       },
       "StartUrl": {
-        "type": "string",
+        "type": "url",
         "format": "uri",
         "maxLength": 2400,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "If the app isn’t accessed from a mobile device, users are directed to this URL after they’ve authenticated."
       },
       "MobileStartUrl": {
-        "type": "string",
+        "type": "url",
         "format": "uri",
         "maxLength": 2400,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Users are directed to this URL after they’ve authenticated when the app is accessed from a mobile device."
       },
       "RefreshTokenValidityPeriod": {
-        "type": "integer",
-        "description": "Refresh Token Policy:",
+        "type": "int",
+        "description": "The duration of an authorization token until it expires in hours, months, or days as set in the connected app management page.",
         "nullable": true,
         "readOnly": true
+      },
+      "NamedUserUvidTimeout": {
+        "type": "picklist",
+        "description": "The timeout value for a JSON Web Token (JWT)-based access token that's issued to a named user. This field defines the timeout only if the app is configured to have an app-specific timeout. If the app uses the user's session timeout, the timeout value is defined based on the user's profile or the org session settings. For more information about defining JWT-based access token timeout, see Configure a Connected App to Issue JWT-Based Access Tokens."
+      },
+      "OptionsAppIssueJwtTokenEnabled": {
+        "type": "boolean",
+        "description": "If set to true, the connected app is enabled to issue JWT-based access tokens. Available in API version 59.0 and later."
+      },
+      "OptionsCodeCredentialGuestEnabled": {
+        "type": "",
+        "description": ""
+      },
+      "OptionsTokenExchangeManageBitEnabled": {
+        "type": "boolean",
+        "description": "If true, the OAuth 2.0 token exchange flow is enabled."
+      },
+      "UvidTimeout": {
+        "type": "picklist",
+        "description": "The timeout value for a JWT-based access token that's issued to an unknown user as a result of the guest user variation of the Authorization Code and Credentials Flow. JWT-based access tokens issued during this flow variation always contain a UVID. This field defines the timeout only if the app is configured to have an app-specific timeout. If the app uses the user's session timeout, the timeout value is defined based on the user's profile or the org session settings. For more information about defining JWT-based access token timeout, see Configure a Connected App to Issue JWT-Based Access Tokens."
       }
     },
     "module": "Tooling API",
@@ -222,6 +245,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
     ]
   }
 }

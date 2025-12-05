@@ -1,7 +1,7 @@
 {
   "ApexTrigger": {
     "name": "ApexTrigger",
-    "description": "Apex Triggers - ApexTrigger",
+    "description": "Represents the saved copy of an Apex trigger. ApexTrigger uses the cached version of the class unless one is unavailable.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,20 +13,20 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name",
+        "description": "Name of the trigger.Limit: 255 characters",
         "maxLength": 255,
         "nullable": false
       },
       "TableEnumOrId": {
-        "type": "string",
-        "description": "Custom Object Definition ID",
+        "type": "picklist",
+        "description": "Specifies the object associated with the trigger, such as Account or Contact.",
         "format": "enum",
         "enum": [
           "AccessControlPolicy",
@@ -753,52 +753,52 @@
       },
       "UsageBeforeInsert": {
         "type": "boolean",
-        "description": "BeforeInsert",
+        "description": "Specifies whether the trigger is an before insert trigger (true) or not (false).",
         "nullable": false
       },
       "UsageAfterInsert": {
         "type": "boolean",
-        "description": "AfterInsert",
+        "description": "Specifies whether the trigger is an after insert trigger (true) or not (false).",
         "nullable": false
       },
       "UsageBeforeUpdate": {
         "type": "boolean",
-        "description": "BeforeUpdate",
+        "description": "Specifies whether the trigger is an before update trigger (true) or not (false).",
         "nullable": false
       },
       "UsageAfterUpdate": {
         "type": "boolean",
-        "description": "AfterUpdate",
+        "description": "Specifies whether the trigger is an after update trigger (true) or not (false).",
         "nullable": false
       },
       "UsageBeforeDelete": {
         "type": "boolean",
-        "description": "BeforeDelete",
+        "description": "Specifies whether the trigger is a before delete trigger (true) or not (false).",
         "nullable": false
       },
       "UsageAfterDelete": {
         "type": "boolean",
-        "description": "AfterDelete",
+        "description": "Specifies whether the trigger is an after delete trigger (true) or not (false).",
         "nullable": false
       },
       "UsageIsBulk": {
         "type": "boolean",
-        "description": "IsBulk",
+        "description": "Specifies whether the trigger is defined as a bulk trigger (true) or not (false).",
         "nullable": false
       },
       "UsageAfterUndelete": {
         "type": "boolean",
-        "description": "AfterUndelete",
+        "description": "Specifies whether the trigger is an after undelete trigger (true) or not (false).",
         "nullable": false
       },
       "ApiVersion": {
-        "type": "number",
-        "description": "Api Version",
+        "type": "double",
+        "description": "The API version for this trigger. Every trigger has an API version specified at creation.",
         "nullable": false
       },
       "Status": {
         "type": "string",
-        "description": "Status",
+        "description": "The status of the Apex trigger. The following string values are valid: Active—The trigger is active. Inactive—The trigger is inactive, but not deleted. Deleted—The trigger is marked for deletion. This status is useful for managed packages, because it allows a class to be deleted when a managed package is updated. Note Apex triggers cannot be deactivated using Tooling API. You can deactivate Apex triggers using Metadata API. Consider using custom metadata records and include logic in your trigger to bypass trigger configuration logic. For more information, see the Metadata API Developer Guide.",
         "format": "enum",
         "enum": [
           "Inactive",
@@ -810,23 +810,23 @@
       },
       "IsValid": {
         "type": "boolean",
-        "description": "Is Valid",
+        "description": "Indicates whether any dependent metadata has changed since the trigger was last compiled (true) or not (false).",
         "nullable": false
       },
       "BodyCrc": {
-        "type": "number",
-        "description": "Body CRC",
+        "type": "double",
+        "description": "The CRC (cyclic redundancy check) of the class or trigger file.",
         "nullable": true
       },
       "Body": {
         "type": "string",
-        "description": "Body",
+        "description": "The Apex trigger definition. Limit: 1 million characters.",
         "maxLength": 1000000,
         "nullable": true
       },
       "LengthWithoutComments": {
-        "type": "integer",
-        "description": "Size Without Comments",
+        "type": "number",
+        "description": "Length of the trigger without comments.",
         "nullable": false
       },
       "CreatedDate": {
@@ -867,16 +867,33 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "EntityDefinitionId": {
+        "type": "string",
+        "description": "The Id of the EntityDefinition object associated with this object."
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
+      },
+      "Metadata": {
+        "type": "string",
+        "description": "An object that describes the version, status, and packaged versions of the corresponding Apex trigger."
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "01q",
     "label": "Apex Trigger",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextrigger.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": true
+    "searchable": true,
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
+    ]
   }
 }

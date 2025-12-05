@@ -1,7 +1,7 @@
 {
   "Territory2Type": {
     "name": "Territory2Type",
-    "description": "Territory Types - Territory2Type",
+    "description": "Represents a category for territories (Territory2). Every Territory2 must have a Territory2Type.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer Name",
+        "description": "Required. The unique name of the object in the API. This name can contain only underscores and alphanumeric characters and must be unique in your organization. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. The field label in the user interface is Territory Type Name. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language of the label in the user interface.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -69,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "Required The user interface label for the territory type.",
         "maxLength": 80,
         "nullable": false
       },
@@ -113,21 +113,21 @@
         "readOnly": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "The description of the territory type.",
         "maxLength": 255,
         "nullable": true
       },
       "Priority": {
-        "type": "integer",
-        "description": "Priority",
+        "type": "int",
+        "description": "Required. Used for Filter-Based Opportunity Territory Assignment (Pilot in Spring ’15 / API version 33). Lets you specify a priority for a territory type. For opportunity assignments, the filter examines all territories assigned to the account that the opportunity is assigned to. The account-assigned territory whose territory type priority is highest is then assigned to the opportunity. The priority field value on each territory type must be unique. Further, if there are multiple territories with the same territory type (and therefore the same priority) assigned to the account, no territory is assigned to the opportunity.",
         "nullable": false
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0M5",
     "label": "Territory Type",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_territory2type.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -140,6 +140,11 @@
         "relationshipName": "Territory2s",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Standard and partner users can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

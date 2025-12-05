@@ -1,7 +1,7 @@
 {
   "FiscalYearSettings": {
     "name": "FiscalYearSettings",
-    "description": "Fiscal Year Settings - FiscalYearSettings",
+    "description": "Settings to define a custom or standard fiscal year for your organization. This object has a parent-child relationship with the Period object.",
     "properties": {
       "Id": {
         "type": "string",
@@ -12,38 +12,43 @@
         "readOnly": true
       },
       "PeriodId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "Period",
         "maxLength": 18,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "ID of the associated fiscal period."
       },
       "StartDate": {
-        "type": "string",
+        "type": "date",
         "format": "date",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Start date of the fiscal year."
       },
       "EndDate": {
-        "type": "string",
+        "type": "date",
         "format": "date",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "End date of the fiscal year."
       },
       "Name": {
         "type": "string",
         "maxLength": 80,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "A name for the fiscal year. Limit: 80 characters."
       },
       "IsStandardYear": {
         "type": "boolean",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates whether the fiscal year is a standard calendar year (true) or a custom fiscal year (false)."
       },
       "YearType": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Standard",
@@ -52,11 +57,12 @@
         ],
         "maxLength": 40,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates one of two types of fiscal years, Standard or Custom. Standard denotes the standard Gregorian calendar, while Custom means a fiscal year with a custom structure."
       },
       "QuarterLabelScheme": {
-        "type": "string",
-        "description": "Quarter Name Scheme",
+        "type": "picklist",
+        "description": "The numbering scheme used for fiscal quarters.",
         "format": "enum",
         "enum": [
           "NumberByYear",
@@ -67,8 +73,8 @@
         "readOnly": true
       },
       "PeriodLabelScheme": {
-        "type": "string",
-        "description": "Period Name Scheme",
+        "type": "picklist",
+        "description": "The numbering scheme used for fiscal periods.",
         "format": "enum",
         "enum": [
           "NumberByYear",
@@ -81,8 +87,8 @@
         "readOnly": true
       },
       "WeekLabelScheme": {
-        "type": "string",
-        "description": "Week Name Scheme",
+        "type": "picklist",
+        "description": "The numbering scheme used for weeks.",
         "format": "enum",
         "enum": [
           "NumberByYear",
@@ -94,7 +100,7 @@
         "readOnly": true
       },
       "QuarterPrefix": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Quarter",
@@ -104,10 +110,11 @@
         ],
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The prefix of fiscal quarters. For example, if “Q” is the prefix, then the fourth quarter would be “Q4.”"
       },
       "PeriodPrefix": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Period",
@@ -117,18 +124,21 @@
         ],
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The prefix of fiscal periods. For example, if p is the prefix, then the first period is “P1.”"
       },
       "WeekStartDay": {
-        "type": "integer",
+        "type": "int",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The name of the day that starts the week, for example Monday or Sunday"
       },
       "Description": {
         "type": "string",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Description of the setting."
       },
       "SystemModstamp": {
         "type": "string",
@@ -137,8 +147,8 @@
         "readOnly": true
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fiscalyearsettings.htm",
     "keyPrefix": "022",
     "label": "Fiscal Year Settings",
     "createable": false,
@@ -153,6 +163,11 @@
         "relationshipName": "Periods",
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "As of Spring ’20 and later, only partner users and standard users can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

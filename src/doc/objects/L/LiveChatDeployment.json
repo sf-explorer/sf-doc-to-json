@@ -1,7 +1,7 @@
 {
   "LiveChatDeployment": {
     "name": "LiveChatDeployment",
-    "description": "Chat Deployments - LiveChatDeployment",
+    "description": "Represents the general settings for deploying Live Agent on a website.",
     "properties": {
       "Id": {
         "type": "string",
@@ -20,11 +20,12 @@
       "DeveloperName": {
         "type": "string",
         "maxLength": 80,
-        "nullable": false
+        "nullable": false,
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance slows down while Salesforce generates one for each record. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field."
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language of the deployment.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -68,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Chat Deployment Name",
+        "description": "The name of the deployment",
         "maxLength": 80,
         "nullable": false
       },
@@ -108,64 +109,65 @@
       },
       "WindowTitle": {
         "type": "string",
-        "description": "Chat Window Title",
+        "description": "The text displayed in the title bar of the browser window used to launch the chat window.",
         "maxLength": 80,
         "nullable": false
       },
       "HasTranscriptSave": {
         "type": "boolean",
-        "description": "Allow Visitors to Save Transcripts",
+        "description": "Determines whether visitors can download and save transcripts from the chat window.",
         "nullable": false
       },
       "SiteId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "Site",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "description": "The record ID of the site used for loading static resources."
       },
       "BrandingId": {
-        "type": "string",
-        "description": "Static Resource ID",
+        "type": "reference",
+        "description": "The record ID of the static image resource that’s displayed in the chat window.",
         "format": "salesforce-id",
         "x-object": "StaticResource",
         "maxLength": 18,
         "nullable": true
       },
       "MobileBrandingId": {
-        "type": "string",
-        "description": "Static Resource ID",
+        "type": "reference",
+        "description": "The record ID of the static image resource displayed in the mobile version of the chat window.",
         "format": "salesforce-id",
         "x-object": "StaticResource",
         "maxLength": 18,
         "nullable": true
       },
       "Domains": {
-        "type": "string",
-        "description": "Permitted Domains",
+        "type": "textarea",
+        "description": "A comma-separated list of domains the deployment is allowlisted for. Leave this blank to allow the deployment to be used on any domain.",
         "maxLength": 4096,
         "nullable": true
       },
       "OptionsHasPrechatApi": {
         "type": "boolean",
-        "description": "Allow Access to Prechat API",
+        "description": "Determines whether developers can access the Pre-Chat API.",
         "nullable": false
       },
       "ConnectionWarningDuration": {
-        "type": "integer",
-        "description": "Idle Connection Warning Duration",
+        "type": "int",
+        "description": "Indicates the amount of time before a time-out warning is displayed to the agent, in seconds.",
         "nullable": true
       },
       "ConnectionTimeoutDuration": {
-        "type": "integer",
-        "description": "Idle Connection Timeout Duration",
+        "type": "int",
+        "description": "Indicates the amount of time before the chat times out, in seconds.",
         "nullable": true
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "572",
     "label": "Chat Deployment",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatdeployment.htm",
     "createable": true,
     "updateable": true,
     "deletable": false,
@@ -190,6 +192,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

@@ -4,7 +4,7 @@
     "description": "Represents a registered external service used to provide an extension or integration.",
     "properties": {
       "ConfigUrl": {
-        "type": "url",
+        "type": "string",
         "description": "Link to the configuration page for the integration."
       },
       "Description": {
@@ -18,15 +18,15 @@
         "nullable": false
       },
       "DocumentationUrl": {
-        "type": "url",
+        "type": "string",
         "description": "Link to documentation for the registered external service."
       },
       "ExtensionPointName": {
-        "type": "picklist",
+        "type": "string",
         "description": "This field is available in API version 55.0 and later. Name of an extension point."
       },
       "ExternalServiceProviderId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. The ID of an Apex class functioning as a provider. The Apex class can either implement one of the following interfaces: sfdc_checkout.CartInventoryValidation sfdc_checkout.CartPriceCalculations sfdc_checkout.CartShippingCharges sfdc_checkout.CartTaxCalculations or the Apex class can extend one of the base classes for an extension. See Available Extensions.",
         "format": "salesforce-id",
         "x-object": "ApexClass",
@@ -34,7 +34,7 @@
         "nullable": false
       },
       "ExternalServiceProviderType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of external service provider. For an extension, you set the type to Extension, and you specify an extensionPointName. For example, for a Pricing Cart Calculator extension, you specify Commerce_Domain_Pricing_CartCalculator as the extensionPointName. For an integration, you set the type to one of the other possible values, such as Price, and you omit extensionPointName.",
         "format": "enum",
         "enum": [
@@ -53,7 +53,7 @@
         "description": "The full name of the associated RegisteredExternalService in the Metadata API. The full name can include a namespace prefix."
       },
       "IconUri": {
-        "type": "url",
+        "type": "string",
         "description": "URI of icon for the extension provider."
       },
       "IsApplication": {
@@ -61,7 +61,7 @@
         "description": "Indicates if the extension provider is contained within a managed package."
       },
       "Language": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language of the RegisteredExternalService.",
         "format": "enum",
         "enum": [
@@ -105,7 +105,7 @@
         "nullable": true
       },
       "ManageableState": {
-        "type": "ManageableState enumerated list",
+        "type": "string",
         "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       },
       "MasterLabel": {
@@ -115,7 +115,7 @@
         "nullable": false
       },
       "Metadata": {
-        "type": "https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flexipage.htm",
+        "type": "string",
         "description": "The metadata for the RegisteredExternalService."
       },
       "NamespacePrefix": {
@@ -191,6 +191,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "The RegisteredExternalService object is available only if the B2B Commerce or D2C Commerce license is enabled.",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
     ]
   }
 }

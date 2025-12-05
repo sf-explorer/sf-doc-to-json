@@ -1,7 +1,7 @@
 {
   "Promotion": {
     "name": "Promotion",
-    "description": "Create promotional activities that are either part of a campaign or isolated targeted promotions to run at retail stores.",
+    "description": "Represents a promotion for B2B or D2C stores.",
     "properties": {
       "Category": {
         "type": "picklist",
@@ -21,19 +21,19 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the promotion is active.",
+        "description": "Indicates whether the promotion is active (true) or inactive (false).",
         "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record.",
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record.",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced and not directly accessed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -48,19 +48,19 @@
       },
       "Name": {
         "type": "string",
-        "description": "Unique identifier for the promotion.",
+        "description": "Name of the promotion.",
         "maxLength": 255,
         "nullable": false
       },
       "Objective": {
         "type": "textarea",
-        "description": "Business objective of the promotion. For example, launching a new product, keeping customers satisfied, or clearing stock.",
+        "description": "More information, if any, about the purpose of the promotion.",
         "maxLength": 1000,
         "nullable": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the promotion record owner.",
+        "description": "The ID of the user who created the promotion.",
         "format": "salesforce-id",
         "x-objects": [
           "Group",
@@ -139,10 +139,78 @@
         "x-object": "Campaign",
         "maxLength": 18,
         "nullable": true
+      },
+      "AreQualItemsExclFromDiscounts": {
+        "type": "boolean",
+        "description": "Exclude qualifying items from discount. You can use this field to create buy-one-get-one promotions. The default value is false. This field is available in API version 56.0 and later."
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
+      },
+      "DiscountOrder": {
+        "type": "picklist",
+        "description": "Indicates whether to apply discounts first to the least expensive products or to the most expensive products."
+      },
+      "DiscountRestriction": {
+        "type": "picklist",
+        "description": "Indicates whether to restrict the products that can be discounted based on the least expensive qualifying product."
+      },
+      "DisplayName": {
+        "type": "string",
+        "description": "Display name of the promotion."
+      },
+      "EndDateTime": {
+        "type": "dateTime",
+        "description": "Date and time when the promotion ends."
+      },
+      "ExclusivityType": {
+        "type": "picklist",
+        "description": "Determines whether a promotion can be combined with other promotions."
+      },
+      "IsApproachingDiscountApplicable": {
+        "type": "boolean",
+        "description": "Indicates that the promotion shows an approaching discount message. Set an approaching discount threshold value on the PromotionQualifier object. This field is available in API version 64.0 and later."
+      },
+      "IsAutomatic": {
+        "type": "boolean",
+        "description": "Determines whether the promotion is automatic or manual. If the promotion is automatic, it automatically applies to eligible carts with no buyer action required. if the promotion is manual, the buyer applies a coupon to redeem the promotion."
+      },
+      "IsCommercePromotion": {
+        "type": "boolean",
+        "description": "Indicates if the promotion is a B2B Commerce promotion (true) or not (false)."
+      },
+      "IsTiered": {
+        "type": "boolean",
+        "description": "Indicates whether the promotion uses promotion tiers (true) or not (false). This value can’t be changed."
+      },
+      "MaximumUsageCount": {
+        "type": "int",
+        "description": "Maximum number of times the promotion can be applied to a cart. If left blank, the default value is 1. This field is available in API version 56.0 and later."
+      },
+      "PriorityNumber": {
+        "type": "int",
+        "description": "Priority for the promotion. The priority determines which promotions apply first. The lower the number, the higher the priority."
+      },
+      "QualifierCriteria": {
+        "type": "picklist",
+        "description": "If a promotion has multiple qualifiers, this field determines whether all qualifiers must be met or whether any must be met for the promotion to apply."
+      },
+      "StartDateTime": {
+        "type": "dateTime",
+        "description": "Date and time when the promotion begins."
+      },
+      "TargetCriteria": {
+        "type": "picklist",
+        "description": "If a promotion has multiple targets, indicates whether a cart must meet the criteria for any target or the criteria for all targets."
+      },
+      "TermsAndConditions": {
+        "type": "textarea",
+        "description": "Terms and conditions the buyer accepts before applying the promotion."
       }
     },
-    "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_promotions.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_promotion.htm",
     "keyPrefix": "0c8",
     "createable": true,
     "updateable": true,
@@ -366,6 +434,11 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "accessRules": "Some of the fields on the Promotion object are available only if the B2B Commerce or D2C Commerce license is enabled.",
+    "clouds": [
+      "Consumer Goods Cloud",
+      "Core Salesforce"
     ]
   }
 }

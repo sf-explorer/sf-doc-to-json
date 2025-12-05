@@ -1,7 +1,7 @@
 {
   "ChatterExtension": {
     "name": "ChatterExtension",
-    "description": "Extensions - ChatterExtension",
+    "description": "Represents a Rich Publisher App that’s integrated with the Chatter publisher.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Name",
+        "description": "The name of the developer who is responsible for the app.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
-        "type": "string",
-        "description": "Master Language",
+        "type": "picklist",
+        "description": "The language used for this instance of the ChatterExtension. This field requires a value.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -36,20 +36,20 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "The master label for the ChatterExtension object. This field requires a value.",
         "maxLength": 80,
         "nullable": false
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The prefix to use for the extension’s namespace.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "IsProtected": {
         "type": "boolean",
-        "description": "Protected Component",
+        "description": "An auto-generated value. It currently has no impact.",
         "nullable": false
       },
       "CreatedDate": {
@@ -93,13 +93,13 @@
       },
       "ExtensionName": {
         "type": "string",
-        "description": "Name",
+        "description": "The name of your extension. This field requires a value.",
         "maxLength": 32,
         "nullable": false
       },
       "Type": {
-        "type": "string",
-        "description": "Type",
+        "type": "picklist",
+        "description": "Describes the type of the extension. Currently, the only value supported is Lightning. Included to allow for other possible types in the future.",
         "format": "enum",
         "enum": [
           "Lightning"
@@ -108,8 +108,8 @@
         "nullable": false
       },
       "IconId": {
-        "type": "string",
-        "description": "Asset File ID",
+        "type": "reference",
+        "description": "The icon to show in the Chatter publisher. Use an existing file asset ID from your org. This field requires a value.",
         "format": "salesforce-id",
         "x-object": "ContentAsset",
         "maxLength": 18,
@@ -117,13 +117,13 @@
       },
       "Description": {
         "type": "string",
-        "description": "Description",
+        "description": "The description of your custom Rich Publisher App. This field requires a value.",
         "maxLength": 255,
         "nullable": false
       },
       "CompositionComponentEnumOrId": {
-        "type": "string",
-        "description": "Lightning Definition Bundle ID",
+        "type": "picklist",
+        "description": "The ID of the composition component for the Rich Publisher App. This field requires a value.",
         "format": "enum",
         "enum": [
           "PatientPgmGenAI:patientSupportProgramSetup",
@@ -13007,8 +13007,8 @@
         "nullable": true
       },
       "RenderComponentEnumOrId": {
-        "type": "string",
-        "description": "Lightning Definition Bundle ID",
+        "type": "picklist",
+        "description": "The rendering component of the Rich Publisher App that you provide. It’s comprised of the lightning:availableForChatterExtensionRenderer interface. This field requires a value.",
         "format": "enum",
         "enum": [
           "PatientPgmGenAI:patientSupportProgramSetup",
@@ -25893,21 +25893,21 @@
       },
       "HoverText": {
         "type": "string",
-        "description": "Hover Text",
+        "description": "The text to show when a user mouses over your extension’s icon. Mouse-over text is required for Lightning type extensions.",
         "maxLength": 255,
         "nullable": true
       },
       "HeaderText": {
         "type": "string",
-        "description": "Header Text",
+        "description": "The text to show in the header of your app composer. Header text is required for Lightning type extensions.",
         "maxLength": 255,
         "nullable": true
       }
     },
-    "module": "N/A",
+    "module": "Core Salesforce",
     "keyPrefix": "0MY",
     "label": "Extension",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_chatterextension.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -25926,6 +25926,10 @@
         "relationshipName": "Localization",
         "cascadeDelete": true
       }
+    ],
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

@@ -1,224 +1,45 @@
 {
-  "PricebookEntry": {
-    "name": "PricebookEntry",
-    "description": "Price Book Entries - PricebookEntry",
+  "Pricebookentry": {
+    "name": "Pricebookentry",
+    "description": "Represents a product entry (an association between a price book and product) in a price book.",
     "properties": {
-      "Id": {
-        "type": "string",
-        "description": "Price Book Entry ID",
-        "format": "salesforce-id",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "Name": {
-        "type": "string",
-        "description": "Product Name",
-        "maxLength": 255,
-        "nullable": true,
-        "readOnly": true
-      },
-      "Pricebook2Id": {
-        "type": "string",
-        "description": "Price Book ID",
-        "format": "salesforce-id",
-        "x-object": "Pricebook2",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "Product2Id": {
-        "type": "string",
-        "description": "Product ID",
-        "format": "salesforce-id",
-        "x-object": "Product2",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "UnitPrice": {
-        "type": "number",
-        "description": "List Price",
-        "format": "currency",
-        "nullable": false,
-        "multipleOf": 0.01
-      },
       "IsActive": {
         "type": "boolean",
-        "description": "Active",
-        "nullable": false
-      },
-      "UseStandardPrice": {
-        "type": "boolean",
-        "nullable": false
-      },
-      "CreatedDate": {
-        "type": "string",
-        "format": "date-time",
-        "nullable": false,
-        "readOnly": true
-      },
-      "CreatedById": {
-        "type": "string",
-        "format": "salesforce-id",
-        "x-object": "User",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "LastModifiedDate": {
-        "type": "string",
-        "format": "date-time",
-        "nullable": false,
-        "readOnly": true
-      },
-      "LastModifiedById": {
-        "type": "string",
-        "format": "salesforce-id",
-        "x-object": "User",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "SystemModstamp": {
-        "type": "string",
-        "format": "date-time",
-        "nullable": false,
-        "readOnly": true
-      },
-      "ProductCode": {
-        "type": "string",
-        "maxLength": 255,
-        "nullable": true,
-        "readOnly": true
-      },
-      "IsDeleted": {
-        "type": "boolean",
-        "description": "Deleted",
-        "nullable": false,
-        "readOnly": true
+        "description": "Indicates whether this price book entry is active."
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Archived",
-        "nullable": false,
-        "readOnly": true
+        "description": "Indicates whether the price book entry has been archived (true) or not (false). This is set to true when the product record it’s associated with is archived, or when the price book record is archived. This field is read only. Available in API version 45.0 and later. Label is Archived."
       },
-      "ActivePriceAdjustmentQuantity": {
-        "type": "integer",
-        "description": "Active Price Adjustments",
-        "nullable": true,
-        "readOnly": true
+      "Name": {
+        "type": "string",
+        "description": "Name of this price book entry record. This read-only field references the value in the Name field of the product record. Label is Product Name."
+      },
+      "Pricebook2Id": {
+        "type": "reference",
+        "description": "Required. ID of the price book record with which this record is associated. This field must be specified when creating price book records. It can’t be changed in an update."
+      },
+      "Product2Id": {
+        "type": "reference",
+        "description": "Required. ID of the product record with which this record is associated. This field must be specified when creating product records. It can’t be changed in an update."
+      },
+      "ProductCode": {
+        "type": "string",
+        "description": "Product code for this record. This read-only field references the value in the ProductCode field of the associated product record."
+      },
+      "UnitPrice": {
+        "type": "currency",
+        "description": "Required. Unit price for this price book entry. You can specify a value only if UseStandardPrice is set to false. Label is List Price."
+      },
+      "UseStandardPrice": {
+        "type": "boolean",
+        "description": "Indicates whether this price book entry uses the standard price defined in the standard price book record."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
-    "keyPrefix": "01u",
-    "label": "Price Book Entry",
-    "iconUrl": "icon/t4v35/standard/price_book_entries_120.png",
-    "iconColor": "396547",
-    "createable": true,
-    "updateable": true,
-    "deletable": true,
-    "queryable": true,
-    "searchable": false,
-    "childRelationships": [
-      {
-        "childObject": "AIInsightValue",
-        "field": "SobjectLookupValueId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "AIRecordInsight",
-        "field": "TargetId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ContractLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "ContractLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ContractLineItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "FlowExecutionErrorEvent",
-        "field": "ContextRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "FlowRecordRelation",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OpportunityLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "OpportunityLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "OrderItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PricebookEntryHistory",
-        "field": "PricebookEntryId",
-        "relationshipName": "Histories",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "QuoteLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "QuoteLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "QuoteLineItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "RecordAction",
-        "field": "RecordId",
-        "relationshipName": "RecordActions",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "RecordActionHistory",
-        "field": "ParentRecordId",
-        "relationshipName": "RecordActionHistories",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkOrderLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "WorkOrderLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkOrderLineItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      }
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_pricebookentry.htm",
+    "clouds": [
+      "Health Cloud"
     ]
   }
 }

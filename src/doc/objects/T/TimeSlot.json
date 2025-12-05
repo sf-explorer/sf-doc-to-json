@@ -1,7 +1,7 @@
 {
   "TimeSlot": {
     "name": "TimeSlot",
-    "description": "Represents a period of time on a specified day of the week during which an appointment can be scheduled.",
+    "description": "Represents a period of time on a specified day of the week during which work can be performed in Field Service, Salesforce Scheduler, or Workforce Engagement. Operating hours consist of one or more time slots.",
     "properties": {
       "DayOfWeek": {
         "type": "picklist",
@@ -34,14 +34,14 @@
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record.",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MaxAppointments": {
         "type": "int",
-        "description": "Maximum number of appointments for a single time slot.",
+        "description": "Maximum number of appointments for a single time slot. Available in API version 47.0 and later.",
         "nullable": true
       },
       "OperatingHoursId": {
@@ -61,14 +61,14 @@
       },
       "TimeSlotNumber": {
         "type": "string",
-        "description": "The name of the time slot. The name is auto-populated to a day and time format—for example, Monday 9:00 AM - 10:00 PM—but you can manually update it.",
+        "description": "The name of the time slot. The name is auto-populated to a day and time format—for example, Monday 9:00 AM - 10:00 PM—but you can manually update it if you wish.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "WorkTypeGroupId": {
         "type": "reference",
-        "description": "Work type group assigned to the time slot.",
+        "description": "Work type group assigned to the time slot. Available in API version 47.0 and later.",
         "format": "salesforce-id",
         "x-object": "WorkTypeGroup",
         "maxLength": 18,
@@ -140,8 +140,8 @@
         "readOnly": true
       },
       "Type": {
-        "type": "string",
-        "description": "Type",
+        "type": "picklist",
+        "description": "The type of time slot. Possible values are Normal and Extended. You may choose to use Extended to represent overtime shifts.",
         "format": "enum",
         "enum": [
           "Normal",
@@ -149,10 +149,14 @@
         ],
         "maxLength": 255,
         "nullable": false
+      },
+      "RecordSetFilterCriteriaId": {
+        "type": "reference",
+        "description": "The ID of the recordset filter criteria selected for the time slot."
       }
     },
-    "module": "Automotive Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.automotive_cloud.meta/automotive_cloud/sforce_api_objects_timeslot.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_timeslot.htm",
     "keyPrefix": "0Gj",
     "createable": true,
     "updateable": true,
@@ -196,6 +200,10 @@
         "relationshipName": "RecordActionHistories",
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Automotive Cloud",
+      "Core Salesforce"
     ]
   }
 }

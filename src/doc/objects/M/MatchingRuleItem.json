@@ -1,7 +1,7 @@
 {
   "MatchingRuleItem": {
     "name": "MatchingRuleItem",
-    "description": "Matching Rule Items - MatchingRuleItem",
+    "description": "Represents criteria used by a matching rule to identify duplicate records.",
     "properties": {
       "Id": {
         "type": "string",
@@ -52,20 +52,22 @@
         "readOnly": true
       },
       "MatchingRuleId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "MatchingRule",
         "maxLength": 18,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The ID for the matching rule."
       },
       "SortOrder": {
-        "type": "integer",
+        "type": "int",
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The order of the matching rule items for a matching rule."
       },
       "Field": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Account",
@@ -652,11 +654,12 @@
         ],
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Indicates which field to compare when determining if a record is similar enough to an existing record to be considered a match."
       },
       "MatchingMethod": {
-        "type": "string",
-        "description": "Custom Object Definition ID",
+        "type": "picklist",
+        "description": "Defines how the fields are compared. Choose between the exact matching method and various fuzzy matching methods. Valid values are: Exact FirstName LastName CompanyName Phone City Street Zip Title For details on each matching method, see “Matching Methods Used with Matching Rules” in the Salesforce Help.",
         "format": "enum",
         "enum": [
           "Exact",
@@ -674,7 +677,7 @@
         "readOnly": true
       },
       "BlankValueBehavior": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "MatchBlanks",
@@ -682,17 +685,23 @@
         ],
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Specifies how blank fields affect whether the fields being compared are considered matches. Valid values are: MatchBlanks NullNotAllowed (default)"
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_matchingruleitem.htm",
     "keyPrefix": "0JE",
     "label": "Matching Rule Item",
     "createable": false,
     "updateable": false,
     "deletable": false,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "accessRules": "As of Summer ’20 and later, only users with the View Setup and Configuration permission can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
+    ]
   }
 }

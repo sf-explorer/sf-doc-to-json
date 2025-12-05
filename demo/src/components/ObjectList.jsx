@@ -7,7 +7,7 @@ import CloudIcon from './CloudIcon';
 const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMetadata = {}, hideCloudColumn = false }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
+
   const columns = useMemo(
     () => [
       {
@@ -16,7 +16,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         size: 50,
         enableSorting: false,
         Cell: ({ row }) => (
-          <SalesforceIcon 
+          <SalesforceIcon
             objectData={row.original}
           />
         ),
@@ -39,8 +39,8 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         Cell: ({ cell }) => {
           const prefix = cell.getValue();
           return prefix ? (
-            <Box 
-              sx={{ 
+            <Box
+              sx={{
                 fontFamily: 'monospace',
                 fontSize: '0.875rem',
                 fontWeight: 600,
@@ -54,15 +54,15 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
               {prefix}
             </Box>
           ) : (
-            <Box 
-              sx={{ 
+            <Box
+              sx={{
                 fontSize: '0.75rem',
                 color: '#c9c7c5',
                 fontStyle: 'italic',
                 textAlign: 'center'
               }}
             >
-              
+
             </Box>
           );
         },
@@ -75,8 +75,8 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         Cell: ({ cell }) => {
           const description = cell.getValue();
           return description ? (
-            <Box 
-              sx={{ 
+            <Box
+              sx={{
                 fontSize: '0.813rem',
                 whiteSpace: 'normal',
                 color: '#3e3e3c',
@@ -92,8 +92,8 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
               {description}
             </Box>
           ) : (
-            <Box 
-              sx={{ 
+            <Box
+              sx={{
                 fontSize: '0.813rem',
                 color: '#c9c7c5',
                 fontStyle: 'italic'
@@ -104,7 +104,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
           );
         },
       },
-     
+
       {
         accessorKey: 'fieldCount',
         header: 'Fields',
@@ -117,6 +117,70 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         ),
       },
       {
+        accessorKey: 'accessRules',
+        header: 'Access Rules',
+        size: 200,
+        enableHiding: true,
+        enableGrouping: true,
+        GroupedCell: ({ cell, row }) => {
+          const accessRules = cell.getValue();
+          const count = row.subRows?.length || 0;
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 600 }}>
+              {accessRules ? (
+                <>
+                  <span style={{ fontSize: '1.2rem' }}>🔒</span>
+                  <span>{accessRules}</span>
+                  <Chip label={`${count} object${count !== 1 ? 's' : ''}`} size="small"
+                    sx={{ backgroundColor: '#fef9e7', border: '1px solid #f9e79f', color: '#014486', fontWeight: 600, fontSize: '0.7rem' }}
+                  />
+                </>
+              ) : (
+                <>
+                  <span style={{ fontSize: '1.2rem' }}>✅</span>
+                  <span>Standard Access</span>
+                  <Chip label={`${count} object${count !== 1 ? 's' : ''}`} size="small"
+                    sx={{ backgroundColor: '#e8f5e9', border: '1px solid #57d9a3', color: '#2e7d32', fontWeight: 600, fontSize: '0.7rem' }}
+                  />
+                </>
+              )}
+            </Box>
+          );
+        },
+        Cell: ({ cell }) => {
+          const accessRules = cell.getValue();
+          return accessRules ? (
+            <Box sx={{
+              fontSize: '0.75rem', whiteSpace: 'normal', color: '#014486', backgroundColor: '#fef9e7', border: '1px solid #f9e79f',
+              borderRadius: '4px', padding: '4px 8px',  lineHeight: 1.5,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              wordBreak: 'break-word'
+            }} title={accessRules}>
+              <span style={{ fontSize: '1rem' }}>🔒</span>
+              {accessRules}
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                fontSize: '0.75rem',
+                color: '#57d9a3',
+                fontWeight: 500,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <span style={{ fontSize: '1rem' }}>✅</span>
+              Standard
+            </Box>
+          );
+        },
+      },
+      {
         accessorKey: 'cloud',
         header: 'Cloud',
         size: 150,
@@ -126,15 +190,15 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
           const friendlyName = cloudName
             .replace(/-/g, ' ')
             .replace(/\b\w/g, l => l.toUpperCase());
-          
+
           return (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <CloudIcon cloudName={cloudName} metadata={cloudMetadata[cloudName]} size={20} />
-              <Chip 
-                label={friendlyName} 
+              <Chip
+                label={friendlyName}
                 size="small"
                 variant="outlined"
-                sx={{ 
+                sx={{
                   borderRadius: '4px',
                   fontWeight: 500,
                   fontSize: '0.7rem'
@@ -152,13 +216,14 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
     <MaterialReactTable
       columns={columns}
       data={objects}
-      state={{ 
+      state={{
         isLoading: loading,
         rowSelection: selectedObject ? { [objects.indexOf(selectedObject)]: true } : {},
         columnVisibility: isMobile ? {
           keyPrefix: false,
           description: false,
           fieldCount: false,
+          accessRules: false,
           cloud: false,
         } : {
           cloud: !hideCloudColumn // Hide cloud column if hideCloudColumn is true
@@ -170,10 +235,10 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
       enablePagination={true}
       enableSorting={true}
       enableGlobalFilter={true}
-      enableGrouping={false}
+      enableGrouping={true}
       enableColumnDragging={!isMobile}
       enableHiding={true}
-      initialState={{ 
+      initialState={{
         density: isMobile ? 'compact' : 'comfortable',
         pagination: { pageSize: isMobile ? 10 : 15, pageIndex: 0 },
         sorting: [{ id: 'fieldCount', desc: true }] // Sort by field count descending by default

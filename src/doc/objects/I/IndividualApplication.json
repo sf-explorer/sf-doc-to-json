@@ -1,7 +1,7 @@
 {
   "IndividualApplication": {
     "name": "IndividualApplication",
-    "description": "Represents an application form submitted by an individual or organization.",
+    "description": "Represents an application form submitted by an individual.",
     "properties": {
       "AccountId": {
         "type": "reference",
@@ -37,7 +37,7 @@
       },
       "ApplicationType": {
         "type": "picklist",
-        "description": "The type of the application.",
+        "description": "The type of the application. Possible values are: New Renewal",
         "format": "enum",
         "maxLength": 40,
         "nullable": true
@@ -145,12 +145,12 @@
         "nullable": true
       },
       "SavedApplicationRefId": {
-        "type": "reference",
+        "type": "dateTime",
         "description": "Reference Id of the saved application."
       },
       "Status": {
         "type": "picklist",
-        "description": "The submission and approval status of the application.",
+        "description": "The submission and approval status of the application. Possible values are: Closed In Distribution In Review Submitted",
         "format": "enum",
         "enum": [
           "Submitted",
@@ -223,15 +223,35 @@
         "readOnly": true
       },
       "ApplicationCategory": {
-        "type": "string",
-        "description": "Application Tier",
+        "type": "picklist",
+        "description": "Categorizes the ways an application can be processed. Possible values are: Basic Special",
         "format": "enum",
         "maxLength": 40,
         "nullable": true
+      },
+      "AmountPaid": {
+        "type": "currency",
+        "description": "The amount paid by the applicant."
+      },
+      "BusinessTypeId": {
+        "type": "reference",
+        "description": "The type of individual business activity for this application."
+      },
+      "LicensePermitNameId": {
+        "type": "reference",
+        "description": "The emergency service authorization that will be granted if this application is approved."
+      },
+      "LicenseTypeId": {
+        "type": "reference",
+        "description": "The type of emergency service that the applicant will provide."
+      },
+      "PaymentDate": {
+        "type": "dateTime",
+        "description": "The date and time at which payment was received from the applicant."
       }
     },
-    "module": "Nonprofit Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_individualapplication.htm",
+    "module": "Health Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_individualapplication_hc.htm",
     "keyPrefix": "0iT",
     "iconUrl": "icon/t4v35/standard/service_appointment_120.png",
     "iconColor": "5867E8",
@@ -469,6 +489,10 @@
         "relationshipName": "Contexts",
         "cascadeDelete": false
       }
+    ],
+    "clouds": [
+      "Nonprofit Cloud",
+      "Health Cloud"
     ]
   }
 }

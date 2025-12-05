@@ -1,19 +1,19 @@
 {
   "PromotionMarketSegment": {
     "name": "PromotionMarketSegment",
-    "description": "Represents a relationship between a promotion and Data Cloud segment. It indicates the segments targeted for a particular promotion.",
+    "description": "Represents a market segment within B2B Commerce that promotions can be assigned to.",
     "properties": {
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "The currency ISO code of the promotion. This field is only available in orgs where multiple currencies are enabled."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record."
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
       },
       "MarketSegmentId": {
         "type": "reference",
@@ -21,18 +21,23 @@
       },
       "Name": {
         "type": "string",
-        "description": "Unique identifier for the promotion market segment."
+        "description": "The name of the promotion segment."
       },
       "PromotionId": {
         "type": "reference",
-        "description": "The ID of the promotion associated with the promotion market segment."
+        "description": "The ID of the promotion that you want to associate with your promotion segment."
       },
       "PromotionSegmentId": {
         "type": "reference",
-        "description": "The ID of the related promotion segment. This field is accessible in orgs with a Commerce Cloud license, where users have access to Promotions."
+        "description": "The ID of the promotion segment that you want to associate with."
       }
     },
-    "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_promotionmarketsegment.htm"
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_promotionmarketsegment.htm",
+    "accessRules": "The PromotionMarketSegment object is available only if the B2B Commerce license is enabled.",
+    "clouds": [
+      "Loyalty",
+      "Core Salesforce"
+    ]
   }
 }

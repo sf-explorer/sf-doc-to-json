@@ -1,7 +1,7 @@
 {
   "QueueSobject": {
     "name": "QueueSobject",
-    "description": "Queue sObjects - QueueSobject",
+    "description": "Represents the mapping between a queue Group and the types associated with the queue, including custom objects.",
     "properties": {
       "Id": {
         "type": "string",
@@ -12,8 +12,8 @@
         "readOnly": true
       },
       "QueueId": {
-        "type": "string",
-        "description": "Group ID",
+        "type": "reference",
+        "description": "The ID of a queue.",
         "format": "salesforce-id",
         "x-object": "Group",
         "maxLength": 18,
@@ -21,7 +21,7 @@
         "readOnly": true
       },
       "SobjectType": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "AccountAccountRelation",
@@ -197,7 +197,8 @@
         ],
         "maxLength": 40,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "A list of object types that can be associated with the queue specified by the QueueId."
       },
       "CreatedById": {
         "type": "string",
@@ -214,14 +215,19 @@
         "readOnly": true
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_queuesobject.htm",
     "keyPrefix": "03g",
     "label": "Queue sObject",
     "createable": true,
     "updateable": false,
     "deletable": true,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "accessRules": "As of Summer ’20 and later, only authenticated internal and external users can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
+    ]
   }
 }

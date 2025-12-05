@@ -52,20 +52,15 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
         if (descriptionsData) {
           for (const [objectName, metadata] of Object.entries(descriptionsData)) {
             allObjects.push({
+              ...metadata, // Spread all metadata first (includes description, fieldCount, keyPrefix, icon, accessRules, label, etc.)
               apiName: objectName,
               name: objectName,
-              label: metadata.label || objectName,
+              label: metadata.label || objectName, // Override label to ensure it falls back to objectName
               pluralLabel: objectName,
-              keyPrefix: metadata.keyPrefix || '',
               isCustom: objectName.endsWith('__c') || objectName.includes('__'),
               category: metadata.cloud,
-              description: metadata.description || '',
               fields: null,
-              fieldCount: metadata.fieldCount,
-              module: metadata.cloud,
-              cloud: metadata.cloud,
-              sourceUrl: metadata.sourceUrl,
-              icon: metadata.icon
+              module: metadata.cloud
             });
           }
         }

@@ -1,10 +1,10 @@
 {
   "AuraDefinition": {
     "name": "AuraDefinition",
-    "description": "",
+    "description": "Represents an Aura component definition, such as component markup, a client-side controller, or an event.",
     "properties": {
       "AuraDefinitionBundleId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the bundle containing the definition. A bundle contains a Lightning definition and all its related resources.",
         "format": "salesforce-id",
         "x-object": "AuraDefinitionBundle",
@@ -13,7 +13,7 @@
         "readOnly": true
       },
       "DefType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The definition type. Valid values are: APPLICATION — Lightning Aura Components app CONTROLLER — client-side controller COMPONENT — component markup EVENT — event definition HELPER — client-side helper INTERFACE — interface definition RENDERER — client-side renderer STYLE — style (CSS) resource PROVIDER — reserved for future use MODEL — deprecated, do not use TESTSUITE — reserved for future use DOCUMENTATION — documentation markup TOKENS — tokens collection DESIGN — design definition SVG — SVG graphic resource MODULE — reserved for future use",
         "format": "enum",
         "enum": [
@@ -38,7 +38,7 @@
         "nullable": false
       },
       "Format": {
-        "type": "picklist",
+        "type": "string",
         "description": "The format of the definition. Valid values are: XML for component markup JS for JavaScript code CSS for styles TEMPLATE_CSS reserved for future use SVG for an SVG graphic",
         "format": "enum",
         "enum": [
@@ -52,11 +52,11 @@
         "nullable": false
       },
       "ManageableState": {
-        "type": "ManageableState enumerated list",
+        "type": "string",
         "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       },
       "Source": {
-        "type": "textarea",
+        "type": "string",
         "description": "The contents of the definition. This is all the markup or code for the definition.",
         "maxLength": 1000000,
         "nullable": false
@@ -117,6 +117,11 @@
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "accessRules": "As of Summer ’20 and later, only your Salesforce org's internal users can access this object.",
+    "clouds": [
+      "Tooling API",
+      "Core Salesforce"
+    ]
   }
 }

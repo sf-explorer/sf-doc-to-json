@@ -1,7 +1,7 @@
 {
   "ApexComponent": {
     "name": "ApexComponent",
-    "description": "Visualforce Components - ApexComponent",
+    "description": "Represents the saved copy of a Visualforce component. ApexComponent uses the cached version of the class unless one is unavailable.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,37 +13,37 @@
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace Prefix",
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix.",
         "maxLength": 15,
         "nullable": true,
         "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name",
+        "description": "Required. Name of this Visualforce custom component.",
         "maxLength": 80,
         "nullable": false
       },
       "ApiVersion": {
-        "type": "number",
-        "description": "Api Version",
+        "type": "double",
+        "description": "The API version for this custom component. Every custom component has an API version specified at creation. If the API version is less than 15.0 and ApiVersion is not specified, ApiVersion defaults to 15.0.",
         "nullable": false
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label",
+        "description": "The text used to identify the Visualforce custom component in the Setup area of Salesforce. The Label for this field is Label.",
         "maxLength": 80,
         "nullable": false
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "Description of the Visualforce custom component.",
         "maxLength": 4000,
         "nullable": true
       },
       "ControllerType": {
-        "type": "string",
-        "description": "Controller Type",
+        "type": "picklist",
+        "description": "The type of controller associated with this Visualforce custom component. Possible values include: Not Specified, for custom components defined without a value for the controller attribute on the <apex:component> tag Standard, a value that can't be used with custom components or errors may occur StandardSet, a value that can't be used with custom components or errors may occur Custom, for components that have a value for the controller attribute on the <apex:component> tag",
         "format": "enum",
         "enum": [
           "0",
@@ -58,13 +58,13 @@
       },
       "ControllerKey": {
         "type": "string",
-        "description": "Controller Key",
+        "description": "The identifier for the controller associated with this custom component: If the ControllerType parameter is set to Standard or StandardSet, this value is the name of the sObject that defines the controller. If the ControllerType parameter is set to Custom, this value is the name of the Apex class that defines the controller.",
         "maxLength": 255,
         "nullable": true
       },
       "Markup": {
-        "type": "string",
-        "description": "Markup",
+        "type": "textarea",
+        "description": "The Visualforce markup, HTML, Javascript, and any other Web-enabled code that defines the content of the custom component.",
         "maxLength": 1048576,
         "nullable": false
       },
@@ -106,16 +106,25 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       }
     },
-    "module": "N/A",
+    "module": "Tooling API",
     "keyPrefix": "099",
     "label": "Visualforce Component",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexcomponent.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": true
+    "searchable": true,
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
+    ]
   }
 }

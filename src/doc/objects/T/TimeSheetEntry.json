@@ -37,7 +37,7 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "",
+        "description": "The status of the time sheet entry. The picklist includes the following values, which can be customized: New Submitted Approved",
         "format": "enum",
         "enum": [
           "New",
@@ -71,7 +71,7 @@
       },
       "TimeSheetEntryNumber": {
         "type": "string",
-        "description": "Name",
+        "description": "An auto-generated number identifying the time sheet entry.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
@@ -128,22 +128,22 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "TimeSheetId": {
-        "type": "string",
-        "description": "Time Sheet ID",
+        "type": "reference",
+        "description": "The time sheet associated with the time sheet entry.",
         "format": "salesforce-id",
         "x-object": "TimeSheet",
         "maxLength": 18,
@@ -151,20 +151,20 @@
         "readOnly": true
       },
       "StartTime": {
-        "type": "string",
-        "description": "Start Time",
+        "type": "dateTime",
+        "description": "The date and time the activity began.",
         "format": "date-time",
         "nullable": true
       },
       "EndTime": {
-        "type": "string",
-        "description": "End Time",
+        "type": "dateTime",
+        "description": "The date and time the activity finished.",
         "format": "date-time",
         "nullable": true
       },
       "Type": {
-        "type": "string",
-        "description": "Type",
+        "type": "picklist",
+        "description": "The type of work performed. The picklist includes the following values, which can be customized: Direct Indirect",
         "format": "enum",
         "enum": [
           "Direct",
@@ -175,42 +175,50 @@
         "nullable": true
       },
       "WorkOrderId": {
-        "type": "string",
-        "description": "Work Order ID",
+        "type": "reference",
+        "description": "The work order related to the time sheet entry. Work orders are searchable by their content.",
         "format": "salesforce-id",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": true
       },
       "WorkOrderLineItemId": {
-        "type": "string",
-        "description": "Work Order Line Item ID",
+        "type": "reference",
+        "description": "The work order line item related to the time sheet entry. Work order line items are searchable by their content.",
         "format": "salesforce-id",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "string",
-        "description": "Description",
+        "type": "textarea",
+        "description": "Notes on how the time was spent. For example, “This service took longer than normal because the machine was jammed.”",
         "maxLength": 32000,
         "nullable": true
       },
       "Subject": {
         "type": "string",
-        "description": "Subject",
+        "description": "Activity performed; for example, repair, lunch, or travel.",
         "maxLength": 255,
         "nullable": true
       },
       "DurationInMinutes": {
-        "type": "integer",
-        "description": "Duration (In Minutes)",
+        "type": "int",
+        "description": "Minutes recorded on the time sheet entry.",
         "nullable": true,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code.Time sheet entries inherit their time sheet’s currency code. Updates to a time sheet’s currency code aren’t reflected in existing time sheet entries’ currency code."
+      },
+      "LocationTimeZone": {
+        "type": "picklist",
+        "description": "Time zone of the location where the activity occurred."
       }
     },
-    "module": "Energy and Utilities Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_timesheetentry.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_timesheetentry.htm",
     "keyPrefix": "1te",
     "createable": true,
     "updateable": true,
@@ -422,6 +430,11 @@
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Field Service must be enabled.",
+    "clouds": [
+      "Energy and Utilities Cloud",
+      "Core Salesforce"
     ]
   }
 }

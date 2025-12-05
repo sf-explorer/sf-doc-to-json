@@ -25,7 +25,7 @@
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the time sheet.",
+        "description": "The status of the time sheet. The picklist includes the following values, which can be customized: New Submitted Approved",
         "format": "enum",
         "enum": [
           "New",
@@ -57,8 +57,8 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "string",
-        "description": "Owner ID",
+        "type": "reference",
+        "description": "The owner of the time sheet.",
         "format": "salesforce-id",
         "x-objects": [
           "Group",
@@ -75,7 +75,7 @@
       },
       "TimeSheetNumber": {
         "type": "string",
-        "description": "Name",
+        "description": "An auto-generated number identifying the time sheet.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
@@ -132,60 +132,64 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "string",
-        "description": "Last Viewed Date",
+        "type": "dateTime",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "string",
-        "description": "Last Referenced Date",
+        "type": "dateTime",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ServiceResourceId": {
-        "type": "string",
-        "description": "Resource ID",
+        "type": "reference",
+        "description": "The service resource whose time is being tracked with the time sheet.",
         "format": "salesforce-id",
         "x-object": "ServiceResource",
         "maxLength": 18,
         "nullable": false
       },
       "StartDate": {
-        "type": "string",
-        "description": "Time Sheet Start Date",
+        "type": "date",
+        "description": "The first day the time sheet covers.",
         "format": "date",
         "nullable": false
       },
       "EndDate": {
-        "type": "string",
-        "description": "Time Sheet End Date",
+        "type": "date",
+        "description": "The last day the time sheet covers.",
         "format": "date",
         "nullable": false
       },
       "TimeSheetEntryCount": {
-        "type": "integer",
-        "description": "Time Sheet Entry Count",
+        "type": "int",
+        "description": "(Read Only) The number of related time sheet entries.",
         "nullable": true,
         "readOnly": true
       },
       "TotalDurationInMinutes": {
-        "type": "integer",
-        "description": "Total Duration (In Minutes)",
+        "type": "int",
+        "description": "Represents the sum total of the duration field of all the time sheet entries related to the time sheet object in minutes.",
         "nullable": true,
         "readOnly": true
       },
       "TotalDurationInHours": {
-        "type": "number",
-        "description": "Total Duration (In Hours)",
+        "type": "double",
+        "description": "Represents the sum total of the duration field of all the time sheet entries related to the time sheet object in hours.",
         "nullable": true,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "picklist",
+        "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code."
       }
     },
-    "module": "Energy and Utilities Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_timesheet.htm",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_timesheet.htm",
     "keyPrefix": "1ts",
     "createable": true,
     "updateable": true,
@@ -415,6 +419,11 @@
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "Field Service or Workforce Engagement must be enabled.",
+    "clouds": [
+      "Energy and Utilities Cloud",
+      "Core Salesforce"
     ]
   }
 }

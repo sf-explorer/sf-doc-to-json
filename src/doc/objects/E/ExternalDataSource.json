@@ -1,7 +1,7 @@
 {
   "ExternalDataSource": {
     "name": "ExternalDataSource",
-    "description": "External Data Sources - ExternalDataSource",
+    "description": "Represents the metadata associated with an external data source. Create external data sources to manage connection details for integration with data and content that are stored outside your Salesforce org.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,14 +19,14 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Name",
+        "description": "The developer’s internal name for the external data source used in the API.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
       },
       "Language": {
         "type": "string",
-        "description": "Master Language",
+        "description": "The language of the external data source. The value for this field is the language value of the org.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -38,7 +38,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "External Data Source",
+        "description": "A user-friendly name for the external data source. The label is displayed in the Salesforce user interface, such as in list views.Examples include Acme Team Marketing Site, or Acme SharePoint.",
         "maxLength": 80,
         "nullable": false,
         "readOnly": true
@@ -47,7 +47,8 @@
         "type": "string",
         "maxLength": 15,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The namespace of the external data source. An external data source can be in an extension namespace different than the object."
       },
       "CreatedDate": {
         "type": "string",
@@ -85,7 +86,7 @@
       },
       "Type": {
         "type": "string",
-        "description": "Class ID",
+        "description": "For Salesforce Connect, specifies the adapter that connects to the external system. The valid values are: AmazonAthena—Amazon Athena AmazonDynamoDB—Amazon DynamoDB GraphQl—GraphQL OData—OData 2.0 adapter OData4—OData 4.0 adapter OData401—OData 4.01 adapter SfdcOrg—cross-org adapter ApexClassId—DataSource.Provider class that defines the custom adapter created via the Apex Connector Framework For Files Connect, specifies the data source type. The valid values are: ContentHubSharepoint—SharePoint 2010 or 2013 ContentHubSharepointOffice365—SharePoint Online ContentHubSharepointOneDrive—OneDrive for Business ContentHubGDrive—Google Drive ContenHubIsotope—Isotope If Chatter is enabled, you can also specify SimpleURL to access data hosted on a web server that doesn’t require authentication. outgoingemail—A data source used for sending an email through a quick action. The Identity and Wrapper types are reserved for future use. For Digital Lending Configurator, the valid value is AFPPAttribute. The data source name for the Application Form Product Proposal Attribute virtual object. For the federated search external data source type, the valid value is OpenSearch.",
         "format": "enum",
         "enum": [
           "contentHubItem",
@@ -104,27 +105,27 @@
       },
       "Endpoint": {
         "type": "string",
-        "description": "URL",
+        "description": "The URL of the external system, or if that URL is defined in a named credential, the named credential URL. Corresponds to URL in the user interface.A named credential URL contains the scheme callout:, the name of the named credential, and an optional path. For example: callout:My_Named_Credential/some_path. You can append a query string to a named credential URL. Use a question mark (?) as the separator between the named credential URL and the query string. For example: callout:My_Named_Credential/some_path?format=json.",
         "maxLength": 1000,
         "nullable": true,
         "readOnly": true
       },
       "Repository": {
         "type": "string",
-        "description": "Default External Repository",
+        "description": "Used for SharePoint Online. If metadata isn’t accessible, use this field to create tables and default table fields.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "IsWritable": {
         "type": "boolean",
-        "description": "Writable External Objects",
+        "description": "Lets the Lightning Platform and users in this org create, update, and delete records for external objects associated with the external data source. The external object data is stored outside the org. By default, external objects are read only. Corresponds to Writable External Objects in the user interface.",
         "nullable": false,
         "readOnly": true
       },
       "PrincipalType": {
         "type": "string",
-        "description": "Identity Type",
+        "description": "Determines whether you're using one set or multiple sets of credentials to access the external system. Possible values are: Anonymous PerUser NamedUser",
         "format": "enum",
         "enum": [
           "Anonymous",
@@ -137,7 +138,7 @@
       },
       "Protocol": {
         "type": "string",
-        "description": "Authentication Protocol",
+        "description": "The authentication protocol that’s required to access the external system. Possible values are: AwsSv4 Basic Custom Jwt JwtExchange NoAuthentication Oauth Password",
         "format": "enum",
         "enum": [
           "NoAuthentication",
@@ -154,8 +155,8 @@
         "readOnly": true
       },
       "AuthProviderId": {
-        "type": "string",
-        "description": "Auth. Provider ID",
+        "type": "reference",
+        "description": "Salesforce ID of the authentication provider, which defines the service that provides the login process and approves access to the external system.Only users with the “Customize Application” and “Manage AuthProviders” permissions can view this field. This field is available in API version 39.0 and later.",
         "format": "salesforce-id",
         "x-object": "AuthProvider",
         "maxLength": 18,
@@ -184,11 +185,60 @@
         "type": "string",
         "maxLength": 4000,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "A string of configuration parameters that are specific to the external data source’s type. Custom Configuration for the Salesforce Connect Cross-Org Adapter Custom Configuration for the Salesforce Connect OData 2.0 or 4.0 Adapter Custom Configuration for the Salesforce Connect Custom Adapter"
+      },
+      "isWritable": {
+        "type": "boolean",
+        "description": "Lets the Lightning Platform and users in this org create, update, and delete records for external objects associated with the external data source. The external object data is stored outside the org. By default, external objects are read only. Available only for Salesforce Connect external data sources. Available in API version 35.0 and later. However, with the cross-org adapter for Salesforce Connect, you can set this field to true only in API version 39.0 and later."
+      },
+      "NamedCredentialId": {
+        "type": "string",
+        "description": "The Salesforce ID of the referenced named credential for an external data source. Required for Salesforce Connect adapters for Amazon DynamoDB, Amazon Athena, GraphQL, and OData 4.01. For connecting to other external data sources, the field must be null.This is a relationship field."
+      },
+      "CertificateId": {
+        "type": "string",
+        "description": "If you specify a certificate, your Salesforce org supplies it when establishing each two-way SSL connection with the external system. The certificate is used for digital signatures, which verify that requests are coming from your Salesforce org. Note For best performance, verify that your remote HTTPS encrypted sites have OCSP (Online Certificate Status Protocol) stapling turned on."
+      },
+      "FullName": {
+        "type": "string",
+        "description": "The full name of the associated type in Tooling API. The full name can include a namespace prefix. Query this field only if the query result contains no more than one record. Otherwise, an error is returned. If more than one record exists, use multiple queries to retrieve the records. This limit protects performance."
+      },
+      "ManageableState": {
+        "type": "string",
+        "description": "Indicates the manageable state of the specified component that is contained in a package."
+      },
+      "Metadata": {
+        "type": "string",
+        "description": "Provides access to the associated type and related fields in Tooling API."
+      },
+      "OauthRefreshToken": {
+        "type": "string",
+        "description": "The OAuth refresh token. Used to obtain a new access token for an end user when a token expires."
+      },
+      "OauthScope": {
+        "type": "string",
+        "description": "Specifies the scope of permissions to request for the access token."
+      },
+      "OauthToken": {
+        "type": "string",
+        "description": "The access token issued by the external system."
+      },
+      "Password": {
+        "type": "string",
+        "description": "The password to be used by your org to access the external system. Ensure that the credentials you use have adequate privileges to access the external system, perform searches, return data, and return information about the external system’s metadata."
+      },
+      "Username": {
+        "type": "string",
+        "description": "The username to be used by your org to access the external system. Ensure that the credentials you use have adequate privileges to access the external system, perform searches, return data, and return information about the external system’s metadata."
+      },
+      "Version": {
+        "type": "string",
+        "description": "Reserved for future use."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Tooling API",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_externaldatasource.htm",
     "keyPrefix": "0XC",
     "label": "External Data Source",
     "createable": false,
@@ -233,6 +283,12 @@
         "relationshipName": "SetupEntityAccessItems",
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "From API version 48.0 onwards, only authenticated internal and external users can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce",
+      "Tooling API"
     ]
   }
 }

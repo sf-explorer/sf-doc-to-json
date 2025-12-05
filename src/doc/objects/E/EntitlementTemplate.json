@@ -1,7 +1,7 @@
 {
   "EntitlementTemplate": {
     "name": "EntitlementTemplate",
-    "description": "Entitlement Template - EntitlementTemplate",
+    "description": "Represents predefined terms of customer support for a product (Product2).",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,30 +13,32 @@
       },
       "Name": {
         "type": "string",
-        "description": "Entitlement Template Name",
+        "description": "Required. Name of the entitlement template.",
         "maxLength": 120,
         "nullable": false
       },
       "BusinessHoursId": {
-        "type": "string",
+        "type": "reference",
         "format": "salesforce-id",
         "x-object": "BusinessHours",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "description": "ID of the BusinessHours associated with the entitlement template. Must be a valid business hours ID."
       },
       "Type": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "Support téléphonique",
           "Support en ligne"
         ],
         "maxLength": 255,
-        "nullable": true
+        "nullable": true,
+        "description": "The type of entitlement template, such as Web or phone support."
       },
       "SlaProcessId": {
-        "type": "string",
-        "description": "Entitlement Process ID",
+        "type": "reference",
+        "description": "ID of the SlaProcess associated with the entitlement template. This field is available in API version 19.0 and later.",
         "format": "salesforce-id",
         "x-object": "SlaProcess",
         "maxLength": 18,
@@ -44,16 +46,17 @@
       },
       "IsPerIncident": {
         "type": "boolean",
-        "description": "Per Incident",
+        "description": "Indicates whether the entitlement template is limited to supporting a specific number of cases (true) or not (false).",
         "nullable": false
       },
       "CasesPerEntitlement": {
-        "type": "integer",
-        "nullable": true
+        "type": "int",
+        "nullable": true,
+        "description": "The total number of cases the entitlement template supports."
       },
       "Term": {
-        "type": "integer",
-        "description": "Term (Days)",
+        "type": "int",
+        "description": "Number of days that the entitlement template is valid.",
         "nullable": true
       },
       "SystemModstamp": {
@@ -94,11 +97,12 @@
         "type": "string",
         "maxLength": 15,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The namespace prefix that is associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix. Limit: 15 characters. You can refer to a component in a managed package by using the namespacePrefix__componentName notation. The namespace prefix can have one of the following values. In Developer Edition orgs, NamespacePrefix is set to the namespace prefix of the org for all objects that support it, unless an object is in an installed managed package. In that case, the object has the namespace prefix of the installed managed package. This field’s value is the namespace prefix of the Developer Edition org of the package developer. In orgs that are not Developer Edition orgs, NamespacePrefix is set only for objects that are part of an installed managed package. All other objects have no namespace prefix."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_entitlementtemplate.htm",
     "keyPrefix": "551",
     "label": "Entitlement Template",
     "createable": true,
@@ -113,6 +117,11 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "accessRules": "As of Summer ’20 and later, only Salesforce admins, users with access to the Case, Entitlement, or Work Order objects, and users with the View Setup and Configuration permission can access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
     ]
   }
 }

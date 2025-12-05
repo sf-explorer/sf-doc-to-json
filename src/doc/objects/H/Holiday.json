@@ -1,7 +1,7 @@
 {
   "Holiday": {
     "name": "Holiday",
-    "description": "Holidays - Holiday",
+    "description": "Represents a period of time during which your customer support team is unavailable. Business hours and escalation rules associated with business hours are suspended during any holidays with which they are affiliated.",
     "properties": {
       "Id": {
         "type": "string",
@@ -13,34 +13,35 @@
       },
       "Name": {
         "type": "string",
-        "description": "Holiday Name",
+        "description": "The name of the holiday.",
         "maxLength": 80,
         "nullable": false
       },
       "Description": {
         "type": "string",
         "maxLength": 100,
-        "nullable": true
+        "nullable": true,
+        "description": "Text description of the holiday."
       },
       "IsAllDay": {
         "type": "boolean",
-        "description": "All Day",
+        "description": "Indicates whether the duration of the holiday is all day (true) or not (false).",
         "nullable": false
       },
       "ActivityDate": {
-        "type": "string",
-        "description": "Holiday Date",
+        "type": "date",
+        "description": "If the Holiday IsAllDay flag is set to true (indicating that it is an all-day holiday), then the holiday due date information is contained in the ActivityDate field. This field is a date field with a timestamp that is always set to midnight in the Coordinated Universal Time (UTC) time zone. The timestamp is not relevant, and you should not attempt to alter it to account for any time zone differences.",
         "format": "date",
         "nullable": true
       },
       "StartTimeInMinutes": {
-        "type": "integer",
-        "description": "Start Time In Minutes From Midnight",
+        "type": "int",
+        "description": "The start time of the holiday in minutes.",
         "nullable": true
       },
       "EndTimeInMinutes": {
-        "type": "integer",
-        "description": "End Time In Minutes From Midnight",
+        "type": "int",
+        "description": "The end time of the holiday in minutes.",
         "nullable": true
       },
       "CreatedDate": {
@@ -79,23 +80,23 @@
       },
       "IsRecurrence": {
         "type": "boolean",
-        "description": "Recurring Holiday",
+        "description": "Indicates whether the holiday is scheduled to repeat itself (true) or only occurs once (false). This is a read only field on update, but not on create. If this field value is true, then any recurrence fields associated with the given recurrence type must be populated.",
         "nullable": false
       },
       "RecurrenceStartDate": {
-        "type": "string",
-        "description": "Recurrence Start",
+        "type": "date",
+        "description": "The date when the recurring holiday begins. Must be a date and time before RecurrenceEndDateOnly.",
         "format": "date",
         "nullable": true
       },
       "RecurrenceEndDateOnly": {
-        "type": "string",
-        "description": "Recurrence End",
+        "type": "date",
+        "description": "The last date on which the holiday repeats. For multiday recurring events, this is the day on which the last occurrence starts.",
         "format": "date",
         "nullable": true
       },
       "RecurrenceType": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "RecursDaily",
@@ -107,22 +108,26 @@
           "RecursYearlyNth"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": "Indicates how often the holiday repeats. For example, daily, weekly, or every Nth month (where “Nth” is defined in RecurrenceInstance)."
       },
       "RecurrenceInterval": {
-        "type": "integer",
-        "nullable": true
+        "type": "int",
+        "nullable": true,
+        "description": "The interval between recurring holidays."
       },
       "RecurrenceDayOfWeekMask": {
-        "type": "integer",
-        "nullable": true
+        "type": "int",
+        "nullable": true,
+        "description": "The day or days of the week on which the holiday repeats. This field contains a bitmask. For each day of the week, the values are as follows: Sunday = 1 Monday = 2 Tuesday = 4 Wednesday = 8 Thursday = 16 Friday = 32 Saturday = 64 Multiple days are represented as the sum of their numerical values. For example, Tuesday and Thursday = 4 + 16 = 20."
       },
       "RecurrenceDayOfMonth": {
-        "type": "integer",
-        "nullable": true
+        "type": "int",
+        "nullable": true,
+        "description": "The day of the month on which the holiday repeats."
       },
       "RecurrenceInstance": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "First",
@@ -132,10 +137,11 @@
           "Last"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": "The frequency of the recurring holiday. For example, 2nd or 3rd."
       },
       "RecurrenceMonthOfYear": {
-        "type": "string",
+        "type": "picklist",
         "format": "enum",
         "enum": [
           "January",
@@ -152,17 +158,27 @@
           "December"
         ],
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "description": "The month of the year on which the event repeats."
+      },
+      "NextOccurrenceDate": {
+        "type": "date",
+        "description": "The next date of the holiday. Applies to recurring holidays only. Available in API version 58.0 and later. To access this field, you must have Field Service enabled and the Field Service Standard permission. This field isn't sortable. To compare this date to other dates, you must parse the string into a date value to compare it to other dates."
       }
     },
-    "module": "N/A",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_holiday.htm",
     "keyPrefix": "0C0",
     "label": "Holiday",
     "createable": true,
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": true
+    "searchable": true,
+    "accessRules": "Customer Portal users can’t access this object.",
+    "clouds": [
+      "Core Salesforce",
+      "Core Salesforce"
+    ]
   }
 }
