@@ -200,12 +200,34 @@
         ],
         "maxLength": 255,
         "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "keyPrefix": "85R",
     "label": "Activation",
-    "iconUrl": "icon/t4/standard/activations_120.png",
+    "iconUrl": "standard/activations_120.png",
     "iconColor": "FF538A",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
     "createable": true,
@@ -275,12 +297,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "MarketSegmentActivationFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "MarketSegmentActivationHistory",
         "field": "MarketSegmentActivationId",
         "relationshipName": "Histories",
@@ -297,6 +313,12 @@
         "field": "MarketSegmentActivationId",
         "relationshipName": "MarketSegmentActivationContactPoint",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
       },
       {
         "childObject": "ProcessInstance",

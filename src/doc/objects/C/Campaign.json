@@ -62,7 +62,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
+        "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
@@ -508,11 +514,11 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_campaign.htm",
     "keyPrefix": "701",
-    "iconUrl": "icon/t4v35/standard/campaign_120.png",
+    "iconUrl": "standard/campaign_120.png",
     "iconColor": "9050E9",
-    "createable": false,
-    "updateable": false,
-    "deletable": false,
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -577,16 +583,16 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "CampaignFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "CampaignHistory",
         "field": "CampaignId",
         "relationshipName": "Histories",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignInfluence",
+        "field": "CampaignId",
+        "relationshipName": "CampaignInfluences",
+        "cascadeDelete": false
       },
       {
         "childObject": "CampaignMember",
@@ -619,6 +625,12 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "CareProgramCampaign",
+        "field": "CampaignId",
+        "relationshipName": "CampaignCareProgramCampaigns",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "CollaborationGroupRecord",
         "field": "RecordId",
         "relationshipName": "RecordAssociatedGroups",
@@ -631,6 +643,12 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "ContentDistribution",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
         "childObject": "ContentDocumentLink",
         "field": "LinkedEntityId",
         "relationshipName": "ContentDocumentLinks",
@@ -640,6 +658,12 @@
         "childObject": "ContentVersion",
         "field": "FirstPublishLocationId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataUsePurpose",
+        "field": "PurposeId",
+        "relationshipName": "DataUsePurposes",
         "cascadeDelete": false
       },
       {
@@ -679,12 +703,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -715,6 +733,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "LandingPage",
+        "field": "CampaignId",
+        "relationshipName": "LandingPages",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LandingPageChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ListEmail",
         "field": "CampaignId",
         "relationshipName": "ListEmails",
@@ -731,6 +761,36 @@
         "field": "SourceListId",
         "relationshipName": "ListEmailRecipientSources",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "MarketingForm",
+        "field": "CampaignId",
+        "relationshipName": "MarketingForms",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingFormChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingLink",
+        "field": "CampaignId",
+        "relationshipName": "MarketingLinks",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MarketingLinkChangeEvent",
+        "field": "CampaignId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
       },
       {
         "childObject": "OpenActivity",
@@ -757,6 +817,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "PartnerFundRequest",
+        "field": "CampaignId",
+        "relationshipName": "PartnerFundRequests",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ProcessInstance",
         "field": "TargetObjectId",
         "relationshipName": "ProcessInstances",
@@ -766,6 +832,12 @@
         "childObject": "ProcessInstanceHistory",
         "field": "TargetObjectId",
         "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Promotion",
+        "field": "CampaignId",
+        "relationshipName": "CampaignPromotions",
         "cascadeDelete": false
       },
       {
@@ -781,6 +853,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "SnippetAssignment",
+        "field": "ParentId",
+        "relationshipName": "SnippetReferenceEntities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -793,21 +877,45 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "TopicAssignment",
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "et4ae5__SMSDefinition__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__SMSDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SMSDefinition__c",
+        "field": "et4ae5__ExclusionCampaign__c",
+        "relationshipName": "et4ae5__SMS_Definitions1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SMSJunction__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__SMS_Definitions__r",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "et4ae5__SendDefinition__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__SendDefinitions__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SendDefinition__c",
+        "field": "et4ae5__ExclusionCampaign__c",
+        "relationshipName": "et4ae5__Send_Definitions1__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "et4ae5__SendJunction__c",
+        "field": "et4ae5__Campaign__c",
+        "relationshipName": "et4ae5__Send_Definitions__r",
         "cascadeDelete": true
       }
     ],

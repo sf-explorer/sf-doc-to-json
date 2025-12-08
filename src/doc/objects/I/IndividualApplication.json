@@ -40,7 +40,11 @@
         "description": "The type of the application. Possible values are: New Renewal",
         "format": "enum",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "enum": [
+          "Individual",
+          "Organization"
+        ]
       },
       "AppliedDate": {
         "type": "dateTime",
@@ -92,7 +96,8 @@
       },
       "IsOwnerEditable": {
         "type": "boolean",
-        "description": "Whether the owner ID of this record can be changed."
+        "description": "Whether the owner ID of this record can be changed.",
+        "nullable": false
       },
       "IsSubmitted": {
         "type": "boolean",
@@ -227,11 +232,17 @@
         "description": "Categorizes the ways an application can be processed. Possible values are: Basic Special",
         "format": "enum",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "enum": [
+          "Basic",
+          "Special"
+        ]
       },
       "AmountPaid": {
         "type": "currency",
-        "description": "The amount paid by the applicant."
+        "description": "The amount paid by the applicant.",
+        "format": "currency",
+        "nullable": true
       },
       "BusinessTypeId": {
         "type": "reference",
@@ -239,7 +250,11 @@
       },
       "LicensePermitNameId": {
         "type": "reference",
-        "description": "The emergency service authorization that will be granted if this application is approved."
+        "description": "The emergency service authorization that will be granted if this application is approved.",
+        "format": "salesforce-id",
+        "x-object": "BusinessLicense",
+        "maxLength": 18,
+        "nullable": true
       },
       "LicenseTypeId": {
         "type": "reference",
@@ -247,13 +262,37 @@
       },
       "PaymentDate": {
         "type": "dateTime",
-        "description": "The date and time at which payment was received from the applicant."
+        "description": "The date and time at which payment was received from the applicant.",
+        "format": "date-time",
+        "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_individualapplication_hc.htm",
     "keyPrefix": "0iT",
-    "iconUrl": "icon/t4v35/standard/service_appointment_120.png",
+    "iconUrl": "standard/service_appointment_120.png",
     "iconColor": "5867E8",
     "createable": true,
     "updateable": true,
@@ -328,6 +367,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "DigitalSignature",
+        "field": "ParentId",
+        "relationshipName": "DigitalSignatures",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "DocumentChecklistItem",
         "field": "ParentRecordId",
         "relationshipName": "DocumentChecklistItemPR",
@@ -364,12 +409,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -400,12 +439,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "IndividualApplicationFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "IndividualApplicationHistory",
         "field": "IndividualApplicationId",
         "relationshipName": "Histories",
@@ -416,6 +449,12 @@
         "field": "ParentId",
         "relationshipName": "Shares",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
       },
       {
         "childObject": "Note",
@@ -454,6 +493,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -462,18 +507,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       },

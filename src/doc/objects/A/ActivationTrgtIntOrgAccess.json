@@ -122,6 +122,28 @@
         "description": "Data Change Status Error Code",
         "maxLength": 255,
         "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
@@ -134,12 +156,6 @@
     "queryable": true,
     "searchable": true,
     "childRelationships": [
-      {
-        "childObject": "ActivationTrgtIntOrgAccessFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
       {
         "childObject": "ActivationTrgtIntOrgAccessHistory",
         "field": "ActivationTrgtIntOrgAccessId",
@@ -210,6 +226,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       }
     ]

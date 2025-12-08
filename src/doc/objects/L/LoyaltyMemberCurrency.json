@@ -7,7 +7,8 @@
         "type": "double",
         "description": "The last balance of points before resetting the qualifying points of the member.",
         "nullable": true,
-        "multipleOf": 0.01
+        "multipleOf": 0.01,
+        "readOnly": true
       },
       "EscrowPointsBalance": {
         "type": "double",
@@ -17,13 +18,15 @@
         "type": "double",
         "description": "Calculates the points to be expired for unredeemed points.",
         "nullable": true,
-        "multipleOf": 0.01
+        "multipleOf": 0.01,
+        "readOnly": true
       },
       "LastAccrualProcessedDate": {
         "type": "dateTime",
         "description": "The date when the last accrual was processed. This field indicates the date and time at which the Point Balance calculation process updated the total accrued points for a member and its currency the last time.",
         "format": "date-time",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "LastEscrowProcessedDate": {
         "type": "dateTime",
@@ -33,7 +36,8 @@
         "type": "date",
         "description": "The most recent date when the expired points for a member were calculated.",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "LastExpiredPtTraceabilityRunDt": {
         "type": "date",
@@ -54,7 +58,8 @@
         "type": "date",
         "description": "The most recent date when the qualifying points for members were reset.",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
@@ -78,19 +83,22 @@
         "format": "salesforce-id",
         "x-object": "LoyaltyProgramCurrency",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
         "description": "The name of the loyalty member currency.",
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "NextResetDate": {
         "type": "date",
         "description": "The next date when the qualifying points for members are reset.",
         "format": "date",
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "PointsBalBeforeSecondLastReset": {
         "type": "double",
@@ -119,19 +127,22 @@
         "type": "double",
         "description": "The total points accrued by the member until today.",
         "nullable": true,
-        "multipleOf": 0.01
+        "multipleOf": 0.01,
+        "readOnly": true
       },
       "TotalPointsExpired": {
         "type": "double",
         "description": "The total points expired for a member until today.",
         "nullable": true,
-        "multipleOf": 0.01
+        "multipleOf": 0.01,
+        "readOnly": true
       },
       "TotalPointsRedeemed": {
         "type": "double",
         "description": "The total points redeemed by the member until today.",
         "nullable": true,
-        "multipleOf": 0.01
+        "multipleOf": 0.01,
+        "readOnly": true
       },
       "Id": {
         "type": "string",
@@ -190,14 +201,25 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltymembercurrency.htm",
     "keyPrefix": "0lz",
-    "createable": true,
-    "updateable": true,
-    "deletable": true,
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -272,12 +294,6 @@
         "field": "RelatedRecordId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "LoyaltyMemberCurrencyFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "LoyaltyMemberCurrencyHistory",

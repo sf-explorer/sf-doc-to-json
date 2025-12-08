@@ -5,33 +5,172 @@
     "properties": {
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoanApplicantId": {
         "type": "reference",
-        "description": "ID of the borrower associated with the asset."
+        "description": "ID of the borrower associated with the asset.",
+        "format": "salesforce-id",
+        "x-object": "LoanApplicant",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LoanApplicationAssetId": {
         "type": "reference",
-        "description": "ID of the loan application associated with the asset."
+        "description": "ID of the loan application associated with the asset.",
+        "format": "salesforce-id",
+        "x-object": "LoanApplicationAsset",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "An auto-generated number assigned to this record."
+        "description": "An auto-generated number assigned to this record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Role": {
         "type": "picklist",
-        "description": "Identifies borrower's ownership role for the asset."
+        "description": "Identifies borrower's ownership role for the asset.",
+        "format": "enum",
+        "enum": [
+          "Co-Holder",
+          "Primary"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Financial Services Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_loanapplicantasset.htm",
     "clouds": [
       "Financial Services Cloud"
+    ],
+    "keyPrefix": "0e2",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoanApplicantAssetHistory",
+        "field": "LoanApplicantAssetId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      }
     ]
   }
 }

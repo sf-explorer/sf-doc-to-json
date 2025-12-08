@@ -86,7 +86,7 @@ function App() {
 
 function GraphPage() {
   const [viewMode, setViewMode] = React.useState('object'); // 'object' or 'cloud'
-  const [objectName, setObjectName] = React.useState('Account');
+  const [objectName, setObjectName] = React.useState('Case');
   const [cloudName, setCloudName] = React.useState('Financial Services Cloud');
   const [maxObjects, setMaxObjects] = React.useState(30);
   
@@ -216,7 +216,19 @@ function GraphPage() {
               <option value="Automotive Cloud">Automotive Cloud</option>
               <option value="Energy and Utilities Cloud">Energy and Utilities Cloud</option>
               <option value="Nonprofit Cloud">Nonprofit Cloud</option>
+              <option value="Public Sector Cloud">Public Sector Cloud</option>
               <option value="Revenue Lifecycle Management">Revenue Lifecycle Management</option>
+              <option value="Sales Cloud">Sales Cloud</option>
+              <option value="Service Cloud">Service Cloud</option>
+              <option value="Shield">Shield</option>
+              <option value="Field Service Lightning">Field Service Lightning</option>
+              <option value="Net Zero Cloud">Net Zero Cloud</option>
+              <option value="Loyalty">Loyalty</option>
+              <option value="Feedback Management">Feedback Management</option>
+              <option value="Scheduler">Scheduler</option>
+              <option value="Data Cloud">Data Cloud</option>
+              <option value="Tooling API">Tooling API</option>
+              <option value="Metadata API">Metadata API</option>
             </select>
             
             <label htmlFor="maxObjectsInput" style={{ marginLeft: '20px' }}>

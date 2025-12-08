@@ -373,12 +373,23 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_knowledgearticleversion.htm",
     "keyPrefix": "ka#",
-    "iconUrl": "icon/t4v35/standard/article_120.png",
+    "iconUrl": "standard/article_120.png",
     "iconColor": "CB65FF",
     "createable": false,
     "updateable": false,
@@ -423,9 +434,27 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "KnowledgeArticleVersion",
+        "field": "MasterVersionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Knowledge__VersionHistory",
+        "field": "VersionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "LinkedArticle",
         "field": "KnowledgeArticleVersionId",
         "relationshipName": "LinkedArticles",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkUserHistoryRecent",
+        "field": "RecordId",
+        "relationshipName": "NetworkUserHistoryRecentToRecord",
         "cascadeDelete": true
       },
       {

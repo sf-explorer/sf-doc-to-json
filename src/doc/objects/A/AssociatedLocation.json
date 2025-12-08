@@ -58,7 +58,11 @@
         "description": "Picklist of address types. The values are: Bill To Ship To",
         "format": "enum",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "enum": [
+          "Bill To",
+          "Ship To"
+        ]
       },
       "Id": {
         "type": "string",
@@ -117,6 +121,16 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -180,6 +194,12 @@
         "childObject": "RecordActionHistory",
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkerCompCoverageClass",
+        "field": "WorkerLocationId",
+        "relationshipName": "WorkerCompCoverageClasses",
         "cascadeDelete": false
       }
     ],

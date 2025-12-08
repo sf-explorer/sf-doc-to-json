@@ -137,6 +137,16 @@
         "description": "The description of this unit of measure.",
         "maxLength": 255,
         "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Health Cloud",
@@ -161,6 +171,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "CareMetricTarget",
+        "field": "UnitOfMeasureId",
+        "relationshipName": "CareMetricTargets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareObservation",
+        "field": "UnitOfMeasureId",
+        "relationshipName": "UnitsOfMeasure",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "FlowExecutionErrorEvent",
         "field": "ContextRecordId",
         "relationshipName": null,
@@ -169,6 +191,24 @@
       {
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PatientImmunization",
+        "field": "DoseUnitId",
+        "relationshipName": "Patient_Immunization_Dose_Units",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PatientMedicalProcedure",
+        "field": "PerformedAgeRangeUnitId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PatientMedicalProcedure",
+        "field": "PerformedAtAgeUnitId",
         "relationshipName": null,
         "cascadeDelete": false
       },
@@ -182,6 +222,18 @@
         "childObject": "ProcessInstanceHistory",
         "field": "TargetObjectId",
         "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "QuantityUnitOfMeasureId",
+        "relationshipName": "QuantityUnit",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "QuantityUnitOfMeasureId",
+        "relationshipName": null,
         "cascadeDelete": false
       },
       {

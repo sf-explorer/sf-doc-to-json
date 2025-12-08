@@ -5,11 +5,81 @@
     "properties": {
       "CycleType": {
         "type": "picklist",
-        "description": "The cycle used to create scores on opportunity records can be one of two types. OpportunityScoreModeling—Provides model factors, which Sales Cloud Einstein uses to build a scoring model. OpportunityScoreScoring—Provides scores and key factors to individual records, which are based on Sales Cloud Einstein’s scoring model."
+        "description": "The cycle used to create scores on opportunity records can be one of two types. OpportunityScoreModeling—Provides model factors, which Sales Cloud Einstein uses to build a scoring model. OpportunityScoreScoring—Provides scores and key factors to individual records, which are based on Sales Cloud Einstein’s scoring model.",
+        "format": "enum",
+        "enum": [
+          "OpportunityScoreModeling",
+          "OpportunityScoreScoring"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "The ID of the cycle. Currently, the name is a system-generated unique value."
+        "description": "The ID of the cycle. Currently, the name is a system-generated unique value.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
@@ -17,6 +87,32 @@
     "accessRules": "a Sales Cloud Einstein license with the View Scoring Model Factors permission enabled",
     "clouds": [
       "Core Salesforce"
+    ],
+    "keyPrefix": "7D5",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SalesAIScoreModelFactor",
+        "field": "SalesAiScoreCycleId",
+        "relationshipName": "SalesAiScoreModelFactors",
+        "cascadeDelete": true
+      }
     ]
   }
 }

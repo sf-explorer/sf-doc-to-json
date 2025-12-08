@@ -5,19 +5,30 @@
     "properties": {
       "Description": {
         "type": "Create, Filter, Group, Nillable, Sort, Update",
-        "description": ""
+        "description": "",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveFrom": {
         "type": "date",
-        "description": "The date from which this specialty is effective."
+        "description": "The date from which this specialty is effective.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveTo": {
         "type": "date",
-        "description": "The date on which this specialty is no longer effective."
+        "description": "The date on which this specialty is no longer effective.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the record is active."
+        "description": "Indicates whether the record is active.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
@@ -54,15 +65,39 @@
       },
       "SpecialtyCode": {
         "type": "string",
-        "description": "Code for the specialty."
+        "description": "Code for the specialty.",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SpecialtyType": {
         "type": "picklist",
-        "description": "Type of care specialty."
+        "description": "Type of care specialty.",
+        "format": "enum",
+        "enum": [
+          "Primary Care",
+          "Surgery",
+          "Specialist",
+          "Medical Therapist",
+          "Natural Therapy Professional",
+          "Mental Health"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "SpecialtyUsage": {
         "type": "picklist",
-        "description": "Indicates whether this specialty is related to the practitioner, the organization, or both."
+        "description": "Indicates whether this specialty is related to the practitioner, the organization, or both.",
+        "format": "enum",
+        "enum": [
+          "Practitioner",
+          "Provider",
+          "Both"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "Id": {
         "type": "string",
@@ -121,6 +156,17 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
@@ -175,10 +221,10 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "CareSpecialtyFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
+        "childObject": "CareProviderFacilitySpecialty",
+        "field": "SpecialtyId",
+        "relationshipName": "CareProviderFacilitySpecialties",
+        "cascadeDelete": false
       },
       {
         "childObject": "CareSpecialtyHistory",
@@ -241,12 +287,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -274,6 +314,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "HealthcareProviderSpecialty",
+        "field": "SpecialtyId",
+        "relationshipName": "HealthcareProviderSpecialties",
         "cascadeDelete": false
       },
       {
@@ -327,18 +373,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       }

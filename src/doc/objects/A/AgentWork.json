@@ -240,7 +240,9 @@
       },
       "SecondaryRoutingPriority": {
         "type": "int",
-        "description": "Indicates the secondary routing priority."
+        "description": "Indicates the secondary routing priority.",
+        "nullable": true,
+        "readOnly": true
       },
       "ServiceChannelId": {
         "type": "reference",
@@ -1205,6 +1207,16 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -1213,6 +1225,49 @@
     "accessRules": "To access this object, Omni-Channel must be enabled.",
     "clouds": [
       "Core Salesforce"
+    ],
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AgentWorkShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OmniRoutingEventStore",
+        "field": "AgentWorkId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

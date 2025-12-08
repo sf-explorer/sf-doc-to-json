@@ -305,7 +305,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the org."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the org.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false
       },
       "IsSoldOnlyWithOtherProds": {
         "type": "boolean",
@@ -354,6 +360,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "AccountProductForecast",
+        "field": "ProductId",
+        "relationshipName": "AccountProductForecasts",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ActivityHistory",
         "field": "WhatId",
         "relationshipName": "ActivityHistories",
@@ -369,18 +381,6 @@
         "childObject": "Asset",
         "field": "Product2Id",
         "relationshipName": "Assets",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Asset",
-        "field": "SBQQ__RequiredByProduct__c",
-        "relationshipName": "SBQQ__ChildAssets__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Asset",
-        "field": "SBQQ__Subscription__c",
-        "relationshipName": "SBQQ__Assets__r",
         "cascadeDelete": false
       },
       {
@@ -406,18 +406,6 @@
         "field": "ParentId",
         "relationshipName": "Attachments",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "COM_Product_Flow__c",
-        "field": "COM_Product__c",
-        "relationshipName": "COM_Product_Flows__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Campaign",
-        "field": "COM_Product__c",
-        "relationshipName": "Campaigns__r",
-        "cascadeDelete": false
       },
       {
         "childObject": "CareProgramProduct",
@@ -480,18 +468,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Cross_Sell_Recommendations__c",
-        "field": "Recommended_Product_Parent__c",
-        "relationshipName": "ProductsRecommandation__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Cross_Sell_Recommendations__c",
-        "field": "Recommended_Product__c",
-        "relationshipName": "Recommendations__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "DataUsePurpose",
         "field": "PurposeId",
         "relationshipName": "DataUsePurposes",
@@ -528,12 +504,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -567,6 +537,12 @@
         "childObject": "FulfillmentOrderLineItem",
         "field": "Product2Id",
         "relationshipName": "FulfillmentOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InsurancePolicy",
+        "field": "ProductId",
+        "relationshipName": "InsurancePolicies",
         "cascadeDelete": false
       },
       {
@@ -618,24 +594,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "Offer_sdo__c",
-        "field": "Product__c",
-        "relationshipName": "Offers__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Offer_sdo__c",
-        "field": "Recommended_Product_Parent__c",
-        "relationshipName": "Offers1__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Offer_sdo__c",
-        "field": "Recommended_Product__c",
-        "relationshipName": "Offers_Recommendations__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "OpenActivity",
         "field": "WhatId",
         "relationshipName": "OpenActivities",
@@ -645,12 +603,6 @@
         "childObject": "OpportunityLineItem",
         "field": "Product2Id",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OpportunityLineItem",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__Opportunity_Product__r",
         "cascadeDelete": false
       },
       {
@@ -666,12 +618,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "OrderItem",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__OrderProducts__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "OrderItemSummary",
         "field": "Product2Id",
         "relationshipName": "OrderItemSummaries",
@@ -680,24 +626,6 @@
       {
         "childObject": "OutgoingEmail",
         "field": "RelatedToId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "LocalRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "ParentRecordId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "PartnerNetworkRecordConnection",
-        "field": "PartnerRecordId",
         "relationshipName": null,
         "cascadeDelete": false
       },
@@ -720,69 +648,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Product2",
-        "field": "SBQQ__RenewalProduct__c",
-        "relationshipName": "SBQQ__OriginalProducts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "SBQQ__SubscriptionTarget__c",
-        "relationshipName": "SBQQ__SubscriptionTargetingProducts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "SBQQ__UpgradeCredit__c",
-        "relationshipName": "SBQQ__CreditedProducts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "SBQQ__UpgradeSource__c",
-        "relationshipName": "SBQQ__TargetUpgrades__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "SBQQ__UpgradeTarget__c",
-        "relationshipName": "SBQQ__SourceUpgrades__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "vlocity_cmt__ClassId__c",
-        "relationshipName": "vlocity_cmt__ClassProducts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "vlocity_cmt__ParentClassId__c",
-        "relationshipName": "vlocity_cmt__Subclasses__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "vlocity_cmt__ProductSpecId__c",
-        "relationshipName": "vlocity_cmt__ProductSpecOffers__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Product2",
-        "field": "vlocity_cmt__ProductTemplateProductId__c",
-        "relationshipName": "vlocity_cmt__ProductTemplateProducts__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Product2DataTranslation",
         "field": "ParentId",
         "relationshipName": "DataTranslations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "Product2Feed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {
@@ -900,21 +768,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Product_Video__c",
-        "field": "Product__c",
-        "relationshipName": "Product_Videos__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "QuoteLineItem",
         "field": "Product2Id",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "QuoteLineItem",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__Quote_Line_Items__r",
         "cascadeDelete": false
       },
       {
@@ -948,168 +804,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "SBQQ__BlockPrice__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__BlockPrices__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ConfigurationAttribute__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__ConfigurationAttributes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ConfigurationRule__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__ConfigurationRules__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ContractedPrice__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__ContractedPrices__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Cost__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__Costs__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Dimension__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__Dimensions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__DiscountSchedule__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__DiscountSchedules__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__FavoriteProduct__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__FavoriteProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Localization__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__Localizations__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__LookupData__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__LookupData__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__OptionConstraint__c",
-        "field": "SBQQ__ConfiguredSKU__c",
-        "relationshipName": "SBQQ__Option_Constraints__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__PriceRule__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__PriceRules__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__PriceSchedule__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__PriceSchedules__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ProductAction__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__ProductActions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ProductAttribute__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__ProductAttributes__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ProductFeature__c",
-        "field": "SBQQ__ConfiguredSKU__c",
-        "relationshipName": "SBQQ__Features__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ProductOption__c",
-        "field": "SBQQ__ConfiguredSKU__c",
-        "relationshipName": "SBQQ__Options__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__ProductOption__c",
-        "field": "SBQQ__OptionalSKU__c",
-        "relationshipName": "SBQQ__OptionalFor__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__QuoteLine__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__R00N70000001lXB6EAM__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__RelatedContent__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__Content__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Subscription__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__Subscriptions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__Subscription__c",
-        "field": "SBQQ__RequiredByProduct__c",
-        "relationshipName": "SBQQ__ChildSubscriptions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__UpgradeSource__c",
-        "field": "SBQQ__SourceProduct__c",
-        "relationshipName": "SBQQ__AvailableUpgradeSources__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__UpgradeSource__c",
-        "field": "SBQQ__UpgradeProduct__c",
-        "relationshipName": "SBQQ__UpgradeSources__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SBQQ__WebQuoteLine__c",
-        "field": "SBQQ__Product__c",
-        "relationshipName": "SBQQ__WebQuoteLines__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SDO_B2BCommerce_Bundle_Item__c",
-        "field": "Bundle_Item__c",
-        "relationshipName": "Items__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "SDO_B2BCommerce_Bundle_Item__c",
-        "field": "Bundle_Parent_Item__c",
-        "relationshipName": "ItemsIncludedInBundles__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "SerializedProduct",
         "field": "Product2Id",
         "relationshipName": "SerializedProducts",
@@ -1130,18 +824,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       },
@@ -1186,336 +868,6 @@
         "field": "Product2Id",
         "relationshipName": "WorkPlanSelectionRules",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__AccountDiscountItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__AccountDiscountItemsProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__AccountOffer__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__Offers__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__AccountProductRollup__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__AccountProductRollups__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__AdSpaceSpecification__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__AdSpaceSpecifications__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__Application__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__Applications__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__BusinessSiteOffering__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__SiteServicesProducts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CachedFilterableAttribute__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__CachedFilterableAttribute__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CachedProduct2Translation__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__Cached_Product2_Translations__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CartItem__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__CartItemsProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CatalogProductRelationship__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__CatalogProductRelationships2__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__CompiledAttributeOverride__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__CompiledAttributeOverrides__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ContractLineItem__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__OrderProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ContractLineItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__GroupBenefitsPlans__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ContractTerm__c",
-        "field": "vlocity_cmt__TermSpecProduct2Id__c",
-        "relationshipName": "vlocity_cmt__ContractTerms__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ContractTypeTerm__c",
-        "field": "vlocity_cmt__TermSpecProduct2Id__c",
-        "relationshipName": "vlocity_cmt__ContractTypeTerms__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ContractVersionDiscountItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__ContractVersionDiscountItemsProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__Datastore__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__DataStoreItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__DecompositionRelationship__c",
-        "field": "vlocity_cmt__DestinationProductId__c",
-        "relationshipName": "vlocity_cmt__SourceDecompositionRelationships__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__DecompositionRelationship__c",
-        "field": "vlocity_cmt__SourceProductId__c",
-        "relationshipName": "vlocity_cmt__DestinationDecompositionRelationships__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__DocumentTemplateSectionCondition__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__DocumentTemplateSectionConditions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__EntityFilterMember__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__EntityFilterMembers__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__FulfilmentRequestLine__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__FulfillmentRequestLines__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__InventoryItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__InventoryItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OfferMigrationComponentMapping__c",
-        "field": "vlocity_cmt__SourceProductId__c",
-        "relationshipName": "vlocity_cmt__SourceProductId__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OfferMigrationComponentMapping__c",
-        "field": "vlocity_cmt__TargetProductId__c",
-        "relationshipName": "vlocity_cmt__TargetProductId__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OfferPricingComponent__c",
-        "field": "vlocity_cmt__OfferId__c",
-        "relationshipName": "vlocity_cmt__OfferPricingComponents__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OfferPricingComponent__c",
-        "field": "vlocity_cmt__RootOfferId__c",
-        "relationshipName": "vlocity_cmt__RootOfferPricingComponents__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OpportunityDiscountItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__OpportunityDiscountItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OrchestrationQueueAssignmentRule__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__OrchestrationQueueAssignmentRules__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OrchestrationScenario__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__OrchestrationScenarios__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OrderDiscountItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__OrderDiscountItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OrderProductRollup__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__OrderProductRollups__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__OverrideDefinition__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__OverrideDefinitions__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PriceListEntry__c",
-        "field": "vlocity_cmt__OfferId__c",
-        "relationshipName": "vlocity_cmt__PriceListEntries__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PriceListEntry__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__ProductPriceListEntries__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PricingElement__c",
-        "field": "vlocity_cmt__OfferId__c",
-        "relationshipName": "vlocity_cmt__OfferPricingElements__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PricingElement__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__PricingElements__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductAvailability__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__ProductEligibility__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductChildItem__c",
-        "field": "vlocity_cmt__ChildProductId__c",
-        "relationshipName": "vlocity_cmt__ProductChildItemsChild__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductChildItem__c",
-        "field": "vlocity_cmt__ParentProductId__c",
-        "relationshipName": "vlocity_cmt__ProductChildItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductConfigurationProcedure__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__ProductConfigurationProcedures__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductEligibility__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__ProductEligibilityProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductRelationship__c",
-        "field": "vlocity_cmt__Product2Id__c",
-        "relationshipName": "vlocity_cmt__RelatedProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__ProductRelationship__c",
-        "field": "vlocity_cmt__RelatedProductId__c",
-        "relationshipName": "vlocity_cmt__ProductRelations1__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PromotionApplicableProduct__c",
-        "field": "vlocity_cmt__ContextOfferId__c",
-        "relationshipName": "vlocity_cmt__PromotionApplicableProductContext__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PromotionApplicableProduct__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__PromotionApplicableProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PromotionIncludedProduct__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__PromotionIncludedProducts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PromotionItem__c",
-        "field": "vlocity_cmt__ContextProductId__c",
-        "relationshipName": "vlocity_cmt__ContextPromotionItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PromotionItem__c",
-        "field": "vlocity_cmt__OfferId__c",
-        "relationshipName": "vlocity_cmt__OfferPromotionItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__PromotionItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__PromotionItems__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__QuoteDiscountItem__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__QuoteDiscountItemsProduct__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__QuoteProductRollup__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__QuoteProductRollups__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__SpecTemplateMapping__c",
-        "field": "vlocity_cmt__TemplateProductId__c",
-        "relationshipName": "vlocity_cmt__SpecTemplateMappings__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__VlocityTrackingEntry__c",
-        "field": "vlocity_cmt__ProductId__c",
-        "relationshipName": "vlocity_cmt__TrackingEntries__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "vlocity_cmt__VqResource__c",
-        "field": "vlocity_cmt__LinkedProductId__c",
-        "relationshipName": "vlocity_cmt__Vlocity_Intelligence_Resources__r",
-        "cascadeDelete": false
       }
     ],
     "accessRules": "The ConfigureDuringSale and IsSoldOnlyWithOtherProds fields are available in version 58.0 and later when Industry Automotive or Subscription Management is enabled.",
@@ -1523,6 +875,8 @@
       "Consumer Goods Cloud",
       "Core Salesforce",
       "Health Cloud"
-    ]
+    ],
+    "iconUrl": "standard/product_120.png",
+    "iconColor": "5A1BA9"
   }
 }

@@ -14,7 +14,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "The default value is USD."
+        "description": "The default value is USD.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
@@ -128,7 +134,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productcategory.htm",
     "keyPrefix": "0ZG",
-    "iconUrl": "icon/t4v35/standard/category_120.png",
+    "iconUrl": "standard/category_120.png",
     "iconColor": "22683E",
     "createable": true,
     "updateable": true,
@@ -215,6 +221,24 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "LoyaltyPartnerProduct",
+        "field": "PartnerCategoryDerivedFieldId",
+        "relationshipName": "LoyaltyPartnerProductCategory",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoyaltyPartnerProduct",
+        "field": "ProductId",
+        "relationshipName": "LoyaltyPartnerProducts",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ProcessInstance",
         "field": "TargetObjectId",
         "relationshipName": "ProcessInstances",
@@ -233,9 +257,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "ProductCategoryFeed",
+        "childObject": "ProductCategoryDataTranslation",
         "field": "ParentId",
-        "relationshipName": "Feeds",
+        "relationshipName": "DataTranslations",
         "cascadeDelete": true
       },
       {
@@ -245,10 +269,28 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "ProductCategoryMedia",
+        "field": "ProductCategoryId",
+        "relationshipName": "ProductCategoryMedias",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "ProductCategoryProduct",
         "field": "ProductCategoryId",
         "relationshipName": "ProductCategoryProducts",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "ProductCategoryId",
+        "relationshipName": "ProductCategories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "ProductCategoryId",
+        "relationshipName": null,
+        "cascadeDelete": false
       }
     ],
     "accessRules": "You must have the B2B Commerce license and a CMS workspace to access product media.",

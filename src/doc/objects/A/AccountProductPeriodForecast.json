@@ -5,94 +5,293 @@
     "properties": {
       "AccForecastPeriodMetricId": {
         "type": "reference",
-        "description": "ID of each account forecast period metric used in forecast formula calculations."
+        "description": "ID of each account forecast period metric used in forecast formula calculations.",
+        "format": "salesforce-id",
+        "x-object": "AccountForecastPeriodMetric",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "AccountProductForecastId": {
         "type": "reference",
-        "description": "ID of a specific product for which forecast is calculated for this period."
+        "description": "ID of a specific product for which forecast is calculated for this period.",
+        "format": "salesforce-id",
+        "x-object": "AccountProductForecast",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "AdjustedForecastedQuantity": {
         "type": "double",
-        "description": "Forecasted quantity which is either auto-calculated or overwritten by a user with edit access. The user-defined value is retained along with the auto-calculated value."
+        "description": "Forecasted quantity which is either auto-calculated or overwritten by a user with edit access. The user-defined value is retained along with the auto-calculated value.",
+        "nullable": true,
+        "readOnly": true
       },
       "AdjustedForecastedRevenue": {
         "type": "double",
-        "description": "Forecasted revenue which is either auto-calculated or overwritten by a user with edit access. The user-defined value is retained along with the auto-calculated value."
+        "description": "Forecasted revenue which is either auto-calculated or overwritten by a user with edit access. The user-defined value is retained along with the auto-calculated value.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "AdjustmentComments": {
         "type": "textarea",
-        "description": "User-defined notes stating the reason for a manual adjustment."
+        "description": "User-defined notes stating the reason for a manual adjustment.",
+        "maxLength": 2000,
+        "nullable": true,
+        "readOnly": true
       },
       "CurrentOrdersQuantity": {
         "type": "double",
-        "description": "Calculated quantity of all active orders for this account in the current period."
+        "description": "Calculated quantity of all active orders for this account in the current period.",
+        "nullable": true,
+        "readOnly": true
       },
       "CurrentOrdersRevenue": {
         "type": "double",
-        "description": "Calculated revenue of all active orders for this account in the current period."
+        "description": "Calculated revenue of all active orders for this account in the current period.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastedQuantity": {
         "type": "double",
-        "description": "Auto-calculated quantity based on forecast formula and configurations."
+        "description": "Auto-calculated quantity based on forecast formula and configurations.",
+        "nullable": true,
+        "readOnly": true
       },
       "ForecastedRevenue": {
         "type": "double",
-        "description": "Auto-calculated revenue based on forecast formula and configurations."
+        "description": "Auto-calculated revenue based on forecast formula and configurations.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicator of whether the record is part of the forecast display period or not."
+        "description": "Indicator of whether the record is part of the forecast display period or not.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastCalculatedDate": {
         "type": "dateTime",
-        "description": "Date when the value was last calculated, either due to rolling over or through recalculation of forecast."
+        "description": "Date when the value was last calculated, either due to rolling over or through recalculation of forecast.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which this record was referenced."
+        "description": "The most recent date on which this record was referenced.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which this record was viewed."
+        "description": "The most recent date on which this record was viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the record."
+        "description": "Name of the record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OpportunityQuantity": {
         "type": "double",
-        "description": "Calculated quantity of all active opportunities for this account in the current period."
+        "description": "Calculated quantity of all active opportunities for this account in the current period.",
+        "nullable": true,
+        "readOnly": true
       },
       "OpportunityRevenue": {
         "type": "double",
-        "description": "Calculated revenue of all active opportunities for this account in the current period."
+        "description": "Calculated revenue of all active opportunities for this account in the current period.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "PastOrdersQuantity": {
         "type": "double",
-        "description": "Calculated quantity of all active orders for this account in the last forecast period."
+        "description": "Calculated quantity of all active orders for this account in the last forecast period.",
+        "nullable": true,
+        "readOnly": true
       },
       "PastOrdersRevenue": {
         "type": "double",
-        "description": "Calculated revenue of all active orders for this account in the last forecast period."
+        "description": "Calculated revenue of all active orders for this account in the last forecast period.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "PeriodId": {
         "type": "reference",
-        "description": "ID of the period as derived from the Period entity based on the fiscal year."
+        "description": "ID of the period as derived from the Period entity based on the fiscal year.",
+        "format": "salesforce-id",
+        "x-object": "Period",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "SalesAgreementPlannedQuantity": {
         "type": "double",
-        "description": "Calculated quantity for all active sales agreements for this account in the current period. This is calculated on a pro-rata basis if the sales agreement period does not coincide with the forecast display period."
+        "description": "Calculated quantity for all active sales agreements for this account in the current period. This is calculated on a pro-rata basis if the sales agreement period does not coincide with the forecast display period.",
+        "nullable": true,
+        "readOnly": true
       },
       "SalesAgreementPlannedRevenue": {
         "type": "double",
-        "description": "Calculated revenue for all active sales agreements for this account in the current period. This is calculated on a pro-rata basis if the sales agreement period does not coincide with the forecast display period."
+        "description": "Calculated revenue for all active sales agreements for this account in the current period. This is calculated on a pro-rata basis if the sales agreement period does not coincide with the forecast display period.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true
       },
       "StartDate": {
         "type": "date",
-        "description": "Date on which the period starts."
+        "description": "Date on which the period starts.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_accountproductperiodforecast.htm"
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_accountproductperiodforecast.htm",
+    "keyPrefix": "0yC",
+    "iconUrl": "standard/partners_120.png",
+    "iconColor": "3BA755",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AccountForecastAdjustment",
+        "field": "AccountProdPeriodForecastId",
+        "relationshipName": "AccountForecastAdjustments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TopicAssignment",
+        "field": "EntityId",
+        "relationshipName": "TopicAssignments",
+        "cascadeDelete": true
+      }
+    ]
   }
 }

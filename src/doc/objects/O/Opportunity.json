@@ -85,7 +85,13 @@
       },
       "CurrencyIsoCode": {
         "type": "",
-        "description": ""
+        "description": "",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "Description": {
         "type": "",
@@ -457,12 +463,23 @@
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
+      },
+      "SourceId": {
+        "type": "string",
+        "description": "SourceId field",
+        "format": "salesforce-id",
+        "x-objects": [
+          "BusinessMilestone",
+          "PersonLifeEvent"
+        ],
+        "maxLength": 18,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_opportunity.htm",
     "keyPrefix": "006",
-    "iconUrl": "icon/t4v35/standard/opportunity_120.png",
+    "iconUrl": "standard/opportunity_120.png",
     "iconColor": "FF5D2D",
     "createable": true,
     "updateable": true,
@@ -489,12 +506,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "Account_Opportunity_Junction__c",
-        "field": "Opportunity__c",
-        "relationshipName": "Related_Accounts__r",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "ActionPlan",
         "field": "TargetId",
         "relationshipName": "ActionPlans",
@@ -504,6 +515,12 @@
         "childObject": "ActivityHistory",
         "field": "WhatId",
         "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AgentWork",
+        "field": "WorkItemId",
+        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -531,6 +548,30 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "Bookmark",
+        "field": "FromId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Bookmark",
+        "field": "ToId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CampaignInfluence",
+        "field": "OpportunityId",
+        "relationshipName": "CampaignInfluences",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Case",
+        "field": "Opportunity__c",
+        "relationshipName": "R00N4S000002Z5GTUA0__r",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "CollaborationGroupRecord",
         "field": "RecordId",
         "relationshipName": "RecordAssociatedGroups",
@@ -547,6 +588,12 @@
         "field": "WhatId",
         "relationshipName": "ContactRequests",
         "cascadeDelete": false
+      },
+      {
+        "childObject": "ContentDistribution",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": true
       },
       {
         "childObject": "ContentDocumentLink",
@@ -597,12 +644,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -645,6 +686,12 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "InsurancePolicy",
+        "field": "SourceOpportunityId",
+        "relationshipName": "SourceOpportunity",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Lead",
         "field": "ConvertedOpportunityId",
         "relationshipName": null,
@@ -660,6 +707,12 @@
         "childObject": "MessagingSession",
         "field": "OpportunityId",
         "relationshipName": "MessagingSessions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -699,12 +752,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "OpportunityFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "OpportunityFieldHistory",
         "field": "OpportunityId",
         "relationshipName": "Histories",
@@ -729,9 +776,33 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "OpportunityScore",
+        "field": "BaseId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
         "childObject": "OpportunityShare",
         "field": "OpportunityId",
         "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpportunitySplit",
+        "field": "OpportunityId",
+        "relationshipName": "OpportunitySplits",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpportunitySplitChangeEvent",
+        "field": "OpportunityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityTeamMember",
+        "field": "OpportunityId",
+        "relationshipName": "OpportunityTeamMembers",
         "cascadeDelete": true
       },
       {
@@ -739,6 +810,18 @@
         "field": "ParentId",
         "relationshipName": null,
         "cascadeDelete": true
+      },
+      {
+        "childObject": "Order",
+        "field": "OpportunityId",
+        "relationshipName": "Orders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeEvent",
+        "field": "OpportunityId",
+        "relationshipName": null,
+        "cascadeDelete": false
       },
       {
         "childObject": "OutgoingEmail",
@@ -750,6 +833,12 @@
         "childObject": "Partner",
         "field": "OpportunityId",
         "relationshipName": "Partners",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PendingServiceRouting",
+        "field": "WorkItemId",
+        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -789,6 +878,36 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "ResidentialLoanApplication",
+        "field": "OpportunityId",
+        "relationshipName": "Lending_Applications",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ResidentialLoanApplicationChangeEvent",
+        "field": "OpportunityId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "ParentRecordId",
+        "relationshipName": "ServiceAppointments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceAppointmentChangeEvent",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -801,22 +920,46 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "TopicAssignment",
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "RelatedRecordId",
+        "relationshipName": "RelatedRecords",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__AdvRouteVisitWindows__c",
+        "field": "maps__VW_Opportunity__c",
+        "relationshipName": "maps__AdvRouteVisitWindows__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__AdvRouteWaypoint__c",
+        "field": "maps__RW_Opportunity__c",
+        "relationshipName": "maps__AdvRouteWaypoints__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__LiveEventAssociation__c",
+        "field": "maps__AssociatedOpportunity__c",
+        "relationshipName": "maps__LiveEventAssociations__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "maps__Waypoint__c",
+        "field": "maps__Opportunity__c",
+        "relationshipName": "maps__Maps_Waypoints__r",
+        "cascadeDelete": false
       }
     ],
     "clouds": [

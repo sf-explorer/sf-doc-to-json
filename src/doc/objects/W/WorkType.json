@@ -108,7 +108,8 @@
       "EstimatedDuration": {
         "type": "double",
         "description": "The estimated length of the work. The estimated duration is in minutes or hours based on the value selected in the Duration Type field.",
-        "nullable": false
+        "nullable": false,
+        "multipleOf": 0.01
       },
       "DurationType": {
         "type": "picklist",
@@ -125,7 +126,8 @@
         "type": "number",
         "description": "Duration in Minutes",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "ShouldAutoCreateSvcAppt": {
         "type": "boolean",
@@ -233,43 +235,6 @@
         "maxLength": 18,
         "nullable": true
       },
-      "FSL__Due_Date_Offset__c": {
-        "type": "number",
-        "description": "Due Date Offset",
-        "nullable": true
-      },
-      "FSL__Exact_Appointments__c": {
-        "type": "boolean",
-        "description": "Exact Appointments",
-        "nullable": false
-      },
-      "Checkbox_Required__c": {
-        "type": "boolean",
-        "description": "Checkbox Required",
-        "nullable": false
-      },
-      "External_ID__c": {
-        "type": "string",
-        "description": "External ID",
-        "maxLength": 255,
-        "nullable": true
-      },
-      "Type__c": {
-        "type": "string",
-        "description": "Type",
-        "format": "enum",
-        "enum": [
-          "Field Service Lightning (FSL)",
-          "Lightning Scheduler (LS)"
-        ],
-        "maxLength": 255,
-        "nullable": true
-      },
-      "SDO_Record__c": {
-        "type": "boolean",
-        "description": "SDO_Record",
-        "nullable": false
-      },
       "SaDocumentTemplate": {
         "type": "string",
         "description": "The document template ID. If ServiceDocumentTemplateId isn’t specified, this document template ID determines which service document template is used for service documents generated from a service appointment. The ID is 15 to 18 characters long."
@@ -281,6 +246,16 @@
       "WoliDocumentTemplate": {
         "type": "string",
         "description": "The document template ID. If ServiceDocumentTemplateId isn’t specified, this document template ID determines which service document template is used for service documents generated from a work order line item. The ID is 15 to 18 characters long."
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -306,18 +281,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "Account",
-        "field": "SDO_SFS_Work_Type__c",
-        "relationshipName": "Accounts__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Account",
-        "field": "SDO_SFS_Work_Type_for_Quote_Creation__c",
-        "relationshipName": "Accounts1__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "AttachedContentDocument",
         "field": "LinkedEntityId",
         "relationshipName": "AttachedContentDocuments",
@@ -328,12 +291,6 @@
         "field": "LinkedEntityId",
         "relationshipName": "AttachedContentNotes",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "Case",
-        "field": "SDO_SFS_Work_Type__c",
-        "relationshipName": "Cases__r",
-        "cascadeDelete": false
       },
       {
         "childObject": "CombinedAttachment",
@@ -522,12 +479,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "WorkTypeFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "WorkTypeGroupMember",
         "field": "WorkTypeId",
         "relationshipName": "WorkTypeGroupMembers",
@@ -550,6 +501,8 @@
     "clouds": [
       "Core Salesforce",
       "Core Salesforce"
-    ]
+    ],
+    "iconUrl": "standard/work_type_120.png",
+    "iconColor": "0176D3"
   }
 }

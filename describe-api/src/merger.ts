@@ -16,6 +16,7 @@ export interface ExistingObject {
   label?: string;
   iconUrl?: string;
   iconColor?: string;
+  nameField?: string;
 }
 
 export interface ExistingProperty {
@@ -53,6 +54,7 @@ export function mergeWithExisting(
         ...(newSchema['x-salesforce']?.label && { label: newSchema['x-salesforce'].label }),
         ...(newSchema['x-salesforce']?.iconUrl && { iconUrl: newSchema['x-salesforce'].iconUrl }),
         ...(newSchema['x-salesforce']?.iconColor && { iconColor: newSchema['x-salesforce'].iconColor }),
+        ...(newSchema['x-salesforce']?.nameField && { nameField: newSchema['x-salesforce'].nameField }),
         ...(newSchema['x-salesforce']?.custom !== undefined && { 
           sourceUrl: newSchema['x-salesforce'].custom 
             ? undefined 
@@ -93,31 +95,30 @@ export function mergeWithExisting(
     const newProp = newSchema.properties?.[propName];
 
     if (existingProp && newProp) {
-      // Both exist - merge them, keeping existing description
+      // Both exist - merge them, preserving ALL existing properties
       mergedProperties[propName] = {
-        type: existingProp.type || newProp.type,
+        ...existingProp, // Preserve ALL existing properties first
         description: existingProp.description, // Keep existing description!
-        // Add enhanced metadata from Describe API
-        ...(newProp.format && { format: newProp.format }),
-        ...(newProp.enum && { enum: newProp.enum }),
-        ...(newProp['x-object'] && { 'x-object': newProp['x-object'] }),
-        ...(newProp['x-objects'] && { 'x-objects': newProp['x-objects'] }),
-        ...(newProp.maxLength && { maxLength: newProp.maxLength }),
-        ...(newProp.nullable !== undefined && { nullable: newProp.nullable }),
-        ...(newProp.readOnly && { readOnly: newProp.readOnly }),
-        ...(newProp.calculated && { calculated: newProp.calculated }),
-        ...(newProp.permissionable !== undefined && { permissionable: newProp.permissionable }),
-        ...(newProp.autoNumber && { autoNumber: newProp.autoNumber }),
-        ...(newProp.unique && { unique: newProp.unique }),
-        ...(newProp.externalId && { externalId: newProp.externalId }),
-        // Skip minimum/maximum - not useful for documentation
-        ...(newProp.multipleOf !== undefined && { multipleOf: newProp.multipleOf }),
+        // Add/update enhanced metadata from Describe API (only if not already present)
+        ...(newProp.format && !existingProp.format && { format: newProp.format }),
+        ...(newProp.enum && !existingProp.enum && { enum: newProp.enum }),
+        ...(newProp['x-object'] && !existingProp['x-object'] && { 'x-object': newProp['x-object'] }),
+        ...(newProp['x-objects'] && !existingProp['x-objects'] && { 'x-objects': newProp['x-objects'] }),
+        ...(newProp.maxLength && !existingProp.maxLength && { maxLength: newProp.maxLength }),
+        ...(newProp.nullable !== undefined && existingProp.nullable === undefined && { nullable: newProp.nullable }),
+        ...(newProp.readOnly && !existingProp.readOnly && { readOnly: newProp.readOnly }),
+        ...(newProp.calculated && !existingProp.calculated && { calculated: newProp.calculated }),
+        ...(newProp.permissionable !== undefined && existingProp.permissionable === undefined && { permissionable: newProp.permissionable }),
+        ...(newProp.autoNumber && !existingProp.autoNumber && { autoNumber: newProp.autoNumber }),
+        ...(newProp.unique && !existingProp.unique && { unique: newProp.unique }),
+        ...(newProp.externalId && !existingProp.externalId && { externalId: newProp.externalId }),
+        ...(newProp.multipleOf !== undefined && existingProp.multipleOf === undefined && { multipleOf: newProp.multipleOf }),
       };
     } else if (existingProp) {
-      // Only in existing - keep it
+      // Only in existing - keep it as-is
       mergedProperties[propName] = existingProp;
     } else if (newProp) {
-      // Only in new - add it (likely a custom field)
+      // Only in new - add it
       mergedProperties[propName] = {
         type: newProp.type,
         description: newProp.description || `${propName} field`,
@@ -132,19 +133,25 @@ export function mergeWithExisting(
     }
   }
 
-  // Return merged object
+  // Return merged object - preserve ALL existing properties first, then add new ones
   return {
     [objectName]: {
+      ...existing, // Preserve ALL existing fields first
       name: objectName,
       description: existing.description, // Keep existing description!
       properties: mergedProperties,
       module: existing.module, // Keep existing module
       sourceUrl: existing.sourceUrl, // Keep existing sourceUrl
+      // Only add/update new fields from Salesforce API
       ...(newSchema['x-salesforce']?.keyPrefix && { keyPrefix: newSchema['x-salesforce'].keyPrefix }),
       ...(existing.label && { label: existing.label }),
       // Add icon metadata from UI API
       ...(newSchema['x-salesforce']?.iconUrl && { iconUrl: newSchema['x-salesforce'].iconUrl }),
       ...(newSchema['x-salesforce']?.iconColor && { iconColor: newSchema['x-salesforce'].iconColor }),
+      // Add name field (only if not already present)
+      ...(newSchema['x-salesforce']?.nameField && !existing.nameField && { nameField: newSchema['x-salesforce'].nameField }),
+      // Preserve existing nameField if it exists
+      ...(existing.nameField && { nameField: existing.nameField }),
       // Add Salesforce metadata
       ...(newSchema['x-salesforce'] && {
         createable: newSchema['x-salesforce'].createable,

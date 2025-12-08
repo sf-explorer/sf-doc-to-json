@@ -5,27 +5,120 @@
     "properties": {
       "BusinessProcessGroupId": {
         "type": "string",
-        "description": "Unique identifier of the customer lifecycle map that is associated with the stage."
+        "description": "Unique identifier of the customer lifecycle map that is associated with the stage.",
+        "format": "salesforce-id",
+        "x-object": "BusinessProcessGroup",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer name of the stage."
+        "description": "Developer name of the stage.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Language": {
         "type": "string",
-        "description": "Language of the MasterLabel."
+        "description": "Language of the MasterLabel.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label of the stage."
+        "description": "Label of the stage.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "ProcessDescription": {
         "type": "string",
-        "description": "Description of the stage."
+        "description": "Description of the stage.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "SequenceNumber": {
         "type": "number",
-        "description": "Position of the stage in the associated customer lifecycle map."
+        "description": "Position of the stage in the associated customer lifecycle map.",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
@@ -33,6 +126,20 @@
     "clouds": [
       "Tooling API",
       "Core Salesforce"
+    ],
+    "keyPrefix": "0MH",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "BusinessProcessFeedback",
+        "field": "BusinessProcessDefinitionId",
+        "relationshipName": "BusinessProcessFeedbacks",
+        "cascadeDelete": true
+      }
     ]
   }
 }

@@ -180,12 +180,22 @@
       "ReferenceRecordId": {
         "type": "reference",
         "description": "Represents the record with which the associated task is related. This field is a polymorphic relationship field."
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_assessmenttask.htm",
     "keyPrefix": "0eg",
-    "iconUrl": "icon/t4v35/standard/maintenance_plan_120.png",
+    "iconUrl": "standard/maintenance_plan_120.png",
     "iconColor": "0176D3",
     "createable": true,
     "updateable": true,
@@ -228,12 +238,6 @@
         "field": "ContentContextId",
         "relationshipName": "ContentDocumentContext",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "AssessmentTaskFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "AssessmentTaskOrder",
@@ -314,12 +318,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -350,6 +348,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Note",
         "field": "ParentId",
         "relationshipName": "Notes",
@@ -365,6 +369,12 @@
         "childObject": "OpenActivity",
         "field": "WhatId",
         "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OtherComponentTask",
+        "field": "ParentTaskId",
+        "relationshipName": "ComponentTasks",
         "cascadeDelete": true
       },
       {
@@ -386,6 +396,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "SignatureTask",
+        "field": "ParentTaskId",
+        "relationshipName": "SignatureTaskAssessmentTasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SignatureTaskLineItem",
+        "field": "ParentId",
+        "relationshipName": "SignatureTaskLineItemParentValue",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -394,18 +416,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       }

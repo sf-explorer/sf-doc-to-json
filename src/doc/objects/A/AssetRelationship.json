@@ -25,7 +25,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Three-letter ISO 4217 currency code associated with the asset. The default value is USD."
+        "description": "Three-letter ISO 4217 currency code associated with the asset. The default value is USD.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "FromDate": {
         "type": "dateTime",
@@ -157,7 +163,7 @@
     "module": "Revenue Lifecycle Management",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetrelationship.htm",
     "keyPrefix": "1AR",
-    "iconUrl": "icon/t4v35/standard/asset_relationship_120.png",
+    "iconUrl": "standard/asset_relationship_120.png",
     "iconColor": "FF5D2D",
     "createable": true,
     "updateable": true,
@@ -188,12 +194,6 @@
         "field": "ContentContextId",
         "relationshipName": "ContentDocumentContext",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "AssetRelationshipFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "AssetRelationshipHistory",
@@ -262,12 +262,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -295,6 +289,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -342,18 +342,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       }

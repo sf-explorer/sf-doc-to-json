@@ -92,6 +92,16 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -182,6 +192,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ProcessInstance",
         "field": "TargetObjectId",
         "relationshipName": "ProcessInstances",
@@ -197,12 +213,6 @@
         "childObject": "ProfileSkillEndorsement",
         "field": "ProfileSkillUserId",
         "relationshipName": "ProfileSkillUserEndorsements",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ProfileSkillUserFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {

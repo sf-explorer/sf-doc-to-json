@@ -282,7 +282,8 @@
         "type": "percent",
         "format": "percent",
         "nullable": true,
-        "description": "Percentage value used for calculating tax."
+        "description": "Percentage value used for calculating tax.",
+        "multipleOf": 0.01
       },
       "RelatedLineId": {
         "type": "reference",
@@ -301,11 +302,18 @@
       "GrossUnitPrice": {
         "type": "number",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Three-letter ISO 4217 currency code associated with the credit memo line."
+        "description": "Three-letter ISO 4217 currency code associated with the credit memo line.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "TaxDocumentNumber": {
         "type": "string",
@@ -331,9 +339,9 @@
     "module": "Revenue Lifecycle Management",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoline.htm",
     "keyPrefix": "9yx",
-    "createable": false,
+    "createable": true,
     "updateable": true,
-    "deletable": false,
+    "deletable": true,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -384,12 +392,6 @@
         "field": "RelatedLineId",
         "relationshipName": "CreditMemoLines",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "CreditMemoLineFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "CreditMemoLineHistory",

@@ -5,7 +5,10 @@
     "properties": {
       "BenefitCategory": {
         "type": "string",
-        "description": "Name of the category this benefit is in."
+        "description": "Name of the category this benefit is in.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "CodeSetServiceTypeId": {
         "type": "reference",
@@ -13,11 +16,19 @@
       },
       "CoverageBenefitId": {
         "type": "reference",
-        "description": "The ID of the covered benefit this item belongs to."
+        "description": "The ID of the covered benefit this item belongs to.",
+        "format": "salesforce-id",
+        "x-object": "CoverageBenefit",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CoverageLevel": {
         "type": "string",
-        "description": "Description of the level of coverage provided by this item."
+        "description": "Description of the level of coverage provided by this item.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "DoesDeductibleApply": {
         "type": "boolean",
@@ -25,7 +36,10 @@
       },
       "InNetworkCoverage": {
         "type": "textarea",
-        "description": "Description of the in network coverage provided by this item."
+        "description": "Description of the in network coverage provided by this item.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "IsActive": {
         "type": "boolean",
@@ -33,7 +47,9 @@
       },
       "IsInPlanNetwork": {
         "type": "boolean",
-        "description": "Indicates whether the benefit is available only in-network (true) or both in-network and out-of-network (false)."
+        "description": "Indicates whether the benefit is available only in-network (true) or both in-network and out-of-network (false).",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPreauthorizationRequired": {
         "type": "boolean",
@@ -41,61 +57,371 @@
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberId": {
         "type": "reference",
-        "description": "The ID of the member receiving this benefit item."
+        "description": "The ID of the member receiving this benefit item.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of this coverage benefit item."
+        "description": "Name of this coverage benefit item.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Notes": {
         "type": "textarea",
-        "description": "Additional information about this coverage benefit item."
+        "description": "Additional information about this coverage benefit item.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "OutofNetworkCoverage": {
         "type": "textarea",
-        "description": "Description of the coverage for non-preferred providers."
+        "description": "Description of the coverage for non-preferred providers.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who owns this record."
+        "description": "The ID of the user who owns this record.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ServiceType": {
         "type": "string",
-        "description": "The type of service this plan benefit item provides."
+        "description": "The type of service this plan benefit item provides.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "ServiceTypeCode": {
         "type": "string",
-        "description": "The code for the type of service this plan benefit item provides."
+        "description": "The code for the type of service this plan benefit item provides.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystem": {
         "type": "string",
-        "description": "The name of the system this coverage benefits item record came from."
+        "description": "The name of the system this coverage benefits item record came from.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "The identifier of the CoverageBenefitItem in its source system."
+        "description": "The identifier of the CoverageBenefitItem in its source system.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemModified": {
         "type": "dateTime",
-        "description": "The date on which this coverage benefits item was last changed on the source system."
+        "description": "The date on which this coverage benefits item was last changed on the source system.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "TimePeriod": {
         "type": "string",
-        "description": "A description of the period this plan benefit item covers."
+        "description": "A description of the period this plan benefit item covers.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_coveragebenefititem.htm",
     "clouds": [
       "Health Cloud"
+    ],
+    "keyPrefix": "0Sf",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CoverageBenefitItemHistory",
+        "field": "CoverageBenefitItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CoverageBenefitItemShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

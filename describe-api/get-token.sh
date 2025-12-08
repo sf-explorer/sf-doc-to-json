@@ -37,14 +37,32 @@ fi
 # Get org info
 echo ""
 echo "Fetching org information..."
-ORG_INFO=$(sf org display $ORG_ARG --json 2>&1)
+ORG_INFO_RAW=$(sf org display $ORG_ARG --json 2>&1)
 
 if [ $? -ne 0 ]; then
     echo "❌ Failed to get org information"
-    echo "$ORG_INFO"
+    echo "$ORG_INFO_RAW"
     echo ""
     echo "Please login first:"
     echo "  sf org login web --alias my-org"
+    exit 1
+fi
+
+# Filter out warnings and extract only the JSON part
+# SF CLI outputs warnings like " ›   Warning: ..." which breaks JSON parsing
+ORG_INFO=$(echo "$ORG_INFO_RAW" | grep -v "^[[:space:]]*›" | grep -v "^[[:space:]]*Warning:")
+
+# Check if the output is valid JSON
+if ! echo "$ORG_INFO" | jq empty 2>/dev/null; then
+    echo "❌ Invalid JSON response from Salesforce CLI"
+    echo ""
+    echo "Raw response:"
+    echo "$ORG_INFO_RAW"
+    echo ""
+    echo "💡 This might be because:"
+    echo "  1. The org is not authenticated (try: sf org login web)"
+    echo "  2. The CLI has warnings mixed with JSON output"
+    echo "  3. The specified org doesn't exist"
     exit 1
 fi
 

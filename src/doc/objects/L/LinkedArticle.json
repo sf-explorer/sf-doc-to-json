@@ -5,7 +5,13 @@
     "properties": {
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "KnowledgeArticleId": {
         "type": "reference",
@@ -204,16 +210,16 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "LinkedArticleFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "LinkedArticleHistory",
         "field": "LinkedArticleId",
         "relationshipName": "Histories",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
       },
       {
         "childObject": "Note",

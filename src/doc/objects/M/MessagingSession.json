@@ -340,12 +340,22 @@
         "description": "Intent",
         "maxLength": 255,
         "nullable": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingsession.htm",
     "keyPrefix": "0Mw",
-    "iconUrl": "icon/t4v35/standard/messaging_session_120.png",
+    "iconUrl": "standard/messaging_session_120.png",
     "iconColor": "06A59A",
     "createable": true,
     "updateable": true,
@@ -353,6 +363,18 @@
     "queryable": true,
     "searchable": true,
     "childRelationships": [
+      {
+        "childObject": "AgentWork",
+        "field": "WorkItemId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AnalyticsBotSession",
+        "field": "SourceId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
       {
         "childObject": "AttachedContentDocument",
         "field": "LinkedEntityId",
@@ -396,6 +418,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "ConversationDefinitionSessionEngagement",
+        "field": "ConversationEngagementId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
         "childObject": "ConversationEntry",
         "field": "ConversationId",
         "relationshipName": "ConversationEntries",
@@ -426,12 +454,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "MessagingSessionFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "MessagingSessionHistory",
         "field": "MessagingSessionId",
         "relationshipName": "Histories",
@@ -441,6 +463,18 @@
         "childObject": "MessagingSessionShare",
         "field": "ParentId",
         "relationshipName": "Shares",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PendingServiceRouting",
+        "field": "WorkItemId",
+        "relationshipName": null,
         "cascadeDelete": true
       },
       {
@@ -465,6 +499,12 @@
         "childObject": "RecordActionHistory",
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
         "cascadeDelete": false
       }
     ],

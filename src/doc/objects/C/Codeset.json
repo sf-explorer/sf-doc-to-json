@@ -26,7 +26,10 @@
         "description": "The type of the code set.",
         "format": "enum",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "enum": [
+          "Cognitive Impairment"
+        ]
       },
       "EndDate": {
         "type": "date",
@@ -155,6 +158,16 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Manufacturing Cloud",
@@ -189,6 +202,12 @@
         "field": "LinkedEntityId",
         "relationshipName": "AttachedContentNotes",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "CareMetricTarget",
+        "field": "CodeId",
+        "relationshipName": "CareMetricTargets",
+        "cascadeDelete": false
       },
       {
         "childObject": "CareObservation",
@@ -285,12 +304,6 @@
         "field": "CodeSet9Id",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "CodeSetFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "CodeSetHistory",

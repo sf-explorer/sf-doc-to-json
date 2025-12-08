@@ -13,7 +13,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Possible values are: EUR—Euro USD—U.S. Dollar"
+        "description": "Possible values are: EUR—Euro USD—U.S. Dollar",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "Description": {
         "type": "textarea",
@@ -130,7 +136,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productcatalog.htm",
     "keyPrefix": "0ZS",
-    "iconUrl": "icon/t4v35/standard/catalog_120.png",
+    "iconUrl": "standard/catalog_120.png",
     "iconColor": "22683E",
     "createable": true,
     "updateable": true,
@@ -223,12 +229,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -259,6 +259,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "OpenActivity",
         "field": "WhatId",
         "relationshipName": "OpenActivities",
@@ -281,12 +287,6 @@
         "field": "TargetObjectId",
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "ProductCatalogFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "ProductCatalogHistory",
@@ -313,6 +313,12 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "SalesStoreCatalog",
+        "field": "ProductCatalogId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -325,16 +331,10 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
+        "childObject": "WebStoreCatalog",
+        "field": "ProductCatalogId",
+        "relationshipName": "WebStoreCatalogs",
         "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
       }
     ],
     "accessRules": "You must have the Industries, Retail, or B2B Commerce license.",

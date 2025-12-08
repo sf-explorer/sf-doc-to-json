@@ -207,7 +207,8 @@
       "ApiVersion": {
         "type": "double",
         "description": "The API version if this is a Visualforce email template. Every Visualforce email template has an API version specified at creation.",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.1
       },
       "Markup": {
         "type": "textarea",
@@ -1002,7 +1003,9 @@
       },
       "HasSalesforceFiles": {
         "type": "boolean",
-        "description": "If the email template has attachments from Salesforce Files. The default value is false."
+        "description": "If the email template has attachments from Salesforce Files. The default value is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "TotalDelivered": {
         "type": "int",
@@ -1094,6 +1097,12 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "EmailContent",
+        "field": "TemplateId",
+        "relationshipName": "EmailContents",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "EmailMessage",
         "field": "EmailTemplateId",
         "relationshipName": null,
@@ -1106,7 +1115,85 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "Network",
+        "field": "CaseCommentEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "ChangePasswordEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "ChgEmailVerNewEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "ChgEmailVerOldEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "ForgotPasswordEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "LockoutEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "VerificationEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Network",
+        "field": "WelcomeEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Organization",
+        "field": "WebToCaseAssignedEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Organization",
+        "field": "WebToCaseCreatedEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Organization",
+        "field": "WebToCaseEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Organization",
+        "field": "WebToLeadEmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "OutgoingEmail",
+        "field": "EmailTemplateId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveyVersionAddlInfo",
         "field": "EmailTemplateId",
         "relationshipName": null,
         "cascadeDelete": false

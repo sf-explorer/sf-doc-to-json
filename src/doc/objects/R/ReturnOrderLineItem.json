@@ -296,79 +296,97 @@
         "type": "currency",
         "description": "Unit price of the return order line item.",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "GrossUnitPrice": {
         "type": "currency",
         "description": "Unit price, including tax, of the product represented by the associated order item summary.",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmount": {
         "type": "currency",
         "description": "Total, not including adjustments or tax, of the return order line item.",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TotalLineTaxAmount": {
         "type": "currency",
         "description": "Tax on the TotalLineAmount.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentTaxAmount": {
         "type": "currency",
         "description": "Tax on the TotalAdjustmentAmount.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentAmount": {
         "type": "currency",
         "description": "Total of all price adjustments applied to the return order line item.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmountWithTax": {
         "type": "currency",
         "description": "Total price of the return order line item, inclusive of tax. This amount is equal to TotalLineAmount + TotalLineTaxAmount.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentAmountWithTax": {
         "type": "currency",
         "description": "Total amount of the price adjustments applied to the return order line item, inclusive of tax. This amount is equal to TotalAdjustmentAmount + TotalAdjustmentTaxAmount.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalPrice": {
         "type": "currency",
         "description": "Total, including adjustments but not tax, of the return order line item. Equal to UnitPrice times Quantity.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalTaxAmount": {
         "type": "currency",
         "description": "Tax on the TotalAmount.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAmount": {
         "type": "currency",
         "description": "Total, including adjustments and tax, of the return order line item.",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the ReturnOrderLineItem."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the ReturnOrderLineItem.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       },
       "ProductServiceCampaignId": {
         "type": "reference",
@@ -479,12 +497,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -593,12 +605,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "ReturnOrderLineItemFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "ReturnOrderLineItemHistory",
         "field": "ReturnOrderLineItemId",
         "relationshipName": "Histories",
@@ -613,18 +619,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       },
@@ -663,6 +657,8 @@
     "clouds": [
       "Manufacturing Cloud",
       "Core Salesforce"
-    ]
+    ],
+    "iconUrl": "standard/return_order_line_item_120.png",
+    "iconColor": "06A59A"
   }
 }

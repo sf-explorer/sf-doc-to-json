@@ -199,176 +199,6 @@
         "maxLength": 18,
         "nullable": true
       },
-      "FSL__GanttLabel__c": {
-        "type": "string",
-        "description": "Gantt Label",
-        "maxLength": 80,
-        "nullable": true
-      },
-      "FSL__Priority__c": {
-        "type": "number",
-        "description": "Priority",
-        "nullable": true
-      },
-      "FSL__Travel_Speed__c": {
-        "type": "number",
-        "description": "Travel Speed",
-        "nullable": true
-      },
-      "FSL__Online_Offset__c": {
-        "type": "number",
-        "description": "Online Offset",
-        "nullable": true
-      },
-      "External_ID__c": {
-        "type": "string",
-        "description": "External ID",
-        "maxLength": 255,
-        "nullable": true
-      },
-      "Contractor_s_Service_Territory__c": {
-        "type": "string",
-        "description": "Contractor's Service Territory",
-        "format": "salesforce-id",
-        "x-object": "ServiceTerritory",
-        "maxLength": 18,
-        "nullable": true
-      },
-      "Is_Contractor__c": {
-        "type": "boolean",
-        "description": "Is Contractor",
-        "nullable": false
-      },
-      "FSL__Efficiency__c": {
-        "type": "number",
-        "description": "Efficiency",
-        "nullable": true
-      },
-      "FSL__Picture_Link__c": {
-        "type": "string",
-        "description": "Picture Link",
-        "format": "uri",
-        "maxLength": 255,
-        "nullable": true
-      },
-      "Cost_Per_Mile__c": {
-        "type": "number",
-        "description": "Cost Per Mile",
-        "format": "currency",
-        "nullable": true
-      },
-      "Number_of_Jobs_Optimized__c": {
-        "type": "number",
-        "description": "Number of Jobs Optimized",
-        "nullable": true
-      },
-      "Number_of_Jobs_Scheduled__c": {
-        "type": "number",
-        "description": "Number of Jobs Scheduled",
-        "nullable": true
-      },
-      "Additional_Jobs_Scheduled__c": {
-        "type": "number",
-        "description": "Additional Jobs Scheduled",
-        "nullable": true,
-        "readOnly": true
-      },
-      "Additional_Job_Revenue__c": {
-        "type": "number",
-        "description": "Additional Job Revenue",
-        "format": "currency",
-        "nullable": true,
-        "readOnly": true
-      },
-      "Opt_KPI_Reset__c": {
-        "type": "boolean",
-        "description": "Opt KPI Reset",
-        "nullable": false
-      },
-      "Optimization_KPI__c": {
-        "type": "boolean",
-        "description": "Optimization KPI",
-        "nullable": false
-      },
-      "Original_Travel_Time__c": {
-        "type": "number",
-        "description": "Original Travel Time",
-        "nullable": true
-      },
-      "Updated_Travel_Time__c": {
-        "type": "number",
-        "description": "Updated Travel Time",
-        "nullable": true
-      },
-      "Travel_Delta__c": {
-        "type": "number",
-        "description": "Travel Delta",
-        "nullable": true,
-        "readOnly": true
-      },
-      "Travel_Savings__c": {
-        "type": "number",
-        "description": "Travel Savings",
-        "format": "currency",
-        "nullable": true,
-        "readOnly": true
-      },
-      "Optimization_Revenue__c": {
-        "type": "number",
-        "description": "Optimization Revenue",
-        "format": "currency",
-        "nullable": true,
-        "readOnly": true
-      },
-      "Gantt_Color__c": {
-        "type": "string",
-        "description": "Gantt Color",
-        "format": "enum",
-        "enum": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-          "10",
-          "11",
-          "12",
-          "None"
-        ],
-        "maxLength": 255,
-        "nullable": true
-      },
-      "Tracker_Contact__c": {
-        "type": "string",
-        "description": "Tracker Contact",
-        "format": "salesforce-id",
-        "x-object": "Contact",
-        "maxLength": 18,
-        "nullable": true
-      },
-      "User_Type__c": {
-        "type": "string",
-        "description": "User Type",
-        "format": "enum",
-        "enum": [
-          "Field Service Lightning (FSL)",
-          "Lightning Scheduler (LS)",
-          "Service Cloud",
-          "Workforce Engagement"
-        ],
-        "maxLength": 255,
-        "nullable": true
-      },
-      "Role__c": {
-        "type": "string",
-        "description": "Role",
-        "maxLength": 255,
-        "nullable": true
-      },
       "En_Route_Location__Latitude__s": {
         "type": "number",
         "description": "En Route Location (Latitude)",
@@ -378,12 +208,6 @@
         "type": "number",
         "description": "En Route Location (Longitude)",
         "nullable": true
-      },
-      "En_Route_Location__c": {
-        "type": "object",
-        "description": "En Route Location",
-        "nullable": true,
-        "readOnly": true
       },
       "Last_Mile_Location__Latitude__s": {
         "type": "number",
@@ -395,11 +219,15 @@
         "description": "Last Mile Location (Longitude)",
         "nullable": true
       },
-      "Last_Mile_Location__c": {
-        "type": "object",
-        "description": "Last Mile Location",
-        "nullable": true,
-        "readOnly": true
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -515,21 +343,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "FSL__Optimization_Request__c",
-        "field": "FSL__Service_Resource__c",
-        "relationshipName": "FSL__Optimization_Requests__r",
         "cascadeDelete": false
       },
       {
@@ -629,12 +445,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "ServiceAppointment",
-        "field": "FSLDemoTools_Service_Resource__c",
-        "relationshipName": "Service_Appointments__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "ServiceCrewMember",
         "field": "ServiceResourceId",
         "relationshipName": "ServiceCrewMembers",
@@ -650,12 +460,6 @@
         "childObject": "ServiceResourceCapacity",
         "field": "ServiceResourceId",
         "relationshipName": "ServiceResourceCapacities",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ServiceResourceFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {
@@ -713,18 +517,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "TimeSheet",
         "field": "ServiceResourceId",
         "relationshipName": "TimeSheets",
@@ -743,12 +535,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "Vehicle_Inspection__c",
-        "field": "Service_Resource__c",
-        "relationshipName": "Vehicle_Inspections__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Visit",
         "field": "VisitorId",
         "relationshipName": null,
@@ -765,6 +551,8 @@
     "clouds": [
       "Core Salesforce",
       "Core Salesforce"
-    ]
+    ],
+    "iconUrl": "standard/service_resource_120.png",
+    "iconColor": "5867E8"
   }
 }

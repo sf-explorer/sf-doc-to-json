@@ -161,6 +161,16 @@
         "description": "Is Locked",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -245,6 +255,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ProcessInstance",
         "field": "TargetObjectId",
         "relationshipName": "ProcessInstances",
@@ -267,12 +283,6 @@
         "field": "DefinitionId",
         "relationshipName": "Badges",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkBadgeDefinitionFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "WorkBadgeDefinitionHistory",

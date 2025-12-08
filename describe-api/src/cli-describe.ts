@@ -52,7 +52,8 @@ METHOD 2 - Username/Password (Traditional - may be disabled):
   SF_SECURITY_TOKEN=your-token
 
 Additional options:
-  SF_OUTPUT_DIR (optional, defaults to ./schemas)
+  SF_OUTPUT_DIR (optional, defaults to ../src/doc when SF_MERGE_WITH_DOCS=true, else ./schemas)
+  SF_MERGE_WITH_DOCS (optional, set to 'true' to merge with existing doc/objects files)
   SF_OBJECTS (optional, comma-separated list of specific objects to fetch)
   SF_BATCH_SIZE (optional, defaults to 10)
 
@@ -71,11 +72,13 @@ If you get "SOAP API login() is disabled" error, use OAuth2 method (Method 1).
     process.exit(1);
   }
 
-  const outputDir = process.env.SF_OUTPUT_DIR || './schemas';
+  const mergeWithDocs = process.env.SF_MERGE_WITH_DOCS === 'true';
+  // When merging with docs, default to ../src/doc, otherwise use ./schemas
+  const defaultOutputDir = mergeWithDocs ? '../src/doc' : './schemas';
+  const outputDir = process.env.SF_OUTPUT_DIR || defaultOutputDir;
   const objectsStr = process.env.SF_OBJECTS;
   const objects = objectsStr ? objectsStr.split(',').map(s => s.trim()) : undefined;
   const batchSize = process.env.SF_BATCH_SIZE ? parseInt(process.env.SF_BATCH_SIZE) : 10;
-  const mergeWithDocs = process.env.SF_MERGE_WITH_DOCS === 'true';
   const resume = process.env.SF_RESUME !== 'false'; // Default to true
   const startFromIndex = process.env.SF_START_FROM_INDEX ? parseInt(process.env.SF_START_FROM_INDEX) : undefined;
   const skipCustomObjects = process.env.SF_SKIP_CUSTOM !== 'false'; // Default to true

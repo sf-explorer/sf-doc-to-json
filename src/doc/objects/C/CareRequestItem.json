@@ -5,15 +5,40 @@
     "properties": {
       "AmbulanceTransportDistance": {
         "type": "double",
-        "description": "Distance traveled during ambulance transport."
+        "description": "Distance traveled during ambulance transport.",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AmbulanceTransportReason": {
         "type": "picklist",
-        "description": "Reason for ambulance transport."
+        "description": "Reason for ambulance transport.",
+        "format": "enum",
+        "enum": [
+          "Patient was transported to nearest facility for care of symptoms, complaints, or both",
+          "Patient was transported for the benefit of a preferred physician",
+          "Patient was transported for the nearness of family members",
+          "Patient was transported for the care of a specialist or for availability of specialized equipment",
+          "Patient Transferred to Rehabilitation Facility",
+          "Patient Transferred to Residential Facility"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "AmbulanceTransportType": {
         "type": "picklist",
-        "description": "Type of ambulance transport."
+        "description": "Type of ambulance transport.",
+        "format": "enum",
+        "enum": [
+          "Initial Trip",
+          "Return Trip",
+          "Transfer Trip",
+          "Round Trip"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ApprovedLengthOfStay": {
         "type": "int",
@@ -25,7 +50,9 @@
       },
       "ApprovedQuantity": {
         "type": "int",
-        "description": "The approved quantity of the care item."
+        "description": "The approved quantity of the care item.",
+        "nullable": true,
+        "readOnly": true
       },
       "ApprovedServiceEndDate": {
         "type": "date",
@@ -49,11 +76,21 @@
       },
       "CareRequestCaseId": {
         "type": "reference",
-        "description": "Case related to the care request."
+        "description": "Case related to the care request.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CareRequestId": {
         "type": "reference",
-        "description": "Care request for the care request item."
+        "description": "Care request for the care request item.",
+        "format": "salesforce-id",
+        "x-object": "CareRequest",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ClinicalDetermination": {
         "type": "picklist",
@@ -73,15 +110,29 @@
       },
       "CodeDescription": {
         "type": "string",
-        "description": "Description of the denied service code."
+        "description": "Description of the denied service code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "CodeType": {
         "type": "picklist",
-        "description": "Code type for the service."
+        "description": "Code type for the service.",
+        "format": "enum",
+        "enum": [
+          "CPT",
+          "HCPCS"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CodeTypeIdentifier": {
         "type": "string",
-        "description": "ID of the code type for the service."
+        "description": "ID of the code type for the service.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "CumulativeLengthOfStay": {
         "type": "int",
@@ -101,51 +152,91 @@
       },
       "DeniedQuantity": {
         "type": "int",
-        "description": "The quantity of the denied service."
+        "description": "The quantity of the denied service.",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveDate": {
         "type": "date",
-        "description": "Effective date for the diagnosis."
+        "description": "Effective date for the diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "EndDate": {
         "type": "date",
-        "description": "Termination date for the service."
+        "description": "Termination date for the service.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "FreeFormProcedureDescription": {
         "type": "textarea",
-        "description": "Free-form description of the procedure."
+        "description": "Free-form description of the procedure.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeDescription": {
         "type": "string",
-        "description": "Description of the modified service code."
+        "description": "Description of the modified service code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeIdentifier": {
         "type": "string",
-        "description": "ID of the code for the modified service."
+        "description": "ID of the code for the modified service.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeType": {
         "type": "picklist",
-        "description": "Code type for the modified service."
+        "description": "Code type for the modified service.",
+        "format": "enum",
+        "enum": [
+          "CPT",
+          "HCPCS"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeTypeIdentifier": {
         "type": "string",
-        "description": "ID of the code type for the modified service."
+        "description": "ID of the code type for the modified service.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedEffectiveDate": {
         "type": "date",
-        "description": "Effective date for the modified service."
+        "description": "Effective date for the modified service.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedEndDate": {
         "type": "date",
-        "description": "Termination date for the modified service."
+        "description": "Termination date for the modified service.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedLevelOfCare": {
         "type": "picklist",
@@ -153,15 +244,26 @@
       },
       "ModifiedModifier": {
         "type": "string",
-        "description": "Modifier for modified service code."
+        "description": "Modifier for modified service code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedModifierDescription": {
         "type": "string",
-        "description": "Modifier description for modified service code."
+        "description": "Modifier description for modified service code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedProcedureCodeId": {
         "type": "reference",
-        "description": "Code for the modified service, drug, or equipment. ModifiedProcedureCodeId will be deprecated in a future release, so use ModifiedProcedureCodeSetId instead."
+        "description": "Code for the modified service, drug, or equipment. ModifiedProcedureCodeId will be deprecated in a future release, so use ModifiedProcedureCodeSetId instead.",
+        "format": "salesforce-id",
+        "x-object": "HealthCareProcedure",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedProcedureCodeSetId": {
         "type": "reference",
@@ -169,35 +271,58 @@
       },
       "ModifiedQuantity": {
         "type": "int",
-        "description": "The modified quantity of requested care."
+        "description": "The modified quantity of requested care.",
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier": {
         "type": "string",
-        "description": "Modifier for the service code."
+        "description": "Modifier for the service code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier2": {
         "type": "string",
-        "description": "Second modifier for service code."
+        "description": "Second modifier for service code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier2Description": {
         "type": "string",
-        "description": "Description of the second modifier for the service code."
+        "description": "Description of the second modifier for the service code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier3": {
         "type": "string",
-        "description": "Third modifier for service code."
+        "description": "Third modifier for service code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier3Description": {
         "type": "string",
-        "description": "Description of the third modifier for the service code."
+        "description": "Description of the third modifier for the service code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier4": {
         "type": "string",
-        "description": "Fourth modifier for service code."
+        "description": "Fourth modifier for service code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "Modifier4Description": {
         "type": "string",
-        "description": "Description of the fourth modifier for the service code."
+        "description": "Description of the fourth modifier for the service code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifierCodeSetId": {
         "type": "reference",
@@ -205,11 +330,17 @@
       },
       "ModifierDescription": {
         "type": "string",
-        "description": "Description of the modifier for the service code"
+        "description": "Description of the modifier for the service code",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "ID of the service code."
+        "description": "ID of the service code.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Priority": {
         "type": "picklist",
@@ -217,7 +348,12 @@
       },
       "ProcedureCodeId": {
         "type": "reference",
-        "description": "Code for the service, drug, or equipment. ProcedureCodeId will be deprecated in a future release, so use ProcedureCodeSetId instead."
+        "description": "Code for the service, drug, or equipment. ProcedureCodeId will be deprecated in a future release, so use ProcedureCodeSetId instead.",
+        "format": "salesforce-id",
+        "x-object": "HealthCareProcedure",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ProcedureCodeSetId": {
         "type": "reference",
@@ -225,11 +361,22 @@
       },
       "Quantity": {
         "type": "int",
-        "description": "The quantity of the item that is requested."
+        "description": "The quantity of the item that is requested.",
+        "nullable": true,
+        "readOnly": true
       },
       "QuantityType": {
         "type": "picklist",
-        "description": "Quantity type for the request such as days, units, or visits."
+        "description": "Quantity type for the request such as days, units, or visits.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Units",
+          "Visits"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ReasonCodeId": {
         "type": "reference",
@@ -265,11 +412,17 @@
       },
       "ServiceCategory": {
         "type": "string",
-        "description": "Name of the service type such as medical care, diagnostic radiology, pharmacy, or diagnostic laboratory."
+        "description": "Name of the service type such as medical care, diagnostic radiology, pharmacy, or diagnostic laboratory.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "ServiceCategoryCode": {
         "type": "string",
-        "description": "Alphanumeric code that uniquely identifies a service type"
+        "description": "Alphanumeric code that uniquely identifies a service type",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "ServiceInformationResponseId": {
         "type": "reference",
@@ -285,19 +438,43 @@
       },
       "SourceSystem": {
         "type": "string",
-        "description": "System from which the request was sourced."
+        "description": "System from which the request was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "ID of the system from which the request was sourced."
+        "description": "ID of the system from which the request was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemModified": {
         "type": "dateTime",
-        "description": "Timestamp of the most recent update from the source system."
+        "description": "Timestamp of the most recent update from the source system.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The authorization status of this service."
+        "description": "The authorization status of this service.",
+        "format": "enum",
+        "enum": [
+          "Certified in Total",
+          "Certified - Partial",
+          "Modified",
+          "Not Certified",
+          "Cancelled",
+          "Contact Payer",
+          "No Action Required",
+          "Complete",
+          "Term Expired"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "StatusCodeId": {
         "type": "reference",
@@ -305,7 +482,73 @@
       },
       "StatusReason": {
         "type": "picklist",
-        "description": "Reason for the authorization status of this service."
+        "description": "Reason for the authorization status of this service.",
+        "format": "enum",
+        "enum": [
+          "Authorized Quantity Exceeded",
+          "Required application data missing",
+          "Input Errors",
+          "Authorization/Access Restrictions",
+          "Unable to Respond at Current Time",
+          "Invalid/Missing Provider Identification",
+          "Invalid/Missing Provider Name",
+          "Invalid/Missing Provider Specialty",
+          "Invalid/Missing Provider Phone Number",
+          "Invalid/Missing Provider State",
+          "Invalid/Missing Referring Provider Identification Number",
+          "Provider is Not Primary Care Physician",
+          "Provider Ineligible for Inquiries",
+          "Provider Not on File",
+          "Service Dates Not Within Provider Plan Enrollment",
+          "Inquired Benefit Inconsistent with Provider Type",
+          "Inappropriate Product/Service ID Qualifier",
+          "Inappropriate Product/Service ID",
+          "Inappropriate Date",
+          "Invalid/Missing Date(s) of Service",
+          "Invalid/Missing Date-of-Birth",
+          "Date of Birth Follows Date(s) of Service",
+          "Date of Death Precedes Date(s) of Service",
+          "Date of Service Not Within Allowable Inquiry Period",
+          "Date of Service in Future",
+          "Invalid/Missing Patient ID",
+          "Invalid/Missing Patient Name",
+          "Invalid/Missing Patient Gender Code",
+          "Patient Not Found",
+          "Duplicate Patient ID Number",
+          "Inconsistent with Patient's Age",
+          "Inconsistent with Patient's Gender",
+          "Patient Birth Date Does Not Match That for the Patient on the Database",
+          "Invalid/Missing Subscriber/Insured ID",
+          "Invalid/Missing Subscriber/Insured Name",
+          "Invalid/Missing Subscriber/Insured Gender Code",
+          "Subscriber/Insured Not Found",
+          "Duplicate Subscriber/Insured ID Number",
+          "Subscriber Found, Patient Not Found",
+          "Subscriber/Insured Not in Group/Plan Identified",
+          "Invalid Participant Identification",
+          "No Response received - Transaction Terminated",
+          "Patient Not Eligible",
+          "Invalid or Missing Provider Address",
+          "Experimental Service or Procedure",
+          "Authorization Number Not Found",
+          "Requires Primary Care Physician Authorization",
+          "Invalid/Missing Diagnosis Code(s)",
+          "Invalid/Missing Procedure Code(s)",
+          "Invalid/Missing Onset of Current Condition or Illness Date",
+          "Invalid/Missing Accident Date",
+          "Invalid/Missing Last Menstrual Period Date",
+          "Invalid/Missing Expected Date of Birth",
+          "Invalid/Missing Admission Date",
+          "Invalid/Missing Discharge Date",
+          "Additional Patient Condition Information Required",
+          "Certification Information Does Not Match Patient",
+          "Requires Medical Review",
+          "Invalid Authorization Number Format",
+          "Inappropriate Provider Role"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "SubmittedDateTime": {
         "type": "dateTime",
@@ -317,13 +560,288 @@
       },
       "TransportLocationId": {
         "type": "reference",
-        "description": "Destination location for ambulance transport."
+        "description": "Destination location for ambulance transport.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_carerequestitem.htm",
     "clouds": [
       "Health Cloud"
+    ],
+    "keyPrefix": "0VK",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareRequestItemHistory",
+        "field": "CareRequestItemId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

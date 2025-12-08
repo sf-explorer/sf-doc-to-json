@@ -151,6 +151,16 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -235,12 +245,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "MaintenanceWorkRuleFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "MaintenanceWorkRuleHistory",
         "field": "MaintenanceWorkRuleId",
         "relationshipName": "Histories",
@@ -271,6 +275,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "WorkOrder",
+        "field": "MaintenanceWorkRuleId",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "MaintenanceWorkRuleId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "WorkOrderLineItem",
         "field": "MaintenanceWorkRuleId",
         "relationshipName": "WorkOrderLineItems",
@@ -286,6 +302,8 @@
     "clouds": [
       "Field Service Lightning",
       "Core Salesforce"
-    ]
+    ],
+    "iconUrl": "standard/maintenance_work_rule_120.png",
+    "iconColor": "0176D3"
   }
 }

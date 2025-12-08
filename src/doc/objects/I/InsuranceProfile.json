@@ -5,77 +5,370 @@
     "properties": {
       "ContactId": {
         "type": "reference",
-        "description": "The ID of the contact related to this insurance profile."
+        "description": "The ID of the contact related to this insurance profile.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": false
       },
       "IsAlcoholAbuser": {
         "type": "boolean",
-        "description": "Indicates whether the person has a history of alcohol abuse. The default value is False."
+        "description": "Indicates whether the person has a history of alcohol abuse. The default value is False.",
+        "nullable": false
       },
       "IsAlcoholConsumer": {
         "type": "boolean",
-        "description": "Indicates whether the person consumes alcohol. The default value is False."
+        "description": "Indicates whether the person consumes alcohol. The default value is False.",
+        "nullable": false
       },
       "IsDrugAbuser": {
         "type": "boolean",
-        "description": "Indicates whether the person has a history of drug abuse. The default value is False."
+        "description": "Indicates whether the person has a history of drug abuse. The default value is False.",
+        "nullable": false
       },
       "IsGoodDriver": {
         "type": "boolean",
-        "description": "Indicates whether the person is categorized as a good driver. The default value is False."
+        "description": "Indicates whether the person is categorized as a good driver. The default value is False.",
+        "nullable": false
       },
       "IsGoodStudent": {
         "type": "boolean",
-        "description": "Indicates whether the person is categorized as a good student. The default value is False."
+        "description": "Indicates whether the person is categorized as a good student. The default value is False.",
+        "nullable": false
       },
       "IsHighRiskOccupation": {
         "type": "boolean",
-        "description": "Indicates whether the person’s current employment is a high-risk job. The default value is False."
+        "description": "Indicates whether the person’s current employment is a high-risk job. The default value is False.",
+        "nullable": false
       },
       "IsLicenseSuspended": {
         "type": "boolean",
-        "description": "Indicates whether the insured member’s driver’s license was ever suspended. The default value is False."
+        "description": "Indicates whether the insured member’s driver’s license was ever suspended. The default value is False.",
+        "nullable": false
       },
       "IsTobaccoConsumer": {
         "type": "boolean",
-        "description": "Indicates whether the person consumes tobacco. The default value is False."
+        "description": "Indicates whether the person consumes tobacco. The default value is False.",
+        "nullable": false
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MajorCitationCount": {
         "type": "int",
-        "description": "The number of major citations the person had when the policy was created."
+        "description": "The number of major citations the person had when the policy was created.",
+        "nullable": true
       },
       "MinorCitationCount": {
         "type": "int",
-        "description": "The number of minor citations the person had when the policy was created."
+        "description": "The number of minor citations the person had when the policy was created.",
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "An auto-generated number assigned to this record."
+        "description": "An auto-generated number assigned to this record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "NumberOfAccidents": {
         "type": "int",
-        "description": "The number of accidents the insured member was involved in."
+        "description": "The number of accidents the insured member was involved in.",
+        "nullable": true
       },
       "SourceSystem": {
         "type": "string",
-        "description": "The name of the source system this record was obtained from."
+        "description": "The name of the source system this record was obtained from.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "The ID of this record in the source system."
+        "description": "The ID of this record in the source system.",
+        "maxLength": 255,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Financial Services Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_insuranceprofile.htm",
     "clouds": [
       "Financial Services Cloud"
+    ],
+    "keyPrefix": "0Yy",
+    "iconUrl": "standard/contract_line_item_120.png",
+    "iconColor": "22683E",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InsuranceProfileHistory",
+        "field": "InsuranceProfileId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

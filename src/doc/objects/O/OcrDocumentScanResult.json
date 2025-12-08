@@ -5,35 +5,71 @@
     "properties": {
       "ContentVersionId": {
         "type": "reference",
-        "description": "Unique identifier for the current version of the data."
+        "description": "Unique identifier for the current version of the data.",
+        "format": "salesforce-id",
+        "x-object": "ContentVersion",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "DocumentRequestId": {
         "type": "reference",
-        "description": "Unique identifier for a document request."
+        "description": "Unique identifier for a document request.",
+        "format": "salesforce-id",
+        "x-object": "ReceivedDocument",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ExtractedValues": {
         "type": "textarea",
-        "description": "Data extracted from the document. Data type StringPlusClob, maximum length 131072. Note This field is encryptable with Salesforce Platform Encryption."
+        "description": "Data extracted from the document. Data type StringPlusClob, maximum length 131072. Note This field is encryptable with Salesforce Platform Encryption.",
+        "maxLength": 131072,
+        "nullable": true,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the record."
+        "description": "Name of the record.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OcrService": {
         "type": "picklist",
-        "description": "Records the service that performed the text extraction."
+        "description": "Records the service that performed the text extraction.",
+        "format": "enum",
+        "enum": [
+          "AMAZON_TEXTRACT_DETECT_TEXT"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "OcrStatus": {
         "type": "picklist",
-        "description": "Current phase of OCR processing."
+        "description": "Current phase of OCR processing.",
+        "format": "enum",
+        "enum": [
+          "OCR_ENQUEUE",
+          "ERROR",
+          "SUCCESS"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "OwnerId": {
         "type": "reference",
@@ -41,17 +77,205 @@
       },
       "PageNumber": {
         "type": "int",
-        "description": "The page number of the scanned document result in the original document that it’s a part of."
+        "description": "The page number of the scanned document result in the original document that it’s a part of.",
+        "nullable": true,
+        "readOnly": true
       },
       "Rotation": {
         "type": "int",
-        "description": "Degrees of rotation requested. Can be 0, 90, 180, or 270."
+        "description": "Degrees of rotation requested. Can be 0, 90, 180, or 270.",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "DocumentTypeId": {
+        "type": "string",
+        "description": "DocumentTypeId field",
+        "format": "salesforce-id",
+        "x-object": "DocumentType",
+        "maxLength": 18,
+        "nullable": true
+      },
+      "ContentDocumentId": {
+        "type": "string",
+        "description": "ContentDocumentId field",
+        "format": "salesforce-id",
+        "x-object": "ContentDocument",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_ocrdocumentscanresult.htm",
     "clouds": [
       "Health Cloud"
+    ],
+    "keyPrefix": "0ix",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OcrDocumentScanResultHistory",
+        "field": "OcrDocumentScanResultId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
     ]
   }
 }

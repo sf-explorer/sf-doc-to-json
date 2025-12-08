@@ -9,19 +9,48 @@
       },
       "AppointmentStartTimeInterval": {
         "type": "picklist",
-        "description": "The proposed time interval in minutes between appointment start times. For example, set the interval to 15. Appointments can then begin at the top of the hour and at 15-minute intervals thereafter (10:00 AM, 10:15 AM, 10:30 AM, and so on). Possible values are: 5 10 15 20 30 45 60 90 120 150 180 240 300 360 420 480"
+        "description": "The proposed time interval in minutes between appointment start times. For example, set the interval to 15. Appointments can then begin at the top of the hour and at 15-minute intervals thereafter (10:00 AM, 10:15 AM, 10:30 AM, and so on). Possible values are: 5 10 15 20 30 45 60 90 120 150 180 240 300 360 420 480",
+        "format": "enum",
+        "enum": [
+          "5",
+          "10",
+          "15",
+          "20",
+          "30",
+          "45",
+          "60",
+          "90",
+          "120",
+          "150",
+          "180",
+          "240",
+          "300",
+          "360",
+          "420",
+          "480"
+        ],
+        "maxLength": 255,
+        "nullable": false
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The API name of the AppointmentSchedulingPolicy object."
+        "description": "The API name of the AppointmentSchedulingPolicy object.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ExtCalEventHandlerId": {
         "type": "reference",
-        "description": "The API name of the custom Apex class that checks service resources’ external calendar events and returns the time slots where service resources are already booked. Available in API version 50.0 and later."
+        "description": "The API name of the custom Apex class that checks service resources’ external calendar events and returns the time slots where service resources are already booked. Available in API version 50.0 and later.",
+        "format": "salesforce-id",
+        "x-object": "ApexClass",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsOrgDefault": {
         "type": "boolean",
-        "description": "Indicates whether this scheduling policy is the default appointment scheduling policy for Lightning Scheduler appointments in this org."
+        "description": "Indicates whether this scheduling policy is the default appointment scheduling policy for Lightning Scheduler appointments in this org.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsSvcTerrOpHoursWithShiftsUsed": {
         "type": "boolean",
@@ -33,49 +62,141 @@
       },
       "Language": {
         "type": "picklist",
-        "description": "The language of the appointment scheduling policy."
+        "description": "The language of the appointment scheduling policy.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label for the appointment scheduling policy."
+        "description": "The label for the appointment scheduling policy.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ShouldConsiderCalendarEvents": {
         "type": "boolean",
-        "description": "Indicates whether this policy checks the Salesforce calendar for resource availability."
+        "description": "Indicates whether this policy checks the Salesforce calendar for resource availability.",
+        "nullable": false
       },
       "ShouldEnforceExcludedResource": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy prevents excluded service resources from being assigned to appointments."
+        "description": "Indicates whether this appointment scheduling policy prevents excluded service resources from being assigned to appointments.",
+        "nullable": false
       },
       "ShouldEnforceRequiredResource": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy allows only required service resources to be assigned to appointments."
+        "description": "Indicates whether this appointment scheduling policy allows only required service resources to be assigned to appointments.",
+        "nullable": false
       },
       "ShouldMatchSkill": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy allows only required service resources who have certain skills to be assigned to appointments."
+        "description": "Indicates whether this appointment scheduling policy allows only required service resources who have certain skills to be assigned to appointments.",
+        "nullable": false
       },
       "ShouldMatchSkillLevel": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy allows only required service resources who have certain skills and skill levels to be assigned to appointments."
+        "description": "Indicates whether this appointment scheduling policy allows only required service resources who have certain skills and skill levels to be assigned to appointments.",
+        "nullable": false
       },
       "ShouldRespectVisitingHours": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy prevents users from scheduling appointments outside of an account’s visiting hours."
+        "description": "Indicates whether this appointment scheduling policy prevents users from scheduling appointments outside of an account’s visiting hours.",
+        "nullable": false
       },
       "ShouldUsePrimaryMembers": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy allows only service resources who are primary members of a service territory to be assigned to appointments."
+        "description": "Indicates whether this appointment scheduling policy allows only service resources who are primary members of a service territory to be assigned to appointments.",
+        "nullable": false
       },
       "ShouldUseSecondaryMembers": {
         "type": "boolean",
-        "description": "Indicates whether this appointment scheduling policy allows service resources who are secondary members of a service territory to be assigned to appointments."
+        "description": "Indicates whether this appointment scheduling policy allows service resources who are secondary members of a service territory to be assigned to appointments.",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "ID de politique de prise de rendez-vous",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Supprimé",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Date de création",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "ID créé par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Date de dernière modification",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "ID dernière modification par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "Horodateur des modifications du système",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_appointmentschedulingpolicy.htm",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "keyPrefix": "0Vr",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

@@ -462,12 +462,22 @@
       "ShouldTrackFoCapacity": {
         "type": "boolean",
         "description": "Indicates whether the location should track its fulfillment order capacity. The default value is false."
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_location.htm",
     "keyPrefix": "131",
-    "iconUrl": "icon/t4v35/standard/location_120.png",
+    "iconUrl": "standard/location_120.png",
     "iconColor": "3BA755",
     "createable": true,
     "updateable": true,
@@ -542,10 +552,22 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "BusinessMilestone",
+        "field": "MilestoneSiteId",
+        "relationshipName": "BusinessMilestones",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "CombinedAttachment",
         "field": "ParentId",
         "relationshipName": "CombinedAttachments",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "ContactEncounter",
+        "field": "LocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
       },
       {
         "childObject": "ContentDocumentLink",
@@ -602,12 +624,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -638,6 +654,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "FulfillmentOrder",
+        "field": "FulfilledFromLocationId",
+        "relationshipName": "FulfillmentOrders",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Location",
         "field": "ParentLocationId",
         "relationshipName": "ChildLocations",
@@ -662,12 +684,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "LocationFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "LocationHistory",
         "field": "LocationId",
         "relationshipName": "Histories",
@@ -683,6 +699,24 @@
         "childObject": "LocationTrustMeasure",
         "field": "LocationId",
         "relationshipName": "LocationTrustMeasures",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlan",
+        "field": "LocationId",
+        "relationshipName": "MaintenancePlans",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenancePlanChangeEvent",
+        "field": "LocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -702,6 +736,12 @@
         "field": "WhatId",
         "relationshipName": "OpenActivities",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemSummary",
+        "field": "ReservedAtLocationId",
+        "relationshipName": "OrderItemSummaries",
+        "cascadeDelete": false
       },
       {
         "childObject": "OutgoingEmail",
@@ -731,6 +771,18 @@
         "childObject": "ProductFulfillmentLocation",
         "field": "LocationId",
         "relationshipName": "ProductFulfillmentLocations1",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductItem",
+        "field": "LocationId",
+        "relationshipName": "ProductItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductItemChangeEvent",
+        "field": "LocationId",
+        "relationshipName": null,
         "cascadeDelete": false
       },
       {
@@ -782,6 +834,30 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "ProductTransfer",
+        "field": "DestinationLocationId",
+        "relationshipName": "DestinationProductTransfers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransfer",
+        "field": "SourceLocationId",
+        "relationshipName": "SourceProductTransfers",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransferChangeEvent",
+        "field": "DestinationLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductTransferChangeEvent",
+        "field": "SourceLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "RecordAction",
         "field": "RecordId",
         "relationshipName": "RecordActions",
@@ -791,6 +867,108 @@
         "childObject": "RecordActionHistory",
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ResourcePreference",
+        "field": "RelatedRecordId",
+        "relationshipName": "ResourcePreferences",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrder",
+        "field": "DestinationLocationId",
+        "relationshipName": "DestinationReturnOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrder",
+        "field": "SourceLocationId",
+        "relationshipName": "SourceReturnOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderChangeEvent",
+        "field": "DestinationLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderChangeEvent",
+        "field": "SourceLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "DestinationLocationId",
+        "relationshipName": "DestinationReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "SourceLocationId",
+        "relationshipName": "SourceReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "DestinationLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "SourceLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SalesStore",
+        "field": "LocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResource",
+        "field": "LocationId",
+        "relationshipName": "ServiceResources",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResourceChangeEvent",
+        "field": "LocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceTerritoryLocation",
+        "field": "LocationId",
+        "relationshipName": "ServiceTerritories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Shipment",
+        "field": "DestinationLocationId",
+        "relationshipName": "DestinationLocationShipments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Shipment",
+        "field": "SourceLocationId",
+        "relationshipName": "SourceLocationShipments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShipmentChangeEvent",
+        "field": "DestinationLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ShipmentChangeEvent",
+        "field": "SourceLocationId",
+        "relationshipName": null,
         "cascadeDelete": false
       },
       {
@@ -806,21 +984,15 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "Visit",
         "field": "PlaceId",
         "relationshipName": "Places",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebStore",
+        "field": "LocationId",
+        "relationshipName": null,
         "cascadeDelete": false
       },
       {
@@ -845,6 +1017,12 @@
         "childObject": "WorkOrderLineItemChangeEvent",
         "field": "LocationId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkPlanSelectionRule",
+        "field": "LocationId",
+        "relationshipName": "WorkPlanSelectionRules",
         "cascadeDelete": false
       }
     ],

@@ -21,7 +21,14 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. ISO code for the currency of the OrderSummary associated with the OrderItemSummary."
+        "description": "Available only for orgs with the multicurrency feature enabled. ISO code for the currency of the OrderSummary associated with the OrderItemSummary.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       },
       "DeliveryEstimationReference": {
         "type": "string",
@@ -464,21 +471,24 @@
         "description": "Adjusted Line Subtotal Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAdjustmentTaxAmount": {
         "type": "number",
         "description": "Line Adjustments Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentDistTaxAmount": {
         "type": "number",
         "description": "Distributed Order Adjustments Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "QuantityAvailableToCancel": {
         "type": "number",
@@ -500,35 +510,40 @@
         "description": "Adjustments with Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "AdjustedLineAmtWithTax": {
         "type": "number",
         "description": "Line Total",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAdjustmentAmtWithTax": {
         "type": "number",
         "description": "Line Adjustments with Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalAdjustmentDistAmtWithTax": {
         "type": "number",
         "description": "Distributed Order Adjustments with Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAmountWithTax": {
         "type": "number",
         "description": "Line Subtotal with Tax",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       }
     },
     "module": "Core Salesforce",
@@ -652,12 +667,6 @@
         "childObject": "OrderItemSummaryChange",
         "field": "OrderItemSummaryId",
         "relationshipName": "OrderItemSummaries",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "OrderItemSummaryFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {

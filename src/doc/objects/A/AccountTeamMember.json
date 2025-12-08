@@ -53,7 +53,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the org."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the org.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "IsDeleted": {
         "type": "boolean",
@@ -168,6 +174,39 @@
     "accessRules": "This object is available only for Enterprise, Unlimited, and Performance Edition users who have enabled the account team functionality. Customer Portal users can't access this object.",
     "clouds": [
       "Core Salesforce"
+    ],
+    "iconUrl": "standard/team_member_120.png",
+    "iconColor": "FF5D2D",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

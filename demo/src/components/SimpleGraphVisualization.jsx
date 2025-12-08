@@ -22,7 +22,7 @@ const getIconUrl = (iconString) => {
   return `/icons/${iconType}/${iconName}_60.png`;
 };
 
-export default function SimpleGraphVisualization({ objectName = 'Account' }) {
+export default function SimpleGraphVisualization({ objectName = 'Case' }) {
   const containerRef = useRef(null);
   const graphContainerRef = useRef(null);
   const navigate = useNavigate();

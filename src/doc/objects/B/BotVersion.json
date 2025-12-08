@@ -5,7 +5,12 @@
     "properties": {
       "BotDefinitionId": {
         "type": "reference",
-        "description": "Required. This field relates a bot version to its parent BotDefinition record."
+        "description": "Required. This field relates a bot version to its parent BotDefinition record.",
+        "format": "salesforce-id",
+        "x-object": "BotDefinition",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CopilotPrimaryLanguage": {
         "type": "picklist",
@@ -17,11 +22,22 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name for this object."
+        "description": "The unique name for this object.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Required. Indicates whether the bot version is active or inactive. Only one version for a related BotDefinition can be active at once."
+        "description": "Required. Indicates whether the bot version is active or inactive. Only one version for a related BotDefinition can be active at once.",
+        "format": "enum",
+        "enum": [
+          "Active",
+          "Inactive"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "ToneType": {
         "type": "picklist",
@@ -29,13 +45,93 @@
       },
       "VersionNumber": {
         "type": "int",
-        "description": "The number for this version of the bot or agent."
+        "description": "The number for this version of the bot or agent.",
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_botversion.htm",
     "clouds": [
       "Core Salesforce"
+    ],
+    "keyPrefix": "0X9",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "ConversationDefinitionDialog",
+        "field": "ParentId",
+        "relationshipName": "ConversationDefinitionDialogs",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ConversationDefinitionEventLog",
+        "field": "ConversationDefinitionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ConversationDefinitionSession",
+        "field": "ConversationDefinitionId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

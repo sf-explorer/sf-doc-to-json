@@ -5,37 +5,156 @@
     "properties": {
       "DatacloudEntityType": {
         "type": "picklist",
-        "description": "The type of Data.com record you want to purchase. 0—indicates contact entity type. 1—indicates company entity type."
+        "description": "The type of Data.com record you want to purchase. 0—indicates contact entity type. 1—indicates company entity type.",
+        "format": "enum",
+        "enum": [
+          "0",
+          "1",
+          "2",
+          "4"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "An optional field. You can add a description for your purchase."
+        "description": "An optional field. You can add a description for your purchase.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "An optional field used to name your record."
+        "description": "An optional field used to name your record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "PurchaseType": {
         "type": "picklist",
-        "description": "A read only field set by the API to identify the purchase type. Added Export API"
+        "description": "A read only field set by the API to identify the purchase type. Added Export API",
+        "format": "enum",
+        "enum": [
+          "0",
+          "1",
+          "2"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Usage": {
         "type": "double",
-        "description": "A read only field set by the API. It is used to track the points used to purchase records."
+        "description": "A read only field set by the API. It is used to track the points used to purchase records.",
+        "nullable": false,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "A read only field set by the API that identifies the user purchasing the records."
+        "description": "A read only field set by the API that identifies the user purchasing the records.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "UserType": {
         "type": "picklist",
-        "description": "A read only field set by the API with 2 user types. Monthly Usage List Pool User"
+        "description": "A read only field set by the API with 2 user types. Monthly Usage List Pool User",
+        "format": "enum",
+        "enum": [
+          "0",
+          "1"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ID d'utilisation de Data.com",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Supprimé",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Date de création",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "ID créé par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Date de dernière modification",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "ID dernière modification par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "Horodateur des modifications du système",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_datacloudpurchaseusage.htm",
     "clouds": [
       "Core Salesforce"
+    ],
+    "keyPrefix": "09F",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "DatacloudOwnedEntity",
+        "field": "PurchaseUsageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

@@ -110,7 +110,8 @@
           "QuoteLineItem"
         ],
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "x-object": "OrderItem"
       },
       "HasMultipleItems": {
         "type": "boolean",
@@ -211,7 +212,8 @@
           "QuoteLineItem"
         ],
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "x-object": "OrderItem"
       },
       "ReferenceEntityItemType": {
         "type": "picklist",
@@ -377,7 +379,8 @@
         "type": "percent",
         "format": "percent",
         "nullable": true,
-        "description": "Percentage value used for calculating tax."
+        "description": "Percentage value used for calculating tax.",
+        "multipleOf": 0.01
       },
       "TaxEffectiveDate": {
         "type": "date",
@@ -388,7 +391,8 @@
       "GrossUnitPrice": {
         "type": "number",
         "format": "currency",
-        "nullable": true
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "TaxDocumentNumber": {
         "type": "string",
@@ -397,6 +401,16 @@
       "TaxTransactionNumber": {
         "type": "string",
         "description": "Represents the transaction in the external tax engine in which the taxes for the line were calculated for the invoice line."
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Revenue Lifecycle Management",
@@ -551,12 +565,6 @@
         "field": "RelatedLineId",
         "relationshipName": "InvoiceLines",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "InvoiceLineFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "InvoiceLineHistory",

@@ -5,89 +5,793 @@
     "properties": {
       "AddressExtIdentifier": {
         "type": "string",
-        "description": "ID that uniquely identifies imported data in an external data source (if applicable). This field is unique within your organization."
+        "description": "ID that uniquely identifies imported data in an external data source (if applicable). This field is unique within your organization.",
+        "maxLength": 255,
+        "nullable": true
       },
       "AddressOwnership": {
         "type": "picklist",
-        "description": "Identifies borrower's status at residence."
+        "description": "Identifies borrower's status at residence.",
+        "format": "enum",
+        "enum": [
+          "Own",
+          "Rent",
+          "Live Rent-Free"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LoanApplicantId": {
         "type": "reference",
-        "description": "Borrower associated with this applicant address."
+        "description": "Borrower associated with this applicant address.",
+        "format": "salesforce-id",
+        "x-object": "LoanApplicant",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "LoanApplicationId": {
         "type": "reference",
-        "description": "Loan application associated with this applicant address."
+        "description": "Loan application associated with this applicant address.",
+        "format": "salesforce-id",
+        "x-object": "ResidentialLoanApplication",
+        "maxLength": 18,
+        "nullable": true
       },
       "MonthlyRentPayment": {
         "type": "currency",
-        "description": "Borrower's monthly rent payment (if applicable)."
+        "description": "Borrower's monthly rent payment (if applicable).",
+        "format": "currency",
+        "nullable": true,
+        "multipleOf": 0.01
       },
       "Name": {
         "type": "string",
-        "description": "Name of the borrower’s address."
+        "description": "Name of the borrower’s address.",
+        "maxLength": 255,
+        "nullable": false
       },
       "ResidenceAdditionalMonthCount": {
         "type": "int",
-        "description": "Additional months borrower lived at this residence."
+        "description": "Additional months borrower lived at this residence.",
+        "nullable": true
       },
       "ResidenceAddress": {
         "type": "address",
-        "description": "Residence's physical address."
+        "description": "Residence's physical address.",
+        "nullable": true,
+        "readOnly": true
       },
       "ResidenceCity": {
         "type": "string",
-        "description": "The address city."
+        "description": "The address city.",
+        "maxLength": 40,
+        "nullable": true
       },
       "ResidenceCountry": {
         "type": "string",
-        "description": "The address country."
+        "description": "The address country.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ResidenceGeocodeAccuracy": {
         "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates."
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates.",
+        "format": "enum",
+        "enum": [
+          "Address",
+          "NearAddress",
+          "Block",
+          "Street",
+          "ExtendedZip",
+          "Zip",
+          "Neighborhood",
+          "City",
+          "County",
+          "State",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "ResidenceLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places."
+        "description": "Used with Longitude to specify the precise geolocation of the address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
+        "nullable": true
       },
       "ResidenceLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places."
+        "description": "Used with Latitude to specify the precise geolocation of the address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
+        "nullable": true
       },
       "ResidencePostalCode": {
         "type": "string",
-        "description": "The address postal code."
+        "description": "The address postal code.",
+        "maxLength": 20,
+        "nullable": true
       },
       "ResidenceState": {
         "type": "string",
-        "description": "The address state."
+        "description": "The address state.",
+        "maxLength": 80,
+        "nullable": true
       },
       "ResidenceStreet": {
         "type": "textarea",
-        "description": "The address street."
+        "description": "The address street.",
+        "maxLength": 255,
+        "nullable": true
       },
       "ResidenceYearCount": {
         "type": "int",
-        "description": "Years borrower lived at this residence."
+        "description": "Years borrower lived at this residence.",
+        "nullable": true
       },
       "ResidencyType": {
         "type": "picklist",
-        "description": "Identifies borrower's residency status at address."
+        "description": "Identifies borrower's residency status at address.",
+        "format": "enum",
+        "enum": [
+          "Former Residence",
+          "Present Address",
+          "Mailing Address"
+        ],
+        "maxLength": 40,
+        "nullable": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ResidenceStateCode": {
+        "type": "string",
+        "description": "ResidenceStateCode field",
+        "format": "enum",
+        "enum": [
+          "05",
+          "02",
+          "AL",
+          "AK",
+          "AB",
+          "23",
+          "AZ",
+          "AR",
+          "BC",
+          "CA",
+          "12",
+          "CO",
+          "CT",
+          "DE",
+          "DC",
+          "38",
+          "FL",
+          "18",
+          "40",
+          "07",
+          "GA",
+          "21",
+          "10",
+          "HI",
+          "34",
+          "01",
+          "28",
+          "08",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "17",
+          "03",
+          "37",
+          "46",
+          "14",
+          "KS",
+          "KY",
+          "39",
+          "43",
+          "26",
+          "LA",
+          "ME",
+          "MB",
+          "MD",
+          "MA",
+          "MI",
+          "24",
+          "MN",
+          "MS",
+          "MO",
+          "04",
+          "45",
+          "MT",
+          "20",
+          "42",
+          "29",
+          "NE",
+          "NV",
+          "NB",
+          "NL",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "15",
+          "NC",
+          "ND",
+          "NT",
+          "NS",
+          "NU",
+          "OH",
+          "44",
+          "33",
+          "47",
+          "OK",
+          "ON",
+          "OR",
+          "27",
+          "PA",
+          "PE",
+          "QC",
+          "RI",
+          "41",
+          "11",
+          "SK",
+          "25",
+          "32",
+          "22",
+          "SC",
+          "SD",
+          "TG",
+          "TN",
+          "TX",
+          "09",
+          "36",
+          "13",
+          "31",
+          "16",
+          "UT",
+          "VT",
+          "VA",
+          "30",
+          "WA",
+          "WV",
+          "WI",
+          "WY",
+          "06",
+          "35",
+          "19",
+          "YT"
+        ],
+        "maxLength": 10,
+        "nullable": true
+      },
+      "ResidenceCountryCode": {
+        "type": "string",
+        "description": "ResidenceCountryCode field",
+        "format": "enum",
+        "enum": [
+          "AF",
+          "AX",
+          "AL",
+          "DZ",
+          "AD",
+          "AO",
+          "AI",
+          "AQ",
+          "AG",
+          "AR",
+          "AM",
+          "AW",
+          "AU",
+          "AT",
+          "AZ",
+          "BS",
+          "BH",
+          "BD",
+          "BB",
+          "BY",
+          "BE",
+          "BZ",
+          "BJ",
+          "BM",
+          "BT",
+          "BO",
+          "BQ",
+          "BA",
+          "BW",
+          "BV",
+          "BR",
+          "IO",
+          "BN",
+          "BG",
+          "BF",
+          "BI",
+          "KH",
+          "CM",
+          "CA",
+          "CV",
+          "KY",
+          "CF",
+          "TD",
+          "CL",
+          "CN",
+          "CX",
+          "CC",
+          "CO",
+          "KM",
+          "CG",
+          "CD",
+          "CK",
+          "CR",
+          "CI",
+          "HR",
+          "CU",
+          "CW",
+          "CY",
+          "CZ",
+          "DK",
+          "DJ",
+          "DM",
+          "DO",
+          "EC",
+          "EG",
+          "SV",
+          "GQ",
+          "ER",
+          "EE",
+          "ET",
+          "FK",
+          "FO",
+          "FJ",
+          "FI",
+          "FR",
+          "GF",
+          "PF",
+          "TF",
+          "GA",
+          "GM",
+          "GE",
+          "DE",
+          "GH",
+          "GI",
+          "GR",
+          "GL",
+          "GD",
+          "GP",
+          "GT",
+          "GG",
+          "GN",
+          "GW",
+          "GY",
+          "HT",
+          "HM",
+          "VA",
+          "HN",
+          "HU",
+          "IS",
+          "IN",
+          "ID",
+          "IR",
+          "IQ",
+          "IE",
+          "IM",
+          "IL",
+          "IT",
+          "JM",
+          "JP",
+          "JE",
+          "JO",
+          "KZ",
+          "KE",
+          "KI",
+          "KP",
+          "KR",
+          "KW",
+          "KG",
+          "LA",
+          "LV",
+          "LB",
+          "LS",
+          "LR",
+          "LY",
+          "LI",
+          "LT",
+          "LU",
+          "MO",
+          "MK",
+          "MG",
+          "MW",
+          "MY",
+          "MV",
+          "ML",
+          "MT",
+          "MQ",
+          "MR",
+          "MU",
+          "YT",
+          "MX",
+          "MD",
+          "MC",
+          "MN",
+          "ME",
+          "MS",
+          "MA",
+          "MZ",
+          "MM",
+          "NA",
+          "NR",
+          "NP",
+          "NL",
+          "NC",
+          "NZ",
+          "NI",
+          "NE",
+          "NG",
+          "NU",
+          "NF",
+          "NO",
+          "OM",
+          "PK",
+          "PS",
+          "PA",
+          "PG",
+          "PY",
+          "PE",
+          "PH",
+          "PN",
+          "PL",
+          "PT",
+          "QA",
+          "RE",
+          "RO",
+          "RU",
+          "RW",
+          "BL",
+          "SH",
+          "KN",
+          "LC",
+          "MF",
+          "PM",
+          "VC",
+          "WS",
+          "SM",
+          "ST",
+          "SA",
+          "SN",
+          "RS",
+          "SC",
+          "SL",
+          "SG",
+          "SX",
+          "SK",
+          "SI",
+          "SB",
+          "SO",
+          "ZA",
+          "GS",
+          "SS",
+          "ES",
+          "LK",
+          "SD",
+          "SR",
+          "SJ",
+          "SZ",
+          "SE",
+          "CH",
+          "SY",
+          "TW",
+          "TJ",
+          "TZ",
+          "TH",
+          "TL",
+          "TG",
+          "TK",
+          "TO",
+          "TT",
+          "TN",
+          "TR",
+          "TM",
+          "TC",
+          "TV",
+          "UG",
+          "UA",
+          "AE",
+          "GB",
+          "US",
+          "UY",
+          "UZ",
+          "VU",
+          "VE",
+          "VN",
+          "VG",
+          "WF",
+          "EH",
+          "YE",
+          "ZM",
+          "ZW"
+        ],
+        "maxLength": 10,
+        "nullable": true
       }
     },
     "module": "Financial Services Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_loanapplicantaddress.htm",
     "clouds": [
       "Financial Services Cloud"
+    ],
+    "keyPrefix": "0cj",
+    "iconUrl": "custom/custom8_120.png",
+    "iconColor": "FF538A",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "LoanApplicantAddressHistory",
+        "field": "LoanApplicantAddressId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

@@ -5,37 +5,143 @@
     "properties": {
       "AudienceName": {
         "type": "string",
-        "description": "Name of the audience."
+        "description": "Name of the audience.",
+        "maxLength": 80,
+        "nullable": false
       },
       "ContainerId": {
         "type": "reference",
-        "description": "ID of the site or org that contains the audience. ContainerId is nillable in API versions 47.0 and earlier."
+        "description": "ID of the site or org that contains the audience. ContainerId is nillable in API versions 47.0 and earlier.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Network",
+          "Organization"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Description of the audience."
+        "description": "Description of the audience.",
+        "maxLength": 255,
+        "nullable": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the audience in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field."
+        "description": "The unique name of the audience in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. This field is automatically generated, but you can supply your own value if you create the record using the API. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record. Note Only users with View DeveloperName OR View Setup and Configuration permission can view, group, sort, and filter this field.",
+        "maxLength": 80,
+        "nullable": false
       },
       "FormulaFilterType": {
         "type": "picklist",
-        "description": "Formula filter for the criteria used to define the audience. Valid values are: AllCriteriaMatch—Matching all the conditions (AND). AnyCriterionMatches—Matching at least one condition (OR). CustomLogicMatches—Matching condition logic (AND and OR) and numbered criteria groups. This value is available in API version 45.0 and later."
+        "description": "Formula filter for the criteria used to define the audience. Valid values are: AllCriteriaMatch—Matching all the conditions (AND). AnyCriterionMatches—Matching at least one condition (OR). CustomLogicMatches—Matching condition logic (AND and OR) and numbered criteria groups. This value is available in API version 45.0 and later.",
+        "format": "enum",
+        "enum": [
+          "AllCriteriaMatch",
+          "AnyCriterionMatches",
+          "CustomLogicMatches"
+        ],
+        "maxLength": 255,
+        "nullable": true
       },
       "Language": {
         "type": "picklist",
-        "description": "Language of the audience. Valid values are: Chinese (Simplified): zh_CN Chinese (Traditional): zh_TW Danish: da Dutch: nl_NL English: en_US Finnish: fi French: fr German: de Italian: it Japanese: ja Korean: ko Norwegian: no Portuguese (Brazil): pt_BR Russian: ru Spanish: es Spanish (Mexico): es_MX Spanish (Mexico) defaults to Spanish for customer-defined translations. Swedish: sv Thai: th The Salesforce user interface is fully translated to Thai, but Help is in English."
+        "description": "Language of the audience. Valid values are: Chinese (Simplified): zh_CN Chinese (Traditional): zh_TW Danish: da Dutch: nl_NL English: en_US Finnish: fi French: fr German: de Italian: it Japanese: ja Korean: ko Norwegian: no Portuguese (Brazil): pt_BR Russian: ru Spanish: es Spanish (Mexico): es_MX Spanish (Mexico) defaults to Spanish for customer-defined translations. Swedish: sv Thai: th The Salesforce user interface is fully translated to Thai, but Help is in English.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Master label for the audience. This internal name doesn’t get translated."
+        "description": "Master label for the audience. This internal name doesn’t get translated.",
+        "maxLength": 80,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_audience.htm",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "keyPrefix": "6Au",
+    "createable": false,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false
   }
 }

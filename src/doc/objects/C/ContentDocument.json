@@ -209,7 +209,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentdocument.htm",
     "keyPrefix": "069",
-    "iconUrl": "icon/t4v35/standard/file_120.png",
+    "iconUrl": "standard/file_120.png",
     "iconColor": "939393",
     "createable": false,
     "updateable": true,
@@ -242,16 +242,28 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "Campaign",
+        "field": "CampaignImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CampaignChangeEvent",
+        "field": "CampaignImageId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ContentAsset",
         "field": "ContentDocumentId",
         "relationshipName": null,
         "cascadeDelete": false
       },
       {
-        "childObject": "ContentDocumentFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
+        "childObject": "ContentDistribution",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentDistributions",
+        "cascadeDelete": false
       },
       {
         "childObject": "ContentDocumentHistory",
@@ -263,6 +275,12 @@
         "childObject": "ContentDocumentLink",
         "field": "ContentDocumentId",
         "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentListViewMapping",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentDocListViewMappings",
         "cascadeDelete": true
       },
       {
@@ -350,6 +368,30 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "NetworkActivityAudit",
+        "field": "EntityId",
+        "relationshipName": "AuditableEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkModeration",
+        "field": "EntityId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OcrDocumentScanResult",
+        "field": "ContentDocumentId",
+        "relationshipName": "ContentDocumentOcrDocumentScanResults",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "OwnedContentDocument",
         "field": "ContentDocumentId",
         "relationshipName": null,
@@ -360,6 +402,18 @@
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCallRecording",
+        "field": "MediaContentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCallRecordingChangeEvent",
+        "field": "MediaContentId",
+        "relationshipName": null,
+        "cascadeDelete": false
       }
     ],
     "accessRules": "By default, users (including users with the View All Data permission) can only query files they have access to, including: Salesforce Files in their personal library and in libraries they're a member of, regardless of library permissions (API version 17.0 and later). Salesforce Files they own, shared directly with them, posted on their profile, or posted on groups they can see (API version 21.0 and later). Enable the Query All Files permission to let your View All Data users bypass the restrictions on querying files. Query All Files returns all files, including files in non-member libraries and files in unlisted groups. Users can’t edit, upload new versions, or delete files they don’t have access to. View All Data permission is required to enable Query All Files. Salesforce Files in their personal library and in libraries they're a member of, regardless of library permissions (API version 17.0 and later). Salesforce Files they own, shared directly with them, posted on their profile, or posted on groups they can see (API version 21.0 and later). Query All Files returns all files, including files in non-member libraries and files in unlisted groups. Users can’t edit, upload new versions, or delete files they don’t have access to. View All Data permission is required to enable Query All Files. For API version 62.0 and later, enable the Query Non Vetoed Files permission in Data Cloud orgs to let your users view and SOQL query all public and non vetoed files in the org. Customer and Partner Portal users must have the View Content in Portal permission to query content in libraries where they have access. A Salesforce CRM Content document can be deleted if any of the following are true: The document is published into a personal library or is in the user's upload queue. The document is published into a public library, the user trying to delete the document is the file owner, and is a member of that library. The document is published into a public library and the user trying to delete the document is not the owner but has the Manage Library or Delete Content library permission enabled. The document is published into a personal library or is in the user's upload queue. The document is published into a public library, the user trying to delete the document is the file owner, and is a member of that library. The document is published into a public library and the user trying to delete the document is not the owner but has the Manage Library or Delete Content library permission enabled.",

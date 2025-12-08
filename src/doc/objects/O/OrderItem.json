@@ -28,7 +28,14 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the OrderItem."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the OrderItem.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       },
       "DeliveryEstimationReference": {
         "type": "string",
@@ -215,7 +222,11 @@
       },
       "RoundedLineAmount": {
         "type": "currency",
-        "description": "The rounded line amount, before tax and adjustments. Currency with decimal values of 0.5 and higher are rounded to the next-highest whole unit of currency."
+        "description": "The rounded line amount, before tax and adjustments. Currency with decimal values of 0.5 and higher are rounded to the next-highest whole unit of currency.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "RoundedLineAmtWithTax": {
         "type": "currency",
@@ -301,7 +312,11 @@
       },
       "TotalAmtWithTax": {
         "type": "currency",
-        "description": "Equals TotalPrice + TotalTaxAmount for the order item."
+        "description": "Equals TotalPrice + TotalTaxAmount for the order item.",
+        "format": "currency",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "TotalLineAdjustmentAmount": {
         "type": "currency",
@@ -448,7 +463,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitem.htm",
     "keyPrefix": "802",
-    "iconUrl": "icon/t4v35/standard/orders_120.png",
+    "iconUrl": "standard/orders_120.png",
     "iconColor": "0B5CAB",
     "createable": true,
     "updateable": true,
@@ -466,6 +481,12 @@
         "childObject": "AIRecordInsight",
         "field": "TargetId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetActionSource",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "AssetActionSourceReferences",
         "cascadeDelete": false
       },
       {
@@ -499,6 +520,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "CreditMemoLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "CreditMemoLines",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "EntitySubscription",
         "field": "ParentId",
         "relationshipName": "FeedSubscriptionsForEntity",
@@ -529,10 +556,58 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "FulfillmentOrderLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "CurrentFulfillmentOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "GroupReferenceEntityItemId",
+        "relationshipName": "GroupInvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "InvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "ChangeLineId",
+        "relationshipName": "OrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeLog",
+        "field": "RelatedLineId",
+        "relationshipName": "RelatedOrderChangeLogs",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "OrderItem",
         "field": "OriginalOrderItemId",
         "relationshipName": "ChildOrderItems",
         "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "RelatedOrderItemId",
+        "relationshipName": "RelatedOrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemAdjustmentLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "OrderItemAdjustmentLineItems",
+        "cascadeDelete": true
       },
       {
         "childObject": "OrderItemChangeEvent",
@@ -541,15 +616,33 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "OrderItemFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
+        "childObject": "OrderItemChangeEvent",
+        "field": "RelatedOrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
       },
       {
         "childObject": "OrderItemHistory",
         "field": "OrderItemId",
         "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OrderItemSummary",
+        "field": "OriginalOrderItemId",
+        "relationshipName": "OrderItemSummaries",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemSummaryChange",
+        "field": "ChangeOrderItemId",
+        "relationshipName": "ChangeOrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemTaxLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "OrderItemTaxLineItems",
         "cascadeDelete": true
       },
       {
@@ -561,6 +654,42 @@
       {
         "childObject": "ProcessExceptionEvent",
         "field": "AttachedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "ChangeOrderItemId",
+        "relationshipName": "CurrentReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "OrderItemId",
+        "relationshipName": "ReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "ChangeOrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "OrderItemId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournal",
+        "field": "OrderItemId",
+        "relationshipName": "OrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "TransactionJournalChangeEvent",
+        "field": "OrderItemId",
         "relationshipName": null,
         "cascadeDelete": false
       }

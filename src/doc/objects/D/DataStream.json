@@ -254,15 +254,37 @@
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "keyPrefix": "1ds",
     "label": "Data Stream",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
-    "createable": false,
-    "updateable": false,
-    "deletable": false,
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -295,12 +317,6 @@
         "field": "FirstPublishLocationId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "DataStreamFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "DataStreamHistory",
@@ -336,6 +352,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {

@@ -5,35 +5,77 @@
     "properties": {
       "AcknowledgementLetterSentDate": {
         "type": "dateTime",
-        "description": "Date and time when an acknowledgment letter was sent to the requester."
+        "description": "Date and time when an acknowledgment letter was sent to the requester.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ActualAdmissionDate": {
         "type": "dateTime",
-        "description": "Actual admission date for the patient."
+        "description": "Actual admission date for the patient.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ActualDischargeDate": {
         "type": "dateTime",
-        "description": "Actual discharge date for the patient."
+        "description": "Actual discharge date for the patient.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AdmissionNotes": {
         "type": "textarea",
-        "description": "Notes related to the admission."
+        "description": "Notes related to the admission.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "AdmissionSource": {
         "type": "picklist",
-        "description": "Where the patient was admitted from, for example, a clinic or an emergency room."
+        "description": "Where the patient was admitted from, for example, a clinic or an emergency room.",
+        "format": "enum",
+        "enum": [
+          "Practitioner Referral",
+          "Clinic Referral",
+          "Transfer from Hospital (different facility)",
+          "Transfer from Skilled Nursing Facility",
+          "Emergency Room",
+          "Court or Law Enforcement",
+          "Ambulatory Surgical Center",
+          "Hospice"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "AdmissionType": {
         "type": "picklist",
-        "description": "Type of admission, for example, emergency or elective."
+        "description": "Type of admission, for example, emergency or elective.",
+        "format": "enum",
+        "enum": [
+          "Emergency",
+          "Urgent",
+          "Elective",
+          "Newborn"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "AorReceivedDate": {
         "type": "dateTime",
-        "description": "Date and time when the Appointment of Representative (AOR) form was received."
+        "description": "Date and time when the Appointment of Representative (AOR) form was received.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AorRequestedDate": {
         "type": "dateTime",
-        "description": "Date and time when the AOR form was requested."
+        "description": "Date and time when the AOR form was requested.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AppealRequestReasonType": {
         "type": "picklist",
@@ -41,143 +83,346 @@
       },
       "AppointedRepresentativeId": {
         "type": "reference",
-        "description": "ID of the appointed representative for the member."
+        "description": "ID of the appointed representative for the member.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "AppointedRepVerbalContactDate": {
         "type": "dateTime",
-        "description": "Date and time of verbal contact with the member's appointed representative."
+        "description": "Date and time of verbal contact with the member's appointed representative.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "AppointedRepWrittenContactDate": {
         "type": "dateTime",
-        "description": "Date and time correspondence was sent to the member's appointed representative."
+        "description": "Date and time correspondence was sent to the member's appointed representative.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ApprovedLengthOfStay": {
         "type": "int",
-        "description": "Approved number of days for the admission."
+        "description": "Approved number of days for the admission.",
+        "nullable": true,
+        "readOnly": true
       },
       "ApprovedLevelOfCare": {
         "type": "picklist",
-        "description": "Approved level of care for the patient, for example, Hospital-Observaton or SNF-Rehabilitation."
+        "description": "Approved level of care for the patient, for example, Hospital-Observaton or SNF-Rehabilitation.",
+        "format": "enum",
+        "enum": [
+          "Hospital - Observation",
+          "Hospital - Inpatient",
+          "Hospital - Intensive Care",
+          "Hospital - Rehabilitation",
+          "SNF - Inpatient",
+          "SNF - Specialized Care",
+          "SNF - Rehabilitation"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CareRequestCaseId": {
         "type": "reference",
-        "description": "Case related to the care request. Note A case record can only be related to a single care request record. Therefore, ensure that the Case record you specify in this field isn’t already associated with another care request."
+        "description": "Case related to the care request. Note A case record can only be related to a single care request record. Therefore, ensure that the Case record you specify in this field isn’t already associated with another care request.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "ClaimNumber": {
         "type": "string",
-        "description": "Claim number for the medical service or medication, if one exists."
+        "description": "Claim number for the medical service or medication, if one exists.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "ClinicalCaseType": {
         "type": "picklist",
-        "description": "Clinical case type for the patient, for example, High Risk Fall or Adult Diabetes."
+        "description": "Clinical case type for the patient, for example, High Risk Fall or Adult Diabetes.",
+        "format": "enum",
+        "enum": [
+          "Acute Stress Disorder",
+          "Adult Asthma",
+          "Adult Diabetes",
+          "Chemical Dependency",
+          "CNS Disorders",
+          "Congestive Heart Failure",
+          "Coronary Artery Disease",
+          "Hepatitis C",
+          "High Risk Elderly",
+          "High Risk Fall",
+          "High Risk Infant",
+          "High Risk Pregnancy",
+          "Hip Fracture",
+          "HIV/AIDS",
+          "Major Depressive Disorder",
+          "Morbid Obesity",
+          "Multiple Trauma",
+          "Neuromuscular Disease",
+          "Orthopedic Pain",
+          "Panic Disorder",
+          "Pediatric Asthma",
+          "Smoker",
+          "Spinal Cord Injury",
+          "Transplant",
+          "Traumatic Brain Injury",
+          "Very Low Birth Weight"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CriteriaMet": {
         "type": "picklist",
-        "description": "Indicates whether criteria for care was met."
+        "description": "Indicates whether criteria for care was met.",
+        "format": "enum",
+        "enum": [
+          "Yes",
+          "No"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CumulativeLengthOfStay": {
         "type": "int",
-        "description": "Total number of days for the admission."
+        "description": "Total number of days for the admission.",
+        "nullable": true,
+        "readOnly": true
       },
       "CurrentLevelOfCare": {
         "type": "picklist",
-        "description": "Level of care that the patient is receiving."
+        "description": "Level of care that the patient is receiving.",
+        "format": "enum",
+        "enum": [
+          "Hospital - Observation",
+          "Hospital - Inpatient",
+          "Hospital - Intensive Care",
+          "Hospital - Rehabilitation",
+          "SNF - Inpatient",
+          "SNF - Specialized Care",
+          "SNF - Rehabilitation"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "DecisionDate": {
         "type": "dateTime",
-        "description": "Date by which the decision must be made for the request."
+        "description": "Date by which the decision must be made for the request.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "DecisionDaysRemaining": {
         "type": "int",
-        "description": "Number of days remaining for a decision or resolution."
+        "description": "Number of days remaining for a decision or resolution.",
+        "nullable": true,
+        "readOnly": true
       },
       "DecisionLetter": {
         "type": "textarea",
-        "description": "The text of the determination letter sent to the member and provider."
+        "description": "The text of the determination letter sent to the member and provider.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "DecisionNotes": {
         "type": "textarea",
-        "description": "Notes related to the decision."
+        "description": "Notes related to the decision.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "DecisionReason": {
         "type": "picklist",
-        "description": "Reason for the decision."
+        "description": "Reason for the decision.",
+        "format": "enum",
+        "enum": [
+          "Date of Service Not Within Allowable Period",
+          "Required Data Missing",
+          "Member Not Found",
+          "Level of Care Not Appropriate",
+          "Duplicate Request",
+          "Not Found to be Medically Necessary",
+          "Step Therapy Not Attempted",
+          "Quantity Limit",
+          "Non-Formulary",
+          "Off-Label or Unapproved Use"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "DecisionReasonDescription": {
         "type": "textarea",
-        "description": "Text describing the reason for the decision."
+        "description": "Text describing the reason for the decision.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "DeniedLengthOfStay": {
         "type": "int",
-        "description": "Number of days denied for the admission."
+        "description": "Number of days denied for the admission.",
+        "nullable": true,
+        "readOnly": true
       },
       "DeniedLevelOfCare": {
         "type": "picklist",
-        "description": "Level of care denied for the patient."
+        "description": "Level of care denied for the patient.",
+        "format": "enum",
+        "enum": [
+          "Hospital - Observation",
+          "Hospital - Inpatient",
+          "Hospital - Intensive Care",
+          "Hospital - Rehabilitation",
+          "SNF - Inpatient",
+          "SNF - Specialized Care",
+          "SNF - Rehabilitation"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "DispositionNotes": {
         "type": "textarea",
-        "description": "Notes related to the disposition of the request."
+        "description": "Notes related to the disposition of the request.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "DueDate": {
         "type": "dateTime",
-        "description": "Date the request is due for completion."
+        "description": "Date the request is due for completion.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveFrom": {
         "type": "dateTime",
-        "description": "The start date for an effective-date range."
+        "description": "The start date for an effective-date range.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveTo": {
         "type": "dateTime",
-        "description": "The end date for an effective-date range."
+        "description": "The end date for an effective-date range.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ExpirationDate": {
         "type": "dateTime",
-        "description": "Expiration date for the request."
+        "description": "Expiration date for the request.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ExtensionRequestReceivedDate": {
         "type": "dateTime",
-        "description": "Date and time an extension was requested."
+        "description": "Date and time an extension was requested.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ExternalComplaintIdentifier": {
         "type": "string",
-        "description": "Complaint ID number."
+        "description": "Complaint ID number.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "FacilityRecordNumber": {
         "type": "string",
-        "description": "The medical record number used to identify a patient."
+        "description": "The medical record number used to identify a patient.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "FacilityRoomBedType": {
         "type": "picklist",
-        "description": "Type of facility bed for the patient."
+        "description": "Type of facility bed for the patient.",
+        "format": "enum",
+        "enum": [
+          "Acute",
+          "Intermediate",
+          "Telemetry",
+          "ICU"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "FacilityRoomNumber": {
         "type": "string",
-        "description": "The facility room number for the patient."
+        "description": "The facility room number for the patient.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "FinalLevelOfCare": {
         "type": "picklist",
-        "description": "Final level of care the patient."
+        "description": "Final level of care the patient.",
+        "format": "enum",
+        "enum": [
+          "Hospital - Observation",
+          "Hospital - Inpatient",
+          "Hospital - Intensive Care",
+          "Hospital - Rehabilitation",
+          "SNF - Inpatient",
+          "SNF - Specialized Care",
+          "SNF - Rehabilitation"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "FirstReviewerId": {
         "type": "reference",
-        "description": "The name of the person who reviewed the request."
+        "description": "The name of the person who reviewed the request.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "FirstReviewerNotes": {
         "type": "textarea",
-        "description": "Notes from the first reviewer related to the case."
+        "description": "Notes from the first reviewer related to the case.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "GeneralPractitionerId": {
         "type": "reference",
-        "description": "Member's primary or general care practitioner."
+        "description": "Member's primary or general care practitioner.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "GeneralPractitionerVerbalNotifiedDate": {
         "type": "dateTime",
-        "description": "Date when the primary care practitioner was verbally notified of the decision"
+        "description": "Date when the primary care practitioner was verbally notified of the decision",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "GeneralPractitionerWrittenNotifiedDate": {
         "type": "dateTime",
-        "description": "Date when the primary care practitioner was notified of the decision by written correspondence."
+        "description": "Date when the primary care practitioner was notified of the decision by written correspondence.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "GrievanceType": {
         "type": "picklist",
@@ -185,15 +430,24 @@
       },
       "InfoReceivedDate": {
         "type": "dateTime",
-        "description": "Date and time when additional information was received from the provider or member."
+        "description": "Date and time when additional information was received from the provider or member.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "InfoRequestedDate": {
         "type": "dateTime",
-        "description": "Date and time when additional information was requested from the provider or member."
+        "description": "Date and time when additional information was requested from the provider or member.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "InitialDenialNotificationDate": {
         "type": "date",
-        "description": "Date of initial denial notification."
+        "description": "Date of initial denial notification.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "InitialDenialNotificationTime": {
         "type": "time",
@@ -201,7 +455,9 @@
       },
       "IsExtendedRequest": {
         "type": "boolean",
-        "description": "Indicates whether a request was extended."
+        "description": "Indicates whether a request was extended.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsReadmission": {
         "type": "boolean",
@@ -209,59 +465,110 @@
       },
       "IsServiceOrMedicationReceived": {
         "type": "boolean",
-        "description": "Indicates whether the member has already received the medial service or medication."
+        "description": "Indicates whether the member has already received the medial service or medication.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MedicalDirectorId": {
         "type": "reference",
-        "description": "Name of the medical director who reviewed the request."
+        "description": "Name of the medical director who reviewed the request.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "MedicalDirectorNotes": {
         "type": "textarea",
-        "description": "Notes from the medical director related to the request."
+        "description": "Notes from the medical director related to the request.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberCondition": {
         "type": "textarea",
-        "description": "Free-form description of the member's condition."
+        "description": "Free-form description of the member's condition.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberContactDateTime": {
         "type": "dateTime",
-        "description": "Date and time when the member was contacted."
+        "description": "Date and time when the member was contacted.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberDateOfBirth": {
         "type": "date",
-        "description": "Date of birth of the member."
+        "description": "Date of birth of the member.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberFirstName": {
         "type": "string",
-        "description": "First name of the member."
+        "description": "First name of the member.",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberGender": {
         "type": "picklist",
-        "description": "Gender of the member."
+        "description": "Gender of the member.",
+        "format": "enum",
+        "enum": [
+          "Female",
+          "Male",
+          "Unknown"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberGroupNumber": {
         "type": "string",
-        "description": "Insurance group number for the member."
+        "description": "Insurance group number for the member.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberId": {
         "type": "reference",
-        "description": "Insurance identifier for the member."
+        "description": "Insurance identifier for the member.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberIdentificationNumber": {
         "type": "string",
-        "description": "Insurance identification number for the member."
+        "description": "Insurance identification number for the member.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberLastName": {
         "type": "string",
-        "description": "Last name of the member."
+        "description": "Last name of the member.",
+        "maxLength": 80,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberPrimaryPlanId": {
         "type": "reference",
@@ -269,7 +576,21 @@
       },
       "MemberPrognosis": {
         "type": "picklist",
-        "description": "Indicator of the provider's prognosis for the member."
+        "description": "Indicator of the provider's prognosis for the member.",
+        "format": "enum",
+        "enum": [
+          "Poor",
+          "Guarded",
+          "Fair",
+          "Good",
+          "Very Good",
+          "Excellent",
+          "Less than 6 Months to Live",
+          "Terminal"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberSecondaryPlanId": {
         "type": "reference",
@@ -277,63 +598,140 @@
       },
       "MemberStatus": {
         "type": "textarea",
-        "description": "The member's status at admission, date of outpatient service, or start of care."
+        "description": "The member's status at admission, date of outpatient service, or start of care.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "MemberVerbalNotificationDate": {
         "type": "dateTime",
-        "description": "Date when the member was verbally notified of the decision."
+        "description": "Date when the member was verbally notified of the decision.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "MemberWrittenNotificationDate": {
         "type": "dateTime",
-        "description": "Date when the member was notified of the decision by written correspondence."
+        "description": "Date when the member was notified of the decision by written correspondence.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ModificationDate": {
         "type": "dateTime",
-        "description": "Date the case was modified."
+        "description": "Date the case was modified.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedLengthOfStay": {
         "type": "int",
-        "description": "Modified number of days for the admission."
+        "description": "Modified number of days for the admission.",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedLevelOfCare": {
         "type": "picklist",
-        "description": "Modified level of care for the patient."
+        "description": "Modified level of care for the patient.",
+        "format": "enum",
+        "enum": [
+          "Hospital - Observation",
+          "Hospital - Inpatient",
+          "Hospital - Intensive Care",
+          "Hospital - Rehabilitation",
+          "SNF - Inpatient",
+          "SNF - Specialized Care",
+          "SNF - Rehabilitation"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the care request."
+        "description": "Name of the care request.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "NextReviewDate": {
         "type": "dateTime",
-        "description": "Date the next review is scheduled for completion."
+        "description": "Date the next review is scheduled for completion.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "OriginalDenialMedicalDirectorId": {
         "type": "reference",
-        "description": "The name of the medical director who denied the original request."
+        "description": "The name of the medical director who denied the original request.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ParProvider": {
         "type": "picklist",
-        "description": "Indicator of whether this provider has entered into an agreement with the insurance carrier."
+        "description": "Indicator of whether this provider has entered into an agreement with the insurance carrier.",
+        "format": "enum",
+        "enum": [
+          "Yes",
+          "No"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "PlaceOfService": {
         "type": "picklist",
-        "description": "Place of service for the member's care such as an inpatient hospital or an ambulatory surgery center."
+        "description": "Place of service for the member's care such as an inpatient hospital or an ambulatory surgery center.",
+        "format": "enum",
+        "enum": [
+          "Inpatient",
+          "Observation",
+          "Ambulatory Surgical Center",
+          "Skilled Nursing Facility",
+          "Outpatient",
+          "Home",
+          "Provider Office"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "PractitionerContactDateTime": {
         "type": "dateTime",
-        "description": "Date and time when the provider was contacted."
+        "description": "Date and time when the provider was contacted.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "QuantityType": {
         "type": "picklist",
-        "description": "Quantity type for the request such as days, units, or visits."
+        "description": "Quantity type for the request such as days, units, or visits.",
+        "format": "enum",
+        "enum": [
+          "Days",
+          "Units",
+          "Visits"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ReceivedDate": {
         "type": "dateTime",
-        "description": "Date the request was received."
+        "description": "Date the request was received.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ReconsiderationDenialNotificationDate": {
         "type": "date",
-        "description": "The date when the reconsidered care request was denied."
+        "description": "The date when the reconsidered care request was denied.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "ReconsiderationDenialNotificationTime": {
         "type": "time",
@@ -345,47 +743,174 @@
       },
       "ReferenceCaseNumber": {
         "type": "string",
-        "description": "Reference authorization number for an appeal, complaint, or grievance."
+        "description": "Reference authorization number for an appeal, complaint, or grievance.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "ReopenedDate": {
         "type": "dateTime",
-        "description": "Date the request was reopened."
+        "description": "Date the request was reopened.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ReopenReason": {
         "type": "picklist",
-        "description": "Reason the request was reopened."
+        "description": "Reason the request was reopened.",
+        "format": "enum",
+        "enum": [
+          "Administrative Error",
+          "Original Decision Overturned"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ReopenReasonDescription": {
         "type": "textarea",
-        "description": "Description of why the request was reopened."
+        "description": "Description of why the request was reopened.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "RequestedDate": {
         "type": "dateTime",
-        "description": "Date the request was originally requested."
+        "description": "Date the request was originally requested.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "RequestedLengthOfStay": {
         "type": "int",
-        "description": "Requested number of days for the admission."
+        "description": "Requested number of days for the admission.",
+        "nullable": true,
+        "readOnly": true
       },
       "RequestedLevelOfCare": {
         "type": "picklist",
-        "description": "Requested level of care for the patient."
+        "description": "Requested level of care for the patient.",
+        "format": "enum",
+        "enum": [
+          "Hospital - Observation",
+          "Hospital - Inpatient",
+          "Hospital - Intensive Care",
+          "Hospital - Rehabilitation",
+          "SNF - Inpatient",
+          "SNF - Specialized Care",
+          "SNF - Rehabilitation"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "RequesterType": {
         "type": "picklist",
-        "description": "Indicates the role of the individual initiating the request."
+        "description": "Indicates the role of the individual initiating the request.",
+        "format": "enum",
+        "enum": [
+          "Member",
+          "Practitioner",
+          "Appointed Representative"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "RequestingPractitionerId": {
         "type": "reference",
-        "description": "Ordering or referring practitioner for the request."
+        "description": "Ordering or referring practitioner for the request.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "RequestingPractitionerLicense": {
         "type": "picklist",
-        "description": "License type of the practitioner."
+        "description": "License type of the practitioner.",
+        "format": "enum",
+        "enum": [
+          "M.D.",
+          "D.O.",
+          "N.P.",
+          "P.A."
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "RequestingPractitionerSpecialty": {
         "type": "picklist",
-        "description": "Specialty of the practitioner, for example, Family Practice or General Surgery."
+        "description": "Specialty of the practitioner, for example, Family Practice or General Surgery.",
+        "format": "enum",
+        "enum": [
+          "Addiction Medicine",
+          "Advanced Heart Failure and Transplant Cardiology",
+          "Allergy/ Immunology",
+          "Anesthesiology",
+          "Cardiac Surgery",
+          "Cardiovascular Disease (Cardiology)",
+          "Clinical Psychology",
+          "Colorectal Surgery (Proctology)",
+          "Critical Care (Intensivists)",
+          "Dermatology",
+          "Diagnostic Radiology",
+          "Emergency Medicine",
+          "Endocrinology",
+          "Family Practice",
+          "Gastroenterology",
+          "General Practice",
+          "General Surgery",
+          "Geriatric Medicine",
+          "Geriatric Psychiatry",
+          "Gynecological Oncology",
+          "Hand Surgery",
+          "Hematology",
+          "Heamtology-Oncology",
+          "Hospice and Palliative Care",
+          "Hospitalist",
+          "Infectious Disease",
+          "Internal Medicine",
+          "Interventional Cardiology",
+          "Interventional Pain Management",
+          "Interventional Radiology",
+          "Maxillofacial Surgery",
+          "Medical Oncology",
+          "Medical Toxicology",
+          "Nephrology",
+          "Neurology",
+          "Neuropsychiatry",
+          "Neurosurgery",
+          "Nuclear Medicine",
+          "Obstetrics and Gynecology",
+          "Opthamology",
+          "Orthopedic Surgery",
+          "Osteopathic Manipulative Medicine",
+          "Otolaryngology",
+          "Pain Management",
+          "Pathology",
+          "Pediatric Medicine",
+          "Peripheral Vascular Disease",
+          "Physical Medicine and Rehabilitation",
+          "Plastic and Reconstructive Surgery",
+          "Podiatry",
+          "Preventive Medicine",
+          "Psychiatry",
+          "Pulmonary Disease",
+          "Radiation Oncology",
+          "Rheumatology",
+          "Sleep Medicine",
+          "Sports Medicine",
+          "Surgical Oncology",
+          "Thoracic Surgery",
+          "Urology",
+          "Vascular Surgery",
+          "Undefined"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "RequestingPractitionerVerbalNotifiedDate": {
         "type": "dateTime",
@@ -397,69 +922,498 @@
       },
       "ResolutionDate": {
         "type": "dateTime",
-        "description": "Date when the complaint, appeal, or grievance was resolved."
+        "description": "Date when the complaint, appeal, or grievance was resolved.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ResolutionLetterSentDate": {
         "type": "dateTime",
-        "description": "Date and time when a resolution letter was sent to the requester."
+        "description": "Date and time when a resolution letter was sent to the requester.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ResolutionNotes": {
         "type": "textarea",
-        "description": "Resolution notes for the request."
+        "description": "Resolution notes for the request.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "ReviewDate": {
         "type": "dateTime",
-        "description": "Date the review was completed."
+        "description": "Date the review was completed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "RootCauseNotes": {
         "type": "textarea",
-        "description": "Field for notes related to the root cause for the request."
+        "description": "Field for notes related to the root cause for the request.",
+        "maxLength": 32000,
+        "nullable": true,
+        "readOnly": true
       },
       "ScheduledAdmissionDate": {
         "type": "dateTime",
-        "description": "Anticipated admission date for the patient."
+        "description": "Anticipated admission date for the patient.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ScheduledDischargeDate": {
         "type": "dateTime",
-        "description": "Scheduled discharge date for the patient."
+        "description": "Scheduled discharge date for the patient.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ServiceDate": {
         "type": "date",
-        "description": "Date when patient received the service."
+        "description": "Date when patient received the service.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "ServicingFacilityId": {
         "type": "reference",
-        "description": "Facility where the service is being provided."
+        "description": "Facility where the service is being provided.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ServicingPractitionerId": {
         "type": "reference",
-        "description": "Practitioner administering the service."
+        "description": "Practitioner administering the service.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ServicingPractitionerLicense": {
         "type": "picklist",
-        "description": "License type of the practitioner."
+        "description": "License type of the practitioner.",
+        "format": "enum",
+        "enum": [
+          "M.D.",
+          "D.O.",
+          "N.P.",
+          "P.A."
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ServicingPractitionerSpecialty": {
         "type": "picklist",
-        "description": "Specialty of the practitioner."
+        "description": "Specialty of the practitioner.",
+        "format": "enum",
+        "enum": [
+          "Addiction Medicine",
+          "Advanced Heart Failure and Transplant Cardiology",
+          "Allergy/ Immunology",
+          "Anesthesiology",
+          "Cardiac Surgery",
+          "Cardiovascular Disease (Cardiology)",
+          "Clinical Psychology",
+          "Colorectal Surgery (Proctology)",
+          "Critical Care (Intensivists)",
+          "Dermatology",
+          "Diagnostic Radiology",
+          "Emergency Medicine",
+          "Endocrinology",
+          "Family Practice",
+          "Gastroenterology",
+          "General Practice",
+          "General Surgery",
+          "Geriatric Medicine",
+          "Geriatric Psychiatry",
+          "Gynecological Oncology",
+          "Hand Surgery",
+          "Hematology",
+          "Heamtology-Oncology",
+          "Hospice and Palliative Care",
+          "Hospitalist",
+          "Infectious Disease",
+          "Internal Medicine",
+          "Interventional Cardiology",
+          "Interventional Pain Management",
+          "Interventional Radiology",
+          "Maxillofacial Surgery",
+          "Medical Oncology",
+          "Medical Toxicology",
+          "Nephrology",
+          "Neurology",
+          "Neuropsychiatry",
+          "Neurosurgery",
+          "Nuclear Medicine",
+          "Obstetrics and Gynecology",
+          "Opthamology",
+          "Orthopedic Surgery",
+          "Osteopathic Manipulative Medicine",
+          "Otolaryngology",
+          "Pain Management",
+          "Pathology",
+          "Pediatric Medicine",
+          "Peripheral Vascular Disease",
+          "Physical Medicine and Rehabilitation",
+          "Plastic and Reconstructive Surgery",
+          "Podiatry",
+          "Preventive Medicine",
+          "Psychiatry",
+          "Pulmonary Disease",
+          "Radiation Oncology",
+          "Rheumatology",
+          "Sleep Medicine",
+          "Sports Medicine",
+          "Surgical Oncology",
+          "Thoracic Surgery",
+          "Urology",
+          "Vascular Surgery",
+          "Undefined"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystem": {
         "type": "string",
-        "description": "System from which this request was sourced."
+        "description": "System from which this request was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "ID of the system from which the request was sourced."
+        "description": "ID of the system from which the request was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemModified": {
         "type": "dateTime",
-        "description": "Timestamp of the most recent update from the source system."
+        "description": "Timestamp of the most recent update from the source system.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "RequestPractitionerVerbalNotifiedDate": {
+        "type": "string",
+        "description": "RequestPractitionerVerbalNotifiedDate field",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "RequestPractitionerWrittenNotifiedDate": {
+        "type": "string",
+        "description": "RequestPractitionerWrittenNotifiedDate field",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_carerequest.htm",
     "clouds": [
       "Health Cloud"
+    ],
+    "keyPrefix": "0Um",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareDiagnosis",
+        "field": "CareRequestId",
+        "relationshipName": "CareDiagnoses",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareRequestDrug",
+        "field": "CareRequestId",
+        "relationshipName": "CareRequestDrugs",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareRequestExtension",
+        "field": "CareRequestId",
+        "relationshipName": "CareRequestExtensions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareRequestHistory",
+        "field": "CareRequestId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareRequestItem",
+        "field": "CareRequestId",
+        "relationshipName": "CareRequestItems",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

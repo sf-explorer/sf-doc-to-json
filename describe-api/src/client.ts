@@ -236,7 +236,7 @@ export class SalesforceDescribeClient {
     if (skipCustomObjects) {
       console.log('⚠️  Skipping custom objects (__c suffix)');
     }
-    console.log('⚠️  Skipping objects ending with: History, Event, Feed, Share');
+    console.log('⚠️  Skipping objects ending with: History, Event, Feed, Share, SharingRule');
     
     for (let i = startFromIndex; i < global.length; i++) {
       const obj = global[i];
@@ -250,8 +250,8 @@ export class SalesforceDescribeClient {
         continue;
       }
       
-      // Skip objects ending with History, Event, Feed, or Share
-      if (obj.name.endsWith('History') || obj.name.endsWith('Event') || obj.name.endsWith('Feed') || obj.name.endsWith('Share')) {
+      // Skip objects ending with History, Event, Feed, Share, or SharingRule
+      if (obj.name.endsWith('History') || obj.name.endsWith('Event') || obj.name.endsWith('Feed') || obj.name.endsWith('Share') || obj.name.endsWith('SharingRule')) {
         skippedCount++;
         if (onProgress) {
           onProgress(i + 1, global.length, obj.name, true);

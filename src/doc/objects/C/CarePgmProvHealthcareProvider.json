@@ -28,7 +28,12 @@
       },
       "HealthcareProviderId": {
         "type": "reference",
-        "description": "The ID of the healthcare provider (healthcare professional) that is associated with the care program provider."
+        "description": "The ID of the healthcare provider (healthcare professional) that is associated with the care program provider.",
+        "format": "salesforce-id",
+        "x-object": "HealthcareProvider",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "IsPrimaryProvider": {
         "type": "boolean",
@@ -128,6 +133,17 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
@@ -179,12 +195,6 @@
         "childObject": "Attachment",
         "field": "ParentId",
         "relationshipName": "Attachments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CarePgmProvHealthcareProviderFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {
@@ -240,12 +250,6 @@
         "field": "WhatId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
       },
       {
         "childObject": "EventRelationChangeEvent",
@@ -330,22 +334,12 @@
         "field": "WhatId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
       }
     ],
     "clouds": [
       "Health Cloud"
-    ]
+    ],
+    "iconUrl": "custom/custom15_120.png",
+    "iconColor": "FF538A"
   }
 }

@@ -5,33 +5,141 @@
     "properties": {
       "DataDotComKey": {
         "type": "string",
-        "description": "The Data.com contact or company record identification number used by the DatacloudPurchaseUsage object to keep track of purchased records. This is equivalent to the Data.com record ID for a contact or company."
+        "description": "The Data.com contact or company record identification number used by the DatacloudPurchaseUsage object to keep track of purchased records. This is equivalent to the Data.com record ID for a contact or company.",
+        "maxLength": 25,
+        "nullable": false,
+        "readOnly": true
       },
       "DatacloudEntityType": {
         "type": "picklist",
-        "description": "The type of Data.com record you want to purchase. 0—contact 1—company"
+        "description": "The type of Data.com record you want to purchase. 0—contact 1—company",
+        "format": "enum",
+        "enum": [
+          "0",
+          "1",
+          "2",
+          "4"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "An optional field used to name your record."
+        "description": "An optional field used to name your record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "PurchaseType": {
         "type": "picklist",
-        "description": "A read only field set by the API to identify the purchase type. Added Export API"
+        "description": "A read only field set by the API to identify the purchase type. Added Export API",
+        "format": "enum",
+        "enum": [
+          "0",
+          "1",
+          "2"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "PurchaseUsageId": {
         "type": "reference",
-        "description": "The unique identification number for the DatacloudPurchaseUsage object created by making a REST POST request. 0—contact 1—company"
+        "description": "The unique identification number for the DatacloudPurchaseUsage object created by making a REST POST request. 0—contact 1—company",
+        "format": "salesforce-id",
+        "x-object": "DatacloudPurchaseUsage",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "UserId": {
         "type": "reference",
-        "description": "A unique identifier for the user making the purchase."
+        "description": "A unique identifier for the user making the purchase.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "ID d'entité propriétaire Data.com",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Supprimé",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Date de création",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "ID créé par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Date de dernière modification",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "ID dernière modification par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "Horodateur des modifications du système",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_datacloudownedentity.htm",
     "clouds": [
       "Core Salesforce"
+    ],
+    "keyPrefix": "09O",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

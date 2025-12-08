@@ -20,7 +20,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "The default value is USD. Possible values are: USD—U.S. Dollar"
+        "description": "The default value is USD. Possible values are: USD—U.S. Dollar",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "DefaultLanguage": {
         "type": "picklist",
@@ -112,7 +118,8 @@
         "format": "salesforce-id",
         "x-object": "Location",
         "maxLength": 18,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "MaxValuesPerFacet": {
         "type": "int",
@@ -218,7 +225,9 @@
       },
       "SupportedCurrencies": {
         "type": "textarea",
-        "description": "Currencies supported in the store."
+        "description": "Currencies supported in the store.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "SupportedLanguages": {
         "type": "textarea",
@@ -323,18 +332,6 @@
       {
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "Order",
-        "field": "SalesStoreId",
-        "relationshipName": "Orders",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderChangeEvent",
-        "field": "SalesStoreId",
         "relationshipName": null,
         "cascadeDelete": false
       },

@@ -548,6 +548,16 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Revenue Lifecycle Management",
@@ -668,6 +678,24 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkUserHistoryRecent",
+        "field": "RecordId",
+        "relationshipName": "NetworkUserHistoryRecentToRecord",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Task",
         "field": "RecurrenceActivityId",
         "relationshipName": "RecurringTasks",
@@ -680,34 +708,22 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "TaskId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "TaskId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskWhoRelation",
-        "field": "TaskId",
-        "relationshipName": "TaskWhoRelations",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "TopicAssignment",
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceCall",
+        "field": "ActivityId",
+        "relationshipName": "VoiceCallActivities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "VoiceCallChangeEvent",
+        "field": "ActivityId",
+        "relationshipName": null,
+        "cascadeDelete": false
       }
     ],
     "clouds": [

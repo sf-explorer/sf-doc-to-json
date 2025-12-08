@@ -5,7 +5,12 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "Facility associated with this provider facility specialty record."
+        "description": "Facility associated with this provider facility specialty record.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ActiveResearchStudyCount": {
         "type": "int",
@@ -17,11 +22,17 @@
       },
       "EffectiveFrom": {
         "type": "date",
-        "description": "The date from which this record is effective."
+        "description": "The date from which this record is effective.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveTo": {
         "type": "date",
-        "description": "The date on which this record is no longer effective."
+        "description": "The date on which this record is no longer effective.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "HealthcareFacilityId": {
         "type": "reference",
@@ -29,11 +40,15 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the record is active."
+        "description": "Indicates whether the record is active.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPrimarySpecialty": {
         "type": "boolean",
-        "description": "Indicates whether this specialty is the practitioner's primary specialty at this facility, or the facility's primary specialty."
+        "description": "Indicates whether this specialty is the practitioner's primary specialty at this facility, or the facility's primary specialty.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
@@ -70,23 +85,48 @@
       },
       "PractitionerFacilityId": {
         "type": "reference",
-        "description": "Practitioner facility associated with this provider facility specialty record."
+        "description": "Practitioner facility associated with this provider facility specialty record.",
+        "format": "salesforce-id",
+        "x-object": "HealthcarePractitionerFacility",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystem": {
         "type": "string",
-        "description": "System from which the record was sourced."
+        "description": "System from which the record was sourced.",
+        "maxLength": 64,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "ID of the system from which the record was sourced."
+        "description": "ID of the system from which the record was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SpecialtyId": {
         "type": "reference",
-        "description": "Identifies the specialty associated with this provider facility specialty record"
+        "description": "Identifies the specialty associated with this provider facility specialty record",
+        "format": "salesforce-id",
+        "x-object": "CareSpecialty",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "SpecialtyRole": {
         "type": "picklist",
-        "description": "Role of the specialty for the provider or practitioner."
+        "description": "Role of the specialty for the provider or practitioner.",
+        "format": "enum",
+        "enum": [
+          "Primary Care",
+          "Specialist",
+          "Dual"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "Id": {
         "type": "string",
@@ -145,6 +185,17 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
@@ -196,12 +247,6 @@
         "childObject": "Attachment",
         "field": "ParentId",
         "relationshipName": "Attachments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CareProviderFacilitySpecialtyFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {
@@ -263,12 +308,6 @@
         "field": "WhatId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
       },
       {
         "childObject": "EventRelationChangeEvent",
@@ -351,18 +390,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       }

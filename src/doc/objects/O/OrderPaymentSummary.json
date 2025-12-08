@@ -49,7 +49,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the OrderSummary associated with the OrderPaymentSummary. Order Management APIs and actions that create an OrderPaymentSummary for an OrderSummary set this value. The default value is USD."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the OrderSummary associated with the OrderPaymentSummary. Order Management APIs and actions that create an OrderPaymentSummary for an OrderSummary set this value. The default value is USD.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "FullName": {
         "type": "string",
@@ -233,21 +239,24 @@
         "description": "Authorization Reversed",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PendingAuthorizationAmount": {
         "type": "number",
         "description": "Pending Authorization",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "PendingReverseAuthAmount": {
         "type": "number",
         "description": "Pending Authorization Reversal",
         "format": "currency",
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "multipleOf": 0.01
       },
       "LastPaymentGatewayMessage": {
         "type": "string",
@@ -341,12 +350,6 @@
         "field": "ParentEntityId",
         "relationshipName": "ParentEntities",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderPaymentSummaryFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "OrderPaymentSummaryShare",

@@ -50,7 +50,12 @@
       },
       "DeviceId": {
         "type": "reference",
-        "description": "The ID of the device generating the observed value."
+        "description": "The ID of the device generating the observed value.",
+        "format": "salesforce-id",
+        "x-object": "Asset",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "EffectiveDateTime": {
         "type": "dateTime",
@@ -69,11 +74,18 @@
       },
       "ExpectedValueId": {
         "type": "reference",
-        "description": "The CodeSet ID related to the care metric target."
+        "description": "The CodeSet ID related to the care metric target.",
+        "format": "salesforce-id",
+        "x-object": "CareMetricTarget",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "HasMetExpectedValue": {
         "type": "boolean",
-        "description": "Indicates whether the observed value aligns with the expected value or range."
+        "description": "Indicates whether the observed value aligns with the expected value or range.",
+        "nullable": false,
+        "readOnly": true
       },
       "IdentifierId": {
         "type": "reference",
@@ -81,7 +93,9 @@
       },
       "IsMonitoredRemotely": {
         "type": "boolean",
-        "description": "Indicates whether the observed value is obtained via remote monitoring. This record can only be used in processing and charting if this field is set to True. The default value Is false."
+        "description": "Indicates whether the observed value is obtained via remote monitoring. This record can only be used in processing and charting if this field is set to True. The default value Is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsObserved": {
         "type": "boolean",
@@ -89,7 +103,9 @@
       },
       "IsOutcomePositive": {
         "type": "boolean",
-        "description": "Indicates the boolean value for the observation. The value is true if something is observed, and false if it’s not. The IsObserved field is a duplicate of this field that stores the same information. Use only one of these two fields for this type of information. The default value is false."
+        "description": "Indicates the boolean value for the observation. The value is true if something is observed, and false if it’s not. The IsObserved field is a duplicate of this field that stores the same information. Use only one of these two fields for this type of information. The default value is false.",
+        "nullable": false,
+        "readOnly": true
       },
       "IssuedDateTime": {
         "type": "dateTime",
@@ -126,7 +142,10 @@
       },
       "NumericValue": {
         "type": "double",
-        "description": "The numeric value of the care observation (6 decimal places)."
+        "description": "The numeric value of the care observation (6 decimal places).",
+        "nullable": true,
+        "readOnly": true,
+        "multipleOf": 0.000001
       },
       "ObservationEndTime": {
         "type": "dateTime",
@@ -187,7 +206,21 @@
       },
       "ProcessingResult": {
         "type": "picklist",
-        "description": "The processing result of this observation record. Applicable only if IsMonitoredRemotely is set to True"
+        "description": "The processing result of this observation record. Applicable only if IsMonitoredRemotely is set to True",
+        "format": "enum",
+        "enum": [
+          "NULL_PATIENT_DEVICE",
+          "DATA_TYPE_MISMATCH",
+          "MISSING_UNIT",
+          "NO_EXPECTED_VALUE_IN_DATE",
+          "NO_VALUE_WITH_UNIT",
+          "MEETS_TARGET",
+          "DOES_NOT_MEET_TARGET",
+          "PATIENT_NOT_FOUND"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystem": {
         "type": "string",
@@ -203,7 +236,12 @@
       },
       "UnitOfMeasureId": {
         "type": "reference",
-        "description": "The unit of measure for the observed value. The ObservedValueUnitId field is a duplicate of this field that stores the same information. Use only one of these fields to store this information."
+        "description": "The unit of measure for the observed value. The ObservedValueUnitId field is a duplicate of this field that stores the same information. Use only one of these fields to store this information.",
+        "format": "salesforce-id",
+        "x-object": "UnitOfMeasure",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "UpperBaselineValue": {
         "type": "double",
@@ -270,6 +308,17 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
@@ -321,12 +370,6 @@
         "childObject": "Attachment",
         "field": "ParentId",
         "relationshipName": "Attachments",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "CareObservationFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {
@@ -390,12 +433,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -456,6 +493,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "PatientImmunization",
+        "field": "CareObservationId",
+        "relationshipName": "Patient_Immunization_Care_Observations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PatientMedicalProcedure",
+        "field": "ReasonReferenceId",
+        "relationshipName": "PMP_ReasonReference",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "ProcessInstance",
         "field": "TargetObjectId",
         "relationshipName": "ProcessInstances",
@@ -476,18 +525,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       }

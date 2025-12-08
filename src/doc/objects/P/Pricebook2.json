@@ -5,33 +5,323 @@
     "properties": {
       "Description": {
         "type": "string",
-        "description": "Text description of the price book."
+        "description": "Text description of the price book.",
+        "maxLength": 255,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the price book is active (true) or not (false). Inactive price books are hidden in many areas in the user interface. You can change this field’s value as often as necessary. Label is Active."
+        "description": "Indicates whether the price book is active (true) or not (false). Inactive price books are hidden in many areas in the user interface. You can change this field’s value as often as necessary. Label is Active.",
+        "nullable": false
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicates whether the price book has been archived (true) or not (false). This field is read only."
+        "description": "Indicates whether the price book has been archived (true) or not (false). This field is read only.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsDeleted": {
         "type": "boolean",
-        "description": "Indicates whether the price book has been moved to the Recycle Bin (true) or not (false). Label is Deleted."
+        "description": "Indicates whether the price book has been moved to the Recycle Bin (true) or not (false). Label is Deleted.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsStandard": {
         "type": "boolean",
-        "description": "Indicates whether the price book is the standard price book for the org (true) or not (false). Every org has one standard price book—all other price books are custom price books."
+        "description": "Indicates whether the price book is the standard price book for the org (true) or not (false). Every org has one standard price book—all other price books are custom price books.",
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Required. Name of this object. This field is read-only for the standard price book. Label is Price Book Name."
+        "description": "Required. Name of this object. This field is read-only for the standard price book. Label is Price Book Name.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "ID du catalogue de prix",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Date de création",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "ID créé par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Date de dernière modification",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "ID dernière modification par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "Horodateur des modifications du système",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastViewedDate": {
+        "type": "string",
+        "description": "Date de dernier affichage",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "LastReferencedDate": {
+        "type": "string",
+        "description": "Dernière date référencée",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ValidFrom": {
+        "type": "string",
+        "description": "ValidFrom field",
+        "format": "date-time",
+        "nullable": true
+      },
+      "ValidTo": {
+        "type": "string",
+        "description": "ValidTo field",
+        "format": "date-time",
+        "nullable": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_pricebook2.htm",
     "clouds": [
       "Health Cloud"
+    ],
+    "keyPrefix": "01s",
+    "iconUrl": "standard/price_books_120.png",
+    "iconColor": "396547",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Account",
+        "field": "SDO_Default_Price_Book__c",
+        "relationshipName": "Accounts__r",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetWarranty",
+        "field": "Pricebook2Id",
+        "relationshipName": "AssetWarrantyPricebooks",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetWarrantyChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "BuyerGroupPricebook",
+        "field": "Pricebook2Id",
+        "relationshipName": "BuyerGroupPricebooks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Contract",
+        "field": "Pricebook2Id",
+        "relationshipName": "Contracts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Opportunity",
+        "field": "Pricebook2Id",
+        "relationshipName": "Opportunities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Order",
+        "field": "Pricebook2Id",
+        "relationshipName": "Orders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Pricebook2History",
+        "field": "Pricebook2Id",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PricebookEntry",
+        "field": "Pricebook2Id",
+        "relationshipName": "PricebookEntries",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "PricebookShare",
+        "field": "PricebookId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Quote",
+        "field": "Pricebook2Id",
+        "relationshipName": "Quotes",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContract",
+        "field": "Pricebook2Id",
+        "relationshipName": "ServiceContracts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceContractChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WarrantyTerm",
+        "field": "Pricebook2Id",
+        "relationshipName": "Pricebook2",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WarrantyTermChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebStore",
+        "field": "StrikethroughPricebookId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WebStorePricebook",
+        "field": "Pricebook2Id",
+        "relationshipName": "WebStorePricebooks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "WorkOrder",
+        "field": "Pricebook2Id",
+        "relationshipName": "WorkOrders",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderChangeEvent",
+        "field": "Pricebook2Id",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

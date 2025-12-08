@@ -5,55 +5,131 @@
     "properties": {
       "AuthCode": {
         "type": "string",
-        "description": "A one-time authorization code that can be exchanged for an OAuth access token and refresh token using standard Salesforce APIs. It’s used with ConnectedAppCallbackUrl and ConnectedAppConsumerKey when the specified connected app hasn’t been configured with an X.509 certificate. The system provides this read-only field after the sign-up request has been processed. This field is available in API version 29.0 and later."
+        "description": "A one-time authorization code that can be exchanged for an OAuth access token and refresh token using standard Salesforce APIs. It’s used with ConnectedAppCallbackUrl and ConnectedAppConsumerKey when the specified connected app hasn’t been configured with an X.509 certificate. The system provides this read-only field after the sign-up request has been processed. This field is available in API version 29.0 and later.",
+        "maxLength": 120,
+        "nullable": true,
+        "readOnly": true
       },
       "Company": {
         "type": "string",
-        "description": "The name of the company requesting the trial sign-up."
+        "description": "The name of the company requesting the trial sign-up.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "ConnectedAppCallbackUrl": {
         "type": "string",
-        "description": "When used with ConnectedAppConsumerKey, specifies a connected app that’s approved automatically during the sign-up creation. This field is available in API version 28.0 and later."
+        "description": "When used with ConnectedAppConsumerKey, specifies a connected app that’s approved automatically during the sign-up creation. This field is available in API version 28.0 and later.",
+        "maxLength": 2000,
+        "nullable": true,
+        "readOnly": true
       },
       "ConnectedAppConsumerKey": {
         "type": "string",
-        "description": "When used with ConnectedAppCallbackUrl, specifies a connected app that’s approved automatically during the sign-up creation. This field is available in API version 28.0 and later."
+        "description": "When used with ConnectedAppCallbackUrl, specifies a connected app that’s approved automatically during the sign-up creation. This field is available in API version 28.0 and later.",
+        "maxLength": 120,
+        "nullable": true,
+        "readOnly": true
       },
       "Country": {
         "type": "string",
-        "description": "The default value is the country of the requesting org. To override the default, enter the two-character, uppercase ISO-3166 country code (Alpha-2 code). A complete list of the codes is located at https://www.iso.org/obp/ui/#search. The language of the trial org is auto-determined based on the value of this field."
+        "description": "The default value is the country of the requesting org. To override the default, enter the two-character, uppercase ISO-3166 country code (Alpha-2 code). A complete list of the codes is located at https://www.iso.org/obp/ui/#search. The language of the trial org is auto-determined based on the value of this field.",
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       },
       "CreatedOrgId": {
         "type": "string",
-        "description": "The 15-character org ID of the trial org created. The system provides this read-only field after the sign-up request has been processed."
+        "description": "The 15-character org ID of the trial org created. The system provides this read-only field after the sign-up request has been processed.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "CreatedOrgInstance": {
         "type": "string",
-        "description": "The server instance of the new trial org, for example, “na8.” This field is available in API version 29.0 and later."
+        "description": "The server instance of the new trial org, for example, “na8.” This field is available in API version 29.0 and later.",
+        "maxLength": 10,
+        "nullable": true,
+        "readOnly": true
       },
       "Edition": {
         "type": "picklist",
-        "description": "The Salesforce template that is used to create the trial org. Possible values are Partner Group, Professional, Partner Professional, Sales Enterprise, Professional TSO, Enterprise, Partner Enterprise, Service Professional, Enterprise TSO, Developer, and Partner Developer. This field is available in API version 35.0 and later."
+        "description": "The Salesforce template that is used to create the trial org. Possible values are Partner Group, Professional, Partner Professional, Sales Enterprise, Professional TSO, Enterprise, Partner Enterprise, Service Professional, Enterprise TSO, Developer, and Partner Developer. This field is available in API version 35.0 and later.",
+        "format": "enum",
+        "enum": [
+          "Partner Professional",
+          "Partner Developer",
+          "Partner Enterprise",
+          "Partner Group",
+          "Consulting",
+          "Developer",
+          "Group",
+          "Professional",
+          "Enterprise",
+          "Professional TSO",
+          "Enterprise TSO",
+          "Service Professional",
+          "Sales Enterprise"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ErrorCode": {
         "type": "string",
-        "description": "The error code if the sign-up request isn’t successful. The system provides this read-only field for support purposes."
+        "description": "The error code if the sign-up request isn’t successful. The system provides this read-only field for support purposes.",
+        "maxLength": 8,
+        "nullable": true,
+        "readOnly": true
       },
       "FirstName": {
         "type": "string",
-        "description": "The first name of the admin user for the trial sign-up."
+        "description": "The first name of the admin user for the trial sign-up.",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "LastName": {
         "type": "string",
-        "description": "The last name of the admin user for the trial sign-up."
+        "description": "The last name of the admin user for the trial sign-up.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "PreferredLanguage": {
         "type": "picklist",
-        "description": "The language of the trial org being created. Specify the language using a language code listed under Fully Supported Languages in Supported Languages in Salesforce Help. For example, use zh_CN for simplified Chinese. The value you select overrides the language set by the locale. If you specify an invalid language, the org defaults to the default language of the country. Likewise, if you specify a language that isn’t supported by the Salesforce edition associated with your trial template, the trial org defaults to the default language of the country. This field is available in API version 35.0 and later."
+        "description": "The language of the trial org being created. Specify the language using a language code listed under Fully Supported Languages in Supported Languages in Salesforce Help. For example, use zh_CN for simplified Chinese. The value you select overrides the language set by the locale. If you specify an invalid language, the org defaults to the default language of the country. Likewise, if you specify a language that isn’t supported by the Salesforce edition associated with your trial template, the trial org defaults to the default language of the country. This field is available in API version 35.0 and later.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ResolvedTemplateId": {
         "type": "string",
-        "description": "Populated during the sign-up request and for internal use by Salesforce. This field is available in API version 35.0 and later."
+        "description": "Populated during the sign-up request and for internal use by Salesforce. This field is available in API version 35.0 and later.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "ShouldConnectToEnvHub": {
         "type": "boolean",
@@ -61,19 +137,39 @@
       },
       "SignupEmail": {
         "type": "email",
-        "description": "The email address of the admin user for the trial sign-up."
+        "description": "The email address of the admin user for the trial sign-up.",
+        "format": "email",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "SignupSource": {
         "type": "string",
-        "description": "A user-specified description of the trial sign-up, up to 60 characters. This field is available in API version 36.0 and later."
+        "description": "A user-specified description of the trial sign-up, up to 60 characters. This field is available in API version 36.0 and later.",
+        "maxLength": 60,
+        "nullable": true,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
-        "description": "The status of the request. Possible values are New, In Progress, Error, or Success. The default is New."
+        "description": "The status of the request. Possible values are New, In Progress, Error, or Success. The default is New.",
+        "format": "enum",
+        "enum": [
+          "New",
+          "InProgress",
+          "Error",
+          "Success"
+        ],
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Subdomain": {
         "type": "string",
-        "description": "The My Domain name for the new trial org used in the org’s login and application URLs. In Developer Edition orgs, your name must contain at least 3 characters and no more than 27 characters. In all other editions, it must be at least 3 characters and no more than 34 characters. It can include letters, numbers, and hyphens, but you can’t start the name with a hyphen. If you don’t choose a My Domain during sign-up, Salesforce assigns one for you based on your company name. If you don’t like the one we set, you can change it. For details, see My Domain in Salesforce Help."
+        "description": "The My Domain name for the new trial org used in the org’s login and application URLs. In Developer Edition orgs, your name must contain at least 3 characters and no more than 27 characters. In all other editions, it must be at least 3 characters and no more than 34 characters. It can include letters, numbers, and hyphens, but you can’t start the name with a hyphen. If you don’t choose a My Domain during sign-up, Salesforce assigns one for you based on your company name. If you don’t like the one we set, you can change it. For details, see My Domain in Salesforce Help.",
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "SuppressSignupEmails": {
         "type": "boolean",
@@ -81,25 +177,237 @@
       },
       "TemplateId": {
         "type": "string",
-        "description": "The 15-character ID of the Trialforce template that is the basis for the trial sign-up. Salesforce must approve the template. If you don’t specify an edition, a template ID is required."
+        "description": "The 15-character ID of the Trialforce template that is the basis for the trial sign-up. Salesforce must approve the template. If you don’t specify an edition, a template ID is required.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "TrialDays": {
         "type": "anyType",
-        "description": "The duration of the trial sign-up in days. Must be equal to or less than the trial days for the approved Trialforce template. If not provided, it defaults to the trial duration specified for the Trialforce template."
+        "description": "The duration of the trial sign-up in days. Must be equal to or less than the trial days for the approved Trialforce template. If not provided, it defaults to the trial duration specified for the Trialforce template.",
+        "nullable": true,
+        "readOnly": true
       },
       "TrialSourceOrgId": {
         "type": "string",
-        "description": "The 15-character org ID of the Trialforce Source Organization (TSO) from which the Trialforce template was created."
+        "description": "The 15-character org ID of the Trialforce Source Organization (TSO) from which the Trialforce template was created.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
       },
       "Username": {
         "type": "string",
-        "description": "The username of the admin user for the trial sign-up. It must follow the address convention specified in RFC822: www.w3.org/Protocols/rfc822/#z10."
+        "description": "The username of the admin user for the trial sign-up. It must follow the address convention specified in RFC822: www.w3.org/Protocols/rfc822/#z10.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "OwnerId": {
+        "type": "string",
+        "description": "OwnerId field",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Name": {
+        "type": "string",
+        "description": "Name field",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "TemplateDescription": {
+        "type": "string",
+        "description": "TemplateDescription field",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "IsSignupEmailSuppressed": {
+        "type": "boolean",
+        "description": "IsSignupEmailSuppressed field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "Instance": {
+        "type": "string",
+        "description": "Instance field",
+        "maxLength": 8,
+        "nullable": true,
+        "readOnly": true
       }
     },
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_signuprequest.htm",
     "clouds": [
       "Core Salesforce"
+    ],
+    "keyPrefix": "0SR",
+    "createable": true,
+    "updateable": false,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SignupRequestHistory",
+        "field": "SignupRequestId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "SignupRequestShare",
+        "field": "ParentId",
+        "relationshipName": "Shares",
+        "cascadeDelete": true
+      }
     ]
   }
 }

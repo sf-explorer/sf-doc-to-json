@@ -13,7 +13,14 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization."
+        "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       },
       "ExpenseId": {
         "type": "reference",
@@ -232,22 +239,10 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "ExpenseReportEntryFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "ExpenseReportEntryHistory",
@@ -310,18 +305,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "TopicAssignment",
         "field": "EntityId",
         "relationshipName": "TopicAssignments",
@@ -331,6 +314,8 @@
     "clouds": [
       "Field Service Lightning",
       "Core Salesforce"
-    ]
+    ],
+    "iconUrl": "standard/expense_report_entry_120.png",
+    "iconColor": "2F2CB7"
   }
 }

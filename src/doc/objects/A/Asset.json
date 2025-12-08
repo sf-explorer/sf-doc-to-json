@@ -85,7 +85,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Three-letter ISO 4217 currency code associated with the invoice. The default value is USD."
+        "description": "Three-letter ISO 4217 currency code associated with the invoice. The default value is USD.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "CurrentAmount": {
         "type": "currency",
@@ -499,7 +505,7 @@
     "module": "Revenue Lifecycle Management",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_asset.htm",
     "keyPrefix": "02i",
-    "iconUrl": "icon/t4v35/standard/asset_object_120.png",
+    "iconUrl": "standard/asset_object_120.png",
     "iconColor": "107CAD",
     "createable": true,
     "updateable": true,
@@ -532,6 +538,12 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "AppUsageAssignment",
+        "field": "RecordId",
+        "relationshipName": "AppUsageAssignments",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "AssessmentTaskContentDocument",
         "field": "ContentContextId",
         "relationshipName": "ContentDocumentContext",
@@ -550,6 +562,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "AssetAction",
+        "field": "AssetId",
+        "relationshipName": "AssetActions",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "AssetChangeEvent",
         "field": "ParentId",
         "relationshipName": null,
@@ -562,15 +580,9 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "AssetContactRole__c",
-        "field": "Asset__c",
-        "relationshipName": "Asset__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "AssetFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
+        "childObject": "AssetDowntimePeriod",
+        "field": "AssetId",
+        "relationshipName": "AssetDowntimePeriods",
         "cascadeDelete": true
       },
       {
@@ -598,7 +610,25 @@
         "cascadeDelete": true
       },
       {
+        "childObject": "AssetStatePeriod",
+        "field": "AssetId",
+        "relationshipName": "AssetStatePeriods",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "AssetTokenEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AssetWarranty",
+        "field": "AssetId",
+        "relationshipName": "WarrantyAssets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssetWarrantyChangeEvent",
         "field": "AssetId",
         "relationshipName": null,
         "cascadeDelete": false
@@ -619,6 +649,18 @@
         "childObject": "Attachment",
         "field": "ParentId",
         "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareObservation",
+        "field": "DeviceId",
+        "relationshipName": "CareObservations",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CareRegisteredDevice",
+        "field": "DeviceId",
+        "relationshipName": "Care_Registered_Devices",
         "cascadeDelete": true
       },
       {
@@ -661,6 +703,18 @@
         "childObject": "ContractLineItemChangeEvent",
         "field": "AssetId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "CustomerProperty",
+        "field": "AssetId",
+        "relationshipName": "Assets",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DataUsePurpose",
+        "field": "PurposeId",
+        "relationshipName": "DataUsePurposes",
         "cascadeDelete": false
       },
       {
@@ -712,12 +766,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -746,6 +794,30 @@
         "field": "RelatedRecordId",
         "relationshipName": null,
         "cascadeDelete": false
+      },
+      {
+        "childObject": "MaintenanceAsset",
+        "field": "AssetId",
+        "relationshipName": "MaintenanceAssets",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MaintenanceAssetChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkUserHistoryRecent",
+        "field": "RecordId",
+        "relationshipName": "NetworkUserHistoryRecentToRecord",
+        "cascadeDelete": true
       },
       {
         "childObject": "Note",
@@ -796,6 +868,60 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "ResourcePreference",
+        "field": "RelatedRecordId",
+        "relationshipName": "ResourcePreferences",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ReturnOrderLineItem",
+        "field": "AssetId",
+        "relationshipName": "ReturnOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ReturnOrderLineItemChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SerializedProduct",
+        "field": "AssetId",
+        "relationshipName": "SerializedProducts",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceAppointment",
+        "field": "ParentRecordId",
+        "relationshipName": "ServiceAppointments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ServiceAppointmentChangeEvent",
+        "field": "ParentRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResource",
+        "field": "AssetId",
+        "relationshipName": "ServiceResources",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ServiceResourceChangeEvent",
+        "field": "AssetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "Task",
         "field": "WhatId",
         "relationshipName": "Tasks",
@@ -804,18 +930,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       },
@@ -853,6 +967,12 @@
         "childObject": "WorkOrderLineItemChangeEvent",
         "field": "AssetId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkPlanSelectionRule",
+        "field": "AssetId",
+        "relationshipName": "WorkPlanSelectionRules",
         "cascadeDelete": false
       }
     ],

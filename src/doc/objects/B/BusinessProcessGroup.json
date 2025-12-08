@@ -5,19 +5,75 @@
     "properties": {
       "CustomerSatisfactionMetric": {
         "type": "string",
-        "description": "Represents the question type that measures the customer’s Net Promote Score or satisfaction score across their lifecycle."
+        "description": "Represents the question type that measures the customer’s Net Promote Score or satisfaction score across their lifecycle.",
+        "format": "enum",
+        "enum": [
+          "MultiChoice",
+          "RadioButton",
+          "FreeText",
+          "Date",
+          "Rating",
+          "CSAT",
+          "Slider",
+          "Picklist",
+          "NPS",
+          "StackRank",
+          "Currency",
+          "Number",
+          "DateTime",
+          "Toggle",
+          "MultiSelectPicklist",
+          "Image",
+          "Boolean",
+          "ShortText",
+          "Attachment",
+          "Matrix"
+        ],
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Description of the customer lifecycle map."
+        "description": "Description of the customer lifecycle map.",
+        "maxLength": 4000,
+        "nullable": true,
+        "readOnly": true
       },
       "DeveloperName": {
         "type": "string",
-        "description": "Developer name of the customer lifecycle map."
+        "description": "Developer name of the customer lifecycle map.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "Language": {
         "type": "string",
-        "description": "Language of the MasterLabel."
+        "description": "Language of the MasterLabel.",
+        "format": "enum",
+        "enum": [
+          "en_US",
+          "de",
+          "es",
+          "fr",
+          "it",
+          "ja",
+          "sv",
+          "ko",
+          "zh_TW",
+          "zh_CN",
+          "pt_BR",
+          "nl_NL",
+          "da",
+          "th",
+          "fi",
+          "ru",
+          "es_MX",
+          "no"
+        ],
+        "maxLength": 40,
+        "nullable": false,
+        "readOnly": true
       },
       "ManageableState": {
         "type": "string",
@@ -25,11 +81,70 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "Label of the customer lifecycle map."
+        "description": "Label of the customer lifecycle map.",
+        "maxLength": 80,
+        "nullable": false,
+        "readOnly": true
       },
       "NamespacePrefix": {
         "type": "string",
-        "description": "Namespace prefix associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix."
+        "description": "Namespace prefix associated with this object. Each Developer Edition org that creates a managed package has a unique namespace prefix.",
+        "maxLength": 15,
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Tooling API",
@@ -37,6 +152,20 @@
     "clouds": [
       "Tooling API",
       "Core Salesforce"
+    ],
+    "keyPrefix": "0Y3",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "BusinessProcessDefinition",
+        "field": "BusinessProcessGroupId",
+        "relationshipName": "BusinessProcessDefinitions",
+        "cascadeDelete": true
+      }
     ]
   }
 }

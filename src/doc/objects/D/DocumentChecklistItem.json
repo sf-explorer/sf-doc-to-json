@@ -5,7 +5,12 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "Read only. The ID of the account the document checklist item belongs to. The value of the field is set internally using the ParentRecordId field."
+        "description": "Read only. The ID of the account the document checklist item belongs to. The value of the field is set internally using the ParentRecordId field.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "Comments": {
         "type": "textarea",
@@ -17,55 +22,311 @@
       },
       "DocumentTypeId": {
         "type": "reference",
-        "description": "ID of the document type for the document checklist item."
+        "description": "ID of the document type for the document checklist item.",
+        "format": "salesforce-id",
+        "x-object": "DocumentType",
+        "maxLength": 18,
+        "nullable": true
       },
       "Instruction": {
         "type": "textarea",
-        "description": "Instructions associated with the document checklist item."
+        "description": "Instructions associated with the document checklist item.",
+        "maxLength": 32000,
+        "nullable": true
       },
       "IsAccepted": {
         "type": "boolean",
-        "description": "Indicates whether the file has been accepted. The default value is False."
+        "description": "Indicates whether the file has been accepted. The default value is False.",
+        "nullable": false
       },
       "IsFrozen": {
         "type": "boolean",
-        "description": "Indicates that the item can no longer be modified. The default value is False."
+        "description": "Indicates that the item can no longer be modified. The default value is False.",
+        "nullable": false
       },
       "IsRequired": {
         "type": "boolean",
-        "description": "Indicates if the document checklist item is required. The default value is False."
+        "description": "Indicates if the document checklist item is required. The default value is False.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the document checklist item."
+        "description": "Name of the document checklist item.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "ID of the user who owns this record."
+        "description": "ID of the user who owns this record.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ParentRecordId": {
         "type": "master-detail reference",
-        "description": "Original parent object the document checklist item belonged to."
+        "description": "Original parent object the document checklist item belonged to.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Account",
+          "Address",
+          "Asset",
+          "AssetWarranty",
+          "BenefitManagementRecertification__c",
+          "BusinessMilestone",
+          "CGC_Exercise__c",
+          "CGC_Milestone_Progress_V2__c",
+          "CGC_Milestone_Progress__c",
+          "CGC_Milestone__c",
+          "CGC_Milestone_and_Exercise__c",
+          "CGC_Program__c",
+          "CGC_Section__c",
+          "Campaign",
+          "CareDiagnosis",
+          "CareProgramEnrollee",
+          "CareRequest",
+          "CareRequestDrug",
+          "CareRequestExtension",
+          "CareRequestItem",
+          "Case",
+          "Claim",
+          "ClaimItem",
+          "ClaimParticipant",
+          "Contact",
+          "Contract",
+          "ContractLineItem",
+          "Einstein_User__c",
+          "FINS_Data_Cloud_Simulator__c",
+          "FlowPersonalConfiguration__c",
+          "FlowTableViewDefinition__c",
+          "Forecasting_Historical_Data__c",
+          "HealthCondition",
+          "IdentityDocument",
+          "IndividualApplication",
+          "InsurancePolicy",
+          "InsurancePolicyCoverage",
+          "Lead",
+          "MemberPlan",
+          "Mixpanel_Key__c",
+          "Mixpanel__c",
+          "NXDO__Data_Tool_Status__c",
+          "Opportunity",
+          "OpportunityHistory__c",
+          "PSBulkActionConfig__c",
+          "PersonEducation",
+          "PersonEmployment",
+          "PersonLifeEvent",
+          "ProductWarrantyTerm",
+          "PublicComplaint",
+          "Reply_Rec_Demo_Helper_QuickText__c",
+          "Reply_Rec_Demo_Helper__c",
+          "ResidentialLoanApplication",
+          "SDO_C360_Address__c",
+          "SDO_Customer360_Custom_Activity__c",
+          "SDO_Experience_ContentArticle__c",
+          "SDO_Experience_ContentCollection__c",
+          "SDO_Sales_Invoice_Example__c",
+          "SDO_Service_Appointment__c",
+          "SDO_Service_Bot_Message__c",
+          "SDO_Service_CaseArticle__c",
+          "SDO_Service_Case_Pipeline_Snapshot__c",
+          "SDO_Service_Conversation_Helper__c",
+          "SDO_Service_Custom_Debit_Card__c",
+          "SDO_Service_Einstein_Agent_Helper__c",
+          "SDO_Service_Queue_Stat__c",
+          "SDO_Service_openCTIconfig__c",
+          "SDO_Tool_SalesforceRewind__c",
+          "Salesforce_Rewind_History_Record__c",
+          "ServiceContract",
+          "Session_Time__c",
+          "Visit",
+          "WarrantyTerm",
+          "WorkOrder",
+          "WorkOrderLineItem",
+          "XDO_Tool_Tracking_Event__c",
+          "aqi_ltng_mng__ArticleQuality_index__c",
+          "aqi_ltng_mng__Article_Quality__c",
+          "einsteinplay__Einstein_Settings__c",
+          "engage_reports__Engage_Contact_Stat__c",
+          "engage_reports__Engage_Email_Template__c",
+          "engage_reports__Engage_Lead_Stat__c",
+          "engage_reports__Engage_Send__c",
+          "et4ae5__AggregateLink__c",
+          "et4ae5__Automated_Send__c",
+          "et4ae5__Business_Unit__c",
+          "et4ae5__Campaign_Member_Configuration__c",
+          "et4ae5__Configuration__c",
+          "et4ae5__ET4AEConfig__c",
+          "et4ae5__ET4AE_Config__c",
+          "et4ae5__Email_Linkage__c",
+          "et4ae5__IndividualEmailResult__c",
+          "et4ae5__IndividualLink__c",
+          "et4ae5__MC_CDC_Journey__c",
+          "et4ae5__SMSDefinition__c",
+          "et4ae5__SMSJunction__c",
+          "et4ae5__SendDefinition__c",
+          "et4ae5__SendJunction__c",
+          "et4ae5__SupportRequest__c",
+          "et4ae5__Triggered_Send_Execution__c",
+          "et4ae5__UEBU__c",
+          "et4ae5__abTest__c",
+          "maps__AdvRouteContinuousTravel__c",
+          "maps__AdvRouteDataSet__c",
+          "maps__AdvRouteDefaultValue__c",
+          "maps__AdvRouteDefaultValuesGrouping__c",
+          "maps__AdvRouteOffDays__c",
+          "maps__AdvRouteOutputType__c",
+          "maps__AdvRoutePriority__c",
+          "maps__AdvRoutePromotionalPeriodConfiguration__c",
+          "maps__AdvRouteQueryFilterGrouping__c",
+          "maps__AdvRouteQueryFilter__c",
+          "maps__AdvRouteRoutableObject__c",
+          "maps__AdvRouteSettings__c",
+          "maps__AdvRouteTemplateUser__c",
+          "maps__AdvRouteTemplate__c",
+          "maps__AdvRouteVisitWindows__c",
+          "maps__AdvRouteWaypoint__c",
+          "maps__AdvRoute__c",
+          "maps__Analytic__c",
+          "maps__ArcGISBatchPushLog__c",
+          "maps__ArcGISBatchPushSetting__c",
+          "maps__ArcGISBatchPushTest__c",
+          "maps__AssignmentPlanRun__c",
+          "maps__AssignmentPlan__c",
+          "maps__AssignmentRule__c",
+          "maps__BaseObject__c",
+          "maps__ButtonSet__c",
+          "maps__CalEventBaseObj__c",
+          "maps__CalEventLookup__c",
+          "maps__CalendarResourceShift__c",
+          "maps__Click2Create__c",
+          "maps__CustomAction__c",
+          "maps__DataLayerSetting__c",
+          "maps__DebugLog__c",
+          "maps__DriveProfile__c",
+          "maps__FolderPermission__c",
+          "maps__Folder__c",
+          "maps__Layer__c",
+          "maps__LiveAssetDailySummaryEvent__c",
+          "maps__LiveAssetDailySummary__c",
+          "maps__LiveAsset__c",
+          "maps__LiveAsyncError__c",
+          "maps__LiveDailyDriveTrip__c",
+          "maps__LiveDailySummaryConfig__c",
+          "maps__LiveDriverAssignment__c",
+          "maps__LiveDriver__c",
+          "maps__LiveEventAssociation__c",
+          "maps__LiveEvent__c",
+          "maps__LiveHolidayRelationship__c",
+          "maps__LiveHolidayTime__c",
+          "maps__LiveIoTDevice__c",
+          "maps__LiveSummaryStateMileage__c",
+          "maps__LiveSummaryStopRelationshipConfig__c",
+          "maps__LiveWorkingHours__c",
+          "maps__Location__c",
+          "maps__MapsSetting__c",
+          "maps__MarkerLayerComponent__c",
+          "maps__MarkerLayerRelatedList__c",
+          "maps__MarkerLayer__c",
+          "maps__MiniMapSetting__c",
+          "maps__Route__c",
+          "maps__ScheduledJob__c",
+          "maps__SettingsGroupAssignment__c",
+          "maps__SettingsGroup__c",
+          "maps__ShapeLayerGeometry__c",
+          "maps__ShapeLayer__c",
+          "maps__TPAlignment__c",
+          "maps__TPArea__c",
+          "maps__TPComment__c",
+          "maps__TPDataSet__c",
+          "maps__TPHistory__c",
+          "maps__TPRole__c",
+          "maps__TPUnitAssignment__c",
+          "maps__TPUserPreference__c",
+          "maps__TerritoryAggregationSetting__c",
+          "maps__TerritoryAggregation__c",
+          "maps__TerritoryNode__c",
+          "maps__Timesheet_Activity__c",
+          "maps__Timesheet_Period__c",
+          "maps__Timesheet_Rule__c",
+          "maps__Timesheet_Travel__c",
+          "maps__Timesheet__c",
+          "maps__Waypoint__c",
+          "pi__AsyncRequest_Settings__c",
+          "pi__AsyncRequest__c",
+          "pi__Category_Contact_Score__c",
+          "pi__Category_Lead_Score__c",
+          "pi__Demo_Settings__c",
+          "pi__EngageCampaignRecipient__c",
+          "pi__LDFilter__c",
+          "pi__ObjectChangeLog__c",
+          "pi__PardotTask__c",
+          "pi__Pardot_Scoring_Category__c",
+          "pi__Partner_Settings__c",
+          "pi__Trigger_Settings__c",
+          "scrubDemo_Interaction_Analysis__c",
+          "xDO_MDC_Custom_Activity__c",
+          "xDO_MDC_Unified_Addresses__c",
+          "xDO_MDC_Unified_Email__c",
+          "xDO_MDC_Unified_Link__c",
+          "xDO_MDC_Unified_Phone__c",
+          "xDO_MDC_customListHeaders__c",
+          "xDO_MDC_customListRecord__c",
+          "xDO_Tool_ProcessAutomationSwitch__c",
+          "xdo_dc_Timeline_Activity__c",
+          "xdo_dc_Universal_360_Child__c",
+          "xdo_dc_universal_360__c"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "ReceivedDocumentId": {
         "type": "reference",
-        "description": ""
+        "description": "",
+        "format": "salesforce-id",
+        "x-object": "ReceivedDocument",
+        "maxLength": 18,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Uploaded document checklist item status."
+        "description": "Uploaded document checklist item status.",
+        "format": "enum",
+        "enum": [
+          "New",
+          "Pending",
+          "Accepted",
+          "Rejected"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "UploadedById": {
         "type": "reference",
-        "description": "Person who uploaded the file."
+        "description": "Person who uploaded the file.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ValidatedById": {
         "type": "reference",
@@ -81,7 +342,14 @@
       },
       "WhoId": {
         "type": "",
-        "description": ""
+        "description": "",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Contact",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": true
       },
       "Id": {
         "type": "string",
@@ -140,14 +408,24 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_documentchecklistitem.htm",
     "keyPrefix": "0dd",
-    "createable": false,
-    "updateable": false,
-    "deletable": false,
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -212,12 +490,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "DocumentChecklistItemFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "DocumentChecklistItemHistory",
         "field": "DocumentChecklistItemId",
         "relationshipName": "Histories",
@@ -260,12 +532,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -293,6 +559,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -328,18 +600,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       }

@@ -194,20 +194,19 @@
         "nullable": false,
         "description": "The time zone that the operating hours fall within."
       },
-      "Default_for_FSL_Snap_Ins__c": {
-        "type": "boolean",
-        "description": "Default for FSL Snap-Ins",
-        "nullable": false
-      },
-      "External_ID__c": {
-        "type": "string",
-        "description": "External ID",
-        "maxLength": 255,
-        "nullable": true
-      },
       "OwnerId": {
         "type": "reference",
         "description": "The ID of the owner of the operating hours record."
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       }
     },
     "module": "Core Salesforce",
@@ -261,6 +260,12 @@
         "field": "LinkedEntityId",
         "relationshipName": "AttachedContentNotes",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProviderSearchableField",
+        "field": "OperatingHoursId",
+        "relationshipName": "SearchDataOperatingHours",
+        "cascadeDelete": false
       },
       {
         "childObject": "CombinedAttachment",
@@ -323,16 +328,16 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "HealthcarePractitionerFacility",
+        "field": "OperatingHoursId",
+        "relationshipName": "HealthcarePractitionerFacilityOperatingHours",
+        "cascadeDelete": false
+      },
+      {
         "childObject": "NetworkActivityAudit",
         "field": "ParentEntityId",
         "relationshipName": "ParentEntities",
         "cascadeDelete": false
-      },
-      {
-        "childObject": "OperatingHoursFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "OperatingHoursHoliday",
@@ -389,18 +394,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "WorkOrder",
-        "field": "FSL__VisitingHours__c",
-        "relationshipName": "FSL__Work_Orders__r",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkOrderLineItem",
-        "field": "FSL__VisitingHours__c",
-        "relationshipName": "FSL__Work_Order_Line_Items__r",
-        "cascadeDelete": false
-      },
-      {
         "childObject": "WorkType",
         "field": "OperatingHoursId",
         "relationshipName": "OperatingHours",
@@ -416,6 +409,8 @@
     "clouds": [
       "Core Salesforce",
       "Core Salesforce"
-    ]
+    ],
+    "iconUrl": "standard/operating_hours_120.png",
+    "iconColor": "1B96FF"
   }
 }

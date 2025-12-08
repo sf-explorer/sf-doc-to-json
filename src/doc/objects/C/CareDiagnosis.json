@@ -5,27 +5,55 @@
     "properties": {
       "CareRequestCaseId": {
         "type": "reference",
-        "description": "Case related to the care request."
+        "description": "Case related to the care request.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CareRequestId": {
         "type": "reference",
-        "description": "Care request for the diagnosis."
+        "description": "Care request for the diagnosis.",
+        "format": "salesforce-id",
+        "x-object": "CareRequest",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "CodeDescription": {
         "type": "string",
-        "description": "Diagnosis code description."
+        "description": "Diagnosis code description.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "CodeType": {
         "type": "picklist",
-        "description": "Code type for the diagnosis."
+        "description": "Code type for the diagnosis.",
+        "format": "enum",
+        "enum": [
+          "ICD-10-CM"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "CodeTypeIdentifier": {
         "type": "string",
-        "description": "ID of the code type for the diagnosis."
+        "description": "ID of the code type for the diagnosis.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DiagnosisCodeId": {
         "type": "reference",
-        "description": "Diagnosis code. DiagnosisCodeId will be deprecated in a future release, so use DiagnosisCodeSetId instead."
+        "description": "Diagnosis code. DiagnosisCodeId will be deprecated in a future release, so use DiagnosisCodeSetId instead.",
+        "format": "salesforce-id",
+        "x-object": "HealthCareDiagnosis",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "DiagnosisCodeSetId": {
         "type": "reference",
@@ -33,31 +61,58 @@
       },
       "DischargeCode": {
         "type": "string",
-        "description": "Discharge diagnosis code."
+        "description": "Discharge diagnosis code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "DischargeCodeDescription": {
         "type": "string",
-        "description": "Description of the discharge diagnosis code."
+        "description": "Description of the discharge diagnosis code.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DischargeCodeType": {
         "type": "picklist",
-        "description": "Code type for the discharge diagnosis."
+        "description": "Code type for the discharge diagnosis.",
+        "format": "enum",
+        "enum": [
+          "ICD-10-CM"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "DischargeCodeTypeIdentifier": {
         "type": "string",
-        "description": "ID of the code type for the discharge diagnosis."
+        "description": "ID of the code type for the discharge diagnosis.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "DischargeDiagnosisCodeId": {
         "type": "reference",
-        "description": "Diagnosis code at discharge."
+        "description": "Diagnosis code at discharge.",
+        "format": "salesforce-id",
+        "x-object": "HealthCareDiagnosis",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "DischargeDiagnosisEffectiveDate": {
         "type": "date",
-        "description": "Effective date for the discharge diagnosis."
+        "description": "Effective date for the discharge diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "DischargeDiagnosisEndDate": {
         "type": "date",
-        "description": "Termination date for the discharge diagnosis."
+        "description": "Termination date for the discharge diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "DischrgeDiagnosisCodeSetId": {
         "type": "reference",
@@ -65,11 +120,17 @@
       },
       "EffectiveDate": {
         "type": "date",
-        "description": "Effective date for the diagnosis."
+        "description": "Effective date for the diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "EndDate": {
         "type": "date",
-        "description": "Termination date for the diagnosis."
+        "description": "Termination date for the diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "HealthConditionId": {
         "type": "reference",
@@ -77,43 +138,76 @@
       },
       "IsDischargeDiagnosisPrimary": {
         "type": "boolean",
-        "description": "Indicates whether this is the primary discharge diagnosis."
+        "description": "Indicates whether this is the primary discharge diagnosis.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsModifiedDiagnosisPrimary": {
         "type": "boolean",
-        "description": "Indicates whether this modified diagnosis is the primary diagnosis."
+        "description": "Indicates whether this modified diagnosis is the primary diagnosis.",
+        "nullable": false,
+        "readOnly": true
       },
       "IsPrimary": {
         "type": "boolean",
-        "description": "Indicates whether this diagnosis is the primary diagnosis."
+        "description": "Indicates whether this diagnosis is the primary diagnosis.",
+        "nullable": false,
+        "readOnly": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCode": {
         "type": "string",
-        "description": "Modified diagnosis code."
+        "description": "Modified diagnosis code.",
+        "maxLength": 32,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeDescription": {
         "type": "string",
-        "description": "Modified diagnosis code description."
+        "description": "Modified diagnosis code description.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeType": {
         "type": "picklist",
-        "description": "Code type for the modified diagnosis."
+        "description": "Code type for the modified diagnosis.",
+        "format": "enum",
+        "enum": [
+          "ICD-10-CM"
+        ],
+        "maxLength": 40,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedCodeTypeIdentifier": {
         "type": "string",
-        "description": "ID of the code type for the modified diagnosis."
+        "description": "ID of the code type for the modified diagnosis.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedDiagnosisCodeId": {
         "type": "reference",
-        "description": "ID of the code type for the modified diagnosis. ModifiedDiagnosisCodeId will be deprecated in a future release, so use ModifiedDiagnosisCodeSetId instead."
+        "description": "ID of the code type for the modified diagnosis. ModifiedDiagnosisCodeId will be deprecated in a future release, so use ModifiedDiagnosisCodeSetId instead.",
+        "format": "salesforce-id",
+        "x-object": "HealthCareDiagnosis",
+        "maxLength": 18,
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedDiagnosisCodeSetId": {
         "type": "reference",
@@ -121,15 +215,24 @@
       },
       "ModifiedEffectiveDate": {
         "type": "date",
-        "description": "Modified effective date for the diagnosis."
+        "description": "Modified effective date for the diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "ModifiedEndDate": {
         "type": "date",
-        "description": "Modified termination date for the diagnosis."
+        "description": "Modified termination date for the diagnosis.",
+        "format": "date",
+        "nullable": true,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the diagnosis code."
+        "description": "Name of the diagnosis code.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "PresentOnAdmission": {
         "type": "picklist",
@@ -141,21 +244,300 @@
       },
       "SourceSystem": {
         "type": "string",
-        "description": "System from which this request was sourced."
+        "description": "System from which this request was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "ID of the system from which the request was sourced."
+        "description": "ID of the system from which the request was sourced.",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "SourceSystemModified": {
         "type": "dateTime",
-        "description": "Timestamp of the most recent update from the source system."
+        "description": "Timestamp of the most recent update from the source system.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_carediagnosis.htm",
     "clouds": [
       "Health Cloud"
+    ],
+    "keyPrefix": "0VC",
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
+    "queryable": true,
+    "searchable": true,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ActivityHistory",
+        "field": "WhatId",
+        "relationshipName": "ActivityHistories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AssessmentTaskContentDocument",
+        "field": "ContentContextId",
+        "relationshipName": "ContentDocumentContext",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "AttachedContentDocument",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentDocuments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AttachedContentNote",
+        "field": "LinkedEntityId",
+        "relationshipName": "AttachedContentNotes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Attachment",
+        "field": "ParentId",
+        "relationshipName": "Attachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CareDiagnosisHistory",
+        "field": "CareDiagnosisId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "CombinedAttachment",
+        "field": "ParentId",
+        "relationshipName": "CombinedAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentDocumentLink",
+        "field": "LinkedEntityId",
+        "relationshipName": "ContentDocumentLinks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ContentVersion",
+        "field": "FirstPublishLocationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DocumentChecklistItem",
+        "field": "ParentRecordId",
+        "relationshipName": "DocumentChecklistItemPR",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessage",
+        "field": "RelatedToId",
+        "relationshipName": "Emails",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EmailMessageChangeEvent",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EntitySubscription",
+        "field": "ParentId",
+        "relationshipName": "FeedSubscriptionsForEntity",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "Event",
+        "field": "WhatId",
+        "relationshipName": "Events",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "EventChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "EventRelationChangeEvent",
+        "field": "RelationId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedComment",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FeedItem",
+        "field": "ParentId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Note",
+        "field": "ParentId",
+        "relationshipName": "Notes",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "NoteAndAttachment",
+        "field": "ParentId",
+        "relationshipName": "NotesAndAttachments",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OpenActivity",
+        "field": "WhatId",
+        "relationshipName": "OpenActivities",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "OutgoingEmail",
+        "field": "RelatedToId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "Task",
+        "field": "WhatId",
+        "relationshipName": "Tasks",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "TaskChangeEvent",
+        "field": "WhatId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

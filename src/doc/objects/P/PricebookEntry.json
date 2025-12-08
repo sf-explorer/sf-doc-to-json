@@ -1,45 +1,260 @@
 {
-  "Pricebookentry": {
-    "name": "Pricebookentry",
-    "description": "Represents a product entry (an association between a price book and product) in a price book.",
+  "PricebookEntry": {
+    "name": "PricebookEntry",
+    "description": "Entrées au catalogue de prix - PricebookEntry",
     "properties": {
-      "IsActive": {
-        "type": "boolean",
-        "description": "Indicates whether this price book entry is active."
-      },
-      "IsArchived": {
-        "type": "boolean",
-        "description": "Indicates whether the price book entry has been archived (true) or not (false). This is set to true when the product record it’s associated with is archived, or when the price book record is archived. This field is read only. Available in API version 45.0 and later. Label is Archived."
+      "Id": {
+        "type": "string",
+        "description": "ID d'entrée au catalogue de prix",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of this price book entry record. This read-only field references the value in the Name field of the product record. Label is Product Name."
+        "description": "Nom du produit",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
       },
       "Pricebook2Id": {
-        "type": "reference",
-        "description": "Required. ID of the price book record with which this record is associated. This field must be specified when creating price book records. It can’t be changed in an update."
+        "type": "string",
+        "description": "ID du catalogue de prix",
+        "format": "salesforce-id",
+        "x-object": "Pricebook2",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "Required. ID of the product record with which this record is associated. This field must be specified when creating product records. It can’t be changed in an update."
-      },
-      "ProductCode": {
         "type": "string",
-        "description": "Product code for this record. This read-only field references the value in the ProductCode field of the associated product record."
+        "description": "ID produit",
+        "format": "salesforce-id",
+        "x-object": "Product2",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
       },
       "UnitPrice": {
-        "type": "currency",
-        "description": "Required. Unit price for this price book entry. You can specify a value only if UseStandardPrice is set to false. Label is List Price."
+        "type": "number",
+        "description": "Prix catalogue",
+        "format": "currency",
+        "nullable": false,
+        "multipleOf": 0.01
+      },
+      "IsActive": {
+        "type": "boolean",
+        "description": "Actif",
+        "nullable": false
       },
       "UseStandardPrice": {
         "type": "boolean",
-        "description": "Indicates whether this price book entry uses the standard price defined in the standard price book record."
+        "description": "Utiliser le Prix standard",
+        "nullable": false
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "Date de création",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "ID créé par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "Date de dernière modification",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "ID dernière modification par",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "Horodateur des modifications du système",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "ProductCode": {
+        "type": "string",
+        "description": "Code du produit",
+        "maxLength": 255,
+        "nullable": true,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "Supprimé",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsArchived": {
+        "type": "boolean",
+        "description": "Archivé",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
+      },
+      "ActivePriceAdjustmentQuantity": {
+        "type": "integer",
+        "description": "ActivePriceAdjustmentQuantity field",
+        "nullable": true,
+        "readOnly": true
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_pricebookentry.htm",
-    "clouds": [
-      "Health Cloud"
+    "module": "N/A",
+    "keyPrefix": "01u",
+    "label": "Entrée au catalogue de prix",
+    "iconUrl": "standard/price_book_entries_120.png",
+    "iconColor": "396547",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "AIInsightValue",
+        "field": "SobjectLookupValueId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "AIRecordInsight",
+        "field": "TargetId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItem",
+        "field": "PricebookEntryId",
+        "relationshipName": "ContractLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ContractLineItemChangeEvent",
+        "field": "PricebookEntryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OpportunityLineItem",
+        "field": "PricebookEntryId",
+        "relationshipName": "OpportunityLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "PricebookEntryId",
+        "relationshipName": "OrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemChangeEvent",
+        "field": "PricebookEntryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PricebookEntryAdjustment",
+        "field": "PricebookEntryId",
+        "relationshipName": "PricebookEntryAdjustments",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "PricebookEntryHistory",
+        "field": "PricebookEntryId",
+        "relationshipName": "Histories",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProductConsumed",
+        "field": "PricebookEntryId",
+        "relationshipName": "ProductsConsumed",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductConsumedChangeEvent",
+        "field": "PricebookEntryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteLineItem",
+        "field": "PricebookEntryId",
+        "relationshipName": "QuoteLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "QuoteLineItemChangeEvent",
+        "field": "PricebookEntryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "RecordAction",
+        "field": "RecordId",
+        "relationshipName": "RecordActions",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "RecordActionHistory",
+        "field": "ParentRecordId",
+        "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItem",
+        "field": "PricebookEntryId",
+        "relationshipName": "WorkOrderLineItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "WorkOrderLineItemChangeEvent",
+        "field": "PricebookEntryId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      }
     ]
   }
 }

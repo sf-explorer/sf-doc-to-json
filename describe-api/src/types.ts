@@ -86,6 +86,8 @@ export interface DescribeSObjectResult {
   deprecatedAndHidden: boolean;
   // Icon metadata (from UI API)
   themeInfo?: ThemeInfo;
+  // Name field - the primary name field for the object
+  nameFields?: string[];
 }
 
 export interface ChildRelationship {
@@ -101,6 +103,7 @@ export interface ChildRelationship {
 
 export interface JsonSchemaProperty {
   type: string;
+  title?: string;
   description?: string;
   format?: string;
   enum?: string[];
@@ -141,6 +144,8 @@ export interface JsonSchema {
     // Icon metadata
     iconUrl?: string;
     iconColor?: string;
+    // Name field - the primary name field for the object
+    nameField?: string;
   };
   'x-child-relations'?: Array<{
     childObject: string;

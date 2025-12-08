@@ -5,37 +5,161 @@
     "properties": {
       "CaseId": {
         "type": "reference",
-        "description": "The ID of the associated case."
+        "description": "The ID of the associated case.",
+        "format": "salesforce-id",
+        "x-object": "Case",
+        "maxLength": 18,
+        "nullable": false
       },
       "IntegrationPayload": {
         "type": "textarea",
-        "description": "The data payload for the integration, in JSON format. Here’s an example. { \"FlowName\": \"\", \"ServiceRequestNumber\": \"\", \"ServiceRequestId\": \"\", \"AccountId\": \"\", \"FinancialAccountId\": \"\" }"
+        "description": "The data payload for the integration, in JSON format. Here’s an example. { \"FlowName\": \"\", \"ServiceRequestNumber\": \"\", \"ServiceRequestId\": \"\", \"AccountId\": \"\", \"FinancialAccountId\": \"\" }",
+        "maxLength": 32000,
+        "nullable": false
       },
       "Name": {
         "type": "string",
-        "description": "An auto-generated string assigned to this record."
+        "description": "An auto-generated string assigned to this record.",
+        "maxLength": 255,
+        "nullable": false,
+        "readOnly": true
       },
       "SourceSystem": {
         "type": "string",
-        "description": "The name of the source system this record was obtained from."
+        "description": "The name of the source system this record was obtained from.",
+        "maxLength": 255,
+        "nullable": true
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "The ID of this record in the source system."
+        "description": "The ID of this record in the source system.",
+        "maxLength": 255,
+        "nullable": true
       },
       "StatusCode": {
         "type": "string",
-        "description": "The status code of the transmission."
+        "description": "The status code of the transmission.",
+        "maxLength": 100,
+        "nullable": false
       },
       "StatusMessage": {
         "type": "string",
-        "description": "The status of the transmission."
+        "description": "The status of the transmission.",
+        "maxLength": 255,
+        "nullable": false
+      },
+      "Id": {
+        "type": "string",
+        "description": "Id field",
+        "format": "salesforce-id",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsDeleted": {
+        "type": "boolean",
+        "description": "IsDeleted field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "CreatedDate": {
+        "type": "string",
+        "description": "CreatedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "CreatedById": {
+        "type": "string",
+        "description": "CreatedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedDate": {
+        "type": "string",
+        "description": "LastModifiedDate field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "LastModifiedById": {
+        "type": "string",
+        "description": "LastModifiedById field",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": false,
+        "readOnly": true
+      },
+      "SystemModstamp": {
+        "type": "string",
+        "description": "SystemModstamp field",
+        "format": "date-time",
+        "nullable": false,
+        "readOnly": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Financial Services Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_casegatewayrequest.htm",
     "clouds": [
       "Financial Services Cloud"
+    ],
+    "keyPrefix": "0cQ",
+    "createable": true,
+    "updateable": true,
+    "deletable": true,
+    "queryable": true,
+    "searchable": false,
+    "childRelationships": [
+      {
+        "childObject": "FlowExecutionErrorEvent",
+        "field": "ContextRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "FlowRecordRelation",
+        "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProcessInstance",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessInstances",
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "ProcessInstanceHistory",
+        "field": "TargetObjectId",
+        "relationshipName": "ProcessSteps",
+        "cascadeDelete": false
+      }
     ]
   }
 }

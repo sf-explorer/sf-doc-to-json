@@ -86,7 +86,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Currency of the sales agreement."
+        "description": "Currency of the sales agreement.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "InstructionDescription": {
         "type": "textarea",
@@ -288,7 +294,7 @@
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_visit.htm",
     "keyPrefix": "0Z5",
-    "iconUrl": "icon/t4v35/standard/maintenance_plan_120.png",
+    "iconUrl": "standard/maintenance_plan_120.png",
     "iconColor": "0176D3",
     "createable": true,
     "updateable": true,
@@ -381,6 +387,12 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "DigitalSignature",
+        "field": "ParentId",
+        "relationshipName": "DigitalSignatures",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "DocumentChecklistItem",
         "field": "ParentRecordId",
         "relationshipName": "DocumentChecklistItemPR",
@@ -417,12 +429,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -450,6 +456,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -489,6 +501,18 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "ProductItemTransaction",
+        "field": "RelatedRecordId",
+        "relationshipName": "ProductItemTransactions",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "ProductRequired",
+        "field": "ParentRecordId",
+        "relationshipName": "ProductsRequired",
+        "cascadeDelete": true
+      },
+      {
         "childObject": "RecordAction",
         "field": "RecordId",
         "relationshipName": "RecordActions",
@@ -498,6 +522,12 @@
         "childObject": "RecordActionHistory",
         "field": "ParentRecordId",
         "relationshipName": "RecordActionHistories",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "SurveySubject",
+        "field": "SubjectId",
+        "relationshipName": "SurveySubjectEntities",
         "cascadeDelete": false
       },
       {
@@ -511,24 +541,6 @@
         "field": "WhatId",
         "relationshipName": null,
         "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "VisitFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
       },
       {
         "childObject": "VisitShare",

@@ -79,7 +79,8 @@
       },
       "IsAuthenticated": {
         "type": "boolean",
-        "description": "Indicates whether a user is authenticated to a voice assistant. The org permission Live Message Voice is required to access and update this field. Available in API version 44.0 and later."
+        "description": "Indicates whether a user is authenticated to a voice assistant. The org permission Live Message Voice is required to access and update this field. Available in API version 44.0 and later.",
+        "nullable": false
       },
       "IsoCountryCode": {
         "type": "string",
@@ -295,7 +296,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingchannel.htm",
     "keyPrefix": "0Mj",
-    "iconUrl": "icon/t4v35/standard/messaging_session_120.png",
+    "iconUrl": "standard/messaging_session_120.png",
     "iconColor": "06A59A",
     "createable": true,
     "updateable": true,
@@ -310,10 +311,34 @@
         "cascadeDelete": false
       },
       {
+        "childObject": "ConversationChannelResponse",
+        "field": "ConversationChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingChannelSkill",
+        "field": "MessagingChannelId",
+        "relationshipName": null,
+        "cascadeDelete": true
+      },
+      {
+        "childObject": "MessagingDeliveryError",
+        "field": "MessagingChannelId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
         "childObject": "MessagingEndUser",
         "field": "MessagingChannelId",
         "relationshipName": null,
         "cascadeDelete": false
+      },
+      {
+        "childObject": "MessagingLink",
+        "field": "MessagingChannelId",
+        "relationshipName": "MessagingLinks",
+        "cascadeDelete": true
       },
       {
         "childObject": "MessagingSession",
@@ -332,6 +357,12 @@
         "field": "SetupEntityId",
         "relationshipName": "SetupEntityAccessItems",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "VoiceVendorLine",
+        "field": "ConversationChannelId",
+        "relationshipName": "VoiceVendorLines",
+        "cascadeDelete": false
       }
     ],
     "clouds": [

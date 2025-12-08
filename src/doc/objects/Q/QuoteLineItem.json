@@ -17,7 +17,14 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for organizations enabled for multiple currencies. Contains the ISO code for any currency allowed by the organization. If the organization has multicurrency and a Pricebook2 is specified on the quote (the Pricebook2Id field isn’t blank), then the currency value of this field must match the currency of the PricebookEntry objects for any associated quote line items.This value is copied from the related Quote and can't be changed."
+        "description": "Available only for organizations enabled for multiple currencies. Contains the ISO code for any currency allowed by the organization. If the organization has multicurrency and a Pricebook2 is specified on the quote (the Pricebook2Id field isn’t blank), then the currency value of this field must match the currency of the PricebookEntry objects for any associated quote line items.This value is copied from the related Quote and can't be changed.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       },
       "CustomProductName": {
         "type": "string",
@@ -440,7 +447,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotelineitem.htm",
     "keyPrefix": "0QL",
-    "iconUrl": "icon/t4v35/standard/quotes_120.png",
+    "iconUrl": "standard/quotes_120.png",
     "iconColor": "3BA755",
     "createable": true,
     "updateable": true,
@@ -469,6 +476,30 @@
       {
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
+        "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "GroupReferenceEntityItemId",
+        "relationshipName": "GroupInvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "InvoiceLine",
+        "field": "ReferenceEntityItemId",
+        "relationshipName": "InvoiceLines",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItem",
+        "field": "QuoteLineItemId",
+        "relationshipName": "OrderItems",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "OrderItemChangeEvent",
+        "field": "QuoteLineItemId",
         "relationshipName": null,
         "cascadeDelete": false
       },

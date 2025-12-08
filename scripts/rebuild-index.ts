@@ -25,6 +25,9 @@ interface SalesforceObject {
     sourceUrl?: string;
     clouds?: string[];
     accessRules?: string;
+    nameField?: string;
+    keyPrefix?: string;
+    label?: string;
 }
 
 interface ObjectIndexEntry {
@@ -125,7 +128,10 @@ async function rebuildIndex() {
                         description: objectData.description || existingEntry?.description || '',
                         fieldCount: Object.keys(objectData.properties || {}).length,
                         clouds: objectData.clouds || existingEntry?.clouds || [cloudName],
-                        accessRules: objectData.accessRules || existingEntry?.accessRules
+                        accessRules: objectData.accessRules || existingEntry?.accessRules,
+                        // Update keyPrefix and label from object file if available
+                        ...(objectData.keyPrefix && { keyPrefix: objectData.keyPrefix }),
+                        ...(objectData.label && { label: objectData.label })
                     };
                     
                     if (objectData.accessRules) {

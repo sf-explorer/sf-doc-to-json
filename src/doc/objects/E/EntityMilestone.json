@@ -40,7 +40,13 @@
       },
       "CurrencyIsoCode": {
         "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization."
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
       },
       "ElapsedTimeInDays": {
         "type": "double",
@@ -264,7 +270,7 @@
     "module": "Core Salesforce",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_entitymilestone.htm",
     "keyPrefix": "1EM",
-    "iconUrl": "icon/t4v35/standard/entity_milestone_120.png",
+    "iconUrl": "standard/entity_milestone_120.png",
     "iconColor": "FF5D2D",
     "createable": false,
     "updateable": true,
@@ -315,12 +321,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EntityMilestoneFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EntityMilestoneHistory",
         "field": "EntityMilestoneId",
         "relationshipName": "Histories",
@@ -354,6 +354,12 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {

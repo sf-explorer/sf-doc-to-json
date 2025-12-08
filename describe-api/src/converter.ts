@@ -20,8 +20,8 @@ const TYPE_MAPPING: Record<string, { type: string; format?: string }> = {
   email: { type: 'string', format: 'email' },
   url: { type: 'string', format: 'uri' },
   phone: { type: 'string', format: 'phone' },
-  picklist: { type: 'string', format: 'enum' },
-  multipicklist: { type: 'string', format: 'enum' },
+  picklist: { type: 'string' },  // enum values are added via the enum property
+  multipicklist: { type: 'string' },  // enum values are added via the enum property
   textarea: { type: 'string' },
   encryptedstring: { type: 'string' },
   combobox: { type: 'string' },
@@ -58,7 +58,8 @@ export function convertFieldToProperty(field: DescribeFieldResult): JsonSchemaPr
   
   const property: JsonSchemaProperty = {
     type: typeInfo.type,
-    description: field.label,
+    title: field.label, // Display name/title
+    description: field.inlineHelpText || undefined, // Help text (only if present)
   };
 
   // Add format if present
@@ -100,7 +101,9 @@ export function convertFieldToProperty(field: DescribeFieldResult): JsonSchemaPr
       property.maximum = maxValue;
       property.minimum = -maxValue;
       
-      if (field.scale > 0) {
+      // Only add multipleOf if it's meaningful (scale <= 8 decimal places)
+      // Very high precision (e.g., 1e-15) is not useful for validation
+      if (field.scale > 0 && field.scale <= 8) {
         property.multipleOf = Math.pow(10, -field.scale);
       }
     }
@@ -173,6 +176,11 @@ export function convertToJsonSchema(
       queryable: describe.queryable,
       searchable: describe.searchable,
     };
+
+    // Add name field if present (take first one if multiple)
+    if (describe.nameFields && describe.nameFields.length > 0) {
+      schema['x-salesforce'].nameField = describe.nameFields[0];
+    }
 
     // Add icon metadata from UI API if available
     if (describe.themeInfo) {

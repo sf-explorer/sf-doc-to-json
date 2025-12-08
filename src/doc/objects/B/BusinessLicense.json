@@ -5,91 +5,187 @@
     "properties": {
       "AccountId": {
         "type": "reference",
-        "description": "The ID of the organization holding the license. This field is a relationship field."
+        "description": "The ID of the organization holding the license. This field is a relationship field.",
+        "format": "salesforce-id",
+        "x-object": "Account",
+        "maxLength": 18,
+        "nullable": true
       },
       "ContactId": {
         "type": "reference",
-        "description": "The ID of the person who holds the license and is listed as a contact. This field is a relationship field."
+        "description": "The ID of the person who holds the license and is listed as a contact. This field is a relationship field.",
+        "format": "salesforce-id",
+        "x-object": "Contact",
+        "maxLength": 18,
+        "nullable": true
       },
       "Identifier": {
         "type": "string",
-        "description": "Issuer's ID for the licensee. This field is unique within your organization."
+        "description": "Issuer's ID for the licensee. This field is unique within your organization.",
+        "maxLength": 255,
+        "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the license is active (true) or not (false). The default value is false."
+        "description": "Indicates whether the license is active (true) or not (false). The default value is false.",
+        "nullable": false
       },
       "Issuer": {
         "type": "string",
-        "description": "License issuer's name."
+        "description": "License issuer's name.",
+        "maxLength": 255,
+        "nullable": true
       },
       "JurisdictionCountry": {
         "type": "string",
-        "description": "Country where license is valid."
+        "description": "Country where license is valid.",
+        "maxLength": 255,
+        "nullable": true
       },
       "JurisdictionOther": {
         "type": "string",
-        "description": "Name of other jurisdiction."
+        "description": "Name of other jurisdiction.",
+        "maxLength": 255,
+        "nullable": true
       },
       "JurisdictionState": {
         "type": "string",
-        "description": "State where license is valid."
+        "description": "State where license is valid.",
+        "maxLength": 255,
+        "nullable": true
       },
       "JurisdictionType": {
         "type": "picklist",
-        "description": "Jurisdiction for the license."
+        "description": "Jurisdiction for the license.",
+        "format": "enum",
+        "enum": [
+          "STATE",
+          "COUNTRY",
+          "PROVINCE",
+          "COUNTY"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LastReferencedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LastViewedDate": {
         "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time",
+        "nullable": true,
+        "readOnly": true
       },
       "LicenseClass": {
         "type": "picklist",
-        "description": "The class that the distributor’s license belongs to."
+        "description": "The class that the distributor’s license belongs to.",
+        "format": "enum",
+        "enum": [
+          "APN - Advanced Practice Nurse",
+          "PC - Professional Counselor",
+          "PT - Physical Therapist",
+          "LPN - Licensed Practical Nurse",
+          "MD - Medical Doctor (MD)"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "LineOfAuthority": {
         "type": "picklist",
-        "description": "The line of authority that the distributor is licensed for. This field is available from API version 48.0 and later."
+        "description": "The line of authority that the distributor is licensed for. This field is available from API version 48.0 and later.",
+        "format": "enum",
+        "enum": [
+          "Property",
+          "Casualty",
+          "Accident & Health or Sickness",
+          "Life",
+          "Automobile"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "Name of the business or professional license."
+        "description": "Name of the business or professional license.",
+        "maxLength": 255,
+        "nullable": false
       },
       "OwnerId": {
         "type": "reference",
-        "description": "The ID of the user who owns this record. This field is a polymorphic relationship field."
+        "description": "The ID of the user who owns this record. This field is a polymorphic relationship field.",
+        "format": "salesforce-id",
+        "x-objects": [
+          "Group",
+          "User"
+        ],
+        "maxLength": 18,
+        "nullable": false
       },
       "PeriodEnd": {
         "type": "dateTime",
-        "description": "License's expiration date."
+        "description": "License's expiration date.",
+        "format": "date-time",
+        "nullable": true
       },
       "PeriodStart": {
         "type": "dateTime",
-        "description": "License's effective start date."
+        "description": "License's effective start date.",
+        "format": "date-time",
+        "nullable": true
       },
       "ResidenceStatus": {
         "type": "picklist",
-        "description": "Residence status of the producer. This field is available from API version 48.0 and later."
+        "description": "Residence status of the producer. This field is available from API version 48.0 and later.",
+        "format": "enum",
+        "enum": [
+          "Resident",
+          "Non-resident"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "Status": {
         "type": "picklist",
-        "description": "Current status of the license."
+        "description": "Current status of the license.",
+        "format": "enum",
+        "enum": [
+          "Inactive",
+          "Revoked",
+          "Draft",
+          "Verified",
+          "Active"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "UserId": {
         "type": "reference",
-        "description": "The person who holds the license and is listed as a user. This field is a relationship field."
+        "description": "The person who holds the license and is listed as a user. This field is a relationship field.",
+        "format": "salesforce-id",
+        "x-object": "User",
+        "maxLength": 18,
+        "nullable": true
       },
       "VerificationStatus": {
         "type": "picklist",
-        "description": "Current status for the license."
+        "description": "Current status for the license.",
+        "format": "enum",
+        "enum": [
+          "Authorized"
+        ],
+        "maxLength": 40,
+        "nullable": true
       },
       "VerifiedDate": {
         "type": "date",
-        "description": "License was validated on this date."
+        "description": "License was validated on this date.",
+        "format": "date",
+        "nullable": true
       },
       "Id": {
         "type": "string",
@@ -150,7 +246,11 @@
       },
       "HealthcareProviderId": {
         "type": "reference",
-        "description": "The ID of the Healthcare Provider who holds this license. This field is a relationship field. This field is a lookup to HealthcareProvider."
+        "description": "The ID of the Healthcare Provider who holds this license. This field is a relationship field. This field is a lookup to HealthcareProvider.",
+        "format": "salesforce-id",
+        "x-object": "HealthcareProvider",
+        "maxLength": 18,
+        "nullable": true
       },
       "IsPrimaryLicense": {
         "type": "boolean",
@@ -167,12 +267,34 @@
       "SourceSystemUpdateDate": {
         "type": "date",
         "description": "Represents the date when the record was last updated in the source system."
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": true
+      },
+      "MayEdit": {
+        "type": "boolean",
+        "description": "MayEdit field",
+        "nullable": false,
+        "readOnly": true
+      },
+      "IsLocked": {
+        "type": "boolean",
+        "description": "IsLocked field",
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Health Cloud",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_businesslicense.htm",
     "keyPrefix": "0cE",
-    "iconUrl": "icon/t4v35/standard/contact_120.png",
+    "iconUrl": "standard/contact_120.png",
     "iconColor": "FF538A",
     "createable": true,
     "updateable": true,
@@ -229,12 +351,6 @@
         "cascadeDelete": true
       },
       {
-        "childObject": "BusinessLicenseFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "BusinessLicenseHistory",
         "field": "BusinessLicenseId",
         "relationshipName": "Histories",
@@ -245,6 +361,12 @@
         "field": "ParentId",
         "relationshipName": "Shares",
         "cascadeDelete": true
+      },
+      {
+        "childObject": "CareProviderAdverseAction",
+        "field": "BusinessLicenseId",
+        "relationshipName": "CareProviderAdverseActions",
+        "cascadeDelete": false
       },
       {
         "childObject": "CombinedAttachment",
@@ -262,6 +384,12 @@
         "childObject": "ContentVersion",
         "field": "FirstPublishLocationId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "DistributorAuthorization",
+        "field": "LicenseId",
+        "relationshipName": "DistributorAuthorizations",
         "cascadeDelete": false
       },
       {
@@ -295,12 +423,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -328,6 +450,18 @@
         "childObject": "FlowRecordRelation",
         "field": "RelatedRecordId",
         "relationshipName": null,
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "IndividualApplication",
+        "field": "LicensePermitNameId",
+        "relationshipName": "IndividualApplicationPermit",
+        "cascadeDelete": false
+      },
+      {
+        "childObject": "NetworkActivityAudit",
+        "field": "ParentEntityId",
+        "relationshipName": "ParentEntities",
         "cascadeDelete": false
       },
       {
@@ -375,18 +509,6 @@
       {
         "childObject": "TaskChangeEvent",
         "field": "WhatId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
         "relationshipName": null,
         "cascadeDelete": false
       },

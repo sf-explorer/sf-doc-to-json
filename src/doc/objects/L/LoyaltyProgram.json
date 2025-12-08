@@ -7,7 +7,8 @@
         "type": "string",
         "description": "Description of the loyalty program.",
         "maxLength": 1333,
-        "nullable": true
+        "nullable": true,
+        "readOnly": true
       },
       "EscrowPeriod": {
         "type": "int",
@@ -35,7 +36,8 @@
         "type": "string",
         "description": "Required. The name of the loyalty program. The name must contain at least one alphanumeric character and can't contain special characters such as % and +.",
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "OwnerId": {
         "type": "reference",
@@ -46,7 +48,8 @@
           "User"
         ],
         "maxLength": 18,
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "Status": {
         "type": "picklist",
@@ -57,7 +60,8 @@
           "Inactive"
         ],
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "readOnly": true
       },
       "Type": {
         "type": "picklist",
@@ -120,14 +124,25 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CurrencyIsoCode": {
+        "type": "string",
+        "description": "CurrencyIsoCode field",
+        "format": "enum",
+        "enum": [
+          "USD"
+        ],
+        "maxLength": 3,
+        "nullable": false,
+        "readOnly": true
       }
     },
     "module": "Loyalty",
     "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogram.htm",
     "keyPrefix": "0lp",
-    "createable": true,
-    "updateable": true,
-    "deletable": true,
+    "createable": false,
+    "updateable": false,
+    "deletable": false,
     "queryable": true,
     "searchable": true,
     "childRelationships": [
@@ -216,12 +231,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "EventRelation",
-        "field": "RelationId",
-        "relationshipName": "EventRelations",
-        "cascadeDelete": true
-      },
-      {
         "childObject": "EventRelationChangeEvent",
         "field": "RelationId",
         "relationshipName": null,
@@ -255,12 +264,6 @@
         "childObject": "LoyaltyProgramCurrency",
         "field": "LoyaltyProgramId",
         "relationshipName": "LoyaltyProgramCurrencies",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "LoyaltyProgramFeed",
-        "field": "ParentId",
-        "relationshipName": "Feeds",
         "cascadeDelete": true
       },
       {
@@ -342,18 +345,6 @@
         "cascadeDelete": false
       },
       {
-        "childObject": "TaskRelation",
-        "field": "RelationId",
-        "relationshipName": "TaskRelations",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "TaskRelationChangeEvent",
-        "field": "RelationId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
         "childObject": "TransactionJournal",
         "field": "LoyaltyProgramId",
         "relationshipName": "JournalProgram",
@@ -365,6 +356,8 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "iconUrl": "standard/reward_120.png",
+    "iconColor": "9050e9"
   }
 }
