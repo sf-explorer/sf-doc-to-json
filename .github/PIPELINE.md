@@ -100,7 +100,6 @@ npm run build
 
 ### Lint TypeScript
 ```bash
-npx tsc --project packages/salesforce-core/tsconfig.json --noEmit
 npx tsc --project packages/salesforce-object-reference/tsconfig.json --noEmit
 npx tsc --project packages/salesforce-metadata-reference/tsconfig.json --noEmit
 npx tsc --project packages/salesforce-object-ssot-reference/tsconfig.json --noEmit

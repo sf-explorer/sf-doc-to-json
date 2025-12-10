@@ -69,7 +69,6 @@ All functions match the standard API across `@sf-explorer` packages:
 
 ## 🔗 Related Packages
 
-- [@sf-explorer/salesforce-core](../salesforce-core) - Shared types
 - [@sf-explorer/salesforce-object-reference](../salesforce-object-reference) - Standard objects
 - [@sf-explorer/salesforce-object-ssot-reference](../salesforce-object-ssot-reference) - SSOT objects
 

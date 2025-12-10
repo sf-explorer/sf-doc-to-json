@@ -57,15 +57,6 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Publish Core Package
-        if: ${{ github.event.inputs.package == 'all' || github.event.inputs.package == 'salesforce-core' }}
-        run: |
-          cd packages/salesforce-core
-          npm version ${{ github.event.inputs.version }}
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Publish Object Reference Package
         if: ${{ github.event.inputs.package == 'all' || github.event.inputs.package == 'salesforce-object-reference' }}
         run: |
