@@ -17,6 +17,13 @@ interface DMOProperty {
     dataBundle?: string;
 }
 
+interface ChildRelationship {
+    relatedDMO: string;
+    field?: string;
+    relationshipType?: string;
+    description?: string;
+}
+
 interface DMOObject {
     name: string;
     apiName?: string;
@@ -24,6 +31,7 @@ interface DMOObject {
     properties: Record<string, DMOProperty>;
     categories?: string[];
     primaryKey?: string;
+    childRelationships?: ChildRelationship[];
     sourceUrl: string;
     module: string;
     clouds: string[];
@@ -34,6 +42,7 @@ interface DMOIndex {
     totalObjects: number;
     objects: Record<string, {
         name: string;
+        apiName?: string;
         file: string;
         description: string;
         fieldCount?: number;
@@ -128,7 +137,7 @@ async function fetchDMOList(): Promise<Array<{ name: string; description: string
 /**
  * Fetch detailed DMO information from individual DMO page
  */
-async function fetchDMODetails(dmoName: string): Promise<{ apiName?: string; categories?: string[]; primaryKey?: string; properties: Record<string, DMOProperty>; sourceUrl: string } | null> {
+async function fetchDMODetails(dmoName: string): Promise<{ apiName?: string; categories?: string[]; primaryKey?: string; properties: Record<string, DMOProperty>; childRelationships?: Array<{ relatedDMO: string; description?: string }>; sourceUrl: string } | null> {
     const slug = dmoNameToSlug(dmoName);
     const url = `https://developer.salesforce.com/docs/data/data-cloud-dmo-mapping/guide/c360dm-${slug}.html`;
     
@@ -157,6 +166,67 @@ async function fetchDMODetails(dmoName: string): Promise<{ apiName?: string; cat
         // Extract Primary Key
         let primaryKey = '';
         
+        // Extract Related DMOs / Child Relationships
+        const childRelationships: Array<{ relatedDMO: string; description?: string }> = [];
+        
+        // Look for "Related DMOs" or similar sections
+        $('h2, h3, h4').each((_, heading) => {
+            const headingText = $(heading).text().toLowerCase();
+            if (headingText.includes('related') && (headingText.includes('dmo') || headingText.includes('object'))) {
+                // Found related DMOs section
+                let nextElement = $(heading).next();
+                
+                // Check if there's a list or table after this heading
+                while (nextElement.length && !nextElement.is('h2, h3, h4')) {
+                    if (nextElement.is('ul, ol')) {
+                        nextElement.find('li').each((_, li) => {
+                            const text = cleanWhitespace($(li).text());
+                            // Extract DMO names - they usually contain "DMO" or are in links
+                            const link = $(li).find('a');
+                            if (link.length) {
+                                const href = link.attr('href') || '';
+                                const linkText = cleanWhitespace(link.text());
+                                if (linkText) {
+                                    childRelationships.push({
+                                        relatedDMO: linkText.replace(/\s+DMO$/, '').trim(),
+                                        description: text.replace(linkText, '').replace(/^[-–—:]\s*/, '').trim() || undefined
+                                    });
+                                }
+                            }
+                        });
+                    } else if (nextElement.is('table')) {
+                        // Could be a table with related DMOs
+                        nextElement.find('tbody tr').each((_, row) => {
+                            const cells = $(row).find('td');
+                            if (cells.length >= 1) {
+                                const relatedName = cleanWhitespace($(cells[0]).text()).replace(/\s+DMO$/, '').trim();
+                                const description = cells.length > 1 ? cleanWhitespace($(cells[1]).text()) : undefined;
+                                if (relatedName) {
+                                    childRelationships.push({
+                                        relatedDMO: relatedName,
+                                        description: description || undefined
+                                    });
+                                }
+                            }
+                        });
+                    } else if (nextElement.is('p')) {
+                        // Sometimes related DMOs are mentioned in paragraphs
+                        const text = nextElement.text();
+                        const matches = text.match(/(\w+(?:\s+\w+)*)\s+DMO/g);
+                        if (matches) {
+                            matches.forEach(match => {
+                                const dmoName = match.replace(/\s+DMO$/, '').trim();
+                                if (!childRelationships.some(r => r.relatedDMO === dmoName)) {
+                                    childRelationships.push({ relatedDMO: dmoName });
+                                }
+                            });
+                        }
+                    }
+                    nextElement = nextElement.next();
+                }
+            }
+        });
+        
         // Extract fields and convert to properties
         const properties: Record<string, DMOProperty> = {};
         
@@ -168,8 +238,11 @@ async function fetchDMODetails(dmoName: string): Promise<{ apiName?: string; cat
                 headers.push(cleanWhitespace($(th).text()));
             });
             
-            if (headers.some(h => h.toLowerCase().includes('field name')) && 
-                headers.some(h => h.toLowerCase().includes('field api name'))) {
+            const headersLower = headers.map(h => h.toLowerCase());
+            
+            // Check if this is a field properties table
+            if (headersLower.some(h => h.includes('field name')) && 
+                headersLower.some(h => h.includes('field api name'))) {
                 
                 $table.find('tbody tr').each((_, row) => {
                     const cells: string[] = [];
@@ -204,12 +277,44 @@ async function fetchDMODetails(dmoName: string): Promise<{ apiName?: string; cat
                     }
                 });
             }
+            // Check if this is a relationship table
+            else if (headersLower.some(h => h.includes('related object'))) {
+                const relatedObjectIdx = headersLower.findIndex(h => h.includes('related object'));
+                const relatedFieldIdx = headersLower.findIndex(h => h.includes('related field'));
+                const relationshipTypeIdx = headersLower.findIndex(h => h.includes('relationship'));
+                
+                $table.find('tbody tr').each((_, row) => {
+                    const cells: string[] = [];
+                    $(row).find('td').each((_, cell) => {
+                        cells.push(cleanWhitespace($(cell).text()));
+                    });
+                    
+                    if (cells.length > relatedObjectIdx && cells[relatedObjectIdx]) {
+                        const relatedObject = cells[relatedObjectIdx];
+                        const relatedField = relatedFieldIdx !== -1 ? cells[relatedFieldIdx] : undefined;
+                        const relationshipType = relationshipTypeIdx !== -1 ? cells[relationshipTypeIdx] : undefined;
+                        
+                        // Skip self-references and duplicates
+                        if (relatedObject && 
+                            relatedObject.toLowerCase() !== dmoName.toLowerCase() &&
+                            !childRelationships.some(r => r.relatedDMO === relatedObject)) {
+                            
+                            childRelationships.push({
+                                relatedDMO: relatedObject,
+                                field: relatedField,
+                                relationshipType: relationshipType
+                            });
+                        }
+                    }
+                });
+            }
         });
         
         return {
             apiName: apiName || undefined,
             categories: categories.length > 0 ? categories : undefined,
             primaryKey: primaryKey || undefined,
+            childRelationships: childRelationships.length > 0 ? childRelationships : undefined,
             properties,
             sourceUrl: url
         };
@@ -268,7 +373,7 @@ async function scrapeDMO(): Promise<void> {
     try {
         // Setup folders
         const docFolder = path.join(__dirname, '../src/doc');
-        const ssotObjectsFolder = path.join(docFolder, 'ssot__objects');
+        const ssotObjectsFolder = path.join(docFolder, 'objects');
         
         try {
             await fs.access(ssotObjectsFolder);
@@ -297,7 +402,7 @@ async function scrapeDMO(): Promise<void> {
         
         console.log('📥 Processing and saving DMO objects progressively...\n');
         
-        const objectIndex: Record<string, { name: string; file: string; description: string; fieldCount?: number; sourceUrl: string }> = {};
+        const objectIndex: Record<string, { name: string; apiName?: string; file: string; description: string; fieldCount?: number; sourceUrl: string }> = {};
         let processedCount = 0;
         let withApiName = 0;
         let withFields = 0;
@@ -331,6 +436,9 @@ async function scrapeDMO(): Promise<void> {
                 if (details.primaryKey) {
                     dmoObject.primaryKey = details.primaryKey;
                 }
+                if (details.childRelationships && details.childRelationships.length > 0) {
+                    dmoObject.childRelationships = details.childRelationships;
+                }
                 if (details.properties && Object.keys(details.properties).length > 0) {
                     dmoObject.properties = details.properties;
                     withFields++;
@@ -347,7 +455,8 @@ async function scrapeDMO(): Promise<void> {
             const firstLetter = dmo.name[0].toUpperCase();
             objectIndex[indexKey] = {
                 name: dmo.name,
-                file: `ssot__objects/${firstLetter}/${dmo.name}.json`,
+                apiName: dmoObject.apiName,
+                file: `objects/${firstLetter}/${dmo.name}.json`,
                 description: dmo.description,
                 fieldCount: Object.keys(dmoObject.properties).length,
                 sourceUrl: dmoObject.sourceUrl
@@ -361,6 +470,9 @@ async function scrapeDMO(): Promise<void> {
             if (fieldCount > 0) {
                 console.log(`  ✓ Fields: ${fieldCount}`);
             }
+            if (dmoObject.childRelationships && dmoObject.childRelationships.length > 0) {
+                console.log(`  ✓ Related DMOs: ${dmoObject.childRelationships.length}`);
+            }
             console.log(`  ✓ Saved`);
             
             processedCount++;
@@ -371,7 +483,7 @@ async function scrapeDMO(): Promise<void> {
         
         // Save index
         console.log('\n💾 Creating DMO index...\n');
-        const dmoIndexPath = path.join(docFolder, 'dmo-index.json');
+        const dmoIndexPath = path.join(docFolder, 'index.json');
         const dmoIndexData: DMOIndex = {
             generated: new Date().toISOString(),
             totalObjects: processedCount,
@@ -384,6 +496,53 @@ async function scrapeDMO(): Promise<void> {
         };
         
         await fs.writeFile(dmoIndexPath, JSON.stringify(dmoIndexData, null, 2), 'utf-8');
+        
+        // Post-process: Convert display names to API names in childRelationships
+        console.log('\n🔄 Converting relationship names to API names...\n');
+        const displayNameToApiName: Record<string, string> = {};
+        
+        // Build mapping from display name to API name
+        for (const [apiName, indexEntry] of Object.entries(objectIndex)) {
+            if (indexEntry.apiName) {
+                displayNameToApiName[indexEntry.name] = indexEntry.apiName;
+            }
+        }
+        
+        // Update all object files with API names in relationships
+        let updatedRelationships = 0;
+        for (const [apiName, indexEntry] of Object.entries(objectIndex)) {
+            const objectFilePath = path.join(docFolder, indexEntry.file);
+            
+            try {
+                const fileContent = await fs.readFile(objectFilePath, 'utf-8');
+                const fileData = JSON.parse(fileContent);
+                const objectKey = Object.keys(fileData)[0];
+                const objectData = fileData[objectKey];
+                
+                if (objectData.childRelationships && Array.isArray(objectData.childRelationships)) {
+                    let updated = false;
+                    
+                    for (const relationship of objectData.childRelationships) {
+                        const displayName = relationship.relatedDMO;
+                        const relatedApiName = displayNameToApiName[displayName];
+                        
+                        if (relatedApiName && relatedApiName !== displayName) {
+                            relationship.relatedDMO = relatedApiName;
+                            updated = true;
+                        }
+                    }
+                    
+                    if (updated) {
+                        await fs.writeFile(objectFilePath, JSON.stringify(fileData, null, 2), 'utf-8');
+                        updatedRelationships++;
+                    }
+                }
+            } catch (error) {
+                console.warn(`  ⚠️  Could not update relationships for ${indexEntry.name}`);
+            }
+        }
+        
+        console.log(`✓ Updated ${updatedRelationships} objects with API names in relationships\n`);
         
         console.log('✨ DMO scraping complete!\n');
         console.log('📊 Summary:');
