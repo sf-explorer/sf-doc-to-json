@@ -34,6 +34,9 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
         // Import the salesforce object reference package
         const { loadAllDescriptions, getAllCloudMetadata } = await import('@sf-explorer/salesforce-object-reference');
         
+        // Import SSOT package
+        const ssot = await import('@sf-explorer/salesforce-object-ssot-reference');
+        
         // Load cloud metadata
         const clouds = await getAllCloudMetadata();
         const cloudMap = {};
@@ -41,10 +44,21 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
           cloudMap[cloud.cloud] = cloud;
         });
         
+        // Add SSOT cloud metadata
+        cloudMap['Data Cloud - SSOT'] = {
+          cloud: 'Data Cloud - SSOT',
+          description: 'Data Cloud Data Model Objects (DMOs) - The Single Source of Truth for customer data integration across Salesforce.',
+          emoji: '🔷',
+          objectCount: 0 // Will be updated below
+        };
+        
         setCloudMetadata(cloudMap);
         
-        // Load object descriptions
+        // Load standard object descriptions
         const descriptionsData = await loadAllDescriptions();
+        
+        // Load SSOT index
+        const ssotIndex = await ssot.loadIndex();
         
         // Convert descriptions to array format
         const allObjects = [];
@@ -60,9 +74,34 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
               isCustom: objectName.endsWith('__c') || objectName.includes('__'),
               category: metadata.cloud,
               fields: null,
-              module: metadata.cloud
+              module: metadata.cloud,
+              source: 'standard'
             });
           }
+        }
+        
+        // Add SSOT objects
+        if (ssotIndex && ssotIndex.objects) {
+          for (const [apiName, metadata] of Object.entries(ssotIndex.objects)) {
+            allObjects.push({
+              apiName: apiName,
+              name: metadata.name,
+              label: metadata.name,
+              pluralLabel: metadata.name,
+              description: metadata.description || '',
+              fieldCount: metadata.fieldCount || 0,
+              isCustom: false,
+              category: 'Data Cloud - SSOT',
+              cloud: 'Data Cloud - SSOT',
+              fields: null,
+              module: 'Data Cloud - SSOT',
+              source: 'ssot',
+              sourceUrl: metadata.sourceUrl
+            });
+          }
+          
+          // Update SSOT cloud object count
+          cloudMap['Data Cloud - SSOT'].objectCount = Object.keys(ssotIndex.objects).length;
         }
 
         setObjects(allObjects);
@@ -95,8 +134,17 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
     // If fields are not loaded yet, fetch the full object data
     if (!object.fields) {
       try {
-        const { getObject } = await import('@sf-explorer/salesforce-object-reference');
-        const fullObjectData = await getObject(object.apiName);
+        let fullObjectData = null;
+        
+        // Load from appropriate source
+        if (object.source === 'ssot') {
+          const { getObject } = await import('@sf-explorer/salesforce-object-ssot-reference');
+          // For SSOT objects, use the display name (the file name)
+          fullObjectData = await getObject(object.name);
+        } else {
+          const { getObject } = await import('@sf-explorer/salesforce-object-reference');
+          fullObjectData = await getObject(object.apiName);
+        }
         
         if (fullObjectData) {
           // Update the object with full field data and child relationships

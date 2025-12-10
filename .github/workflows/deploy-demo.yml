@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'demo/**'
-      - 'src/**'
+      - 'packages/**'
       - '.github/workflows/deploy-demo.yml'
   workflow_dispatch:
 
@@ -35,10 +35,10 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install root dependencies
+      - name: Install dependencies (monorepo)
         run: npm ci
 
-      - name: Build root package
+      - name: Build all packages
         run: npm run build
 
       - name: Install demo dependencies

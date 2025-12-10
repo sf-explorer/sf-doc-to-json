@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Tabs, Tab, Typography, IconButton, Chip } from '@mui/material';
+import { Box, Tabs, Tab, Typography, IconButton, Chip, Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CloudIcon from './CloudIcon';
 import ObjectExplorer from './ObjectExplorer';
 
@@ -205,6 +206,55 @@ const CloudDetailView = ({ cloudName, cloudMetadata, onBack, allObjects }) => {
                 <strong>Custom Objects:</strong> {filteredObjects.filter(obj => obj.isCustom).length}
               </Typography>
             </Box>
+
+            {/* Entity Relationship Diagram */}
+            {cloudMetadata[cloudName]?.erd && (
+              <Box sx={{ mt: 4 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Entity Relationship Diagram
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<OpenInNewIcon />}
+                    onClick={() => window.open(cloudMetadata[cloudName].erd, '_blank')}
+                    sx={{
+                      textTransform: 'none',
+                      borderColor: accentColor,
+                      color: accentColor,
+                      '&:hover': {
+                        borderColor: accentColor,
+                        backgroundColor: `${accentColor}10`,
+                      }
+                    }}
+                  >
+                    Open in Full Screen
+                  </Button>
+                </Box>
+                <Box 
+                  sx={{ 
+                    width: '100%',
+                    height: '600px',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '0.5rem',
+                    overflow: 'hidden',
+                    backgroundColor: '#fff'
+                  }}
+                >
+                  <iframe
+                    src={cloudMetadata[cloudName].erd}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      border: 'none'
+                    }}
+                    title={`${friendlyName} Entity Relationship Diagram`}
+                    allow="fullscreen"
+                  />
+                </Box>
+              </Box>
+            )}
           </Box>
         )}
         {activeTab === 2 && (

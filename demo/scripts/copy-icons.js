@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 const sldsSourceDir = path.resolve(__dirname, '../node_modules/@salesforce-ux/design-system/assets/icons');
 const sldsTargetDir = path.resolve(__dirname, '../public/assets/icons');
-const cloudIconsSourceDir = path.resolve(__dirname, '../../src/icons');
+const cloudIconsSourceDir = path.resolve(__dirname, '../../packages/salesforce-object-reference/src/icons');
 const cloudIconsTargetDir = path.resolve(__dirname, '../public/icons');
 
 console.log('📦 Copying SLDS icon sprites and cloud icons...\n');

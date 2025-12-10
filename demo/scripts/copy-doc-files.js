@@ -7,16 +7,13 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Source: parent package's dist/doc
-const srcDoc = join(__dirname, '..', '..', 'dist', 'doc');
+// Source: packages' dist/doc folders
+const objectRefDoc = join(__dirname, '..', '..', 'packages', 'salesforce-object-reference', 'dist', 'doc');
+const metadataDoc = join(__dirname, '..', '..', 'packages', 'salesforce-metadata-reference', 'dist', 'doc');
+const ssotDoc = join(__dirname, '..', '..', 'packages', 'salesforce-object-ssot-reference', 'dist', 'doc');
+
 // Dest: demo's public/doc
 const destDoc = join(__dirname, '..', 'public', 'doc');
-
-if (!existsSync(srcDoc)) {
-    console.error('❌ Source doc folder not found:', srcDoc);
-    console.error('   Make sure to build the parent package first: npm run build');
-    process.exit(1);
-}
 
 function copyDir(src, dest) {
     mkdirSync(dest, { recursive: true });
@@ -39,7 +36,39 @@ function copyDir(src, dest) {
     return copiedCount;
 }
 
-console.log('📁 Copying doc files from package to demo public folder...');
-const count = copyDir(srcDoc, destDoc);
-console.log(`✅ Copied ${count} JSON files to public/doc/`);
+console.log('📁 Copying doc files from packages to demo public folder...\n');
+
+let totalCopied = 0;
+
+// Copy from salesforce-object-reference (standard objects)
+if (existsSync(objectRefDoc)) {
+    console.log('📦 Copying from salesforce-object-reference...');
+    totalCopied += copyDir(objectRefDoc, destDoc);
+    console.log(`   ✅ Copied files from object-reference\n`);
+} else {
+    console.error('❌ salesforce-object-reference/dist/doc not found');
+    console.error('   Run: npm run build --workspace=@sf-explorer/salesforce-object-reference\n');
+}
+
+// Copy from salesforce-metadata-reference
+if (existsSync(metadataDoc)) {
+    console.log('📦 Copying from salesforce-metadata-reference...');
+    const metadataDestDir = join(destDoc, 'metadata-api');
+    totalCopied += copyDir(metadataDoc, metadataDestDir);
+    console.log(`   ✅ Copied files from metadata-reference\n`);
+} else {
+    console.warn('⚠️  salesforce-metadata-reference/dist/doc not found (optional)\n');
+}
+
+// Copy from salesforce-object-ssot-reference  
+if (existsSync(ssotDoc)) {
+    console.log('📦 Copying from salesforce-object-ssot-reference...');
+    const ssotDestDir = join(destDoc, 'ssot');
+    totalCopied += copyDir(ssotDoc, ssotDestDir);
+    console.log(`   ✅ Copied files from ssot-reference\n`);
+} else {
+    console.warn('⚠️  salesforce-object-ssot-reference/dist/doc not found (optional)\n');
+}
+
+console.log(`✅ Total: Copied ${totalCopied} JSON files to public/doc/`);
 
