@@ -1,8 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loadAllDescriptions, getObject, getObjectDescription } from '@sf-explorer/salesforce-object-reference';
+import { loadAllDescriptions as loadStandardDescriptions, getObject as getStandardObject, getObjectDescription as getStandardObjectDescription } from '@sf-explorer/salesforce-object-reference';
+import { getObject as getSSOTObject, getObjectDescription as getSSOTObjectDescription } from '@sf-explorer/salesforce-object-ssot-reference';
 import 'vis-network/styles/vis-network.css';
 import { validateCloudForGraph, formatValidationReport } from '../utils/graphValidator';
+
+// Helper to get object from either standard or SSOT source
+const getObject = async (objectName) => {
+  // Try SSOT first if it looks like an SSOT object
+  if (objectName.startsWith('ssot__') || objectName.endsWith('__dlm')) {
+    const ssotObj = await getSSOTObject(objectName);
+    if (ssotObj) return ssotObj;
+  }
+  // Fall back to standard objects
+  return await getStandardObject(objectName);
+};
+
+// Helper to get object description from either source
+const getObjectDescription = async (objectName) => {
+  // Try SSOT first if it looks like an SSOT object
+  if (objectName.startsWith('ssot__') || objectName.endsWith('__dlm')) {
+    const ssotDesc = await getSSOTObjectDescription(objectName);
+    if (ssotDesc) return ssotDesc;
+  }
+  // Fall back to standard objects
+  return await getStandardObjectDescription(objectName);
+};
 
 // Helper to get Salesforce icon URL - using PNG images from public folder
 const getIconUrl = (iconString) => {
@@ -78,7 +101,7 @@ export default function CloudGraphVisualization({ cloudName = 'Core Salesforce',
       setValidation(null);
 
       // Load all objects
-      const allDescriptions = await loadAllDescriptions();
+      const allDescriptions = await loadStandardDescriptions();
       if (!allDescriptions) {
         throw new Error('Failed to load object descriptions');
       }

@@ -1,8 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getObject, getObjectDescription } from '@sf-explorer/salesforce-object-reference';
+import { getObject as getStandardObject, getObjectDescription as getStandardObjectDescription } from '@sf-explorer/salesforce-object-reference';
+import { getObject as getSSOTObject, getObjectDescription as getSSOTObjectDescription } from '@sf-explorer/salesforce-object-ssot-reference';
 import 'vis-network/styles/vis-network.css';
 import { validateObjectForGraph, formatValidationReport } from '../utils/graphValidator';
+
+// Helper to get object from either standard or SSOT source
+const getObject = async (objectName) => {
+  // Try SSOT first if it looks like an SSOT object
+  if (objectName.startsWith('ssot__') || objectName.endsWith('__dlm')) {
+    const ssotObj = await getSSOTObject(objectName);
+    if (ssotObj) return ssotObj;
+  }
+  // Fall back to standard objects
+  return await getStandardObject(objectName);
+};
+
+// Helper to get object description from either source
+const getObjectDescription = async (objectName) => {
+  // Try SSOT first if it looks like an SSOT object
+  if (objectName.startsWith('ssot__') || objectName.endsWith('__dlm')) {
+    const ssotDesc = await getSSOTObjectDescription(objectName);
+    if (ssotDesc) return ssotDesc;
+  }
+  // Fall back to standard objects
+  return await getStandardObjectDescription(objectName);
+};
 
 /**
  * Pure Browser-Based Graph Visualization
@@ -109,13 +132,21 @@ export default function SimpleGraphVisualization({ objectName = 'Case' }) {
       setError(null);
       setValidation(null);
 
-      // Load all objects from index to check existence
-      const { loadAllDescriptions } = await import('@sf-explorer/salesforce-object-reference');
-      const allDescriptions = await loadAllDescriptions();
-      const availableObjects = new Set(Object.keys(allDescriptions));
+      // Load all objects from both standard and SSOT indexes
+      const { loadAllDescriptions: loadStandardDescriptions } = await import('@sf-explorer/salesforce-object-reference');
+      const { loadAllDescriptions: loadSSOTDescriptions } = await import('@sf-explorer/salesforce-object-ssot-reference');
+      
+      const standardDescriptions = await loadStandardDescriptions();
+      const ssotDescriptions = await loadSSOTDescriptions();
+      
+      // Combine both indexes into one Set for existence checking
+      const availableObjects = new Set([
+        ...Object.keys(standardDescriptions),
+        ...Object.keys(ssotDescriptions)
+      ]);
       availableObjectsRef.current = availableObjects; // Store for expand operations
       
-      console.log(`📚 Loaded ${availableObjects.size} objects from index`);
+      console.log(`📚 Loaded ${Object.keys(standardDescriptions).length} standard objects + ${Object.keys(ssotDescriptions).length} SSOT objects = ${availableObjects.size} total`);
 
       // Helper functions
       const objectExistsInIndex = (objectName) => {
