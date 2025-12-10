@@ -32,10 +32,12 @@ export interface SalesforceObjectCollection {
  * Index entry for a single object
  */
 export interface IndexObjectEntry {
+    name: string;
     description: string;
     fieldCount: number;
     label?: string;
     file: string;
+    sourceUrl?: string;
 }
 
 /**

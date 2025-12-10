@@ -83,21 +83,24 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
         // Add SSOT objects
         if (ssotIndex && ssotIndex.objects) {
           for (const [apiName, metadata] of Object.entries(ssotIndex.objects)) {
-            allObjects.push({
-              apiName: apiName,
-              name: metadata.name,
-              label: metadata.name,
-              pluralLabel: metadata.name,
-              description: metadata.description || '',
-              fieldCount: metadata.fieldCount || 0,
-              isCustom: false,
-              category: 'Data Cloud - SSOT',
-              cloud: 'Data Cloud - SSOT',
-              fields: null,
-              module: 'Data Cloud - SSOT',
-              source: 'ssot',
-              sourceUrl: metadata.sourceUrl
-            });
+            // Defensive: ensure metadata and required fields exist
+            if (metadata && apiName) {
+              allObjects.push({
+                apiName: apiName,
+                name: metadata.name || apiName,
+                label: metadata.name || apiName,
+                pluralLabel: metadata.name || apiName,
+                description: metadata.description || '',
+                fieldCount: metadata.fieldCount || 0,
+                isCustom: false,
+                category: 'Data Cloud - SSOT',
+                cloud: 'Data Cloud - SSOT',
+                fields: null,
+                module: 'Data Cloud - SSOT',
+                source: 'ssot',
+                sourceUrl: metadata.sourceUrl
+              });
+            }
           }
           
           // Update SSOT cloud object count
@@ -140,10 +143,16 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
         if (object.source === 'ssot') {
           const { getObject } = await import('@sf-explorer/salesforce-object-ssot-reference');
           // For SSOT objects, use the display name (the file name)
-          fullObjectData = await getObject(object.name);
+          // Defensive: ensure object.name exists
+          if (object.name) {
+            fullObjectData = await getObject(object.name);
+          }
         } else {
           const { getObject } = await import('@sf-explorer/salesforce-object-reference');
-          fullObjectData = await getObject(object.apiName);
+          // Defensive: ensure object.apiName exists
+          if (object.apiName) {
+            fullObjectData = await getObject(object.apiName);
+          }
         }
         
         if (fullObjectData) {

@@ -407,6 +407,8 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
             ];
             
             const shouldExcludeChildObject = (objectName) => {
+              // Defensive: handle null/undefined objectName
+              if (!objectName || typeof objectName !== 'string') return true;
               if (excludedChildObjects.includes(objectName)) return true;
               if (objectName.endsWith('Feed')) return true;
               if (objectName.endsWith('History')) return true;
@@ -421,7 +423,7 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
             };
             
             const filteredCount = object.childRelationships.filter(
-              rel => !shouldExcludeChildObject(rel.childObject)
+              rel => rel && rel.childObject && !shouldExcludeChildObject(rel.childObject)
             ).length;
             
             if (filteredCount === 0) return null;

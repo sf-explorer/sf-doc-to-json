@@ -54,6 +54,12 @@ export async function loadIndex(useCache = true): Promise<DocumentIndex | null> 
  */
 async function loadObjectFromFile(objectName: string): Promise<SalesforceObject | null> {
     try {
+        // Defensive: validate objectName
+        if (!objectName || typeof objectName !== 'string' || objectName.length === 0) {
+            console.warn('Invalid object name provided to loadObjectFromFile');
+            return null;
+        }
+        
         const firstLetter = objectName[0].toUpperCase();
         
         // Dynamic import - file is named by display name
@@ -63,7 +69,7 @@ async function loadObjectFromFile(objectName: string): Promise<SalesforceObject 
         
         // The JSON structure has the API name as the key (e.g., "ssot__AccountContact__dlm")
         // So we need to get the first (and only) key from the object
-        const keys = Object.keys(data);
+        const keys = Object.keys(data || {});
         if (keys.length === 0) {
             return null;
         }
@@ -78,23 +84,48 @@ async function loadObjectFromFile(objectName: string): Promise<SalesforceObject 
 }
 
 /**
- * Get a specific SSOT object by name
- * @param objectName - The name of the Salesforce object
+ * Get a specific SSOT object by name or API name
+ * @param nameOrApiName - The display name (e.g., "Account Contact") or API name (e.g., "ssot__AccountContact__dlm") of the Salesforce object
  * @param useCache - Whether to use cached data (default: true)
  * @returns The object data or null if not found
  */
 export async function getObject(
-    objectName: string,
+    nameOrApiName: string,
     useCache = true
 ): Promise<SalesforceObject | null> {
-    if (useCache && objectCache.has(objectName)) {
-        return objectCache.get(objectName)!;
+    // Defensive: validate input
+    if (!nameOrApiName || typeof nameOrApiName !== 'string') {
+        console.warn('Invalid nameOrApiName provided to getObject');
+        return null;
+    }
+    
+    if (useCache && objectCache.has(nameOrApiName)) {
+        return objectCache.get(nameOrApiName)!;
     }
 
-    const obj = await loadObjectFromFile(objectName);
+    // First, check if this is an API name by looking it up in the index
+    const index = await loadIndex(useCache);
+    let displayName = nameOrApiName;
+    
+    if (index && index.objects && index.objects[nameOrApiName]) {
+        // It's an API name, get the display name
+        displayName = index.objects[nameOrApiName].name;
+    } else if (index && index.objects) {
+        // It might be a display name, verify it exists in the index
+        const entry = Object.values(index.objects).find(obj => obj && obj.name === nameOrApiName);
+        if (!entry) {
+            return null;
+        }
+        displayName = entry.name;
+    } else {
+        // No index available, try to load directly
+        console.warn('Index not available, attempting direct load');
+    }
+
+    const obj = await loadObjectFromFile(displayName);
     
     if (obj && useCache) {
-        objectCache.set(objectName, obj);
+        objectCache.set(nameOrApiName, obj);
     }
     
     return obj;
@@ -110,20 +141,25 @@ export async function searchObjects(
     pattern: string | RegExp,
     useCache = true
 ): Promise<Array<{ name: string; description: string; fieldCount: number }>> {
+    // Defensive: validate input
+    if (!pattern) {
+        return [];
+    }
+    
     const index = await loadIndex(useCache);
     
-    if (!index) {
+    if (!index || !index.objects) {
         return [];
     }
     
     const regex = typeof pattern === 'string' ? new RegExp(pattern, 'i') : pattern;
     
     return Object.entries(index.objects)
-        .filter(([name]) => regex.test(name))
+        .filter(([name]) => name && regex.test(name))
         .map(([name, info]) => ({
             name,
-            description: info.description,
-            fieldCount: info.fieldCount
+            description: info?.description || '',
+            fieldCount: info?.fieldCount || 0
         }));
 }
 
@@ -135,11 +171,11 @@ export async function searchObjects(
 export async function getAllObjectNames(useCache = true): Promise<string[]> {
     const index = await loadIndex(useCache);
     
-    if (!index) {
+    if (!index || !index.objects) {
         return [];
     }
     
-    return Object.keys(index.objects).sort();
+    return Object.keys(index.objects).filter(key => key != null).sort();
 }
 
 /**
@@ -151,18 +187,21 @@ export async function getAllObjectNames(useCache = true): Promise<string[]> {
 export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; fieldCount: number; label?: string }> | null> {
     const index = await loadIndex(useCache);
     
-    if (!index) {
+    if (!index || !index.objects) {
         return null;
     }
 
     const descriptions: Record<string, { description: string; fieldCount: number; label?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
-        descriptions[name] = {
-            description: entry.description,
-            fieldCount: entry.fieldCount,
-            label: entry.label
-        };
+        // Defensive: check if entry exists and has required fields
+        if (entry && typeof entry === 'object') {
+            descriptions[name] = {
+                description: entry.description || '',
+                fieldCount: entry.fieldCount || 0,
+                label: entry.label
+            };
+        }
     }
     
     return descriptions;
@@ -170,24 +209,46 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
 
 /**
  * Get description for a specific SSOT object without loading the full object data
- * @param objectName - The name of the Salesforce object
+ * @param nameOrApiName - The display name or API name of the Salesforce object
  * @param useCache - Whether to use cached data (default: true)
  * @returns The object description and metadata, or null if not found
  */
 export async function getObjectDescription(
-    objectName: string,
+    nameOrApiName: string,
     useCache = true
 ): Promise<{ description: string; fieldCount: number; label?: string } | null> {
-    const index = await loadIndex(useCache);
-    
-    if (!index || !index.objects[objectName]) {
+    // Defensive: validate input
+    if (!nameOrApiName || typeof nameOrApiName !== 'string') {
+        console.warn('Invalid nameOrApiName provided to getObjectDescription');
         return null;
     }
     
-    const entry = index.objects[objectName];
+    const index = await loadIndex(useCache);
+    
+    if (!index || !index.objects) {
+        return null;
+    }
+    
+    // Check if it's an API name first
+    if (index.objects[nameOrApiName]) {
+        const entry = index.objects[nameOrApiName];
+        return {
+            description: entry.description || '',
+            fieldCount: entry.fieldCount || 0,
+            label: entry.label
+        };
+    }
+    
+    // Otherwise, search by display name
+    const entry = Object.values(index.objects).find(obj => obj && obj.name === nameOrApiName);
+    
+    if (!entry) {
+        return null;
+    }
+    
     return {
-        description: entry.description,
-        fieldCount: entry.fieldCount,
+        description: entry.description || '',
+        fieldCount: entry.fieldCount || 0,
         label: entry.label
     };
 }
