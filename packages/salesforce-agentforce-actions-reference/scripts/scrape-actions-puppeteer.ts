@@ -256,6 +256,17 @@ function extractCategory(actionName: string, description: string, clouds: string
  * Extract clouds from action description
  * Looks for patterns like "Available in: Financial Services Cloud", "Health Cloud", etc.
  */
+/**
+ * Infer API Name from action name (PascalCase conversion)
+ * Example: "Get Most Recent Orders" -> "GetMostRecentOrders"
+ */
+function inferApiNameFromActionName(actionName: string): string {
+    return actionName
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join('');
+}
+
 function extractClouds(description: string): string[] {
     const clouds: string[] = [];
     const descLower = description.toLowerCase();
@@ -616,9 +627,13 @@ async function fetchActionsWithPuppeteer(): Promise<AgentforceAction[]> {
                             return null;
                         });
                         // Only set actionUrl if we found a valid link (not the main page, not an anchor link)
+                        // Allow all ai.copilot_actions links EXCEPT the main index page
+                        const mainPageUrl = 'https://help.salesforce.com/s/articleView?id=ai.copilot_actions_ref.htm&type=5';
                         if (link && 
                             link !== url && 
+                            link !== mainPageUrl &&
                             !link.includes('copilot_actions_ref.htm#') &&
+                            !link.includes('copilot_actions_ref.htm&type=5') && // Only skip exact main page
                             link.includes('articleView')) {
                             actionUrl = link;
                         }
@@ -991,6 +1006,7 @@ async function fetchActionDetails(action: AgentforceAction, page: any): Promise<
         
         // DO NOT construct URLs - all links should be extracted from the index page
         // If no link was found, log a warning and return the action without details
+        // Only skip if it's the exact main page or an anchor link - allow all other ai.copilot_actions links
         if (!action.sourceUrl || 
             action.sourceUrl === mainPageUrl ||
             action.sourceUrl.includes('copilot_actions_ref.htm#')) {
@@ -1001,9 +1017,11 @@ async function fetchActionDetails(action: AgentforceAction, page: any): Promise<
     }
     
     // Log if we couldn't find a link (sourceUrl is still the main page or anchor link)
+    // Allow all other ai.copilot_actions links (they are valid action detail pages)
+    const mainPageUrlCheck = 'https://help.salesforce.com/s/articleView?id=ai.copilot_actions_ref.htm&type=5';
     if (!action.sourceUrl || 
         action.sourceUrl.includes('copilot_actions_ref.htm#') ||
-        action.sourceUrl === 'https://help.salesforce.com/s/articleView?id=ai.copilot_actions_ref.htm&type=5') {
+        action.sourceUrl === mainPageUrlCheck) {
         console.log(`  ℹ️  No detail page URL found for "${action.name}" - will use basic info`);
     }
     
@@ -1015,12 +1033,14 @@ async function fetchActionDetails(action: AgentforceAction, page: any): Promise<
  * Uses Puppeteer to browse (handle JavaScript-rendered content) and Cheerio to parse
  */
 export async function fetchActionDetailsFromUrl(action: AgentforceAction, url: string, browser?: any): Promise<AgentforceAction> {
-    // Skip the main index page - it doesn't contain action details
+    // Skip ONLY the main index page - all other ai.copilot_actions links should be scraped
     const mainPageUrl = 'https://help.salesforce.com/s/articleView?id=ai.copilot_actions_ref.htm&type=5';
-    if (url === mainPageUrl || url.includes('copilot_actions_ref.htm&type=5') || url.includes('copilot_actions_ref.htm#')) {
+    // Only skip if it's the exact main page URL or an anchor link to the main page
+    if (url === mainPageUrl || url.includes('copilot_actions_ref.htm#')) {
         console.log(`  ⚠️  Skipping main index page - no action details available`);
         return action; // Return action as-is without fetching details
     }
+    // Allow all other ai.copilot_actions links (like ai.copilot_actions_ref_draft_or_revise_email.htm, etc.)
     
     try {
         let html: string;
@@ -1986,11 +2006,25 @@ export async function fetchActionDetailsFromUrl(action: AgentforceAction, url: s
         }
         
         // Only update description if we got a better one
-        const finalDescription = (enhancedDescription && 
-                                 enhancedDescription.length > 30 &&
-                                 !enhancedDescription.toLowerCase().startsWith('available in:'))
+        // Filter out "Available in:" patterns and other non-descriptive text
+        const isValidDescription = (desc: string): boolean => {
+            if (!desc || desc.trim().length < 30) return false;
+            const lower = desc.toLowerCase();
+            if (lower.startsWith('available in:') ||
+                lower.includes('requires each user') ||
+                (lower.includes('edition') && lower.includes('with the')) ||
+                lower.includes('cookie') ||
+                lower.includes('privacy')) {
+                return false;
+            }
+            return true;
+        };
+        
+        const finalDescription = (enhancedDescription && isValidDescription(enhancedDescription))
             ? enhancedDescription
-            : action.description;
+            : (action.description && isValidDescription(action.description))
+                ? action.description
+                : enhancedDescription || action.description || ''; // Fallback to whatever we have
         
         return {
             ...action,
@@ -2006,8 +2040,9 @@ export async function fetchActionDetailsFromUrl(action: AgentforceAction, url: s
         // Return action with original data if fetch fails - preserve everything we had
         // DON'T update sourceUrl to failed URL - keep original (especially don't overwrite with copilot page)
         const mainPageUrl = 'https://help.salesforce.com/s/articleView?id=ai.copilot_actions_ref.htm&type=5';
-        if (url === mainPageUrl || url.includes('copilot_actions_ref.htm')) {
-            // If we tried to fetch from copilot page and failed, keep original sourceUrl
+        // Only skip if it's the exact main page - allow all other ai.copilot_actions links
+        if (url === mainPageUrl || url.includes('copilot_actions_ref.htm#')) {
+            // If we tried to fetch from main copilot page and failed, keep original sourceUrl
             return action;
         }
         // For other URLs, keep original sourceUrl too - don't overwrite with failed URL
@@ -2064,13 +2099,24 @@ async function updateProgress(progressPath: string, actionName: string, totalAct
  */
 async function saveAction(action: AgentforceAction, actionsFolder: string): Promise<void> {
     // Extract API Name from properties if it exists
-    const apiNameProperty = action.properties?.["API Name"];
-    const apiName = apiNameProperty?.type || apiNameProperty?.description;
+    let apiNameProperty = action.properties?.["API Name"];
+    let apiName = apiNameProperty?.type || apiNameProperty?.description;
     
-    // Don't save actions without API Name - they are not conform
+    // If no API Name found, infer it from action name
     if (!apiName || apiName.trim() === '') {
-        console.log(`  ⚠️  Skipping "${action.name}" - no API Name (action not conform)`);
-        return; // Don't save actions without API Name
+        apiName = inferApiNameFromActionName(action.name);
+        console.log(`  ℹ️  No API Name found for "${action.name}", inferring: "${apiName}"`);
+        
+        // Add inferred API Name to properties
+        if (!action.properties) {
+            action.properties = {};
+        }
+        action.properties["API Name"] = {
+            type: apiName,
+            description: apiName,
+            required: false
+        };
+        apiNameProperty = action.properties["API Name"];
     }
     
     // Use API Name for filename
@@ -2105,9 +2151,31 @@ async function saveAction(action: AgentforceAction, actionsFolder: string): Prom
     
     // Preserve existing properties if file already exists and new properties are empty
     let finalProperties = action.properties;
+    let finalSourceUrl = action.sourceUrl || '';
+    let finalDescription = action.description || '';
+    
     try {
         const existingContent = await fs.readFile(filePath, 'utf-8');
         const existingAction: AgentforceAction = JSON.parse(existingContent);
+        
+        // Preserve sourceUrl if existing one is better (not empty)
+        if (existingAction.sourceUrl && existingAction.sourceUrl.trim() !== '' && 
+            (!finalSourceUrl || finalSourceUrl.trim() === '')) {
+            finalSourceUrl = existingAction.sourceUrl;
+        }
+        
+        // Preserve description if existing one is better (not "Available in:" pattern)
+        if (existingAction.description && 
+            !existingAction.description.toLowerCase().startsWith('available in:') &&
+            !existingAction.description.toLowerCase().includes('requires each user') &&
+            existingAction.description.length > 50) {
+            // Only use existing if new one is bad or empty
+            if (!finalDescription || 
+                finalDescription.toLowerCase().startsWith('available in:') ||
+                finalDescription.length < 30) {
+                finalDescription = existingAction.description;
+            }
+        }
         
         // If existing file has properties but new action doesn't, preserve existing
         const existingHasProperties = existingAction.properties && Object.keys(existingAction.properties).length > 0;
@@ -2134,15 +2202,29 @@ async function saveAction(action: AgentforceAction, actionsFolder: string): Prom
     
     const actionData = {
         ...action,
-        properties: finalProperties
+        properties: finalProperties,
+        sourceUrl: finalSourceUrl, // Use preserved sourceUrl
+        description: finalDescription // Use preserved description
     };
     
     // Final check: ensure the action has an API Name before saving
-    const finalApiNameProperty = actionData.properties?.["API Name"];
-    const finalApiName = finalApiNameProperty?.type || finalApiNameProperty?.description;
+    let finalApiNameProperty = actionData.properties?.["API Name"];
+    let finalApiName = finalApiNameProperty?.type || finalApiNameProperty?.description;
+    
+    // If still no API Name after merge, infer it
     if (!finalApiName || finalApiName.trim() === '') {
-        console.log(`  ⚠️  Skipping "${action.name}" - no API Name after merge (action not conform)`);
-        return; // Don't save actions without API Name
+        finalApiName = inferApiNameFromActionName(action.name);
+        console.log(`  ℹ️  No API Name after merge for "${action.name}", inferring: "${finalApiName}"`);
+        
+        if (!actionData.properties) {
+            actionData.properties = {};
+        }
+        actionData.properties["API Name"] = {
+            type: finalApiName,
+            description: finalApiName,
+            required: false
+        };
+        finalApiNameProperty = actionData.properties["API Name"];
     }
     
     await fs.writeFile(filePath, JSON.stringify(actionData, null, 2), 'utf-8');
@@ -2183,20 +2265,25 @@ async function updateIndex(action: AgentforceAction, indexPath: string): Promise
     const index = await loadOrCreateIndex(indexPath);
     
     // Extract API Name from properties if it exists
-    const apiNameProperty = action.properties["API Name"];
-    const apiName = apiNameProperty?.type || apiNameProperty?.description || undefined;
+    let apiNameProperty = action.properties["API Name"];
+    let apiName = apiNameProperty?.type || apiNameProperty?.description || undefined;
     
-    // Don't add to index if no API Name - action is not conform
+    // If no API Name found, infer it from action name
     if (!apiName || apiName.trim() === '') {
-        // Remove from index if it exists
-        if (index.actions && index.actions[action.name]) {
-            delete index.actions[action.name];
+        apiName = inferApiNameFromActionName(action.name);
+        console.log(`  ℹ️  Inferring API Name for "${action.name}": "${apiName}"`);
+        
+        // Add inferred API Name to properties if not already there
+        if (!action.properties) {
+            action.properties = {};
         }
-        // Update total count
-        index.totalActions = Object.values(index.actions).filter(entry => entry.apiName && entry.apiName.trim() !== '').length;
-        index.generatedAt = new Date().toISOString();
-        await fs.writeFile(indexPath, JSON.stringify(index, null, 2), 'utf-8');
-        return; // Don't add to index if no API Name
+        if (!action.properties["API Name"]) {
+            action.properties["API Name"] = {
+                type: apiName,
+                description: apiName,
+                required: false
+            };
+        }
     }
     
     // Use API Name for filename
@@ -2515,13 +2602,13 @@ async function scrapeActions(): Promise<void> {
                 console.log(`[${globalIndex}/${actions.length}] Processing: ${action.name}`);
                 
                 try {
-                    // Skip if action points to main index page or has empty sourceUrl - it doesn't contain action details
+                    // Skip ONLY if action points to main index page or has empty sourceUrl
+                    // Allow all other ai.copilot_actions links (they are valid action detail pages)
                     const mainPageUrl = 'https://help.salesforce.com/s/articleView?id=ai.copilot_actions_ref.htm&type=5';
                     if (!action.sourceUrl ||
                         action.sourceUrl === '' ||
                         action.sourceUrl === mainPageUrl || 
-                        action.sourceUrl.includes('copilot_actions_ref.htm&type=5') ||
-                        action.sourceUrl.includes('copilot_actions_ref.htm#')) {
+                        action.sourceUrl.includes('copilot_actions_ref.htm#')) { // Only skip anchor links to main page
                         console.log(`  ⚠️  Skipping "${action.name}" - no valid detail page URL (empty or points to main index page)`);
                         
                         // Load existing file to preserve properties if it exists
@@ -2561,9 +2648,15 @@ async function scrapeActions(): Promise<void> {
                                 console.log(`  ℹ️  Preserved ${Object.keys(existingAction.properties).length} existing properties`);
                             }
                             
+                            // Preserve sourceUrl if it exists
+                            if (existingAction.sourceUrl && existingAction.sourceUrl.trim() !== '') {
+                                action.sourceUrl = existingAction.sourceUrl;
+                            }
+                            
                             // Preserve better description if existing one is better
                             if (existingAction.description && 
                                 !existingAction.description.toLowerCase().startsWith('available in:') &&
+                                !existingAction.description.toLowerCase().includes('requires each user') &&
                                 existingAction.description.length > 50) {
                                 action.description = existingAction.description;
                             }

@@ -245,8 +245,10 @@ describe('Salesforce Object Reference Library', () => {
 
     describe('loadCloud', () => {
         it('should return null for non-existent cloud', async () => {
+            const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
             const result = await loadCloud('non-existent-cloud-123');
             expect(result).toBeNull();
+            consoleSpy.mockRestore();
         });
 
         it('should load cloud data successfully', async () => {
