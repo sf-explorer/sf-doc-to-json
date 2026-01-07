@@ -1,11 +1,109 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import CloudIcon from './CloudIcon';
+import { loadIndex as loadActionsIndex } from '@sf-explorer/salesforce-agentforce-actions-reference'; 
 
 const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects = [] }) => {
+  const [actions, setActions] = useState([]);
+  const [loadingActions, setLoadingActions] = useState(true);
+
   const handleCloudClick = (cloudName) => {
     onCloudSelect(cloudName);
+  };
+
+  // Load actions
+  useEffect(() => {
+    const loadActions = async () => {
+      try {
+     
+        const index = await loadActionsIndex();
+        
+        if (index && index.actions) {
+          const actionsList = Object.entries(index.actions)
+            .map(([name, metadata]) => ({
+              name: name,
+              category: metadata.category || 'Uncategorized',
+              clouds: metadata.clouds || ['Core Salesforce'],
+              apiName: metadata.apiName || ''
+            }))
+            .filter(action => action.apiName && action.apiName.trim() !== ''); // Filter out actions without API Name
+          setActions(actionsList);
+        }
+      } catch (error) {
+        console.error('Error loading actions:', error);
+      } finally {
+        setLoadingActions(false);
+      }
+    };
+    
+    loadActions();
+  }, []);
+
+  // Map cloud names to action cloud names (same mapping as CloudDetailView)
+  const getActionCloudNames = (cloudName) => {
+    const cloudMapping = {
+      // Sales/Service Cloud - actions are tagged as Core Salesforce
+      'Sales Cloud': ['Core Salesforce'],
+      'sales-cloud': ['Core Salesforce'],
+      'Service Cloud': ['Core Salesforce'],
+      'service-cloud': ['Core Salesforce'],
+      'Core Salesforce': ['Core Salesforce'],
+      'core-salesforce': ['Core Salesforce'],
+      
+      // Cloud name variations - map UI names to action data names
+      'Financial Services': ['Financial Services Cloud'],
+      'financial-services-cloud': ['Financial Services Cloud'],
+      'Financial Services Cloud': ['Financial Services Cloud'],
+      
+      'Manufacturing': ['Manufacturing Cloud'],
+      'manufacturing-cloud': ['Manufacturing Cloud'],
+      'Manufacturing Cloud': ['Manufacturing Cloud'],
+      
+      'Automotive': ['Automotive Cloud'],
+      'automotive-cloud': ['Automotive Cloud'],
+      'Automotive Cloud': ['Automotive Cloud'],
+      
+      'Field Service': ['Field Service Lightning'],
+      'field-service-lightning': ['Field Service Lightning'],
+      'Field Service Lightning': ['Field Service Lightning'],
+      
+      'Public Sector': ['Public Sector Cloud'],
+      'public-sector-cloud': ['Public Sector Cloud'],
+      'Public Sector Cloud': ['Public Sector Cloud'],
+      
+      'Loyalty Management': ['Loyalty'],
+      'loyalty': ['Loyalty'],
+      'Loyalty': ['Loyalty'],
+      
+      'Net Zero Cloud': ['Net Zero Cloud'],
+      'net-zero-cloud': ['Net Zero Cloud'],
+      
+      'Education Cloud': ['Education Cloud'],
+      'education-cloud': ['Education Cloud'],
+      
+      'Health Cloud': ['Health Cloud'],
+      'health-cloud': ['Health Cloud'],
+      
+      'Nonprofit Cloud': ['Nonprofit Cloud'],
+      'nonprofit-cloud': ['Nonprofit Cloud'],
+      
+      'Scheduler': ['Scheduler'],
+      'scheduler': ['Scheduler'],
+      
+      'Marketing Cloud': ['Marketing Cloud'],
+      'marketing-cloud': ['Marketing Cloud'],
+      
+      'Data Cloud': ['Data Cloud'],
+      'data-cloud': ['Data Cloud'],
+      
+      'Agentforce for Service': ['Agentforce for Service'],
+      'agentforce-for-service': ['Agentforce for Service'],
+      
+      'AI Agent for Employees': ['AI Agent for Employees'],
+      'ai-agent-for-employees': ['AI Agent for Employees'],
+    };
+    return cloudMapping[cloudName] || [cloudName];
   };
 
   // Calculate statistics for each cloud
@@ -20,20 +118,41 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
       
       const totalFields = cloudObjects.reduce((sum, obj) => sum + (obj.fieldCount || 0), 0);
       
+      // Special handling for Sales Cloud and Service Cloud - they map to Core Salesforce
+      // but we only want actions with the matching category
+      let cloudActions;
+      if (cloudName === 'Sales Cloud' || cloudName === 'sales-cloud') {
+        cloudActions = actions.filter(action => action.category === 'Sales');
+      } else if (cloudName === 'Service Cloud' || cloudName === 'service-cloud') {
+        cloudActions = actions.filter(action => action.category === 'Service');
+      } else {
+        // For other clouds, use the cloud name mapping
+        const actionCloudNames = getActionCloudNames(cloudName);
+        
+        cloudActions = actions.filter(action => {
+          const actionClouds = action.clouds || ['Core Salesforce'];
+          
+          // Check if any of the mapped cloud names match
+          return actionCloudNames.some(mappedCloud => actionClouds.includes(mappedCloud));
+        });
+      }
+      
       stats[cloudName] = {
         objectCount: cloudObjects.length,
-        fieldCount: totalFields
+        fieldCount: totalFields,
+        actionCount: cloudActions.length
       };
     });
     
     // Stats for "All Objects"
     stats['all'] = {
       objectCount: allObjects.length,
-      fieldCount: allObjects.reduce((sum, obj) => sum + (obj.fieldCount || 0), 0)
+      fieldCount: allObjects.reduce((sum, obj) => sum + (obj.fieldCount || 0), 0),
+      actionCount: actions.length
     };
     
     return stats;
-  }, [categories, allObjects]);
+  }, [categories, allObjects, actions]);
 
   // Sort categories by field count descending
   const sortedCategories = useMemo(() => {
@@ -182,7 +301,8 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
                   gap: 2,
                   pt: 1.5,
                   mt: 1.5,
-                  borderTop: '1px solid #e3f2fd'
+                  borderTop: '1px solid #e3f2fd',
+                  flexWrap: 'wrap'
                 }}
               >
                 <Box>
@@ -233,6 +353,32 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
                     Fields
                   </Typography>
                 </Box>
+                {!loadingActions && (cloudStats['all']?.actionCount || 0) > 0 && (
+                  <Box>
+                    <Typography 
+                      variant="h6" 
+                      sx={{ 
+                        fontWeight: 700, 
+                        color: '#0176d3',
+                        fontSize: '1.25rem',
+                        lineHeight: 1
+                      }}
+                    >
+                      {cloudStats['all']?.actionCount || 0}
+                    </Typography>
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        color: '#706e6b',
+                        fontSize: '0.6875rem',
+                        textTransform: 'uppercase',
+                        fontWeight: 600
+                      }}
+                    >
+                      Actions
+                    </Typography>
+                  </Box>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -243,7 +389,7 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
           const displayName = category; // Category already contains the display name
           const description = getCloudDescription(category);
           const accentColor = getCloudAccentColor();
-          const stats = cloudStats[category] || { objectCount: 0, fieldCount: 0 };
+          const stats = cloudStats[category] || { objectCount: 0, fieldCount: 0, actionCount: 0 };
 
           return (
             <Grid 
@@ -362,7 +508,8 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
                       gap: 2,
                       pt: 1.5,
                       mt: 1.5,
-                      borderTop: `1px solid ${accentColor}15`
+                      borderTop: `1px solid ${accentColor}15`,
+                      flexWrap: 'wrap'
                     }}
                   >
                     <Box>
@@ -413,6 +560,32 @@ const CloudTiles = ({ categories, onCloudSelect, cloudMetadata = {}, allObjects 
                         Fields
                       </Typography>
                     </Box>
+                    {!loadingActions && (stats.actionCount || 0) > 0 && (
+                      <Box>
+                        <Typography 
+                          variant="h6" 
+                          sx={{ 
+                            fontWeight: 700, 
+                            color: accentColor,
+                            fontSize: '1.25rem',
+                            lineHeight: 1
+                          }}
+                        >
+                          {stats.actionCount || 0}
+                        </Typography>
+                        <Typography 
+                          variant="caption" 
+                          sx={{ 
+                            color: '#706e6b',
+                            fontSize: '0.6875rem',
+                            textTransform: 'uppercase',
+                            fontWeight: 600
+                          }}
+                        >
+                          Actions
+                        </Typography>
+                      </Box>
+                    )}
                   </Box>
                 </CardContent>
               </Card>

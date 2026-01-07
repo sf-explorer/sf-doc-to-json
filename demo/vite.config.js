@@ -9,14 +9,32 @@ export default defineConfig({
     fs: {
       // Allow serving files from the parent directory (for symlinked package)
       allow: ['..']
-    }
+    },
+    // Ensure proper MIME types for JSON files
+    middlewareMode: false
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      // Ensure JSON files are handled correctly
+      output: {
+        // Don't inline JSON files - keep them as separate chunks
+        inlineDynamicImports: false,
+        // Ensure JSON files are properly chunked
+        manualChunks: undefined
+      }
+    },
+    // Ensure JSON files are properly handled during build
+    commonjsOptions: {
+      transformMixedEsModules: true
+    }
   },
   optimizeDeps: {
-    exclude: ['@sf-explorer/salesforce-object-reference'],
+    exclude: [
+      '@sf-explorer/salesforce-object-reference',
+      '@sf-explorer/salesforce-agentforce-actions-reference'
+    ],
     // Force Vite to not pre-bundle JSON files
     esbuildOptions: {
       loader: {
@@ -25,9 +43,13 @@ export default defineConfig({
     }
   },
   json: {
-    // Use named exports for JSON files to avoid parsing issues
-    namedExports: true,
+    // Use default export for JSON files (Vite's default behavior)
+    namedExports: false,
     stringify: false
+  },
+  // Resolve JSON imports properly
+  resolve: {
+    extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']
   }
 })
 

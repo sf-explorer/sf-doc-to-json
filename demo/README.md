@@ -1,4 +1,4 @@
-# Salesforce Object Explorer Demo
+# Salesforce Reference Explorer Demo
 
 Interactive demo showcasing the `@sf-explorer/salesforce-object-reference` package with **pure browser-based graph visualization**.
 

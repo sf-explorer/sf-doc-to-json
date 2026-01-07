@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { ComponentSettings } from 'react-lightning-design-system';
 import ObjectExplorer from './components/ObjectExplorer';
 import SimpleGraphVisualization from './components/SimpleGraphVisualization';
 import CloudGraphVisualization from './components/CloudGraphVisualization';
+import ActionsBrowser from './components/ActionsBrowser';
 import './App.css';
 
 function App() {
@@ -12,6 +13,23 @@ function App() {
   // Use window.location.origin to get absolute URL for SVG sprites (needed for HashRouter)
   const absoluteAssetRoot = `${window.location.origin}${baseUrl}assets`;
   const location = useLocation();
+  const [actionCount, setActionCount] = useState(null);
+  
+  // Load action count
+  useEffect(() => {
+    const loadActionCount = async () => {
+      try {
+        const actionsPackage = await import('@sf-explorer/salesforce-agentforce-actions-reference');
+        const index = await actionsPackage.loadIndex();
+        if (index && index.actions) {
+          setActionCount(Object.keys(index.actions).length);
+        }
+      } catch (error) {
+        console.error('Error loading action count:', error);
+      }
+    };
+    loadActionCount();
+  }, []);
   
   return (
     <ComponentSettings assetRoot={absoluteAssetRoot}>
@@ -31,18 +49,35 @@ function App() {
                 <div className="slds-page-header__name">
                   <div className="slds-page-header__name-title">
                     <h1>
-                      <span className="slds-page-header__title slds-truncate" title="Salesforce Object Explorer">
-                        Salesforce Object Explorer
+                      <span className="slds-page-header__title slds-truncate" title="Salesforce Reference Explorer">
+                        Salesforce Reference Explorer
                       </span>
                     </h1>
                   </div>
                 </div>
-                <p className="slds-page-header__name-meta">Browse Salesforce Standard and Custom Objects</p>
+                <p className="slds-page-header__name-meta">
+                  Browse Salesforce Standard and Custom Objects
+                  {actionCount !== null && (
+                    <span style={{ marginLeft: '12px', color: '#0176d3', fontWeight: 600 }}>
+                      • {actionCount.toLocaleString()} Actions
+                    </span>
+                  )}
+                </p>
               </div>
             </div>
           </div>
           <div className="slds-page-header__col-actions">
             <div className="slds-page-header__controls" style={{ display: 'flex', gap: '0.5rem' }}>
+              <Link 
+                to="/actions"
+                className={`slds-button ${location.pathname.startsWith('/actions') ? 'slds-button_brand' : 'slds-button_neutral'}`}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                <svg height="20" width="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                Actions
+              </Link>
               <Link 
                 to="/graph"
                 className={`slds-button ${location.pathname === '/graph' ? 'slds-button_brand' : 'slds-button_neutral'}`}
@@ -75,6 +110,10 @@ function App() {
           <Route path="/cloud/:cloudName" element={<ObjectExplorer />} />
           <Route path="/cloud/:cloudName/object/:objectName" element={<ObjectExplorer />} />
           <Route path="/object/:objectName" element={<ObjectExplorer />} />
+          <Route path="/actions" element={<ActionsBrowser />} />
+          <Route path="/actions/cloud/:cloudName" element={<ActionsBrowser />} />
+          <Route path="/actions/cloud/:cloudName/:actionName" element={<ActionsBrowser />} />
+          <Route path="/actions/:actionName" element={<ActionsBrowser />} />
           <Route path="/graph" element={<GraphPage />} />
           <Route path="/graph/:objectName" element={<GraphPage />} />
         </Routes>

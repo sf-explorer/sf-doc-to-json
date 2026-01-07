@@ -11,6 +11,7 @@ const __dirname = dirname(__filename);
 const objectRefDoc = join(__dirname, '..', '..', 'packages', 'salesforce-object-reference', 'dist', 'doc');
 const metadataDoc = join(__dirname, '..', '..', 'packages', 'salesforce-metadata-reference', 'dist', 'doc');
 const ssotDoc = join(__dirname, '..', '..', 'packages', 'salesforce-object-ssot-reference', 'dist', 'doc');
+const actionsDoc = join(__dirname, '..', '..', 'packages', 'salesforce-agentforce-actions-reference', 'dist', 'doc');
 
 // Dest: demo's public/doc
 const destDoc = join(__dirname, '..', 'public', 'doc');
@@ -68,6 +69,16 @@ if (existsSync(ssotDoc)) {
     console.log(`   ✅ Copied files from ssot-reference\n`);
 } else {
     console.warn('⚠️  salesforce-object-ssot-reference/dist/doc not found (optional)\n');
+}
+
+// Copy from salesforce-agentforce-actions-reference
+if (existsSync(actionsDoc)) {
+    console.log('📦 Copying from salesforce-agentforce-actions-reference...');
+    const actionsDestDir = join(destDoc, 'actions');
+    totalCopied += copyDir(actionsDoc, actionsDestDir);
+    console.log(`   ✅ Copied files from agentforce-actions-reference\n`);
+} else {
+    console.warn('⚠️  salesforce-agentforce-actions-reference/dist/doc not found (optional)\n');
 }
 
 console.log(`✅ Total: Copied ${totalCopied} JSON files to public/doc/`);

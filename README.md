@@ -1,6 +1,6 @@
 # Salesforce Object Reference - Monorepo
 
-This is a monorepo containing three complementary Salesforce object reference packages.
+This is a monorepo containing four complementary Salesforce reference packages.
 
 ## 📦 Packages
 
@@ -39,6 +39,17 @@ This is a monorepo containing three complementary Salesforce object reference pa
 
 [📖 Full Documentation](./packages/salesforce-object-ssot-reference/README.md)
 
+### 4. [@sf-explorer/salesforce-agentforce-actions-reference](./packages/salesforce-agentforce-actions-reference) 🤖
+
+**Salesforce Agentforce standard actions** from official documentation.
+
+- **Source**: Salesforce Agentforce Copilot Actions documentation
+- **Actions**: Standard actions for Agentforce/Copilot
+- **Use Case**: Reference for available Agentforce actions and their parameters
+- **Install**: `npm install @sf-explorer/salesforce-agentforce-actions-reference`
+
+[📖 Full Documentation](./packages/salesforce-agentforce-actions-reference/README.md)
+
 ## 🏗️ Monorepo Structure
 
 ```
@@ -61,11 +72,19 @@ sf-doc-to-json/
 │   │   │   └── index.ts
 │   │   └── package.json
 │   │
-│   └── salesforce-object-ssot-reference/ # 🎯 SSOT objects
+│   ├── salesforce-object-ssot-reference/ # 🎯 SSOT objects
+│   │   ├── src/
+│   │   │   ├── doc/
+│   │   │   │   ├── objects/              # ~150 SSOT objects
+│   │   │   │   └── index.json            # SSOT index
+│   │   │   └── index.ts
+│   │   └── package.json
+│   │
+│   └── salesforce-agentforce-actions-reference/ # 🤖 Agentforce actions
 │       ├── src/
 │       │   ├── doc/
-│       │   │   ├── objects/              # ~150 SSOT objects
-│       │   │   └── index.json            # SSOT index
+│       │   │   ├── actions/              # Agentforce actions
+│       │   │   └── index.json            # Actions index
 │       │   └── index.ts
 │       └── package.json
 │
@@ -88,6 +107,9 @@ npm install @sf-explorer/salesforce-metadata-reference
 
 # SSOT/DMO objects
 npm install @sf-explorer/salesforce-object-ssot-reference
+
+# Agentforce actions
+npm install @sf-explorer/salesforce-agentforce-actions-reference
 ```
 
 Then import and use:
@@ -104,6 +126,10 @@ const customObject = await getMetadata('CustomObject');
 // SSOT objects
 import { getObject as getSSOT } from '@sf-explorer/salesforce-object-ssot-reference';
 const accountSSOT = await getSSOT('Account');
+
+// Agentforce actions
+import { getAction } from '@sf-explorer/salesforce-agentforce-actions-reference';
+const createRecordAction = await getAction('CreateRecord');
 ```
 
 ### For Developers
@@ -153,6 +179,7 @@ npm run build
 npm run build --workspace=@sf-explorer/salesforce-object-reference
 npm run build --workspace=@sf-explorer/salesforce-metadata-reference
 npm run build --workspace=@sf-explorer/salesforce-object-ssot-reference
+npm run build --workspace=@sf-explorer/salesforce-agentforce-actions-reference
 ```
 
 ### Testing
@@ -175,6 +202,9 @@ npm run fetch:core         # Core Salesforce
 
 # Generate SSOT/DMO objects
 npm run fetch:dmo
+
+# Generate Agentforce actions
+npm run fetch:actions
 ```
 
 ## 📦 Publishing
@@ -196,6 +226,11 @@ npm publish --access public
 cd packages/salesforce-object-ssot-reference
 npm version patch
 npm publish --access public
+
+# Agentforce actions
+cd packages/salesforce-agentforce-actions-reference
+npm version patch
+npm publish --access public
 ```
 
 ## 🔗 Links
@@ -204,6 +239,7 @@ npm publish --access public
   - [@sf-explorer/salesforce-object-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference)
   - [@sf-explorer/salesforce-metadata-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-metadata-reference)
   - [@sf-explorer/salesforce-object-ssot-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference)
+  - [@sf-explorer/salesforce-agentforce-actions-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-agentforce-actions-reference)
 - **GitHub**: [sf-explorer/sf-doc-to-json](https://github.com/sf-explorer/sf-doc-to-json)
 - **Issues**: [GitHub Issues](https://github.com/sf-explorer/sf-doc-to-json/issues)
 
