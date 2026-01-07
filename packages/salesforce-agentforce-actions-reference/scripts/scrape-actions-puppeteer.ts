@@ -1981,28 +1981,45 @@ export async function fetchActionDetailsFromUrl(action: AgentforceAction, url: s
             }
         }
         
-        // Merge properties: use extracted ones, but preserve existing API Name if it exists and wasn't extracted
+        // Merge properties: use extracted ones, but preserve ALL existing properties
+        // IMPORTANT: Documentation scraping might return fewer fields than what exists
+        // We should ADD new fields but NEVER remove existing ones
         let finalProperties: Record<string, ActionProperty>;
         
-        if (Object.keys(properties).length > 0) {
+        const existingProps = action.properties || {};
+        const existingCount = Object.keys(existingProps).length;
+        const newCount = Object.keys(properties).length;
+        
+        if (existingCount > 0 && newCount === 0) {
+            // New data has NO properties - keep existing entirely
+            finalProperties = existingProps;
+            console.log(`  ℹ️  ${action.name}: Kept ${existingCount} existing properties (new data had none)`);
+        } else if (newCount > 0) {
             // We extracted some properties - merge with existing
-            finalProperties = { ...(action.properties || {}) };
+            // Start with existing properties to preserve all of them
+            finalProperties = { ...existingProps };
             
-            // Preserve existing API Name if it exists and wasn't extracted in this run
-            const existingApiName = action.properties?.["API Name"];
-            const extractedApiName = properties["API Name"];
-            
-            // Merge in extracted properties
-            Object.assign(finalProperties, properties);
-            
-            // If we had an API Name before but didn't extract one, preserve the original
-            if (existingApiName && !extractedApiName) {
-                finalProperties["API Name"] = existingApiName;
+            // Merge in extracted properties (add new ones or update existing ones)
+            for (const [key, value] of Object.entries(properties)) {
+                if (finalProperties[key]) {
+                    // Property exists - merge metadata, don't replace
+                    finalProperties[key] = {
+                        ...finalProperties[key],     // Keep all existing metadata
+                        ...value                     // Update/add from new data
+                    };
+                } else {
+                    // New property - add it
+                    finalProperties[key] = { ...value };
+                }
             }
-            // If we extracted an API Name, it's already in finalProperties from the merge above
+            
+            const mergedCount = Object.keys(finalProperties).length;
+            if (mergedCount > existingCount) {
+                console.log(`  ℹ️  ${action.name}: Merged properties (${existingCount} existing + ${newCount} new = ${mergedCount} total)`);
+            }
         } else {
-            // No properties extracted - keep all existing properties
-            finalProperties = action.properties || {};
+            // No properties extracted and no existing - use empty object
+            finalProperties = {};
         }
         
         // Only update description if we got a better one
@@ -2185,16 +2202,25 @@ async function saveAction(action: AgentforceAction, actionsFolder: string): Prom
             console.log(`  ℹ️  Preserving existing properties for "${action.name}" (${Object.keys(existingAction.properties).length} properties)`);
             finalProperties = existingAction.properties;
         } else if (existingHasProperties && newHasProperties) {
-            // Merge: keep existing API Name if new one is missing, but use new properties otherwise
-            const existingApiName = existingAction.properties?.["API Name"];
-            const newApiName = action.properties?.["API Name"];
+            // Merge: Start with existing properties, then merge in new ones
+            // This ensures we preserve all existing properties even if scraper only finds some
+            finalProperties = { ...existingAction.properties };
             
-            if (existingApiName && !newApiName) {
-                finalProperties = {
-                    ...action.properties,
-                    "API Name": existingApiName
-                };
+            // Merge in new properties (add new ones or update existing ones)
+            for (const [key, value] of Object.entries(action.properties)) {
+                if (finalProperties[key]) {
+                    // Property exists - merge metadata, don't replace
+                    finalProperties[key] = {
+                        ...finalProperties[key],     // Keep all existing metadata
+                        ...value                     // Update/add from new data
+                    };
+                } else {
+                    // New property - add it
+                    finalProperties[key] = { ...value };
+                }
             }
+            
+            console.log(`  ℹ️  Merged properties for "${action.name}": ${Object.keys(existingAction.properties).length} existing + ${Object.keys(action.properties).length} new = ${Object.keys(finalProperties).length} total`);
         }
     } catch (e) {
         // File doesn't exist yet, use new properties
@@ -2461,14 +2487,41 @@ async function scrapeActions(): Promise<void> {
             }
         }
         
+        // Helper function to check if description needs updating
+        const needsDescriptionUpdate = (description: string): boolean => {
+            if (!description) return true;
+            const desc = description.toLowerCase().trim();
+            return desc.startsWith('available in:') ||
+                   desc.includes('requires each user') ||
+                   (desc.length < 50 && desc.includes('edition'));
+        };
+        
+        let needsUpdateCount = 0;
+        
         // Also check files directly (in case index is out of sync)
         for (const action of actions) {
             let hasApiName = false;
+            let needsUpdate = false;
             
             // First check index (fast)
             if (actionsWithApiNameSet.has(action.name)) {
                 hasApiName = true;
-                actionsWithApiName.push(action.name);
+                // Still need to check file for description quality
+                const firstLetter = action.name[0].toUpperCase();
+                const fileName = `${action.name.replace(/[^a-zA-Z0-9]/g, '_')}.json`;
+                const filePath = path.join(actionsFolder, firstLetter, fileName);
+                
+                try {
+                    const fileContent = await fs.readFile(filePath, 'utf-8');
+                    const existingAction: AgentforceAction = JSON.parse(fileContent);
+                    // Check if description needs updating even though API Name exists
+                    if (needsDescriptionUpdate(existingAction.description || '')) {
+                        needsUpdate = true;
+                        needsUpdateCount++;
+                    }
+                } catch (e) {
+                    // File doesn't exist or error reading - need to process
+                }
             } else {
                 // Check file directly (slower, but more reliable)
                 const firstLetter = action.name[0].toUpperCase();
@@ -2483,24 +2536,34 @@ async function scrapeActions(): Promise<void> {
                     
                     if (existingApiNameValue && existingApiNameValue.trim() !== '') {
                         hasApiName = true;
-                        actionsWithApiName.push(action.name);
+                        // Check if description needs updating even though API Name exists
+                        if (needsDescriptionUpdate(existingAction.description || '')) {
+                            needsUpdate = true;
+                            needsUpdateCount++;
+                        }
                     }
                 } catch (e) {
                     // File doesn't exist or error reading - need to process
                 }
             }
             
-            if (!hasApiName) {
+            // Process if: no API Name OR has API Name but needs description update
+            if (!hasApiName || needsUpdate) {
                 actionsToProcess.push(action);
+            } else {
+                actionsWithApiName.push(action.name);
             }
         }
         
         console.log(`\n📊 Action filtering:`);
         console.log(`   Total actions found: ${actions.length}`);
-        console.log(`   Already have API Name: ${actionsWithApiName.length}`);
+        console.log(`   Already have API Name (complete): ${actionsWithApiName.length}`);
         console.log(`   Need to process: ${actionsToProcess.length}`);
+        if (needsUpdateCount > 0) {
+            console.log(`   (${needsUpdateCount} have API Name but need description update)`);
+        }
         if (actionsWithApiName.length > 0) {
-            console.log(`\n   Skipping (already have API Name):`);
+            console.log(`\n   Skipping (already complete):`);
             actionsWithApiName.slice(0, 10).forEach(name => console.log(`     - ${name}`));
             if (actionsWithApiName.length > 10) {
                 console.log(`     ... and ${actionsWithApiName.length - 10} more`);
@@ -2565,8 +2628,11 @@ async function scrapeActions(): Promise<void> {
         
         console.log(`\n📋 Processing summary:`);
         console.log(`   Total actions found: ${actions.length}`);
-        console.log(`   Already have API Name: ${actionsWithApiName.length}`);
+        console.log(`   Already have API Name (complete): ${actionsWithApiName.length}`);
         console.log(`   Need to fetch: ${actionsToProcess.length}`);
+        if (needsUpdateCount > 0) {
+            console.log(`   (${needsUpdateCount} have API Name but need description update)`);
+        }
         if (actionsToProcess.length > 0) {
             const estimatedMinutes = Math.ceil(actionsToProcess.length * 2 / 60);
             console.log(`   Estimated time remaining: ~${estimatedMinutes} minute${estimatedMinutes !== 1 ? 's' : ''}\n`);
@@ -2740,6 +2806,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     scrapeActions().catch(console.error);
 }
 
-export { scrapeActions };
+export { scrapeActions, saveAction, updateIndex };
 
 
