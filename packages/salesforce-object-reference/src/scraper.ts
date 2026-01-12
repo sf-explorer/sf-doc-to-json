@@ -82,6 +82,41 @@ function cleanWhitespace(text: string): string {
 }
 
 /**
+ * Extract API version from text
+ * Looks for patterns like:
+ * - "available in API version 66.0 and later"
+ * - "available in API version 66.0"
+ * - "API version 66.0"
+ * Returns the version string (e.g., "66.0") or undefined if not found
+ */
+function extractApiVersion(text: string): string | undefined {
+    if (!text) return undefined;
+    
+    // Pattern 1: "available in API version X.X and later" or "available in API version X.X"
+    const pattern1 = /available in API version (\d+\.\d+)(?:\s+and later)?/i;
+    const match1 = pattern1.exec(text);
+    if (match1) {
+        return match1[1];
+    }
+    
+    // Pattern 2: "API version X.X" (standalone)
+    const pattern2 = /API version (\d+\.\d+)/i;
+    const match2 = pattern2.exec(text);
+    if (match2) {
+        return match2[1];
+    }
+    
+    // Pattern 3: "Available in Tooling API version X.X"
+    const pattern3 = /Available in Tooling API version (\d+\.\d+)/i;
+    const match3 = pattern3.exec(text);
+    if (match3) {
+        return match3[1];
+    }
+    
+    return undefined;
+}
+
+/**
  * Extract permission names from access rules text
  * Examples:
  * - "To access this object, you must have the View Event Log Object Data user permission."
@@ -264,7 +299,7 @@ export async function fetchDocuments(version: string, specificDoc?: string): Pro
             console.error(`Unknown documentation ID: ${item}`);
             continue;
         }
-        await fetchDocumentsSingle(item);
+        await fetchDocumentsSingle(item, version);
     }
     
     const items = Object.keys(documentMapping)
@@ -281,11 +316,13 @@ export async function fetchDocuments(version: string, specificDoc?: string): Pro
     await loadAllDocuments(items, version);
 }
 
-async function fetchDocumentsSingle(documentationId: string): Promise<void> {
+async function fetchDocumentsSingle(documentationId: string, version: string): Promise<void> {
     try {
-        console.log(`Fetching ${CONFIGURATION[documentationId]?.label} (${documentationId})...`);
+        console.log(`Fetching ${CONFIGURATION[documentationId]?.label} (${documentationId}) for version ${version}...`);
         
-        const response = await fetch(`https://developer.salesforce.com/docs/get_document/${documentationId}`);
+        // Try with version as query parameter first
+        const url = `https://developer.salesforce.com/docs/get_document/${documentationId}?version=${version}`;
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -335,6 +372,16 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
         
         const $ = cheerio.load(data.content);
         const desc = $('[id="summary"]');
+        const descText = cleanWhitespace(desc?.text() || '');
+        
+        // Extract API version from description or full content
+        // Check description first, then check full content if not found
+        let apiVersion = extractApiVersion(descText);
+        if (!apiVersion) {
+            const fullContentText = cleanWhitespace($('.body.refbody').text() || '');
+            apiVersion = extractApiVersion(fullContentText);
+        }
+        
         let headers = $('[data-title="Field Name"]');
         
         if (headers.length === 0) {
@@ -402,16 +449,27 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
         
         // Build the public-facing documentation URL
         // The contentUrl uses: /get_document_content/${deliverable}/${url}/en-us/${version}
-        // The public URL uses: /${documentationId}/${deliverable}/${url}
-        const publicUrl = `https://developer.salesforce.com/docs/${documentationId}/${header.deliverable}/${url}`;
+        // The public URL format: /atlas.en-us.{version}.{baseDocId}.meta/{deliverable}/{url}
+        // Insert version number into documentationId: atlas.en-us.{version}.revenue_lifecycle_management_dev_guide.meta
+        const version = header.version.doc_version;
+        // documentationId is like "atlas.en-us.revenue_lifecycle_management_dev_guide.meta"
+        // We need: "atlas.en-us.{version}.revenue_lifecycle_management_dev_guide.meta"
+        const baseDocId = documentationId.replace('atlas.en-us.', '').replace('.meta', '');
+        const versionedDocId = `atlas.en-us.${version}.${baseDocId}.meta`;
+        const publicUrl = `https://developer.salesforce.com/docs/${versionedDocId}/${header.deliverable}/${url}`;
         
         const result: Partial<SalesforceObject> = { 
             name: data.title, 
-            description: cleanWhitespace(desc?.text() || ''), 
+            description: descText, 
             properties, 
             module: CONFIGURATION[documentationId]?.label || '',
             sourceUrl: publicUrl
         };
+        
+        // Add API version if found
+        if (apiVersion) {
+            result['x-version'] = apiVersion;
+        }
         
         // Only add accessRules if it was found
         if (accessRules) {
@@ -496,6 +554,73 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         // Immediately save each fetched object to disk
         for (const item of results) {
             if (!item.name) continue;
+            
+            // Skip SharingRule objects
+            if (item.name.includes('SharingRule')) {
+                continue;
+            }
+            
+            // Check if this is a "Fields on [ObjectName]" pattern (e.g., "Automotive Cloud Fields on Product2")
+            // Pattern: "[Cloud Name] Fields on [ObjectName]"
+            const fieldsOnPattern = /^(.+?)\s+Fields\s+on\s+(.+)$/i;
+            const match = item.name.match(fieldsOnPattern);
+            
+            if (match) {
+                const cloudName = match[1].trim(); // e.g., "Automotive Cloud"
+                const actualObjectName = match[2].trim(); // e.g., "Product2"
+                
+                console.log(`  🔗 Detected field extension: ${item.name} -> merging into ${actualObjectName}`);
+                
+                // Find the actual object file
+                const firstLetter = actualObjectName[0].toUpperCase();
+                const objectFilePath = path.join(objectsFolder, firstLetter, `${actualObjectName}.json`);
+                
+                // Read the actual object
+                let actualObjectData: SalesforceObject | null = null;
+                try {
+                    const existingContent = await fs.readFile(objectFilePath, 'utf-8');
+                    const existingFile = JSON.parse(existingContent);
+                    actualObjectData = existingFile[actualObjectName];
+                } catch {
+                    console.warn(`  ⚠️  ${actualObjectName} not found, skipping field extension merge`);
+                    continue;
+                }
+                
+                if (actualObjectData) {
+                    // Merge fields with x-cloud property
+                    const extensionFields = item.properties || {};
+                    const existingProps = actualObjectData.properties || {};
+                    
+                    // Add x-cloud to each extension field and merge
+                    for (const [fieldName, fieldData] of Object.entries(extensionFields)) {
+                        existingProps[fieldName] = {
+                            ...(fieldData as any),
+                            'x-cloud': cloudName
+                        };
+                    }
+                    
+                    // Update clouds array
+                    const existingClouds = actualObjectData.clouds || [actualObjectData.module].filter(Boolean);
+                    if (!existingClouds.includes(cloudName)) {
+                        existingClouds.push(cloudName);
+                    }
+                    
+                    // Update the object
+                    actualObjectData.properties = existingProps;
+                    actualObjectData.clouds = existingClouds;
+                    
+                    // Save the updated object
+                    const objectData = {
+                        [actualObjectName]: actualObjectData
+                    };
+                    await fs.writeFile(objectFilePath, JSON.stringify(objectData, null, 2), 'utf-8');
+                    
+                    console.log(`  ✓ Merged ${Object.keys(extensionFields).length} fields from ${item.name} into ${actualObjectName}`);
+                }
+                
+                // Skip normal processing for field extension objects
+                continue;
+            }
             
             const firstLetter = item.name[0].toUpperCase();
             const objectFilePath = path.join(objectsFolder, firstLetter, `${item.name}.json`);
@@ -599,6 +724,11 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
                     mergedObject.accessRules = item.accessRules;
                 }
                 
+                // Only add/update x-version if new one exists
+                if (item['x-version']) {
+                    mergedObject['x-version'] = item['x-version'];
+                }
+                
                 // Track multiple clouds if object appears in multiple places
                 const existingClouds = existingObjectData.clouds || [existingObjectData.module].filter(Boolean);
                 const newClouds = item.module ? [...existingClouds, item.module] : existingClouds;
@@ -609,6 +739,11 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
                     ...item,
                     clouds: [item.module].filter(Boolean)
                 };
+            }
+            
+            // Preserve x-version from existing object if new one doesn't have it
+            if (!mergedObject['x-version'] && existingObjectData?.['x-version']) {
+                mergedObject['x-version'] = existingObjectData['x-version'];
             }
             
             const objectData = {
@@ -648,7 +783,7 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         console.log(`Progress: ${processedCount}/${items.length} (${progress}%) - Chunk ${i + 1}/${itemChunks.length} - ✅ ${results.length} files saved`);
     }
     
-    // Create cloud index files (just list of object names per cloud)
+    // Create cloud index files (just list of object names per cloud, excluding SharingRule objects)
     for (const [cloudName, stats] of Object.entries(cloudStats)) {
         const fileName = cloudNameToFileName(cloudName);
         
@@ -658,19 +793,24 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
         const configEntry = Object.values(CONFIGURATION).find(config => config.label === cloudName);
         const description = configEntry?.description || '';
         
+        // Filter out SharingRule objects from cloud stats
+        const filteredObjects = stats.objects.filter(obj => !obj.includes('SharingRule'));
+        const filteredCount = filteredObjects.length;
+        
         const cloudIndex = {
             cloud: cloudName,
             description: description,
-            objectCount: stats.count,
-            objects: stats.objects.sort()
+            objectCount: filteredCount,
+            objects: filteredObjects.sort()
         };
         
         await fs.writeFile(cloudIndexPath, JSON.stringify(cloudIndex, null, 2), 'utf-8');
         console.log(`✓ Created index for ${cloudName} with ${stats.count} objects: ${cloudIndexPath}`);
     }
     
-    // Create main index
+    // Create main index (excluding SharingRule objects)
     const sortedIndex = Object.keys(objectIndex)
+        .filter(key => !key.includes('SharingRule'))
         .sort()
         .reduce((acc, key) => {
             acc[key] = objectIndex[key];

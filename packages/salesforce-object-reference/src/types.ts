@@ -11,6 +11,7 @@ export interface SalesforceObject {
     sourceUrl?: string;
     clouds?: string[]; // Track multiple clouds if object appears in multiple places
     accessRules?: string; // Special Access Rules / permissions required to access this object
+    'x-version'?: string; // API version when the object was first released (e.g., "66.0")
 }
 
 export interface CloudConfiguration {

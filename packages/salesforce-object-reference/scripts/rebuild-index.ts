@@ -74,8 +74,14 @@ async function rebuildIndex() {
         console.log('📂 No existing index found\n');
     }
     
-    // Start with existing index objects to preserve objects without files
-    const objectIndex: Record<string, ObjectIndexEntry> = existingIndex?.objects ? { ...existingIndex.objects } : {};
+    // Start with existing index objects to preserve objects without files (excluding SharingRule objects)
+    const existingObjects = existingIndex?.objects || {};
+    const objectIndex: Record<string, ObjectIndexEntry> = {};
+    for (const [key, value] of Object.entries(existingObjects)) {
+        if (!key.includes('SharingRule')) {
+            objectIndex[key] = value;
+        }
+    }
     const cloudStats: Record<string, { objects: string[], count: number }> = {};
     let filesProcessed = 0;
     let objectsEnriched = 0;
@@ -100,6 +106,12 @@ async function rebuildIndex() {
                     
                     // Get the object (the file contains a single object with the object name as key)
                     const objectName = Object.keys(data)[0];
+                    
+                    // Skip SharingRule objects
+                    if (objectName.includes('SharingRule')) {
+                        continue;
+                    }
+                    
                     const objectData: SalesforceObject = data[objectName];
                     
                     if (!objectData) {
@@ -110,7 +122,7 @@ async function rebuildIndex() {
                     // Default to "Core Salesforce" instead of "Unknown" for objects without a specific cloud
                     const cloudName = objectData.module && objectData.module !== 'N/A' ? objectData.module : 'Core Salesforce';
                     
-                    // Track cloud stats
+                    // Track cloud stats (excluding SharingRule objects)
                     if (!cloudStats[cloudName]) {
                         cloudStats[cloudName] = { objects: [], count: 0 };
                     }
@@ -165,11 +177,15 @@ async function rebuildIndex() {
                 // Only include files that have the cloud index structure (with 'cloud' and 'objects' fields)
                 if (cloudData.cloud && cloudData.objects) {
                     const fileName = file.replace('.json', '');
+                    // Filter out SharingRule objects from cloud index
+                    const filteredObjects = Array.isArray(cloudData.objects) 
+                        ? cloudData.objects.filter((obj: string) => !obj.includes('SharingRule'))
+                        : [];
                     cloudIndex[fileName] = {
                         cloud: cloudData.cloud,
                         fileName: fileName,
                         description: cloudData.description || '',
-                        objectCount: cloudData.objectCount || 0,
+                        objectCount: filteredObjects.length,
                         emoji: cloudData.emoji,
                         iconFile: cloudData.iconFile
                     };
@@ -180,13 +196,21 @@ async function rebuildIndex() {
         }
     }
     
+    // Filter out SharingRule objects from final index
+    const filteredObjectIndex: Record<string, ObjectIndexEntry> = {};
+    for (const [key, value] of Object.entries(objectIndex)) {
+        if (!key.includes('SharingRule')) {
+            filteredObjectIndex[key] = value;
+        }
+    }
+    
     // Create the index document
     const index: DocumentIndex = {
         generated: new Date().toISOString(),
         version: existingIndex?.version || 'unknown',
-        totalObjects,
+        totalObjects: Object.keys(filteredObjectIndex).length,
         totalClouds: Object.keys(cloudIndex).length,
-        objects: objectIndex,
+        objects: filteredObjectIndex,
         clouds: cloudIndex
     };
     
