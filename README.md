@@ -13,6 +13,7 @@ This is a monorepo containing four complementary Salesforce reference packages.
 - **Use Case**: Official documented objects with comprehensive descriptions
 - **Includes**: Describe API tool for live org queries
 - **Install**: `npm install @sf-explorer/salesforce-object-reference`
+- **Version**: [![npm version](https://img.shields.io/npm/v/@sf-explorer/salesforce-object-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference)
 
 [📖 Full Documentation](./packages/salesforce-object-reference/README.md)
 [🔧 Describe API Tool](./packages/salesforce-object-reference/describe-api/README.md)
@@ -25,17 +26,20 @@ This is a monorepo containing four complementary Salesforce reference packages.
 - **Objects**: 700+ metadata objects (CustomObject, Flow, ApexClass, etc.)
 - **Use Case**: Metadata deployment and configuration
 - **Install**: `npm install @sf-explorer/salesforce-metadata-reference`
+- **Version**: [![npm version](https://img.shields.io/npm/v/@sf-explorer/salesforce-metadata-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-metadata-reference)
 
 [📖 Full Documentation](./packages/salesforce-metadata-reference/README.md)
 
 ### 3. [@sf-explorer/salesforce-object-ssot-reference](./packages/salesforce-object-ssot-reference) 🎯
 
-**Single Source of Truth (SSOT)** objects from Salesforce DMO APIs.
+**Data Cloud DMO (Data Model Objects)** from Salesforce documentation.
 
-- **Source**: Salesforce DMO (Data Model Object) APIs
-- **Objects**: 150+ SSOT objects
-- **Use Case**: Authoritative data model structure directly from APIs
+- **Source**: Salesforce Data Cloud DMO documentation
+- **Objects**: 150+ DMO objects (Individual, SalesOrder, LoyaltyProgram, etc.)
+- **Use Case**: Data Cloud data harmonization and unified customer profiles
+- **Note**: These are NOT standard CRM objects - DMOs have API names like `ssot__Individual__dlm`
 - **Install**: `npm install @sf-explorer/salesforce-object-ssot-reference`
+- **Version**: [![npm version](https://img.shields.io/npm/v/@sf-explorer/salesforce-object-ssot-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference)
 
 [📖 Full Documentation](./packages/salesforce-object-ssot-reference/README.md)
 
@@ -47,6 +51,7 @@ This is a monorepo containing four complementary Salesforce reference packages.
 - **Actions**: Standard actions for Agentforce/Copilot
 - **Use Case**: Reference for available Agentforce actions and their parameters
 - **Install**: `npm install @sf-explorer/salesforce-agentforce-actions-reference`
+- **Version**: [![npm version](https://img.shields.io/npm/v/@sf-explorer/salesforce-agentforce-actions-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-agentforce-actions-reference)
 
 [📖 Full Documentation](./packages/salesforce-agentforce-actions-reference/README.md)
 
@@ -72,11 +77,11 @@ sf-doc-to-json/
 │   │   │   └── index.ts
 │   │   └── package.json
 │   │
-│   ├── salesforce-object-ssot-reference/ # 🎯 SSOT objects
+│   ├── salesforce-object-ssot-reference/ # 🎯 Data Cloud DMO objects
 │   │   ├── src/
 │   │   │   ├── doc/
-│   │   │   │   ├── objects/              # ~150 SSOT objects
-│   │   │   │   └── index.json            # SSOT index
+│   │   │   │   ├── objects/              # ~150 DMO objects
+│   │   │   │   └── index.json            # DMO index
 │   │   │   └── index.ts
 │   │   └── package.json
 │   │
@@ -100,37 +105,39 @@ Install the packages you need:
 
 ```bash
 # Standard objects from documentation
-npm install @sf-explorer/salesforce-object-reference
+npm install @sf-explorer/salesforce-object-reference@1.0.2
 
 # Metadata API objects
-npm install @sf-explorer/salesforce-metadata-reference
+npm install @sf-explorer/salesforce-metadata-reference@1.0.0
 
 # SSOT/DMO objects
-npm install @sf-explorer/salesforce-object-ssot-reference
+npm install @sf-explorer/salesforce-object-ssot-reference@1.0.0
 
 # Agentforce actions
-npm install @sf-explorer/salesforce-agentforce-actions-reference
+npm install @sf-explorer/salesforce-agentforce-actions-reference@1.0.0
 ```
 
 Then import and use:
 
 ```typescript
-// Standard objects
+// Standard CRM objects (Account, Contact, Opportunity, etc.)
 import { getObject } from '@sf-explorer/salesforce-object-reference';
 const account = await getObject('Account');
 
-// Metadata objects
+// Metadata API objects (CustomObject, Flow, ApexClass, etc.)
 import { getObject as getMetadata } from '@sf-explorer/salesforce-metadata-reference';
 const customObject = await getMetadata('CustomObject');
 
-// SSOT objects
-import { getObject as getSSOT } from '@sf-explorer/salesforce-object-ssot-reference';
-const accountSSOT = await getSSOT('Account');
+// Data Cloud DMO objects (Individual, SalesOrder, LoyaltyProgram, etc.)
+import { getObject as getDMO } from '@sf-explorer/salesforce-object-ssot-reference';
+const individual = await getDMO('ssot__Individual__dlm'); 
 
 // Agentforce actions
 import { getAction } from '@sf-explorer/salesforce-agentforce-actions-reference';
 const createRecordAction = await getAction('CreateRecord');
 ```
+
+> ⚠️ **Important**: The SSOT/DMO package contains **Data Cloud Data Model Objects**, not standard Salesforce CRM objects. For example, the DMO `Individual` is different from the CRM `Contact` - they serve different purposes in the Salesforce ecosystem.
 
 ### For Developers
 
@@ -236,10 +243,10 @@ npm publish --access public
 ## 🔗 Links
 
 - **NPM Packages**:
-  - [@sf-explorer/salesforce-object-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference)
-  - [@sf-explorer/salesforce-metadata-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-metadata-reference)
-  - [@sf-explorer/salesforce-object-ssot-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference)
-  - [@sf-explorer/salesforce-agentforce-actions-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-agentforce-actions-reference)
+  - [@sf-explorer/salesforce-object-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference) - [v1.0.2](https://www.npmjs.com/package/@sf-explorer/salesforce-object-reference/v/1.0.2)
+  - [@sf-explorer/salesforce-metadata-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-metadata-reference) - [v1.0.0](https://www.npmjs.com/package/@sf-explorer/salesforce-metadata-reference/v/1.0.0)
+  - [@sf-explorer/salesforce-object-ssot-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference) - [v1.0.0](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference/v/1.0.0)
+  - [@sf-explorer/salesforce-agentforce-actions-reference](https://www.npmjs.com/package/@sf-explorer/salesforce-agentforce-actions-reference) - [v1.0.0](https://www.npmjs.com/package/@sf-explorer/salesforce-agentforce-actions-reference/v/1.0.0)
 - **GitHub**: [sf-explorer/sf-doc-to-json](https://github.com/sf-explorer/sf-doc-to-json)
 - **Issues**: [GitHub Issues](https://github.com/sf-explorer/sf-doc-to-json/issues)
 

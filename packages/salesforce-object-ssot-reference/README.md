@@ -1,15 +1,27 @@
-# Salesforce Object SSOT Reference
+# Salesforce Data Cloud DMO Reference
 
 [![npm version](https://img.shields.io/npm/v/@sf-explorer/salesforce-object-ssot-reference.svg)](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference)
 [![license](https://img.shields.io/npm/l/@sf-explorer/salesforce-object-ssot-reference.svg)](https://github.com/sf-explorer/sf-doc-to-json/blob/main/LICENSE)
 
-Single Source of Truth (SSOT) Salesforce object reference from Data Model Object (DMO) APIs.
+**Data Cloud Data Model Objects (DMOs)** from Salesforce documentation.
 
-This package provides programmatic access to Salesforce object schemas obtained directly from the DMO APIs, representing the authoritative data model structure.
+This package provides programmatic access to Salesforce Data Cloud DMO schemas - the canonical data model used for data harmonization and unified customer profiles in Data Cloud.
 
-## 🎯 What Makes This Different?
+## 🎯 What Are DMOs?
 
-While [`@sf-explorer/salesforce-object-reference`](../salesforce-object-reference) contains data scraped from Salesforce documentation, this package contains data obtained directly from Salesforce DMO (Data Model Object) APIs, making it the **Single Source of Truth** for Salesforce data models.
+**Data Model Objects (DMOs)** are the foundation of Salesforce Data Cloud. They define the canonical data model for harmonizing data from multiple sources into unified customer profiles.
+
+> ⚠️ **Important**: DMOs are NOT the same as standard Salesforce CRM objects!
+> - CRM `Contact` ≠ DMO `Individual` (though they represent similar concepts)
+> - CRM `Account` ≠ DMO `Account` (DMOs have different fields and purposes)
+> - DMO API names follow the pattern: `ssot__ObjectName__dlm`
+
+### DMO vs Standard Objects
+
+| Package | Object Type | Example | Use Case |
+|---------|-------------|---------|----------|
+| `salesforce-object-reference` | CRM Objects | `Account`, `Contact` | Sales, Service, Marketing |
+| `salesforce-object-ssot-reference` | DMO Objects | `Individual`, `SalesOrder` | Data Cloud harmonization |
 
 ## 📦 Installation
 
@@ -33,50 +45,66 @@ import {
 
 // Load index to see what's available
 const index = await loadIndex();
-console.log(`${index.totalObjects} SSOT objects available`);
+console.log(`${index.totalObjects} DMO objects available`);
 
-// Get a specific object (full details with all fields)
-const account = await getObject('Account');
-if (account) {
-  console.log(account.name);
-  console.log(account.description);
-  console.log(Object.keys(account.properties).length + ' fields');
+// Get a specific DMO (full details with all fields)
+// Can use display name or API name (ssot__Individual__dlm)
+const individual = await getObject('Individual');
+if (individual) {
+  console.log(individual.name);        // "Individual"
+  console.log(individual.description); // "The Individual DMO represents..."
+  console.log(Object.keys(individual.properties).length + ' fields');
 }
 
 // Get just the description and field count (much faster!)
-const accountDesc = await getObjectDescription('Account');
-if (accountDesc) {
-  console.log(accountDesc.label);        // "Account"
-  console.log(accountDesc.description);  // Object description
-  console.log(accountDesc.fieldCount);   // Number of fields
+const desc = await getObjectDescription('ssot__SalesOrder__dlm');
+if (desc) {
+  console.log(desc.description);  // DMO description
+  console.log(desc.fieldCount);   // Number of fields (85)
 }
 
-// Search for objects by name
-const results = await searchObjects(/account/i);
-console.log(`Found ${results.length} objects`);
+// Search for DMOs by name pattern
+const loyaltyDMOs = await searchObjects(/loyalty/i);
+console.log(`Found ${loyaltyDMOs.length} Loyalty-related DMOs`);
 
 // Search by description content
-const invoiceObjects = await searchObjectsByDescription('invoice');
-invoiceObjects.forEach(obj => {
+const engagementDMOs = await searchObjectsByDescription('engagement');
+engagementDMOs.forEach(obj => {
   console.log(`${obj.name} - ${obj.fieldCount} fields`);
 });
 
-// Get all object names
+// Get all DMO API names
 const allNames = await getAllObjectNames();
-console.log('Available objects:', allNames);
+console.log('Available DMOs:', allNames);
+// Output: ['ssot__Account__dlm', 'ssot__Individual__dlm', ...]
 ```
+
+### Common DMO Objects
+
+| DMO Name | Display Name | Description |
+|----------|--------------|-------------|
+| `ssot__Individual__dlm` | Individual | Represents contacts/customers (like CRM Contact) |
+| `ssot__SalesOrder__dlm` | Sales Order | Current and pending sales orders |
+| `ssot__GoodsProduct__dlm` | Goods Product | Product catalog items |
+| `ssot__LoyaltyProgramMember__dlm` | Loyalty Program Member | Loyalty program memberships |
+| `ssot__EmailEngagement__dlm` | Email Engagement | Email interaction data |
 
 ## 📂 Data Structure
 
 ```
 src/doc/
-├── index.json        # Master index
-└── objects/          # Individual object files
+├── index.json        # Master index (keys are API names like ssot__Individual__dlm)
+└── objects/          # Individual DMO files (organized by display name)
     ├── A/
     │   ├── Account.json
-    │   ├── Applicant.json
+    │   ├── Account Contact.json
     │   └── ...
-    ├── B/
+    ├── I/
+    │   ├── Individual.json
+    │   └── ...
+    ├── S/
+    │   ├── Sales Order.json
+    │   └── ...
     └── ...
 ```
 
@@ -85,30 +113,32 @@ src/doc/
 ### Core Functions
 
 #### `loadIndex(useCache?: boolean): Promise<DocumentIndex | null>`
-Load the master index containing all SSOT objects from DMO APIs.
+Load the master index containing all DMO objects.
 
-#### `getObject(objectName: string, useCache?: boolean): Promise<SalesforceObject | null>`
-Get detailed information about a specific Salesforce SSOT object.
+#### `getObject(nameOrApiName: string, useCache?: boolean): Promise<SalesforceObject | null>`
+Get detailed information about a specific DMO. Accepts either:
+- Display name: `'Individual'`
+- API name: `'ssot__Individual__dlm'`
 
 #### `searchObjects(pattern: string | RegExp, useCache?: boolean): Promise<Array<{name, description, fieldCount}>>`
-Search for SSOT objects by name pattern.
+Search for DMOs by API name pattern.
 
 #### `getAllObjectNames(useCache?: boolean): Promise<string[]>`
-Get list of all available SSOT object names.
+Get list of all available DMO API names (in `ssot__*__dlm` format).
 
 ### Lightweight Descriptions API
 
 #### `loadAllDescriptions(useCache?: boolean): Promise<Record<string, DescriptionInfo> | null>`
-Load descriptions and field counts for all SSOT objects at once.
+Load descriptions and field counts for all DMOs at once.
 
-#### `getObjectDescription(objectName: string, useCache?: boolean): Promise<DescriptionInfo | null>`
-Get description and field count for a specific SSOT object.
+#### `getObjectDescription(nameOrApiName: string, useCache?: boolean): Promise<DescriptionInfo | null>`
+Get description and field count for a specific DMO.
 
 #### `searchObjectsByDescription(pattern: string | RegExp, useCache?: boolean): Promise<DescriptionSearchResult[]>`
-Search for SSOT objects by description content.
+Search for DMOs by description content.
 
 #### `loadAllObjects(useCache?: boolean): Promise<SalesforceObjectCollection>`
-Load all SSOT objects with full details.
+Load all DMOs with full details.
 
 #### `clearCache(): void`
 Clear all cached data.
@@ -119,14 +149,14 @@ Works in all modern browsers when bundled with Vite, Webpack, Rollup, or other m
 
 ```typescript
 // Works perfectly in the browser after bundling!
-import { getObjectDescription } from '@sf-explorer/salesforce-object-ssot-reference';
+import { getObject } from '@sf-explorer/salesforce-object-ssot-reference';
 
-const desc = await getObjectDescription('Account');
+const individual = await getObject('Individual');
 ```
 
 ## 🔄 Generating Fresh Data
 
-To fetch fresh SSOT data from DMO APIs:
+To fetch fresh DMO data from Salesforce documentation:
 
 ```bash
 npm run fetch:dmo
@@ -134,7 +164,9 @@ npm run fetch:dmo
 
 ## 🤝 Related Packages
 
-- [`@sf-explorer/salesforce-object-reference`](../salesforce-object-reference) - Salesforce objects from official documentation
+- [`@sf-explorer/salesforce-object-reference`](../salesforce-object-reference) - Standard CRM objects from Salesforce documentation
+- [`@sf-explorer/salesforce-metadata-reference`](../salesforce-metadata-reference) - Metadata API objects
+- [`@sf-explorer/salesforce-agentforce-actions-reference`](../salesforce-agentforce-actions-reference) - Agentforce standard actions
 
 ## 📄 License
 
@@ -145,8 +177,9 @@ MIT License - see [LICENSE](../../LICENSE)
 - [NPM Package](https://www.npmjs.com/package/@sf-explorer/salesforce-object-ssot-reference)
 - [GitHub Repository](https://github.com/sf-explorer/sf-doc-to-json)
 - [Issue Tracker](https://github.com/sf-explorer/sf-doc-to-json/issues)
+- [Salesforce Data Cloud DMO Documentation](https://developer.salesforce.com/docs/data/data-cloud-dmo-mapping/guide/c360dm-datamodelobjects.html)
 
 ---
 
-**Note:** This package contains data from Salesforce DMO APIs. It is not officially affiliated with or endorsed by Salesforce.
+**Note:** This package contains data from Salesforce Data Cloud documentation. It is not officially affiliated with or endorsed by Salesforce.
 

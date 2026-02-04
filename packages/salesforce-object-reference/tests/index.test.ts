@@ -112,6 +112,17 @@ describe('Salesforce Object Reference Library', () => {
                 expect(typeof firstProp.description).toBe('string');
             }
         });
+
+        it('should get Account object', async () => {
+            // Test the specific example from user's code
+            const account = await getObject('Account');
+            if (account) {
+                expect(account.name).toBe('Account');
+                expect(account.properties).toBeDefined();
+                expect(typeof account.description).toBe('string');
+                expect(typeof account.module).toBe('string');
+            }
+        });
     });
 
     describe('searchObjects', () => {

@@ -356,9 +356,11 @@ export async function getAvailableClouds(useCache = true): Promise<string[]> {
     }
     
     // Use the cloud index from index.json - no guessing
-    return Object.values(index.clouds)
-        .map(cloudEntry => cloudEntry.cloud)
-        .sort();
+    // Deduplicate cloud names using Set, then sort
+    const uniqueClouds = Array.from(new Set(
+        Object.values(index.clouds).map(cloudEntry => cloudEntry.cloud)
+    ));
+    return uniqueClouds.sort();
 }
 
 /**

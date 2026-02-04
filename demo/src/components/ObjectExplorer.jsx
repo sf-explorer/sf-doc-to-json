@@ -124,11 +124,19 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
       const objectToLoad = objects.find(obj => obj.apiName === urlObjectName);
       if (objectToLoad) {
         handleObjectSelect(objectToLoad, true);
+      } else {
+        // Object not found in the list - clear selection
+        console.warn(`Object "${urlObjectName}" not found in the objects list`);
+        setSelectedObject(null);
+        setNavigationHistory([]);
       }
-    } else {
+    } else if (!urlObjectName) {
+      // No object in URL - clear selection
       setSelectedObject(null);
       setNavigationHistory([]);
     }
+    // Note: We intentionally don't include handleObjectSelect in dependencies
+    // to avoid infinite loops. The function is stable enough for this use case.
   }, [urlObjectName, objects]);
 
   const handleObjectSelect = async (object, fromUrl = false) => {
