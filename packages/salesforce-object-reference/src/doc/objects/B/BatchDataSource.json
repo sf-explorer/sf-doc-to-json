@@ -1,7 +1,7 @@
 {
   "BatchDataSource": {
     "name": "BatchDataSource",
-    "description": "Batch Data Source (Tooling API)",
+    "description": "Represents the source of information from which a batch job retrieves records for processing.",
     "properties": {
       "Id": {
         "type": "string",
@@ -53,23 +53,26 @@
       },
       "BatchJobDefinitionId": {
         "type": "string",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BatchJobDefinition",
         "maxLength": 18,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The ID of the batch job definition associated with batch data source."
       },
       "SourceTableName": {
         "type": "string",
         "maxLength": 50,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The name of the object from which records are processed by the batch job."
       },
       "CriteriaJoinCondition": {
         "type": "string",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "The logic that's used to decide how data source records are filtered."
       },
       "CriteriaJoinType": {
         "type": "string",
@@ -82,10 +85,24 @@
         ],
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Specifies the criteria type used to filter data source records."
+      },
+      "DataSourceType": {
+        "type": "string",
+        "description": "Specifies the type of data source.",
+        "enum": []
+      },
+      "RelatedSobjects": {
+        "type": "string",
+        "description": "The list of objects that are used as data sources for the batch job definition."
+      },
+      "SourceFieldName": {
+        "type": "string",
+        "description": "The field from the source object that's used to run the batch job."
       }
     },
-    "module": "Tooling API",
+    "module": "Loyalty",
     "keyPrefix": "0mc",
     "createable": false,
     "updateable": false,
@@ -99,6 +116,12 @@
         "relationshipName": null,
         "cascadeDelete": true
       }
+    ],
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.loyalty.meta/loyalty/tooling_api_objects_batchdatasource.htm",
+    "x-version": "66.0",
+    "clouds": [
+      "Tooling API",
+      "Loyalty"
     ]
   }
 }

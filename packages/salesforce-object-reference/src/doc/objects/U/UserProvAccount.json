@@ -4,15 +4,15 @@
     "description": "Represents information that links a Salesforce user account with an account in a third-party (target) system, such as Google, for users of connected apps with Salesforce user provisioning enabled.",
     "properties": {
       "ConnectedAppId": {
-        "type": "reference",
+        "type": "string",
         "description": "The 15 character application ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ConnectedApplication",
         "maxLength": 18,
         "nullable": true
       },
       "DeletedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the associated user account in the target system was deleted. This value is automatically updated during the provisioning and reconciling processes.",
         "format": "date-time",
         "nullable": true
@@ -53,7 +53,7 @@
         "nullable": false
       },
       "LinkState": {
-        "type": "picklist",
+        "type": "string",
         "description": "The state of the current connection between the user account in the Salesforce organization and the associated user account in the target system. The valid values are: linked— changes to the account in the Salesforce organization are queued to be updated for the associated user account in the target system. duplicate— an associated account in the target system exists. orphaned—no associated account exists in the target system. ignored— changes to the account in the Salesforce organization have no effect on the associated user account in the target system.",
         "format": "enum",
         "enum": [
@@ -73,19 +73,20 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The user ID of the owner of this object—typically a Salesforce administrator."
+        "type": "string",
+        "description": "The user ID of the owner of this object—typically a Salesforce administrator.",
+        "format": "reference"
       },
       "SalesforceUserId": {
-        "type": "reference",
+        "type": "string",
         "description": "The user ID for the user account in the Salesforce organization that is associated with the user account in the target system.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the account in the target system. The valid values are: Active Deactivated Deleted",
         "format": "enum",
         "enum": [
@@ -163,7 +164,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovaccount.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_userprovaccount.htm",
     "keyPrefix": "0Ni",
     "createable": true,
     "updateable": true,
@@ -192,6 +193,7 @@
     ],
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "33.0"
   }
 }

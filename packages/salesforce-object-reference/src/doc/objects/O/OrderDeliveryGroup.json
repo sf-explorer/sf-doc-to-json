@@ -4,7 +4,7 @@
     "description": "A group of order items that share a delivery method and address. The delivery method and address are used during the fulfillment process, such as shipping as a gift, downloading, picking up in store, or shipping to a standard address",
     "properties": {
       "DeliverToAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The delivery group’s order items are delivered to this address. Created based on the values of the other DeliverTo fields.",
         "nullable": true,
         "readOnly": true
@@ -38,11 +38,12 @@
         "description": ""
       },
       "DeliverToFullSalutation": {
-        "type": "picklist",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "enum": []
       },
       "DeliverToGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "Geocode accuracy address value. Sent to DeliverToAddress.",
         "format": "enum",
         "enum": [
@@ -92,44 +93,44 @@
         "nullable": true
       },
       "DeliverToStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street address value. Sent to DeliverToAddress.",
         "maxLength": 255,
         "nullable": true
       },
       "DeliveryInstructions": {
-        "type": "textarea",
+        "type": "string",
         "description": "Text field for users to add other delivery instructions.",
         "maxLength": 2000,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "User-defined description for this delivery group.",
         "maxLength": 2000,
         "nullable": true
       },
       "DesiredDeliveryDate": {
-        "type": "date",
+        "type": "string",
         "description": "The buyer’s target delivery date for the order items included in the delivery group.",
         "format": "date",
         "nullable": true
       },
       "EmailAddress": {
-        "type": "email",
+        "type": "string",
         "description": "The buyer’s email address.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "GiftMessage": {
-        "type": "textarea",
+        "type": "string",
         "description": "An optional gift message that the buyer can define if they’re sending the order items as a gift to another recipient. Applies to all order items in the delivery group.",
         "maxLength": 2000,
         "nullable": true
       },
       "GrandTotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of the group’s total delivery amount and total tax amount.",
         "format": "currency",
         "nullable": true,
@@ -149,46 +150,46 @@
         "readOnly": true
       },
       "OrderDeliveryMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the order delivery method related to this order delivery group.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderDeliveryMethod",
         "maxLength": 18,
         "nullable": true
       },
       "OrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the parent order for this order delivery group. An order can have multiple order delivery groups.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "PhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number of the buyer.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PromisedDeliveryDate": {
-        "type": "date",
+        "type": "string",
         "description": "Merchant-defined date that the items in this group will be delivered to the customer. Usually defined based on an estimated date from the shipping provider.",
         "format": "date",
         "nullable": true
       },
       "RelatedDeliveryGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The original delivery group. Used for reference in change order scenarios.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderDeliveryGroup",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all adjustments (of type Delivery Charge) made to order items in the order delivery group.",
         "format": "currency",
         "nullable": true,
@@ -196,7 +197,7 @@
         "multipleOf": 0.01
       },
       "TotalAdjustmentAmtWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all adjustments (of type Delivery Charge) made to order items in the order delivery group, including tax.",
         "format": "currency",
         "nullable": true,
@@ -204,7 +205,7 @@
         "multipleOf": 0.01
       },
       "TotalAdjustmentTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all adjustments (of type Delivery Charge) made to tax lines for order items in the order delivery group.",
         "format": "currency",
         "nullable": true,
@@ -212,7 +213,7 @@
         "multipleOf": 0.01
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all Total Amount fields (of type Delivery Charge) on order items within this delivery group. On an order item, the total amount equals the quantity multiplied by the unit price, including adjustments and tax.",
         "format": "currency",
         "nullable": true,
@@ -220,7 +221,7 @@
         "multipleOf": 0.01
       },
       "TotalLineAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of order items (of the type Delivery Charge). On an order item, the total line amount equals the quantity multiplied by the unit price, before adjustments or tax.",
         "format": "currency",
         "nullable": true,
@@ -228,7 +229,7 @@
         "multipleOf": 0.01
       },
       "TotalLineAmtWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all TotalLineAmtWithTax fields (of type Delivery Charge) on order items within this delivery group. On an order item, the total line amount with tax equals the quantity multiplied by the unit price, plus tax, before adjustments.",
         "format": "currency",
         "nullable": true,
@@ -236,7 +237,7 @@
         "multipleOf": 0.01
       },
       "TotalLineTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all Total Line Tax Amount fields (of type Delivery Charge) on order items within this delivery group. On an order item, the total line tax amount equals the total tax for that line.",
         "format": "currency",
         "nullable": true,
@@ -244,7 +245,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all Total Tax Amount fields (of type Delivery Charge) on order items within this order delivery group.",
         "format": "currency",
         "nullable": true,
@@ -691,7 +692,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderdeliverygroup.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderdeliverygroup.htm",
     "keyPrefix": "2Dg",
     "createable": true,
     "updateable": true,
@@ -823,6 +824,7 @@
     "accessRules": "Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

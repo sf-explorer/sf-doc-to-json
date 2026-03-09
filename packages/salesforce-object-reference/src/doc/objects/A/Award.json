@@ -4,15 +4,15 @@
     "description": "Represents a person's or organization's professional awards.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the organization receiving the award.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "AwardDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date award was received.",
         "format": "date-time",
         "nullable": true
@@ -24,17 +24,17 @@
         "nullable": true
       },
       "ContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "Person who received the award and is listed as a contact.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "HealthcareProviderId": {
-        "type": "reference",
+        "type": "string",
         "description": "Healthcare provider that this award is associated with.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "HealthcareProvider",
         "maxLength": 18,
         "nullable": true
@@ -51,14 +51,14 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
@@ -71,9 +71,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -82,7 +82,7 @@
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Award status. Example values: Inactive Revoked Draft Verified",
         "format": "enum",
         "enum": [
@@ -95,15 +95,15 @@
         "nullable": true
       },
       "UserId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the person who received the award and is listed as a user.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "VerificationStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Current award status. Example values: Authorized Pending Unverified",
         "format": "enum",
         "enum": [
@@ -115,7 +115,7 @@
         "nullable": true
       },
       "VerifiedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Award was validated on this date.",
         "format": "date-time",
         "nullable": true
@@ -194,13 +194,22 @@
         "description": "IsLocked field",
         "nullable": false,
         "readOnly": true
+      },
+      "IsCertification": {
+        "type": "boolean",
+        "description": "Indicates whether the award is a certification (true) or not (false)."
+      },
+      "IsVerified": {
+        "type": "boolean",
+        "description": "Indicates if the award is verified (true) or not (false)."
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_award_hc.htm",
+    "module": "Financial Services Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_award.htm",
     "clouds": [
       "Financial Services Cloud",
-      "Health Cloud"
+      "Health Cloud",
+      "Education Cloud"
     ],
     "keyPrefix": "0cF",
     "iconUrl": "standard/entitlement_120.png",
@@ -397,6 +406,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "61.0"
   }
 }

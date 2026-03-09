@@ -1,6 +1,8 @@
 export interface FieldProperty {
     type: string;
     description: string;
+    format?: string;
+    enum?: string[];
 }
 
 export interface SalesforceObject {
@@ -30,6 +32,7 @@ export interface ObjectIndexEntry {
     icon?: string;
     clouds?: string[]; // Track all clouds this object appears in
     accessRules?: string; // Special Access Rules / permissions required
+    'x-version'?: string; // API version when the object was first released (e.g., "66.0")
 }
 
 export interface CloudIndexEntry {

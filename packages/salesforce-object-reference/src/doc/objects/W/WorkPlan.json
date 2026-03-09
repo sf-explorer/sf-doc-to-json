@@ -4,25 +4,25 @@
     "description": "Represents a work plan for a work order or work order line item.",
     "properties": {
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the work plan.",
         "maxLength": 32000,
         "nullable": true
       },
       "ExecutionOrder": {
-        "type": "int",
+        "type": "number",
         "description": "The order in which the work plan is executed. Only positive values or null are supported.",
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
@@ -35,9 +35,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who created the work plan.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -46,32 +46,34 @@
         "nullable": false
       },
       "ParentRecordId": {
-        "type": "reference",
-        "description": "The ID of the work order, work order line item, or change request that the work plan is associated with. Available in API version 54.0 and later."
+        "type": "string",
+        "description": "The ID of the work order, work order line item, or change request that the work plan is associated with. Available in API version 54.0 and later.",
+        "format": "reference"
       },
       "ParentRecordType": {
         "type": "string",
         "description": "Describes whether the parent record is a work order, work order line item, or change request. Available in API version 54.0 and later."
       },
       "WorkOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. The ID of the work order.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": true
       },
       "WorkOrderLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the work order line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "WorkPlanTemplateId": {
-        "type": "reference",
-        "description": "The ID of the work plan template record. Available in API version 54.0 and later."
+        "type": "string",
+        "description": "The ID of the work plan template record. Available in API version 54.0 and later.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -149,8 +151,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_workplan.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_workplan.htm",
     "keyPrefix": "0gq",
     "iconUrl": "standard/work_plan_120.png",
     "iconColor": "06A59A",
@@ -363,6 +365,7 @@
     "clouds": [
       "Field Service Lightning",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "52.0"
   }
 }

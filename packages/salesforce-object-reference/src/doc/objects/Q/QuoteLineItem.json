@@ -1,23 +1,24 @@
 {
   "QuoteLineItem": {
     "name": "QuoteLineItem",
-    "description": "Represents a quote line item, which is a member of the list of Product2 products associated with a Quote, along with other information about those line items on that quote.",
+    "description": "Represents a quote line item, which is a member of the list of Product2 products associated with a quote, along with other information about those line items on that quote.",
     "properties": {
       "BatchIdentifier": {
         "type": "string",
-        "description": "Identifier for a product bundle in a transaction processing batch. This value ensures that quote lines from the same bundles are processed together."
+        "description": "Identifier for a product bundle in a transaction processing batch. This value makes sure that quote lines from the same bundles process together."
       },
       "BillingFrequency": {
-        "type": "picklist",
-        "description": "The time period that indicates how often the quote line item is billed. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled."
+        "type": "string",
+        "description": "The time period that indicates how often the quote line item is billed. This field is available in API version 55.0 and later. This field is available when Subscription Management is enabled.",
+        "enum": []
       },
       "BillingReference": {
         "type": "string",
         "description": "Reference to the original quote for which this quote line item is created. This field is available in API version 61.0 and later."
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
-        "description": "Available only for organizations enabled for multiple currencies. Contains the ISO code for any currency allowed by the organization. If the organization has multicurrency and a Pricebook2 is specified on the quote (the Pricebook2Id field isn’t blank), then the currency value of this field must match the currency of the PricebookEntry objects for any associated quote line items.This value is copied from the related Quote and can't be changed.",
+        "type": "string",
+        "description": "Available only for organizations enabled for multiple currencies. Contains the ISO code for any currency allowed by the organization. If the organization has multicurrency and a Pricebook2 specified on the quote (the Pricebook2Id field isn’t blank), then the currency value of this field must match the currency of the PricebookEntry objects for any associated quote line items.This value comes from the related quote and can't be changed.",
         "format": "enum",
         "enum": [
           "USD"
@@ -37,47 +38,52 @@
         "nullable": true
       },
       "Discount": {
-        "type": "percent",
-        "description": "Editable number from 0 to 100.",
+        "type": "number",
+        "description": "The optional discount percentage, specified by the sales representative at the line level. Editable number from 0 to 100.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "DiscountAmount": {
-        "type": "currency",
-        "description": "The fixed amount discount to apply to the quote line item. Available in API version 59.0 and later."
+        "type": "number",
+        "description": "The fixed amount discount to apply to the quote line item. Available in API version 59.0 and later.",
+        "format": "currency"
       },
       "DoesAutomaticallyRenew": {
         "type": "boolean",
         "description": "Indicates that the quote line item is set to automatically renew (True) or not (False)."
       },
       "Division": {
-        "type": "picklist",
-        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as “North America,” “Healthcare,” or “Consulting.” Available only if the organization has the Division permission enabled."
+        "type": "string",
+        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as “North America,” “Healthcare,” or “Consulting.” Available only if the organization has the Division permission enabled.",
+        "enum": []
       },
       "EffectiveGrantDate": {
-        "type": "date",
-        "description": "The date on which the resources associated with the quote line item are granted."
+        "type": "string",
+        "description": "The date on which the resources associated with the quote line item are granted.",
+        "format": "date"
       },
       "EndDate": {
-        "type": "picklist",
-        "description": "If the quote line item is sold on subscription, this field indicates the date on which the subscription ends. This field is available in API version 55.0 and later. This field is available if Subscription Management is enabled in your org.You can indicate a subscription’s length using either StartDate and EndDate, or by using StartDate and SubscriptionTerm. If you provide a value for both EndDate and SubscriptionTerm, EndDate is used to determine the subscription’s length."
+        "type": "string",
+        "description": "If the quote line item is sold on subscription, this field indicates the date on which the subscription ends. This field is available in API version 55.0 and later. This field is available if Subscription Management is enabled in your org.You can indicate a subscription’s length by using either StartDate and EndDate, or by using StartDate and SubscriptionTerm. If you provide a value for both EndDate and SubscriptionTerm, EndDate is used to determine the subscription’s length.",
+        "enum": []
       },
       "EndDateTime": {
-        "type": "dateTime",
-        "description": "The end date and time of the quote line item, which is derived from the End Date and End Time fields in the time zone specified in the Start and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC)."
+        "type": "string",
+        "description": "The end date and time of the quote line item, which is derived from the End Date and End Time fields in the time zone specified in the Start and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC).",
+        "format": "date-time"
       },
       "EndQuantity": {
         "type": "double",
         "description": "If the quote line item is sold on a subscription, this field indicates the end quantity when the subscription ends. This field is available in API version 60.0 and later. This field is available with Subscription Management."
       },
       "EndTime": {
-        "type": "time",
+        "type": "string",
         "description": "The end time of the quote line item."
       },
       "IsPrimarySegment": {
         "type": "boolean",
-        "description": "Indicates whether the segment for the order item is a primary segment (true) or not (false)."
+        "description": "Indicates whether the segment for the quote line item is a primary segment (true) or not (false)."
       },
       "HasQuantitySchedule": {
         "type": "boolean",
@@ -98,22 +104,23 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user only accessed this record or list view (LastReferencedDate) but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LegalEntityId": {
-        "type": "reference",
-        "description": "The ID of the legal entity record associated with the quote line item."
+        "type": "string",
+        "description": "The ID of the legal entity record associated with the quote line item.",
+        "format": "reference"
       },
       "LineNumber": {
         "type": "string",
@@ -123,81 +130,90 @@
         "readOnly": true
       },
       "ListPrice": {
-        "type": "currency",
-        "description": "Read-only. Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard price book or a custom price book. A client application can use this information to show whether the unit price (or sales price) of the line item differs from the price book entry list price.",
+        "type": "number",
+        "description": "Read-only. Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard price book or a custom price book. A client app can use this information to show whether the unit price (or sales price) of the line item differs from the price book entry list price.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "ListPriceTotal": {
-        "type": "currency",
-        "description": "The ListPrice times the Quantity. This field is a calculated field."
+        "type": "number",
+        "description": "The ListPrice times the Quantity. This field is a calculated field.",
+        "format": "currency"
       },
       "NetTotalPrice": {
-        "type": "currency",
-        "description": "The price after all adjustments, inclusive of quantity, prorated for the duration of the subscription. This field is a calculated field equal to TotalAdjustmentAmount plus TotalLineAmount.This field is available in API version 56.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The price after all adjustments, inclusive of quantity, prorated for the duration of the subscription. This field is a calculated field equal to TotalAdjustmentAmount plus TotalLineAmount.This field is available in API version 56.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "NetUnitPrice": {
-        "type": "currency",
-        "description": "The unit price after all price adjustments are applied."
+        "type": "number",
+        "description": "The unit price after all price adjustments are applied.",
+        "format": "currency"
       },
       "OpportunityLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the related opportunity line item. This field is populated by the API during creation of the quote line item. Not editable. Available in API version 40.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OpportunityLineItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ParentQuoteLineItemId": {
-        "type": "reference",
-        "description": "The unique identifier of the related line item in the parent quote."
+        "type": "string",
+        "description": "The unique identifier of the related line item in the parent quote.",
+        "format": "reference"
       },
       "PartnerDiscountPercent": {
-        "type": "percent",
+        "type": "number",
         "description": "The partner’s discount percent applied to the quote lines. Available in API version 59.0 and later."
       },
       "PartnerUnitPrice": {
-        "type": "currency",
-        "description": "The unit price after applying the discount given to the partner for the quote line item. Available in API version 59.0 and later."
+        "type": "number",
+        "description": "The unit price after applying the discount given to the partner for the quote line item. Available in API version 59.0 and later.",
+        "format": "currency"
       },
       "PeriodBoundary": {
-        "type": "picklist",
-        "description": "The period boundary helps determine the start and end date of the billing periods. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The period boundary helps determine the start and end date of the billing periods. This field is available in API version 55.0 and later. This field is available with Subscription Management and Revenue Cloud.",
+        "enum": []
       },
       "PeriodBoundaryDay": {
-        "type": "int",
-        "description": "Required when PeriodBoundary is DayOfPeriod. Indicates day of the week or month that marks the period boundary. Must be an integer from 1 through 31.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "Required when PeriodBoundary is DayOfPeriod. Indicates day of the week or month that marks the period boundary. Must be an integer from 1 through 31.This field is available in API version 55.0 and later. This field is available with Subscription Management and Revenue Cloud. Keep these considerations in mind for amendment, renewal, and cancellations of assets in Revenue Cloud. The value of the PeriodBoundary field is copied from the AssetActionSource (initial sale), by default. When PeriodBoundary field value is converted from Anniversary to DayOfPeriod for termed selling models, the value of the PeriodBoundaryDay field is automatically populated with the day value from AssetActionSource.StartDate. Start date adjustment operation on an asset preserves the original value without conversion."
       },
       "PeriodBoundaryStartMonth": {
-        "type": "picklist",
-        "description": "The field is populated based on input in the StartDate, PeriodBoundary, and PeriodBoundaryDay when BillingFrequency is Annual and PricingTermUnit is Annual or by manual user entry. Possible values are: 1-January 2-February 3-March 4-April 5-May 6-June 7-July 8-August 9-September 10-October 11-November 12-December"
+        "type": "string",
+        "description": "The field is populated based on input in the StartDate, PeriodBoundary, and PeriodBoundaryDay when BillingFrequency is Annual and PricingTermUnit is Annual or by manual user entry. Possible values are: 1-January 2-February 3-March 4-April 5-May 6-June 7-July 8-August 9-September 10-October 11-November 12-December Keep these considerations in mind for amendment, renewal, and cancellations of assets in Revenue Cloud. The value of the PeriodBoundary field is copied from the AssetActionSource (initial sale), by default. For termed selling models where PeriodBoundary field value is Anniversary and PricingTermUnit field value is ANNUAL, SEMI_ANNUAL, or QUARTERLY, the value of the PeriodBoundaryStartMonth field is automatically recalculated by using AssetActionSource.StartDate.month. Start date adjustment operation on an asset preserves the original value without conversion.",
+        "enum": []
       },
       "PricebookEntryId": {
-        "type": "reference",
-        "description": "Required. ID of the associated PricebookEntry. Exists only for orgs with Products enabled. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is made null, and PricebookEntryId is populated with the PricebookEntryId data.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Required. ID of the associated PricebookEntry. Exists only for orgs with Products enabled. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is nulled, and PricebookEntryId is populated with the PricebookEntryId data.",
+        "format": "reference",
         "x-object": "PricebookEntry",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "PriceRevisionPolicyId": {
-        "type": "reference",
-        "description": "The price uplift policy associated with this quote line item."
+        "type": "string",
+        "description": "The price uplift policy associated with this quote line item.",
+        "format": "reference"
       },
       "PricingContractId": {
-        "type": "reference",
-        "description": "The contract used for pricing that's associated with the quote line item."
+        "type": "string",
+        "description": "The contract used for pricing that's associated with the quote line item.",
+        "format": "reference"
       },
       "PriceWaterfallIdentifier": {
         "type": "string",
         "description": "The price waterfall identifier generated by Salesforce Pricing that's associated with the pricing of the detail record. Available in API version 60.0 and later."
       },
       "PricingTerm": {
-        "type": "int",
+        "type": "number",
         "description": "The number of terms in the subscription. For example, if a monthly subscription is priced yearly, this field is 12. This field is available in API version 55.0 and later. This field is available with Subscription Management."
       },
       "PricingTermCount": {
@@ -205,13 +221,14 @@
         "description": "A calculated field indicating the number of pricing terms in the subscription. This field is available in API version 55.0 and later. This field is available with Subscription Management."
       },
       "PricingTermUnit": {
-        "type": "picklist",
-        "description": "The unit of time for the pricing term. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The unit of time for the pricing term. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "enum": []
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "Required. ID of the Product2 associated with this QuoteLineItem. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is made null, and PricebookEntryId is populated with the PricebookEntryId data.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Required. ID of the Product2 associated with this QuoteLineItem. In API 38.0 and earlier, if Product2Id is populated with PricebookEntryId data, you receive an error message. In API 39.0 and later, Product2Id is nulled, and PricebookEntryId is populated with the PricebookEntryId data.",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": false,
@@ -222,12 +239,14 @@
         "description": "The ID of the product instance that’s added to a quote. Each quote line item created for the same product instance has the same product instance identifier value."
       },
       "ProductSellingModelId": {
-        "type": "reference",
-        "description": "The ID of the related product selling model. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The ID of the related product selling model. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "reference"
       },
       "ProrationPolicyId": {
-        "type": "reference",
-        "description": "The ID of the related proration policy. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The ID of the related proration policy. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "reference"
       },
       "Quantity": {
         "type": "double",
@@ -236,37 +255,42 @@
         "multipleOf": 0.01
       },
       "QuantityUnitOfMeasureId": {
-        "type": "reference",
-        "description": "The unit of measure for the quantity, start quantity, and end quantity."
+        "type": "string",
+        "description": "The unit of measure for the quantity, start quantity, and end quantity.",
+        "format": "reference"
       },
       "QuoteActionId": {
-        "type": "reference",
-        "description": "The ID of the related quote action. This field is available in API version 58.0 and later. This field is available with Subscription Management and Revenue Lifecycle Management."
+        "type": "string",
+        "description": "The ID of the related quote action. This field is available in API version 58.0 and later. This field is available with Subscription Management and Revenue Lifecycle Management.",
+        "format": "reference"
       },
       "QuoteId": {
-        "type": "reference",
-        "description": "Required. ID of the associated Quote.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Required. ID of the associated quote.",
+        "format": "reference",
         "x-object": "Quote",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "QuoteLineGroupId": {
-        "type": "reference",
-        "description": "The ID of the quote line group for the quote line item."
+        "type": "string",
+        "description": "The ID of the quote line group for the quote line item.",
+        "format": "reference"
       },
       "QuoteLineItemRecipientId": {
-        "type": "reference",
-        "description": "The ID of the recipient for the quote line item."
+        "type": "string",
+        "description": "The ID of the recipient for the quote line item.",
+        "format": "reference"
       },
       "RampIdentifier": {
         "type": "string",
-        "description": "The ramp ID used to group order item segments."
+        "description": "The ramp ID used to group quote line item segments."
       },
       "RelatedQuoteLineItemId": {
-        "type": "reference",
-        "description": "The quote line item ID related to the order item created."
+        "type": "string",
+        "description": "The quote line item ID related to the order item created.",
+        "format": "reference"
       },
       "SegmentIdentifier": {
         "type": "string",
@@ -274,41 +298,46 @@
       },
       "SegmentName": {
         "type": "string",
-        "description": "The name of the order item segment."
+        "description": "The name of the quote line item segment."
       },
       "SegmentType": {
-        "type": "picklist",
-        "description": "The time period for the segment."
+        "type": "string",
+        "description": "The time period for the segment.",
+        "enum": []
       },
       "SellingModelType": {
-        "type": "picklist",
-        "description": "Indicates whether the quote line item is sold as a one-time purchase, an evergreen subscription, or as a termed subscription. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "Indicates whether the quote line item is sold as a one-time purchase, an evergreen subscription, or as a termed subscription. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "enum": []
       },
       "ServiceDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date when the product revenue is recognized and the product quantity is shipped.",
         "format": "date",
         "nullable": true
       },
       "SortOrder": {
-        "type": "int",
-        "description": "The value of where the line item is in the sorted order, such as 1, 2, 3. The SortOrder value determines the order in which a quote line item displays in the Quote Line Items related list and the Quote PDF. Client applications can use this value to match the sort order in Salesforce. This field is only available in API versions 21.0 and greater.",
+        "type": "number",
+        "description": "The value of where the line item is in the sorted order such as 1, 2, 3. The SortOrder value determines the order in which a quote line item appears in the Quote Line Items related list and the Quote PDF. Client apps can use this value to match the sort order in Salesforce. This field is only available in API versions 21.0 and greater.",
         "nullable": true
       },
       "StartDate": {
-        "type": "date",
-        "description": "If the quote line item is sold on subscription, this field indicates the date on which the subscription starts. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "If the quote line item is sold on subscription, this field indicates the date on which the subscription starts. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "date"
       },
       "StartDateTime": {
-        "type": "dateTime",
-        "description": "The start date and time of the quote line item, which is derived from the Start Date and Start Time fields in the time zone specified in the Start and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC)."
+        "type": "string",
+        "description": "The start date and time of the quote line item, which is derived from the Start Date and Start Time fields in the time zone specified in the Start and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC).",
+        "format": "date-time"
       },
       "StartEndTimeZone": {
-        "type": "picklist",
-        "description": "The time zone for the quote line item's start and end dates, times, and datetimes."
+        "type": "string",
+        "description": "The time zone for the quote line item's start and end dates, times, and datetimes.",
+        "enum": []
       },
       "StartTime": {
-        "type": "time",
+        "type": "string",
         "description": "The start time of the quote line item."
       },
       "StartQuantity": {
@@ -316,43 +345,48 @@
         "description": "If the quote line item is sold on a subscription, this field indicates the item quantity when the subscription starts. This field is available in API version 60.0 and later. This field is available with Subscription Management."
       },
       "StartingPriceTotal": {
-        "type": "currency",
-        "description": "The starting unit price times the quantity."
+        "type": "number",
+        "description": "The starting unit price times the quantity.",
+        "format": "currency"
       },
       "StartingUnitPriceSource": {
-        "type": "picklist",
-        "description": "Indicates whether the starting unit price was entered manually or calculated. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "Indicates whether the starting unit price was entered manually or calculated. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "enum": []
       },
       "Status": {
-        "type": "dynamic picklist",
-        "description": "Represents the status of the Quote Line Item. This field is available in API version 60.0 and later. The QuoteLineItemStatus permission is required to access this field."
+        "type": "string",
+        "description": "Represents the status of the quote line item. This field is available in API version 60.0 and later. The QuoteLineItemStatus permission is required to access this field."
       },
       "SubscriptionTerm": {
-        "type": "int",
-        "description": "The number of terms in the subscription.You can indicate a subscription’s length using either StartDate and EndDate, or by using StartDate and SubscriptionTerm. If you provide a value for both EndDate and SubscriptionTerm, EndDate is used and SubscriptionTerm is ignored."
+        "type": "number",
+        "description": "The number of terms in the subscription.You can indicate a subscription’s length by using either StartDate and EndDate, or by using StartDate and SubscriptionTerm. If you provide a value for both EndDate and SubscriptionTerm, EndDate is used and SubscriptionTerm is ignored."
       },
       "SubscriptionTermUnit": {
-        "type": "picklist",
-        "description": "The unit of time used to define the subscription. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The unit of time used to define the subscription. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "enum": []
       },
       "Subtotal": {
-        "type": "currency",
-        "description": "The line item's Quantity multiplied by the UnitPrice.",
+        "type": "number",
+        "description": "The line item's Quantity multiplied by the UnitPrice. In Revenue Cloud, Subtotal is set to TotalLineAmount when TotalLineAmount has a value.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
-        "description": "The sum of the adjustments applied to the quote line item, inclusive of quantity, prorated for the duration of the subscription. This field is available in API version 56.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The sum of the adjustments applied to the quote line item, inclusive of quantity, prorated for the duration of the subscription. This field is available in API version 56.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "TotalLineAmount": {
-        "type": "currency",
-        "description": "The total price of the quote line item, before price adjustments, inclusive of quantity, prorated for the duration of the subscription. This price is a calculated field equal to TotalPrice times Quantity times PricingTermCount.This field is available in API version 56.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The total price of the quote line item, before price adjustments, inclusive of quantity, prorated for the duration of the subscription. This price is a calculated field equal to ListPrice times Quantity times PricingTermCount.This field is available in API version 56.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "TotalPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Read-only. Calculated by applying the Discount to the Subtotal. This field is nillable, but you can't set both TotalPrice and UnitPrice to null in the same update. To insert the TotalPrice for a quote line item via the API (given only a unit price and the quantity), calculate this field as the unit price multiplied by the quantity. This field is read only if the quote line item has a revenue schedule.",
         "format": "currency",
         "nullable": true,
@@ -360,23 +394,25 @@
         "multipleOf": 0.01
       },
       "UnitPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Required. The price per unit for the quote line item.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "UnitPriceUplift": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage increase of the quote line item's unit price."
       },
       "ValidationResult": {
-        "type": "picklist",
-        "description": "Specifies whether the quote line item was configured and priced by Revenue Lifecycle Management."
+        "type": "string",
+        "description": "Specifies whether the quote line item was configured and priced by Revenue Lifecycle Management.",
+        "enum": []
       },
       "Visibility": {
-        "type": "picklist",
-        "description": "Specifies how Salesforce shows a quote line item in the Transaction Line Editor and a quote document."
+        "type": "string",
+        "description": "Specifies how Salesforce shows a quote line item in the Transaction Line Editor and a quote document.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -442,10 +478,42 @@
         "description": "Is Locked",
         "nullable": false,
         "readOnly": true
+      },
+      "Margin": {
+        "type": "number",
+        "description": "The optional margin percentage, specified by the sales representative at the line item level."
+      },
+      "MarginAmount": {
+        "type": "number",
+        "description": "The optional margin amount, specified by the sales representative at the line item level.",
+        "format": "currency"
+      },
+      "TotalAdjustment": {
+        "type": "number",
+        "description": "The total discount percentage applied at the line item level. This percentage is calculated by using the formula: (Total Line Amount - Net Total Price) / Total Line Amount."
+      },
+      "TotalCost": {
+        "type": "number",
+        "description": "The total cost of all products sold in the quote, calculated by multiplying the quantity by the unit cost.",
+        "format": "currency"
+      },
+      "TotalMargin": {
+        "type": "number",
+        "description": "The effective margin percentage at the line item level. This percentage is calculated by using the formula: (Net Total Price - Total Cost) / Net Total Price."
+      },
+      "TotalMarginAmount": {
+        "type": "number",
+        "description": "The effective margin amount at the line item level. This amount is calculated by subtracting total cost from net total price.",
+        "format": "currency"
+      },
+      "UnitCost": {
+        "type": "number",
+        "description": "The unit cost of a product sold as part of the quote.",
+        "format": "currency"
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotelineitem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_quotelineitem.htm",
     "keyPrefix": "0QL",
     "iconUrl": "standard/quotes_120.png",
     "iconColor": "3BA755",
@@ -516,9 +584,10 @@
         "cascadeDelete": false
       }
     ],
-    "accessRules": "The user must have “Edit” permissions on Quote records in order to create or update quote line items on a quote. The user must have “Edit” permissions on Quote records to delete a quote line item.",
+    "accessRules": "The user must have “Edit” permissions on quote records to create or update quote line items on a quote. The user must have “Edit” permissions on quote records to delete a quote line item.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "18.0"
   }
 }

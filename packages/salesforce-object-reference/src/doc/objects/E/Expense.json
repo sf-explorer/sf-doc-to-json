@@ -4,22 +4,22 @@
     "description": "Represents an expense linked to a work order. Service resource technicians can log expenses, such as tools or travel costs.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the account associated with the linked work order.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount of the expense.",
         "format": "currency",
         "nullable": false,
         "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -29,17 +29,17 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "A description for the expense.",
         "maxLength": 32000,
         "nullable": true
       },
       "Discount": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage deducted from the Subtotal price. Available in version 51.0 and later."
       },
       "ExpenseEndDate": {
-        "type": "date",
+        "type": "string",
         "description": "If the expense was incurred over multiple days, the Expense End Date is the last day that the expense covers.",
         "format": "date",
         "nullable": true
@@ -52,13 +52,13 @@
         "readOnly": true
       },
       "ExpenseStartDate": {
-        "type": "date",
+        "type": "string",
         "description": "If the expense was incurred over multiple days, the Expense Start Date is the first day that the expense covers.",
         "format": "date",
         "nullable": true
       },
       "ExpenseType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of expense. Possible values are: Billable Non-Billable The default value is Billable.",
         "format": "enum",
         "enum": [
@@ -69,23 +69,23 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns the expense record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -98,8 +98,9 @@
         "description": "The number of items purchased in this record. Available in version 51.0 and later."
       },
       "Subtotal": {
-        "type": "currency",
-        "description": "The subtotal price calculated as the product of Quantity and UnitPrice. Available in version 51.0 and later."
+        "type": "number",
+        "description": "The subtotal price calculated as the product of Quantity and UnitPrice. Available in version 51.0 and later.",
+        "format": "currency"
       },
       "Title": {
         "type": "string",
@@ -108,23 +109,25 @@
         "nullable": true
       },
       "TotalPrice": {
-        "type": "currency",
-        "description": "The total price of the transaction which is equal to the discounted subtotal: Subtotal - (Discount * Subtotal). Available in version 51.0 and later."
+        "type": "number",
+        "description": "The total price of the transaction which is equal to the discounted subtotal: Subtotal - (Discount * Subtotal). Available in version 51.0 and later.",
+        "format": "currency"
       },
       "TransactionDate": {
-        "type": "date",
+        "type": "string",
         "description": "The day that the expense was incurred, or the payment date for the expense.",
         "format": "date",
         "nullable": false
       },
       "UnitPrice": {
-        "type": "currency",
-        "description": "The price of one item on the record. Available in version 51.0 and later."
+        "type": "number",
+        "description": "The price of one item on the record. Available in version 51.0 and later.",
+        "format": "currency"
       },
       "WorkOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the work order associated with the expense.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": true
@@ -188,8 +191,8 @@
         "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_expense.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_expense.htm",
     "keyPrefix": "1V4",
     "createable": true,
     "updateable": true,
@@ -383,6 +386,7 @@
       "Core Salesforce"
     ],
     "iconUrl": "standard/expense_120.png",
-    "iconColor": "2F2CB7"
+    "iconColor": "2F2CB7",
+    "x-version": "49.0"
   }
 }

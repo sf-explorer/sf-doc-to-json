@@ -1,33 +1,36 @@
 {
   "Shift": {
     "name": "Shift",
-    "description": "Represents a shift for service resource scheduling.",
+    "description": "Represents a shift for a user.",
     "properties": {
       "BackgroundColor": {
         "type": "string",
         "description": "Sets a background color when shifts are displayed in the UI. Use a 3- or 6-digit hexadecimal format, for example #FF00FF. Available in API version 54.0 and later."
       },
       "EndLocation": {
-        "type": "location",
+        "type": "string",
         "description": "Captures the user’s geolocation at the end of the shift."
       },
       "EndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time that the shift ends.",
         "format": "date-time",
         "nullable": false
       },
       "GeoFnLcTypeAtShftEnd": {
-        "type": "picklist",
-        "description": "Specifies the allowed location type for geofence validation at the end of the shift."
+        "type": "string",
+        "description": "Specifies the allowed location type for geofence validation at the end of the shift.",
+        "enum": []
       },
       "GeoFnLcTypeAtShftStart": {
-        "type": "picklist",
-        "description": "Specifies the allowed location type for geofence validation at the start of the shift."
+        "type": "string",
+        "description": "Specifies the allowed location type for geofence validation at the start of the shift.",
+        "enum": []
       },
       "GeoFnNotificationType": {
-        "type": "picklist",
-        "description": "Specifies the notification type for geofence validation at the start and end of the shift."
+        "type": "string",
+        "description": "Specifies the notification type for geofence validation at the start and end of the shift.",
+        "enum": []
       },
       "IsGeoFnRqrAtShftEnd": {
         "type": "boolean",
@@ -62,9 +65,9 @@
         "description": "Indicates whether the shift was started outside the allowed distance between the user's GPS location and the geofence start location (true) or not (false)."
       },
       "JobProfileId": {
-        "type": "reference",
+        "type": "string",
         "description": "The job profile associated with the shift. Available in API versions 47.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "JobProfile",
         "maxLength": 18,
         "nullable": true
@@ -76,27 +79,28 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the current user last viewed a related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the current user last viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "NotificationTypeAtShftEnd": {
-        "type": "picklist",
-        "description": "Specifies the notification type for open tours at the end of the shift."
+        "type": "string",
+        "description": "Specifies the notification type for open tours at the end of the shift.",
+        "enum": []
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The owner of the shift.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -105,25 +109,25 @@
         "nullable": false
       },
       "RecordsetFilterCriteriaId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the recordset filter criteria selected for the shift. Available in API version 49.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "RecordsetFilterCriteria",
         "maxLength": 18,
         "nullable": true
       },
       "ServiceResourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the service resource the shift belongs to. Available in API versions 47.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceResource",
         "maxLength": 18,
         "nullable": true
       },
       "ServiceTerritoryId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the service territory the shift belongs to. Available in API versions 47.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceTerritory",
         "maxLength": 18,
         "nullable": true
@@ -136,8 +140,9 @@
         "readOnly": true
       },
       "ShiftTemplateId": {
-        "type": "reference",
-        "description": "The shift template ID, if the shift was created from a shift template. Available in API version 53.0 and later."
+        "type": "string",
+        "description": "The shift template ID, if the shift was created from a shift template. Available in API version 53.0 and later.",
+        "format": "reference"
       },
       "ShouldAutoEnd": {
         "type": "boolean",
@@ -148,18 +153,18 @@
         "description": "Indicates whether the shift was automatically started when the tour began."
       },
       "StartLocation": {
-        "type": "location",
+        "type": "string",
         "description": "Captures the user’s geolocation at the start of the shift."
       },
       "StartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time that the shift starts.",
         "format": "date-time",
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
-        "description": "Describes the status of the shift. Users can create custom values. Default values are: Tentative Published Confirmed",
+        "type": "string",
+        "description": "The current status of the shift.",
         "format": "enum",
         "enum": [
           "Tentative",
@@ -170,8 +175,8 @@
         "nullable": false
       },
       "StatusCategory": {
-        "type": "picklist",
-        "description": "Describes the status of the shift using static values. This field is derived from Status using the mapping defined in setup.",
+        "type": "string",
+        "description": "Specifies the status of the shift using static values. This field is derived from Status using the mapping defined in setup.",
         "format": "enum",
         "enum": [
           "Tentative",
@@ -183,7 +188,7 @@
         "readOnly": true
       },
       "TimeSlotType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of time slot for the shift. The same setup values as the TimeSlot field in the OperatingHours object.",
         "format": "enum",
         "enum": [
@@ -194,8 +199,9 @@
         "nullable": false
       },
       "UserId": {
-        "type": "reference",
-        "description": "The user assigned to the shift."
+        "type": "string",
+        "description": "The user assigned to the shift.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -271,10 +277,39 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "AppointmentCategoryId": {
+        "type": "string",
+        "description": "This field is a relationship field. Available in API version 61.0 and later.",
+        "format": "reference"
+      },
+      "RecurrenceEndDate": {
+        "type": "string",
+        "description": "The date when the recurrence period ends. The date must be after the Recurrence Start Date. The value for this field is retrieved from the pattern defined in the RecurrencePattern field. You can define the end date by using the COUNT or UNTIL parameter in the RecurrencePattern field. If you specify a value in this field and define a recurrence pattern, Salesforce Scheduler overrides the value with the end date in the recurrence pattern.The recurrence period is limited to 180 days. This field is available in API version 56.0 and later.",
+        "format": "date"
+      },
+      "RecurrencePattern": {
+        "type": "string",
+        "description": "The RRULE that describes the recurrence pattern for recurring shifts. Supports a subset of the RFC 5545 standard for internet calendaring and scheduling. See the Salesforce Scheduler Recurring Shifts section in this topic for usage examples. The period for the recurrence pattern is limited to 180 days. This field is available in API version 56.0 and later."
+      },
+      "RecurrenceStartDate": {
+        "type": "string",
+        "description": "The date when the recurrence period begins. The date must be before the Recurrence End Date. The value for this field is retrieved from the StartTime field. Don’t modify the value for this field.This field is available in API version 56.0 and later.",
+        "format": "date"
+      },
+      "Type": {
+        "type": "string",
+        "description": "Type of shift.",
+        "enum": []
+      },
+      "WorkTypeGroupId": {
+        "type": "string",
+        "description": "The ID of the work type group the shift belongs to. Available in API versions 54.0 and later.",
+        "format": "reference"
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_shift.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_shift.htm",
     "keyPrefix": "0a0",
     "createable": true,
     "updateable": true,
@@ -475,12 +510,15 @@
         "cascadeDelete": true
       }
     ],
-    "accessRules": "Field Service, Service Engagement, or Workforce Engagement must be enabled. For Field Service, users must have Field Service permissions. For Service Engagement, users must have the Service Engagement Planner permission set. For Workforce Engagement, users must have the Workforce Engagement Admin or Planner permission set.",
+    "accessRules": "Consumer Goods Cloud must be enabled.",
     "clouds": [
       "Consumer Goods Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/shift_120.png",
-    "iconColor": "FF538A"
+    "iconColor": "FF538A",
+    "x-version": "54.0"
   }
 }

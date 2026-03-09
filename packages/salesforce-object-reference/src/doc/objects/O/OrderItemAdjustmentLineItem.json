@@ -4,46 +4,52 @@
     "description": "An adjustment that has been made to an order item.",
     "properties": {
       "AdjustmentAmountScope": {
-        "type": "picklist",
-        "description": "Used with AdjustmentValue to determine the amount of the adjustment."
+        "type": "string",
+        "description": "Used with AdjustmentValue to determine the amount of the adjustment.",
+        "enum": []
       },
       "AdjustmentBasisReferenceId": {
-        "type": "reference",
-        "description": "References the specific coupon applied."
+        "type": "string",
+        "description": "References the specific coupon applied.",
+        "format": "reference"
       },
       "AdjustmentCauseId": {
-        "type": "reference",
-        "description": "References the specific promotions applied."
+        "type": "string",
+        "description": "References the specific promotions applied.",
+        "format": "reference"
       },
       "AdjustmentSource": {
-        "type": "picklist",
-        "description": "Indicates the origin of the adjustment."
+        "type": "string",
+        "description": "Indicates the origin of the adjustment.",
+        "enum": []
       },
       "AdjustmentType": {
-        "type": "picklist",
-        "description": "Indicates the type of mathematical adjustment to be applied to the order."
+        "type": "string",
+        "description": "Indicates the type of mathematical adjustment to be applied to the order.",
+        "enum": []
       },
       "AdjustmentValue": {
         "type": "double",
         "description": "The specified AdjustmentType’s amount to be applied to the order item."
       },
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "The net total value of the adjustment line. The value is rounded to the nearest possible amount associated with the currency of the order item.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "AppliedPromotionDate": {
-        "type": "dateTime",
-        "description": "The date and time on which the promotion was applied to the asset."
+        "type": "string",
+        "description": "The date and time on which the promotion was applied to the asset.",
+        "format": "date-time"
       },
       "CouponCode": {
         "type": "string",
         "description": "The ID of the coupon code that was applied."
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization. Default value is USD.",
         "format": "enum",
         "enum": [
@@ -54,7 +60,7 @@
         "readOnly": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Users can add a custom description to the record to provide additional detail.",
         "maxLength": 2000,
         "nullable": true
@@ -66,46 +72,46 @@
         "nullable": false
       },
       "OrderAdjustmentGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The order adjustment group that contains the order item adjustment line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderAdjustmentGroup",
         "maxLength": 18,
         "nullable": true
       },
       "OrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The parent order of the order item related to the adjustment line.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "OrderItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The order item that the adjustment line applies to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItem",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Priority": {
-        "type": "int",
+        "type": "number",
         "description": "A numeric value that represents the order of precedence of the order adjustment group."
       },
       "RelatedAdjustmentLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The original order item adjustment line. Useful for reference in change order scenarios.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItemAdjustmentLineItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "TotalAmtWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "Equals the order item’s price plus TotalTaxAmount for the order item adjustment line item.",
         "format": "currency",
         "nullable": true,
@@ -113,7 +119,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount of tax applied to the adjustment line.",
         "format": "currency",
         "nullable": true,
@@ -180,7 +186,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemadjustmentlineitem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderitemadjustmentlineitem.htm",
     "keyPrefix": "3qZ",
     "createable": true,
     "updateable": true,
@@ -330,6 +336,7 @@
     "accessRules": "Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

@@ -18,23 +18,23 @@
         "readOnly": true
       },
       "ExpiresAt": {
-        "type": "dateTime",
+        "type": "string",
         "description": "After this time, the operation is removed from the asynchronous job queue. Applies only if the operation has a status of complete, canceled, error, or merged.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "FinishedAt": {
-        "type": "dateTime",
+        "type": "string",
         "description": "When the operation reached the status of completed or error.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "GroupLeaderId": {
-        "type": "reference",
+        "type": "string",
         "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Identifies the operation that’s selected as the leader of the execution group.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BackgroundOperation",
         "maxLength": 18,
         "nullable": true,
@@ -48,7 +48,7 @@
         "readOnly": true
       },
       "NumFollowers": {
-        "type": "int",
+        "type": "number",
         "description": "Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Number of other operations that are in the execution group.",
         "nullable": true,
         "readOnly": true
@@ -61,26 +61,26 @@
         "readOnly": true
       },
       "ProcessAfter": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The operation is scheduled to be processed after this time.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "RetryBackoff": {
-        "type": "int",
+        "type": "number",
         "description": "Applies only if the operation has an error status. The first retry is attempted immediately. Each subsequent retry is increasingly delayed according to an exponential expression that’s multiplied by the RetryBackoff, in milliseconds.Specifically, the delay time is (2n-1)×R, where n is the RetryCount, and R is the RetryBackoff. The default value for RetryBackoff depends on the type of operation. For example, the RetryBackoff default for write operations on external objects is 1,000 milliseconds. For write operations, retries are attempted immediately, after 3 seconds, after 7 seconds, after 15 seconds, and so on.",
         "nullable": true,
         "readOnly": true
       },
       "RetryCount": {
-        "type": "int",
+        "type": "number",
         "description": "Number of attempted retries. Applies only if the operation has an error status.",
         "nullable": true,
         "readOnly": true
       },
       "RetryLimit": {
-        "type": "int",
+        "type": "number",
         "description": "Maximum number of retries to attempt. Applies only if the operation has an error status.",
         "nullable": true,
         "readOnly": true
@@ -93,20 +93,20 @@
         "readOnly": true
       },
       "SequenceNumber": {
-        "type": "int",
-        "description": "Order position within the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be executed in a specific order.",
+        "type": "number",
+        "description": "Order position within the sequence group. Applies only if the operation is merged with other operations into an execution group to be processed in bulk. Within an execution group, operations can be placed into a sequence group to be run in a specific order.",
         "nullable": true,
         "readOnly": true
       },
       "StartedAt": {
-        "type": "dateTime",
+        "type": "string",
         "description": "When the operation started running.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status of the background operation. The options are: New Scheduled Canceled Merged Waiting Running Error Complete",
         "format": "enum",
         "enum": [
@@ -124,21 +124,22 @@
         "readOnly": true
       },
       "SubmittedAt": {
-        "type": "dateTime",
+        "type": "string",
         "description": "When the operation was added to the job queue.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Timeout": {
-        "type": "int",
+        "type": "number",
         "description": "Maximum time in milliseconds to wait for results after the operation started running.",
         "nullable": true,
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
-        "description": "Type of the background operation. The options are: ApiCatalogPoller BlockchainEventPoller CdpMetadataDeploy ExternalChangeDataCapture ExternalConnectivityPoller ExternalObject ExternalObjectSync ExternalServiceCallback MetadataChangesetOperation MfgBulkUpdate SingularityAutoSync SingularityMDSSubsetSync SiteTaskCreate SiteTaskPublish Sweeper WebCart XClean"
+        "type": "string",
+        "description": "Type of the background operation. The options are: ApiCatalogPoller BlockchainEventPoller CdpMetadataDeploy ExternalChangeDataCapture ExternalConnectivityPoller ExternalObject ExternalObjectSync ExternalServiceCallback MetadataChangesetOperation MfgBulkUpdate PrivateConnectMigration SingularityAutoSync SingularityMDSSync SingularitySchemaEvolutionTrigger SiteTaskCreate SiteTaskPublish Sweeper WebCart XClean",
+        "enum": []
       },
       "WorkerUri": {
         "type": "string",
@@ -218,7 +219,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_backgroundoperation.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_backgroundoperation.htm",
     "keyPrefix": "08P",
     "createable": false,
     "updateable": false,
@@ -266,6 +267,7 @@
     "accessRules": "BackgroundOperation doesn’t support search.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "35.0"
   }
 }

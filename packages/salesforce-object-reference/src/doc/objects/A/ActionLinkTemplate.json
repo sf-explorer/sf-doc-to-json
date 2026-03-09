@@ -57,9 +57,9 @@
         "readOnly": true
       },
       "ActionLinkGroupTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the ActionLinkGroupTemplate with which this action link template is associated.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ActionLinkGroupTemplate",
         "maxLength": 18,
         "nullable": false,
@@ -72,7 +72,7 @@
         "nullable": false
       },
       "Method": {
-        "type": "picklist",
+        "type": "string",
         "description": "HTTP method for the action URL. One of these values: HttpDelete—Returns HTTP 204 on success. Response body or output class is empty. HttpGet—Returns HTTP 200 on success. HttpHead—Returns HTTP 200 on success. Response body or output class is empty. HttpPatch—Returns HTTP 200 on success or HTTP 204 if the response body or output class is empty. HttpPost—Returns HTTP 201 on success or HTTP 204 if the response body or output class is empty. Exceptions are the batch posting resources and methods, which return HTTP 200 on success. HttpPut—Return HTTP 200 on success or HTTP 204 if the response body or output class is empty. Ui and Download action links must use HttpGet.",
         "format": "enum",
         "enum": [
@@ -87,7 +87,7 @@
         "nullable": false
       },
       "LinkType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of action link. One of these values: Api—The action link calls a synchronous API at the action URL. Salesforce sets the status to SuccessfulStatus or FailedStatus based on the HTTP status code returned by your server. ApiAsync—The action link calls an asynchronous API at the action URL. The action remains in a PendingStatus state until a third party makes a request to /connect/action-links/actionLinkId to set the status to SuccessfulStatus or FailedStatus when the asynchronous operation is complete. Download—The action link downloads a file from the action URL. Ui—The action link takes the user to a web page at the action URL.",
         "format": "enum",
         "enum": [
@@ -100,7 +100,7 @@
         "nullable": false
       },
       "Position": {
-        "type": "int",
+        "type": "number",
         "description": "An integer specifying the position of the action link template relative to other action links in the group. 0 is the first position.",
         "nullable": false
       },
@@ -115,7 +115,7 @@
         "nullable": false
       },
       "UserVisibility": {
-        "type": "picklist",
+        "type": "string",
         "description": "Who can see the action link. This value is set per action link, not per action link group. One of these values: Creator—Only the creator of the action link can see the action link. Everyone—Everyone can see the action link. EveryoneButCreator—Everyone but the creator of the action link can see the action link. Manager—Only the manager of the creator of the action link can see the action link. CustomUser—Only the custom user can see the action link. CustomExcludedUser—Everyone but the custom user can see the action link.",
         "format": "enum",
         "enum": [
@@ -142,19 +142,19 @@
         "nullable": true
       },
       "ActionUrl": {
-        "type": "textarea",
+        "type": "string",
         "description": "The action link URL. For example, a Ui action link URL is a Web page. A Download action link URL is a link to the file to download. Ui and Download action link URLs are provided to clients. An Api or ApiAsync action link URL is a REST resource. Api and ApiAsync action link URLs aren’t provided to clients. Links to Salesforce can be relative. All other links must be absolute and start with https://.Links to resources hosted on Salesforce servers can be relative, starting with a /. All other links must be absolute and start with https://. This field can contain context variables and binding variables in the form {!Bindings.key}, for example, https://www.example.com/{!Bindings.itemId}. Set the binding variable’s value when you instantiate the action link group from the template.",
         "maxLength": 32000,
         "nullable": false
       },
       "RequestBody": {
-        "type": "textarea",
+        "type": "string",
         "description": "Template for the HTTP request body sent when corresponding action links are invoked. This field can be used only for Api and ApiAsync action links. This field can contain context variables and binding variables in the form {!Bindings.key}.",
         "maxLength": 32000,
         "nullable": true
       },
       "Headers": {
-        "type": "textarea",
+        "type": "string",
         "description": "Template for the HTTP headers sent when corresponding action links are invoked. This field can be used only for Api and ApiAsync action links. This field can contain context variables and binding variables in the form {!Bindings.key}.",
         "maxLength": 32000,
         "nullable": true
@@ -163,7 +163,7 @@
     "module": "Core Salesforce",
     "keyPrefix": "07l",
     "label": "Action Link Template",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_actionlinktemplate.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_actionlinktemplate.htm",
     "createable": true,
     "updateable": true,
     "deletable": true,
@@ -171,8 +171,8 @@
     "searchable": false,
     "accessRules": "Only users with the “Customize Application” permission can modify or delete this object.",
     "clouds": [
-      "Core Salesforce",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "33.0"
   }
 }

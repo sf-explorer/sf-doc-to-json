@@ -4,36 +4,41 @@
     "description": "Represents a contact, which is a person associated with an account.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the account that’s the parent of this contact. We recommend that you update up to 50 contacts simultaneously when changing the accounts on contacts enabled for a Customer Portal or partner portal. We also recommend that you make this update after business hours.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ActionCadenceAssigneeId": {
-        "type": "reference",
-        "description": "The ID of the sales rep designated to work the lead through their assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The ID of the sales rep designated to work the lead through their assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "reference"
       },
       "ActionCadenceId": {
-        "type": "reference",
-        "description": "The ID of the lead’s assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The ID of the lead’s assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "reference"
       },
       "ActionCadenceState": {
-        "type": "picklist",
-        "description": "The state of the current action cadence tracker. This field is available in API version 50.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The state of the current action cadence tracker. This field is available in API version 50.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "enum": []
       },
       "ActiveTrackerCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of cadences that are actively running on this contact. This field is available in API version 57.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
       },
       "ActivityMetricId": {
-        "type": "reference",
-        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric."
+        "type": "string",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric.",
+        "format": "reference"
       },
       "ActivityMetricRollupId": {
-        "type": "reference",
-        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup."
+        "type": "string",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup.",
+        "format": "reference"
       },
       "AssistantName": {
         "type": "string",
@@ -42,21 +47,22 @@
         "nullable": true
       },
       "AssistantPhone": {
-        "type": "phone",
+        "type": "string",
         "description": "The assistant’s phone number. Label is Asst. Phone.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "Birthdate": {
-        "type": "date",
+        "type": "string",
         "description": "The contact’s birthdate.Filter criteria for report filters, list view filters, and SOQL queries ignore the year portion of the Birthdate field. For example, this SOQL query returns contacts with birthdays later in the year than today:SELECT Name, Birthdate FROM Contact WHERE Birthdate > TODAY",
         "format": "date",
         "nullable": true
       },
       "BuyerAttributes": {
-        "type": "multipicklist",
-        "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the role of the contact in the opportunity or account. Possible values are: BusinessUser—For example, an end user. Key value. Buyer—Key value Champion—Key value DecisionMaker—Shown in green on a contact in the buyer relationship map UI. Key value. Detractor—Shown in red on a contact in the buyer relationship map UI. Key value. Evaluator ExecutiveSponsor—Key value TechnicalExpert Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t have contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a full view of the deal or account, increasing sales success. Warning To ensure that the buyer relationship map feature works as expected, don't modify field values. For example, if you change Detractor to Detract, the value isn’t shown in red in a buyer relationship map. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager."
+        "type": "string",
+        "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the role of the contact in the opportunity or account. Possible values are: BusinessUser—For example, an end user. Key value. Buyer—Key value Champion—Key value DecisionMaker—Shown in green on a contact in the buyer relationship map UI. Key value. Detractor—Shown in red on a contact in the buyer relationship map UI. Key value. Evaluator ExecutiveSponsor—Key value TechnicalExpert Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t have contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a full view of the deal or account, increasing sales success. Warning To ensure that the buyer relationship map feature works as expected, don't modify field values. For example, if you change Detractor to Detract, the value isn’t shown in red in a buyer relationship map. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager.",
+        "enum": []
       },
       "CanAllowPortalSelfReg": {
         "type": "boolean",
@@ -64,7 +70,7 @@
         "nullable": false
       },
       "CleanStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the record’s clean status as compared with Data.com. Values include: Matched, Different, Acknowledged, NotFound, Inactive, Pending, SelectMatch, or Skipped.Several values for CleanStatus appear with different labels on the contact record. Matched appears as In Sync Acknowledged appears as Reviewed Pending appears as Not Compared",
         "format": "enum",
         "enum": [
@@ -81,26 +87,27 @@
         "nullable": true
       },
       "ConnectionReceivedId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the PartnerNetworkConnection that shared this record with your organization. This field is available if you enabled Salesforce to Salesforce.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConnectionSentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the PartnerNetworkConnection that you shared this record with. This field is available if you enabled Salesforce to Salesforce. This field is supported using API versions earlier than 15.0. In all other API versions, this field’s value is null. You can use the new PartnerNetworkRecordConnection object to forward records to connections.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ContactSource": {
-        "type": "picklist",
-        "description": "If Automatic Contact Creation is enabled, this field indicates whether the contact was created automatically. A possible value is: Auto Create"
+        "type": "string",
+        "description": "If Automatic Contact Creation is enabled, this field indicates whether the contact was created automatically. A possible value is: Auto Create",
+        "enum": []
       },
       "Department": {
         "type": "string",
@@ -109,11 +116,12 @@
         "nullable": true
       },
       "DepartmentGroup": {
-        "type": "picklist",
-        "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the business unit, function, or department that the contact belongs to in the organization. Possible values are: chiefExecutive—Key value customerSuccess—For example, wealth management, consumer banking, subject matter experts, or healthcare research experts. finance—Includes pricing and procurement. Key value. humanResources legal—Key value marketing other sales support—For example, tech support or customer support. tech—For example, IT or engineering. Key value. Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t have contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a full view of the deal or account, increasing sales success. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager."
+        "type": "string",
+        "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the business unit, function, or department that the contact belongs to in the organization. Possible values are: chiefExecutive—Key value customerSuccess—For example, wealth management, consumer banking, subject matter experts, or healthcare research experts. finance—Includes pricing and procurement. Key value. humanResources legal—Key value marketing other sales support—For example, tech support or customer support. tech—For example, IT or engineering. Key value. Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t have contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a full view of the deal or account, increasing sales success. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager.",
+        "enum": []
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "A description of the contact. Label is Contact Description up to 32 KB.",
         "maxLength": 32000,
         "nullable": true
@@ -124,14 +132,14 @@
         "nullable": false
       },
       "Email": {
-        "type": "email",
+        "type": "string",
         "description": "The contact’s email address.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "EmailBouncedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "If bounce management is activated and an email sent to the contact results in a hard bounce, the date and time of the bounce.",
         "format": "date-time",
         "nullable": true
@@ -143,19 +151,21 @@
         "nullable": true
       },
       "Fax": {
-        "type": "phone",
+        "type": "string",
         "description": "The contact’s fax number. Label is Business Fax.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "FirstCallDateTime": {
-        "type": "dateTime",
-        "description": "The date and time of the first call placed to the contact. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The date and time of the first call placed to the contact. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "date-time"
       },
       "FirstEmailDateTime": {
-        "type": "dateTime",
-        "description": "The date and time of the first email sent to the contact. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The date and time of the first email sent to the contact. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "date-time"
       },
       "FirstName": {
         "type": "string",
@@ -164,8 +174,9 @@
         "nullable": true
       },
       "GenderIdentity": {
-        "type": "picklist",
-        "description": "The contact’s internal experience of their gender, which may or may not correspond to their designated sex at birth."
+        "type": "string",
+        "description": "The contact’s internal experience of their gender, which may or may not correspond to their designated sex at birth.",
+        "enum": []
       },
       "HasOptedOutOfEmail": {
         "type": "boolean",
@@ -178,16 +189,16 @@
         "nullable": false
       },
       "HomePhone": {
-        "type": "phone",
+        "type": "string",
         "description": "The contact’s home phone number. Label is Home Phone.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "IndividualId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the data privacy record associated with this contact. This field is available if Data Protection and Privacy is enabled.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Individual",
         "maxLength": 18,
         "nullable": true
@@ -228,7 +239,7 @@
         "readOnly": true
       },
       "LastActivityDate": {
-        "type": "date",
+        "type": "string",
         "description": "Value is the most recent of either: Due date of the most recent event logged against the record. Due date of the most recently closed task associated with the record.",
         "format": "date",
         "nullable": true,
@@ -241,21 +252,21 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LeadSource": {
-        "type": "picklist",
+        "type": "string",
         "description": "The source of the lead that was converted to this contact.",
         "format": "enum",
         "enum": [
@@ -274,7 +285,7 @@
         "nullable": true
       },
       "MailingAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the mailing address. Read-only. For details on compound address fields, see Address Compound Fields.",
         "nullable": true,
         "readOnly": true
@@ -292,7 +303,7 @@
         "nullable": true
       },
       "MailingCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO codes for the mailing address’s state and country.",
         "format": "enum",
         "enum": [
@@ -540,7 +551,7 @@
         "nullable": true
       },
       "MailingGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "Accuracy level of the geocode for the mailing address. For details on geolocation compound field, see Compound Field Considerations and Limitations.",
         "format": "enum",
         "enum": [
@@ -584,7 +595,7 @@
         "nullable": true
       },
       "MailingStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO codes for the mailing address’s state and country.",
         "format": "enum",
         "enum": [
@@ -705,15 +716,15 @@
         "nullable": true
       },
       "MailingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street address for mailing address.",
         "maxLength": 255,
         "nullable": true
       },
       "MasterRecordId": {
-        "type": "reference",
+        "type": "string",
         "description": "If this record was deleted as the result of a merge, this field contains the ID of the record that remains. If this record was deleted for any other reason, or hasn’t been deleted, the value is null.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true,
@@ -724,7 +735,7 @@
         "description": "The contact’s middle name. Maximum size is 40 characters."
       },
       "MobilePhone": {
-        "type": "phone",
+        "type": "string",
         "description": "Contact’s mobile phone number. Label is Mobile Phone.",
         "format": "phone",
         "maxLength": 40,
@@ -738,7 +749,7 @@
         "readOnly": true
       },
       "OtherAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the other address. Read-only. For details on compound address fields, see Address Compound Fields.",
         "nullable": true,
         "readOnly": true
@@ -756,7 +767,7 @@
         "nullable": true
       },
       "OtherCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO codes for the alternate address’s state and country.",
         "format": "enum",
         "enum": [
@@ -1004,7 +1015,7 @@
         "nullable": true
       },
       "OtherGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "Accuracy level of the geocode for the other address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "format": "enum",
         "enum": [
@@ -1036,7 +1047,7 @@
         "multipleOf": 1e-15
       },
       "OtherPhone": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone for alternate address.",
         "format": "phone",
         "maxLength": 40,
@@ -1055,7 +1066,7 @@
         "nullable": true
       },
       "OtherStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO codes for the alternate address’s state and country.",
         "format": "enum",
         "enum": [
@@ -1176,28 +1187,28 @@
         "nullable": true
       },
       "OtherStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street for alternate address.",
         "maxLength": 255,
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the owner of the account associated with this contact.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false
       },
       "Phone": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number for the contact. Label is Business Phone.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PhotoUrl": {
-        "type": "url",
+        "type": "string",
         "description": "Path to be combined with the URL of a Salesforce instance (Example: https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the contact. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the contact. Empty if Social Accounts and Contacts isn't enabled or if Social Accounts and Contacts is disabled for the requesting user.",
         "format": "uri",
         "maxLength": 255,
@@ -1205,27 +1216,28 @@
         "readOnly": true
       },
       "Pronouns": {
-        "type": "picklist",
-        "description": "The contact’s personal pronouns, reflecting their gender identity. Others can use these pronouns to refer to the contact in the third person. The entry is selected from a picklist of available values, which the administrator sets. Maximum 40 characters."
+        "type": "string",
+        "description": "The contact’s personal pronouns, reflecting their gender identity. Others can use these pronouns to refer to the contact in the third person. The entry is selected from a picklist of available values, which the administrator sets. Maximum 40 characters.",
+        "enum": []
       },
       "RecordTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record type assigned to this object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "RecordType",
         "maxLength": 18,
         "nullable": true
       },
       "ReportsToId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the contact that this contact reports to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "Salutation": {
-        "type": "picklist",
+        "type": "string",
         "description": "Honorific abbreviation, word, or phrase to be used in front of name in greetings, such as Dr. or Mrs.",
         "format": "enum",
         "enum": [
@@ -1240,8 +1252,9 @@
         "nullable": true
       },
       "ScheduledResumeDateTime": {
-        "type": "dateTime",
-        "description": "The date and time when the action cadence tracker is going to resume after it’s paused or on a wait step. This field is available in API version 54.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The date and time when the action cadence tracker is going to resume after it’s paused or on a wait step. This field is available in API version 54.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "date-time"
       },
       "Suffix": {
         "type": "string",
@@ -1254,8 +1267,9 @@
         "nullable": true
       },
       "TitleType": {
-        "type": "picklist",
-        "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the hierarchical position that the contact holds in the organization. In the UI, this field is shown as Seniority Level. Possible values are: ceo—Key value directorOrManager—Key value executive—Key value individualContributor vp—VP or Head of Department. Key value. Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t show contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a complete picture of the deal or account, increasing sales success. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager."
+        "type": "string",
+        "description": "If Automatic Contact Enhancements or Buyer Relationship Map is enabled, this field contains the hierarchical position that the contact holds in the organization. In the UI, this field is shown as Seniority Level. Possible values are: ceo—Key value directorOrManager—Key value executive—Key value individualContributor vp—VP or Head of Department. Key value. Key values represent key contacts on an opportunity or account. If a buyer relationship map doesn’t show contacts with key values, then Salesforce prompts you to add them. Having all key values represented on the map provides a complete picture of the deal or account, increasing sales success. This field is available with all profiles except custom and minimum-access. To provide access, use field-level security in Object Manager.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -1356,7 +1370,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contact.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_contact.htm",
     "keyPrefix": "003",
     "createable": true,
     "updateable": true,
@@ -2462,6 +2476,7 @@
       "Core Salesforce"
     ],
     "iconUrl": "standard/contact_120.png",
-    "iconColor": "9602C7"
+    "iconColor": "9602C7",
+    "x-version": "48.0"
   }
 }

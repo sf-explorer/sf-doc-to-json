@@ -4,14 +4,14 @@
     "description": "Represents a change in the state of a serialized product.",
     "properties": {
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
@@ -25,9 +25,9 @@
         "readOnly": true
       },
       "RelatedRecordId": {
-        "type": "reference",
+        "type": "string",
         "description": "The product consumed or the product transfer record associated with the serialized product transaction.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "ProductConsumed",
           "ProductTransfer"
@@ -37,17 +37,18 @@
         "readOnly": true
       },
       "SerializedProductId": {
-        "type": "reference",
+        "type": "string",
         "description": "The serialized product associated with the serialized product transaction.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "SerializedProduct",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "TransactionType": {
-        "type": "picklist",
-        "description": "The type of the transaction."
+        "type": "string",
+        "description": "The type of the transaction.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -127,7 +128,7 @@
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_serializedproducttransaction.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_serializedproducttransaction.htm",
     "keyPrefix": "0jM",
     "createable": false,
     "updateable": false,
@@ -249,6 +250,11 @@
         "relationshipName": "Histories",
         "cascadeDelete": true
       }
+    ],
+    "x-version": "60.0",
+    "clouds": [
+      "Manufacturing Cloud",
+      "Field Service Lightning"
     ]
   }
 }

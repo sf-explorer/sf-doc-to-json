@@ -1,11 +1,11 @@
 {
   "WorkTypeGroup": {
     "name": "WorkTypeGroup",
-    "description": "Represents a grouping of work types used to categorize types of appointments available in Lightning Scheduler, or to define scheduling limits in Field Service.",
+    "description": "Represents a grouping of work types used to categorize types of available appointments.",
     "properties": {
       "AdditionalInformation": {
-        "type": "multipicklist",
-        "description": "Additional information about the types of appointments this work type group represents.",
+        "type": "string",
+        "description": "Specifies the additional information for the work type group.",
         "format": "enum",
         "enum": [
           "Safety Procedures",
@@ -33,18 +33,19 @@
         "nullable": true
       },
       "Category": {
-        "type": "picklist",
-        "description": "The category of work type group that determines the type of appointment you create. You must create only one work type group record with the Test Drive category. You can create multiple work type group records with the Vehicle Service category."
+        "type": "string",
+        "description": "The category of work type group that determines the type of appointment you create. You must create only one work type group record with the Test Drive category. You can create multiple work type group records with the Vehicle Service category.",
+        "enum": []
       },
       "Description": {
-        "type": "textarea",
-        "description": "A description of this work type group.",
+        "type": "string",
+        "description": "The description of the work type group.",
         "maxLength": 32000,
         "nullable": true
       },
       "GroupType": {
-        "type": "picklist",
-        "description": "The category of this work type group. Possible values are: Capacity—A group of work types used to define a work capacity limit in Field Service. Default—A non-capacity group of work types used in Lightning Scheduler.",
+        "type": "string",
+        "description": "Specifies the group type of the work type group.",
         "format": "enum",
         "enum": [
           "Default",
@@ -55,18 +56,18 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this work type group can be used for appointment scheduling or work capacity limits. A work type can belong to only one active work type group of type Capacity.",
+        "description": "Indicates whether this work type group can be used for appointment scheduling (true) or not (false).",
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time that the current user last viewed a record related to this object.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this object.",
         "format": "date-time",
         "nullable": true,
@@ -79,9 +80,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who created this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -90,8 +91,9 @@
         "nullable": false
       },
       "ParentTopicId": {
-        "type": "reference",
-        "description": "The parent work type group that's associated with the work type group. Available in API 56.0 and later."
+        "type": "string",
+        "description": "The parent work type group that's associated with the work type group. Available in API 56.0 and later.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -169,8 +171,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_worktypegroup.htm",
+    "module": "Automotive Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.automotive_cloud.meta/automotive_cloud/sforce_api_objects_worktypegroup.htm",
     "keyPrefix": "0VS",
     "createable": true,
     "updateable": true,
@@ -307,7 +309,11 @@
     ],
     "clouds": [
       "Automotive Cloud",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning"
+    ],
+    "x-version": "58.0",
+    "accessRules": "Salesforce Scheduler must be enabled."
   }
 }

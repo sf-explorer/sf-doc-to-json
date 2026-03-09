@@ -1,35 +1,36 @@
 {
   "DocumentChecklistItem": {
     "name": "DocumentChecklistItem",
-    "description": "Represents a checklist item for a documentation file upload.",
+    "description": "Represents a checklist item for a file documentation upload.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Read only. The ID of the account the document checklist item belongs to. The value of the field is set internally using the ParentRecordId field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Comments added when validating a target reference object against the document checklist item. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud."
       },
       "DocumentCategoryId": {
-        "type": "reference",
-        "description": "The document category related to the document checklist item. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud."
+        "type": "string",
+        "description": "The document category related to the document checklist item. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud.",
+        "format": "reference"
       },
       "DocumentTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the document type for the document checklist item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "DocumentType",
         "maxLength": 18,
         "nullable": true
       },
       "Instruction": {
-        "type": "textarea",
+        "type": "string",
         "description": "Instructions associated with the document checklist item.",
         "maxLength": 32000,
         "nullable": true
@@ -51,14 +52,14 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -71,9 +72,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -82,7 +83,7 @@
         "nullable": false
       },
       "ParentRecordId": {
-        "type": "master-detail reference",
+        "type": "string",
         "description": "Original parent object the document checklist item belonged to.",
         "format": "salesforce-id",
         "x-objects": [
@@ -299,15 +300,15 @@
         "nullable": false
       },
       "ReceivedDocumentId": {
-        "type": "reference",
+        "type": "string",
         "description": "",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ReceivedDocument",
         "maxLength": 18,
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Uploaded document checklist item status.",
         "format": "enum",
         "enum": [
@@ -320,28 +321,31 @@
         "nullable": true
       },
       "UploadedById": {
-        "type": "reference",
+        "type": "string",
         "description": "Person who uploaded the file.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ValidatedById": {
-        "type": "reference",
-        "description": "The user who validated the target reference object against the document checklist item. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud."
+        "type": "string",
+        "description": "The user who validated the target reference object against the document checklist item. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud.",
+        "format": "reference"
       },
       "ValidationDateTime": {
-        "type": "dateTime",
-        "description": "The date and time when the target reference object was validated. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud."
+        "type": "string",
+        "description": "The date and time when the target reference object was validated. This field is available only if you have enabled Integrated Onboarding for Financial Services Cloud.",
+        "format": "date-time"
       },
       "": {
-        "type": "reference",
-        "description": "Person that the uploaded documentation pertains to."
+        "type": "string",
+        "description": "Person that the uploaded documentation pertains to.",
+        "format": "reference"
       },
       "WhoId": {
-        "type": "",
+        "type": "string",
         "description": "",
         "format": "salesforce-id",
         "x-objects": [
@@ -418,10 +422,19 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "RejectReason": {
+        "type": "string",
+        "description": "The reason to reject the uploaded document."
+      },
+      "RejectReasonType": {
+        "type": "string",
+        "description": "Specifies the reason type to reject the uploaded document.",
+        "enum": []
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_documentchecklistitem.htm",
+    "module": "Financial Services Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_documentchecklistitem.htm",
     "keyPrefix": "0dd",
     "createable": true,
     "updateable": true,
@@ -606,7 +619,9 @@
     ],
     "clouds": [
       "Financial Services Cloud",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Education Cloud"
+    ],
+    "x-version": "47.0"
   }
 }

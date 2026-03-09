@@ -4,9 +4,9 @@
     "description": "Represents information about member who belongs to a loyalty program. The member can be individual or corporate type.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the account with which the loyalty program member is associated. This field is optional for a Group type member.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
@@ -22,15 +22,15 @@
         "nullable": false
       },
       "ContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the contact with which the loyalty program member is associated. This field is optional for a Group type member.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "EnrollmentChannel": {
-        "type": "picklist",
+        "type": "string",
         "description": "Channel through which membership is enrolled.",
         "format": "enum",
         "enum": [
@@ -44,14 +44,15 @@
         "nullable": true
       },
       "EnrollmentDate": {
-        "type": "date",
+        "type": "string",
         "description": "Required. Date when the member enrolled to the loyalty program.",
         "format": "date",
         "nullable": false
       },
       "GroupCreatedByMemberId": {
-        "type": "reference",
-        "description": "The Individual or Corporate type loyalty program member who created the group or requested for the group to be created. This field is available in API version 53.0 and later."
+        "type": "string",
+        "description": "The Individual or Corporate type loyalty program member who created the group or requested for the group to be created. This field is available in API version 53.0 and later.",
+        "format": "reference"
       },
       "GroupName": {
         "type": "string",
@@ -62,27 +63,27 @@
         "description": "Indicates whether the member is eligible for tier assessment. A member is eligible for tier assessment when there is a change in their qualifying points balance. This field is available in API version 58.0 and later."
       },
       "LastActivityDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date when the loyalty program member last performed a transaction.",
         "format": "date",
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MemberStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The status of the member in the loyalty program.",
         "format": "enum",
         "enum": [
@@ -94,7 +95,7 @@
         "nullable": false
       },
       "MemberType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The type of membership in the loyalty program.",
         "format": "enum",
         "enum": [
@@ -106,13 +107,13 @@
         "readOnly": true
       },
       "MembershipEndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date on which the membership ends.",
         "format": "date",
         "nullable": true
       },
       "MembershipLastRenewalDate": {
-        "type": "date",
+        "type": "string",
         "description": "The most recent date when the membership was renewed.",
         "format": "date",
         "nullable": true
@@ -124,9 +125,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -135,9 +136,9 @@
         "nullable": false
       },
       "ProgramId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the loyalty program.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "LoyaltyProgram",
         "maxLength": 18,
         "nullable": true,
@@ -148,23 +149,23 @@
         "description": "The code that the member can share with others who want to join the loyalty program. If no referral code is entered during enrollment, an automatic referral code is generated for the member. This field is available in API version 57.0 and later."
       },
       "ReferredById": {
-        "type": "reference",
+        "type": "string",
         "description": "Reference to Member who referred to the program.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "LoyaltyProgramMember",
         "maxLength": 18,
         "nullable": true
       },
       "RelatedCorporateMembershipId": {
-        "type": "reference",
+        "type": "string",
         "description": "The related corporate membership ID of the loyalty program.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "LoyaltyProgramMember",
         "maxLength": 18,
         "nullable": true
       },
       "StatementFrequency": {
-        "type": "picklist",
+        "type": "string",
         "description": "The frequency of loyalty balance statements.",
         "format": "enum",
         "enum": [
@@ -175,13 +176,13 @@
         "nullable": true
       },
       "StatementLastGeneratedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the statement is last generated.",
         "format": "date-time",
         "nullable": true
       },
       "StatementMethod": {
-        "type": "picklist",
+        "type": "string",
         "description": "The mode of loyalty balance statements.",
         "format": "enum",
         "enum": [
@@ -261,7 +262,7 @@
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogrammember.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogrammember.htm",
     "keyPrefix": "0lM",
     "createable": false,
     "updateable": true,
@@ -547,6 +548,10 @@
       }
     ],
     "iconUrl": "standard/user_120.png",
-    "iconColor": "9050e9"
+    "iconColor": "9050e9",
+    "x-version": "51.0",
+    "clouds": [
+      "Loyalty"
+    ]
   }
 }

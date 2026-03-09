@@ -4,7 +4,7 @@
     "description": "Represents key configuration information for an organization.",
     "properties": {
       "Address (beta)": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the address. Read-only. See Address Compound Fields for details on compound address fields."
       },
       "AllowsSelfServiceLogin": {
@@ -18,7 +18,7 @@
         "nullable": true
       },
       "ComplianceBccEmail": {
-        "type": "email",
+        "type": "string",
         "description": "Email address for compliance blind carbon copies. Limit: 80 characters.",
         "format": "email",
         "maxLength": 80,
@@ -33,7 +33,7 @@
         "readOnly": true
       },
       "CountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code for the organization’s address. Enable state and country/territory picklists to use this field. For more information, see Enable and Disable State and Country/Territory Picklists in Salesforce Help.",
         "format": "enum",
         "enum": [
@@ -282,31 +282,31 @@
         "readOnly": true
       },
       "DailyWebToCaseCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of web form submissions that have been converted to cases for the day.",
         "nullable": true,
         "readOnly": true
       },
       "DailyWebToCaseLimit": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum number of web form submissions that can be converted to cases per day.",
         "nullable": true,
         "readOnly": true
       },
       "DailyWebToLeadCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of web form submission that have been converted to leads for the day",
         "nullable": true,
         "readOnly": true
       },
       "DailyWebToLeadLimit": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum number of web form submissions that can be converted to leads per day.",
         "nullable": true,
         "readOnly": true
       },
       "DefaultAccountAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "In API version 10.0 and later, represents the default access level for accounts, contracts, and assets. The possible values are: None Read Edit ControlledByLeadOrContact ControlledByCampaign In versions before 10.0, DefaultAccountAndContactAccess represented this value.",
         "format": "enum",
         "enum": [
@@ -321,11 +321,12 @@
         "readOnly": true
       },
       "DefaultAccountAndContactAccess": {
-        "type": "picklist",
-        "description": "Default access level for accounts, contacts, contracts, and assets. This field is supported for backward compatibility only and is not available in API version 10.0 or later. In version 10.0 and later, use either DefaultAccountAccess or DefaultContactAccess."
+        "type": "string",
+        "description": "Default access level for accounts, contacts, contracts, and assets. This field is supported for backward compatibility only and is not available in API version 10.0 or later. In version 10.0 and later, use either DefaultAccountAccess or DefaultContactAccess.",
+        "enum": []
       },
       "DefaultCalendarAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for calendars. The possible values are listed, followed by the user interface labels in parentheses: HideDetails (Hide Details) HideDetailsInsert (Hide Details and Add Events) ShowDetails (Show Details) ShowDetailsInsert (Show Details and Add Events) AllowEdits (Full Access)",
         "format": "enum",
         "enum": [
@@ -340,7 +341,7 @@
         "readOnly": true
       },
       "DefaultCampaignAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for campaigns. The possible values are: None Read Edit All",
         "format": "enum",
         "enum": [
@@ -354,7 +355,7 @@
         "readOnly": true
       },
       "DefaultCaseAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for cases. The possible values are: None Read Edit ReadEditTransfer",
         "format": "enum",
         "enum": [
@@ -368,7 +369,7 @@
         "readOnly": true
       },
       "DefaultContactAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for contacts. The possible values are: None Read Edit ControlledByParent In versions before 10.0, DefaultAccountAndContactAccess represented this value.",
         "format": "enum",
         "enum": [
@@ -382,7 +383,7 @@
         "readOnly": true
       },
       "DefaultLeadAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for leads. The possible values are: NoneRead Edit ReadEditTransfer",
         "format": "enum",
         "enum": [
@@ -396,7 +397,7 @@
         "readOnly": true
       },
       "DefaultLocaleSidKey": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default locale SID key. For more information on picklist options, see Supported Number, Name, and Address Formats (ICU) in Salesforce help.",
         "format": "enum",
         "enum": [
@@ -613,7 +614,7 @@
         "nullable": false
       },
       "DefaultOpportunityAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for opportunities. The possible values are: None Read Edit ControlledByLeadOrContact ControlledByCampaign",
         "format": "enum",
         "enum": [
@@ -628,7 +629,7 @@
         "readOnly": true
       },
       "DefaultPricebookAccess": {
-        "type": "picklist",
+        "type": "string",
         "description": "Default access level for price books. The possible values are listed, followed by the user interface labels in parentheses: None (No access) Read (Read only) ReadSelect (Use)",
         "format": "enum",
         "enum": [
@@ -641,16 +642,19 @@
         "readOnly": true
       },
       "DefaultTerritoryCaseAccess": {
-        "type": "picklist",
-        "description": "Default access level for cases associated with accounts in territories. The possible values are: None Read Edit ControlledByLeadOrContact ControlledByCampaign"
+        "type": "string",
+        "description": "Default access level for cases associated with accounts in territories. The possible values are: None Read Edit ControlledByLeadOrContact ControlledByCampaign",
+        "enum": []
       },
       "DefaultTerritoryContactAccess": {
-        "type": "picklist",
-        "description": "Default access level for contacts associated with accounts in territories. The possible values are: NoneRead Edit ControlledByLeadOrContact ControlledByCampaign"
+        "type": "string",
+        "description": "Default access level for contacts associated with accounts in territories. The possible values are: NoneRead Edit ControlledByLeadOrContact ControlledByCampaign",
+        "enum": []
       },
       "DefaultTerritoryOppAccess": {
-        "type": "picklist",
-        "description": "Default access level for opportunities in territories."
+        "type": "string",
+        "description": "Default access level for opportunities in territories.",
+        "enum": []
       },
       "Division": {
         "type": "string",
@@ -659,20 +663,20 @@
         "nullable": true
       },
       "Fax": {
-        "type": "phone",
+        "type": "string",
         "description": "Fax number. Limit: 40 characters.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "FiscalYearStartMonth": {
-        "type": "int",
+        "type": "number",
         "description": "Number that corresponds to the month that this organization's fiscal year starts.",
         "nullable": true,
         "readOnly": true
       },
       "HomepageHtml": {
-        "type": "textarea",
+        "type": "string",
         "description": "The Home tab custom links and company message for this organization.",
         "maxLength": 32000,
         "nullable": true
@@ -691,7 +695,7 @@
         "readOnly": true
       },
       "LanguageLocaleKey": {
-        "type": "picklist",
+        "type": "string",
         "description": "The same as Language, the two-to-five character code which represents the language and locale ISO code. This controls the language for labels displayed in an application.",
         "format": "enum",
         "enum": [
@@ -702,14 +706,14 @@
         "nullable": false
       },
       "LastWebToCaseDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The last date that a web form submission was converted to a case.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastWebToLeadDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The last date that a web form submission was converted to a lead.",
         "format": "date-time",
         "nullable": true,
@@ -728,21 +732,21 @@
         "multipleOf": 1e-15
       },
       "MaxActionsPerRule": {
-        "type": "int",
+        "type": "number",
         "description": "Maximum number of actions per workflow, assignment, escalation, and auto-response rules. This field is unavailable in version 15.0 and later."
       },
       "MaxRulesPerEntity": {
-        "type": "int",
+        "type": "number",
         "description": "Maximum number of rules per object, inclusive of workflow, assignment, escalation, and auto-response rules. This field is unavailable in version 15.0 and later."
       },
       "MonthlyPageViewsEntitlement": {
-        "type": "int",
+        "type": "number",
         "description": "The number of page views allowed for the current calendar month for the sites in your organization. To access this field, Salesforce Sites must be enabled for your organization. This field is generally available in API versions 18.0 and later.",
         "nullable": true,
         "readOnly": true
       },
       "MonthlyPageViewsUsed": {
-        "type": "int",
+        "type": "number",
         "description": "The number of page views used in the current calendar month for the sites in your organization. To access this field, Salesforce Sites must be enabled for your organization. This field is generally available in API versions 18.0 and later.",
         "nullable": true,
         "readOnly": true
@@ -761,7 +765,7 @@
         "readOnly": true
       },
       "OrganizationType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Edition of the organization, for example Enterprise Edition or Unlimited Edition.",
         "format": "enum",
         "enum": [
@@ -779,7 +783,7 @@
         "readOnly": true
       },
       "Phone": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number for the organization.",
         "format": "phone",
         "maxLength": 40,
@@ -838,15 +842,16 @@
         "description": "The singular version of the term used to represent the Case object in the Self-Service portal."
       },
       "SelfServiceCaseSubmitRecordTypeId": {
-        "type": "reference",
-        "description": "The ID of the record type associated with a case submitted via the Self-Service portal."
+        "type": "string",
+        "description": "The ID of the record type associated with a case submitted via the Self-Service portal.",
+        "format": "reference"
       },
       "SelfServicDefaultCaseOrigin": {
         "type": "string",
         "description": "The default origin of a case submitted via the Self-Service portal."
       },
       "SelfServiceEmailSenderAddress": {
-        "type": "email",
+        "type": "string",
         "description": "The Self-Service email address from which new Self-Service user and password email messages are sent, such as support@acme.com."
       },
       "SelfServiceEmailSenderName": {
@@ -854,23 +859,24 @@
         "description": "The name associated with the email address in the SelfServiceEmailSenderAddress field, such as Acme Customer Support."
       },
       "SelfServiceEmailUserOnCaseCreation‍TemplateId": {
-        "type": "reference",
-        "description": "The ID of the email template used when email is sent to a Self-Service user when he or she creates a case."
+        "type": "string",
+        "description": "The ID of the email template used when email is sent to a Self-Service user when he or she creates a case.",
+        "format": "reference"
       },
       "SelfServiceEnabledForResponseRules": {
         "type": "boolean",
         "description": "Indicates whether the Self-Service portal is enabled for auto-response rules (true) or not (false)."
       },
       "SelfServiceFeatureConfig": {
-        "type": "int",
+        "type": "number",
         "description": "An integer representing the active Self-Service feature configuration for this organization."
       },
       "SelfServiceLogoutUrl": {
-        "type": "url",
+        "type": "string",
         "description": "The Web page that displays when a Self-Service user logs out of the Self-Service portal."
       },
       "SelfServiceMaxNumSuggestions": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum number of suggested solutions allowed for a Self-Service case."
       },
       "SelfServiceNewCommentCheckedByDefault": {
@@ -878,36 +884,41 @@
         "description": "If true, When a customer notification is automatically sent when a new comment is added to a case."
       },
       "SelfServiceNewCommentTemplateId": {
-        "type": "reference",
-        "description": "The ID of the email template used to send a notification to Self-Service users when a public comment is added to one of their cases."
+        "type": "string",
+        "description": "The ID of the email template used to send a notification to Self-Service users when a public comment is added to one of their cases.",
+        "format": "reference"
       },
       "SelfServiceNewPassTemplateId": {
-        "type": "reference",
-        "description": "The ID of the email template used when new passwords are generated for Self-Service users."
+        "type": "string",
+        "description": "The ID of the email template used when new passwords are generated for Self-Service users.",
+        "format": "reference"
       },
       "SelfServiceNewUserTemplateId": {
-        "type": "reference",
-        "description": "The ID of the email template used when new Self-Service users are enabled."
+        "type": "string",
+        "description": "The ID of the email template used when new Self-Service users are enabled.",
+        "format": "reference"
       },
       "SelfServicePageHeight": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum height in pixels of Self-Service pages."
       },
       "SelfServicePageWidth": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum width in pixels of Self-Service pages."
       },
       "SelfServiceSelfClosedCaseStatus": {
-        "type": "picklist",
-        "description": "The default status for cases closed by Self-Service users."
+        "type": "string",
+        "description": "The default status for cases closed by Self-Service users.",
+        "enum": []
       },
       "SelfServiceSolutionCategoryAvailable": {
         "type": "boolean",
         "description": "Indicates whether solution categories are available in the Self-Service portal (true) or not (false)."
       },
       "SelfServiceSolutionCategoryStartNodeId": {
-        "type": "reference",
-        "description": "The ID of the top-level category in the Self-Service portal."
+        "type": "string",
+        "description": "The ID of the top-level category in the Self-Service portal.",
+        "format": "reference"
       },
       "SelfServiceSolutionPlural": {
         "type": "string",
@@ -918,11 +929,11 @@
         "description": "The singular version of the term used to represent the Solution object in the Self-Service portal."
       },
       "SelfServiceStyleSheetUrl": {
-        "type": "url",
+        "type": "string",
         "description": "The public URL of your organization's Self-Service portal stylesheet."
       },
       "SelfServiceWelcomePageConfig": {
-        "type": "int",
+        "type": "number",
         "description": "Integer that represents the welcome page configuration for the Self-Service portal."
       },
       "SelfServiceWelcomeText": {
@@ -943,7 +954,7 @@
         "nullable": true
       },
       "StateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code for the organization’s address.",
         "format": "enum",
         "enum": [
@@ -1064,20 +1075,20 @@
         "nullable": true
       },
       "Street": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street address for the organization. Limit: 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "TrialExpirationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date that this organization's trial license expires.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "TimeZoneSidKey": {
-        "type": "picklist",
+        "type": "string",
         "description": "Identifies the default time zone of the organization.",
         "format": "enum",
         "enum": [
@@ -1184,7 +1195,7 @@
         "nullable": false
       },
       "UiSkin": {
-        "type": "picklist",
+        "type": "string",
         "description": "The user interface theme selected for the organization.",
         "format": "enum",
         "enum": [
@@ -1214,25 +1225,25 @@
         "nullable": false
       },
       "WebToCaseAssignedEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the email template used when a new case is assigned to a user via Web-to-Case.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "WebToCaseCreatedEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the email template used when a new case is created via Web-to-Case.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "WebToCaseDefaultCreatorId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user specified as the default creator of cases created via Web-to-Case.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
@@ -1417,7 +1428,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_organization.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_organization.htm",
     "keyPrefix": "00D",
     "createable": false,
     "updateable": true,
@@ -1567,6 +1578,7 @@
     "accessRules": "Customer Portal users can't access this object.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "10.0"
   }
 }

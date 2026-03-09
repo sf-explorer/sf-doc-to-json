@@ -1,93 +1,93 @@
 {
   "User": {
     "name": "User",
-    "description": "Represents a user. You can retrieve standard fields on User with the Tooling API, but custom fields can’t be retrieved.",
+    "description": "Standard and custom fields extend the standard User object for use in Consumer Goods Cloud to represent a user in your company.",
     "properties": {
       "AboutMe": {
-        "type": "textarea",
+        "type": "string",
         "description": "Information about the user, such as areas of interest or skills. This field is available even if Chatter is disabled.",
         "maxLength": 1000,
         "nullable": true
       },
       "AccountId": {
-        "type": "reference",
-        "description": "ID of the Account associated with a Customer Portal user.This field is null for Salesforce users.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the Account associated with a Customer Portal user.",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Address": {
-        "type": "address",
+        "type": "string",
         "description": "Read-only. Compound form of the address. See Address Compound Fields for details on compound address fields.",
         "nullable": true,
         "readOnly": true
       },
       "Alias": {
         "type": "string",
-        "description": "Required. The user’s alias. For example, jsmith.",
+        "description": "Required. User’s alias. For example, jsmith.",
         "maxLength": 8,
         "nullable": false
       },
       "BadgeText": {
         "type": "string",
-        "description": "The Experience Cloud site role, displayed on the user profile page just below the user name.",
+        "description": "Experience Cloud site role shown on the user profile page.",
         "maxLength": 80,
         "nullable": true,
         "readOnly": true
       },
       "BannerPhotoUrl": {
-        "type": "url",
-        "description": "The URL for the user's banner photo. This field is available in API version 36.0 and later.",
+        "type": "string",
+        "description": "URL for the user's banner photo.",
         "format": "uri",
         "maxLength": 1024,
         "nullable": true,
         "readOnly": true
       },
       "CallCenterId": {
-        "type": "reference",
-        "description": "If Salesforce CRM Call Center is enabled, represents the call center that this user is assigned to.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "If Salesforce CRM Call Center is enabled, represents the call center that the user is assigned to.",
+        "format": "reference",
         "x-object": "CallCenter",
         "maxLength": 18,
         "nullable": true
       },
       "City": {
         "type": "string",
-        "description": "The city associated with the user. Up to 40 characters allowed.",
+        "description": "City associated with the user. Can have up to 40 characters.",
         "maxLength": 40,
         "nullable": true
       },
       "CommunityNickname": {
         "type": "string",
-        "description": "Unique name used to identify this user in the Experience Cloud site.",
+        "description": "Name used to identify the user in the Experience Cloud site.",
         "maxLength": 40,
         "nullable": false
       },
       "CompanyName": {
         "type": "string",
-        "description": "The name of the user’s company.",
+        "description": "Name of the user’s company.",
         "maxLength": 80,
         "nullable": true
       },
       "ContactId": {
-        "type": "reference",
-        "description": "ID of the Contact associated with this account. The contact must have a value in the AccountId field or an error occurs.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the Contact associated with this account. The Contact must have a value in the AccountId field, or an error occurs.",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "Country": {
         "type": "string",
-        "description": "The country associated with the user. Up to 80 characters allowed.",
+        "description": "Country associated with the user. Can have up to 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "DefaultGroupNotificationFrequency": {
-        "type": "picklist",
-        "description": "Required. The default frequency for sending the user's Chatter group email notifications when the user joins groups. The valid values are: P—Email on every post D—Daily digests W—Weekly digests N—Never The default value is N. For Professional, Enterprise, Unlimited, and Developer Edition organizations that existed before API version 22.0, the default value remains D.This field is available in API version 21.0 and later.",
+        "type": "string",
+        "description": "Required. The default frequency for sending the user's Chatter group email notifications when the user joins groups:",
         "format": "enum",
         "enum": [
           "P",
@@ -99,9 +99,9 @@
         "nullable": false
       },
       "DelegatedApproverId": {
-        "type": "reference",
-        "description": "Id of the user who is a delegated approver for this user.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the user who’s a delegated approver for this user.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -111,13 +111,13 @@
       },
       "Department": {
         "type": "string",
-        "description": "The company department associated with the user.",
+        "description": "Company department associated with the user.",
         "maxLength": 80,
         "nullable": true
       },
       "DigestFrequency": {
-        "type": "picklist",
-        "description": "Required. The send frequency of the user’s Chatter personal email digest. The valid values are: D = Daily W = Weekly N = Never The default value is D.",
+        "type": "string",
+        "description": "Required. Send frequency of the user’s Chatter personal email digest:",
         "format": "enum",
         "enum": [
           "D",
@@ -129,20 +129,20 @@
       },
       "Division": {
         "type": "string",
-        "description": "The division associated with this user, similar to Department, and unrelated to DefaultDivision.",
+        "description": "Division associated with this user, similar to Department, and unrelated to DefaultDivision.",
         "maxLength": 80,
         "nullable": true
       },
       "Email": {
-        "type": "email",
-        "description": "Required. The user’s email address.",
+        "type": "string",
+        "description": "Required. User’s email address.",
         "format": "email",
         "maxLength": 128,
         "nullable": false
       },
       "EmailEncodingKey": {
-        "type": "picklist",
-        "description": "Required. The email encoding for the user, such as ISO-8859-1 or UTF-8.",
+        "type": "string",
+        "description": "Required. Email encoding for the user:",
         "format": "enum",
         "enum": [
           "UTF-8",
@@ -166,20 +166,20 @@
       },
       "EmployeeNumber": {
         "type": "string",
-        "description": "The user’s employee number.",
+        "description": "User’s employee number.",
         "maxLength": 20,
         "nullable": true
       },
       "Extension": {
-        "type": "phone",
-        "description": "The user’s phone extension number.",
+        "type": "string",
+        "description": "User’s phone extension number.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "Fax": {
-        "type": "phone",
-        "description": "The user’s fax number.",
+        "type": "string",
+        "description": "User’s fax number.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
@@ -192,25 +192,25 @@
       },
       "FirstName": {
         "type": "string",
-        "description": "The user’s first name.",
+        "description": "User’s first name.",
         "maxLength": 40,
         "nullable": true
       },
       "ForecastEnabled": {
         "type": "boolean",
-        "description": "Indicates whether the user is enabled for forecasts (true) or not (false). Forecast user has access to the forecasts page.",
+        "description": "Indicates whether the user is enabled as a forecast manager (true) or not (false). Forecast managers see forecast rollups from users below them in the forecast hierarchy.",
         "nullable": false
       },
       "FullPhotoUrl": {
-        "type": "url",
-        "description": "The URL for the user's profile photo. This field is available even if Chatter is disabled.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo is uploaded, the URL returned for an older photo isn’t guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 20.0 and later.",
+        "type": "string",
+        "description": "URL for the user's profile photo. This field is available even if Chatter is disabled. The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo is uploaded, the URL returned for an older photo isn’t guaranteed to return a photo. Query this field for the URL of the most recent photo.",
         "format": "uri",
         "maxLength": 1024,
         "nullable": true,
         "readOnly": true
       },
       "GeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates.",
         "format": "enum",
         "enum": [
@@ -230,32 +230,32 @@
         "nullable": true
       },
       "IndividualId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the data privacy record associated with this user. This field is available if Data Protection and Privacy is enabled.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Individual",
         "maxLength": 18,
         "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the user has access to log in (true) or not (false). You can modify a User's active status from the user interface or via the API.",
+        "description": "Indicates whether the user has access to log in (true) or not (false). You can modify a user's active status from the user interface or via the API.",
         "nullable": false
       },
       "IsProfilePhotoActive": {
         "type": "boolean",
-        "description": "Indicates whether a user has a profile photo (true) or not (false). This field is available in API version 36.0 and later.",
+        "description": "Indicates whether a user has a profile photo (true) or not (false).",
         "nullable": false,
         "readOnly": true
       },
       "JigsawImportLimitOverride": {
-        "type": "int",
-        "description": "The Data.com user’s monthly addition limit. The value must be between zero and the organization’s monthly addition limit. Label is Data.com Monthly Addition Limit. This field is available in API version 27.0 and later.",
+        "type": "number",
+        "description": "Data.com users’ monthly addition limit. The value must be between zero and the organization’s monthly addition limit.",
         "nullable": true
       },
       "LanguageLocaleKey": {
-        "type": "picklist",
-        "description": "Required. The user’s language, such as French or Chinese (Traditional). Label is Language. Note In API version 47.0 and later, when using the DescribeSObjectResult API to return PicklistEntry values from this picklist, the active value indicates whether the language is in the user’s Displayed Languages (true) or the user’s Available Languages (false). All other languages aren’t in the returned active value array. In API version 46.0 and earlier, the PicklistEntry active values indicate whether the language is in either the user’s Displayed Languages or Available Languages lists (true) or not in either list (false).",
+        "type": "string",
+        "description": "Required. User’s language.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -265,48 +265,48 @@
         "nullable": false
       },
       "LastLoginDate": {
-        "type": "dateTime",
-        "description": "The date and time when the user last successfully logged in. This value is updated if 60 seconds elapses since the user’s last login.",
+        "type": "string",
+        "description": "Date and time when the user last logged in successfully. This value is updated if 60 seconds elapses after the user’s last login.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastName": {
         "type": "string",
-        "description": "The user’s last name.",
+        "description": "Required. User’s last name.",
         "maxLength": 80,
         "nullable": false
       },
       "LastPasswordChangeDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date when the last password changed or reset.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "datetime",
-        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "type": "string",
+        "description": "Timestamp of when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "datetime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) but not viewed.",
+        "type": "string",
+        "description": "Timestamp of when the current user last viewed this record. If this value is null, this record was probably referenced (LastReferencedDate) but not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the geolocation of an address. Acceptable values are numbers between –90 and 90 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "description": "Used with Longitude to specify the geolocation of an address. Acceptable values are numbers between –90 and 90, up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "LocaleSidKey": {
-        "type": "picklist",
-        "description": "Required. This field is a restricted picklist field. The value of the field affects formatting and parsing of values, especially numeric values, in the user interface. It doesn’t affect the API.The field values are named according to the language, and the country if necessary, using two-letter ISO codes. The set of names is based on the ISO standard. You can also manually set a user’s locale in the user interface, and then use that value for inserting or updating other users via the API.",
+        "type": "string",
+        "description": "Required. Restricted picklist field whose values are named based on the language and the country, if necessary, using two-letter ISO codes:",
         "format": "enum",
         "enum": [
           "af_ZA",
@@ -523,20 +523,20 @@
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the geolocation of an address. Acceptable values are numbers between –180 and 180 up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
+        "description": "Used with Latitude to specify the geolocation of an address. Acceptable values are numbers between –180 and 180, up to 15 decimal places. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ManagerId": {
-        "type": "reference",
-        "description": "The Id of the user who manages this user.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The ID of the user who manages this user.",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "MediumBannerPhotoUrl": {
-        "type": "url",
+        "type": "string",
         "description": "The URL for the medium-sized user profile banner photo.",
         "format": "uri",
         "maxLength": 1024,
@@ -544,7 +544,7 @@
         "readOnly": true
       },
       "MediumPhotoUrl": {
-        "type": "url",
+        "type": "string",
         "description": "Url for medium profile photo",
         "format": "uri",
         "maxLength": 1024,
@@ -552,7 +552,7 @@
         "readOnly": true
       },
       "MobilePhone": {
-        "type": "phone",
+        "type": "string",
         "description": "The user’s mobile device number.",
         "format": "phone",
         "maxLength": 40,
@@ -560,26 +560,26 @@
       },
       "Name": {
         "type": "string",
-        "description": "Concatenation of FirstName and LastName. Limited to 121 characters.",
+        "description": "Concatenation of FirstName and LastName. Limited to 203 characters, including whitespaces.",
         "maxLength": 121,
         "nullable": false,
         "readOnly": true
       },
       "NumberOfFailedLogins": {
-        "type": "int",
+        "type": "number",
         "description": "The number of failed login attempts for the user’s account. When the maximum number of failed login attempts is reached, the counter resets and the user’s account is locked. If there’s a successful login before the maximum number of failed login attempts is reached, the counter resets and the user’s account remains unlocked.",
         "nullable": true,
         "readOnly": true
       },
       "OfflinePdaTrialExpirationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the Sales Anywhere trial expires.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OfflineTrialExpirationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the user’s Connect Offline trial expires.",
         "format": "date-time",
         "nullable": true,
@@ -589,10 +589,11 @@
         "type": "string",
         "maxLength": 40,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "description": "Out of office message"
       },
       "Phone": {
-        "type": "phone",
+        "type": "string",
         "description": "The user’s phone number.",
         "format": "phone",
         "maxLength": 40,
@@ -600,14 +601,14 @@
       },
       "PostalCode": {
         "type": "string",
-        "description": "The user’s postal or ZIP code. Label is Zip/Postal Code.",
+        "description": "The user’s postal or ZIP code.",
         "maxLength": 20,
         "nullable": true
       },
       "ProfileId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the user’s Profile. Use this value to cache metadata based on profile. In earlier releases, this was RoleId.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Profile",
         "maxLength": 18,
         "nullable": false
@@ -619,11 +620,11 @@
       },
       "ReceivesInfoEmails": {
         "type": "boolean",
-        "description": "Indicates whether the user receives informational email from Salesforce (true) or not (false).",
+        "description": "Indicates whether the user receives informational email from Salesforce true) or not (false).",
         "nullable": false
       },
       "SenderEmail": {
-        "type": "email",
+        "type": "string",
         "description": "The email address used as the From address when the user sends emails. This address is the same value shown in Setup on the My Email Settings page.",
         "format": "email",
         "maxLength": 80,
@@ -636,13 +637,13 @@
         "nullable": true
       },
       "Signature": {
-        "type": "textarea",
+        "type": "string",
         "description": "The signature text added to emails. This text is the same value shown in Setup on the My Email Settings page.",
         "maxLength": 1333,
         "nullable": true
       },
       "SmallBannerPhotoUrl": {
-        "type": "url",
+        "type": "string",
         "description": "The URL for the small user profile banner photo.",
         "format": "uri",
         "maxLength": 1024,
@@ -650,8 +651,8 @@
         "readOnly": true
       },
       "SmallPhotoUrl": {
-        "type": "url",
-        "description": "The URL for a thumbnail of the user's profile photo. This field is available even if Chatter is disabled.The URL is updated every time a photo is uploaded and reflects the most recent photo. If a newer photo is uploaded, the URL returned for an older photo isn’t guaranteed to return a photo. Query this field for the URL of the most recent photo. This field is available in API version 20.0 and later.",
+        "type": "string",
+        "description": "The URL for a thumbnail of the user's profile photo. This field is available even if Chatter is disabled.",
         "format": "uri",
         "maxLength": 1024,
         "nullable": true,
@@ -670,7 +671,7 @@
         "nullable": true
       },
       "StayInTouchSignature": {
-        "type": "textarea",
+        "type": "string",
         "description": "Stay-in-Touch email signature.",
         "maxLength": 512,
         "nullable": true
@@ -682,14 +683,14 @@
         "nullable": true
       },
       "Street": {
-        "type": "textarea",
-        "description": "The street address associated with the User.",
+        "type": "string",
+        "description": "The street address associated with the user.",
         "maxLength": 255,
         "nullable": true
       },
       "TimeZoneSidKey": {
-        "type": "picklist",
-        "description": "Required. This field is a restricted picklist field. A User time zone affects the offset used when displaying or entering times in the user interface. But the API doesn’t use a User time zone when querying or setting values.Values for this field are named using region and key city, according to ISO standards. You can also manually set one User time zone in the user interface, and then use that value for creating or updating other User records via the API.",
+        "type": "string",
+        "description": "Required. This field is a restricted picklist field. A User time zone affects the offset used when displaying or entering times in the user interface. But the API doesn’t use a User time zone when querying or setting values.",
         "format": "enum",
         "enum": [
           "Pacific/Kiritimati",
@@ -796,21 +797,21 @@
       },
       "Title": {
         "type": "string",
-        "description": "The user’s business title, such as Vice President.",
+        "description": "User’s business title. For example, Vice President.",
         "maxLength": 80,
         "nullable": true
       },
       "UserRoleId": {
-        "type": "reference",
-        "description": "ID of the user’s UserRole. Label is Role ID.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the user’s UserRole.",
+        "format": "reference",
         "x-object": "UserRole",
         "maxLength": 18,
         "nullable": true
       },
       "UserType": {
-        "type": "picklist",
-        "description": "The category of user license. Each UserType is associated with one or more UserLicense records. Each UserLicense is associated with one or more profiles. In API version 10.0 and later, valid values include: Standard: user license. This user type also includes Salesforce Platform and Salesforce Platform One user licenses. Label is Standard. PowerPartner: User whose access is limited because they’re a partner and typically access the application through a partner portal or Experience Cloud site. Label is Partner. CspLitePortal: user whose access is limited because they’re an org's customer and access the application through a Customer Portal or Experience Cloud site. Label is High Volume Portal. CustomerSuccess: user whose access is limited because they’re an org's customer and access the application through a Customer Portal. Label is Customer Portal User. PowerCustomerSuccess: user whose access is limited because they’re an org's customer and access the application through a Customer Portal. Label is Customer Portal Manager. Users with this license type can view and edit data they directly own or data owned by or shared with users below them in the Customer Portal role hierarchy. CsnOnly: user whose access to the application is limited to Chatter. This user type includes Chatter Free and Chatter moderator users. Label is Chatter Free. Guest: user whose access is limited because they’re an unauthenticated user without login credentials. Label is Guest.",
+        "type": "string",
+        "description": "Type of user who can access the record:",
         "format": "enum",
         "enum": [
           "Standard",
@@ -828,7 +829,7 @@
       },
       "Username": {
         "type": "string",
-        "description": "The name of the user in your organization.",
+        "description": "Name of the user.",
         "maxLength": 80,
         "nullable": false
       },
@@ -851,7 +852,7 @@
         "nullable": false
       },
       "StartDay": {
-        "type": "picklist",
+        "type": "string",
         "description": "The time of day that the user generally starts working. Used to define the times that display in the user’s calendar. This field is available in API version 63.0 and later.",
         "format": "enum",
         "enum": [
@@ -884,7 +885,7 @@
         "nullable": true
       },
       "EndDay": {
-        "type": "picklist",
+        "type": "string",
         "description": "The time of day that the user generally stops working. Used to define the times that display in the user’s calendar. This field is available in API version 63.0 and later.",
         "format": "enum",
         "enum": [
@@ -956,14 +957,14 @@
         "readOnly": true
       },
       "PasswordExpirationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the user’s password expires. This field is available in API version 63.0 and later.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "SuAccessExpirationDate": {
-        "type": "date",
+        "type": "string",
         "description": "The expiration date for allowing Salesforce Customer Support to log in as this user with Login As functionality. After this date, the user must grant login access to Salesforce Customer Support again. This field is available in API version 63.0 or later.",
         "format": "date",
         "nullable": true,
@@ -1446,7 +1447,7 @@
         "readOnly": true
       },
       "PortalRole": {
-        "type": "picklist",
+        "type": "string",
         "description": "The role of the user in the Customer Portal (either Executive, Manager, User, or PersonAcount).In API version 15.0 and earlier, if you set this field to null, the system automatically included a portal role. In API version 16.0 and above, when you set this field to null, a portal role is not automatically created. When this field is null and a ContactId is provided, the user is assigned to the User role. The Update property is available in API version 43.0 and later. The field is available if Customer Portal is enabled OR digital experiences is enabled and Experience Cloud sites have available partner portal, Customer Portal, or High-Volume Portal User licenses.",
         "format": "enum",
         "enum": [
@@ -1486,11 +1487,11 @@
         "nullable": false
       },
       "Address (beta)": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the address. Read-only. See Address Compound Fields for details on compound address fields."
       },
       "CountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code associated with the user.",
         "format": "enum",
         "enum": [
@@ -1738,11 +1739,11 @@
         "nullable": true
       },
       "CurrentStatus": {
-        "type": "textarea",
+        "type": "string",
         "description": "Text that describes what the user is working on. Note If you update this field, the API automatically adds a post of type UserStatus on the user’s profile in Chatter.This field is deprecated in API version 25.0. To achieve similar behavior, post to the user directly by creating a FeedItem with the user’s ParentId."
       },
       "DefaultCurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The user's default currency setting for new records. For example, if a user in France sets DefaultCurrencyIsoCode to euros, then that’s their default currency.Only applicable for organizations that use multiple currencies.",
         "format": "enum",
         "enum": [
@@ -1752,8 +1753,9 @@
         "nullable": true
       },
       "DefaultDivision": {
-        "type": "picklist",
-        "description": "This record’s default division. Only applicable if divisions are enabled."
+        "type": "string",
+        "description": "This record’s default division. Only applicable if divisions are enabled.",
+        "enum": []
       },
       "HasUserVerifiedEmail": {
         "type": "boolean",
@@ -1764,15 +1766,16 @@
         "description": "Indicates whether the user's phone number is verified (true) or not (false). The default value is false. This field is available in API version 63.0 and later."
       },
       "Manager": {
-        "type": "picklist",
-        "description": "User lookup field used to select the user's manager. This field establishes a hierarchical relationship, preventing you from selecting a user that directly or indirectly reports to themselves."
+        "type": "string",
+        "description": "User lookup field used to select the user's manager. This field establishes a hierarchical relationship, preventing you from selecting a user that directly or indirectly reports to themselves.",
+        "enum": []
       },
       "MiddleName": {
         "type": "string",
         "description": "The user’s middle name. Maximum size is 40 characters. To enable this field, contact Salesforce Customer Support."
       },
       "StateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code associated with the user.",
         "format": "enum",
         "enum": [
@@ -1965,7 +1968,7 @@
         "description": "When true, Sales Path appears collapsed or hidden to the user. This field is available in API versions 33.0 and 34.0 only. In API versions 35.0 and later, use UserPreferencesPathAssistantCollapsed."
       },
       "WirelessEmail": {
-        "type": "email",
+        "type": "string",
         "description": "Wireless email address associated with this user. For use with Salesforce Wireless Edition. This field is available only if the Wireless and Email permissions are enabled for your organization. Note As of November 2005, Salesforce Wireless Edition is no longer available for purchase. You can continue to use Wireless Edition through the end of your existing contract term if you are: A Professional Edition customer and purchased Wireless Edition before November 7, 2005. An Enterprise Edition customer who signed or renewed their Salesforce contract before November 7, 2005."
       },
       "WorkspaceId": {
@@ -1981,10 +1984,24 @@
         ],
         "maxLength": 3,
         "nullable": false
+      },
+      "cgcloud__Language_Postfix__c": {
+        "type": "string",
+        "description": "You can define up to 4 languages per sales org."
+      },
+      "cgcloud__Mobility_Sales_Org__c": {
+        "type": "string",
+        "description": "Mobility Sales org of the users mobile app:",
+        "enum": []
+      },
+      "cgcloud__Sales_Org__c": {
+        "type": "string",
+        "description": "Sales org of the template:",
+        "enum": []
       }
     },
-    "module": "Tooling API",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_user.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_user.htm",
     "keyPrefix": "005",
     "iconUrl": "standard/user_120.png",
     "iconColor": "1B96FF",
@@ -31148,6 +31165,7 @@
       "Consumer Goods Cloud",
       "Core Salesforce",
       "Tooling API"
-    ]
+    ],
+    "x-version": "55.0"
   }
 }

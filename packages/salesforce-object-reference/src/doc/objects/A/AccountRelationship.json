@@ -4,27 +4,28 @@
     "description": "Represents a relationship of a given type between two accounts.",
     "properties": {
       "AccountFromID": {
-        "type": "reference",
-        "description": "ID of the account that gains access to data from AccountTo."
+        "type": "string",
+        "description": "ID of the account that gains access to data from AccountTo.",
+        "format": "reference"
       },
       "AccountToId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the account sharing data with AccountFrom.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user accessed this record or list view (LastReferencedDate) but didn’t viewed it.",
         "format": "date-time",
         "nullable": true,
@@ -37,9 +38,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user who created the account relationship.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -48,7 +49,7 @@
         "nullable": false
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The relationship type. All account relationship sharing rules of that type are to this account relationship. Standard values are: System Integrator Agency Advertiser Reseller Distributor Developer Broker Lender Institution Contractor Dealer Consultant Client Vendor Agent Retailer SubContractor Supplier",
         "format": "enum",
         "enum": [
@@ -153,7 +154,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_accountrelationship.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_accountrelationship.htm",
     "keyPrefix": "0ar",
     "accessRules": "In Digital Experience Settings, turn on the Enable Account Relationships org preference, which is off by default.",
     "clouds": [
@@ -267,6 +268,7 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "45.0"
   }
 }

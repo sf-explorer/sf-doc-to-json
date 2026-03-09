@@ -1,40 +1,42 @@
 {
   "Visit": {
     "name": "Visit",
-    "description": "Track information related to a field rep’s visit to a health care provider.",
+    "description": "Represents information about a visit that a manager schedules for a field rep to perform, usually at distributor, supplier, and partner locations.",
     "properties": {
       "AccountId": {
-        "type": "reference",
-        "description": "The account that is associated with a visit.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The account associated with the visit.",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ActualVisitEndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the visit ended.",
         "format": "date-time",
         "nullable": true
       },
       "ActualVisitStartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the visit started.",
         "format": "date-time",
         "nullable": true
       },
       "AddressId": {
-        "type": "reference",
-        "description": "The address associated with the visit."
+        "type": "string",
+        "description": "The address associated with the visit.",
+        "format": "reference"
       },
       "ContactId": {
-        "type": "reference",
-        "description": "The contact associated with the visit."
+        "type": "string",
+        "description": "The contact associated with the visit.",
+        "format": "reference"
       },
       "ContextId": {
-        "type": "reference",
+        "type": "string",
         "description": "The purpose of the visit.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account_Opportunity_Junction__c",
@@ -85,7 +87,7 @@
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Currency of the sales agreement.",
         "format": "enum",
         "enum": [
@@ -95,28 +97,29 @@
         "nullable": true
       },
       "InstructionDescription": {
-        "type": "textarea",
-        "description": "Special instructions provided by a sales manager or an admin that a sales rep refers to during a visit.",
+        "type": "string",
+        "description": "Special instructions provided by a manager that the visitor refers to during a visit.",
         "maxLength": 1000,
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LocationId": {
-        "type": "reference",
-        "description": "The location of the supplier, distributor, or partner where the visit must be conducted."
+        "type": "string",
+        "description": "The location of the supplier, distributor, or partner where the visit must be conducted.",
+        "format": "reference"
       },
       "Name": {
         "type": "string",
@@ -126,9 +129,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the visit record owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -137,13 +140,14 @@
         "nullable": false
       },
       "ParentVisitId": {
-        "type": "reference",
-        "description": "The parent visit associated with the current visit."
+        "type": "string",
+        "description": "The parent visit associated with the current visit.",
+        "format": "reference"
       },
       "PlaceId": {
-        "type": "reference",
-        "description": "ID of the location that sales reps visit.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the place that the visitor visits.",
+        "format": "reference",
         "x-objects": [
           "Address",
           "ContactPointAddress",
@@ -153,24 +157,25 @@
         "nullable": false
       },
       "PlannedVisitEndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the visit is expected to end.",
         "format": "date-time",
         "nullable": true
       },
       "PlannedVisitStartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the visit is expected to start.",
         "format": "date-time",
         "nullable": false
       },
       "ServiceResourceId": {
-        "type": "reference",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "format": "reference"
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of a visit.",
+        "type": "string",
+        "description": "The status of the visit. Visitors can’t edit this field.",
         "format": "enum",
         "enum": [
           "Planned",
@@ -185,17 +190,18 @@
         "nullable": false
       },
       "StatusRemarks": {
-        "type": "textarea",
-        "description": "The reasons for abandoning or completing the visit as provided by the sales rep.",
+        "type": "string",
+        "description": "The reasons for abandoning or completing the visit as provided by the visitor.",
         "maxLength": 1000,
         "nullable": true
       },
       "UserId": {
-        "type": "reference",
-        "description": "The user associated with the visit."
+        "type": "string",
+        "description": "The user associated with the visit.",
+        "format": "reference"
       },
       "VisitPriority": {
-        "type": "picklist",
+        "type": "string",
         "description": "The priority of the visit.",
         "format": "enum",
         "enum": [
@@ -207,17 +213,17 @@
         "nullable": true
       },
       "VisitTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "The type of visit such as inspection type, or work type.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkType",
         "maxLength": 18,
         "nullable": true
       },
       "VisitorId": {
-        "type": "reference",
-        "description": "ID of the sales representative visiting the store.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The name of the person visiting the place.",
+        "format": "reference",
         "x-objects": [
           "Contact",
           "User"
@@ -241,15 +247,15 @@
       },
       "CreatedDate": {
         "type": "string",
-        "description": "Created Date",
-        "format": "date-time",
+        "description": "Date the visit was created.",
+        "format": "date",
         "nullable": false,
         "readOnly": true
       },
       "CreatedById": {
         "type": "string",
-        "description": "Created By ID",
-        "format": "salesforce-id",
+        "description": "User who created the visit.",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false,
@@ -257,15 +263,15 @@
       },
       "LastModifiedDate": {
         "type": "string",
-        "description": "Last Modified Date",
-        "format": "date-time",
+        "description": "Date and time of the last modification for this visit.",
+        "format": "date",
         "nullable": false,
         "readOnly": true
       },
       "LastModifiedById": {
         "type": "string",
-        "description": "Last Modified By ID",
-        "format": "salesforce-id",
+        "description": "User who last modified the visit.",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false,
@@ -289,10 +295,140 @@
         "description": "Is Locked",
         "nullable": false,
         "readOnly": true
+      },
+      "AccountID": {
+        "type": "string",
+        "description": "The account that is associated with a visit. This field is available in API versions 48.0 and later.",
+        "format": "reference"
+      },
+      "InspectionOverview": {
+        "type": "string",
+        "description": "The Einstein-generated historical overview of current and previous inspection visits."
+      },
+      "cgcloud__Account_City__c": {
+        "type": "string",
+        "description": "City of the related account. This is a calculated field."
+      },
+      "cgcloud__Account_Street__c": {
+        "type": "string",
+        "description": "Street name of the related account."
+      },
+      "cgcloud__Accountable__c": {
+        "type": "string",
+        "description": "The accountable user for this visit. System sets the initiator of the visit as the initial accountable user.",
+        "format": "reference"
+      },
+      "cgcloud__Completed_Date__c": {
+        "type": "string",
+        "description": "Date the visit was completed.",
+        "format": "date"
+      },
+      "cgcloud__Creation_Date_and_Time__c": {
+        "type": "string",
+        "description": "Date and time the visit was created.",
+        "format": "date-time"
+      },
+      "cgcloud__Creation_Mode__c": {
+        "type": "string",
+        "description": "Specifies the way the visit was created. Possible values are manually or automatic. The default value is manually.",
+        "enum": []
+      },
+      "cgcloud__Date_mock__c": {
+        "type": "string",
+        "description": "Help/Mock field to visualize calendar in visual force page. Value of this field won't be saved in the database.",
+        "format": "date"
+      },
+      "cgcloud__Distribution_Rate_All__c": {
+        "type": "double",
+        "description": "Distribution rate of all products. The system calculates and stores the 'Distribution Rate of All Products' (DRallP) as percentage value."
+      },
+      "cgcloud__Distribution_Issue__c": {
+        "type": "double",
+        "description": "This is a KPI Field calculated based on the distribution rate of all products. The system caluclates and stores the 'Distribution Issues' (DI) as boolean value."
+      },
+      "cgcloud__Duration_Effective__c": {
+        "type": "double",
+        "description": "Effective visit duration captured via time tracking. Only implemented in mobile, will remain empty if visit is completed on desktop."
+      },
+      "cgcloud__Duration_In_Minutes__c": {
+        "type": "double",
+        "description": "Planned duration of the visit (difference between planned start and end data). This is a calculated field."
+      },
+      "cgcloud__End_Date__c": {
+        "type": "string",
+        "description": "Planned end date of the visit.",
+        "format": "date"
+      },
+      "cgcloud__Fixed_Visit_Date__c": {
+        "type": "string",
+        "description": "Specifies that this visit was scheduled with the customer at a fixed date and time. Attribute can be used to implement a logic which will not allow to move the visit to a different date or time. Possible values are 0 (No) and 1 (Yes). The default value is 0.",
+        "enum": []
+      },
+      "cgcloud__Geolocation__c": {
+        "type": "string",
+        "description": "User’s geo coordinates (Latitude and Longitude) captured using their mobile device during the visit completion or cancellation."
+      },
+      "cgcloud__IsAllDayEvent__c": {
+        "type": "boolean",
+        "description": "Visit is planned for the entire day. Weekly calendar visualizes such visits in the header of the day. The default value is false."
+      },
+      "cgcloud__Is_Vst_Cmpl_Osid_Range__c": {
+        "type": "boolean",
+        "description": "Indicates whether the visit completed outside the allowed distance between the GPS location and the store’s geolocation."
+      },
+      "cgcloud__Is_Vst_Start_Osid_Range__c": {
+        "type": "boolean",
+        "description": "Indicates whether the visit started outside the allowed distance between the GPS location and the store’s geolocation."
+      },
+      "cgcloud__Note__c": {
+        "type": "string",
+        "description": "Visit notes which can be captured to prepare the visit or during execution time."
+      },
+      "cgcloud__Reason_Code__c": {
+        "type": "string",
+        "description": "Specifies the reason for visit cancellation.",
+        "enum": []
+      },
+      "cgcloud__Responsible__c": {
+        "type": "string",
+        "description": "Responsible user for this visit.",
+        "format": "reference"
+      },
+      "cgcloud__Start_Date__c": {
+        "type": "string",
+        "description": "Planned start date of the visit.",
+        "format": "date"
+      },
+      "cgcloud__Start_Geolocation__c": {
+        "type": "string",
+        "description": "Customer’s location coordinates (latitude and longitude) at the start of a visit."
+      },
+      "cgcloud__Subject__c": {
+        "type": "string",
+        "description": "Subject of the visit."
+      },
+      "cgcloud__Subject_Formula__c": {
+        "type": "string",
+        "description": "This field is required when subject needs to be displayed in a formula format. This is a calculated field."
+      },
+      "cgcloud__Visit_Planned_Date__c": {
+        "type": "string",
+        "description": "Planned date for the visit.",
+        "format": "date"
+      },
+      "cgcloud__Visit_Template__c": {
+        "type": "string",
+        "description": "Template of the visit. This field is a relationship field.",
+        "format": "reference"
+      },
+      "RetailStoreId": {
+        "type": "string",
+        "description": "The retail store where the visit is conducted. This field is available in API versions 52.0 and later. Used in CG Cloud base model to assign a retail store. Not applicable for the enhanced model of Consumer Goods cloud.",
+        "format": "reference"
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_visit.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_visit.htm",
     "keyPrefix": "0Z5",
     "iconUrl": "standard/maintenance_plan_120.png",
     "iconColor": "0176D3",
@@ -564,7 +700,11 @@
     "accessRules": "In Health Cloud, this object is available in API version 47.0 and later.",
     "clouds": [
       "Manufacturing Cloud",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Public Sector Cloud",
+      "Automotive Cloud",
+      "Consumer Goods Cloud"
+    ],
+    "x-version": "56.0"
   }
 }

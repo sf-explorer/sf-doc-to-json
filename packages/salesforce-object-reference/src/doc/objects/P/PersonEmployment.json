@@ -4,17 +4,18 @@
     "description": "Represents information about a person’s employment.",
     "properties": {
       "AccountId": {
-        "type": "reference",
-        "description": "The Account associated with the Person Employment."
+        "type": "string",
+        "description": "The Account associated with the Person Employment.",
+        "format": "reference"
       },
       "AnnualIncome": {
-        "type": "currency",
+        "type": "number",
         "description": "The annual income of the person.",
         "format": "currency",
         "nullable": true
       },
       "EmployerAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The complete address of the employer.",
         "nullable": true,
         "readOnly": true
@@ -32,7 +33,7 @@
         "nullable": true
       },
       "EmployerGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates.",
         "format": "enum",
         "enum": [
@@ -62,7 +63,7 @@
         "nullable": true
       },
       "EmployerPhone": {
-        "type": "phone",
+        "type": "string",
         "description": "Employer's phone number.",
         "format": "phone",
         "maxLength": 40,
@@ -81,7 +82,7 @@
         "nullable": true
       },
       "EmployerStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street address of the employer.",
         "maxLength": 255,
         "nullable": true
@@ -91,15 +92,17 @@
         "description": "The Tax Deduction and Collection Account Number (TAN) of the employer."
       },
       "EmploymentIndustry": {
-        "type": "picklist",
-        "description": "Specifies the employment industry."
+        "type": "string",
+        "description": "Specifies the employment industry.",
+        "enum": []
       },
       "EmploymentSite": {
-        "type": "picklist",
-        "description": "Specifies the site of employment."
+        "type": "string",
+        "description": "Specifies the site of employment.",
+        "enum": []
       },
       "EmploymentStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Specifies the employment status with the employer.",
         "format": "enum",
         "enum": [
@@ -115,18 +118,20 @@
         "nullable": true
       },
       "EmploymentType": {
-        "type": "picklist",
-        "description": ""
+        "type": "string",
+        "description": "Specifies the employment type for the party.",
+        "enum": []
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The last date of employment at this job.",
         "format": "date",
         "nullable": true
       },
       "HourlyWage": {
-        "type": "currency",
-        "description": "The hourly wage for the party."
+        "type": "number",
+        "description": "The hourly wage for the party.",
+        "format": "currency"
       },
       "IsCurrentEmployment": {
         "type": "boolean",
@@ -143,14 +148,14 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
         "format": "date-time",
         "nullable": true,
@@ -169,7 +174,7 @@
         "nullable": false
       },
       "Occupation": {
-        "type": "picklist",
+        "type": "string",
         "description": "Specifies the person’s occupation.",
         "format": "enum",
         "enum": [
@@ -196,9 +201,9 @@
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -213,9 +218,9 @@
         "nullable": true
       },
       "RelatedPersonId": {
-        "type": "reference",
+        "type": "string",
         "description": "The person associated with the employment.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Account",
           "Contact"
@@ -224,34 +229,38 @@
         "nullable": false
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "The start date of employment at this job.",
         "format": "date",
         "nullable": true
       },
       "VerificationDate": {
-        "type": "date",
-        "description": "The date of verification of the employment."
+        "type": "string",
+        "description": "The date when the person employment was verified.",
+        "format": "date"
       },
       "VerificationStatus": {
-        "type": "picklist",
-        "description": "The status of verification of the employment."
+        "type": "string",
+        "description": "Specifies the status of the employment verification done for the party profile.",
+        "enum": []
       },
       "WeeklyHourCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of hours per week that the party works for the employer."
       },
       "WorkerType": {
-        "type": "picklist",
-        "description": "Specifies the worker type for the party that's employed."
+        "type": "string",
+        "description": "Specifies the worker type for the party that's employed.",
+        "enum": []
       },
       "Description": {
         "type": "string",
         "description": "The description of the employment."
       },
       "HealthcareProviderId": {
-        "type": "reference",
-        "description": "The healthcare provider associated with the person employment."
+        "type": "string",
+        "description": "The healthcare provider associated with the person employment.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -686,11 +695,12 @@
         "nullable": true
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_personemployment.htm",
+    "module": "Financial Services Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_personemployment.htm",
     "clouds": [
       "Financial Services Cloud",
-      "Health Cloud"
+      "Health Cloud",
+      "Education Cloud"
     ],
     "keyPrefix": "0St",
     "iconUrl": "custom/custom33_120.png",
@@ -893,6 +903,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "57.0"
   }
 }

@@ -4,37 +4,42 @@
     "description": "Represents a prospect or lead.",
     "properties": {
       "ActionCadenceAssigneeId": {
-        "type": "reference",
-        "description": "The ID of the sales rep designated to work the lead through their assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The ID of the sales rep designated to work the lead through their assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "reference"
       },
       "ActionCadenceId": {
-        "type": "reference",
-        "description": "The ID of the lead’s assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The ID of the lead’s assigned cadence. This field is available in API version 48.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "reference"
       },
       "ActionCadenceState": {
-        "type": "picklist",
-        "description": "The state of the current action cadence tracker. This field is available in API version 50.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The state of the current action cadence tracker. This field is available in API version 50.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "enum": []
       },
       "ActiveTrackerCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of cadences that are actively running on this lead. This field is available in API version 57.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
       },
       "ActivityMetricId": {
-        "type": "reference",
-        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric."
+        "type": "string",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric.",
+        "format": "reference"
       },
       "ActivityMetricRollupId": {
-        "type": "reference",
-        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup."
+        "type": "string",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup.",
+        "format": "reference"
       },
       "Address": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the address. Read-only. For details on compound address fields, see Address Compound Fields.",
         "nullable": true,
         "readOnly": true
       },
       "AnnualRevenue": {
-        "type": "currency",
+        "type": "number",
         "description": "Annual revenue for the lead’s company.",
         "format": "currency",
         "nullable": true
@@ -46,7 +51,7 @@
         "nullable": true
       },
       "CleanStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the record's clean status compared with Data.com. .Several values for CleanStatus appear with different labels on the lead record. Values include: Acknowledged - Reviewed Different Inactive Matched - In Sync NotFound - Not Found Pending - Not Compared SelectMatch - Select Match Skipped",
         "format": "enum",
         "enum": [
@@ -75,52 +80,52 @@
         "nullable": true
       },
       "ConvertedAccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Object reference ID that points to the account into which the lead converted.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConvertedContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "Object reference ID that points to the contact into which the lead converted.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConvertedDate": {
-        "type": "date",
+        "type": "string",
         "description": "Date on which this lead was converted.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "ConvertedOpportunityId": {
-        "type": "reference",
+        "type": "string",
         "description": "Object reference ID that points to the opportunity into which the lead has been converted.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Opportunity",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConnectionReceivedId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the PartnerNetworkConnection that shared this record with your org. This field is available when Salesforce to Salesforce is enabled.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConnectionSentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the PartnerNetworkConnection that this record is shared with. This field is available Salesforce to Salesforce is enabled. In API version 16.0 and later, this value is null. Use PartnerNetworkRecordConnection object to forward records to connections.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
@@ -133,7 +138,7 @@
         "nullable": true
       },
       "CountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code for the lead’s address.",
         "format": "enum",
         "enum": [
@@ -381,7 +386,7 @@
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -391,28 +396,30 @@
         "nullable": true
       },
       "DandBCompanyId": {
-        "type": "reference",
-        "description": "Reference ID to a Dun & Bradstreet® company record, associated with an account added from Data.com."
+        "type": "string",
+        "description": "Reference ID to a Dun & Bradstreet® company record, associated with an account added from Data.com.",
+        "format": "reference"
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The lead’s description.",
         "maxLength": 32000,
         "nullable": true
       },
       "Division": {
-        "type": "picklist",
-        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as North America, Healthcare, or Consulting. Available only when the Division permission is enabled."
+        "type": "string",
+        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as North America, Healthcare, or Consulting. Available only when the Division permission is enabled.",
+        "enum": []
       },
       "Email": {
-        "type": "email",
+        "type": "string",
         "description": "The lead’s email address.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "EmailBouncedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "If bounce management is activated and an email sent to the lead bounced, the date and time of the bounce. Email bounce functionality isn't triggered by record updates, including updates to this field.",
         "format": "date-time",
         "nullable": true
@@ -424,23 +431,26 @@
         "nullable": true
       },
       "ExportStatus": {
-        "type": "picklist",
-        "description": "Derived field for the record map for Partner Connect. The export status of this opportunity to the partner’s connected org. To see this field, enable Partner Connect and add the Export Vendor Records to an Authorized Partner Org user permission to the cosell export user. See Set Up Partner Connect as a Vendor in Salesforce Help. Available in API version 62.0 and later."
+        "type": "string",
+        "description": "Derived field for the record map for Partner Connect. The export status of this opportunity to the partner’s connected org. To see this field, enable Partner Connect and add the Export Vendor Records to an Authorized Partner Org user permission to the cosell export user. See Set Up Partner Connect as a Vendor in Salesforce Help. Available in API version 62.0 and later.",
+        "enum": []
       },
       "Fax": {
-        "type": "phone",
+        "type": "string",
         "description": "The lead’s fax number.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "FirstCallDateTime": {
-        "type": "datetime",
-        "description": "The date and time of the first call placed to the lead. This field is available in API version 48.0 when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The date and time of the first call placed to the lead. This field is available in API version 48.0 when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "date-time"
       },
       "FirstEmailDateTime": {
-        "type": "datetime",
-        "description": "The date and time of the first email sent to the lead. This field is available in API version 48.0 when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The date and time of the first email sent to the lead. This field is available in API version 48.0 when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "date-time"
       },
       "FirstName": {
         "type": "string",
@@ -449,7 +459,7 @@
         "nullable": true
       },
       "GeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "Accuracy level of the geocode for the address. For details on geolocation compound fields, see Compound Field Considerations and Limitations.",
         "format": "enum",
         "enum": [
@@ -469,8 +479,9 @@
         "nullable": true
       },
       "GenderIdentity": {
-        "type": "picklist",
-        "description": "The lead’s internal experience of their gender, which may or may not correspond to their designated sex at birth."
+        "type": "string",
+        "description": "The lead’s internal experience of their gender, which may or may not correspond to their designated sex at birth.",
+        "enum": []
       },
       "HasOptedOutOfEmail": {
         "type": "boolean",
@@ -483,15 +494,15 @@
         "nullable": false
       },
       "IndividualId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the data privacy record associated with this lead. This field is available if you enabled Data Protection and Privacy in Setup.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Individual",
         "maxLength": 18,
         "nullable": true
       },
       "Industry": {
-        "type": "picklist",
+        "type": "string",
         "description": "Industry in which the lead works.",
         "format": "enum",
         "enum": [
@@ -566,7 +577,7 @@
         "readOnly": true
       },
       "LastActivityDate": {
-        "type": "date",
+        "type": "string",
         "description": "Value is the most recent of either: Due date of the most recent event logged against the record. Due date of the most recently closed task associated with the record.",
         "format": "date",
         "nullable": true,
@@ -579,14 +590,14 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
         "format": "date-time",
         "nullable": true,
@@ -599,7 +610,7 @@
         "multipleOf": 1e-15
       },
       "LeadSource": {
-        "type": "picklist",
+        "type": "string",
         "description": "The origin or source of the lead.",
         "format": "enum",
         "enum": [
@@ -625,9 +636,9 @@
         "multipleOf": 1e-15
       },
       "MasterRecordId": {
-        "type": "reference",
+        "type": "string",
         "description": "If this record was deleted as the result of a merge, this field contains the ID of the record that was kept. If this record was deleted for any other reason, or hasn’t been deleted, the value is null.When using Apex triggers to determine which record was deleted in a merge event, this field’s value is the ID of the record that remains in Trigger.old. In Trigger.new, the value is null.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Lead",
         "maxLength": 18,
         "nullable": true,
@@ -638,7 +649,7 @@
         "description": "The lead’s middle name. Maximum size is 40 characters."
       },
       "MobilePhone": {
-        "type": "phone",
+        "type": "string",
         "description": "The lead’s mobile phone number.",
         "format": "phone",
         "maxLength": 40,
@@ -652,14 +663,14 @@
         "readOnly": true
       },
       "NumberOfEmployees": {
-        "type": "int",
+        "type": "number",
         "description": "Number of employees at the lead’s company. Label is Employees.",
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the lead’s owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -668,23 +679,23 @@
         "nullable": false
       },
       "PartnerAccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the partner account for the partner user that owns this lead. Available if Partner Relationship Management is enabled or if digital experiences is enabled and you have partner portal licenses. In API version 16.0 and later, the Partner Account field is set to the appropriate account for the partner user that owns the lead. If the owner of the lead isn’t a partner user, this field has no value.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Phone": {
-        "type": "phone",
+        "type": "string",
         "description": "The lead’s phone number.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PhotoUrl": {
-        "type": "url",
+        "type": "string",
         "description": "Path to be combined with the URL of a Salesforce instance (Example: https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the lead. Generated URL returns an HTTP redirect (code 302) to the social network profile image for the lead.",
         "format": "uri",
         "maxLength": 255,
@@ -698,11 +709,12 @@
         "nullable": true
       },
       "Pronouns": {
-        "type": "picklist",
-        "description": "The lead’s personal pronouns, reflecting their gender identity. Others can use these pronouns to refer to the lead in the third person. The entry is selected from a picklist of available values, which the administrator sets. Maximum 40 characters."
+        "type": "string",
+        "description": "The lead’s personal pronouns, reflecting their gender identity. Others can use these pronouns to refer to the lead in the third person. The entry is selected from a picklist of available values, which the administrator sets. Maximum 40 characters.",
+        "enum": []
       },
       "Rating": {
-        "type": "picklist",
+        "type": "string",
         "description": "Rating of the lead.",
         "format": "enum",
         "enum": [
@@ -714,15 +726,15 @@
         "nullable": true
       },
       "RecordTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record type assigned to this object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "RecordType",
         "maxLength": 18,
         "nullable": true
       },
       "Salutation": {
-        "type": "picklist",
+        "type": "string",
         "description": "Salutation for the lead.",
         "format": "enum",
         "enum": [
@@ -733,13 +745,14 @@
         "nullable": true
       },
       "ScheduledResumeDateTime": {
-        "type": "dateTime",
-        "description": "The date and time when the action cadence tracker is going to resume after it’s paused or on a wait step. This field is available in API version 54.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set."
+        "type": "string",
+        "description": "The date and time when the action cadence tracker is going to resume after it’s paused or on a wait step. This field is available in API version 54.0 and later when the Sales Engagement license is enabled. To see this field, the user also needs the Sales Engagement User or Sales Engagement Quick Cadence Creator user permission set.",
+        "format": "date-time"
       },
       "ScoreIntelligenceId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the intelligent field record that contains lead score.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ScoreIntelligence",
         "maxLength": 18,
         "nullable": true,
@@ -752,7 +765,7 @@
         "nullable": true
       },
       "StateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code for the lead’s address.",
         "format": "enum",
         "enum": [
@@ -873,7 +886,7 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status code for this converted lead. Status codes are defined in Status and represented in the API by the LeadStatus object.",
         "format": "enum",
         "enum": [
@@ -887,7 +900,7 @@
         "nullable": false
       },
       "Street": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street number and name for the address of the lead.",
         "maxLength": 255,
         "nullable": true
@@ -903,18 +916,18 @@
         "nullable": true
       },
       "Website": {
-        "type": "url",
+        "type": "string",
         "description": "Website for the lead.",
         "format": "uri",
         "maxLength": 255,
         "nullable": true
       },
       "assignmentRuleId": {
-        "type": "",
+        "type": "string",
         "description": ""
       },
       "useDefaultRule": {
-        "type": "",
+        "type": "string",
         "description": ""
       },
       "Id": {
@@ -1015,18 +1028,20 @@
         "nullable": true
       },
       "EarliestInterestDate": {
-        "type": "date",
+        "type": "string",
         "description": "The earliest date from which the lead is interested in purchasing or selling the item. This field is available in API version 56.0 and later.",
+        "format": "date",
         "x-cloud": "Automotive Cloud"
       },
       "LatestInterestDate": {
-        "type": "date",
+        "type": "string",
         "description": "The latest date by which the lead is interested in purchasing or selling the item. This field is available in API version 56.0 and later.",
+        "format": "date",
         "x-cloud": "Automotive Cloud"
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_lead.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_lead.htm",
     "keyPrefix": "00Q",
     "iconUrl": "standard/lead_120.png",
     "iconColor": "06A59A",
@@ -1544,6 +1559,7 @@
     "clouds": [
       "Automotive Cloud",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

@@ -4,23 +4,23 @@
     "description": "",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The associated account, which typically represents the customer receiving the maintenance service.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "The associated contact.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "A brief description of the plan.",
         "maxLength": 32000,
         "nullable": true
@@ -36,31 +36,32 @@
         "nullable": false
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The last day the maintenance plan is valid.",
         "format": "date",
         "nullable": true
       },
       "Frequency": {
-        "type": "int",
+        "type": "number",
         "description": "(Optional) Amount of time between work orders. The unit is specified in the FrequencyType field."
       },
       "FrequencyType": {
-        "type": "picklist",
-        "description": "(Optional) The unit of frequency: Days Weeks Months Years For example, to perform monthly maintenance visits you need a work order for each visit, so enter 1 as the Frequency and select Months."
+        "type": "string",
+        "description": "(Optional) The unit of frequency: Days Weeks Months Years For example, to perform monthly maintenance visits you need a work order for each visit, so enter 1 as the Frequency and select Months.",
+        "enum": []
       },
       "GenerationHorizon": {
-        "type": "int",
+        "type": "number",
         "description": "Moves up the timing of batch generation if DoesAutoGenerateWorkOrders is set to true. A generation horizon of 5 means the new batch of work orders is generated 5 days before the maintenance asset’s (or maintenance plan’s, if there are no assets) NextSuggestedMaintenanceDate. The generation horizon must be a whole number.",
         "nullable": true
       },
       "GenerationTimeframe": {
-        "type": "int",
+        "type": "number",
         "description": "(Required) How far in advance work orders are generated in each batch. The unit is specified in the GenerationTimeframeType field.",
         "nullable": false
       },
       "GenerationTimeframeType": {
-        "type": "picklist",
+        "type": "string",
         "description": "(Required) The generation timeframe unit: Days Weeks Months Years For example, if you need work orders for six months, enter 6 and select Months.",
         "format": "enum",
         "enum": [
@@ -73,23 +74,23 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LocationId": {
-        "type": "reference",
+        "type": "string",
         "description": "Where the service takes place.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
@@ -108,25 +109,25 @@
         "nullable": true
       },
       "MaintenanceWindowEndDays": {
-        "type": "int",
+        "type": "number",
         "description": "Days after the suggested service date on the work order that its service appointment can be scheduled.",
         "nullable": true
       },
       "MaintenanceWindowStartDays": {
-        "type": "int",
+        "type": "number",
         "description": "Days before the suggested service date on the work order that its service appointment can be scheduled.The maintenance window start and end fields affect the Earliest Start Permitted and Due Date fields on the maintenance plan’s work orders’ service appointments. For example, if you enter 3 for both the maintenance window start and end, the Earliest Start Permitted and the Due Date will be 3 days before and 3 days after, respectively, the Suggested Maintenance Date on each work order. If the maintenance window fields are left blank, the service appointment date fields list their work order’s suggested maintenance date.",
         "nullable": true
       },
       "NextSuggestedMaintenanceDate": {
-        "type": "date",
+        "type": "string",
         "description": "The suggested date of service for the first work order (not the date the work order is created). This corresponds to the work order’s SuggestedMaintenanceDate. You can use this field to enforce a delay before the first maintenance visit (for example, if monthly maintenance should begin one year after the purchase date). Its label in the user interface is Date of the first work order in the next batch.For example, if you want the first maintenance visit to take place on May 1, enter May 1. When you generate work orders, the earliest work order will list a suggested maintenance date of May 1, and the dates on the later work orders will be based on the GenerationTimeframe and Frequency. Important Maintenance assets also list a NextSuggestedMaintenanceDate, which is initially inherited from the maintenance plan. If the plan has maintenance assets, this date auto-updates on the maintenance assets after each batch is generated, but doesn’t update on the maintenance plan itself because batch timing is calculated at the maintenance asset level. If the plan doesn’t have maintenance assets, this date auto-updates on the maintenance plan after each batch is generated.",
         "format": "date",
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The owner of the maintenance plan.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -135,21 +136,21 @@
         "nullable": false
       },
       "ServiceContractId": {
-        "type": "reference",
+        "type": "string",
         "description": "The service contract associated with the maintenance plan. The service contract can’t be updated if any child maintenance asset is associated with a contract line item from the service contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceContract",
         "maxLength": 18,
         "nullable": true
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "The first day the maintenance plan is valid.",
         "format": "date",
         "nullable": false
       },
       "SvcApptGenerationMethod": {
-        "type": "picklist",
+        "type": "string",
         "description": "The service appointment generation method. One service appointment per work order One service appointment per work order line item If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method. If Work Order Generation Method is set to One work order line item per asset, you must select a Service Appointment Generation Method.",
         "format": "enum",
         "enum": [
@@ -160,7 +161,7 @@
         "nullable": true
       },
       "WorkOrderGenerationMethod": {
-        "type": "picklist",
+        "type": "string",
         "description": "The work order generation method. One work order per asset One work order line item per asset If your existing maintenance plans have work orders or work order line items associated with them, you can’t change their generation methods. To change pre-existing maintenance plan generation methods, either delete the work orders and regenerate them or delete the maintenance plan and recreate it with the needed generation methods. If Work Order Generation Method is left as None, the generation is defaulted to one work order per asset. When One work order line item per asset is set, and all maintenance assets have the same Next Suggested Maintenance Date on the maintenance plan, they are grouped in one work order. However, if maintenance assets have different Next Suggested Maintenance Dates, multiple work orders are created for each date. If Work Order Generation Method is set to One work order per asset, you can’t set a Service Appointment Generation Method.",
         "format": "enum",
         "enum": [
@@ -171,7 +172,7 @@
         "nullable": true
       },
       "WorkOrderGenerationStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "(Read Only) Indicates the status of work order generation: NotStarted—the default value, work order generation has not started InProgress—work order generation is underway Completed—work order generation is complete Unsuccessful—it was not possible to generate work orders You can generate only one batch at a time.",
         "format": "enum",
         "enum": [
@@ -187,9 +188,9 @@
         "readOnly": true
       },
       "WorkTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "The associated work type. Work orders generated from the maintenance plan inherit its work type’s duration, required skills and products, and linked articles. Maintenance assets covered by the plan use the same work type, though you can update them to use a different one.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkType",
         "maxLength": 18,
         "nullable": true
@@ -263,8 +264,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_maintenanceplan.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_maintenanceplan.htm",
     "keyPrefix": "1MP",
     "createable": true,
     "updateable": true,
@@ -519,6 +520,7 @@
       "Core Salesforce"
     ],
     "iconUrl": "standard/maintenance_plan_120.png",
-    "iconColor": "0176D3"
+    "iconColor": "0176D3",
+    "x-version": "48.0"
   }
 }

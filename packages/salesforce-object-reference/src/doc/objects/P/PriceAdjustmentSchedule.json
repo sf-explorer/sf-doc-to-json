@@ -4,11 +4,12 @@
     "description": "Represents a series of tiered discounts based on the number of items purchased.",
     "properties": {
       "AdjustmentMethod": {
-        "type": "picklist",
-        "description": "The method for applying tiered pricing. Possible values are: Range—All items receive the discount of the highest tier the quantity falls in. Slab—Items receive the discount defined for the tier they fall in."
+        "type": "string",
+        "description": "The method for applying tiered pricing. Possible values are: Range—All items receive the discount of the highest tier the quantity falls in. Slab—Items receive the discount defined for the tier they fall in.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -18,18 +19,20 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Text description of the price adjustment schedule.",
         "maxLength": 255,
         "nullable": true
       },
       "EffectiveFrom": {
-        "type": "dateTime",
-        "description": "The date and time when the price adjustment schedule comes into effect."
+        "type": "string",
+        "description": "The date and time when the price adjustment schedule comes into effect.",
+        "format": "date-time"
       },
       "EffectiveTo": {
-        "type": "dateTime",
-        "description": "The date and time when the price adjustment schedule remains effective."
+        "type": "string",
+        "description": "The date and time when the price adjustment schedule remains effective.",
+        "format": "date-time"
       },
       "IsActive": {
         "type": "boolean",
@@ -37,14 +40,14 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Indicates whether the price adjustment schedule has been archived (true) or not (false). This field is read-only.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -57,9 +60,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The Salesforce ID of the sales representative who owns the price adjustment schedule.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -68,12 +71,14 @@
         "nullable": false
       },
       "Pricebook2Id": {
-        "type": "reference",
-        "description": "The price book associated with this price adjustment schedule record."
+        "type": "string",
+        "description": "The price book associated with this price adjustment schedule record.",
+        "format": "reference"
       },
       "ScheduleType": {
-        "type": "picklist",
-        "description": "The type of price adjustment schedule."
+        "type": "string",
+        "description": "The type of price adjustment schedule.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -135,7 +140,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_priceadjustmentschedule.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_priceadjustmentschedule.htm",
     "keyPrefix": "84X",
     "createable": true,
     "updateable": true,
@@ -330,6 +335,7 @@
       "Core Salesforce"
     ],
     "iconUrl": "standard/price_adjustment_schedule_120.png",
-    "iconColor": "FF538A"
+    "iconColor": "FF538A",
+    "x-version": "60.0"
   }
 }

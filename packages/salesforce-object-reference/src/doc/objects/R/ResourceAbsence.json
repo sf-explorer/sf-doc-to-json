@@ -1,10 +1,10 @@
 {
   "ResourceAbsence": {
     "name": "ResourceAbsence",
-    "description": "Represents a time period in which a service resource is unavailable to work in Field Service, Salesforce Scheduler, or Workforce Engagement.",
+    "description": "Fields associated with a time period in which a service resource is unavailable to work in Field Service.",
     "properties": {
       "ApprovalStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Specifies the approval status of the absense request made by the service resource.",
         "format": "enum",
         "enum": [
@@ -97,30 +97,30 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the resource absence was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the resource absence was last modified. Its label in the user interface is Last Modified Date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ResourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "The absent service resource.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceResource",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of absence: Meeting, Training, Medical, or Vacation. The default value is Vacation. You can add custom values if needed, but the name Break is reserved for the Field Service managed package.",
         "format": "enum",
         "enum": [
@@ -133,25 +133,25 @@
         "nullable": false
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the absence.",
         "maxLength": 32000,
         "nullable": true
       },
       "Start": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the absence begins.",
         "format": "date-time",
         "nullable": false
       },
       "End": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time when the absence ends.",
         "format": "date-time",
         "nullable": false
       },
       "Street": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street number and name of the address associated with the absence.",
         "maxLength": 255,
         "nullable": true
@@ -193,7 +193,7 @@
         "multipleOf": 1e-15
       },
       "GeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only.",
         "format": "enum",
         "enum": [
@@ -213,7 +213,7 @@
         "nullable": true
       },
       "Address": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the address associated with the absence.",
         "nullable": true,
         "readOnly": true
@@ -612,8 +612,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_resourceabsence.htm",
+    "module": "Energy and Utilities Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.eu_developer_guide.meta/eu_developer_guide/sforce_api_objects_resourceabsence.htm",
     "keyPrefix": "0Hw",
     "createable": true,
     "updateable": true,
@@ -805,9 +805,12 @@
     "accessRules": "Field Service or Workforce Engagement must be enabled.",
     "clouds": [
       "Energy and Utilities Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/resource_absence_120.png",
-    "iconColor": "3BA755"
+    "iconColor": "3BA755",
+    "x-version": "64.0"
   }
 }

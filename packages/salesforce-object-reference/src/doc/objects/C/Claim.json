@@ -1,12 +1,12 @@
 {
   "Claim": {
     "name": "Claim",
-    "description": "Represents the types of claims, such as life, auto, or home.",
+    "description": "Represents a warranty Claim submitted by a partner to a manufacturer, or a supplier recovery claim submitted by the manufacturer to a supplier.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the account related to the claim.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
@@ -18,8 +18,8 @@
         "nullable": true
       },
       "ClaimReasonType": {
-        "type": "picklist",
-        "description": "The category that the claim reason belongs to. For example, natural disaster, accident.",
+        "type": "string",
+        "description": "The category to which the claim reason belongs.",
         "format": "enum",
         "enum": [
           "Natural Disaster",
@@ -29,8 +29,8 @@
         "nullable": true
       },
       "ClaimType": {
-        "type": "picklist",
-        "description": "The type of the claim. For example, home, auto, annuity, life, or workers’ compensation.",
+        "type": "string",
+        "description": "The type of the claim.",
         "format": "enum",
         "enum": [
           "Annuity",
@@ -48,17 +48,18 @@
         "nullable": true
       },
       "ClaimTypeCode": {
-        "type": "picklist",
-        "description": "The type of the claim."
+        "type": "string",
+        "description": "The type of the claim.",
+        "enum": []
       },
       "FinalizedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the claim was marked resolved, with claim status as approved or rejected.",
         "format": "date-time",
         "nullable": true
       },
       "FnolChannel": {
-        "type": "picklist",
+        "type": "string",
         "description": "The channel through which the loss was reported.",
         "format": "enum",
         "enum": [
@@ -72,19 +73,19 @@
       },
       "IsClosed": {
         "type": "boolean",
-        "description": "Indicates whether the claim has been closed. The default value is False.",
+        "description": "Indicates whether the claim has been closed (true) or not (false).",
         "nullable": false,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -97,9 +98,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -108,12 +109,13 @@
         "nullable": false
       },
       "RelatedClaimId": {
-        "type": "reference",
-        "description": "ID of the claim related to this claim."
+        "type": "string",
+        "description": "ID of the claim related to this claim.",
+        "format": "reference"
       },
       "Severity": {
-        "type": "picklist",
-        "description": "The severity of the claim. For example, high, medium, or low.",
+        "type": "string",
+        "description": "The severity of the claim.",
         "format": "enum",
         "enum": [
           "High",
@@ -124,7 +126,7 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the claim.",
         "format": "enum",
         "enum": [
@@ -165,109 +167,114 @@
         "nullable": true
       },
       "Summary": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the claim.",
         "maxLength": 32000,
         "nullable": true
       },
       "TotalAdjustedAmount": {
-        "type": "currency",
-        "description": "The claim amount that was approved."
+        "type": "number",
+        "description": "The claim amount that was approved.",
+        "format": "currency"
       },
       "TotalClaimedAmount": {
-        "type": "currency",
-        "description": "The total amount being claimed."
+        "type": "number",
+        "description": "The total amount being claimed.",
+        "format": "currency"
       },
       "UsageType": {
-        "type": "picklist",
-        "description": "The usage type of the Claims record."
+        "type": "string",
+        "description": "The usage type of the Claims record.",
+        "enum": []
       },
       "ActualAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The actual amount that was billed for the repair of damages.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "ApprovedAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount that was approved for the repair of damages based on an agent's inspection.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "AssessmentDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the claim was officially assessed.",
         "format": "date-time",
         "nullable": true
       },
       "CaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the case that created the claim.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
       },
       "EstimatedAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The estimated cost of damages given by the owner or the repair shop.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "FinancialAuthorityStatus": {
-        "type": "picklist",
-        "description": "Specifies the financial authority status of the claim."
+        "type": "string",
+        "description": "Specifies the financial authority status of the claim.",
+        "enum": []
       },
       "IncidentId": {
-        "type": "reference",
-        "description": "The incident to which a claim pertains. For example, a claim associated with a catastrophe. This field is available in API version 54.0 and later."
+        "type": "string",
+        "description": "The incident to which a claim pertains. For example, a claim associated with a catastrophe. This field is available in API version 54.0 and later.",
+        "format": "reference"
       },
       "IncidentSite": {
-        "type": "address",
-        "description": "The place where the accident took place.",
+        "type": "string",
+        "description": "The place where the incident took place.",
         "nullable": true,
         "readOnly": true
       },
       "InitiationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the claim was initiated.",
         "format": "date-time",
         "nullable": true
       },
       "InsuredAssetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the asset that is insured.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InsurancePolicyAsset",
         "maxLength": 18,
         "nullable": true
       },
       "IsAuthoritiesNotified": {
         "type": "boolean",
-        "description": "Indicates whether the authorities have been informed about the accident. The default value is False.",
+        "description": "Indicates whether the authorities have been informed about the incident. The default value is False.",
         "nullable": false
       },
       "IsDrivable": {
         "type": "boolean",
-        "description": "Indicates whether the vehicle is drivable after the accident. The default value is False.",
+        "description": "Indicates whether the vehicle is drivable after the incident. The default value is False.",
         "nullable": false
       },
       "IsInhabitable": {
         "type": "boolean",
-        "description": "Indicates whether the property is inhabitable after the accident. The default value is False.",
+        "description": "Indicates whether the property is inhabitable after the incident. The default value is False.",
         "nullable": false
       },
       "LossDate": {
-        "type": "dateTime",
-        "description": "The date on which the accident took place.",
+        "type": "string",
+        "description": "The date and time when the incident took place.",
         "format": "date-time",
         "nullable": true
       },
       "LossType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of the loss for which the claim was initiated. For example, partial loss, repair, replacement.",
         "format": "enum",
         "enum": [
@@ -283,19 +290,20 @@
         "nullable": true
       },
       "PolicyNumberId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the parent insurance policy related to the claim.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InsurancePolicy",
         "maxLength": 18,
         "nullable": true
       },
       "ProductId": {
-        "type": "reference",
-        "description": "The product that's associated with the claim. This field is available from API version 65.0 and later."
+        "type": "string",
+        "description": "The product that's associated with the claim. This field is available from API version 65.0 and later.",
+        "format": "reference"
       },
       "RenewalChannel": {
-        "type": "picklist",
+        "type": "string",
         "description": "The channel through which the insurance policy associated with this claim was renewed. This field is deprecated in API version 48.0 and will be removed in API version 52 (the Summer ’21 release).",
         "format": "enum",
         "enum": [
@@ -314,26 +322,26 @@
         "nullable": true
       },
       "RepairShopLocation": {
-        "type": "textarea",
+        "type": "string",
         "description": "The location of the repair shop where the damaged vehicle was repaired.",
         "maxLength": 32000,
         "nullable": true
       },
       "ReportDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the accident report was filled out.",
+        "type": "string",
+        "description": "The timestamp for when the incident report was filled out.",
         "format": "date-time",
         "nullable": true
       },
       "ReportNumber": {
         "type": "string",
-        "description": "The number of the accident report.",
+        "description": "The number of the incident report.",
         "maxLength": 100,
         "nullable": true
       },
       "ReportingAuthority": {
         "type": "string",
-        "description": "The name of the authority who filled out the accident report.",
+        "description": "The name of the authority who filled out the incident report.",
         "maxLength": 100,
         "nullable": true
       },
@@ -350,13 +358,13 @@
         "nullable": true
       },
       "VisitDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the agent visited the site of the accident or the place where the vehicle was moved after the accident.",
+        "type": "string",
+        "description": "The timestamp for when the agent visited the site of the incident or the place where the vehicle was moved after the incident.",
         "format": "date-time",
         "nullable": true
       },
       "VisitSite": {
-        "type": "textarea",
+        "type": "string",
         "description": "The site that the agent visited.",
         "maxLength": 32000,
         "nullable": true
@@ -875,13 +883,24 @@
         ],
         "maxLength": 18,
         "nullable": true
+      },
+      "ClaimLossDate": {
+        "type": "string",
+        "description": "The date and time when the incident took place.",
+        "format": "date"
+      },
+      "RecordSource": {
+        "type": "string",
+        "description": "Specifies the source application context for the record.",
+        "enum": []
       }
     },
-    "module": "Financial Services Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_claim.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_claim.htm",
     "clouds": [
       "Manufacturing Cloud",
-      "Financial Services Cloud"
+      "Financial Services Cloud",
+      "Automotive Cloud"
     ],
     "keyPrefix": "0Zk",
     "iconUrl": "standard/partner_fund_claim_120.png",
@@ -1162,6 +1181,7 @@
         "relationshipName": "Contexts",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "58.0"
   }
 }

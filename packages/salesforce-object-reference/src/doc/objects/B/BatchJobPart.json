@@ -4,16 +4,16 @@
     "description": "Represents one part of a batch job.",
     "properties": {
       "BatchJobId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the associated batch job.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BatchJob",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "EndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the batch job part was processed.",
         "format": "date-time",
         "nullable": true,
@@ -27,7 +27,7 @@
         "readOnly": true
       },
       "FailedRecordCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of records that the batch job part couldn't process.",
         "nullable": true,
         "readOnly": true
@@ -37,7 +37,7 @@
         "description": "The file containing failed records downloaded as CSV, JSON, or TXT formats during a Data Processing Engine definition’s run by using CRM Analytics (CRMA) or Data Cloud runtime. Available in API version 63.0 and later."
       },
       "InputRecordCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of records that the batch job part must process.",
         "nullable": true,
         "readOnly": true
@@ -50,35 +50,35 @@
         "readOnly": true
       },
       "OutputRecordCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of records the batch job part has processed.",
         "nullable": true,
         "readOnly": true
       },
       "ParentBatchJobPartId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the part batch job part associated with the batch job part.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BatchJobPart",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "RetryCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of times the batch job part is automatically rerun in case it fails.",
         "nullable": true,
         "readOnly": true
       },
       "StartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the batch job part's run was started.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the batch job part.",
         "format": "enum",
         "enum": [
@@ -94,7 +94,7 @@
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of node in case the associated batch job is of the type Calc (Data Processing Engine).",
         "format": "enum",
         "enum": [
@@ -190,10 +190,60 @@
         "maxLength": 3,
         "nullable": false,
         "readOnly": true
+      },
+      "FailedRecFileBody": {
+        "type": "string",
+        "description": "Contains the details of the records that the batch job part failed to process."
+      },
+      "FailedRecFileContentType": {
+        "type": "string",
+        "description": "Shows the type of data that the batch job part failed to process. For example, application/html or text/csv.",
+        "enum": []
+      },
+      "FailedRecFileLength": {
+        "type": "number",
+        "description": "The character length of the failed record file."
+      },
+      "FailedRecFileName": {
+        "type": "string",
+        "description": "The name of the file that contains the details of the failed records."
+      },
+      "FailedRowCount": {
+        "type": "number",
+        "description": "The number of records that were processed but the batch job part failed to write back for a Data Processing Engine definition run. This field is available in API version 66.0 and later."
+      },
+      "InputRowCount": {
+        "type": "number",
+        "description": "The number of records that were submitted to the batch job part for a Data Processing Engine definition run. This field is available in API version 66.0 and later."
+      },
+      "OutputRowCount": {
+        "type": "number",
+        "description": "The number of records that were processed by the batch job part for a Data Processing Engine definition run. This field is available in API version 66.0 and later."
+      },
+      "RecordFileBody": {
+        "type": "string",
+        "description": "Contains the details of the records that the batch job part processed."
+      },
+      "RecordFileContentType": {
+        "type": "string",
+        "description": "Shows the type of data that the batch job part processed. For example, application/html or text/csv.",
+        "enum": []
+      },
+      "RecordFileLength": {
+        "type": "number",
+        "description": "The character length of the file that contains the records that the batch job part processed."
+      },
+      "RecordFileName": {
+        "type": "string",
+        "description": "The name of the file that contains the details of the records that the batch job part processed."
+      },
+      "UserReference": {
+        "type": "string",
+        "description": "The ID of the user who is assigned as the writeback user in the Writeback Object node of the Data Processign Engine definition for which the batch job part has written back results. This field is available in API version 66.0 and later."
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_batchjobpart.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.loyalty.meta/loyalty/sforce_api_objects_batchjobpart.htm",
     "keyPrefix": "0me",
     "createable": false,
     "updateable": false,
@@ -297,6 +347,10 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
+    ],
+    "x-version": "51.0",
+    "clouds": [
+      "Loyalty"
     ]
   }
 }

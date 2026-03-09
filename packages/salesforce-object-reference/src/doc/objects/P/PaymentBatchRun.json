@@ -4,67 +4,79 @@
     "description": "Represents a batch processing job that processes payments in Billing. During a payment batch run, all the payment schedules that meet the specified criteria are processed and the corresponding Payment records are created. These payments are then applied to invoices or invoice lines.",
     "properties": {
       "BillingBatchSchedulerId": {
-        "type": "reference",
-        "description": "Required. The ID of the billing batch scheduler that's used to schedule the payment batch run."
+        "type": "string",
+        "description": "Required. The ID of the billing batch scheduler that's used to schedule the payment batch run.",
+        "format": "reference"
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional details about the payment batch run."
       },
       "CompletionTime": {
-        "type": "dateTime",
-        "description": "The date and time when the payment batch run completed processing payments."
+        "type": "string",
+        "description": "The date and time when the payment batch run completed processing payments.",
+        "format": "date-time"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly."
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
+        "format": "date-time"
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "Required. The ID of the owner of the Payment Batch Run record."
+        "type": "string",
+        "description": "Required. The ID of the owner of the Payment Batch Run record.",
+        "format": "reference"
       },
       "PaymentBatchRunNumber": {
         "type": "string",
         "description": "Required. The auto-generated reference number for the payment batch run."
       },
       "StartTime": {
-        "type": "dateTime",
-        "description": "The date and time when the payment batch run started processing payments."
+        "type": "string",
+        "description": "The date and time when the payment batch run started processing payments.",
+        "format": "date-time"
       },
       "Status": {
-        "type": "picklist",
-        "description": "Required. The status of the payment batch run."
+        "type": "string",
+        "description": "Required. The status of the payment batch run.",
+        "enum": []
       },
       "TotalFailedScheduleItems": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of payment schedules that weren’t processed by the payment batch run. When a payment schedule isn’t processed, the system doesn’t generate a Payment record for it. For details about errors, check the Revenue Transaction Error Log records for the payment batch run."
       },
       "TotalFilteredScheduleItems": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of payment schedule items that meet the payment run scheduler’s matching criteria. The matching criteria identifies the payment schedule items that are included for processing by the payment batch run."
       },
       "TotalProcessedScheduleItems": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of payment schedule items that were processed by the payment batch run."
       },
       "TotalScheduleItemsApplied": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of payment schedule items that were processed and had corresponding payments also applied to invoices or invoice lines."
       },
       "TotalScheduleItemsApplyFailed": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of payment schedule items that were processed but had corresponding payments that weren't applied to invoices or invoice lines."
+      },
+      "IsPaymentRetry": {
+        "type": "boolean",
+        "description": "Indicates whether the payment batch run is for retrying a failed payment (true) or not (false)."
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_paymentbatchrun.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_paymentbatchrun.htm",
     "accessRules": "Revenue Cloud Billing license, and the Payment Admin permission set or the Payment Operations",
     "clouds": [
       "Revenue Lifecycle Management"
-    ]
+    ],
+    "x-version": "64.0"
   }
 }

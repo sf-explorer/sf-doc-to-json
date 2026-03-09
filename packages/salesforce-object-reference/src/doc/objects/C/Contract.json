@@ -4,45 +4,48 @@
     "description": "Represents a contract (a business agreement) associated with an Account.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the Account associated with this contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": false
       },
       "ActivatedById": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the User who activated this contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "ActivatedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date and time when this contract was activated.",
         "format": "date-time",
         "nullable": true
       },
       "": {
-        "type": "",
+        "type": "string",
         "description": ""
       },
       "ActivityMetricId": {
-        "type": "reference",
-        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric."
+        "type": "string",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric.",
+        "format": "reference"
       },
       "ActivityMetricRollupId": {
-        "type": "reference",
-        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup."
+        "type": "string",
+        "description": "When Einstein Activity Capture with Activity Metrics is enabled, the ID of the related activity metric rollup.",
+        "format": "reference"
       },
       "AggregationStrategy": {
-        "type": "picklist",
-        "description": "The aggregation strategy when creating a pricing contract."
+        "type": "string",
+        "description": "The aggregation strategy when creating a pricing contract.",
+        "enum": []
       },
       "BillingAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the billing address. Read-only. See Address Compound Fields for details on compound address fields.",
         "nullable": true,
         "readOnly": true
@@ -60,7 +63,7 @@
         "nullable": true
       },
       "BillingCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code for the contract's billing address.",
         "format": "enum",
         "enum": [
@@ -308,7 +311,7 @@
         "nullable": true
       },
       "BillingGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The accuracy of the geocode for the billing address.",
         "format": "enum",
         "enum": [
@@ -352,7 +355,7 @@
         "nullable": true
       },
       "BillingStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code for the contract's billing address.",
         "format": "enum",
         "enum": [
@@ -473,21 +476,21 @@
         "nullable": true
       },
       "BillingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street address for the billing address.",
         "maxLength": 255,
         "nullable": true
       },
       "CompanySignedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date your organization signed the contract.",
         "format": "date",
         "nullable": true
       },
       "CompanySignedId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user who signed the contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
@@ -500,20 +503,20 @@
         "readOnly": true
       },
       "ContractTerm": {
-        "type": "int",
+        "type": "number",
         "description": "Number of months that the contract is valid.",
         "nullable": true
       },
       "CustomerSignedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date when the customer signed the contract.",
         "format": "date",
         "nullable": true
       },
       "CustomerSignedId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Contact who signed this contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
@@ -525,13 +528,13 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the contract.",
         "maxLength": 32000,
         "nullable": true
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "Read-only. Calculated end date of the contract. This value is calculated by adding the ContractTerm to the StartDate. If the Auto-calculate Contract End Date setting is disabled, the contract end date is editable.",
         "format": "date",
         "nullable": true,
@@ -552,35 +555,35 @@
         "readOnly": true
       },
       "LastActivityDate": {
-        "type": "date",
+        "type": "string",
         "description": "Value is the most recent: The due date of the most recent event is logged against the record. The due date of the most recently closed task associated with the record.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastApprovedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Last date the contract was approved.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate) but didn’t view it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OwnerExpirationNotice": {
-        "type": "picklist",
+        "type": "string",
         "description": "Number of days ahead of the contract end date (15, 30, 45, 60, 90, and 120). Used to notify the owner in advance that the contract is ending.",
         "format": "enum",
         "enum": [
@@ -595,29 +598,30 @@
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user who owns the contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false
       },
       "Pricebook2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the pricebook, if any, associated with this contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Pricebook2",
         "maxLength": 18,
         "nullable": true
       },
       "PricingSource": {
-        "type": "picklist",
-        "description": "Source of the pricing for the contract."
+        "type": "string",
+        "description": "Source of the pricing for the contract.",
+        "enum": []
       },
       "RecordTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record type assigned to this object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "RecordType",
         "maxLength": 18,
         "nullable": true
@@ -627,11 +631,12 @@
         "description": "The default subscription term for renewals. For example, if the Renewal Term Unit is months and you want a 6-month term, set the Renewal Term to 6. Available in API version 60.0 and later."
       },
       "RenewalTermUnit": {
-        "type": "picklist",
-        "description": "The unit of time for a subscription term."
+        "type": "string",
+        "description": "The unit of time for a subscription term.",
+        "enum": []
       },
       "ShippingAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the shipping address. Read-only. See Address Compound Fields for details on compound address fields.",
         "nullable": true,
         "readOnly": true
@@ -649,7 +654,7 @@
         "nullable": true
       },
       "ShippingCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code for the contract's shipping address.",
         "format": "enum",
         "enum": [
@@ -897,7 +902,7 @@
         "nullable": true
       },
       "ShippingGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The accuracy of the geocode for the shipping address.",
         "format": "enum",
         "enum": [
@@ -941,7 +946,7 @@
         "nullable": true
       },
       "ShippingStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code for the contract's shipping address.",
         "format": "enum",
         "enum": [
@@ -1062,29 +1067,30 @@
         "nullable": true
       },
       "ShippingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street address of the shipping address. The maximum size is 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "SourceQuoteId": {
-        "type": "reference",
-        "description": "ID of the source quote associated with this contract. This field is available with Revenue Cloud in API version 64.0 and later."
+        "type": "string",
+        "description": "ID of the source quote associated with this contract. This field is available with Revenue Cloud in API version 64.0 and later.",
+        "format": "reference"
       },
       "SpecialTerms": {
-        "type": "textarea",
+        "type": "string",
         "description": "Special terms that apply to the contract.",
         "maxLength": 4000,
         "nullable": true
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "Start date for this contract. The label is Contract Start Date.",
         "format": "date",
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The picklist of values that indicate order status. Each value is within one of two status categories defined in StatusCode. For example, the status picklist may contain: Ready to Ship, Shipped, Received as values within the Activated StatusCode.",
         "format": "enum",
         "enum": [
@@ -1096,7 +1102,7 @@
         "nullable": false
       },
       "StatusCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status category for the contract. A contract can be Draft, InApproval, or Activated. Label is Status Category.",
         "format": "enum",
         "enum": [
@@ -1111,7 +1117,7 @@
         "readOnly": true
       },
       "UnitPriceUplift": {
-        "type": "percent",
+        "type": "number",
         "description": "Indicates the percentage increase of a line item’s unit price. This field is available with Revenue Cloud in API version 64.0 and later."
       },
       "Id": {
@@ -1184,7 +1190,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contract.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_contract.htm",
     "keyPrefix": "800",
     "iconUrl": "standard/contract_120.png",
     "iconColor": "396547",
@@ -1473,6 +1479,7 @@
     ],
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "60.0"
   }
 }

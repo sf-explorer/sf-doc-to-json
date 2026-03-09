@@ -58,7 +58,7 @@
         "description": "Description of the site."
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "format": "enum",
         "enum": [
           "UnderConstruction",
@@ -235,57 +235,57 @@
         "nullable": false
       },
       "WelcomeEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when sending welcome emails to new members.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": false
       },
       "ChangePasswordEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when notifying users that their password has been reset.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": false
       },
       "ForgotPasswordEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when users forget their password.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": false
       },
       "LockoutEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when users try to reset their password after locking themselves out because of too many login attempts. This field is available in API version 43.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "VerificationEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when users must verify their identity, for example, when they log in without a password. This field is available in API version 44.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "ChgEmailVerOldEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when notifying users that their email address has been changed. This email is sent to the user’s old email address.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "ChgEmailVerNewEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when notifying users that their email address has been changed. This email is sent to the user’s new email address.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
@@ -297,7 +297,7 @@
         "nullable": false
       },
       "EmailSenderAddress": {
-        "type": "email",
+        "type": "string",
         "description": "Read only. Email address from which emails are sent. Note To change the EmailSenderAddress value, you must first specify NewSenderAddress, which triggers the sending of an address change verification email. After you complete the address verification process, EmailSenderAddress changes to the specified NewSenderAddress.",
         "format": "email",
         "maxLength": 80,
@@ -305,16 +305,16 @@
         "readOnly": true
       },
       "NewSenderAddress": {
-        "type": "email",
+        "type": "string",
         "description": "Email address that has been entered as the new value for EmailSenderAddress but hasn’t been verified yet. After a user has requested to change the sender email address and has successfully responded to the verification email, the NewSenderAddress value overwrites the value in EmailSenderAddress. This value becomes the email address from which emails are sent. Note If verification is pending for a new email address and you set NewSenderAddress to null, the verification request is canceled. NewSenderAddress is automatically set to null after EmailSenderAddress has been set to the new verified address. If verification is pending for a new email address, and you specify a different new address for this field, only the latest value is retained and used for verification.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "EmailFooterLogoId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Document object that displays as an image in the footer of Chatter emails.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Document",
         "maxLength": 18,
         "nullable": true
@@ -332,54 +332,57 @@
         "nullable": true
       },
       "CaseCommentEmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the email template used when submitting a comment on a case. This field is available in API version 28.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "SelfRegProfileId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the profile assigned to users who self-register. Only applies if self-registration is enabled for the site.This field is available in API version 29.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Profile",
         "maxLength": 18,
         "nullable": true
       },
       "FirstActivationDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date the site was first activated.This field is available in API version 34.0 and later. If the site was activated or inactive before the release of API version 34.0, this field returns the date that the site was first created.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "MaxFileSizeKb": {
-        "type": "int",
+        "type": "number",
         "nullable": true,
         "description": "Specifies the maximum file size (in KBs) that members can upload in your site. Available in API version 36.0 and later.Enter a number between 3072 KB and your org’s maximum file size. To use the default limit of 2 GB, leave this field empty."
       },
       "AllowedExtensions": {
-        "type": "textarea",
+        "type": "string",
         "maxLength": 1000,
         "nullable": true,
         "description": "Specifies the types of files allowed in your site. This list of file types lets you control what members upload and also prevents spammers from polluting your site with inappropriate files. Available in API version 36.0 and later.Separate file types with a comma (for example: jpg,docx,txt). You can enter lowercase and uppercase letters. You can enter up to 1,000 characters. To allow all file types, leave this field empty."
       },
       "DeviceActEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template used when users log in from an unrecognized browser, app, or IP address. The email contains a one-time password that users enter to verify their identity.This field is available in API version 53.0 and later."
+        "type": "string",
+        "description": "ID of the email template used when users log in from an unrecognized browser, app, or IP address. The email contains a one-time password that users enter to verify their identity.This field is available in API version 53.0 and later.",
+        "format": "reference"
       },
       "enableImageOptimizationCDN": {
         "type": "boolean",
         "description": "The setting that optimizes cached images for guest users on all devices when a site uses Salesforce’s CDN for Digital Experiences.This field is available in API version 56.0 and later."
       },
       "HeadlessForgotPasswordTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template to use with the Headless Forgot Password Flow.This field is available in API version 57.0 and later."
+        "type": "string",
+        "description": "ID of the email template to use with the Headless Forgot Password Flow.This field is available in API version 57.0 and later.",
+        "format": "reference"
       },
       "HeadlessRegistrationTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template to use for identity verification during the Headless Registration Flow.This field is available in API version 59.0 and later."
+        "type": "string",
+        "description": "ID of the email template to use for identity verification during the Headless Registration Flow.This field is available in API version 59.0 and later.",
+        "format": "reference"
       },
       "OptionsApexCDNCachingEnabled": {
         "type": "boolean",
@@ -418,16 +421,18 @@
         "description": "Determines whether topic filtering is enabled for Knowledge search.This field is available in API version 55.0 and later."
       },
       "PwdlessRegEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the email template for the welcome email that users receive when they sign up with passwordless registration. This field is available in API version 61.0 and later."
+        "type": "string",
+        "description": "ID of the email template for the welcome email that users receive when they sign up with passwordless registration. This field is available in API version 61.0 and later.",
+        "format": "reference"
       },
       "SelfRegMicroBatchSubErrorEmailTemplateId": {
-        "type": "reference",
-        "description": "ID of the profile assigned to users who self-register using micro-batchng. Only applies if self-registration using micro-batching is enabled for the site. This field is available in API version 54.0 and later."
+        "type": "string",
+        "description": "ID of the profile assigned to users who self-register using micro-batchng. Only applies if self-registration using micro-batching is enabled for the site. This field is available in API version 54.0 and later.",
+        "format": "reference"
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_network.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_network.htm",
     "keyPrefix": "0DB",
     "label": "Network",
     "createable": false,
@@ -721,7 +726,6 @@
     ],
     "accessRules": "This object is available only when your org has digital experiences enabled.",
     "clouds": [
-      "Core Salesforce",
       "Core Salesforce"
     ]
   }

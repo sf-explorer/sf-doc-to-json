@@ -23,7 +23,7 @@
       },
       "IsPublished": {
         "type": "boolean",
-        "description": "Indicates whether the Solution has been published (true) or not (false). A solution’s published state does not affect how it can be used, or whether you can query, update, or delete it. Label is Public. Note Prior to Spring ‘14, the label was Visible in Self-Service Portal.",
+        "description": "Indicates whether the Solution has been published (true) or not (false). A solution’s published state does not affect how it can be used, or whether you can query, update, or delete it. Label is Public. Prior to Spring ‘14, the label was Visible in Self-Service Portal",
         "nullable": false
       },
       "IsPublishedInPublicKb": {
@@ -38,41 +38,42 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "datetime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "type": "string",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the User who owns the Solution.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false
       },
       "ParentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the master solution, if this is the translation of a master solution.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Solution",
         "maxLength": 18,
         "nullable": true
       },
       "RecordTypeId": {
-        "type": "reference",
-        "description": "ID of the RecordType to which the Solution is associated."
+        "type": "string",
+        "description": "ID of the RecordType to which the Solution is associated.",
+        "format": "reference"
       },
       "SolutionLanguage": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language that the solution is written in, such as French or Chinese (Traditional).",
         "format": "enum",
         "enum": [
@@ -122,8 +123,8 @@
         "nullable": false
       },
       "SolutionNote": {
-        "type": "textarea",
-        "description": "The details of the Solution record. Limit: 32,000 characters. Label is Solution Details. Note If you have HTML Solutions enabled, any HTML tags used in this field are verified before the object is created or updated. If invalid HTML is entered, an error is thrown. Any JavaScript used in this field is removed before the object is created or updated.",
+        "type": "string",
+        "description": "The details of the Solution record. Limit: 32,000 characters. Label is Solution Details. If you have HTML Solutions enabled, any HTML tags used in this field are verified before the object is created or updated. If invalid HTML is entered, an error is thrown. Any JavaScript used in this field is removed before the object is created or updated.",
         "maxLength": 32000,
         "nullable": true
       },
@@ -135,7 +136,7 @@
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The status of the solution. Directly controls the IsReviewed value. To obtain the status values in the picklist, a client application can query the SolutionStatus.",
         "format": "enum",
         "enum": [
@@ -147,7 +148,7 @@
         "nullable": false
       },
       "TimesUsed": {
-        "type": "int",
+        "type": "number",
         "description": "Number of times this solution has been used. Label is Num Related Case.",
         "nullable": false,
         "readOnly": true
@@ -223,7 +224,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_solution.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_solution.htm",
     "keyPrefix": "501",
     "createable": true,
     "updateable": true,

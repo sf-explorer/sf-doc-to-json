@@ -1,91 +1,91 @@
 {
   "ProductRequestLineItem": {
     "name": "ProductRequestLineItem",
-    "description": "Represents a request for a part in field service. Product request line items are components of product requests.",
+    "description": "Represents a product that’s requested as a part of a product request. Product request line items are components of product requests. Each line item is associated with a specific product being requested.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The account associated with the product request line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "CaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "The case associated with the product request line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
-        "description": "Details not recorded in the provided fields.",
+        "type": "string",
+        "description": "The description of the product request line item.",
         "maxLength": 32000,
         "nullable": true
       },
       "DestinationLocationId": {
-        "type": "reference",
-        "description": "Where the product is delivered.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The destination of the product delivery.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "NeedByDate": {
-        "type": "dateTime",
-        "description": "Date the product must be delivered by.",
+        "type": "string",
+        "description": "The date when the product must be delivered by.",
         "format": "date-time",
         "nullable": true
       },
       "ParentId": {
-        "type": "reference",
-        "description": "The product request that the line item belongs to.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product request that’s associated with the product request line item.",
+        "format": "reference",
         "x-object": "ProductRequest",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Product2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "The product associated with the product request line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": false
       },
       "ProductRequestLineItemNumber": {
         "type": "string",
-        "description": "(Read Only) An auto-assigned number that identifies the product request line item.",
+        "description": "An auto-generated number for the product request line item.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "QuantityRequested": {
         "type": "double",
-        "description": "The amount requested.",
+        "description": "The quantity of the requested product.",
         "nullable": false,
         "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
-        "type": "picklist",
-        "description": "Units of the requested product; for example, grams, liters, or units. The picklist values can be customized.",
+        "type": "string",
+        "description": "The units of the requested product; for example, grams, liters, or units. The picklist values can be customized.",
         "format": "enum",
         "enum": [
           "Each"
@@ -94,7 +94,7 @@
         "nullable": true
       },
       "ShipToAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The physical address where the product is needed.",
         "nullable": true,
         "readOnly": true
@@ -112,8 +112,8 @@
         "nullable": true
       },
       "ShipToGeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the product is needed. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "type": "string",
+        "description": "Accuracy level of the geocode for the address where the product is needed.",
         "format": "enum",
         "enum": [
           "Address",
@@ -133,13 +133,13 @@
       },
       "ShipToLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShipToLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the product is needed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -156,13 +156,13 @@
         "nullable": true
       },
       "ShipToStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street of the address where the product is needed.",
         "maxLength": 255,
         "nullable": true
       },
       "ShipmentType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of shipment. The picklist includes the following values, which can be customized: Rush Overnight Next Business Day Pick Up",
         "format": "enum",
         "maxLength": 40,
@@ -175,15 +175,15 @@
         ]
       },
       "SourceLocationId": {
-        "type": "reference",
+        "type": "string",
         "description": "Where the product is at the time of the request.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the shipment. The picklist includes the following values, which can be customized: Draft Submitted Received",
         "format": "enum",
         "maxLength": 40,
@@ -195,17 +195,17 @@
         ]
       },
       "WorkOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The work order for which the product is needed.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": true
       },
       "WorkOrderLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The work order line item for which the product is needed.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
@@ -271,8 +271,8 @@
         "readOnly": true
       },
       "CareProgramEnrolleeId": {
-        "type": "reference",
-        "format": "salesforce-id",
+        "type": "string",
+        "format": "reference",
         "x-object": "CareProgramEnrollee",
         "maxLength": 18,
         "nullable": true,
@@ -659,8 +659,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productrequestlineitem.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productrequestlineitem.htm",
     "keyPrefix": "0Tw",
     "createable": true,
     "updateable": true,
@@ -894,7 +894,9 @@
     "accessRules": "Field Service must be enabled. You can't use product request line item as a master in an master detail relationship (through a custom field) with a custom object with data.",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Field Service Lightning"
+    ],
+    "x-version": "60.0"
   }
 }

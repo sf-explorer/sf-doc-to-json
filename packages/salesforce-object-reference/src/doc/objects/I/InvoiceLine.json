@@ -4,14 +4,14 @@
     "description": "Represents the amount that a buyer must pay for a product, service, or fee. Invoice lines are created based on the amount of an order line.",
     "properties": {
       "AdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of adjustments made to the invoice line.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "AdjustmentAmountWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of adjustment amounts, including associated taxes related to the invoice line.",
         "format": "currency",
         "nullable": true,
@@ -19,7 +19,7 @@
         "multipleOf": 0.01
       },
       "AdjustmentTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of tax adjustments to the invoice line.",
         "format": "currency",
         "nullable": true,
@@ -27,30 +27,34 @@
         "multipleOf": 0.01
       },
       "Balance": {
-        "type": "currency",
-        "description": "The outstanding balance for an invoice line. This amount is equal to the invoice’s total amount with tax after deducting the payments made."
+        "type": "number",
+        "description": "The outstanding balance for an invoice line. This amount is equal to the invoice’s total amount with tax after deducting the payments made.",
+        "format": "currency"
       },
       "BillingAddressId": {
-        "type": "reference",
-        "description": "This field is related to an InvoiceAddressGroup field containing the billing address for the invoice line. For example, one InvoiceAddressGroup field is related to the invoiceLine's BillingAddressID field, and another InvoiceAddressGroup field is related to the invoiceLine's ShippingAddressId field."
+        "type": "string",
+        "description": "This field is related to an InvoiceAddressGroup field containing the billing address for the invoice line. For example, one InvoiceAddressGroup field is related to the invoiceLine's BillingAddressID field, and another InvoiceAddressGroup field is related to the invoiceLine's ShippingAddressId field.",
+        "format": "reference"
       },
       "BillingScheduleGroupId": {
-        "type": "reference",
-        "description": "The ID of the billing schedule group for the invoice line."
+        "type": "string",
+        "description": "The ID of the billing schedule group for the invoice line.",
+        "format": "reference"
       },
       "BillingScheduleId": {
-        "type": "reference",
-        "description": "The ID of the billing schedule for the invoice line. Edit access is enabled for this field. You must not modify this field when the invoice line is related to a posted invoice."
+        "type": "string",
+        "description": "The ID of the billing schedule for the invoice line. Edit access is enabled for this field. You must not modify this field when the invoice line is related to a posted invoice.",
+        "format": "reference"
       },
       "ChargeAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of charges made to the invoice line.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "ChargeAmountWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount on a charge invoice line, including tax.",
         "format": "currency",
         "nullable": true,
@@ -58,11 +62,12 @@
         "multipleOf": 0.01
       },
       "ChargeConvertedNegAmount": {
-        "type": "currency",
-        "description": "The amount on a charge invoice line that’s converted to credit."
+        "type": "number",
+        "description": "The amount on a charge invoice line that’s converted to credit.",
+        "format": "currency"
       },
       "ChargeTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The tax to be applied on a charge invoice line.",
         "format": "currency",
         "nullable": true,
@@ -70,8 +75,9 @@
         "multipleOf": 0.01
       },
       "ConvertedNegAmount": {
-        "type": "currency",
-        "description": "The amount from an invoice line that’s converted to credit."
+        "type": "number",
+        "description": "The amount from an invoice line that’s converted to credit.",
+        "format": "currency"
       },
       "CorpCurrencyCnvChargeAmt": {
         "type": "double",
@@ -82,8 +88,9 @@
         "description": "The total tax amount of the invoice line in corporate currency. Available in API version 63.0 and later."
       },
       "CorporateCurrencyCvsnDate": {
-        "type": "date",
-        "description": "The date on which the invoice line amounts are converted to corporate currency. Available in API version 63.0 and later."
+        "type": "string",
+        "description": "The date on which the invoice line amounts are converted to corporate currency. Available in API version 63.0 and later.",
+        "format": "date"
       },
       "CorporateCurrencyCvsnRate": {
         "type": "double",
@@ -100,9 +107,9 @@
         "nullable": true
       },
       "GroupReferenceEntityItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the record that the invoice line corresponds to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "OrderItem",
           "OrderItemAdjustmentLineItem",
@@ -118,22 +125,22 @@
         "description": "Required. Indicates whether this field merges items from the same billing period (true) or not (false)."
       },
       "InvoiceId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. The ID of the invoice record that contains this invoice line.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Invoice",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "InvoiceLineEndDate": {
-        "type": "date",
+        "type": "string",
         "description": "Required. The end date of the billing for the service for invoice lines made from a time-based service.",
         "format": "date",
         "nullable": false
       },
       "InvoiceLineStartDate": {
-        "type": "date",
+        "type": "string",
         "description": "Required. The first date of the billing for the service for invoice lines made from a time-based service.",
         "format": "date",
         "nullable": false
@@ -150,15 +157,17 @@
         "description": "Required. Indicates whether the product is usage-based (true) or not (false)."
       },
       "LegalEntityAccountingPeriodId": {
-        "type": "reference",
-        "description": "The ID of the legal entity accounting period record used in this invoice line."
+        "type": "string",
+        "description": "The ID of the legal entity accounting period record used in this invoice line.",
+        "format": "reference"
       },
       "LegalEntityId": {
-        "type": "reference",
-        "description": "The ID of the legal entity record used in this invoice line."
+        "type": "string",
+        "description": "The ID of the legal entity record used in this invoice line.",
+        "format": "reference"
       },
       "LineAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount of the invoice line.",
         "format": "currency",
         "nullable": true,
@@ -172,25 +181,28 @@
         "nullable": false
       },
       "NetCreditsApplied": {
-        "type": "currency",
-        "description": "The total credit memo line amount applied to the invoice line. This amount is calculated by subtracting the unapplied credit memo line amount from the applied credit memo line amount."
+        "type": "number",
+        "description": "The total credit memo line amount applied to the invoice line. This amount is calculated by subtracting the unapplied credit memo line amount from the applied credit memo line amount.",
+        "format": "currency"
       },
       "NetPaymentsApplied": {
-        "type": "currency",
-        "description": "The total payment amount that’s applied to the invoice line after unapplication of payments. This amount is calculated by subtracting the unapplied payment line invoice line amount from the applied payment line invoice line amount. Available in API version 61.0 and later."
+        "type": "number",
+        "description": "The total payment amount that’s applied to the invoice line after unapplication of payments. This amount is calculated by subtracting the unapplied payment line invoice line amount from the applied payment line invoice line amount. Available in API version 61.0 and later.",
+        "format": "currency"
       },
       "OverageUnitOfMeasure": {
         "type": "string",
         "description": "The unit that’s used to measure the overage. For example, byte or minute. This field is available in API version 63.0 and later with Revenue Cloud Billing license."
       },
       "ParentInvoiceLineId": {
-        "type": "reference",
-        "description": "The ID of the parent invoice line record."
+        "type": "string",
+        "description": "The ID of the parent invoice line record.",
+        "format": "reference"
       },
       "Product2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the product that was charged or ordered to create the invoice line.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true
@@ -202,9 +214,9 @@
         "multipleOf": 0.01
       },
       "ReferenceEntityItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The order item or adjustment item that created the invoice line.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "OrderItem",
           "OrderItemAdjustmentLineItem",
@@ -216,7 +228,7 @@
         "x-object": "OrderItem"
       },
       "ReferenceEntityItemType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of transaction that created the invoice line.",
         "format": "enum",
         "enum": [
@@ -228,7 +240,7 @@
         "nullable": true
       },
       "ReferenceEntityItemTypeCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of object that created the invoice line.",
         "format": "enum",
         "enum": [
@@ -239,30 +251,34 @@
         "nullable": true
       },
       "ShipFromAddressId": {
-        "type": "reference",
-        "description": "The shipping origin of the invoiced product. Available in API version 64.0 and later."
+        "type": "string",
+        "description": "The shipping origin of the invoiced product. Available in API version 64.0 and later.",
+        "format": "reference"
       },
       "ShippingAddressId": {
-        "type": "reference",
-        "description": "The ID of the shipping address record associated with the invoice line."
+        "type": "string",
+        "description": "The ID of the shipping address record associated with the invoice line.",
+        "format": "reference"
       },
       "TaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The total tax for the invoice line.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TaxProcessingStatus": {
-        "type": "picklist",
-        "description": "The status of the tax processing of the invoice line."
+        "type": "string",
+        "description": "The status of the tax processing of the invoice line.",
+        "enum": []
       },
       "TaxTreatmentId": {
-        "type": "reference",
-        "description": "The tax treatment used on this invoice line."
+        "type": "string",
+        "description": "The tax treatment used on this invoice line.",
+        "format": "reference"
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of the invoice line.",
         "format": "enum",
         "enum": [
@@ -275,11 +291,12 @@
         "readOnly": true
       },
       "UnitOfMeasureId": {
-        "type": "reference",
-        "description": "The unit of measure of the product associated with the invoice line. Available in API version 63.0 and later."
+        "type": "string",
+        "description": "The unit of measure of the product associated with the invoice line. Available in API version 63.0 and later.",
+        "format": "reference"
       },
       "UnitPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "The price for one unit of the item on the invoice line.",
         "format": "currency",
         "nullable": true,
@@ -290,12 +307,14 @@
         "description": "The quantity of the usage overage that’s being invoiced. This field is available in API version 63.0 and later with Revenue Cloud Billing license."
       },
       "UsageProductBillSchdGrpId": {
-        "type": "reference",
-        "description": "The ID of the usage-based product billing schedule group associated with the invoice line. This field is available in API version 63.0 and later with Revenue Cloud Billing license."
+        "type": "string",
+        "description": "The ID of the usage-based product billing schedule group associated with the invoice line. This field is available in API version 63.0 and later with Revenue Cloud Billing license.",
+        "format": "reference"
       },
       "UsageProductId": {
-        "type": "reference",
-        "description": "The ID of the usage-based product that was charged or ordered to create the invoice line. This field is available in API version 63.0 and later with Revenue Cloud Billing license."
+        "type": "string",
+        "description": "The ID of the usage-based product that was charged or ordered to create the invoice line. This field is available in API version 63.0 and later with Revenue Cloud Billing license.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -356,9 +375,9 @@
         "readOnly": true
       },
       "RelatedLineId": {
-        "type": "reference",
+        "type": "string",
         "description": "The original invoice line that was adjusted or taxed.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InvoiceLine",
         "maxLength": 18,
         "nullable": true
@@ -376,14 +395,14 @@
         "description": "The code used to calculate tax rate for the invoice line."
       },
       "TaxRate": {
-        "type": "percent",
+        "type": "number",
         "format": "percent",
         "nullable": true,
         "description": "Percentage value used for calculating tax.",
         "multipleOf": 0.01
       },
       "TaxEffectiveDate": {
-        "type": "date",
+        "type": "string",
         "format": "date",
         "nullable": true,
         "description": "The date used to calculate the invoice line’s TaxAmount."
@@ -411,10 +430,31 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "FuncCrcyCnvTotalTaxAmt": {
+        "type": "double",
+        "description": "The total tax amount value in functional currency. Available in API version 66.0 and later."
+      },
+      "FuncCurrencyCnvChargeAmt": {
+        "type": "double",
+        "description": "The charge amount value in functional currency. Available in API version 66.0 and later."
+      },
+      "FunctionalCurrencyCvsnDate": {
+        "type": "string",
+        "description": "The date on which the invoice line amount values are converted into functional currency. Available in API version 66.0 and later.",
+        "format": "date"
+      },
+      "FunctionalCurrencyCvsnRate": {
+        "type": "double",
+        "description": "The exchange rate that's used to convert the invoice line amount values into functional currency. Available in API version 66.0 and later."
+      },
+      "FunctionalCurrencyIsoCode": {
+        "type": "string",
+        "description": "The ISO code of the functional currency. Available in API version 66.0 and later."
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_invoiceline.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_invoiceline.htm",
     "keyPrefix": "5TV",
     "createable": false,
     "updateable": true,
@@ -595,6 +635,7 @@
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "62.0"
   }
 }

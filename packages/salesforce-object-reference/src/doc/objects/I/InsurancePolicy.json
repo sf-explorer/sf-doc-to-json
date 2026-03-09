@@ -1,14 +1,15 @@
 {
   "InsurancePolicy": {
     "name": "InsurancePolicy",
-    "description": "Represents a type of insurance policy. Available with the Provider Network Management permission set license.",
+    "description": "Represents the type of insurance policy, such as auto, home, life, or annuity.",
     "properties": {
       "ActualRenewalDate": {
-        "type": "date",
-        "description": "The actual renewal date of the policy."
+        "type": "string",
+        "description": "The actual renewal date of the policy.",
+        "format": "date"
       },
       "AuditTerm": {
-        "type": "picklist",
+        "type": "string",
         "description": "The frequency of the audit. For example, monthly, semi-monthly, quarterly, semi-annually, or annually.",
         "format": "enum",
         "enum": [
@@ -22,27 +23,29 @@
         "nullable": true
       },
       "BillingCarrierAccountId": {
-        "type": "reference",
-        "description": "The name of the Billing Carrier Account associated with the Insurance Policy. When the company that sells the policy also writes the policy, then the billing carrier is the same as the writing carrier."
+        "type": "string",
+        "description": "The name of the Billing Carrier Account associated with the Insurance Policy. When the company that sells the policy also writes the policy, then the billing carrier is the same as the writing carrier.",
+        "format": "reference"
       },
       "BillingType": {
-        "type": "picklist",
-        "description": "Specifies the type of biling for the policy."
+        "type": "string",
+        "description": "Specifies the type of biling for the policy.",
+        "enum": []
       },
       "CancellationDate": {
-        "type": "dateTime",
-        "description": "The date on which the insurance policy was canceled.",
+        "type": "string",
+        "description": "The date the insurance policy was canceled.",
         "format": "date-time",
         "nullable": true
       },
       "CancellationReason": {
-        "type": "textarea",
+        "type": "string",
         "description": "The reason for canceling the insurance policy.",
         "maxLength": 32000,
         "nullable": true
       },
       "CancellationReasonType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The category that the cancellation reason belongs to.",
         "format": "enum",
         "enum": [
@@ -68,14 +71,14 @@
         "nullable": true
       },
       "CashSurrenderValue": {
-        "type": "currency",
+        "type": "number",
         "description": "The cash surrender value of the insurance policy.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "ChangeSubtype": {
-        "type": "picklist",
+        "type": "string",
         "description": "A further categorization of the change type. For example, childbirth, marriage.",
         "format": "enum",
         "enum": [
@@ -86,8 +89,8 @@
         "nullable": true
       },
       "ChangeType": {
-        "type": "picklist",
-        "description": "The type of the change in the policy. For example, life event, house renovation.",
+        "type": "string",
+        "description": "The type of the change in the policy. For example: life event, house renovation.",
         "format": "enum",
         "enum": [
           "Life-Event",
@@ -97,19 +100,21 @@
         "nullable": true
       },
       "CommissionFrequency": {
-        "type": "picklist",
-        "description": "The frequency of receiving commission from the carrier."
+        "type": "string",
+        "description": "The frequency of receiving commission from the carrier.",
+        "enum": []
       },
       "CommissionPercent": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of policy premium to be earned as commission by the brokerage firm."
       },
       "CurrentDueAmount": {
-        "type": "currency",
-        "description": "The current due amount for the policy."
+        "type": "number",
+        "description": "The current due amount for the policy.",
+        "format": "currency"
       },
       "DateRenewed": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the policy was last renewed.",
         "format": "date-time",
         "nullable": true
@@ -120,49 +125,55 @@
         "nullable": true
       },
       "EffectiveDate": {
-        "type": "dateTime",
-        "description": "The date from which the policy is in effect.",
+        "type": "string",
+        "description": "The date the policy is in effect.",
         "format": "date-time",
         "nullable": true
       },
       "EffectiveFromDate": {
-        "type": "date",
-        "description": "The date when the policy becomes effective."
+        "type": "string",
+        "description": "The date when the policy becomes effective.",
+        "format": "date"
       },
       "EffectiveToDate": {
-        "type": "date",
-        "description": "The date until when the policy remains effective."
+        "type": "string",
+        "description": "The date until when the policy remains effective.",
+        "format": "date"
       },
       "ExpectedRevenueAmount": {
-        "type": "currency",
-        "description": "The revenue amount that the brokerage firm is expected to earn from the policy."
+        "type": "number",
+        "description": "The revenue amount that the brokerage firm is expected to earn from the policy.",
+        "format": "currency"
       },
       "EmployeeContribution": {
-        "type": "currency",
-        "description": "The employee's contribution towards the insurance premium value."
+        "type": "number",
+        "description": "The employee's contribution towards the insurance premium value.",
+        "format": "currency"
       },
       "EmployerContribution": {
-        "type": "currency",
-        "description": "The employer's contribution towards the insurance premium value."
+        "type": "number",
+        "description": "The employer's contribution towards the insurance premium value.",
+        "format": "currency"
       },
       "ExpirationDate": {
-        "type": "dateTime",
-        "description": "The date on which the policy expires.",
+        "type": "string",
+        "description": "The date the policy expires.",
         "format": "date-time",
         "nullable": true
       },
       "FinalRenewalDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The final date on which the policyholder can renew the insurance policy.",
         "format": "date-time",
         "nullable": true
       },
       "FundingType": {
-        "type": "picklist",
-        "description": "Specifies how the policy is being funded."
+        "type": "string",
+        "description": "Specifies how the policy is being funded.",
+        "enum": []
       },
       "GrossWrittenPremium": {
-        "type": "currency",
+        "type": "number",
         "description": "The total expected premium amount for the insurance policy over the policy period.",
         "format": "currency",
         "nullable": true,
@@ -170,22 +181,23 @@
       },
       "HasAnyAutoCoverage": {
         "type": "boolean",
-        "description": "Indicates whether the insurance policy has an Any Auto coverage, which extends the coverage to hired and other non-owned vehicles.",
+        "description": "Indicates whether the insurance policy has an Any Auto coverage, which extends the coverage to hired and other non-owned vehicles. The default value is False.",
         "nullable": false
       },
       "IntermediaryAccountId": {
-        "type": "reference",
-        "description": "The Intermediary Account associated with the Insurance Policy."
+        "type": "string",
+        "description": "The Intermediary Account associated with the Insurance Policy.",
+        "format": "reference"
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the policy is active.",
+        "description": "Indicates whether the policy is active. The default value is False.Creating or updating an InsurancePolicy sets IsActive automatically based on the Status field value. For example, you can set IsActive to False by setting Status to Inactive.",
         "nullable": false,
         "readOnly": true
       },
       "IsLoanEligibile": {
         "type": "boolean",
-        "description": "Indicates whether a loan can be requested against the insurance policy.",
+        "description": "Indicates whether a loan can be requested against the insurance policy. The default value is False.",
         "nullable": false
       },
       "IsPolicyEditLocked": {
@@ -194,69 +206,76 @@
       },
       "IsRenewedPolicy": {
         "type": "boolean",
-        "description": "Indicates whether the policy is a renewed policy.",
+        "description": "Indicates whether the policy is a renewed policy. The default value is False.",
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LineOfBusiness": {
-        "type": "picklist",
-        "description": "The line of business associated with the policy."
+        "type": "string",
+        "description": "The line of business associated with the policy.",
+        "enum": []
       },
       "LineOfCoverage": {
-        "type": "picklist",
-        "description": "The coverage type of the policy."
+        "type": "string",
+        "description": "The coverage type of the policy.",
+        "enum": []
       },
       "Name": {
         "type": "string",
-        "description": "The insurance policy number. Label is Policy Number.",
+        "description": "The insurance policy number.",
         "maxLength": 255,
         "nullable": false
       },
       "NameInsuredId": {
-        "type": "reference",
+        "type": "string",
         "description": "The name of the primary insured.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": false
       },
       "OriginalEffectiveDate": {
-        "type": "dateTime",
-        "description": "The date on which the original policy went into effect. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The date the original policy went into effect. This field is available from API version 51.0 and later.",
+        "format": "date-time"
       },
       "OriginalEffectiveFromDate": {
-        "type": "date",
-        "description": "The date when the original policy became effective."
+        "type": "string",
+        "description": "The date when the original policy became effective.",
+        "format": "date"
       },
       "OriginalEffectiveToDate": {
-        "type": "date",
-        "description": "The date until when the original policy remains effective."
+        "type": "string",
+        "description": "The date until when the original policy remains effective.",
+        "format": "date"
       },
       "OriginalExpirationDate": {
-        "type": "dateTime",
-        "description": "Expiration date of the original policy. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "Expiration date of the original policy. This field is available from API version 51.0 and later.",
+        "format": "date-time"
       },
       "OriginalPolicyId": {
-        "type": "reference",
-        "description": "The ID of the original insurance policy. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The ID of the original insurance policy. This field is available from API version 51.0 and later.",
+        "format": "reference"
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -265,33 +284,36 @@
         "nullable": false
       },
       "PaidToDate": {
-        "type": "date",
-        "description": "The date up to which the policy is paid for. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The date up to which the policy is paid for. This field is available from API version 51.0 and later.",
+        "format": "date"
       },
       "ParentPolicyId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the parent policy that covers this policy. For example, a parent policy can cover an auto policy and home policy.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InsurancePolicy",
         "maxLength": 18,
         "nullable": true
       },
       "PastDueAmount": {
-        "type": "currency",
-        "description": "The amount past due for the policy."
+        "type": "number",
+        "description": "The amount past due for the policy.",
+        "format": "currency"
       },
       "PaymentDueDate": {
-        "type": "dateTime",
-        "description": "The date on which the next payment of the premium is due.",
+        "type": "string",
+        "description": "The due date for the next payment of the premium.",
         "format": "date-time",
         "nullable": true
       },
       "PlannedRenewalDate": {
-        "type": "date",
-        "description": "The expected renewal date of the policy."
+        "type": "string",
+        "description": "The expected renewal date of the policy.",
+        "format": "date"
       },
       "PlanTier": {
-        "type": "picklist",
+        "type": "string",
         "description": "The class that the insurance policy belongs to. For example, silver, gold, or platinum.",
         "format": "enum",
         "enum": [
@@ -303,7 +325,7 @@
         "nullable": true
       },
       "PlanType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of the insurance policy plan. For example, single life, joint last-to-die, or joint first-to-die (primarily applicable for term insurance).",
         "format": "enum",
         "enum": [
@@ -328,7 +350,7 @@
         "description": "The code that's unique for the policy across all versions."
       },
       "PolicyDescription": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the insurance policy.",
         "maxLength": 32000,
         "nullable": true
@@ -340,11 +362,12 @@
         "nullable": true
       },
       "PolicyTerm": {
-        "type": "picklist",
-        "description": "The time period for which the policy provides coverage. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The time period for which the policy provides coverage. This field is available from API version 51.0 and later.",
+        "enum": []
       },
       "PolicyType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of the insurance policy. For example, home, auto, annuity, or life.",
         "format": "enum",
         "enum": [
@@ -365,18 +388,19 @@
         "nullable": true
       },
       "PremiumAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The premium paid by the policy owner for the current billing period.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "PremiumCalculationMethod": {
-        "type": "picklist",
-        "description": "The premium calculation method for a payment period. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The premium calculation method for a payment period. This field is available from API version 51.0 and later.",
+        "enum": []
       },
       "PremiumFrequency": {
-        "type": "picklist",
+        "type": "string",
         "description": "The frequency of the premium payment or billing. For example, monthly, semi-monthly, quarterly, semi-annually, or annually.",
         "format": "enum",
         "enum": [
@@ -390,57 +414,59 @@
         "nullable": true
       },
       "PremiumPaymentType": {
-        "type": "picklist",
-        "description": "The type of premium payment, such as Advance or Arrears. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The type of premium payment, such as Advance or Arrears. This field is available from API version 51.0 and later.",
+        "enum": []
       },
       "PreviousPremium": {
-        "type": "currency",
+        "type": "number",
         "description": "The premium of the policy before it was renewed.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "PreviousRenewalDate": {
-        "type": "dateTime",
-        "description": "The date on which the insurance policy was renewed in the last renewal cycle.",
+        "type": "string",
+        "description": "The most recent renewal date for the insurance policy.",
         "format": "date-time",
         "nullable": true
       },
       "PriorPolicyId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the insurance policy before it was renewed.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InsurancePolicy",
         "maxLength": 18,
         "nullable": true
       },
       "ProducerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the agency or the agent who sold the policy.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Producer",
         "maxLength": 18,
         "nullable": true
       },
       "ProductId": {
-        "type": "reference",
+        "type": "string",
         "description": "The product that this policy belongs to. For example, if the customer buys a silver auto policy, this field looks up to the silver auto product in the Product object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true
       },
       "RatingDate": {
-        "type": "date",
-        "description": "The date to determine the rating details on a mid-term adjustment, endorsement, or out-of-sequence endorsement to a policy."
+        "type": "string",
+        "description": "The date to determine the rating details on a mid-term adjustment, endorsement, or out-of-sequence endorsement to a policy.",
+        "format": "date"
       },
       "ReferencePolicyNumber": {
         "type": "string",
         "description": "The reference number of the insurance policy that is renewed when the policy term tracking is continued across multiple policy versions. For example, if a limit is a \"Lifetime Limit\", then the policy term tracking is tracked across all versions of the policy."
       },
       "RenewalChannel": {
-        "type": "picklist",
-        "description": "The channel through which the insurance policy was renewed.",
+        "type": "string",
+        "description": "The channel used to renew the insurance policy.",
         "format": "enum",
         "enum": [
           "Web",
@@ -452,27 +478,27 @@
         "nullable": true
       },
       "RenewalDate": {
-        "type": "dateTime",
-        "description": "The date on which the policy is expected to be renewed. The actual renewal date may be different.",
+        "type": "string",
+        "description": "The next expected policy renewal date. The actual renewal date may be different.",
         "format": "date-time",
         "nullable": true
       },
       "SaleDate": {
-        "type": "dateTime",
-        "description": "The date on which the policy was sold.",
+        "type": "string",
+        "description": "The date the policy was sold.",
         "format": "date-time",
         "nullable": true
       },
       "ServicingOffice": {
-        "type": "address",
+        "type": "string",
         "description": "The address of the office that issued the policy and that services the policy.",
         "nullable": true,
         "readOnly": true
       },
       "SourceOpportunityId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the opportunity from which the policy was created.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Opportunity",
         "maxLength": 18,
         "nullable": true
@@ -485,24 +511,27 @@
       },
       "SourceSystemIdentifier": {
         "type": "string",
-        "description": "The unique ID of this record in the source system.",
+        "description": "The ID of this record in the source system.",
         "maxLength": 255,
         "nullable": true
       },
       "StandardFeeAmount": {
-        "type": "currency",
-        "description": "The expected fee for the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected fee for the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "StandardPremiumAmount": {
-        "type": "currency",
-        "description": "The expected premium for the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected premium for the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "StandardTaxAmount": {
-        "type": "currency",
-        "description": "The expected tax on the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected tax on the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the insurance policy.",
         "format": "enum",
         "enum": [
@@ -535,7 +564,7 @@
         "nullable": true
       },
       "Substatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "The carrier system's substatus code for the insurance policy.",
         "format": "enum",
         "enum": [
@@ -549,48 +578,56 @@
         "nullable": true
       },
       "TaxesSurcharges": {
-        "type": "currency",
+        "type": "number",
         "description": "The taxes and surcharges levied on the premium for the insurance policy.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TermFeeAmount": {
-        "type": "currency",
-        "description": "The expected fee for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected fee for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TermPremiumAmount": {
-        "type": "currency",
-        "description": "The expected premium for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected premium for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TermTaxAmount": {
-        "type": "currency",
-        "description": "The expected tax on the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected tax on the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TotalStandardAmount": {
-        "type": "currency",
-        "description": "The sum of the expected premium, fee, and tax for the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The sum of the expected premium, fee, and tax for the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TotalSumInsured": {
-        "type": "currency",
-        "description": "The total insured amount. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The total insured amount. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TotalTermFeeAmount": {
-        "type": "currency",
-        "description": "The current total term fees of all policy versions."
+        "type": "number",
+        "description": "The current total term fees of all policy versions.",
+        "format": "currency"
       },
       "TotalTermPremiumAmount": {
-        "type": "currency",
-        "description": "The current total term premium of all policy versions."
+        "type": "number",
+        "description": "The current total term premium of all policy versions.",
+        "format": "currency"
       },
       "TotalTermTaxAmount": {
-        "type": "currency",
-        "description": "The current total term taxes of all policy versions."
+        "type": "number",
+        "description": "The current total term taxes of all policy versions.",
+        "format": "currency"
       },
       "UnderwritingEntityId": {
-        "type": "reference",
+        "type": "string",
         "description": "Legal entity that underwrote the insurance policy.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "LegalEntity",
         "maxLength": 18,
         "nullable": true
@@ -602,11 +639,12 @@
         "nullable": true
       },
       "WritingCarrierAccountId": {
-        "type": "reference",
-        "description": "The Writing Carrier Account associated with the Insurance Policy."
+        "type": "string",
+        "description": "The Writing Carrier Account associated with the Insurance Policy.",
+        "format": "reference"
       },
       "FnolChannel": {
-        "type": "picklist",
+        "type": "string",
         "description": "The channel through which the loss for the claim associated with this policy was reported. This field is deprecated in API version 48.0 and will be removed in API version 52 (the Summer ’21 release).",
         "format": "enum",
         "enum": [
@@ -619,16 +657,17 @@
         "nullable": true
       },
       "SourceQuoteId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the quote from which the policy was created.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Quote",
         "maxLength": 18,
         "nullable": true
       },
       "TotalCommissionAmount": {
-        "type": "currency",
-        "description": "The total commission amount for the policy."
+        "type": "number",
+        "description": "The total commission amount for the policy.",
+        "format": "currency"
       },
       "Id": {
         "type": "string",
@@ -1141,10 +1180,28 @@
         ],
         "maxLength": 40,
         "nullable": true
+      },
+      "RecordSource": {
+        "type": "string",
+        "description": "Specifies the source application context for the record.",
+        "enum": []
+      },
+      "AttributesSelectedValues__c": {
+        "type": "string",
+        "description": "Values of root product attributes set at the InsurancePolicy level."
+      },
+      "ContractLineItemId__c": {
+        "type": "string",
+        "description": "The ID of a line item in the contract for the policy.",
+        "format": "reference"
+      },
+      "ProductCode__c": {
+        "type": "string",
+        "description": "The code of the product that this policy belongs to."
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_insurancepolicy.htm",
+    "module": "Financial Services Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_insurancepolicy.htm",
     "clouds": [
       "Financial Services Cloud",
       "Health Cloud"
@@ -1440,6 +1497,7 @@
         "relationshipName": "WorkerCompCoverageClasses",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "66.0"
   }
 }

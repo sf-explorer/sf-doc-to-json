@@ -4,7 +4,7 @@
     "description": "This object is read-only and links a ForecastingItem with its opportunities, such as opportunities that share the same owner or forecast category and have a closing date within the period of the forecasting item.",
     "properties": {
       "ForecastCategoryName": {
-        "type": "picklist",
+        "type": "string",
         "description": "A forecast category is the category within the sales cycle to which an opportunity is assigned based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted (not included in forecasts), and Closed. Salesforce admins can customize the forecast category names.",
         "format": "enum",
         "enum": [
@@ -19,9 +19,9 @@
         "readOnly": true
       },
       "ForecastedObjectId": {
-        "type": "reference",
+        "type": "string",
         "description": "Contains the Split ID of the forecasted OpportunitySplit object if the forecast data source is opportunity splits or the OpportunityLineItem ID of the forecasted opportunity if the data source is product families. If the data source is product families and the opportunity has no line item, this field is null. If the forecast data source is opportunities, this field is null. This field is available in API version 29 and later. Read-only.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OpportunityLineItem",
         "maxLength": 18,
         "nullable": true,
@@ -32,49 +32,50 @@
         ]
       },
       "ForecastedSubObjectId": {
-        "type": "reference",
-        "description": "Possible values: If the forecast data source is OpportunityLineItemSplit, and the opportunity has line items and line item splits, then this field contains the ID of the forecasted OpportunityLineItemSplit object. If the forecast data source is OpportunityLineItemSplit, and the opportunity has line items but no line item splits, this field contains the ID of the forecasted OpportunitySplit object. If the forecast data source is OpportunityLineItemSchedule, this field contains the OpportunityLineItemSchedule ID of the forecasted opportunity. If the forecast data source is OpportunityLineItemSplit and the opportunity has no line item, this field is null. If the forecast data source is OpportunityLineItemSchedule and the opportunity has no line item, this field is null."
+        "type": "string",
+        "description": "Possible values: If the forecast data source is OpportunityLineItemSplit, and the opportunity has line items and line item splits, then this field contains the ID of the forecasted OpportunityLineItemSplit object. If the forecast data source is OpportunityLineItemSplit, and the opportunity has line items but no line item splits, this field contains the ID of the forecasted OpportunitySplit object. If the forecast data source is OpportunityLineItemSchedule, this field contains the OpportunityLineItemSchedule ID of the forecasted opportunity. If the forecast data source is OpportunityLineItemSplit and the opportunity has no line item, this field is null. If the forecast data source is OpportunityLineItemSchedule and the opportunity has no line item, this field is null.",
+        "format": "reference"
       },
       "ForecastingItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the ForecastingItem.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ForecastingItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ForecastingTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the related ForecastingType.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ForecastingType",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "OpportunityId": {
-        "type": "reference",
+        "type": "string",
         "description": "The opportunity ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Opportunity",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the opportunity owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "PeriodId": {
-        "type": "reference",
+        "type": "string",
         "description": "Period ID for the forecast.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Period",
         "maxLength": 18,
         "nullable": true,
@@ -85,9 +86,9 @@
         "description": "Target value of the forecast amount."
       },
       "Territory2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the territory to forecast on. Available in API version 43 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Territory2",
         "maxLength": 18,
         "nullable": true,
@@ -109,7 +110,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingfact.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_forecastingfact.htm",
     "keyPrefix": "0G6",
     "createable": false,
     "updateable": false,

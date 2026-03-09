@@ -4,7 +4,7 @@
     "description": "Stores information exchanged between the Salesforce payments platform and external payment gateways. Gateway logs can also record payloads from external payment entities.",
     "properties": {
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -24,7 +24,7 @@
         "description": "Code sent by gateways that use an address verification system."
       },
       "GatewayDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time that of the gateway communication that leads to the creation of this gateway log.",
         "format": "date-time",
         "nullable": true
@@ -54,7 +54,7 @@
         "nullable": true
       },
       "InteractionStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Describes the result of communication between the payments platform and a payment gateway.",
         "format": "enum",
         "enum": [
@@ -68,7 +68,7 @@
         "nullable": true
       },
       "InteractionType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Describes the type of interaction with the gateway. This field is required for logs created in Salesforce.",
         "format": "enum",
         "enum": [
@@ -88,7 +88,7 @@
         "readOnly": true
       },
       "IsNotification": {
-        "type": "picklist",
+        "type": "string",
         "description": "For asynchronous transactions, shows whether the gateway log belongs to the notification (yes) or the initial transaction (no).",
         "format": "enum",
         "enum": [
@@ -99,25 +99,27 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed."
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time"
       },
       "OrderPaymentSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "Order payment summaries show the balances of each authorization, capture, and refund made against an order.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderPaymentSummary",
         "maxLength": 18,
         "nullable": true
       },
       "PaymentGatewayId": {
-        "type": "reference",
+        "type": "string",
         "description": "The Payments Platform payment gateway record used for communication with the external payment gateway.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentGateway",
         "maxLength": 18,
         "nullable": true
@@ -130,9 +132,9 @@
         "readOnly": true
       },
       "ReferencedEntityId": {
-        "type": "reference",
+        "type": "string",
         "description": "Foreign key with DomainSet of PaymentAuth and Payment.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "CardPaymentMethod",
           "Payment",
@@ -143,13 +145,13 @@
         "nullable": true
       },
       "Request": {
-        "type": "textarea",
+        "type": "string",
         "description": "Raw payload. No sensitive attributes are stored.",
         "maxLength": 131072,
         "nullable": true
       },
       "Response": {
-        "type": "textarea",
+        "type": "string",
         "description": "Raw payload.",
         "maxLength": 131072,
         "nullable": true
@@ -161,7 +163,7 @@
         "nullable": true
       },
       "SfResultCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Salesforce-specific result code that can map to one or more gateway result codes. We recommend configuring the payment gateway adapter layer to map gateway result codes to the appropriate Salesforce result code.",
         "format": "enum",
         "enum": [
@@ -238,10 +240,15 @@
         "type": "string",
         "maxLength": 64,
         "nullable": true
+      },
+      "RetryCategory": {
+        "type": "string",
+        "description": "The retry category returned by the payment gateway for the failed payment. This field is available in API version 66.0 and later.",
+        "enum": []
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentgatewaylog.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_paymentgatewaylog.htm",
     "keyPrefix": "0Xt",
     "createable": true,
     "updateable": true,
@@ -271,6 +278,7 @@
     "accessRules": "Salesforce Payments, Salesforce Order Management, B2B Commerce, D2C Commerce, Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

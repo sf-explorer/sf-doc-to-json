@@ -29,19 +29,19 @@
         "readOnly": true
       },
       "Position": {
-        "type": "int",
-        "description": "The replay ID of the last event that the subscriber processed.",
+        "type": "number",
+        "description": "The replay ID of the last event that the subscriber processed. This field has been deprecated as of API level 66.0 and should no longer be used. Use LastProcessed instead. This field may not be properly represented if the value exceeds the maximum integer size.",
         "nullable": true,
         "readOnly": true
       },
       "Retries": {
-        "type": "int",
+        "type": "number",
         "description": "The number of times the trigger was retried due to throwing the EventBus.RetryableException. This field applies to Apex triggers only. Available in API version 43.0 and later.",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the status of the subscriber. Can be one of these values: Error— The subscriber was disconnected and stopped receiving published events. A trigger reaches this state when it exceeds the number of maximum retries with the EventBus.RetryableException. Trigger assertion failures and unhandled exceptions don’t cause the error state. We recommend limiting the retries to fewer than nine times to avoid reaching this state. When you fix and save the trigger, or for a managed package trigger, if you redeploy the package, the trigger resumes automatically from the tip, starting from new events. Also, you can resume a trigger subscription in the subscription detail page that you access from the platform event page. Repartitioning—The system is in the process of modifying the trigger's parallel subscription configuration. Running—The subscriber is actively listening to events. If you modify the subscriber, the subscription continues to process events. Suspended—The subscriber is disconnected and can’t receive events because a Salesforce admin suspended it or due to an internal error. You can resume a trigger subscription in the subscription detail page that you access from the platform event page. To resume a process, deactivate it and then reactivate it. If you modify the subscriber, the subscription resumes automatically from the tip, starting from new events.",
         "format": "enum",
         "enum": [
@@ -56,8 +56,8 @@
         "readOnly": true
       },
       "Tip": {
-        "type": "int",
-        "description": "The replay ID of the last published event. Note For high-volume platform events and change events, the value for Tip isn’t available and is always -1.",
+        "type": "number",
+        "description": "The replay ID of the last published event. This field has been deprecated as of API level 66.0 and should no longer be used. Use LastPublished instead. This field may not be properly represented if the value exceeds the maximum integer size. Note For high-volume platform events and change events, the value for Tip isn’t available and is always -1.",
         "nullable": true,
         "readOnly": true
       },
@@ -93,10 +93,18 @@
         "maxLength": 3,
         "nullable": false,
         "readOnly": true
+      },
+      "LastProcessed": {
+        "type": "string",
+        "description": "The replay ID of the last event that the subscriber processed. This field replaces Position as of API level 66.0."
+      },
+      "LastPublished": {
+        "type": "string",
+        "description": "The replay ID of the last published event. This field replaces Tip as of API level 66.0. Note For high-volume platform events and change events, the value for Tip isn’t available and is always -1."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventbussubscriber.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_eventbussubscriber.htm",
     "keyPrefix": "0Cd",
     "createable": false,
     "updateable": false,
@@ -106,6 +114,7 @@
     "accessRules": "EventBusSubscriber is read only and can only be queried. As of Summer ’20 and later, only your Salesforce org's internal users can access this object.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "62.0"
   }
 }

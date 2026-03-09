@@ -4,35 +4,38 @@
     "description": "Represents the selected delivery method for a cart delivery group used in Lightning B2B Commerce checkout.",
     "properties": {
       "AdjustedShippingFee": {
-        "type": "currency",
-        "description": "Shipping fee, including TotalAdjustmentAmount, for the delivery method."
+        "type": "number",
+        "description": "Shipping fee, including TotalAdjustmentAmount, for the delivery method.",
+        "format": "currency"
       },
       "Carrier": {
-        "type": "picklist",
-        "description": "The carrier that the buyer chose for their delivery method. Values are defined based on the user’s shipping service. This field is available in API version 59.0 or later."
+        "type": "string",
+        "description": "The carrier that the buyer chose for their delivery method. Values are defined based on the user’s shipping service. This field is available in API version 59.0 or later.",
+        "enum": []
       },
       "CartCheckoutSessionId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique ID used to identify your cart checkout session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CartCheckoutSession",
         "maxLength": 18,
         "nullable": true
       },
       "CartDeliveryGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the cart delivery group associated with the checkout session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CartDeliveryGroup",
         "maxLength": 18,
         "nullable": false
       },
       "ClassOfService": {
-        "type": "picklist",
-        "description": "The carrier class of service that the buyer chose for their delivery method. Values are defined based on the user’s shipping service. This field is available in API version 59.0 or later."
+        "type": "string",
+        "description": "The carrier class of service that the buyer chose for their delivery method. Values are defined based on the user’s shipping service. This field is available in API version 59.0 or later.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The currency used for your shipping fee. Default value is USD.",
         "format": "enum",
         "enum": [
@@ -42,9 +45,9 @@
         "nullable": true
       },
       "DeliveryMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the selected order delivery method.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderDeliveryMethod",
         "maxLength": 18,
         "nullable": true
@@ -66,47 +69,51 @@
         "nullable": false
       },
       "ProcessTime": {
-        "type": "int",
+        "type": "number",
         "description": "Merchant-specified process time for the delivery method. Process time includes the time between when an order is placed and when the shipment is given to the shipping carrier."
       },
       "ProcessTimeUnit": {
-        "type": "picklist",
-        "description": "Unit of time used to define ProcessTime."
+        "type": "string",
+        "description": "Unit of time used to define ProcessTime.",
+        "enum": []
       },
       "ProductId": {
-        "type": "reference",
-        "description": "Optional. This product represents a delivery charge order product for a delivery using this delivery method. For example, you could create a product that represents an overnight express charge and assign it to an overnight express delivery method. If your store uses Salesforce Native Shipping, the ProductId is selected from a non-variation product with Shipping in its name. The term Shipping in a product name isn’t localized. If no matching product is found, a random non-variation product is used. This field is available in API version 59.0 or later."
+        "type": "string",
+        "description": "Optional. This product represents a delivery charge order product for a delivery using this delivery method. For example, you could create a product that represents an overnight express charge and assign it to an overnight express delivery method. If your store uses Salesforce Native Shipping, the ProductId is selected from a non-variation product with Shipping in its name. The term Shipping in a product name isn’t localized. If no matching product is found, a random non-variation product is used. This field is available in API version 59.0 or later.",
+        "format": "reference"
       },
       "ReferenceNumber": {
         "type": "string",
         "description": "Reference number for an external delivery method. This field is available in API version 59.0 or later."
       },
       "ShippingFee": {
-        "type": "currency",
+        "type": "number",
         "description": "Shipping fee associated with the delivery method. Required field.",
         "format": "currency",
         "nullable": false
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
-        "description": "The adjustment amount of a promotion applicable to the delivery method."
+        "type": "number",
+        "description": "The adjustment amount of a promotion applicable to the delivery method.",
+        "format": "currency"
       },
       "TransitTimeMax": {
-        "type": "int",
+        "type": "number",
         "description": "Maximum estimate of transit time for the delivery method. Transit time includes the time between when a shipping carrier receives a shipment and when the shipment arrives at the delivery address."
       },
       "TransitTimeMin": {
-        "type": "int",
+        "type": "number",
         "description": "Minimum estimate of transit time for the delivery method. Transit time includes the time between when a shipping carrier receives a shipment and when the shipment arrives at the delivery address."
       },
       "TransitTimeUnit": {
-        "type": "picklist",
-        "description": "Unit of time used to define TransitTimeMax and TransitTimeMin."
+        "type": "string",
+        "description": "Unit of time used to define TransitTimeMax and TransitTimeMin.",
+        "enum": []
       },
       "WebCartId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the WebCart associated with the cart delivery group method. Required field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WebCart",
         "maxLength": 18,
         "nullable": false,
@@ -172,7 +179,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_cartdeliverygroupmethod.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_cartdeliverygroupmethod.htm",
     "keyPrefix": "7cd",
     "createable": true,
     "updateable": true,
@@ -220,6 +227,7 @@
     "accessRules": "The CartDeliveryGroupMethod object is available only if the B2B Commerce or D2C Commerce license is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "49.0"
   }
 }

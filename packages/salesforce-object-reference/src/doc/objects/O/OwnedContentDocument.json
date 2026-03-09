@@ -4,22 +4,22 @@
     "description": "Represents a file owned by a user.",
     "properties": {
       "ContentDocumentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the document.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ContentDocument",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ContentSize": {
-        "type": "int",
-        "description": "Size of the document in bytes.",
+        "type": "number",
+        "description": "The size of the document in bytes for documents smaller than 2 GB. In API version 66.0 and later, we recommend that you use the ContentSizeLong field even for documents smaller than 2 GB.",
         "nullable": true,
         "readOnly": true
       },
       "ContentUrl": {
-        "type": "url",
+        "type": "string",
         "description": "URL for links and Google Docs. This field is set only for links and Google Docs, and is one of the fields that determine the FileType. This field is available in API version 31.0 and later.",
         "format": "uri",
         "maxLength": 255,
@@ -28,13 +28,13 @@
       },
       "ExternalDataSourceName": {
         "type": "string",
-        "description": "Name of the external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 32.0 and later.",
+        "description": "The name of the external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 32.0 and later.",
         "maxLength": 80,
         "nullable": true,
         "readOnly": true
       },
       "ExternalDataSourceType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 35.0 and later.",
         "format": "enum",
         "enum": [
@@ -61,15 +61,15 @@
       },
       "FileType": {
         "type": "string",
-        "description": "Type of document, determined by the file extension.",
+        "description": "Type of document, which is determined by the file extension.",
         "maxLength": 20,
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the owner of the document.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false,
@@ -125,10 +125,14 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "ContentSizeLong": {
+        "type": "number",
+        "description": "The size of the document in bytes up to 10 GB. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_ownedcontentdocument.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_ownedcontentdocument.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -136,6 +140,7 @@
     "searchable": false,
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "66.0"
   }
 }

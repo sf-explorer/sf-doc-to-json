@@ -4,7 +4,7 @@
     "description": "Represents an optional way to record what transactions caused changes to lifecycle-managed assets. Use it to trace financial and other information about asset actions. This object supports Salesforce order products and work order line items, and transaction IDs from other systems. The fields can’t be edited.",
     "properties": {
       "ActualTax": {
-        "type": "currency",
+        "type": "number",
         "description": "The region-specific tax amount determined at time of the order.",
         "format": "currency",
         "nullable": true,
@@ -12,7 +12,7 @@
         "multipleOf": 0.01
       },
       "AdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "An adjustment to the product amount, such as a discount.",
         "format": "currency",
         "nullable": true,
@@ -20,9 +20,9 @@
         "multipleOf": 0.01
       },
       "AssetActionId": {
-        "type": "reference",
+        "type": "string",
         "description": "The related asset action, that is, the change caused by an asset action source transaction.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "AssetAction",
         "maxLength": 18,
         "nullable": false,
@@ -40,26 +40,28 @@
         "description": "The ID of the OrderItem or OrderItemDetail record that this AssetActionSource record is created for."
       },
       "Discount": {
-        "type": "percent",
+        "type": "number",
         "description": "The discount, expressed as a percentage, that's applied to the asset."
       },
       "DiscountAmount": {
-        "type": "currency",
-        "description": "The discount, expressed as currency, that's applied to the asset."
+        "type": "number",
+        "description": "The discount, expressed as currency, that's applied to the asset.",
+        "format": "currency"
       },
       "EffectiveGrantDate": {
-        "type": "dateTime",
-        "description": "The date when the resources associated with the asset were granted."
+        "type": "string",
+        "description": "The date when the resources associated with the asset were granted.",
+        "format": "date-time"
       },
       "EndDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The end date of the service or change.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "EstimatedTax": {
-        "type": "currency",
+        "type": "number",
         "description": "The estimate of the region-specific tax amount made at time of the transaction.",
         "format": "currency",
         "nullable": true,
@@ -81,47 +83,54 @@
         "readOnly": true
       },
       "LegalEntityId": {
-        "type": "reference",
-        "description": "The ID of the legal entity record associated with the asset action source transaction."
+        "type": "string",
+        "description": "The ID of the legal entity record associated with the asset action source transaction.",
+        "format": "reference"
       },
       "ListPrice": {
-        "type": "currency",
-        "description": "List price for the order product. Value is inherited from the associated PriceBookEntry upon order product creation."
+        "type": "number",
+        "description": "List price for the order product. Value is inherited from the associated PriceBookEntry upon order product creation.",
+        "format": "currency"
       },
       "NetUnitPrice": {
-        "type": "currency",
-        "description": "The final adjusted unit price, inclusive of all adjustments, but exclusive of tax. The unit price after all price adjustments are applied."
+        "type": "number",
+        "description": "The final adjusted unit price, inclusive of all adjustments, but exclusive of tax. The unit price after all price adjustments are applied.",
+        "format": "currency"
       },
       "ObligatedAmount": {
-        "type": "currency",
-        "description": "When a line amount is prorated, this amount shows the service amount that’s been consumed."
+        "type": "number",
+        "description": "When a line amount is prorated, this amount shows the service amount that’s been consumed.",
+        "format": "currency"
       },
       "OriginalLineNumber": {
-        "type": "int",
+        "type": "number",
         "description": "The number of the original order item detail line. Salesforce uses this information to create a record to amend, renew, or cancel an order. This field is available in API version 64.0 and later."
       },
       "PeriodBoundary": {
-        "type": "picklist",
-        "description": "Boundary delimiters for periods. It determines when a period starts and/or ends."
+        "type": "string",
+        "description": "Boundary delimiters for periods. It determines when a period starts and/or ends.",
+        "enum": []
       },
       "PeriodBoundaryDay": {
-        "type": "int",
+        "type": "number",
         "description": "The number specifying the day number when Period Boundary is a specific day in a week/month/year. It only applies when PeriodBoundary is set to \"day of period.”"
       },
       "PeriodBoundaryStartMonth": {
-        "type": "picklist",
-        "description": "Field is populated based on input in the StartDate, PeriodBoundary, and PeriodBoundaryDay when BillingFrequency2 is Annual or by manual user entry. Possible values are: 1-January 2-February 3-March 4-April 5-May 6-June 7-July 8-August 9-September 10-October 11-November 12-December"
+        "type": "string",
+        "description": "Field is populated based on input in the StartDate, PeriodBoundary, and PeriodBoundaryDay when BillingFrequency2 is Annual or by manual user entry. Possible values are: 1-January 2-February 3-March 4-April 5-May 6-June 7-July 8-August 9-September 10-October 11-November 12-December",
+        "enum": []
       },
       "PricebookEntryId": {
-        "type": "reference",
-        "description": "PricebookEntry is used as a lookup for price information in order to pre-populate OrderItem's ListPrice and UnitPrice."
+        "type": "string",
+        "description": "PricebookEntry is used as a lookup for price information in order to pre-populate OrderItem's ListPrice and UnitPrice.",
+        "format": "reference"
       },
       "PricingTermCount": {
         "type": "double",
         "description": "Number of pricing terms is this subscription product."
       },
       "ProductAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The product amount after the asset action source transaction.",
         "format": "currency",
         "nullable": true,
@@ -129,12 +138,14 @@
         "multipleOf": 0.01
       },
       "ProductSellingModelId": {
-        "type": "reference",
-        "description": "Specifies the product selling model type. Foreignkey to ProductSellingModel entity."
+        "type": "string",
+        "description": "Specifies the product selling model type. Foreignkey to ProductSellingModel entity.",
+        "format": "reference"
       },
       "ProrationPolicyId": {
-        "type": "reference",
-        "description": "The ID of the ProrationPolicy used for pricing."
+        "type": "string",
+        "description": "The ID of the ProrationPolicy used for pricing.",
+        "format": "reference"
       },
       "Quantity": {
         "type": "double",
@@ -144,9 +155,9 @@
         "multipleOf": 0.01
       },
       "ReferenceEntityItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of an asset action source transaction originating in Salesforce. The transaction can be an order product or a work order line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "OrderItem",
           "WorkOrderLineItem"
@@ -160,14 +171,14 @@
         "description": "The ID of the ramp segment associated with the asset action source transaction."
       },
       "StartDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The start date of the service or change.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Subtotal": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of the product amount and the adjustment amount.",
         "format": "currency",
         "nullable": true,
@@ -175,27 +186,31 @@
         "multipleOf": 0.01
       },
       "TaxTreatmentId": {
-        "type": "reference",
-        "description": "Lookup to Tax Treatment entity. It's used to calculate tax."
+        "type": "string",
+        "description": "Lookup to Tax Treatment entity. It's used to calculate tax.",
+        "format": "reference"
       },
       "TotalLineAmount": {
-        "type": "currency",
-        "description": "The price of the line before any price adjustments were applied. SalesTransactionItem: ProratedStartingTotal / StartingPriceTotal. Note: TotalPrice is computed using the UnitPrice, which includes discounts (price adjustments), while TotalLineAmount doesn’t include price adjustments."
+        "type": "number",
+        "description": "The price of the line before any price adjustments were applied. SalesTransactionItem: ProratedStartingTotal / StartingPriceTotal. Note: TotalPrice is computed using the UnitPrice, which includes discounts (price adjustments), while TotalLineAmount doesn’t include price adjustments.",
+        "format": "currency"
       },
       "TotalPrice": {
-        "type": "currency",
-        "description": "Calculated by the pricing engine for ARC. Summation of TotalAdjustmentAmount plus TotalLineAmount for this item."
+        "type": "number",
+        "description": "Calculated by the pricing engine for ARC. Summation of TotalAdjustmentAmount plus TotalLineAmount for this item.",
+        "format": "currency"
       },
       "TransactionDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date of a source transaction, such as an order date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "UnitPrice": {
-        "type": "currency",
-        "description": "The unit price of the item before any discounts or tax calculation."
+        "type": "number",
+        "description": "The unit price of the item before any discounts or tax calculation.",
+        "format": "currency"
       },
       "Id": {
         "type": "string",
@@ -268,7 +283,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetactionsource.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetactionsource.htm",
     "keyPrefix": "4nM",
     "clouds": [
       "Revenue Lifecycle Management",
@@ -316,6 +331,7 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "50.0"
   }
 }

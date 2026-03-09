@@ -4,14 +4,14 @@
     "description": "Represents a change made to a lifecycle-managed asset. The fields can’t be edited.",
     "properties": {
       "ActionDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when an asset action change is recorded. This date can differ from the start date of the related asset state period. For example, suppose that a customer cancels a subscription in June, and the subscription expires in October. The date the customer cancels the subscription (June) is the action date of the asset action. The cancellation's effective date (October) is the start date of the asset state period.",
         "format": "date-time",
         "nullable": false,
         "readOnly": true
       },
       "ActualTaxChange": {
-        "type": "currency",
+        "type": "number",
         "description": "The rollup of actual tax from all asset action sources. This field is populated by the system. Label is Change in Actual Tax.",
         "format": "currency",
         "nullable": true,
@@ -19,7 +19,7 @@
         "multipleOf": 0.01
       },
       "AdjustmentAmountChange": {
-        "type": "currency",
+        "type": "number",
         "description": "The rollup of adjustment amount from all asset action sources. This field is populated by the system. Label is Change in Adjustment Amount.",
         "format": "currency",
         "nullable": true,
@@ -27,7 +27,7 @@
         "multipleOf": 0.01
       },
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "The delta in the total asset amount resulting from an asset action.",
         "format": "currency",
         "nullable": false,
@@ -42,9 +42,9 @@
         "readOnly": true
       },
       "AssetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the related lifecycle-managed asset. Label is Asset.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": false,
@@ -55,7 +55,7 @@
         "description": "Indicates whether the last asset action can be rolled back (true). If this property is set to false, the asset and the last asset action can’t be rolled back."
       },
       "CategoryEnum": {
-        "type": "picklist",
+        "type": "string",
         "description": "The business category of the asset action, for use in reporting. Asset action totals are broken out by the picklist values on this required field, and those totals are in turn reflected on assets. The following categories are available. They aren’t customizable. Label is Business Category.",
         "format": "enum",
         "enum": [
@@ -74,7 +74,7 @@
         "readOnly": true
       },
       "EstimatedTaxChange": {
-        "type": "currency",
+        "type": "number",
         "description": "The rollup of estimated tax from all asset action sources. This field is populated by the system. Label is Change in Estimated Tax.",
         "format": "currency",
         "nullable": true,
@@ -82,7 +82,7 @@
         "multipleOf": 0.01
       },
       "MrrChange": {
-        "type": "currency",
+        "type": "number",
         "description": "The delta in the asset’s monthly recurring revenue resulting from an asset action. For example, suppose that the MRR during an asset state period is $200 and the next asset action adds $100. Then this field’s value is $100. Label is Change in Monthly Recurring Revenue.",
         "format": "currency",
         "nullable": false,
@@ -90,7 +90,7 @@
         "multipleOf": 0.01
       },
       "ProductAmountChange": {
-        "type": "currency",
+        "type": "number",
         "description": "The rollup of product amount from all asset action sources. This field is populated by the system. Label is Change in Product Amount.",
         "format": "currency",
         "nullable": true,
@@ -105,11 +105,12 @@
         "multipleOf": 0.01
       },
       "RolledbackAssetAction": {
-        "type": "reference",
-        "description": "The last asset action that was rolled back in the current rollback transaction. This field is available in API version 65.0 and later."
+        "type": "string",
+        "description": "The last asset action that was rolled back in the current rollback transaction. This field is available in API version 65.0 and later.",
+        "format": "reference"
       },
       "SubtotalChange": {
-        "type": "currency",
+        "type": "number",
         "description": "The rollup of subtotal from all asset action sources. This field is populated by the system. Label is Change in Subtotal.",
         "format": "currency",
         "nullable": true,
@@ -117,11 +118,12 @@
         "multipleOf": 0.01
       },
       "Subtype": {
-        "type": "picklist",
-        "description": "The subtype of the action on the asset."
+        "type": "string",
+        "description": "The subtype of the action on the asset.",
+        "enum": []
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of the current and previous asset action amount. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -129,7 +131,7 @@
         "multipleOf": 0.01
       },
       "TotalCancellationsAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Cancellations. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -137,7 +139,7 @@
         "multipleOf": 0.01
       },
       "TotalCrossSellsAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Cross-Sells. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -145,7 +147,7 @@
         "multipleOf": 0.01
       },
       "TotalDownsellsAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Downsells. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -153,7 +155,7 @@
         "multipleOf": 0.01
       },
       "TotalInitialSaleAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Initial Sale. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -161,7 +163,7 @@
         "multipleOf": 0.01
       },
       "TotalMrr": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of the monthly recurring revenue for the current and previous asset action. This field is populated by the system. Label is Total Monthly Recurring Revenue.",
         "format": "currency",
         "nullable": true,
@@ -169,7 +171,7 @@
         "multipleOf": 0.01
       },
       "TotalOtherAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Other. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -184,7 +186,7 @@
         "multipleOf": 0.01
       },
       "TotalRenewalsAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Renewals. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -192,7 +194,7 @@
         "multipleOf": 0.01
       },
       "TotalTermsAndConditionsAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Terms and Conditions Changes. This field is populated by the system. Label is Total Terms and Conditions Changes Amount.",
         "format": "currency",
         "nullable": true,
@@ -200,7 +202,7 @@
         "multipleOf": 0.01
       },
       "TotalTransfersAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Transfers. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -208,7 +210,7 @@
         "multipleOf": 0.01
       },
       "TotalUpsellsAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of current and previous asset action amounts categorized as Upsells. This field is populated by the system.",
         "format": "currency",
         "nullable": true,
@@ -216,7 +218,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The REST API used to generate the asset action. This field is populated by the system.",
         "format": "enum",
         "enum": [
@@ -319,7 +321,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetaction.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetaction.htm",
     "keyPrefix": "4nL",
     "clouds": [
       "Revenue Lifecycle Management",
@@ -373,6 +375,7 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "50.0"
   }
 }

@@ -32,7 +32,7 @@
         "readOnly": true
       },
       "ForecastCategoryName": {
-        "type": "picklist",
+        "type": "string",
         "description": "A forecast category is the category within the sales cycle to which an opportunity is assigned based on its opportunity stage. The standard forecast categories are Pipeline, Best Case, Commit, Omitted (not included in forecasts), and Closed. Salesforce admins can add a Most Likely category and can customize the forecast category names in single category rollups. Change the forecast category name only. Changing a forecast category’s API name can have unintended results.",
         "format": "enum",
         "enum": [
@@ -54,11 +54,12 @@
         "multipleOf": 0.01
       },
       "ForecastingGroupItemId": {
-        "type": "reference",
-        "description": "If a forecast group is assigned to the forecast type, the ID of the group value that the forecast total belongs to. This field is a relationship field. Available in API version 60.0 and later."
+        "type": "string",
+        "description": "If a forecast group is assigned to the forecast type, the ID of the group value that the forecast total belongs to. This field is a relationship field. Available in API version 60.0 and later.",
+        "format": "reference"
       },
       "ForecastingItemCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "This field indicates which type of forecast rollup the forecasting item belongs to. Depending on whether your organization uses individual forecast category rollups or cumulative forecast rollups, you have these possible values for the ForecastingItemCategory field. Individual forecast category rollups: PipelineOnly - Rollup from Pipeline opportunities only. BestCaseOnly - Rollup from Best Case opportunities only. Adjustable. MostLikelyOnly - Rollup from Most Likely opportunities only. Adjustable. CommitOnly - Rollup from Commit opportunities only. Adjustable. Cumulative forecast rollups: OpenPipeline - Rollup from Pipeline + Best Case + Most Likely + Commit opportunities. BestCaseForecast - Rollup from Best Case + Most Likely + Commit + Closed opportunities. Adjustable. MostLikelyForecast - Rollup from Most Likely + Commit + Closed opportunities. Adjustable. CommitForecast - Rollup from Commit + Closed opportunities. Adjustable. Either cumulative or individual forecast category rollups: ClosedOnly - Rollup from Closed opportunities only. The ForecastingItemCategory field differs from the ForecastCategoryName field. The ForecastCategoryName field represents the forecast category of the underlying opportunities rolling up to forecast amounts. In organizations using cumulative forecast rollups, the ForecastCategoryName field can be null because the cumulative forecast amounts include opportunities from multiple forecast categories. The new ForecastingItemCategory field represents the type of rollup a forecast amount or adjustment is from. In organizations using individual forecast category columns, it contains the individual forecast rollup categories. In organizations using cumulative forecast rollups, it contains the cumulative rollup categories.",
         "format": "enum",
         "enum": [
@@ -76,9 +77,9 @@
         "readOnly": true
       },
       "ForecastingTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the related ForecastingType.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ForecastingType",
         "maxLength": 18,
         "nullable": false,
@@ -115,9 +116,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the forecast owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false,
@@ -138,25 +139,25 @@
         "multipleOf": 0.01
       },
       "ParentForecastingItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the ForecastingItem that the current item rolls up to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ForecastingItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "PeriodId": {
-        "type": "reference",
+        "type": "string",
         "description": "Period ID for the forecast.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Period",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ProductFamily": {
-        "type": "picklist",
+        "type": "string",
         "description": "The product family of the forecast item. This field is available in API version 29.0 and later. Read only.",
         "format": "enum",
         "enum": [
@@ -188,15 +189,15 @@
         "multipleOf": 0.01
       },
       "SubordinateOverrides": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of adjustments made to a forecast down the hierarchical chain. For example, User A has a forecast without adjustments. If User A adjusts User B’s forecast, User A’s SubordinateOverrides value is 1. Then if User B adjusts User C’s forecast, User A’s SubordinateOverrides value is 2. If User A removes his adjustment from User B’s forecast, User A’s SubordinateOverrides value is 1. This field is available in API version 38.0 and later.",
         "nullable": false,
         "readOnly": true
       },
       "Territory2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the territory to forecast on. Available in API version 43.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Territory2",
         "maxLength": 18,
         "nullable": true,
@@ -229,7 +230,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_forecastingitem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_forecastingitem.htm",
     "keyPrefix": "0G3",
     "createable": false,
     "updateable": false,
@@ -289,6 +290,7 @@
     "accessRules": "As of Spring ’20 and later, only standard users with the View All Forecasts or Allow Forecasting permission or delegated forecast manager status can access this object.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "26.0"
   }
 }

@@ -1,10 +1,10 @@
 {
   "EngagementChannelType": {
     "name": "EngagementChannelType",
-    "description": "Represents a channel through which a customer can be reached for communication.",
+    "description": "Represents a channel through which a customer can be reached for communication. The Engagement Channel Type object supports only the English language.",
     "properties": {
       "ContactPointType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The contact point type of the channel.",
         "format": "enum",
         "enum": [
@@ -24,14 +24,14 @@
         "description": "Indicates whether the engagement channel type is active (true) or not (false). This field is available in API version 56.0 and later."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -44,9 +44,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the account owner associated with this customer.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -55,8 +55,9 @@
         "nullable": false
       },
       "UsageType": {
-        "type": "multipicklist",
-        "description": "Specifies the usage of the engagement channel type. This field is available in API version 56.0 and later."
+        "type": "string",
+        "description": "Specifies the usage of the engagement channel type. This field is available in API version 56.0 and later.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -125,10 +126,16 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "Delivery": {
+        "type": "string",
+        "description": "The type of channel that’s eligible for a promotion. This field is only available in orgs where Global Promotions Management is enabled.",
+        "enum": [],
+        "x-cloud": "Loyalty Management"
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_engagementchanneltype.htm",
+    "module": "Scheduler",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.salesforce_scheduler_developer_guide.meta/salesforce_scheduler_developer_guide/sforce_api_objects_engagementchanneltype.htm",
     "keyPrefix": "0eF",
     "createable": true,
     "updateable": true,
@@ -277,7 +284,10 @@
     ],
     "clouds": [
       "Scheduler",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Loyalty Management"
+    ],
+    "x-version": "48.0",
+    "accessRules": "Salesforce Scheduler must be enabled."
   }
 }

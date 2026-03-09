@@ -18,7 +18,7 @@
         "readOnly": true
       },
       "InNetworkCoverage": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount available to contribute towards treatment costs for each treatment undertaken by the health plan’s preferred providers.",
         "format": "currency",
         "nullable": true,
@@ -32,18 +32,19 @@
         "readOnly": true
       },
       "ItemCodeId": {
-        "type": "reference",
-        "description": "The code of the plan benefit item."
+        "type": "string",
+        "description": "The code of the plan benefit item.",
+        "format": "reference"
       },
       "LastReferencedDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -57,14 +58,14 @@
         "readOnly": true
       },
       "Notes": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional information about this benefit item.",
         "maxLength": 32000,
         "nullable": true,
         "readOnly": true
       },
       "OutofNetworkCoverage": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount available to contribute towards treatment costs for each treatment undertaken by non-preferred providers.",
         "format": "currency",
         "nullable": true,
@@ -72,9 +73,9 @@
         "multipleOf": 0.01
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -84,25 +85,28 @@
         "readOnly": true
       },
       "PauthRequirementEndDate": {
-        "type": "dateTime",
-        "description": "The date from which preauthorization for the plan benefit item is required or not."
+        "type": "string",
+        "description": "The date from which preauthorization for the plan benefit item is required or not.",
+        "format": "date-time"
       },
       "PauthRequirementStartDate": {
-        "type": "dateTime",
-        "description": "The last date for which preauthorization for the plan benefit item is required or not."
+        "type": "string",
+        "description": "The last date for which preauthorization for the plan benefit item is required or not.",
+        "format": "date-time"
       },
       "PlanBenefitId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the benefit this item belongs to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PlanBenefit",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "PreauthorizationTypeCodeId": {
-        "type": "reference",
-        "description": "The code which represents the type of preauthorization that the plan benefit item requires."
+        "type": "string",
+        "description": "The code which represents the type of preauthorization that the plan benefit item requires.",
+        "format": "reference"
       },
       "ServiceType": {
         "type": "string",
@@ -133,9 +137,9 @@
         "readOnly": true
       },
       "SourceSystemModified": {
-        "type": "date",
+        "type": "string",
         "description": "The date on which this benefits item was last updated from the source system.",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
@@ -221,10 +225,15 @@
         "description": "IsLocked field",
         "nullable": false,
         "readOnly": true
+      },
+      "FrequencyType": {
+        "type": "string",
+        "description": "The frequency type of the plan benefit item associated with the home healthcare visit.",
+        "enum": []
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_planbenefititem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_planbenefititem.htm",
     "clouds": [
       "Health Cloud"
     ],
@@ -415,6 +424,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "66.0"
   }
 }

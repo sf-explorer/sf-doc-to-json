@@ -4,13 +4,13 @@
     "description": "This read-only object contains all notes, attachments, Google Docs, documents uploaded to libraries in Salesforce CRM Content, and files added to Chatter that are associated with a record.",
     "properties": {
       "ContentSize": {
-        "type": "int",
-        "description": "Size of the document in bytes.",
+        "type": "number",
+        "description": "The size of the document in bytes for documents smaller than 2 GB. In API version 66.0 and later, we recommend that you use the ContentSizeLong field even for documents smaller than 2 GB.",
         "nullable": true,
         "readOnly": true
       },
       "ContentUrl": {
-        "type": "url",
+        "type": "string",
         "description": "URL for links and Google Docs. This field is set only for links and Google Docs, and is one of the fields that determine the FileType. This field is available in API version 31.0 and later.",
         "format": "uri",
         "maxLength": 255,
@@ -19,13 +19,13 @@
       },
       "ExternalDataSourceName": {
         "type": "string",
-        "description": "Name of the external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 32.0 and later.",
+        "description": "The name of the external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 32.0 and later.",
         "maxLength": 80,
         "nullable": true,
         "readOnly": true
       },
       "ExternalDataSourceType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in API version 35.0 and later.",
         "format": "enum",
         "enum": [
@@ -52,15 +52,15 @@
       },
       "FileType": {
         "type": "string",
-        "description": "Type of document, determined by the file extension.",
+        "description": "Type of document, which is determined by the file extension.",
         "maxLength": 30,
         "nullable": true,
         "readOnly": true
       },
       "ParentId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the parent object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account",
@@ -205,8 +205,8 @@
         "readOnly": true
       },
       "SharingOption": {
-        "type": "picklist",
-        "description": "Controls whether or not sharing is frozen for a file. Only administrators and file owners with Collaborator access to the file can modify this field. Default is Allowed, which means that new shares are allowed. When set to Restricted, new shares are prevented without affecting existing shares.This field is available in API versions 35.0 and later.",
+        "type": "string",
+        "description": "Controls whether sharing is frozen for a file. Only Salesforce admins and file owners with Collaborator access to the file can modify this field. The default is Allowed, which means that new shares are allowed. When set to Restricted, new shares are prevented without affecting existing shares.This field is available in API versions 35.0 and later.",
         "format": "enum",
         "enum": [
           "A",
@@ -266,10 +266,14 @@
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
+      },
+      "ContentSizeLong": {
+        "type": "number",
+        "description": "The size of the document in bytes up to 10 GB. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_combinedattachment.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_combinedattachment.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -277,6 +281,7 @@
     "searchable": false,
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "66.0"
   }
 }

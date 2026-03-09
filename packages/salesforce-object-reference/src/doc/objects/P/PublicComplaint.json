@@ -1,55 +1,60 @@
 {
   "PublicComplaint": {
     "name": "PublicComplaint",
-    "description": "Represents the complaints submitted by public users.",
+    "description": "Represents the complaints submitted by public users. This object is available in API version 49.0 and later.",
     "properties": {
       "AccountId": {
-        "type": "reference",
-        "description": "The ID of the Account associated with this complaint.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the account associated with this complaint.",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "BusinessAddress": {
-        "type": "textarea",
-        "description": "The address of the business.",
+        "type": "string",
+        "description": "Address of the business.",
         "maxLength": 1000,
         "nullable": true
       },
       "BusinessName": {
         "type": "string",
-        "description": "The name of the business.",
+        "description": "Name of the business",
         "maxLength": 255,
         "nullable": true
       },
       "CauseSubtype": {
-        "type": "picklist",
-        "description": "The subtype of complaint cause. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The subtype of complaint cause. This field is available in API version 58.0 and later.",
+        "enum": []
       },
       "CauseType": {
-        "type": "picklist",
-        "description": "The type of complaint cause. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The type of complaint cause. This field is available in API version 58.0 and later.",
+        "enum": []
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional details about the complaint. This field is available in API version 51.0 and later."
       },
       "CompensationAmount": {
-        "type": "currency",
-        "description": "Any amount of money offered to resolve the complaint. This field is available in API version 58.0 and later."
+        "type": "number",
+        "description": "Any amount of money offered to resolve the complaint. This field is available in API version 58.0 and later.",
+        "format": "currency"
       },
       "ComplaintCaseId": {
-        "type": "reference",
-        "description": "The ID of the related Case. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "This field is deprecated as of API version 49.0.",
+        "format": "reference"
       },
       "ComplaintCaseStatus": {
-        "type": "picklist",
-        "description": "The status of the related Case. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The status of the related Case. This field is available in API version 58.0 and later.",
+        "enum": []
       },
       "ComplaintSubType": {
-        "type": "picklist",
-        "description": "The subtype of complaint. All values except Fire Safety are available in API version 58.0 and later.",
+        "type": "string",
+        "description": "Subtype of the complaint.",
         "format": "enum",
         "enum": [
           "Unsuitable Advice",
@@ -89,12 +94,12 @@
         "nullable": true
       },
       "ComplaintSummary": {
-        "type": "textarea",
-        "description": "The summary of customer complaints and related cases. This field is available in API version 62.0 and later."
+        "type": "string",
+        "description": "A summary of the complaint information."
       },
       "ComplaintType": {
-        "type": "picklist",
-        "description": "The type of complaint. All values except Safety are available in API version 58.0 and later.",
+        "type": "string",
+        "description": "Type of complaint.",
         "format": "enum",
         "enum": [
           "Advising, Selling and Arranging",
@@ -112,31 +117,32 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
-        "description": "A description of the complaint.",
+        "type": "string",
+        "description": "Description of the complaint.",
         "maxLength": 20000,
         "nullable": true
       },
       "Email": {
-        "type": "email",
-        "description": "The email of the complainant.",
+        "type": "string",
+        "description": "Email of the complainant.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "EscalationCause": {
-        "type": "picklist",
-        "description": "The reason the complaint was escalated. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The reason the complaint was escalated. This field is available in API version 58.0 and later.",
+        "enum": []
       },
       "FirstName": {
         "type": "string",
-        "description": "The given name of the complainant.",
+        "description": "First name of the complainant.",
         "maxLength": 255,
         "nullable": true
       },
       "IncidentDate": {
-        "type": "date",
-        "description": "The date of the incident.",
+        "type": "string",
+        "description": "Date of the incident.",
         "format": "date",
         "nullable": false
       },
@@ -146,46 +152,46 @@
       },
       "IsReporterConfidential": {
         "type": "boolean",
-        "description": "The reporter's request for confidentiality."
+        "description": "Reporter's request for confidentiality."
       },
       "LastName": {
         "type": "string",
-        "description": "The family name of the complainant.",
+        "description": "Last name of the complainant.",
         "maxLength": 255,
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "type": "string",
+        "description": "The most recent date that a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, possibly the user only accessed this record or list view (LastReferencedDate) but didn't view it.",
+        "type": "string",
+        "description": "The most recent date that a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MobileNumber": {
-        "type": "phone",
-        "description": "The mobile number of the complainant.",
+        "type": "string",
+        "description": "Mobile number of the complainant.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "Name": {
         "type": "string",
-        "description": "The name of the complaint.",
+        "description": "Name of the complaint.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The ID of the complaint owner.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the complaint owner.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -194,8 +200,8 @@
         "nullable": false
       },
       "Priority": {
-        "type": "picklist",
-        "description": "The priority of the complaint.",
+        "type": "string",
+        "description": "Priority of the complaint.",
         "format": "enum",
         "enum": [
           "Critical",
@@ -207,27 +213,30 @@
         "nullable": true
       },
       "ProductType": {
-        "type": "picklist",
-        "description": "The product that the complaint is about. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The product that the complaint is about. This field is available in API version 58.0 and later.",
+        "enum": []
       },
       "ReceivedDate": {
-        "type": "date",
-        "description": "The date the complaint was received. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The date the complaint was received. This field is available in API version 58.0 and later.",
+        "format": "date"
       },
       "ReporterAddress": {
-        "type": "textarea",
-        "description": "The address of the reporter for further communication."
+        "type": "string",
+        "description": "Address of the reporter for further communication."
       },
       "ReporterCategory": {
-        "type": "picklist",
-        "description": "Role of the reporter in the organization."
+        "type": "string",
+        "description": "Role of the reporter in the organization.",
+        "enum": []
       },
       "ReporterOrganization": {
         "type": "string",
-        "description": "The organization the reporter is part of."
+        "description": "Organization that the reporter is part of."
       },
       "ResolutionPriority": {
-        "type": "int",
+        "type": "number",
         "description": "Indicates the priority for complaint resolution."
       },
       "ShouldInclInRegulatoryRpt": {
@@ -235,12 +244,13 @@
         "description": "Whether this complaint must be included in a regulatory report. This field is available in API version 58.0 and later."
       },
       "SourceType": {
-        "type": "picklist",
-        "description": "The source of the complaint. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The source of the complaint. This field is available in API version 58.0 and later.",
+        "enum": []
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the complaint.",
+        "type": "string",
+        "description": "Status of the complaint.",
         "format": "enum",
         "enum": [
           "Submitted",
@@ -255,8 +265,9 @@
         "description": "Subject of the complaint. This field is available in API version 51.0 and later."
       },
       "ReferenceRecordId": {
-        "type": "reference",
-        "description": "The asset, vehicle, or financial account that’s associated with the public complaint. This field is available in API version 64.0 and later with Automotive Cloud."
+        "type": "string",
+        "description": "The asset, vehicle, or financial account that’s associated with the public complaint. This field is available in API version 64.0 and later with Automotive Cloud.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -334,11 +345,12 @@
         "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_std_publiccomplaint.htm",
+    "module": "Nonprofit Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_publiccomplaint.htm",
     "clouds": [
       "Nonprofit Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Public Sector Cloud"
     ],
     "keyPrefix": "0fh",
     "iconUrl": "standard/feedback_120.png",
@@ -571,6 +583,7 @@
         "relationshipName": "Contexts",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "49.0"
   }
 }

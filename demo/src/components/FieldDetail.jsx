@@ -394,6 +394,14 @@ const FieldDetail = ({ object, onObjectSelect, availableObjects, cloudMetadata =
               {fields.length}
             </Typography>
           </Box>
+          <Box>
+            <Typography variant="caption" sx={{ color: '#706e6b', fontWeight: 600 }}>
+              Available from:
+            </Typography>
+            <Typography variant="body2" sx={{ fontFamily: 'monospace', fontWeight: 500 }}>
+              API v{object['x-version'] || '30.0'}
+            </Typography>
+          </Box>
           {object.childRelationships && object.childRelationships.length > 0 && (() => {
             // Filter out noisy child relationships
             const excludedChildObjects = [

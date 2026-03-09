@@ -4,30 +4,30 @@
     "description": "This read-only object is displayed as a related list on an activity record (an event or a task); the list contains records that have custom lookup relationships from the activity to another object. This object is not queryable.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the ID of the related account, which is determined as follows: The account associated with the WhatId, if it exists; or The account associated with the WhoId, if it exists; otherwise null",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ActivityDate": {
-        "type": "date",
+        "type": "string",
         "description": "Indicates one of the following: The due date of a task The date of an event if IsAllDayEvent is set to true",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "ActivityDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Contains the event’s due date if the IsAllDayEvent flag is set to false. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate. Label is Due Date Time.The value for this field and StartDateTime must match, or one of them must be null.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ActivitySubtype": {
-        "type": "picklist",
+        "type": "string",
         "description": "Provides standard subtypes to facilitate creating and searching for specific activity subtypes. This field isn’t updateable.Possible values are: Task Email Call Event LinkedIn —Available in API version 56.0 and later. List Email",
         "format": "enum",
         "enum": [
@@ -44,7 +44,7 @@
         "readOnly": true
       },
       "ActivityType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Represents one of the following values: Call, Email, Meeting, or Other. Label is Type. These are default values, and can be changed.",
         "format": "enum",
         "enum": [
@@ -79,7 +79,7 @@
         "readOnly": true
       },
       "CallDurationInSeconds": {
-        "type": "int",
+        "type": "number",
         "description": "Duration of the call in seconds.",
         "nullable": true,
         "readOnly": true
@@ -92,7 +92,7 @@
         "readOnly": true
       },
       "CallType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of call being answered: Inbound, Internal, or Outbound.",
         "format": "enum",
         "enum": [
@@ -105,24 +105,25 @@
         "readOnly": true
       },
       "CompletedDateTime": {
-        "type": "dateTime",
-        "description": "The date and time the task was saved with a Closed status. For insert, if the task is saved with a Closed status the field is set. If the task is saved with an Open status the field is set to NULL. For update, if the task is saved with a new Closed status, the field is reset. If the task is saved with a new non-closed status, the field is reset to NULL. If the task is saved with the same closed status (that is, unchanged) there is no change to the field. Note The status is a dynamic enum. If the Closed mapping is changed it won’t cause an update of existing tasks. Only new insert/update operations are affected."
+        "type": "string",
+        "description": "The date and time the task was saved with a Closed status. For insert, if the task is saved with a Closed status the field is set. If the task is saved with an Open status the field is set to NULL. For update, if the task is saved with a new Closed status, the field is reset. If the task is saved with a new non-closed status, the field is reset to NULL. If the task is saved with the same closed status (that is, unchanged) there is no change to the field. Note The status is a dynamic enum. If the Closed mapping is changed it won’t cause an update of existing tasks. Only new insert/update operations are affected.",
+        "format": "date-time"
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Contains a description of the event or task. Limit is 32 KB.",
         "maxLength": 32000,
         "nullable": true,
         "readOnly": true
       },
       "DurationInMinutes": {
-        "type": "int",
+        "type": "number",
         "description": "Indicates the duration of the event or task.",
         "nullable": true,
         "readOnly": true
       },
       "EndDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Indicates the end date and time of the event or task. Available in versions 27.0 and later. This field is optional, depending on the following: If IsAllDayEvent is true, you can supply a value for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time. If both fields are null, the duration defaults to one day. If IsAllDayEvent is false, a value must be supplied for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time.",
         "format": "date-time",
         "nullable": true,
@@ -172,9 +173,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the ID of the user or group who owns the activity.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Calendar",
           "Group",
@@ -185,7 +186,7 @@
         "readOnly": true
       },
       "Priority": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the priority of a task, such as high, normal, or low. The default value of this field is Normal.",
         "format": "enum",
         "enum": [
@@ -198,21 +199,21 @@
         "readOnly": true
       },
       "ReminderDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Represents the time at which a reminder is scheduled to fire if IsReminderSet is set to true. If IsReminderSet is set to false, then either the user has deselected the reminder checkbox in the user interface or the reminder has already fired at the time indicated by the value.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "StartDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Indicates the start date and time of the event. Available in versions 13.0 and later.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the current status of a task. The default value of this field is Not Started. Each predefined status field sets a value for IsClosed.Possible values are: Completed Deferred In Progress Not Started Waiting on someone else",
         "format": "enum",
         "enum": [
@@ -226,16 +227,16 @@
         "readOnly": true
       },
       "Subject": {
-        "type": "combobox",
+        "type": "string",
         "description": "Contains the subject of the task or event.",
         "maxLength": 80,
         "nullable": true,
         "readOnly": true
       },
       "WhatId": {
-        "type": "reference",
+        "type": "string",
         "description": "The WhatId represents nonhuman objects such as accounts, opportunities, campaigns, cases, or custom objects. WhatIds are polymorphic. Polymorphic means a WhatId is equivalent to the ID of a related object. The label is Related To ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account",
@@ -324,9 +325,9 @@
         "readOnly": true
       },
       "WhoId": {
-        "type": "reference",
+        "type": "string",
         "description": "The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Contact",
           "Lead"
@@ -434,7 +435,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_lookedupfromactivity.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_lookedupfromactivity.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,

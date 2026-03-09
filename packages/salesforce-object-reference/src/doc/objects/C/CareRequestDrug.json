@@ -4,7 +4,7 @@
     "description": "Represents the details of a requested drug including name, strength, frequency, and instructions for administration. One or more drug requests can be associated with a care request.",
     "properties": {
       "ApprovedUnits": {
-        "type": "int",
+        "type": "number",
         "description": "Approved quantity of the drug.",
         "nullable": true,
         "readOnly": true
@@ -22,34 +22,36 @@
         "description": "The unique identifier of the authorization request associated with the requested drug."
       },
       "CareRequestCaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "Case related to the care request.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "CareRequestId": {
-        "type": "reference",
+        "type": "string",
         "description": "Care request for the care request drug.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CareRequest",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ClinicalDetermination": {
-        "type": "picklist",
-        "description": "The clinical determination of the drug request."
+        "type": "string",
+        "description": "The clinical determination of the drug request.",
+        "enum": []
       },
       "ClinicalDeterminationNote": {
-        "type": "textarea",
+        "type": "string",
         "description": "The notes related to the clinical determination."
       },
       "ClinicalDeterminationReasonId": {
-        "type": "reference",
-        "description": "The reason for the clinical determination."
+        "type": "string",
+        "description": "The reason for the clinical determination.",
+        "format": "reference"
       },
       "Code": {
         "type": "string",
@@ -59,7 +61,7 @@
         "readOnly": true
       },
       "CodeType": {
-        "type": "picklist",
+        "type": "string",
         "description": "ID code type for the drug.",
         "format": "enum",
         "enum": [
@@ -71,29 +73,30 @@
         "readOnly": true
       },
       "DaysSupply": {
-        "type": "int",
+        "type": "number",
         "description": "Number of days to supply the drug.",
         "nullable": true,
         "readOnly": true
       },
       "DecisionDate": {
-        "type": "dateTime",
-        "description": "The date and time when the decision was made for this drug request."
+        "type": "string",
+        "description": "The date and time when the decision was made for this drug request.",
+        "format": "date-time"
       },
       "DeniedUnits": {
-        "type": "int",
+        "type": "number",
         "description": "Denied quantity of the drug.",
         "nullable": true,
         "readOnly": true
       },
       "DispenserAddress": {
-        "type": "address",
+        "type": "string",
         "description": "Pharmacy address.",
         "nullable": true,
         "readOnly": true
       },
       "DispenserFaxNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "Pharmacy fax number.",
         "format": "phone",
         "maxLength": 40,
@@ -115,7 +118,7 @@
         "readOnly": true
       },
       "DispenserPhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "Pharmacy phone number.",
         "format": "phone",
         "maxLength": 40,
@@ -130,22 +133,23 @@
         "readOnly": true
       },
       "DispenserVerbalNotificationDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date and time when the pharmacy or pharmacy benefit manager was contacted verbally.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "DispenserWrittenNotificationDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date and time when the pharmacy or pharmacy benefit manager was notified in writing or electronically.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "DispensingPharmacyId": {
-        "type": "reference",
-        "description": "The pharmacy that dispenses the drug."
+        "type": "string",
+        "description": "The pharmacy that dispenses the drug.",
+        "format": "reference"
       },
       "Dose": {
         "type": "string",
@@ -155,12 +159,14 @@
         "readOnly": true
       },
       "DrugAdministrationSetting": {
-        "type": "picklist",
-        "description": "The setting where the drug is administered to the patient."
+        "type": "string",
+        "description": "The setting where the drug is administered to the patient.",
+        "enum": []
       },
       "DrugCodeId": {
-        "type": "reference",
-        "description": "The code set that defines the requested drug."
+        "type": "string",
+        "description": "The code set that defines the requested drug.",
+        "format": "reference"
       },
       "Frequency": {
         "type": "string",
@@ -170,26 +176,28 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MedicationCodeId": {
-        "type": "reference",
-        "description": "The code of the care request drug."
+        "type": "string",
+        "description": "The code of the care request drug.",
+        "format": "reference"
       },
       "MedicationRefObjectId": {
-        "type": "reference",
-        "description": "The medication request or statement associated with the requested drug."
+        "type": "string",
+        "description": "The medication request or statement associated with the requested drug.",
+        "format": "reference"
       },
       "ModifiedCode": {
         "type": "string",
@@ -199,7 +207,7 @@
         "readOnly": true
       },
       "ModifiedCodeType": {
-        "type": "picklist",
+        "type": "string",
         "description": "ID code type for the modified drug.",
         "format": "enum",
         "enum": [
@@ -211,7 +219,7 @@
         "readOnly": true
       },
       "ModifiedDaysSupply": {
-        "type": "int",
+        "type": "number",
         "description": "Number of days of supply for the modified drug.",
         "nullable": true,
         "readOnly": true
@@ -238,7 +246,7 @@
         "readOnly": true
       },
       "ModifiedSig": {
-        "type": "textarea",
+        "type": "string",
         "description": "Directions for use of the modified drug.",
         "maxLength": 32000,
         "nullable": true,
@@ -252,13 +260,13 @@
         "readOnly": true
       },
       "ModifiedTherapyDuration": {
-        "type": "int",
+        "type": "number",
         "description": "Duration of therapy for the modified drug.",
         "nullable": true,
         "readOnly": true
       },
       "ModifiedUnits": {
-        "type": "int",
+        "type": "number",
         "description": "Modified quantity of the drug.",
         "nullable": true,
         "readOnly": true
@@ -271,21 +279,21 @@
         "readOnly": true
       },
       "PrescriptionDate": {
-        "type": "date",
+        "type": "string",
         "description": "Date for the prescription.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "PrescriptionFillDate": {
-        "type": "date",
+        "type": "string",
         "description": "Number of fills for the prescription.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "PrescriptionFills": {
-        "type": "int",
+        "type": "number",
         "description": "Number of fills for the prescription.",
         "nullable": true,
         "readOnly": true
@@ -298,20 +306,23 @@
         "readOnly": true
       },
       "Priority": {
-        "type": "picklist",
-        "description": "The priority of the authorization for the requested drug."
+        "type": "string",
+        "description": "The priority of the authorization for the requested drug.",
+        "enum": []
       },
       "RequestType": {
-        "type": "picklist",
-        "description": "The type of drug request."
+        "type": "string",
+        "description": "The type of drug request.",
+        "enum": []
       },
       "RequiredResponseCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of responses required for the requested drug."
       },
       "ResponseDateTime": {
-        "type": "dateTime",
-        "description": "The date and time when the response was sent for the drug request."
+        "type": "string",
+        "description": "The date and time when the response was sent for the drug request.",
+        "format": "date-time"
       },
       "ServiceCategory": {
         "type": "string",
@@ -328,19 +339,22 @@
         "readOnly": true
       },
       "ServiceInformationResponseId": {
-        "type": "reference",
-        "description": "The service information response associated with the drug request."
+        "type": "string",
+        "description": "The service information response associated with the drug request.",
+        "format": "reference"
       },
       "ServicingFacilityId": {
-        "type": "reference",
-        "description": "The facility where a patient receives service of the requested drug."
+        "type": "string",
+        "description": "The facility where a patient receives service of the requested drug.",
+        "format": "reference"
       },
       "ServicingProviderId": {
-        "type": "reference",
-        "description": "The healthcare provider who provides the service of the requested drug."
+        "type": "string",
+        "description": "The healthcare provider who provides the service of the requested drug.",
+        "format": "reference"
       },
       "Sig": {
-        "type": "textarea",
+        "type": "string",
         "description": "Directions for use of the drug.",
         "maxLength": 32000,
         "nullable": true,
@@ -361,23 +375,26 @@
         "readOnly": true
       },
       "SourceSystemModified": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp of the most recent update from the source system.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "The authorization status of the requested drug."
+        "type": "string",
+        "description": "The authorization status of the requested drug.",
+        "enum": []
       },
       "StatusCodeId": {
-        "type": "reference",
-        "description": "The code of the action taken by the reviewer for the requested drug."
+        "type": "string",
+        "description": "The code of the action taken by the reviewer for the requested drug.",
+        "format": "reference"
       },
       "StatusReason": {
-        "type": "picklist",
-        "description": "The reason for assigning the authorization status to the requested drug."
+        "type": "string",
+        "description": "The reason for assigning the authorization status to the requested drug.",
+        "enum": []
       },
       "Strength": {
         "type": "string",
@@ -387,21 +404,22 @@
         "readOnly": true
       },
       "SubmittedDateTime": {
-        "type": "dateTime",
-        "description": "The date and time when the drug request was submitted."
+        "type": "string",
+        "description": "The date and time when the drug request was submitted.",
+        "format": "date-time"
       },
       "TherapyDuration": {
-        "type": "int",
+        "type": "number",
         "description": "Duration of therapy for the drug.",
         "nullable": true,
         "readOnly": true
       },
       "TransactionNumber": {
-        "type": "int",
+        "type": "number",
         "description": "The transaction number assigned to the drug request."
       },
       "Units": {
-        "type": "int",
+        "type": "number",
         "description": "Quantity of the drug.",
         "nullable": true,
         "readOnly": true
@@ -923,7 +941,7 @@
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_carerequestdrug.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_carerequestdrug.htm",
     "clouds": [
       "Health Cloud"
     ],
@@ -1120,6 +1138,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "57.0"
   }
 }

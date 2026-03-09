@@ -4,15 +4,17 @@
     "description": "Represents the current properties and state of a group of related price adjustments. Associated with a set of OrderItemAdjustmentLineSummaries that apply to OrderItemSummaries belonging to one OrderSummary. Corresponds to one or more order adjustment group objects, consisting of an original object and any change objects applicable to it.",
     "properties": {
       "AdjustmentBasisReferenceId": {
-        "type": "reference",
-        "description": "References the specific coupon applied."
+        "type": "string",
+        "description": "References the specific coupon applied.",
+        "format": "reference"
       },
       "AdjustmentCauseId": {
-        "type": "reference",
-        "description": "References the specific promotions applied."
+        "type": "string",
+        "description": "References the specific promotions applied.",
+        "format": "reference"
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "ISO code for the currency of the OrderSummary associated with the adjustments in the group. The default value is USD.",
         "format": "enum",
         "enum": [
@@ -23,13 +25,13 @@
         "readOnly": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the OrderAdjustmentGroupSummary.",
         "maxLength": 2000,
         "nullable": true
       },
       "GrandTotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, including tax, of the associated OrderItemAdjustmentLineSummaries.",
         "format": "currency",
         "nullable": true,
@@ -43,25 +45,25 @@
         "nullable": false
       },
       "OrderSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the OrderSummary associated with the OrderAdjustmentGroupSummary.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderSummary",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "OriginalOrderAdjGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the original OrderAdjustmentGroup associated with this summary object. Nillable=true only if the associated order summary is unmanaged. For managed order summaries, nillable=false.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderAdjustmentGroup",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, not including tax, of the associated OrderItemAdjustmentIineSummaries.",
         "format": "currency",
         "nullable": true,
@@ -69,7 +71,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalAmount.",
         "format": "currency",
         "nullable": true,
@@ -77,7 +79,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of the OrderAdjustmentGroupSummary. Header represents an order-level adjustment with an OrderItemAdjustmentLineSummary for each OrderItemSummary on the OrderSummary. SplitLine represents any other related set of OrderItemAdjustmentLineSummaries.",
         "format": "enum",
         "enum": [
@@ -148,7 +150,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderadjustmentgroupsummary.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderadjustmentgroupsummary.htm",
     "keyPrefix": "0aj",
     "createable": true,
     "updateable": true,
@@ -244,6 +246,7 @@
     "accessRules": "This object is only available in Salesforce Order Management orgs or if the B2B Commerce license is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

@@ -4,16 +4,18 @@
     "description": "Represents partners that are associated with a given loyalty program. Partners can be an accrual partner, a redemption partner, or both.",
     "properties": {
       "AccrualCostperUnit": {
-        "type": "currency",
-        "description": "The cost per point associated with the transactions of accrual partner. This field is available in API version 52.0 and later."
+        "type": "number",
+        "description": "The cost per point associated with the transactions of accrual partner. This field is available in API version 52.0 and later.",
+        "format": "currency"
       },
       "AlertValue": {
         "type": "double",
         "description": "The value that’s used to send an alert to a partner to indicate the minimum points required when the billing type is prepaid or the maximum outstanding amount when the billing type is postpaid. This field is available in API version 55.0 and later."
       },
       "BillingType": {
-        "type": "picklist",
-        "description": "Specifies the method in which the loyalty program partner is billed."
+        "type": "string",
+        "description": "Specifies the method in which the loyalty program partner is billed.",
+        "enum": []
       },
       "CreditedPoints": {
         "type": "double",
@@ -24,36 +26,37 @@
         "description": "The total number of points debited from the partner (using prepaid billing) for member accruals, redemption cancellations, or any custom processes. This field is available in API version 55.0 and later."
       },
       "LastProcessedDateTime": {
-        "type": "dateTime",
-        "description": "The last date and time when the prepaid points balance or the outstanding postpaid bill amount for a partner was calculated. This field is available in API version 55.0 and later."
+        "type": "string",
+        "description": "The last date and time when the prepaid points balance or the outstanding postpaid bill amount for a partner was calculated. This field is available in API version 55.0 and later.",
+        "format": "date-time"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LoyaltyPartnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. Account ID of the loyalty program partner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "LoyaltyProgramId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the loyalty program.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "LoyaltyProgram",
         "maxLength": 18,
         "nullable": false,
@@ -67,9 +70,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -79,7 +82,7 @@
         "readOnly": true
       },
       "PartnerCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "The category of the program partnership.",
         "format": "enum",
         "enum": [
@@ -91,15 +94,16 @@
         "readOnly": true
       },
       "PartnerIndustry": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The industry type of the program partner. Picklist values aren't provided for this field and must be added based on the requirements of the organization.",
         "format": "enum",
         "maxLength": 40,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "enum": []
       },
       "PartnerStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The status of the partner in the loyalty program. The default value is Active.",
         "format": "enum",
         "enum": [
@@ -112,7 +116,7 @@
         "readOnly": true
       },
       "PartnerType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The type of the program partnership.",
         "format": "enum",
         "enum": [
@@ -125,14 +129,14 @@
         "readOnly": true
       },
       "PartnershipEndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date on which the partnership with the program ends.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "PartnershipStartDate": {
-        "type": "date",
+        "type": "string",
         "description": "Required. The date on which the partnership with the program starts.",
         "format": "date",
         "nullable": false,
@@ -143,16 +147,18 @@
         "description": "The number of points available with the loyalty program partner using prepaid billing. This field is available in API version 55.0 and later."
       },
       "PostpaidBillAmount": {
-        "type": "currency",
-        "description": "The total amount of all credits minus debits for partner transactions from the partnership start date. A positive value indicates that the partner is liable to the program. A negative value indicates the program is liable to the partner. The total amount that either the partner is liable to pay to the program or the program is liable to pay to the partner. This field is available in API version 55.0 and later."
+        "type": "number",
+        "description": "The total amount of all credits minus debits for partner transactions from the partnership start date. A positive value indicates that the partner is liable to the program. A negative value indicates the program is liable to the partner. The total amount that either the partner is liable to pay to the program or the program is liable to pay to the partner. This field is available in API version 55.0 and later.",
+        "format": "currency"
       },
       "PurchasedPoints": {
         "type": "double",
         "description": "The total number of points that the partner (using prepaid billing) has purchased across all their packs. This field is available in API version 55.0 and later."
       },
       "RedemptionCostperUnit": {
-        "type": "currency",
-        "description": "The cost per point associated with the transactions of redemption partner. This field is available in API version 52.0 and later."
+        "type": "number",
+        "description": "The cost per point associated with the transactions of redemption partner. This field is available in API version 52.0 and later.",
+        "format": "currency"
       },
       "Id": {
         "type": "string",
@@ -222,10 +228,24 @@
         "maxLength": 3,
         "nullable": false,
         "readOnly": true
+      },
+      "IsMemberLinkingAllowed": {
+        "type": "boolean",
+        "description": "Indicates whether a member is allowed to link with a partner (true) or not (false). When you allow linking, you must enter an effective start date."
+      },
+      "MemberLinkingEffEndDate": {
+        "type": "string",
+        "description": "The date after which members can't be linked to a partner.",
+        "format": "date-time"
+      },
+      "MemberLinkingEffStartDate": {
+        "type": "string",
+        "description": "The date from which members can be linked to a partner.",
+        "format": "date-time"
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogrampartner.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.loyalty.meta/loyalty/sforce_api_objects_loyaltyprogrampartner.htm",
     "keyPrefix": "0ld",
     "createable": false,
     "updateable": false,
@@ -307,6 +327,10 @@
       }
     ],
     "iconUrl": "standard/partners_120.png",
-    "iconColor": "056764"
+    "iconColor": "056764",
+    "x-version": "51.0",
+    "clouds": [
+      "Loyalty"
+    ]
   }
 }

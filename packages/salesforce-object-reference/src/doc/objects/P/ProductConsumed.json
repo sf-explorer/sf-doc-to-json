@@ -1,56 +1,57 @@
 {
   "ProductConsumed": {
     "name": "ProductConsumed",
-    "description": "Represents an item from your inventory that was used to complete a work order or work order line item in field service.",
+    "description": "Represents an item from your product inventory that was used to complete a work order or work order line item.",
     "properties": {
       "Description": {
-        "type": "textarea",
-        "description": "Notes and context about the product consumed.",
+        "type": "string",
+        "description": "The description of the product consumed record.",
         "maxLength": 32000,
         "nullable": true
       },
       "Discount": {
-        "type": "percent",
+        "type": "number",
         "description": "The discount on the product consumed."
       },
       "IsConsumed": {
         "type": "boolean",
-        "description": "Indicates that a product consumed has been processed if the Product2 it refers to has IsSerialized=true selected. The default is false."
+        "description": "Specifies that a product consumed has been consumed if the product it refers to is serialized. The default is false."
       },
       "IsProduct2Serialized": {
         "type": "boolean",
-        "description": "Indicates if a product is a serialized product. The default is false."
+        "description": "Specifies if the associated product that was consumed is a serialized product (true) or not (false)."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the product consumed was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The date when the product consumed was last viewed.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ListPrice": {
-        "type": "currency",
-        "description": "The list price of the product."
+        "type": "number",
+        "description": "The list price of the product.",
+        "format": "currency"
       },
       "PricebookEntryId": {
-        "type": "reference",
-        "description": "Price book associated with the product consumed. If the work order and the product item’s associated product are related to the same price book, the Price Book Entry auto-populates based on the product item.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The price book associated with the product consumed. If the work order and the product item’s associated product are related to the same price book, the Price Book Entry auto-populates based on the product item.",
+        "format": "reference",
         "x-object": "PricebookEntry",
         "maxLength": 18,
         "nullable": true
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "Product associated with the product consumed.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product associated with the product consumed.",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true,
@@ -58,15 +59,15 @@
       },
       "ProductConsumedNumber": {
         "type": "string",
-        "description": "(Read Only) Auto-generated number identifying the product consumed.",
+        "description": "An auto-generated number identifying the product consumed.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "ProductItemId": {
-        "type": "reference",
-        "description": "Product item associated with the product consumed. Creating a product consumed record subtracts the quantity consumed from the linked product item’s quantity.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product item associated with the product consumed.",
+        "format": "reference",
         "x-object": "ProductItem",
         "maxLength": 18,
         "nullable": true,
@@ -74,20 +75,20 @@
       },
       "ProductName": {
         "type": "string",
-        "description": "Name for the product consumed.",
+        "description": "The name of the product that’s consumed.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
       },
       "QuantityConsumed": {
         "type": "double",
-        "description": "The quantity of products consumed.",
+        "description": "The quantity of product that’s consumed. When you create a product consumed record, the quantity consumed is subtracted from the product item’s quantity.",
         "nullable": false,
         "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
-        "type": "picklist",
-        "description": "Units of the consumed item; for example, kilograms or liters. Quantity Unit of Measure picklist values are inherited from the Quantity Unit of Measure field on products.",
+        "type": "string",
+        "description": "The unit of the quantity of the product that’s consumed. For example, kilograms or liters. Quantity Unit of Measure values are inherited from the Quantity Unit of Measure field on products.",
         "format": "enum",
         "enum": [
           "Each"
@@ -97,29 +98,30 @@
         "readOnly": true
       },
       "TotalPrice": {
-        "type": "currency",
-        "description": "The total price paid for the product items."
+        "type": "number",
+        "description": "The total price paid for the product items.",
+        "format": "currency"
       },
       "UnitPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "The price per unit of the product consumed.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "WorkOrderId": {
-        "type": "reference",
-        "description": "Work order that the product was consumed for.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The work order for which the product was consumed.",
+        "format": "reference",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "WorkOrderLineItemId": {
-        "type": "reference",
-        "description": "Work order line item that the product was consumed for.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The work order line item for which the product was consumed.",
+        "format": "reference",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
@@ -196,8 +198,8 @@
         "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productconsumed.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productconsumed.htm",
     "keyPrefix": "0Gv",
     "createable": true,
     "updateable": true,
@@ -419,7 +421,9 @@
     "accessRules": "Field Service must be enabled.",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Field Service Lightning"
+    ],
+    "x-version": "60.0"
   }
 }

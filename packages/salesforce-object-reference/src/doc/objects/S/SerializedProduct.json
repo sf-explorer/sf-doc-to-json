@@ -4,28 +4,28 @@
     "description": "Records serial numbers for each product in an inventory.",
     "properties": {
       "AssetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The asset that’s associated with the serialized product.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": true
       },
       "ExpirationDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date the product expires.",
         "format": "date",
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
@@ -39,9 +39,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The owner of the serialized product.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -50,17 +50,17 @@
         "nullable": false
       },
       "Product2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "The product that is serialized.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": false
       },
       "ProductItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The product item associated with the serialized product.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ProductItem",
         "maxLength": 18,
         "nullable": true
@@ -72,8 +72,9 @@
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the product."
+        "type": "string",
+        "description": "The status of the product.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -152,7 +153,7 @@
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_serializedproduct.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_serializedproduct.htm",
     "keyPrefix": "0jR",
     "createable": true,
     "updateable": true,
@@ -286,6 +287,10 @@
         "relationshipName": "SerializedProductTransactions",
         "cascadeDelete": true
       }
+    ],
+    "x-version": "60.0",
+    "clouds": [
+      "Manufacturing Cloud"
     ]
   }
 }

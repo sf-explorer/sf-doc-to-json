@@ -52,10 +52,10 @@ function normalizeType(sfType: string): string {
         'long': 'number',
         'decimal': 'number',
         
-        // Date/Time types
-        'date': 'date',
-        'datetime': 'dateTime',
-        'time': 'time',
+        // Date/Time types (string with format)
+        'date': 'string',
+        'datetime': 'string',
+        'time': 'string',
         
         // Boolean types
         'checkbox': 'boolean',
@@ -439,12 +439,34 @@ async function fetchContentDocument(documentationId: string, url: string): Promi
             headerDesc.push(cleanWhitespace($(el).find('dd').eq(2)?.text() || ""));
         });
 
-        const properties: Record<string, { type: string; description: string }> = {};
+        const properties: Record<string, { type: string; description: string; format?: string; enum?: string[] }> = {};
         headerNames.forEach((name, i) => {
-            properties[name] = {
-                type: normalizeType(headerTypes[i] || ''),
+            const rawType = (headerTypes[i] || '').toLowerCase().trim();
+            const normalizedType = normalizeType(headerTypes[i] || '');
+            const prop: { type: string; description: string; format?: string; enum?: string[] } = {
+                type: normalizedType,
                 description: headerDesc[i] || '',
             };
+            // Add format for currency (type is normalized to number)
+            if (rawType === 'currency') {
+                prop.format = 'currency';
+            }
+            // Add format for reference (type is normalized to string)
+            if (rawType === 'reference') {
+                prop.format = 'reference';
+            }
+            // Add format for date types
+            if (rawType === 'date') {
+                prop.format = 'date';
+            }
+            if (rawType === 'datetime') {
+                prop.format = 'date-time';
+            }
+            // Add enum (empty list) for picklist when we don't have values from docs
+            if (rawType === 'picklist' || rawType === 'multipicklist') {
+                prop.enum = [];
+            }
+            properties[name] = prop;
         });
         
         // Build the public-facing documentation URL
@@ -679,10 +701,16 @@ async function loadAllDocuments(items: any[], version: string): Promise<void> {
                     for (const [key, newValue] of Object.entries(newProps)) {
                         if (merged[key]) {
                             // Property exists - merge metadata, don't replace
-                            merged[key] = {
+                            const mergedProp = {
                                 ...merged[key],     // Keep all existing metadata
                                 ...newValue         // Update/add from new data
                             };
+                            // Don't overwrite enum with empty array when existing has values
+                            if (Array.isArray(merged[key].enum) && merged[key].enum!.length > 0 &&
+                                Array.isArray(newValue.enum) && newValue.enum.length === 0) {
+                                mergedProp.enum = merged[key].enum;
+                            }
+                            merged[key] = mergedProp;
                         } else {
                             // New property - add it
                             merged[key] = { ...newValue };

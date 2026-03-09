@@ -4,17 +4,17 @@
     "description": "This read-only object contains all ContentNote objects associated with an object.",
     "properties": {
       "ContentDocumentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the attached ContentNote",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ContentDocument",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ContentSize": {
-        "type": "int",
-        "description": "Size of the note in bytes.",
+        "type": "number",
+        "description": "Size of the note in bytes for notes smaller than 2 GB. In API version 66.0 and later, we recommend that you use the ContentSizeLong field even for notes smaller than 2 GB.",
         "nullable": true,
         "readOnly": true
       },
@@ -33,9 +33,9 @@
         "readOnly": true
       },
       "LinkedEntityId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record the ContentNote is attached to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account",
@@ -229,10 +229,14 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "ContentSizeLong": {
+        "type": "number",
+        "description": "The size of the note in bytes up to 10 GB. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_attachedcontentnote.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_attachedcontentnote.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -240,6 +244,8 @@
     "searchable": false,
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "accessRules": "Notes must be enabled. Chatter must be enabled.",
+    "x-version": "35.0"
   }
 }

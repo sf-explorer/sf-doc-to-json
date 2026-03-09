@@ -4,17 +4,17 @@
     "description": "Represents the relationship between a parent and child ContentFolderItem in a ContentWorkspace.",
     "properties": {
       "ContentDocumentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the ContentDocument that can be in a folder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ContentDocument",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "ContentSize": {
-        "type": "int",
-        "description": "File size of the ContentDocument.",
+        "type": "number",
+        "description": "The size of the document in bytes for files smaller than 2 GB. In API version 66.0 and later, we recommend that you use the ContentSizeLong field even for documents smaller than 2 GB.",
         "nullable": true,
         "readOnly": true
       },
@@ -39,9 +39,9 @@
         "readOnly": true
       },
       "ParentContentFolderId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the ContentFoldr the ContentDocument resides in.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ContentFolder",
         "maxLength": 18,
         "nullable": true,
@@ -101,10 +101,14 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "ContentSizeLong": {
+        "type": "number",
+        "description": "The size of the document in bytes up to 10 GB. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_folderedcontentdocument.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_folderedcontentdocument.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -112,6 +116,7 @@
     "searchable": false,
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "66.0"
   }
 }

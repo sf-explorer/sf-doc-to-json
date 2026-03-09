@@ -4,24 +4,25 @@
     "description": "Provides access to the concrete object that represents a CRM Analytics auto-install request. The auto-install request tracks the progress of CRM Analytics applications created from CRM Analytics templates by the automated process user.",
     "properties": {
       "Configuration": {
-        "type": "textarea",
+        "type": "string",
         "description": "CRM Analytics application configuration for the auto-install request.",
         "maxLength": 100000,
         "nullable": true,
         "readOnly": true
       },
       "FailedReason": {
-        "type": "picklist",
+        "type": "string",
         "description": "If the CRM Analytics application fails to complete successfully, this value indicates why the failure occurred. Values can be: OrganizationIncompatible: the org didn't pass the template compatibility checks. AppInstallationSkipped: the org didn't pass the template compatibility checks and was skipped. RetriesExhausted: the request exhausted the maximum number of retries. RequestCancelled: the user canceled the request. AppCreateFailure: the app or folder creation failed. Check the request log and try again. AppUpdateFailure: the app or folder update failed. Check the request log and try again. AppConstructionFailure: the app or folder construction failed. Check the request log and try again. WaveDisabled: the org doesn't have the Wave org permission or preference enabled. Check the licenses for CRM Analytics and try again. CancelFailed: canceling an in-progress app failed. Check the request log and try again. DeleteFailed: deleting an app failed. Check the request log and try again. DependencyFailure: a dependent auto-install request failed. Check App Install History and try again. DependencyCancelled: the user canceled a dependent auto-install request. Check App Install History and try again. FailedToEnqueue: the request failed to enqueue. Check the request log and try again. FailedOther: the request failed for another reason. Check the request log and try again.",
         "format": "enum",
         "maxLength": 255,
         "nullable": true,
-        "readOnly": true
+        "readOnly": true,
+        "enum": []
       },
       "FolderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the CRM Analytics application created by the auto-install request.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Folder",
         "maxLength": 18,
         "nullable": true,
@@ -46,25 +47,27 @@
         "nullable": false
       },
       "RequestLog": {
-        "type": "textarea",
+        "type": "string",
         "description": "A log of the auto-install progress and completion results.",
         "maxLength": 100000,
         "nullable": true
       },
       "RequestStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the auto-install request. Values can be New, Enqueued, Cancelled, In Progress, AppInProgress, Failed, and Success.",
         "format": "enum",
         "maxLength": 255,
-        "nullable": false
+        "nullable": false,
+        "enum": []
       },
       "RequestType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of auto-install request. Values can be WaveEnable, OrgCompatibilityCheck, WaveAppCreate, WaveAppUpdate, WaveAppDelete, and StartDataflow.",
         "format": "enum",
         "maxLength": 255,
         "nullable": false,
-        "readOnly": true
+        "readOnly": true,
+        "enum": []
       },
       "TemplateApiName": {
         "type": "string",
@@ -145,7 +148,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_waveautoinstallrequest.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_waveautoinstallrequest.htm",
     "keyPrefix": "0UZ",
     "createable": true,
     "updateable": true,
@@ -175,6 +178,7 @@
     "accessRules": "CRM Analytics must be enabled in your org. A user must have the Auto Install permission enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "38.0"
   }
 }

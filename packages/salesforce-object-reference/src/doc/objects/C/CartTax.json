@@ -4,40 +4,42 @@
     "description": "Represents taxes for a line item in a WebCart that’s active in a store built with B2B Commerce or D2C Commerce.",
     "properties": {
       "AdjustmentTargetType": {
-        "type": "picklist",
-        "description": "Target for the price adjustment (the cart itself or individual items). This field is available in API version 52.0 and later."
+        "type": "string",
+        "description": "Target for the price adjustment (the cart itself or individual items). This field is available in API version 52.0 and later.",
+        "enum": []
       },
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "Calculated tax amount.",
         "format": "currency",
         "nullable": false,
         "multipleOf": 0.01
       },
       "CartId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the WebCart being taxed.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WebCart",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "CartItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of a cart item being taxed.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CartItem",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "CartItemPriceAdjustmentId": {
-        "type": "reference",
-        "description": "The ID of a price adjustment for a cart item being taxed. (This field is available in API version 52.0 and later.)"
+        "type": "string",
+        "description": "The ID of a price adjustment for a cart item being taxed. (This field is available in API version 52.0 and later.)",
+        "format": "reference"
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO code for the currency that’s specified on the buyer’s account. Default value is USD. Valid values include:",
         "format": "enum",
         "enum": [
@@ -47,7 +49,7 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "A description of the tax. Enter up to 2000 characters.",
         "maxLength": 2000,
         "nullable": true
@@ -59,20 +61,20 @@
         "nullable": false
       },
       "TaxCalculationDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date this tax was calculated.",
         "format": "date",
         "nullable": false
       },
       "TaxRate": {
-        "type": "percent",
+        "type": "number",
         "description": "The applied tax rate for this line of tax.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TaxType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of tax for this line of tax. Possible values are: Actual Estimated",
         "format": "enum",
         "enum": [
@@ -142,7 +144,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_carttax.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_carttax.htm",
     "keyPrefix": "0gT",
     "createable": true,
     "updateable": true,
@@ -196,6 +198,7 @@
     "accessRules": "The CartTax object is available only if the B2B Commerce or D2C Commerce license is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "49.0"
   }
 }

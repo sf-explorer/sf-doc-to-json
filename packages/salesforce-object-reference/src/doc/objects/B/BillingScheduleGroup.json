@@ -4,80 +4,95 @@
     "description": "Represents a consolidated view of all the billing schedules related to the order items generated from one asset, including new orders and amendment orders.",
     "properties": {
       "AnchorProdtBillingSchdGrpId": {
-        "type": "reference",
-        "description": "The billing schedule group for the anchor product in a usage-based product. The anchor product contains the grants for the usage-based product. This field is available in API version 63.0 and later with Revenue Cloud Billing license."
+        "type": "string",
+        "description": "The billing schedule group for the anchor product in a usage-based product. The anchor product contains the grants for the usage-based product. This field is available in API version 63.0 and later with Revenue Cloud Billing license.",
+        "format": "reference"
       },
       "BillDayOfMonth": {
-        "type": "int",
+        "type": "number",
         "description": "The day of the month on which a recurring billing process is scheduled to occur."
       },
       "BillToContactId": {
-        "type": "reference",
-        "description": "The ID of the contact related to the billing schedule group. This field can’t be modified when related billing schedules are in processing."
+        "type": "string",
+        "description": "The ID of the contact related to the billing schedule group. This field can’t be modified when related billing schedules are in processing.",
+        "format": "reference"
       },
       "BillingAccountId": {
-        "type": "reference",
-        "description": "Required. The ID of the account that's related to the billing schedule group."
+        "type": "string",
+        "description": "Required. The ID of the account that's related to the billing schedule group.",
+        "format": "reference"
       },
       "BillingAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the billing address. Read only. See Address Compound Fields for details on compound address fields."
       },
       "BillingMethod": {
-        "type": "picklist",
-        "description": "Required. The type of billing used for the source item."
+        "type": "string",
+        "description": "Required. The type of billing used for the source item.",
+        "enum": []
       },
       "BillingResumptionDate": {
-        "type": "date",
-        "description": "The date when billing for the asset related to the billing schedule group is resumed. Available in API version 63.0 and later."
+        "type": "string",
+        "description": "The date when billing for the asset related to the billing schedule group is resumed. Available in API version 63.0 and later.",
+        "format": "date"
       },
       "BillingScheduleGroupNumber": {
         "type": "string",
         "description": "Required. The auto-generated reference number for the billing schedule group."
       },
       "BillingStartMonth": {
-        "type": "picklist",
-        "description": "This is a read-only field used with annual billing. The field shows the numbers from 1 through 12, which indicate the month when billing begins for an annual subscription. For example, if billing starts in January, the value is 1; if billing starts in June, the value is 6."
+        "type": "string",
+        "description": "This is a read-only field used with annual billing. The field shows the numbers from 1 through 12, which indicate the month when billing begins for an annual subscription. For example, if billing starts in January, the value is 1; if billing starts in June, the value is 6.",
+        "enum": []
       },
       "BillingSuspensionDate": {
-        "type": "date",
-        "description": "The date when billing for the asset related to the billing schedule group is suspended. Available in API version 63.0 and later."
+        "type": "string",
+        "description": "The date when billing for the asset related to the billing schedule group is suspended. Available in API version 63.0 and later.",
+        "format": "date"
       },
       "BillingTerm": {
-        "type": "int",
+        "type": "number",
         "description": "This field is used with BillingTermUnitfield to define a billing cycle. For example, bill every 20 days or every two months. In this example, the BillingTerm field value is 20 and the BillingTermUnit field value is Day."
       },
       "BillingTermUnit": {
-        "type": "picklist",
-        "description": "Required. The unit of measurement of the billing term."
+        "type": "string",
+        "description": "Required. The unit of measurement of the billing term.",
+        "enum": []
       },
       "BillingTreatmentId": {
-        "type": "reference",
-        "description": "The billing treatment item that's used to configure invoiceable amounts on the billing schedule group."
+        "type": "string",
+        "description": "The billing treatment item that's used to configure invoiceable amounts on the billing schedule group.",
+        "format": "reference"
       },
       "BillingType": {
-        "type": "picklist",
-        "description": "Required. The timing of invoicing for a product or service relative to its delivery to the customer."
+        "type": "string",
+        "description": "Required. The timing of invoicing for a product or service relative to its delivery to the customer.",
+        "enum": []
       },
       "BindingInstanceId": {
-        "type": "reference",
-        "description": "The asset or custom object record associated with the billing schedule group. This field is available in API version 63.0 and later with Revenue Cloud Billing license."
+        "type": "string",
+        "description": "The asset or custom object record associated with the billing schedule group. This field is available in API version 63.0 and later with Revenue Cloud Billing license.",
+        "format": "reference"
       },
       "CancellationDate": {
-        "type": "date",
-        "description": "The date from when the user can no longer access the service. For example, if a service ends on August 31, the cancellation date is September 1 because that’s the date from when the user can no longer use the service. Billing schedules past their cancellation date aren't invoiced."
+        "type": "string",
+        "description": "The date from when the user can no longer access the service. For example, if a service ends on August 31, the cancellation date is September 1 because that’s the date from when the user can no longer use the service. Billing schedules past their cancellation date aren't invoiced.",
+        "format": "date"
       },
       "Controller": {
-        "type": "picklist",
-        "description": "Required. During the invoicing process, this field determines which date is used when the billing schedule group and billing schedule have a related field with conflicting values. For example, when Controller has a value of BillingScheduleGroup, if the billing schedule's billing day of month is 5 while the billing schedule group's billing day of month is 10, the invoice is sent on the 10th day of the month."
+        "type": "string",
+        "description": "Required. During the invoicing process, this field determines which date is used when the billing schedule group and billing schedule have a related field with conflicting values. For example, when Controller has a value of BillingScheduleGroup, if the billing schedule's billing day of month is 5 while the billing schedule group's billing day of month is 10, the invoice is sent on the 10th day of the month.",
+        "enum": []
       },
       "EffectiveNextBillingDate": {
-        "type": "date",
-        "description": "The earliest NextBillingDate from all billing schedules in the billing schedule group. This field is a reference field that isn't used for any features or calculations."
+        "type": "string",
+        "description": "The earliest NextBillingDate from all billing schedules in the billing schedule group. This field is a reference field that isn't used for any features or calculations.",
+        "format": "date"
       },
       "EndDate": {
-        "type": "date",
-        "description": "The end date of the billing schedule group."
+        "type": "string",
+        "description": "The end date of the billing schedule group.",
+        "format": "date"
       },
       "ExternalBindingInstance": {
         "type": "string",
@@ -88,72 +103,86 @@
         "description": "The identifier of the external record for which the billing schedule group was created. Available in API version 64.0 and later."
       },
       "LegalEntityId": {
-        "type": "reference",
-        "description": "The ID of the legal entity that's related to the billing schedule group."
+        "type": "string",
+        "description": "The ID of the legal entity that's related to the billing schedule group.",
+        "format": "reference"
       },
       "NextBillingDateOverride": {
-        "type": "date",
-        "description": "The next billing date for all the billing schedules related to the billing schedule group. If specified, this date overrides the next billing dates of the billing schedules. Available in API version 63.0 and later."
+        "type": "string",
+        "description": "The next billing date for all the billing schedules related to the billing schedule group. If specified, this date overrides the next billing dates of the billing schedules. Available in API version 63.0 and later.",
+        "format": "date"
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "Required. The ID of the user who created the billing schedule group."
+        "type": "string",
+        "description": "Required. The ID of the user who created the billing schedule group.",
+        "format": "reference"
       },
       "PaymentTermId": {
-        "type": "reference",
-        "description": "The ID of the payment term used in this billing schedule group. This field can’t be modified when related billing schedules are in processing."
+        "type": "string",
+        "description": "The ID of the payment term used in this billing schedule group. This field can’t be modified when related billing schedules are in processing.",
+        "format": "reference"
       },
       "PeriodBoundary": {
-        "type": "picklist",
-        "description": "This field is inherited from the order item's parent quote line item or sales transaction item. The period boundary determines the start and end date of the billing periods."
+        "type": "string",
+        "description": "This field is inherited from the order item's parent quote line item or sales transaction item. The period boundary determines the start and end date of the billing periods.",
+        "enum": []
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "The product that was charged or ordered to create the billing schedule group."
+        "type": "string",
+        "description": "The product that was charged or ordered to create the billing schedule group.",
+        "format": "reference"
       },
       "ProductName": {
         "type": "string",
         "description": "The name of the product for the order item that's represented by each billing schedule in the billing schedule group."
       },
       "ProrationPolicyId": {
-        "type": "reference",
-        "description": "The ID of the proration policy that applies to this billing schedule group. The proration policy defines how time periods are calculated for orders. For example, whether partial periods are allowed. This field is inherited from the shared proration policy for each billing schedule in the billing schedule group."
+        "type": "string",
+        "description": "The ID of the proration policy that applies to this billing schedule group. The proration policy defines how time periods are calculated for orders. For example, whether partial periods are allowed. This field is inherited from the shared proration policy for each billing schedule in the billing schedule group.",
+        "format": "reference"
       },
       "ReferenceEntityId": {
-        "type": "reference",
-        "description": "The asset used to create the billing schedules in the billing schedule group."
+        "type": "string",
+        "description": "The asset used to create the billing schedules in the billing schedule group.",
+        "format": "reference"
       },
       "ReferenceRecordId": {
-        "type": "reference",
-        "description": "The ID of the Salesforce record for which the billing schedule group was created. Available in API version 64.0 and later."
+        "type": "string",
+        "description": "The ID of the Salesforce record for which the billing schedule group was created. Available in API version 64.0 and later.",
+        "format": "reference"
       },
       "SavedPaymentMethodId": {
-        "type": "reference",
-        "description": "The ID of the SavedPaymentMethod record that's used to collect payment for the billing schedule group. Available in API version 64.0 and later."
+        "type": "string",
+        "description": "The ID of the SavedPaymentMethod record that's used to collect payment for the billing schedule group. Available in API version 64.0 and later.",
+        "format": "reference"
       },
       "ShipFromAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The address from which the product in the billing schedule group is shipped. Available in API version 64.0 and later."
       },
       "ShippingAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the shipping address. See Address Compound Fields for details on compound address fields."
       },
       "StartDate": {
-        "type": "date",
-        "description": "The earliest start date from all billing schedules in the billing schedule group."
+        "type": "string",
+        "description": "The earliest start date from all billing schedules in the billing schedule group.",
+        "format": "date"
       },
       "TaxTreatmentId": {
-        "type": "reference",
-        "description": "The ID of the tax treatment record that's used to calculate tax for the billing schedule group. This value is defined based on the order item's tax policy."
+        "type": "string",
+        "description": "The ID of the tax treatment record that's used to calculate tax for the billing schedule group. This value is defined based on the order item's tax policy.",
+        "format": "reference"
       },
       "TotalBilledAmount": {
-        "type": "currency",
-        "description": "The amount that has been invoiced for the billing schedules within the billing schedule group."
+        "type": "number",
+        "description": "The amount that has been invoiced for the billing schedules within the billing schedule group.",
+        "format": "currency"
       },
       "TotalPendingAmount": {
-        "type": "currency",
-        "description": "The amount that hasn't yet been invoiced for the billing schedules within the billing schedule group."
+        "type": "number",
+        "description": "The amount that hasn't yet been invoiced for the billing schedules within the billing schedule group.",
+        "format": "currency"
       },
       "BillingCity": {
         "type": "string",
@@ -164,8 +193,9 @@
         "description": "Details for the billing address of this billing schedule group. Maximum size is 80 characters."
       },
       "BillingGeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy level of the geocode for the billing address. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "type": "string",
+        "description": "Accuracy level of the geocode for the billing address. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "enum": []
       },
       "BillingLatitude": {
         "type": "double",
@@ -184,24 +214,27 @@
         "description": "Details for the billing address of this billing schedule group. Maximum size is 80 characters."
       },
       "BillingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street address for the billing address of this billing schedule group."
       },
       "CurrentBillingPeriodAmount": {
-        "type": "currency",
-        "description": "This field was removed in Subscription Management API version 55.0."
+        "type": "number",
+        "description": "This field was removed in Subscription Management API version 55.0.",
+        "format": "currency"
       },
       "CurrentQuantity": {
         "type": "double",
         "description": "This field was removed in Subscription Management API version 55.0."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view."
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record, a record related to this record, or a list view.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it."
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "format": "date-time"
       },
       "": {
         "type": "string",
@@ -212,8 +245,9 @@
         "description": "Details for the shipping address for this billing schedule group. Country maximum size is 80 characters."
       },
       "ShippingCountry": {
-        "type": "picklist",
-        "description": "Accuracy level of the geocode for the shipping address. See Compound Field Considerations and Limitations for details on geolocation compound fields."
+        "type": "string",
+        "description": "Accuracy level of the geocode for the shipping address. See Compound Field Considerations and Limitations for details on geolocation compound fields.",
+        "enum": []
       },
       "ShippingGeocodeAccuracy": {
         "type": "double",
@@ -232,20 +266,32 @@
         "description": "Details for the shipping address for this billing schedule group. State maximum size is 80 characters."
       },
       "ShippingState": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street address of the shipping address for this billing schedule group. Maximum of 255 characters."
       },
       "ShippingStreet": {
-        "type": "date",
-        "description": "The earliest start date from all billing schedules in the billing schedule group."
+        "type": "string",
+        "description": "The earliest start date from all billing schedules in the billing schedule group.",
+        "format": "date"
+      },
+      "BillingArrangementId": {
+        "type": "string",
+        "description": "Required. The ID of the billing arrangement that’s related to the billing schedule group. Available in API version 66.0 and later.",
+        "format": "reference"
+      },
+      "UsageType": {
+        "type": "string",
+        "description": "The usage type for the billing schedule group.",
+        "enum": []
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_billingschedulegroup.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_billingschedulegroup.htm",
     "accessRules": "the Billing Admin permission set to access this object",
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "62.0"
   }
 }

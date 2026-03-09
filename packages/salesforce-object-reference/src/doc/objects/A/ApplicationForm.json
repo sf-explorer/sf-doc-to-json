@@ -4,61 +4,74 @@
     "description": "Represents the high level information of an application that's submitted for the product.",
     "properties": {
       "AccountId": {
-        "type": "reference",
-        "description": "The account that's associated with the application."
+        "type": "string",
+        "description": "The account that's associated with the application.",
+        "format": "reference"
       },
       "BranchUnitId": {
-        "type": "reference",
-        "description": "The ID of the branch unit that owns the application."
+        "type": "string",
+        "description": "The ID of the branch unit that owns the application.",
+        "format": "reference"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed a record related to this record."
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed a record related to this record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time"
       },
       "LeadId": {
-        "type": "reference",
-        "description": "The ID of the lead associated with the application."
+        "type": "string",
+        "description": "The ID of the lead associated with the application.",
+        "format": "reference"
       },
       "Name": {
         "type": "string",
         "description": "The name of the application."
       },
       "OpportunityId": {
-        "type": "reference",
-        "description": "The ID of the opportunity associated with the application."
+        "type": "string",
+        "description": "The ID of the opportunity associated with the application.",
+        "format": "reference"
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "ID of the user who created the record."
+        "type": "string",
+        "description": "ID of the user who created the record.",
+        "format": "reference"
       },
       "Stage": {
-        "type": "picklist",
-        "description": "The stage in the approval process of the application."
+        "type": "string",
+        "description": "The stage in the approval process of the application.",
+        "enum": []
       },
       "SubmissionDate": {
-        "type": "date",
-        "description": "The date when the application is submitted."
+        "type": "string",
+        "description": "The date when the application is submitted.",
+        "format": "date"
       },
       "ThirdPartyLoanProviderAccountId": {
-        "type": "reference",
-        "description": "The ID of the third party loan provider account associated with the application."
+        "type": "string",
+        "description": "The ID of the third party loan provider account associated with the application.",
+        "format": "reference"
       },
       "UsageType": {
-        "type": "picklist",
-        "description": "Specifies the usage of application."
+        "type": "string",
+        "description": "Specifies the usage of application.",
+        "enum": []
       },
       "IntakeChannelType": {
         "type": "string",
         "description": "Specifies the type of channel through which the application form is received by the system.",
+        "enum": [],
         "x-cloud": "Automotive Cloud"
       },
       "TierType": {
         "type": "string",
         "description": "Specifies the tier type of an application form, based on which the offer terms are evaluated.",
+        "enum": [],
         "x-cloud": "Automotive Cloud"
       },
       "TotalDebtToIncomePercent": {
@@ -75,13 +88,43 @@
         "type": "number",
         "description": "The cumulative loan to value percentage for all applicants related to the application form.",
         "x-cloud": "Automotive Cloud"
+      },
+      "ApplicationSummary": {
+        "type": "string",
+        "description": "A summary of the information provided in the application."
+      },
+      "PreliminaryApplicationRefId": {
+        "type": "string",
+        "description": "The preliminary application reference that represents the saved application.",
+        "format": "reference"
+      },
+      "RecruitmentPostingId": {
+        "type": "string",
+        "description": "The recruitment posting associated with the application form.",
+        "format": "reference"
+      },
+      "Score": {
+        "type": "double",
+        "description": "Indicates how well the application matches the posted requirements."
+      },
+      "Score Reason": {
+        "type": "string",
+        "description": "The information about the score provided on the application form."
+      },
+      "Score Type": {
+        "type": "string",
+        "description": "Specifies how the score is used for the application form.",
+        "enum": []
       }
     },
     "module": "Financial Services Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_applicationform.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_applicationform.htm",
     "clouds": [
       "Automotive Cloud",
-      "Financial Services Cloud"
-    ]
+      "Financial Services Cloud",
+      "Public Sector Cloud"
+    ],
+    "accessRules": "The Usage Type field has to be populated when using the Application Form object. The picklist values for Usage Type are Onboarding, Loan Origination, and Other. The picklist values are fixed and you can't add more values.",
+    "x-version": "59.0"
   }
 }

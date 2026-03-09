@@ -4,9 +4,9 @@
     "description": "Represents a call in Service Cloud Voice, Sales Dialer, or other supported voice connectors. For Service Cloud Voice, this can be a phone or Voice over Internet Protocol (VoIP) call. This object is available in API version 40.0 and later.",
     "properties": {
       "ActivityId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique ID of the activity record. Available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Task",
         "maxLength": 18,
         "nullable": true
@@ -16,23 +16,23 @@
         "description": "If Sentiment Journey in Service Cloud Voice is set up, this field represents the rep’s overall sentiment score post-call in a conversation event. The value must be between -5 (lowest negative sentiment score) and 5 (highest positive sentiment score), with 0 being a neutral sentiment score. Available in API version 59.0 and later."
       },
       "CallAcceptDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents the date and time (in UTC) when an agent accepts the call. Available in API version 48.0 and later.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "CallCenterId": {
-        "type": "reference",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents the unique ID of the call center (CallCenter Id) where the activity took place. Available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CallCenter",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "CallConnectDateTime": {
-        "type": "datetime",
+        "type": "string",
         "description": "For Sales Dialer, this field represents the date and time (in UTC) when the call was connected.",
         "format": "date-time",
         "nullable": true,
@@ -46,29 +46,29 @@
         "readOnly": true
       },
       "CallDurationInSeconds": {
-        "type": "int",
+        "type": "number",
         "description": "The total duration (in seconds) of the call.",
         "nullable": true,
         "readOnly": true
       },
       "CallEndDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time (in UTC) when the call ended.",
         "format": "date-time",
         "nullable": false,
         "readOnly": true
       },
       "CallerId": {
-        "type": "reference",
+        "type": "string",
         "description": "For Service Cloud Voice, this field represents the unique ID of the participant who initiated the call. If “Match Callers to End User Records” is enabled in Lightning Experience, the value is null and the EndUserId field is used instead to determine the end user associated with this voice call. Available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ConversationParticipant",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "CallerIdType": {
-        "type": "picklist",
+        "type": "string",
         "description": "For Sales Dialer, this field represents the number displayed for outbound calls. Possible values are: VendorLine—User. CompanyNumber—Company. LocalPresence—Local Presence. CustomCallerId—Custom Caller ID.",
         "format": "enum",
         "enum": [
@@ -82,27 +82,28 @@
         "readOnly": true
       },
       "CallOrigin": {
-        "type": "picklist",
-        "description": "Information about how this call originated. For Service Cloud Voice, possible values are: Preview—Preview dialer. Progressive—Progressive dialer. Voicemail—Voicemail call."
+        "type": "string",
+        "description": "Information about how this call originated. For Service Cloud Voice, possible values are: Preview—Preview dialer. Progressive—Progressive dialer. Voicemail—Voicemail call.",
+        "enum": []
       },
       "CallQueuedDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents the date and time (in UTC) when the call was added to a queue to be routed to an agent. Available in API version 48.0 and later.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "CallRecordingId": {
-        "type": "reference",
+        "type": "string",
         "description": "For Service Cloud Voice, this field represents the unique ID of the call recording for the voice call. An update to the CallRecordingId value is an internal process and doesn't trigger automation such as flows. Available in API version 41.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "VoiceCallRecording",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "CallResolution": {
-        "type": "picklist",
+        "type": "string",
         "description": "The resolution outcome of the call. The default value is Resolved, meaning the call has been resolved. Available in API version 48.0 and later.",
         "format": "enum",
         "enum": [
@@ -112,22 +113,24 @@
         "nullable": true
       },
       "CallStartDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time (UTC) when the call started.",
         "format": "date-time",
         "nullable": false,
         "readOnly": true
       },
       "CallStatus": {
-        "type": "picklist",
-        "description": "For internal use only."
+        "type": "string",
+        "description": "For internal use only.",
+        "enum": []
       },
       "CallSubtype": {
-        "type": "picklist",
-        "description": "For Service Cloud Voice, this field represents the network or protocol over which the phone or Voice over Internet Protocol (VoIP) call is made. Possible values are: PSTN WebRTC Available in API version 62.0 and later."
+        "type": "string",
+        "description": "For Service Cloud Voice, this field represents the network or protocol over which the phone or Voice over Internet Protocol (VoIP) call is made. Possible values are: PSTN WebRTC Available in API version 62.0 and later.",
+        "enum": []
       },
       "CallType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The types of call.For Sales Dialer, possible values are: Bridge Coach Inbound Internal Outbound For Service Cloud Voice, possible values are: Callback Consult Inbound InternalCall Outbound Transfer",
         "format": "enum",
         "enum": [
@@ -146,7 +149,7 @@
         "readOnly": true
       },
       "CoachingDurationInSeconds": {
-        "type": "int",
+        "type": "number",
         "description": "For Sales Dialer, this field represents the total duration (in seconds) of the coaching session. This field only appears if call coaching is enabled. Available in API version 41.0 and later."
       },
       "ConferenceKey": {
@@ -157,16 +160,16 @@
         "readOnly": true
       },
       "ConversationId": {
-        "type": "reference",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents the unique ID of the conversation. This field is only available if call monitoring is enabled. Available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Conversation",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "CurrencyCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "For Sales Dialer, this field represents the ISO currency code used to bill the call.",
         "format": "enum",
         "enum": [
@@ -380,7 +383,7 @@
         "readOnly": true
       },
       "CustomerHoldDuration": {
-        "type": "int",
+        "type": "number",
         "description": "If Service Cloud Voice is enabled, this field represents the total duration (in seconds) of all the holds that occurred during the voice call. Available in API version 49.0 and later.",
         "nullable": true,
         "readOnly": true
@@ -390,7 +393,7 @@
         "description": "If Sentiment Journey in Service Cloud Voice is set up, this field represents the customer’s overall sentiment score post-call in a conversation event. The value must be between -5 (lowest negative sentiment score) and 5 (highest positive sentiment score), with 0 being a neutral sentiment score. Available in API version 59.0 and later."
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents a text field where the agent can enter a summary of the call. Available in API version 48.0 and later.",
         "maxLength": 32000,
         "nullable": true
@@ -400,11 +403,12 @@
         "description": "If Service Cloud Voice is enabled, this field represents the reason why the voice call was disconnected. The reason is provided by the partner telephony. For Amazon Connect instances, this value is automatically populated through the contact record if you have Contact Center version 13.0 or later. See DisconnectReason in the Amazon Connect contact records data model page for a list of possible reasons why a voice call may be disconnected. For all other partner telephony models, configure this feature through the disconnectReason parameter in the Update a Voice Call Record Telephony Integration API. Available in API version 59.0 and later."
       },
       "EndUserId": {
-        "type": "reference",
-        "description": "For Service Cloud Voice, if “Match Callers to End User Records” is enabled in Lightning Experience, this field represents the unique ID of the messaging end user (MessagingEndUser ID) associated with this voice call. Available in API version 53.0 and later."
+        "type": "string",
+        "description": "For Service Cloud Voice, if “Match Callers to End User Records” is enabled in Lightning Experience, this field represents the unique ID of the messaging end user (MessagingEndUser ID) associated with this voice call. Available in API version 53.0 and later.",
+        "format": "reference"
       },
       "FromPhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "The number of the user who initiated the call.",
         "format": "phone",
         "maxLength": 40,
@@ -422,29 +426,29 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time (in UTC) when the current user last viewed a record related to this voice call.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time (in UTC) when the current user last viewed this voice call. If the record has not been viewed before, this value is null. Referencing a record (LastReferencedDate) doesn’t count as viewing it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LongestHoldDuration": {
-        "type": "int",
+        "type": "number",
         "description": "If Service Cloud Voice is enabled, this field represents the longest hold duration (in seconds) that occurred during the call. Available in API version 49.0 and later.",
         "nullable": true,
         "readOnly": true
       },
       "MediaProviderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique ID of the related media provider. Available in API version 49.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CallCoachingMediaProvider",
         "maxLength": 18,
         "nullable": true,
@@ -455,24 +459,24 @@
         "description": "The name of the voice call record. For example, VC-00000001. Available in API version 60.0 and later."
       },
       "NextCallId": {
-        "type": "reference",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents the unique ID of the next call if the call was transferred to another agent. If there is no other agent, this value is null. Available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "VoiceCall",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "NumberOfHolds": {
-        "type": "int",
+        "type": "number",
         "description": "If Service Cloud Voice is enabled, this field represents the number of times the customer was put on hold. Available in API version 49.0 and later.",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique ID of the user who owns the voice call record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -481,9 +485,9 @@
         "nullable": false
       },
       "PreviousCallId": {
-        "type": "reference",
+        "type": "string",
         "description": "If Service Cloud Voice is enabled, this field represents the unique ID of the previous call if the call was transferred from another agent. When there is no previous call, this value is null. Available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "VoiceCall",
         "maxLength": 18,
         "nullable": true,
@@ -508,22 +512,23 @@
         "readOnly": true
       },
       "RecipientId": {
-        "type": "reference",
+        "type": "string",
         "description": "For Service Cloud Voice, this field represents the unique ID of the participant who received the call. If “Match Callers to End User Records” is enabled in Lightning Experience, this value is null and the EndUserId field is used instead to determine the end user associated with this voice call.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ConversationParticipant",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "RecordyTypeId": {
-        "type": "reference",
-        "description": "The ID of the voice call record type assigned to this voice call. If a record type isn't assigned to this voice call, the value is null. Available in API version 59.0 and later."
+        "type": "string",
+        "description": "The ID of the voice call record type assigned to this voice call. If a record type isn't assigned to this voice call, the value is null. Available in API version 59.0 and later.",
+        "format": "reference"
       },
       "RelatedRecordId": {
-        "type": "reference",
-        "description": "The unique ID of the related record. Associates the VoiceCall record to a standard or custom object record. For Service Cloud Voice, supported related records include the standard objects Account, Case, Contact, Lead, and Opportunity. For Sales Dialer, supported related records include custom objects.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The unique ID of the related record. Associates the VoiceCall record to a standard or custom object record. For Service Cloud Voice, supported related records include the standard objects Account, Case, Collection Plan, Contact, Contact Request, Lead, and Opportunity. For Sales Dialer, supported related records include custom objects.",
+        "format": "reference",
         "x-objects": [
           "Account",
           "AgentWork__c",
@@ -1367,11 +1372,12 @@
         "nullable": true
       },
       "SourceType": {
-        "type": "picklist",
-        "description": "The general purpose of the call. The permission sets assigned to the voice call owner determine the value. A call’s source type controls which insights Einstein Conversation Insights applies during analysis.Possible values are: Sales Service Available in API version 52.0 and later."
+        "type": "string",
+        "description": "The general purpose of the call. The permission sets assigned to the voice call owner determine the value. A call’s source type controls which insights Einstein Conversation Insights applies during analysis.Possible values are: Sales Service Available in API version 52.0 and later.",
+        "enum": []
       },
       "ToPhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "The recipient of the call. For inbound, transfer, and callback calls, this value is the agent's number. For outbound calls, this value is the customer's number.",
         "format": "phone",
         "maxLength": 40,
@@ -1383,9 +1389,9 @@
         "description": "The language that is transcribed for this voice call."
       },
       "UserId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique ID of the Salesforce user who initiates an outbound call or accepts an inbound call. If no one takes the call, this value defaults to null.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
@@ -1406,7 +1412,7 @@
         "readOnly": true
       },
       "VendorType": {
-        "type": "picklist",
+        "type": "string",
         "description": "For Sales Dialer, this field represents the type of Dialer vendor. For Service Cloud Voice, this field is always set to ContactCenter. Available in API version 41.0 and later.",
         "format": "enum",
         "enum": [
@@ -1426,9 +1432,9 @@
         "readOnly": true
       },
       "VoiceVendorLineId": {
-        "type": "reference",
+        "type": "string",
         "description": "For Sales Dialer, this field represents the unique ID of the associated Dialer vendor line.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "VoiceVendorLine",
         "maxLength": 18,
         "nullable": true,
@@ -1498,10 +1504,14 @@
         "description": "Is Locked",
         "nullable": false,
         "readOnly": true
+      },
+      "IvrDuration": {
+        "type": "number",
+        "description": "Total duration, in seconds, that a caller spends in the Interactive Voice Response (IVR) system. The duration includes time spent on automated prompts and responses before being placed in a queue or connected to a service rep. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_voicecall.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_voicecall.htm",
     "keyPrefix": "0LQ",
     "createable": true,
     "updateable": true,
@@ -1701,6 +1711,7 @@
       "Core Salesforce"
     ],
     "iconUrl": "standard/call_120.png",
-    "iconColor": "396547"
+    "iconColor": "396547",
+    "x-version": "40.0"
   }
 }

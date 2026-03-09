@@ -4,7 +4,7 @@
     "description": "Represents the current properties and state of payments using a single payment method that are applied to one OrderSummary.",
     "properties": {
       "AuthorizationAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that has been authorized.",
         "format": "currency",
         "nullable": true,
@@ -12,11 +12,12 @@
         "multipleOf": 0.01
       },
       "AuthorizationReversal​Amount": {
-        "type": "currency",
-        "description": "Amount of the AuthorizationAmount that has been reversed."
+        "type": "number",
+        "description": "Amount of the AuthorizationAmount that has been reversed.",
+        "format": "currency"
       },
       "AvailableToCaptureAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that’s available to be captured. Equal to AuthorizationAmount minus (CapturedAmount and PendingCaptureAmount and AuthorizationReversalAmount and PendingReverseAuthAmount). However, if the calculated amount is a negative number, this value is 0.",
         "format": "currency",
         "nullable": true,
@@ -24,7 +25,7 @@
         "multipleOf": 0.01
       },
       "AvailableToRefundAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that’s available to be refunded. Equal to CapturedAmount plus PendingCaptureAmount minus (RefundedAmount and PendingRefundAmount). However, if the calculated amount is a negative number, this value is 0.",
         "format": "currency",
         "nullable": true,
@@ -32,7 +33,7 @@
         "multipleOf": 0.01
       },
       "BalanceAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total balance of all payments associated with this summary object.",
         "format": "currency",
         "nullable": true,
@@ -40,7 +41,7 @@
         "multipleOf": 0.01
       },
       "CapturedAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that has been captured.",
         "format": "currency",
         "nullable": true,
@@ -48,7 +49,7 @@
         "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the OrderSummary associated with the OrderPaymentSummary. Order Management APIs and actions that create an OrderPaymentSummary for an OrderSummary set this value. The default value is USD.",
         "format": "enum",
         "enum": [
@@ -64,22 +65,23 @@
         "nullable": true
       },
       "LastPaymentGateway​LogId": {
-        "type": "reference",
-        "description": "ID of the most recent payment gateway log associated with the OrderPaymentSummary."
+        "type": "string",
+        "description": "ID of the most recent payment gateway log associated with the OrderPaymentSummary.",
+        "format": "reference"
       },
       "LastPaymentGateway​Message": {
         "type": "string",
         "description": "The most recent message received from the payment gateway associated with the OrderPaymentSummary."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp when the current user last viewed this record. A null value can mean that this record was only referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -92,18 +94,18 @@
         "nullable": false
       },
       "OrderSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the OrderSummary associated with the OrderPaymentSummary.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderSummary",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user who currently owns this OrderPaymentSummary. Default value is the user logged in to the API to perform the create.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -112,24 +114,26 @@
         "nullable": false
       },
       "PaymentCreditedAmount": {
-        "type": "currency",
-        "description": "Total amount of credit associated with this OrderPaymentSummary."
+        "type": "number",
+        "description": "Total amount of credit associated with this OrderPaymentSummary.",
+        "format": "currency"
       },
       "PaymentMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the payment method associated with this OrderPaymentSummary.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentMethod",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "PendingAuthorization​Amount": {
-        "type": "currency",
-        "description": "Amount of the OrderPaymentSummary that’s pending authorization."
+        "type": "number",
+        "description": "Amount of the OrderPaymentSummary that’s pending authorization.",
+        "format": "currency"
       },
       "PendingCaptureAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that’s pending capture.",
         "format": "currency",
         "nullable": true,
@@ -137,7 +141,7 @@
         "multipleOf": 0.01
       },
       "PendingRefundAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that’s pending refund.",
         "format": "currency",
         "nullable": true,
@@ -145,11 +149,12 @@
         "multipleOf": 0.01
       },
       "PendingReverseAuth​Amount": {
-        "type": "currency",
-        "description": "Amount of the AuthorizationAmount that’s pending reversal."
+        "type": "number",
+        "description": "Amount of the AuthorizationAmount that’s pending reversal.",
+        "format": "currency"
       },
       "RefundedAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of the OrderPaymentSummary that was refunded.",
         "format": "currency",
         "nullable": true,
@@ -157,8 +162,9 @@
         "multipleOf": 0.01
       },
       "ReservedBalanceTotalAmount": {
-        "type": "currency",
-        "description": "Calculated field that summarizes the ReservedBalanceAmount for all OrderPaymentSummaryReferences for the OrderPaymentSummary."
+        "type": "number",
+        "description": "Calculated field that summarizes the ReservedBalanceAmount for all OrderPaymentSummaryReferences for the OrderPaymentSummary.",
+        "format": "currency"
       },
       "Type": {
         "type": "string",
@@ -265,7 +271,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderpaymentsummary.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderpaymentsummary.htm",
     "keyPrefix": "0bM",
     "createable": true,
     "updateable": true,
@@ -397,6 +403,7 @@
     "accessRules": "This object is only available in Salesforce Order Management orgs or if the B2B Commerce or D2C Commerce license is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

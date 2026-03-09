@@ -4,22 +4,22 @@
     "description": "Represents a single payment authorization event where users can capture or reverse a payment against a reserve of funds.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Customer account.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount authorized for the payment event.",
         "format": "currency",
         "nullable": false,
         "multipleOf": 0.01
       },
       "Balance": {
-        "type": "currency",
+        "type": "number",
         "description": "Authorized amount – total processed captured amount – total processed authorization reversal amount. Balance can be positive or negative.",
         "format": "currency",
         "nullable": true,
@@ -27,13 +27,13 @@
         "multipleOf": 0.01
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Users can enter comments to provide additional details about the authorization.",
         "maxLength": 1000,
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Three-letter ISO 4217 currency code associated with the payment authorization record.",
         "format": "enum",
         "enum": [
@@ -43,26 +43,26 @@
         "nullable": true
       },
       "Date": {
-        "type": "dateTime",
+        "type": "string",
         "description": "By default, the day the authorization record was created. Users can also enter a different date. Editable only when the payment authorization’s status is Draft.",
         "format": "date-time",
         "nullable": true
       },
       "EffectiveDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the authorization takes effect. Editable only when the payment authorization’s status is Draft.",
         "format": "date-time",
         "nullable": true
       },
       "Email": {
-        "type": "email",
+        "type": "string",
         "description": "Email address of the person who initiated the payment.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "ExpirationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Authorizations can’t be captured after their expiration dates.",
         "format": "date-time",
         "nullable": true
@@ -74,13 +74,13 @@
         "nullable": true
       },
       "GatewayDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time that of the gateway communication that leads to the successful payment authorization.",
         "format": "date-time",
         "nullable": true
       },
       "GatewayRefDetails": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional data that can’t be stored in other fields on the payment record. You can use this field for transactions following the initial transaction that creates the payment record. You can use any data that isn’t normalized in financial entities. This field has a maximum length of 1000 characters and can store data as JSON or XML.",
         "maxLength": 1000,
         "nullable": true
@@ -110,14 +110,14 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -130,9 +130,9 @@
         "nullable": true
       },
       "OrderPaymentSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "Order payment summaries show the balances of each authorization, capture, and refund made against an order.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderPaymentSummary",
         "maxLength": 18,
         "nullable": true
@@ -145,17 +145,17 @@
         "readOnly": true
       },
       "PaymentGatewayId": {
-        "type": "reference",
+        "type": "string",
         "description": "The Salesforce payment gateway record that created this authorization. This gateway will be used for subsequent captures.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentGateway",
         "maxLength": 18,
         "nullable": true
       },
       "PaymentGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "Payment groups organize all the payment transactions that have been made against a record such as an account or contract. Populated from the authorization record if there is delayed payment.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentGroup",
         "maxLength": 18,
         "nullable": true
@@ -165,22 +165,22 @@
         "description": "Unique ID of the payment sent to Stripe or PayPal. Links the Payments Merchant Account record with the payment at the payment provider."
       },
       "PaymentMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "The customer payment method provided during this authorization.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentMethod",
         "maxLength": 18,
         "nullable": true
       },
       "Phone": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number of the person who initiated the payment.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "ProcessingMode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Defines whether the payment has been made outside of the payment platform.",
         "format": "enum",
         "enum": [
@@ -192,7 +192,7 @@
         "readOnly": true
       },
       "SfResultCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Salesforce-specific result code that can map to one or more gateway result codes. We recommend configuring the payment gateway adapter layer to map gateway result codes to the appropriate Salesforce result code.",
         "format": "enum",
         "enum": [
@@ -208,7 +208,7 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Defines the state of this payment.",
         "format": "enum",
         "enum": [
@@ -222,7 +222,7 @@
         "nullable": false
       },
       "TotalAuthReversalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all processed authorization reversals against the payment authorization.",
         "format": "currency",
         "nullable": true,
@@ -230,7 +230,7 @@
         "multipleOf": 0.01
       },
       "TotalPaymentCaptureAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all authorization captures related to this payment authorization.",
         "format": "currency",
         "nullable": true,
@@ -297,7 +297,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentauthorization.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_paymentauthorization.htm",
     "keyPrefix": "0Xc",
     "createable": true,
     "updateable": true,
@@ -357,6 +357,7 @@
     "accessRules": "Salesforce Payments, Salesforce Order Management, B2B Commerce, D2C Commerce, Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

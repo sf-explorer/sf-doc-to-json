@@ -1,7 +1,7 @@
 {
   "Skill": {
     "name": "Skill",
-    "description": "Represents the settings for a skill used for field service or to route chats to agents in Chat, such as the name of the skill and which agents the skills are assigned to. This object is available in API version 65.0 and later.",
+    "description": "Represents a skill that service resources have. For technician type service resources, the skill represents their area of expertise. For asset type service resources, the skill must be specified as Test Drive.",
     "properties": {
       "Id": {
         "type": "string",
@@ -19,13 +19,13 @@
       },
       "DeveloperName": {
         "type": "string",
-        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. This field is automatically generated, but you can supply your own value if you create the record using the API.",
+        "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores.",
         "maxLength": 80,
         "nullable": false
       },
       "Language": {
         "type": "string",
-        "description": "The language for the Skill.",
+        "description": "The language of the skill.",
         "format": "enum",
         "enum": [
           "en_US",
@@ -69,7 +69,7 @@
       },
       "MasterLabel": {
         "type": "string",
-        "description": "The label for Skill.",
+        "description": "The name of the skill.",
         "maxLength": 80,
         "nullable": false
       },
@@ -113,27 +113,28 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "datetime",
-        "description": "The timestamp for when the current user last viewed the skill.",
+        "type": "string",
+        "description": "The date when the record was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Description": {
         "type": "string",
-        "description": "Specifies the description of the skill.",
+        "description": "The description of the skill.",
         "maxLength": 32000,
         "nullable": true
       },
       "TypeId": {
-        "type": "reference",
-        "description": "The skill type associated with the skill. This field is a relationship field. This field is available in API version 58.0 and later."
+        "type": "string",
+        "description": "The type of skill.",
+        "format": "reference"
       }
     },
-    "module": "Tooling API",
+    "module": "Automotive Cloud",
     "keyPrefix": "0C5",
     "label": "Skill",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_skill.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.automotive_cloud.meta/automotive_cloud/sforce_api_objects_skill.htm",
     "createable": true,
     "updateable": true,
     "deletable": false,
@@ -221,8 +222,11 @@
     ],
     "clouds": [
       "Core Salesforce",
-      "Core Salesforce",
-      "Tooling API"
-    ]
+      "Tooling API",
+      "Scheduler",
+      "Field Service Lightning",
+      "Automotive Cloud"
+    ],
+    "x-version": "59.0"
   }
 }

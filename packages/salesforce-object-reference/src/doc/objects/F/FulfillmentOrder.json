@@ -4,33 +4,35 @@
     "description": "Represents a group of products, fees, and delivery charges on a single order that share the same fulfillment location, delivery method, and recipient. The FulfillmentOrderLineItems belonging to a FulfillmentOrder are associated with OrderItemSummary objects belonging to a single OrderSummary.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Account or Person Account associated with the FulfillmentOrder. It represents the shopper in the storefront.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ActiveDate": {
-        "type": "datetime",
-        "description": "Date when the FulfillmentOrder becomes active."
+        "type": "string",
+        "description": "Date when the FulfillmentOrder becomes active.",
+        "format": "date-time"
       },
       "BillToContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Contact associated with the FulfillmentOrder. It represents the shopper in the storefront when not using person accounts.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ClosedDate": {
-        "type": "datetime",
-        "description": "Date the FulfillmentOrder closed. Automatically entered."
+        "type": "string",
+        "description": "Date the FulfillmentOrder closed. Automatically entered.",
+        "format": "date-time"
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. ISO code for the currency of the OrderSummary associated with the FulfillmentOrder.",
         "format": "enum",
         "enum": [
@@ -40,27 +42,28 @@
         "nullable": true
       },
       "DeliveryDate": {
-        "type": "datetime",
-        "description": "The date and time when the FulfillmentOrder was delivered."
+        "type": "string",
+        "description": "The date and time when the FulfillmentOrder was delivered.",
+        "format": "date-time"
       },
       "DeliveryMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the DeliveryMethod used for this FulfillmentOrder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderDeliveryMethod",
         "maxLength": 18,
         "nullable": true
       },
       "FulfilledFromLocationId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Location handling this FulfillmentOrder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "FulfilledToAddress": {
-        "type": "address",
+        "type": "string",
         "description": "Address of the recipient.",
         "nullable": true,
         "readOnly": true
@@ -78,15 +81,16 @@
         "nullable": true
       },
       "FulfilledToEmailAddress": {
-        "type": "email",
+        "type": "string",
         "description": "Email address of the recipient.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "FulfilledTo​GeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy of the geocode for the recipient address."
+        "type": "string",
+        "description": "Accuracy of the geocode for the recipient address.",
+        "enum": []
       },
       "FulfilledToLatitude": {
         "type": "double",
@@ -107,7 +111,7 @@
         "nullable": false
       },
       "FulfilledToPhone": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number of the recipient.",
         "format": "phone",
         "maxLength": 40,
@@ -126,7 +130,7 @@
         "nullable": true
       },
       "FulfilledToStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Recipient address street.",
         "maxLength": 255,
         "nullable": true
@@ -139,7 +143,7 @@
         "readOnly": true
       },
       "GrandTotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, including adjustments and tax, of the products, fees, and delivery charges on the FulfillmentOrder. This amount includes all FulfillmentOrderLineItems associated with the FulfillmentOrder. This amount is equal to TotalAmount + TotalTaxAmount.",
         "format": "currency",
         "nullable": true,
@@ -147,9 +151,9 @@
         "multipleOf": 0.01
       },
       "InvoiceId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Invoice associated with the FulfillmentOrder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Invoice",
         "maxLength": 18,
         "nullable": true
@@ -170,41 +174,41 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp for when the current user last viewed this record. A null value can mean that this record has only been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the original Order that generated the FulfillmentOrder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "OrderSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the OrderSummary associated with the FulfillmentOrder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderSummary",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the User who currently owns this FulfillmentOrder. Default value is the User logged in to the API to perform the create.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -213,15 +217,16 @@
         "nullable": false
       },
       "ProcessingTimeInMinutes": {
-        "type": "long",
+        "type": "number",
         "description": "How many minutes it took to process the FulfillmentOrder, from the start of processing to completion."
       },
       "StartFulfillmentDate": {
-        "type": "datetime",
-        "description": "The date and time when the fulfillment process was started for the FulfillmentOrder."
+        "type": "string",
+        "description": "The date and time when the fulfillment process was started for the FulfillmentOrder.",
+        "format": "date-time"
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status of the FulfillmentOrder. Each status corresponds to one status category, shown here in parentheses. You can customize the status picklist to represent your business processes, but the status category picklist is fixed because processing is based on those values. If you customize the status picklist, include at least one status value for each status category.",
         "format": "enum",
         "enum": [
@@ -244,7 +249,7 @@
         "nullable": false
       },
       "StatusCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status category of the FulfillmentOrder. Processing of the FulfillmentOrder depends on this value. Each status category corresponds to one or more statuses.",
         "format": "enum",
         "enum": [
@@ -260,7 +265,7 @@
         "readOnly": true
       },
       "TaxLocaleType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The system used to handle tax on the original Order associated with the FulfillmentOrder. Gross usually applies to taxes like value-added tax (VAT), and Net usually applies to taxes like sales tax.",
         "format": "enum",
         "enum": [
@@ -273,7 +278,7 @@
         "readOnly": true
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total amount of the price adjustments applied to the products on the FulfillmentOrder. This value only includes adjustments to FulfillmentOrderLineItems of type code Product, not adjustments to delivery charges or fees.",
         "format": "currency",
         "nullable": true,
@@ -281,11 +286,12 @@
         "multipleOf": 0.01
       },
       "TotalAdjustment​AmtWithTax": {
-        "type": "currency",
-        "description": "Total amount of the price adjustments applied to the products on the Fulfillment Order, inclusive of tax. This value only includes adjustments to FulfillmentOrderLineItems of type code Product. This amount is equal to TotalAdjustmentAmount + TotalAdjustmentTaxAmount."
+        "type": "number",
+        "description": "Total amount of the price adjustments applied to the products on the Fulfillment Order, inclusive of tax. This value only includes adjustments to FulfillmentOrderLineItems of type code Product. This amount is equal to TotalAdjustmentAmount + TotalAdjustmentTaxAmount.",
+        "format": "currency"
       },
       "TotalAdjustmentTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalAdjustmentAmount.",
         "format": "currency",
         "nullable": true,
@@ -293,7 +299,7 @@
         "multipleOf": 0.01
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Adjusted total, not including tax, of the FulfillmentOrderLineItems, including products, fees, and delivery charges, on the Fulfillment Order.",
         "format": "currency",
         "nullable": true,
@@ -301,19 +307,22 @@
         "multipleOf": 0.01
       },
       "TotalDelivery​AdjustAmount": {
-        "type": "currency",
-        "description": "Total amount of the price adjustments applied to the delivery charges on the Fulfillment Order. This value only includes adjustments to FulfillmentOrderLineItems of type Delivery Charge."
+        "type": "number",
+        "description": "Total amount of the price adjustments applied to the delivery charges on the Fulfillment Order. This value only includes adjustments to FulfillmentOrderLineItems of type Delivery Charge.",
+        "format": "currency"
       },
       "TotalDeliveryAdjust​AmtWithTax": {
-        "type": "currency",
-        "description": "Total amount of the price adjustments applied to the delivery charges on the Fulfillment Order, inclusive of tax. This value only includes adjustments to FulfillmentOrderLineItems of type Delivery Charge. This amount is equal to TotalDeliveryAdjustAmount + TotalDeliveryAdjustTaxAmount."
+        "type": "number",
+        "description": "Total amount of the price adjustments applied to the delivery charges on the Fulfillment Order, inclusive of tax. This value only includes adjustments to FulfillmentOrderLineItems of type Delivery Charge. This amount is equal to TotalDeliveryAdjustAmount + TotalDeliveryAdjustTaxAmount.",
+        "format": "currency"
       },
       "TotalDelivery​AdjustTaxAmount": {
-        "type": "currency",
-        "description": "Tax on the TotalDeliveryAdjustAmount."
+        "type": "number",
+        "description": "Tax on the TotalDeliveryAdjustAmount.",
+        "format": "currency"
       },
       "TotalDeliveryAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total of the delivery charges on the FulfillmentOrder. This value only includes FulfillmentOrderLineItems of type Delivery Charge.",
         "format": "currency",
         "nullable": true,
@@ -321,11 +330,12 @@
         "multipleOf": 0.01
       },
       "TotalDelivery​AmtWithTax": {
-        "type": "currency",
-        "description": "Total amount of the delivery charges on the FulfillmentOrder, inclusive of tax. This value only includes FulfillmentOrderLineItems of type Delivery Charge. This amount is equal to TotalDeliveryAmount + TotalDeliveryTaxAmount."
+        "type": "number",
+        "description": "Total amount of the delivery charges on the FulfillmentOrder, inclusive of tax. This value only includes FulfillmentOrderLineItems of type Delivery Charge. This amount is equal to TotalDeliveryAmount + TotalDeliveryTaxAmount.",
+        "format": "currency"
       },
       "TotalDeliveryTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalDeliveryAmount.",
         "format": "currency",
         "nullable": true,
@@ -333,31 +343,37 @@
         "multipleOf": 0.01
       },
       "TotalFeeAdjustAmount": {
-        "type": "currency",
-        "description": "Total amount of the price adjustments applied to the fees on the FulfillmentOrder. This value only includes adjustments to FulfillmentOrderLineItems of type Fee."
+        "type": "number",
+        "description": "Total amount of the price adjustments applied to the fees on the FulfillmentOrder. This value only includes adjustments to FulfillmentOrderLineItems of type Fee.",
+        "format": "currency"
       },
       "TotalFeeAdjustAmtWithTax": {
-        "type": "currency",
-        "description": "Total amount of the price adjustments applied to the fees on the FulfillmentOrder, inclusive of tax. This value only includes adjustments to FulfillmentOrderLineItems of type Fee. This amount is equal to TotalFeeAdjustAmount + TotalFeeAdjustTaxAmount."
+        "type": "number",
+        "description": "Total amount of the price adjustments applied to the fees on the FulfillmentOrder, inclusive of tax. This value only includes adjustments to FulfillmentOrderLineItems of type Fee. This amount is equal to TotalFeeAdjustAmount + TotalFeeAdjustTaxAmount.",
+        "format": "currency"
       },
       "TotalFeeAdjustTaxAmount": {
-        "type": "currency",
-        "description": "Tax on the TotalFeeAdjustAmount."
+        "type": "number",
+        "description": "Tax on the TotalFeeAdjustAmount.",
+        "format": "currency"
       },
       "TotalFeeAmount": {
-        "type": "currency",
-        "description": "Total amount of the fees on the FulfillmentOrder, excluding adjustments and tax. This value only includes FulfillmentOrderLineItems of type Fee."
+        "type": "number",
+        "description": "Total amount of the fees on the FulfillmentOrder, excluding adjustments and tax. This value only includes FulfillmentOrderLineItems of type Fee.",
+        "format": "currency"
       },
       "TotalFeeAmtWithTax": {
-        "type": "currency",
-        "description": "Total price of the fees on the FulfillmentOrder, inclusive of tax. This value only includes FulfillmentOrderLineItems of type Fee. This amount is equal to TotalFeeAmount + TotalFeeTaxAmount."
+        "type": "number",
+        "description": "Total price of the fees on the FulfillmentOrder, inclusive of tax. This value only includes FulfillmentOrderLineItems of type Fee. This amount is equal to TotalFeeAmount + TotalFeeTaxAmount.",
+        "format": "currency"
       },
       "TotalFeeTaxAmount": {
-        "type": "currency",
-        "description": "Tax on the TotalFeeAmount."
+        "type": "number",
+        "description": "Tax on the TotalFeeAmount.",
+        "format": "currency"
       },
       "TotalProductAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total price of the products on the FulfillmentOrder, excluding order adjustments, delivery charges, and fees. This value only includes FulfillmentOrderLineItems of type code Product.",
         "format": "currency",
         "nullable": true,
@@ -365,11 +381,12 @@
         "multipleOf": 0.01
       },
       "TotalProduct​AmtWithTax": {
-        "type": "currency",
-        "description": "Total price of the products on the FulfillmentOrder, inclusive of tax. This value only includes FulfillmentOrderLineItems of type code Product. This amount is equal to TotalProductAmount + TotalProductTaxAmount."
+        "type": "number",
+        "description": "Total price of the products on the FulfillmentOrder, inclusive of tax. This value only includes FulfillmentOrderLineItems of type code Product. This amount is equal to TotalProductAmount + TotalProductTaxAmount.",
+        "format": "currency"
       },
       "TotalProductTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalProductAmount.",
         "format": "currency",
         "nullable": true,
@@ -377,7 +394,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalAmount.",
         "format": "currency",
         "nullable": true,
@@ -385,7 +402,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of the FulfillmentOrder. Each type corresponds to one type category, shown here in parentheses. You can customize the type picklist to represent your business processes, but the type category picklist is fixed because processing is based on those values. If you customize the type picklist, include at least one type value for each type category.",
         "format": "enum",
         "enum": [
@@ -400,7 +417,7 @@
         "nullable": true
       },
       "TypeCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type category of the FulfillmentOrder. Processing of the FulfillmentOrder depends on this value. Each type category corresponds to one or more types.",
         "format": "enum",
         "enum": [
@@ -915,7 +932,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorder.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorder.htm",
     "keyPrefix": "0a3",
     "createable": true,
     "updateable": true,
@@ -1137,6 +1154,7 @@
     "accessRules": "This object is only available in Salesforce Order Management orgs.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

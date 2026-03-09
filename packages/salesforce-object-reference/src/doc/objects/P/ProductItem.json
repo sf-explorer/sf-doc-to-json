@@ -1,7 +1,7 @@
 {
   "ProductItem": {
     "name": "ProductItem",
-    "description": "Represents the stock of a particular product at a particular location in field service, such as all bolts stored in your main warehouse.",
+    "description": "Represents the stock of a product at a particular inventory location, such as a warehouse or a distribution lot. Product item records represent your inventory. A product item is associated with an inventory location and stores the quantity of products at that location.",
     "properties": {
       "IsProduct2Serialized": {
         "type": "boolean",
@@ -10,32 +10,32 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the product item was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The date when the product item was last viewed.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LocationId": {
-        "type": "reference",
-        "description": "Location associated with the product item. This usually indicates where the product item is stored.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The location that’s associated with the product item. This usually indicates where the product item is stored.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The product item’s owner.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The owner of the product item.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -44,9 +44,9 @@
         "nullable": false
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "Product associated with the product item, which represents the type of product in your inventory.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product that’s associated with the product item. This usually represents the type of product in your inventory.",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": false,
@@ -54,14 +54,14 @@
       },
       "ProductItemNumber": {
         "type": "string",
-        "description": "(Read Only) Auto-generated number identifying the product item.",
+        "description": "The auto-generated number identifying the product item.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "ProductName": {
         "type": "string",
-        "description": "A name for the product item. Try to select a name that indicates what is being stored where; for example, Batteries in Warehouse A.",
+        "description": "The name of the product item. We recommend you use a name that indicates the name of the product along with its location.",
         "maxLength": 255,
         "nullable": true,
         "readOnly": true
@@ -73,8 +73,8 @@
         "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
-        "type": "picklist",
-        "description": "Units of the product item; for example, kilograms or liters. Quantity Unit of Measure picklist values are inherited from the Quantity Unit of Measure field on products.",
+        "type": "string",
+        "description": "The unit of the quantity of the product that’s consumed. For example, kilograms or liters. Quantity Unit of Measure values are inherited from the Quantity Unit of Measure field on products.",
         "format": "enum",
         "enum": [
           "Each"
@@ -157,8 +157,8 @@
         "nullable": true
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_productitem.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productitem.htm",
     "keyPrefix": "0Co",
     "createable": true,
     "updateable": true,
@@ -423,7 +423,9 @@
     "clouds": [
       "Manufacturing Cloud",
       "Core Salesforce",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Field Service Lightning"
+    ],
+    "x-version": "60.0"
   }
 }

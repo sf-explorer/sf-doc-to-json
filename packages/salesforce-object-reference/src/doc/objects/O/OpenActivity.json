@@ -4,30 +4,30 @@
     "description": "This read-only object is displayed in a related list of open activities—future events and open tasks—related to an object. It includes activities for all contacts related to the object. OpenActivity fields for phone calls are only available if your organization uses Salesforce CRM Call Center.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the ID of the related account, which is determined as follows: The account associated with the WhatId, if it exists; or The account associated with the WhoId, if it exists; otherwise null",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ActivityDate": {
-        "type": "date",
+        "type": "string",
         "description": "Indicates one of the following: The due date of a task The date of an event if IsAllDayEvent is set to true This field has a time stamp that is always set to midnight in the Universal Time Coordinated (UTC) time zone. The time stamp doesn’t represent the time of the activity; don’t attempt to alter it to accommodate time zone differences. Label is Date.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "ActivityDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Contains the event’s due date if the IsAllDayEvent flag is set to false. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate. Label is Due Date Time.The value for this field and StartDateTime must match, or one of them must be null.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ActivitySubtype": {
-        "type": "picklist",
+        "type": "string",
         "description": "Provides standard subtypes to facilitate creating and searching for specific activity subtypes. This field isn’t updateable.Possible values are: Task Email Call Event LinkedIn —Available in API version 56.0 and later. List Email",
         "format": "enum",
         "enum": [
@@ -44,7 +44,7 @@
         "readOnly": true
       },
       "ActivityType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Represents one of the following values: Call, Email, Meeting, or Other. Label is Type. These are default values, and can be changed.",
         "format": "enum",
         "enum": [
@@ -72,9 +72,9 @@
         "readOnly": true
       },
       "AlternateDetailId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of a record the activity is related to which contains more details about the activity. For example, an activity can be related to an EmailMessage record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailMessage",
         "maxLength": 18,
         "nullable": true,
@@ -88,7 +88,7 @@
         "readOnly": true
       },
       "CallDurationInSeconds": {
-        "type": "int",
+        "type": "number",
         "description": "Duration of the call in seconds.",
         "nullable": true,
         "readOnly": true
@@ -101,7 +101,7 @@
         "readOnly": true
       },
       "CallType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of call being answered: Inbound, Internal, or Outbound.",
         "format": "enum",
         "enum": [
@@ -114,42 +114,43 @@
         "readOnly": true
       },
       "CompletedDateTime": {
-        "type": "dateTime",
-        "description": "The date and time the task was saved with a Closed status. This value is always null."
+        "type": "string",
+        "description": "The date and time the task was saved with a Closed status. This value is always null.",
+        "format": "date-time"
       },
       "ConnectionReceivedId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the ID of the PartnerNetworkConnection that shared this record with your organization. This field is available only if your organization has enabled Salesforce to Salesforce and only in API versions 28.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConnectionSentId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the ID of the PartnerNetworkConnection that your organization shared this record with. This field is available only if your organization has enabled Salesforce to Salesforce, and only in API versions 28.0 and later. The value is always null. You can use the PartnerNetworkRecordConnection object to forward records to connections.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Contains a description of the event or task. Limit is 32 KB.",
         "maxLength": 32000,
         "nullable": true,
         "readOnly": true
       },
       "DurationInMinutes": {
-        "type": "int",
+        "type": "number",
         "description": "Indicates the duration of the event or task.",
         "nullable": true,
         "readOnly": true
       },
       "EndDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Indicates the end date and time of the event or task. Available in versions 27.0 and later. This field is optional, depending on the following: If IsAllDayEvent is true, you can supply a value for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time. If both fields are null, the duration defaults to one day. If IsAllDayEvent is false, a value must be supplied for either DurationInMinutes or EndDateTime. Supplying values in both fields is allowed if the values add up to the same amount of time.",
         "format": "date-time",
         "nullable": true,
@@ -205,9 +206,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the ID of the user or group who owns the activity.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Calendar",
           "Group",
@@ -218,18 +219,18 @@
         "readOnly": true
       },
       "PrimaryAccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Contains the AccountId value from the activity record. Available in API versions 30.0 and later to organizations that use Shared Activities.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "PrimaryWhoId": {
-        "type": "reference",
+        "type": "string",
         "description": "Contains the WhoId value from the activity record. Available in API versions 30.0 and later to organizations that have enabled Shared Activities.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Contact",
           "Lead"
@@ -239,7 +240,7 @@
         "readOnly": true
       },
       "Priority": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the priority of a task, such as high, normal, or low. The default value of this field is Normal.",
         "format": "enum",
         "enum": [
@@ -252,14 +253,14 @@
         "readOnly": true
       },
       "ReminderDateTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Represents the time at which a reminder is scheduled to fire if IsReminderSet is set to true. If IsReminderSet is set to false, then either the user has deselected the reminder checkbox in the user interface or the reminder has already fired at the time indicated by the value.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates the current status of a task. The default value of this field is Not Started. Each predefined status field sets a value for IsClosed. To obtain picklist values, query the TaskStatus object.Possible values are: Completed Deferred In Progress Not Started Waiting on someone else",
         "format": "enum",
         "enum": [
@@ -273,16 +274,16 @@
         "readOnly": true
       },
       "Subject": {
-        "type": "combobox",
+        "type": "string",
         "description": "Contains the subject of the task or event.",
         "maxLength": 80,
         "nullable": true,
         "readOnly": true
       },
       "WhatId": {
-        "type": "reference",
+        "type": "string",
         "description": "The WhatId represents nonhuman objects such as accounts, opportunities, campaigns, cases, or custom objects. WhatIds are polymorphic. Polymorphic means a WhatId is equivalent to the ID of a related object. The label is Related To ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Account",
           "AssessmentIndicatorDefinition",
@@ -337,9 +338,9 @@
         "readOnly": true
       },
       "WhoId": {
-        "type": "reference",
+        "type": "string",
         "description": "The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID. If Shared Activities is enabled, the value of this field is the ID of the related lead or primary contact. If you add, update, or remove the WhoId field, you might encounter problems with triggers, workflows, and data validation rules that are associated with the record. The label is Name ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Contact",
           "Lead"
@@ -410,7 +411,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_openactivity.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_openactivity.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,

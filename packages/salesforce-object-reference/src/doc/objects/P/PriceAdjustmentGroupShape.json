@@ -4,47 +4,53 @@
     "description": "Defines the business logic for a top-level price adjustment, for example, a discount applied to an entire order.",
     "properties": {
       "AdjustmentSource": {
-        "type": "picklist",
-        "description": "Indicates the source of the adjustment. This field is available with B2B Commerce."
+        "type": "string",
+        "description": "Indicates the source of the adjustment. This field is available with B2B Commerce.",
+        "enum": []
       },
       "AdjustmentType": {
-        "type": "picklist",
-        "description": "Indicates whether the adjustment is a percentage, an amount, or an override."
+        "type": "string",
+        "description": "Indicates whether the adjustment is a percentage, an amount, or an override.",
+        "enum": []
       },
       "AdjustmentValue": {
         "type": "double",
         "description": "The value of the adjustment. To indicate a discount, use a negative number."
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "User-entered description of the price adjustment group. Available in API versions 57.0."
       },
       "PriceAdjustmentCauseId": {
-        "type": "reference",
-        "description": "The ID of the record that is the source of the adjustment. For example, if the price adjustment is due to a promotion, this field contains the ID of the promotion record. If the price adjustment is due to a price adjustment tier, this field contains the ID of the price adjustment tier record."
+        "type": "string",
+        "description": "The ID of the record that is the source of the adjustment. For example, if the price adjustment is due to a promotion, this field contains the ID of the promotion record. If the price adjustment is due to a price adjustment tier, this field contains the ID of the price adjustment tier record.",
+        "format": "reference"
       },
       "PriceAdjustmentGroupShapeName": {
         "type": "string",
         "description": "Name of the price adjustment group shape."
       },
       "Priority": {
-        "type": "int",
+        "type": "number",
         "description": "A positive integer indicating the order in which this price adjustment group is applied, relative to other price adjustment groups. A Priority of 1 indicates this price adjustment group is applied first.Price adjustments with a null priority are applied after price adjustments with a specified priority. If two or more price adjustments have a null priority, percentage adjustments are applied before amount adjustments. Applying a percentage adjustment before an amount adjustment results in a larger total adjustment."
       },
       "SalesTransactionShapeId": {
-        "type": "reference",
-        "description": "The ID of the sales transaction that the price adjustment group belongs to."
+        "type": "string",
+        "description": "The ID of the sales transaction that the price adjustment group belongs to.",
+        "format": "reference"
       },
       "TotalAmount": {
-        "type": "currency",
-        "description": "The total amount of adjustments of all related price adjustment items, inclusive of quantity, prorated for the duration of the subscription. This field is a calculated field equal to the sum of the TotalAmount fields in the related price adjustment items."
+        "type": "number",
+        "description": "The total amount of adjustments of all related price adjustment items, inclusive of quantity, prorated for the duration of the subscription. This field is a calculated field equal to the sum of the TotalAmount fields in the related price adjustment items.",
+        "format": "currency"
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_priceadjustmentgroupshape.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_priceadjustmentgroupshape.htm",
     "accessRules": "This object is available with Subscription Management, B2B Commerce, or B2C Commerce.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "57.0"
   }
 }

@@ -4,27 +4,31 @@
     "description": "Represents a schedule of a service resource’s time in Field Service or Workforce Engagement.",
     "properties": {
       "EndDateTime": {
-        "type": "dateTime",
-        "description": "The end date and time of a job in the time sheet."
+        "type": "string",
+        "description": "The end date and time of a job in the time sheet.",
+        "format": "date-time"
       },
       "HasShiftEnded": {
         "type": "boolean",
         "description": "Indicates whether the field service worker's shift has ended."
       },
       "PayGradeId": {
-        "type": "reference",
-        "description": "The pay grade associated with the time sheet."
+        "type": "string",
+        "description": "The pay grade associated with the time sheet.",
+        "format": "reference"
       },
       "ServiceCrewMemberId": {
-        "type": "reference",
-        "description": "The service crew member associated with the time sheet."
+        "type": "string",
+        "description": "The service crew member associated with the time sheet.",
+        "format": "reference"
       },
       "StartDateTime": {
-        "type": "dateTime",
-        "description": "The start date and time of a job in the time sheet."
+        "type": "string",
+        "description": "The start date and time of a job in the time sheet.",
+        "format": "date-time"
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the time sheet. The picklist includes the following values, which can be customized: New Submitted Approved",
         "format": "enum",
         "enum": [
@@ -41,12 +45,14 @@
         "description": "The comment added with a status change to a time sheet."
       },
       "VehicleDefinitionId": {
-        "type": "reference",
-        "description": "The type of vehicle used by the field service technician."
+        "type": "string",
+        "description": "The type of vehicle used by the field service technician.",
+        "format": "reference"
       },
       "VehicleId": {
-        "type": "reference",
-        "description": "The service resource's vehicle associated with the time sheet."
+        "type": "string",
+        "description": "The service resource's vehicle associated with the time sheet.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -57,9 +63,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The owner of the time sheet.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -132,47 +138,47 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "type": "string",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ServiceResourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "The service resource whose time is being tracked with the time sheet.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceResource",
         "maxLength": 18,
         "nullable": false
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "The first day the time sheet covers.",
         "format": "date",
         "nullable": false
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The last day the time sheet covers.",
         "format": "date",
         "nullable": false
       },
       "TimeSheetEntryCount": {
-        "type": "int",
+        "type": "number",
         "description": "(Read Only) The number of related time sheet entries.",
         "nullable": true,
         "readOnly": true
       },
       "TotalDurationInMinutes": {
-        "type": "int",
+        "type": "number",
         "description": "Represents the sum total of the duration field of all the time sheet entries related to the time sheet object in minutes.",
         "nullable": true,
         "readOnly": true
@@ -185,7 +191,7 @@
         "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code.",
         "format": "enum",
         "enum": [
@@ -193,10 +199,15 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "AssigneeId": {
+        "type": "string",
+        "description": "The related record to which this timesheet is assigned.",
+        "format": "reference"
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_timesheet.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_cg_timesheet.htm",
     "keyPrefix": "1ts",
     "createable": true,
     "updateable": true,
@@ -403,12 +414,15 @@
         "cascadeDelete": true
       }
     ],
-    "accessRules": "Field Service or Workforce Engagement must be enabled.",
+    "accessRules": "Consumer Goods Cloud must be enabled.",
     "clouds": [
       "Energy and Utilities Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Field Service Lightning",
+      "Consumer Goods Cloud"
     ],
     "iconUrl": "standard/timesheet_120.png",
-    "iconColor": "5867E8"
+    "iconColor": "5867E8",
+    "x-version": "48.0"
   }
 }

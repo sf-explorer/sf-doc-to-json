@@ -4,11 +4,12 @@
     "description": "Represents a discount tier in a price adjustment schedule.",
     "properties": {
       "AdjustmentType": {
-        "type": "picklist",
-        "description": "The type of price adjustment."
+        "type": "string",
+        "description": "The type of price adjustment.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -18,20 +19,24 @@
         "nullable": true
       },
       "EffectiveFrom": {
-        "type": "dateTime",
-        "description": "The date and time when the price adjustment tier comes into effect."
+        "type": "string",
+        "description": "The date and time when the price adjustment tier comes into effect.",
+        "format": "date-time"
       },
       "EffectiveTo": {
-        "type": "dateTime",
-        "description": "The date and time when the price adjustment tier remains effective."
+        "type": "string",
+        "description": "The date and time when the price adjustment tier remains effective.",
+        "format": "date-time"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "Indicates when the user last referred to this record."
+        "type": "string",
+        "description": "Indicates when the user last referred to this record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed."
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "format": "date-time"
       },
       "LowerBound": {
         "type": "double",
@@ -46,36 +51,40 @@
         "readOnly": true
       },
       "PriceAdjustmentScheduleId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the price adjustment schedule that the discount is applied to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PriceAdjustmentSchedule",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "PricingTerm": {
-        "type": "int",
+        "type": "number",
         "description": "The number of pricing term units in the pricing term. Used with PricingTermUnit to define the length of the pricing term. For example, if PricingTermUnit is Months and this field is 1, the subscription is priced monthly.If the selling model is one-time, this field must be null."
       },
       "PricingTermUnit": {
-        "type": "picklist",
-        "description": "The unit of time used to define the pricing term. Used with PricingTerm to define the length of the pricing term. For example, if this field is Months and PricingTerm is 1, the subscription is priced monthly. If the selling model is one-time, this field must be null."
+        "type": "string",
+        "description": "The unit of time used to define the pricing term. Used with PricingTerm to define the length of the pricing term. For example, if this field is Months and PricingTerm is 1, the subscription is priced monthly. If the selling model is one-time, this field must be null.",
+        "enum": []
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "The ID of the product associated with the price adjustment tier."
+        "type": "string",
+        "description": "The ID of the product associated with the price adjustment tier.",
+        "format": "reference"
       },
       "ProductSellingModelId": {
-        "type": "reference",
-        "description": "The ID of the ProductSellingModel record associated with this price adjustment tier record."
+        "type": "string",
+        "description": "The ID of the ProductSellingModel record associated with this price adjustment tier record.",
+        "format": "reference"
       },
       "SellingModelType": {
-        "type": "picklist",
-        "description": "Indicates whether the product is sold as a one-time sale, an evergreen subscription, or a subscription with a defined term."
+        "type": "string",
+        "description": "Indicates whether the product is sold as a one-time sale, an evergreen subscription, or a subscription with a defined term.",
+        "enum": []
       },
       "TierType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The unit of the discount. Possible values are: AdjustmentAmount—An amount discounted from an item’s list price AdjustmentPercentage—A percentage discounted from an item’s list price",
         "format": "enum",
         "enum": [
@@ -157,7 +166,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_priceadjustmenttier.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_priceadjustmenttier.htm",
     "keyPrefix": "84Y",
     "createable": true,
     "updateable": true,
@@ -332,6 +341,7 @@
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "60.0"
   }
 }

@@ -4,23 +4,23 @@
     "description": "Represents a report that summarizes a work order, work order line item, or service appointment.",
     "properties": {
       "ContentVersionDocumentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the service report version, used for storage.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ContentVersion",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "DocumentBody": {
-        "type": "base64",
+        "type": "string",
         "description": "The report output. DocumentBody can’t be retrieved via REST API.",
         "format": "byte",
         "nullable": true,
         "readOnly": true
       },
       "DocumentContentType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of data used for the report output.. Possible values are: audio/ogg text/calendar video/3gpp2 video/3gpp image/avif text/calendar audio/x-caf image/webp",
         "format": "enum",
         "enum": [
@@ -124,7 +124,7 @@
         "readOnly": true
       },
       "DocumentLength": {
-        "type": "int",
+        "type": "number",
         "description": "The length of the report output.",
         "nullable": true,
         "readOnly": true
@@ -147,9 +147,9 @@
         "readOnly": true
       },
       "ParentId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the service appointment, work order, or work order line item that the service report summarizes. For example, if you click Create Service Report on a service appointment, this field lists the service appointment’s record ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "ServiceAppointment",
           "WorkOrder",
@@ -160,7 +160,7 @@
         "readOnly": true
       },
       "ServiceReportLanguage": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language used for the service report. The language is selected in the ServiceReportLanguage field on the associated work order. If the work order doesn’t specify a service report language, the report is translated in the default language in Salesforce of the person generating the report.",
         "format": "enum",
         "enum": [
@@ -212,8 +212,9 @@
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the service report. Available in API version 53.0 and later."
+        "type": "string",
+        "description": "The status of the service report. Available in API version 53.0 and later.",
+        "enum": []
       },
       "Template": {
         "type": "string",
@@ -298,8 +299,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_servicereport.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_servicereport.htm",
     "keyPrefix": "1SR",
     "createable": true,
     "updateable": true,
@@ -332,6 +333,7 @@
       "Core Salesforce"
     ],
     "iconUrl": "standard/service_report_120.png",
-    "iconColor": "5867E8"
+    "iconColor": "5867E8",
+    "x-version": "53.0"
   }
 }

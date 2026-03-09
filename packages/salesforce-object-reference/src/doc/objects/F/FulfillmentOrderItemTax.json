@@ -4,7 +4,7 @@
     "description": "Represents the tax on a FulfillmentOrderLineItem or FulfillmentOrderItemAdjustment. Corresponds to an OrderItemTaxLineItemSummary.",
     "properties": {
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "Amount of tax represented by the FulfillmentOrderItemTax.",
         "format": "currency",
         "nullable": false,
@@ -12,7 +12,7 @@
         "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "ISO code for the currency of the FulfillmentOrderLineItem to which the tax applies. The default value is USD.",
         "format": "enum",
         "enum": [
@@ -23,51 +23,54 @@
         "readOnly": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the FulfillmentOrderItemTax.",
         "maxLength": 2000,
         "nullable": true
       },
       "FulfillmentOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the associated FulfillmentOrder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "FulfillmentOrder",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "FulfillmentOrder​ItemAdjustId": {
-        "type": "reference",
-        "description": "If this object represents tax on an adjustment, this value is the ID of the FulfillmentOrderItemAdjustment to which the tax applies. If this value is null, the adjustment applies to a FulfillmentOrderLineItem."
+        "type": "string",
+        "description": "If this object represents tax on an adjustment, this value is the ID of the FulfillmentOrderItemAdjustment to which the tax applies. If this value is null, the adjustment applies to a FulfillmentOrderLineItem.",
+        "format": "reference"
       },
       "FulfillmentOrderItem​TaxNumber": {
         "type": "string",
         "description": "ID of the FulfillmentOrderItemTax."
       },
       "FulfillmentOrder​LineItemId": {
-        "type": "reference",
-        "description": "If this object represents tax on a FulfillmentOrderLineItem, this value is the ID of that FulfillmentOrderLineItem. If this object represents tax on an adjustment, this value is the ID of the FulfillmentOrderLineItem to which the adjustment applies."
+        "type": "string",
+        "description": "If this object represents tax on a FulfillmentOrderLineItem, this value is the ID of that FulfillmentOrderLineItem. If this object represents tax on an adjustment, this value is the ID of the FulfillmentOrderLineItem to which the adjustment applies.",
+        "format": "reference"
       },
       "OrderItemTaxLineItem​SummaryId": {
-        "type": "reference",
-        "description": "ID of the OrderItemTaxLineItemSummary associated with the OrderItemSummary that corresponds to the FulfillmentOrderLineItem to which the tax applies."
+        "type": "string",
+        "description": "ID of the OrderItemTaxLineItemSummary associated with the OrderItemSummary that corresponds to the FulfillmentOrderLineItem to which the tax applies.",
+        "format": "reference"
       },
       "Rate": {
-        "type": "percent",
+        "type": "number",
         "description": "Tax rate used to calculate the Amount.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TaxEffectiveDate": {
-        "type": "date",
+        "type": "string",
         "description": "Date on which the Amount was calculated. Important due to tax rate changes over time.",
         "format": "date",
         "nullable": false
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates whether the Amount is actual or estimated.",
         "format": "enum",
         "enum": [
@@ -171,7 +174,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorderitemtax.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_fulfillmentorderitemtax.htm",
     "keyPrefix": "0co",
     "createable": true,
     "updateable": true,
@@ -273,6 +276,7 @@
     "accessRules": "This object is only available in Salesforce Order Management orgs.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

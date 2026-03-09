@@ -1,32 +1,32 @@
 {
   "ProductItemTransaction": {
     "name": "ProductItemTransaction",
-    "description": "Represents an action taken on a product item in field service. Product item transactions are auto-generated records that help you track when a product item is replenished, consumed, or adjusted.",
+    "description": "Represents an action taken on a product item. Product item transactions track when a product is consumed, replenished, adjusted, or transferred. Product item transactions are auto-generated records that specify the quantity of products impacted by the action.",
     "properties": {
       "Description": {
-        "type": "textarea",
-        "description": "A description of the transaction. The description is blank when the transaction record is created, but can be updated.",
+        "type": "string",
+        "description": "The description of the product item transaction.",
         "maxLength": 32000,
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ProductItemId": {
-        "type": "reference",
-        "description": "The associated product item.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product item associated with the product item transaction.",
+        "format": "reference",
         "x-object": "ProductItem",
         "maxLength": 18,
         "nullable": false,
@@ -34,7 +34,7 @@
       },
       "ProductItemTransactionNumber": {
         "type": "string",
-        "description": "(Read Only) Auto-generated number identifying the product item transaction.",
+        "description": "The auto-generated number identifying the product item transaction.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
@@ -47,9 +47,9 @@
         "multipleOf": 0.01
       },
       "RelatedRecordId": {
-        "type": "reference",
-        "description": "(Read Only) The product consumed or product transfer related to the action. If the action wasn’t related to consumption or transfer, the related record is blank.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product consumed, product transfer, or visit related to the action. If the action wasn’t related to consumption or transfer, the related record is blank.",
+        "format": "reference",
         "x-objects": [
           "ProductConsumed",
           "ProductTransfer",
@@ -60,8 +60,8 @@
         "readOnly": true
       },
       "TransactionType": {
-        "type": "picklist",
-        "description": "The action that the transaction tracks. Replenished: When a part is stocked at a location. A Replenished transaction is created when a product item is created. Consumed: When parts are consumed to complete a work order. A Consumed transaction is created when a record is added to the Products Consumed related list on a work order or work order line item. Adjusted: When there’s a discrepancy or a change in consumption. An Adjusted transaction is created when a product item’s Quantity on Hand is edited, a product consumed is updated or delete, or a product transfer is deleted. Transferred: When parts are transferred between locations.",
+        "type": "string",
+        "description": "The action that the transaction tracks.",
         "format": "enum",
         "enum": [
           "Consumed",
@@ -142,8 +142,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productitemtransaction.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productitemtransaction.htm",
     "keyPrefix": "0TR",
     "createable": true,
     "updateable": true,
@@ -269,7 +269,9 @@
     "accessRules": "Field Service must be enabled. Only users with Modify All Data or Modify All Records permissions can delete this object.",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Field Service Lightning"
+    ],
+    "x-version": "60.0"
   }
 }

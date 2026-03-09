@@ -4,31 +4,32 @@
     "description": "Represents taxonomy or subspecialty codes for a practitioner or facility. A provider or facility can have multiple taxonomies.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The business account associated with the provider taxonomy.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "EffectiveFrom": {
-        "type": "date",
+        "type": "string",
         "description": "The date from which this taxonomy is effective.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "EffectiveTo": {
-        "type": "date",
+        "type": "string",
         "description": "The date on which this taxonomy is no longer effective.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "HealthcareProviderId": {
-        "type": "reference",
-        "description": "The healthcare provider associated with the taxonomy. This field is available in API version 62.0 and later when Site Management (Pilot) is enabled."
+        "type": "string",
+        "description": "The healthcare provider associated with the taxonomy. This field is available in API version 62.0 and later when Site Management (Pilot) is enabled.",
+        "format": "reference"
       },
       "IsActive": {
         "type": "boolean",
@@ -43,14 +44,14 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -64,9 +65,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -76,9 +77,9 @@
         "readOnly": true
       },
       "PractitionerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Contact record for the practitioner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true,
@@ -99,9 +100,9 @@
         "readOnly": true
       },
       "TaxonomyId": {
-        "type": "reference",
+        "type": "string",
         "description": "Care taxonomy record associated with the provider taxonomy.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CareTaxonomy",
         "maxLength": 18,
         "nullable": true,
@@ -185,9 +186,10 @@
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_healthcareprovidertaxonomy.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_healthcareprovidertaxonomy.htm",
     "clouds": [
-      "Health Cloud"
+      "Health Cloud",
+      "Public Sector Cloud"
     ],
     "keyPrefix": "0bP",
     "createable": false,
@@ -382,6 +384,8 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "accessRules": "the Provider Management Access permission set or the Provider Management permission set license",
+    "x-version": "62.0"
   }
 }

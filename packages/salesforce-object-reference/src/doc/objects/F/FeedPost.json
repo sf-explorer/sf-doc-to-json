@@ -8,7 +8,7 @@
         "description": "The content of the FeedPost. Required when Type is TextPost or AdvancedTextPost. Optional when Type is ContentPost or LinkPost."
       },
       "ContentData": {
-        "type": "base64",
+        "type": "string",
         "description": "This field is required if Type is ContentPost. Encoded file data in any format, and can’t be 0 bytes. Setting this field automatically sets Type to ContentPost."
       },
       "ContentDescription": {
@@ -20,7 +20,7 @@
         "description": "This field is required if Type is ContentPost. The name of the file uploaded to the feed. Setting ContentFileName automatically sets Type to ContentPost."
       },
       "ContentSize": {
-        "type": "int",
+        "type": "number",
         "description": "This field is the size of the file (in bytes) uploaded to the feed. This field is read-only and is automatically determined during insert."
       },
       "ContentType": {
@@ -28,36 +28,40 @@
         "description": "This field is the MIME type of the file uploaded to the feed. This field is read-only and is automatically determined during insert."
       },
       "FeedItemId": {
-        "type": "reference",
-        "description": "ID of the feed containing the FeedPost."
+        "type": "string",
+        "description": "ID of the feed containing the FeedPost.",
+        "format": "reference"
       },
       "InsertedById": {
-        "type": "reference",
-        "description": "ID of the user who added this item to the feed. For example, if an application migrates posts and comments from another application into a feed, the InsertedBy value is set to the ID of the context user."
+        "type": "string",
+        "description": "ID of the user who added this item to the feed. For example, if an application migrates posts and comments from another application into a feed, the InsertedBy value is set to the ID of the context user.",
+        "format": "reference"
       },
       "IsDeleted": {
         "type": "boolean",
         "description": "Indicates whether the record has been moved to the Recycle Bin (true) or not (false). This field is a standard system field."
       },
       "LinkUrl": {
-        "type": "url",
+        "type": "string",
         "description": "The URL of a LinkPost."
       },
       "ParentId": {
-        "type": "reference",
-        "description": "ID of the object type to which the FeedPost is related. For example, set this field to a UserId to post to someone’s profile feed, or an AccountId to post to a specific account."
+        "type": "string",
+        "description": "ID of the object type to which the FeedPost is related. For example, set this field to a UserId to post to someone’s profile feed, or an AccountId to post to a specific account.",
+        "format": "reference"
       },
       "Title": {
         "type": "string",
         "description": "The title of the FeedPost. When the Type is LinkPost, the Body is the URL and the Title is the label for the link."
       },
       "Type": {
-        "type": "picklist",
-        "description": "The type of FeedPost: UserStatus—automatically generated when a user updates their status TrackedChange—ignore TextPost—a direct text entry on a feed LinkPost—a URL posting on a feed ContentPost—an uploaded file on a feed Note If you set Type to ContentPost, you must specify ContentData and ContentFileName."
+        "type": "string",
+        "description": "The type of FeedPost: UserStatus—automatically generated when a user updates their status TrackedChange—ignore TextPost—a direct text entry on a feed LinkPost—a URL posting on a feed ContentPost—an uploaded file on a feed Note If you set Type to ContentPost, you must specify ContentData and ContentFileName.",
+        "enum": []
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_feedpost.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_feedpost.htm",
     "clouds": [
       "Core Salesforce"
     ]

@@ -4,24 +4,28 @@
     "description": "Represents an individual push job for upgrading a package in an org from one version to another version. There can be multiple push jobs created for one push request. For example, if you want to upgrade five orgs as part of one push, you have one PackagePushRequest record and five PackagePushJob records.",
     "properties": {
       "DurationSeconds": {
-        "type": "int",
+        "type": "number",
         "description": "The length of time in seconds, that the push upgrade took to complete. This field is new in API version 51.0."
       },
       "EndTime": {
-        "type": "dateTime",
-        "description": "The date and time (UTC) at which the push upgrade ended, in ISO 8601 format. This field is new in API version 51.0."
+        "type": "string",
+        "description": "The date and time (UTC) at which the push upgrade ended, in ISO 8601 format. This field is new in API version 51.0.",
+        "format": "date-time"
       },
       "PackagePushRequestId": {
-        "type": "reference",
-        "description": "Required. The ID of the parent push request record that must have been created."
+        "type": "string",
+        "description": "Required. The ID of the parent push request record that must have been created.",
+        "format": "reference"
       },
       "StartTime": {
-        "type": "dateTime",
-        "description": "The date and time (UTC) at which the push upgrade started, in ISO 8601 format. This field is new in API version 51.0."
+        "type": "string",
+        "description": "The date and time (UTC) at which the push upgrade started, in ISO 8601 format. This field is new in API version 51.0.",
+        "format": "date-time"
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the job. Valid values are: Canceled Created (default) Failed In Progress Pending Succeeded Don’t specify this value when you create the push job. The default value of Created is used."
+        "type": "string",
+        "description": "The status of the job. Valid values are: Canceled Created (default) Failed In Progress Pending Succeeded Don’t specify this value when you create the push job. The default value of Created is used.",
+        "enum": []
       },
       "SubscriberOrganizationKey": {
         "type": "string",
@@ -29,10 +33,11 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_packagepushjob.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_packagepushjob.htm",
     "accessRules": "Upload AppExchange Packages",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "51.0"
   }
 }

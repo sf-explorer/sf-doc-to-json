@@ -4,7 +4,7 @@
     "description": "Represents a marketing email asset for use with Account Engagement.",
     "properties": {
       "ClickThroughRate": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of visitors who click links contained in emails delivered (sent minus bounces) to them. Multiple clicks for a same link are counted.",
         "format": "percent",
         "nullable": true,
@@ -12,7 +12,7 @@
         "multipleOf": 0.01
       },
       "ClickToOpenRatio": {
-        "type": "percent",
+        "type": "number",
         "description": "The number of unique clicks divided by unique HTML opens.",
         "format": "percent",
         "nullable": true,
@@ -20,7 +20,7 @@
         "multipleOf": 0.01
       },
       "DeliveryRate": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of the emails that were delivered compared to the number that bounced (soft and hard). Note: this data includes emails that were delivered to the recipient's spam folder.",
         "format": "percent",
         "nullable": true,
@@ -28,27 +28,27 @@
         "multipleOf": 0.01
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the email content, for example, Promotion Mass Mailing.",
         "maxLength": 4000,
         "nullable": true
       },
       "HtmlBody": {
-        "type": "textarea",
+        "type": "string",
         "description": "The body of the email in HTML format. The field is read-only.",
         "maxLength": 384000,
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp that indicates when the current user last viewed the record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, the record could have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -61,7 +61,7 @@
         "nullable": false
       },
       "OpenRate": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of unique HTML opens compared to the total number of emails delivered (sent minus bounces).",
         "format": "percent",
         "nullable": true,
@@ -69,7 +69,7 @@
         "multipleOf": 0.01
       },
       "OptOutRate": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of users that have opted out compared to the total number of emails sent.",
         "format": "percent",
         "nullable": true,
@@ -77,7 +77,7 @@
         "multipleOf": 0.01
       },
       "SpamComplaintRate": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of spam complaints compared to the total number emails sent.",
         "format": "percent",
         "nullable": true,
@@ -85,70 +85,70 @@
         "multipleOf": 0.01
       },
       "Subject": {
-        "type": "textarea",
+        "type": "string",
         "description": "Content of the subject line.",
         "maxLength": 3000,
         "nullable": true
       },
       "TemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "The Email Template field is mostly read-only. You can populate the Email Template field only during record create to prevent overwriting data on the email content record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "TextBody": {
-        "type": "textarea",
+        "type": "string",
         "description": "The body of the email in plain text format. The character limit is 384, 000.",
         "maxLength": 384000,
         "nullable": true
       },
       "TotalDelivered": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of emails minus hard and soft bounces. Note: this data includes emails that were delivered to the recipient's spam folder.",
         "nullable": true,
         "readOnly": true
       },
       "TotalHardBounced": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of emails that permanently returned to the sender because the address is invalid. A hard bounce can occur because the domain name doesn't exist or because the recipient is unknown.",
         "nullable": true,
         "readOnly": true
       },
       "TotalOpens": {
-        "type": "int",
+        "type": "number",
         "description": "The total number of times a prospect’s email client loaded the images in the HTML version of the email. We also record an open if the prospect clicks a link within the HTML or text email without downloading images. A click indicates that they viewed the message. Some email clients (Outlook, Apple Mail, Thunderbird) do not display images by default. Account Engagement counts an open each time the images load.",
         "nullable": true,
         "readOnly": true
       },
       "TotalSent": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The total number of list emails sent, including bounced, opted-out, and invalid To: addresses.",
         "nullable": true,
         "readOnly": true
       },
       "TotalSoftBounced": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The total number of times a recipient’s mail server acknowledged the email, but returned it to the sender. Sometimes it is because the recipient's mailbox is full or the mail server is temporarily unavailable. After 5 soft bounces, Account Engagement opts the prospect out of emails.",
         "nullable": true,
         "readOnly": true
       },
       "TotalSpamComplaints": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The total number of prospects that reported the email as spam.",
         "nullable": true,
         "readOnly": true
       },
       "TotalTrackedLinkClicks": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The number of times prospects clicked a link in the email.",
         "nullable": true,
         "readOnly": true
       },
       "UniqueClickThroughRate": {
-        "type": "percent",
+        "type": "number",
         "description": "Read-only field. The percentage of visitors who clicked a link contained in an email",
         "format": "percent",
         "nullable": true,
@@ -156,19 +156,19 @@
         "multipleOf": 0.01
       },
       "UniqueOpens": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The number of prospects who loaded the images in the HTML version of the email. The Unique Opens category counts each recipient only one time, even if the prospect loaded images more than once.",
         "nullable": true,
         "readOnly": true
       },
       "UniqueOptOuts": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The total number of prospects that have clicked the link to unsubscribe or opted out of all emails in the Email Preference Center. They are removed from future email sends.",
         "nullable": true,
         "readOnly": true
       },
       "UniqueTrackedLinkClicks": {
-        "type": "int",
+        "type": "number",
         "description": "Read-only field. The number of times a prospect clicked a link in the email. This metric doesn’t include multiple clicks of the same link.",
         "nullable": true,
         "readOnly": true
@@ -233,7 +233,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailcontent.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_emailcontent.htm",
     "keyPrefix": "6RO",
     "createable": true,
     "updateable": true,
@@ -323,6 +323,7 @@
     "accessRules": "Manage Email Content, CRM User, Sales, or Service",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "50.0"
   }
 }

@@ -4,7 +4,7 @@
     "description": "Represents a time span when an asset has the same quantity, amount, and monthly recurring revenue (MRR). An asset has as many asset state periods as there are changes to it (asset actions) during its lifecycle. The dashboard and related pages show the current asset state period. The fields can’t be edited.",
     "properties": {
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "An asset’s total amount during an asset state period. Revenue Cloud doesn't set or use this field's value currently.",
         "format": "currency",
         "nullable": false,
@@ -12,9 +12,9 @@
         "multipleOf": 0.01
       },
       "AssetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The asset related to an asset state period. Label is Asset.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": false,
@@ -28,34 +28,38 @@
         "readOnly": true
       },
       "BillingFrequency": {
-        "type": "picklist",
-        "description": "The time period that indicates how often the line item is billed."
+        "type": "string",
+        "description": "The time period that indicates how often the line item is billed.",
+        "enum": []
       },
       "BindingInstanceTargetId": {
-        "type": "reference",
-        "description": "The ID of a custom product target for a usage-based quote line item, order Item, or asset allocation."
+        "type": "string",
+        "description": "The ID of a custom product target for a usage-based quote line item, order Item, or asset allocation.",
+        "format": "reference"
       },
       "Discount": {
-        "type": "percent",
+        "type": "number",
         "description": "Editable number from 0 to 100. Available in API version 65.0 and later."
       },
       "DiscountAmount": {
-        "type": "currency",
-        "description": "The fixed amount discount to apply to the line item. Available in API version 65.0 and later."
+        "type": "number",
+        "description": "The fixed amount discount to apply to the line item. Available in API version 65.0 and later.",
+        "format": "currency"
       },
       "EndDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The end date and time of an asset state period. On an asset that is an evergreen subscription, the last asset state period has no end date.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LegalEntityId": {
-        "type": "reference",
-        "description": "The ID of the related legal entity."
+        "type": "string",
+        "description": "The ID of the related legal entity.",
+        "format": "reference"
       },
       "Mrr": {
-        "type": "currency",
+        "type": "number",
         "description": "An asset’s monthly recurring revenue during an asset state period.",
         "format": "currency",
         "nullable": false,
@@ -63,8 +67,9 @@
         "multipleOf": 0.01
       },
       "PriceRevisionPolicy": {
-        "type": "reference",
-        "description": "Specifies the price uplift policy associated with this asset state period."
+        "type": "string",
+        "description": "Specifies the price uplift policy associated with this asset state period.",
+        "format": "reference"
       },
       "Quantity": {
         "type": "double",
@@ -86,22 +91,24 @@
         "description": "The name of the order item segment for this asset state period."
       },
       "SegmentType": {
-        "type": "picklist",
-        "description": "The period for the order item segment for this asset state period. Valid values are: Custom Free Trial Yearly"
+        "type": "string",
+        "description": "The period for the order item segment for this asset state period. Valid values are: Custom Free Trial Yearly",
+        "enum": []
       },
       "StartDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The start date and time of an asset state period.",
         "format": "date-time",
         "nullable": false,
         "readOnly": true
       },
       "UnitPrice": {
-        "type": "currency",
-        "description": "The price per unit for the line item. Available in API version 65.0 and later."
+        "type": "number",
+        "description": "The price per unit for the line item. Available in API version 65.0 and later. Revenue Cloud won't populate this field in API version 66.0 and later.",
+        "format": "currency"
       },
       "UnitPriceUplift": {
-        "type": "percent",
+        "type": "number",
         "description": "Indicates the percentage increase of a line item's unit price. Available in API version 65.0 and later."
       },
       "Id": {
@@ -175,7 +182,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetstateperiod.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetstateperiod.htm",
     "keyPrefix": "4nK",
     "clouds": [
       "Revenue Lifecycle Management",
@@ -225,6 +232,7 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "50.0"
   }
 }

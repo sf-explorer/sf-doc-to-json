@@ -449,14 +449,14 @@ export async function getCloudMetadata(
  * @param useCache - Whether to use cached data (default: true)
  * @returns Object mapping object names to their descriptions and metadata
  */
-export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string; accessRules?: string }> | null> {
+export async function loadAllDescriptions(useCache = true): Promise<Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string; accessRules?: string; 'x-version'?: string }> | null> {
     const index = await loadIndex(useCache);
     
     if (!index) {
         return null;
     }
 
-    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string; accessRules?: string }> = {};
+    const descriptions: Record<string, { description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; icon?: string; accessRules?: string; 'x-version'?: string }> = {};
     
     for (const [name, entry] of Object.entries(index.objects)) {
         descriptions[name] = {
@@ -467,7 +467,8 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
             label: entry.label,
             sourceUrl: entry.sourceUrl,
             icon: entry.icon,
-            accessRules: entry.accessRules
+            accessRules: entry.accessRules,
+            'x-version': entry['x-version'] || '30.0'  // Default for filtering when not in object metadata
         };
     }
     
@@ -483,7 +484,7 @@ export async function loadAllDescriptions(useCache = true): Promise<Record<strin
 export async function getObjectDescription(
     objectName: string,
     useCache = true
-): Promise<{ description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; accessRules?: string } | null> {
+): Promise<{ description: string; cloud: string; fieldCount: number; keyPrefix?: string; label?: string; sourceUrl?: string; accessRules?: string; 'x-version'?: string } | null> {
     const index = await loadIndex(useCache);
     
     if (!index || !index.objects[objectName]) {
@@ -498,7 +499,8 @@ export async function getObjectDescription(
         keyPrefix: entry.keyPrefix,
         label: entry.label,
         sourceUrl: entry.sourceUrl,
-        accessRules: entry.accessRules
+        accessRules: entry.accessRules,
+        'x-version': entry['x-version'] || '30.0'  // Default for filtering when not in object metadata
     };
 }
 

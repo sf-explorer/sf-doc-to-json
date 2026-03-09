@@ -1,26 +1,26 @@
 {
   "IndividualApplication": {
     "name": "IndividualApplication",
-    "description": "Represents an application form submitted by an individual.",
+    "description": "Represents an application form submitted by an individual or organization.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the applicant’s account.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ApplicationCaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of a case that relates to this application.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
       },
       "ApplicationChangeOverview": {
-        "type": "textarea",
+        "type": "string",
         "description": "The Einstein-generated historical overview of the changes between application versions."
       },
       "ApplicationName": {
@@ -28,7 +28,7 @@
         "description": "Descriptive name for the application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup."
       },
       "ApplicationOverview": {
-        "type": "textarea",
+        "type": "string",
         "description": "The Einstein-generated historical overview of application stages, data changes, and processing actions."
       },
       "ApplicationReferenceNumber": {
@@ -36,8 +36,8 @@
         "description": "The custom reference number assigned to the application. This field is available if you enabled Health Cloud, Public Sector Solutions, or Grantmaking in Setup."
       },
       "ApplicationType": {
-        "type": "picklist",
-        "description": "The type of the application. Possible values are: New Renewal",
+        "type": "string",
+        "description": "The type of the application.",
         "format": "enum",
         "maxLength": 40,
         "nullable": true,
@@ -47,23 +47,24 @@
         ]
       },
       "AppliedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the application was received from the applicant.",
         "format": "date-time",
         "nullable": true
       },
       "ApprovedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date on which the application was approved.",
         "format": "date-time",
         "nullable": true
       },
       "BudgetId": {
-        "type": "reference",
-        "description": "The budget associated with the individual application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup."
+        "type": "string",
+        "description": "The budget associated with the individual application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup.",
+        "format": "reference"
       },
       "Category": {
-        "type": "picklist",
+        "type": "string",
         "description": "The service category of the application.",
         "format": "enum",
         "enum": [
@@ -73,8 +74,9 @@
         "nullable": false
       },
       "ContactId": {
-        "type": "reference",
-        "description": "The contact associated with the individual application."
+        "type": "string",
+        "description": "The contact associated with the individual application.",
+        "format": "reference"
       },
       "Description": {
         "type": "string",
@@ -83,16 +85,18 @@
         "nullable": true
       },
       "FundingOpportunityId": {
-        "type": "reference",
-        "description": "The funding opportunity associated with the individual application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup."
+        "type": "string",
+        "description": "The funding opportunity associated with the individual application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup.",
+        "format": "reference"
       },
       "FundingRequestPurpose": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of what the individual application funds are used for. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup."
       },
       "InternalStatus": {
-        "type": "picklist",
-        "description": "Status of the individual application in Salesforce CRM."
+        "type": "string",
+        "description": "Status of the individual application in Salesforce CRM.",
+        "enum": []
       },
       "IsOwnerEditable": {
         "type": "boolean",
@@ -104,14 +108,14 @@
         "description": "Indicates whether the individual application has been submitted. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when a user most recently viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when a user most recently viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -125,9 +129,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user that owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -136,26 +140,29 @@
         "nullable": false
       },
       "RecordTypeId": {
-        "type": "reference",
-        "description": "The record associated to the application."
+        "type": "string",
+        "description": "The record associated to the application.",
+        "format": "reference"
       },
       "RequestedAmount": {
-        "type": "currency",
-        "description": "Amount requested in the individual application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup."
+        "type": "number",
+        "description": "Amount requested in the individual application. This field is available if you enabled Public Sector Solutions or Grantmaking in Setup.",
+        "format": "currency"
       },
       "RequirementsCompleteDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the applicant fulfilled all the requirements for approval.",
         "format": "date-time",
         "nullable": true
       },
       "SavedApplicationRefId": {
-        "type": "dateTime",
-        "description": "Reference Id of the saved application."
+        "type": "string",
+        "description": "Reference Id of the saved application.",
+        "format": "reference"
       },
       "Status": {
-        "type": "picklist",
-        "description": "The submission and approval status of the application. Possible values are: Closed In Distribution In Review Submitted",
+        "type": "string",
+        "description": "The submission and approval status of the application.",
         "format": "enum",
         "enum": [
           "Submitted",
@@ -228,7 +235,7 @@
         "readOnly": true
       },
       "ApplicationCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "Categorizes the ways an application can be processed. Possible values are: Basic Special",
         "format": "enum",
         "maxLength": 40,
@@ -239,29 +246,31 @@
         ]
       },
       "AmountPaid": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount paid by the applicant.",
         "format": "currency",
         "nullable": true
       },
       "BusinessTypeId": {
-        "type": "reference",
-        "description": "The type of individual business activity for this application."
+        "type": "string",
+        "description": "The type of individual business activity for this application.",
+        "format": "reference"
       },
       "LicensePermitNameId": {
-        "type": "reference",
+        "type": "string",
         "description": "The emergency service authorization that will be granted if this application is approved.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BusinessLicense",
         "maxLength": 18,
         "nullable": true
       },
       "LicenseTypeId": {
-        "type": "reference",
-        "description": "The type of emergency service that the applicant will provide."
+        "type": "string",
+        "description": "The type of emergency service that the applicant will provide.",
+        "format": "reference"
       },
       "PaymentDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time at which payment was received from the applicant.",
         "format": "date-time",
         "nullable": true
@@ -287,10 +296,105 @@
         "description": "IsLocked field",
         "nullable": false,
         "readOnly": true
+      },
+      "AcademicTerm": {
+        "type": "string",
+        "description": "The academic term associated with the application."
+      },
+      "ApplicantEmail": {
+        "type": "string",
+        "description": "The email address of the applicant."
+      },
+      "ApplicantPhone": {
+        "type": "string",
+        "description": "The phone number of the applicant."
+      },
+      "DecisionReleaseDate": {
+        "type": "string",
+        "description": "The date when the application decision is announced.",
+        "format": "date"
+      },
+      "DueDate": {
+        "type": "string",
+        "description": "The last date when applicants can apply for admission.",
+        "format": "date"
+      },
+      "LearningProgram": {
+        "type": "string",
+        "description": "The learning program associated with the application."
+      },
+      "OpportunityId": {
+        "type": "string",
+        "description": "The Opportunity associated with the Individual Application.",
+        "format": "reference"
+      },
+      "ProgramTermApplnTimelineId": {
+        "type": "string",
+        "description": "The application timeline of the program term associated with the application.",
+        "format": "reference"
+      },
+      "ApplicationFormTemplateId": {
+        "type": "string",
+        "description": "The Application Form Template associated with the application.",
+        "format": "reference"
+      },
+      "ExternalProject": {
+        "type": "string",
+        "description": "The ID assigned to the project by an external data source."
+      },
+      "IsApprovalRequired": {
+        "type": "boolean",
+        "description": "Indicates whether an application requires approval before it is accepted."
+      },
+      "IsSubmittedByThirdParty": {
+        "type": "boolean",
+        "description": "Indicates whether the application is submitted by a third party."
+      },
+      "SubmittedByAccountId": {
+        "type": "string",
+        "description": "The account that submitted the application.",
+        "format": "reference"
+      },
+      "SubmittedByContactId": {
+        "type": "string",
+        "description": "The contact that submitted the application.",
+        "format": "reference"
+      },
+      "ParentApplicationId": {
+        "type": "string",
+        "description": "The parent application for a program that has separate applications for multiple measures.",
+        "format": "reference"
+      },
+      "RejectionReason": {
+        "type": "string",
+        "description": "Specifies the reason that the customer's application is rejected.",
+        "enum": []
+      },
+      "ServiceType": {
+        "type": "string",
+        "description": "Specifies the type of service in the application.",
+        "enum": []
+      },
+      "Given_Name__c": {
+        "type": "string",
+        "description": "The given name of the applicant."
+      },
+      "Nationality__c": {
+        "type": "string",
+        "description": "The nationality of the applicant.",
+        "enum": []
+      },
+      "Passport_Number__c": {
+        "type": "string",
+        "description": "The passport ID of the applicant."
+      },
+      "Surname__c": {
+        "type": "string",
+        "description": "The last name of the applicant."
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_individualapplication_hc.htm",
+    "module": "Nonprofit Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_individualapplication.htm",
     "keyPrefix": "0iT",
     "iconUrl": "standard/service_appointment_120.png",
     "iconColor": "5867E8",
@@ -525,7 +629,11 @@
     ],
     "clouds": [
       "Nonprofit Cloud",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Public Sector Cloud",
+      "Education Cloud",
+      "Energy and Utilities Cloud"
+    ],
+    "x-version": "50.0"
   }
 }

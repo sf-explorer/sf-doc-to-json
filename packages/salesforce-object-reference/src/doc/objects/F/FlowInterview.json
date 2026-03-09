@@ -29,8 +29,9 @@
         "readOnly": true
       },
       "InterviewStatus": {
-        "type": "picklist",
-        "description": "Status of the interview. Valid values are: Completed—This flow is complete. There are no more records to process. Error—This flow has one or more errors. To resolve each error, check the error code for instructions. Paused—This flow is paused. No new processes are added until the flow is resumed. Running—This flow is running or is ready to run. VersionPaused—This flow version is paused. No more records are processed until the flow is resumed. This value is available in API version 60.0 and later. This field is available in API version 50.0 and later."
+        "type": "string",
+        "description": "Status of the interview. Valid values are: Completed—This flow is complete. There are no more records to process. Error—This flow has one or more errors. To resolve each error, check the error code for instructions. Paused—This flow is paused. No new processes are added until the flow is resumed. Running—This flow is running or is ready to run. VersionPaused—This flow version is paused. No more records are processed until the flow is resumed. This value is available in API version 60.0 and later. This field is available in API version 50.0 and later.",
+        "enum": []
       },
       "Name": {
         "type": "string",
@@ -40,9 +41,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns the interview. Only this user or an admin can resume the interview.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -124,7 +125,7 @@
       },
       "MasterFlowVersion": {
         "type": "string",
-        "description": "Definition Version",
+        "description": "For internal use only.",
         "format": "enum",
         "enum": [
           "benefits__Issue_Free_Product_Sample-1",
@@ -365,7 +366,7 @@
       },
       "CurrentFlowVersion": {
         "type": "string",
-        "description": "Definition Version",
+        "description": "For internal use only.",
         "format": "enum",
         "enum": [
           "benefits__Issue_Free_Product_Sample-1",
@@ -606,13 +607,22 @@
       },
       "SerializedView": {
         "type": "string",
-        "description": "Serialized version of the interview",
+        "description": "For internal use only.",
         "maxLength": 1000000,
         "nullable": true
+      },
+      "EngineType": {
+        "type": "string",
+        "description": "The engine type used to run the flow interview.",
+        "enum": []
+      },
+      "Error": {
+        "type": "string",
+        "description": "The error message that explains why the flow interview failed. This field is available in API version 62.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_flowinterview.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_flowinterview.htm",
     "keyPrefix": "0Fo",
     "createable": true,
     "updateable": true,
@@ -660,6 +670,7 @@
     "accessRules": "“Manage Flow”, “Run Flows”",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "32.0"
   }
 }

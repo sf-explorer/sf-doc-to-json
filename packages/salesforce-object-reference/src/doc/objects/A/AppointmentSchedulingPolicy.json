@@ -4,11 +4,12 @@
     "description": "Represents a set of rules for scheduling appointments using Salesforce Scheduler.",
     "properties": {
       "AppointmentAssignmentPolicyId": {
-        "type": "reference",
-        "description": "The name or ID of the appointment assignment policy. This is a relationship field, available in version 52.0 and later."
+        "type": "string",
+        "description": "The name or ID of the appointment assignment policy. This is a relationship field, available in version 52.0 and later.",
+        "format": "reference"
       },
       "AppointmentStartTimeInterval": {
-        "type": "picklist",
+        "type": "string",
         "description": "The proposed time interval in minutes between appointment start times. For example, set the interval to 15. Appointments can then begin at the top of the hour and at 15-minute intervals thereafter (10:00 AM, 10:15 AM, 10:30 AM, and so on). Possible values are: 5 10 15 20 30 45 60 90 120 150 180 240 300 360 420 480",
         "format": "enum",
         "enum": [
@@ -39,9 +40,9 @@
         "nullable": false
       },
       "ExtCalEventHandlerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The API name of the custom Apex class that checks service resources’ external calendar events and returns the time slots where service resources are already booked. Available in API version 50.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ApexClass",
         "maxLength": 18,
         "nullable": true
@@ -61,7 +62,7 @@
         "description": "Indicates whether this scheduling policy considers shifts of service territory members when determining the availability of service resources for appointments (true). The default value is false. Available in API version 56.0 and later."
       },
       "Language": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language of the appointment scheduling policy.",
         "format": "enum",
         "enum": [
@@ -187,16 +188,18 @@
         "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_appointmentschedulingpolicy.htm",
+    "module": "Scheduler",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.salesforce_scheduler_developer_guide.meta/salesforce_scheduler_developer_guide/sforce_api_objects_appointmentschedulingpolicy.htm",
     "clouds": [
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler"
     ],
     "keyPrefix": "0Vr",
     "createable": true,
     "updateable": true,
     "deletable": true,
     "queryable": true,
-    "searchable": false
+    "searchable": false,
+    "x-version": "45.0"
   }
 }

@@ -4,13 +4,13 @@
     "description": "Represents an idea on which users are allowed to comment and vote, for example, a suggestion for an enhancement to an existing product or process.",
     "properties": {
       "AttachmentBody": {
-        "type": "base64",
+        "type": "string",
         "description": "File data for the attachment. This field is available in API version 28.0 and later.",
         "format": "byte",
         "nullable": true
       },
       "AttachmentContentType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of the attachment. This field is available in API version 28.0 and later.",
         "format": "enum",
         "enum": [
@@ -113,7 +113,7 @@
         "nullable": true
       },
       "AttachmentLength": {
-        "type": "int",
+        "type": "number",
         "description": "Size of the attachment in bytes. This field is available in API version 28.0 and later.",
         "nullable": true,
         "readOnly": true
@@ -125,26 +125,28 @@
         "nullable": true
       },
       "Body": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the Idea.",
         "maxLength": 32000,
         "nullable": true
       },
       "Categories": {
-        "type": "multipicklist",
+        "type": "string",
         "description": "Customizable multi-select picklist used to organize Ideas into logical groupings. Note This field is only available if your organization has the Categories field enabled. This field is enabled by default in organizations created after API version 14 was released. If the Categories field is enabled, API versions 13 and earlier do not have access to either the Categories or Category fields.",
         "format": "enum",
         "maxLength": 4099,
-        "nullable": true
+        "nullable": true,
+        "enum": []
       },
       "Category": {
-        "type": "picklist",
-        "description": "Customizable picklist of values used to organize Ideas into logical groupings. Note This field is not available if your organization has the multi-select Categories field enabled."
+        "type": "string",
+        "description": "Customizable picklist of values used to organize Ideas into logical groupings. Note This field is not available if your organization has the multi-select Categories field enabled.",
+        "enum": []
       },
       "CommunityId": {
-        "type": "reference",
+        "type": "string",
         "description": "The zone ID associated with the idea. Once you create an idea, you can’t change the zone ID associated with that idea. Note API version 12 does not support zone ID. If you create an idea in version 12, your idea is automatically posted to the oldest zone that you have permission to access.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Community",
         "maxLength": 18,
         "nullable": false,
@@ -172,7 +174,7 @@
         "readOnly": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -182,8 +184,9 @@
         "nullable": true
       },
       "IdeaThemeID": {
-        "type": "reference",
-        "description": "Identifies the idea theme associated with the idea."
+        "type": "string",
+        "description": "Identifies the idea theme associated with the idea.",
+        "format": "reference"
       },
       "IsDeleted": {
         "type": "boolean",
@@ -204,65 +207,66 @@
         "readOnly": true
       },
       "LastCommentDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time the last comment (child IdeaComment object) was added.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastCommentId": {
-        "type": "reference",
+        "type": "string",
         "description": "Read only. The ID of the last comment (child IdeaComment object).",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "IdeaComment",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "NumComments": {
-        "type": "int",
+        "type": "number",
         "description": "The number of comments (child IdeaComment objects) that users have submitted for the given idea.",
         "nullable": true,
         "readOnly": true
       },
       "ParentIdeaId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID associated with this idea's parent idea. When multiple ideas are merged together, one idea becomes the parent (master) of the other ideas. The ParentIdeaId is automatically set when you merge ideas.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Idea",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "RecordTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the record type assigned to this object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "RecordType",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Customizable picklist of values used to specify the status of an idea.",
         "format": "enum",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "enum": []
       },
       "Title": {
         "type": "string",
@@ -337,7 +341,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_idea.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_idea.htm",
     "keyPrefix": "087",
     "createable": true,
     "updateable": true,

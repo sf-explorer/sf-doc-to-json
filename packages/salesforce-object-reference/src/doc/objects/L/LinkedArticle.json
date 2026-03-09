@@ -4,7 +4,7 @@
     "description": "Represents a knowledge article that is attached to a work order, work order line item, or work type.",
     "properties": {
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
         "format": "enum",
         "enum": [
@@ -14,27 +14,27 @@
         "nullable": true
       },
       "KnowledgeArticleId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the Knowledge article attached to the record. The label in the user interface is Knowledge Article ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Knowledge__ka",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "KnowledgeArticleVersionId": {
-        "type": "reference",
+        "type": "string",
         "description": "The version of the Knowledge article attached to the record. This field lists the title of the attached version and links to the version. The label in the user interface is Article Version.When you attach an article to a work order, that version of the article stays associated with the work order, even if later versions are published. If needed, you can detach and reattach an article to a work order to link the latest version.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Knowledge__kav",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "LinkedEntityId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the record that the Knowledge article is attached to. The label in the user interface is Linked Record ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "MessagingSession",
           "Product2",
@@ -53,8 +53,9 @@
         "nullable": false
       },
       "RecordTypeId": {
-        "type": "reference",
-        "description": "The ID of the article’s record type, if used. This field is only available for Lightning Knowledge."
+        "type": "string",
+        "description": "The ID of the article’s record type, if used. This field is only available for Lightning Knowledge.",
+        "format": "reference"
       },
       "Type": {
         "type": "string",
@@ -122,8 +123,8 @@
         "readOnly": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_linkedarticle.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_linkedarticle.htm",
     "keyPrefix": "1WK",
     "createable": true,
     "updateable": true,
@@ -244,6 +245,7 @@
     "clouds": [
       "Field Service Lightning",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "37.0"
   }
 }

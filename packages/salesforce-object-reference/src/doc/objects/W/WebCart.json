@@ -4,15 +4,15 @@
     "description": "Represents an online shopping cart for a store built with B2B Commerce or D2C Commerce, with total amounts for products, shipping and handling, and taxes.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the account that owns this WebCart. In API version 51.0 and later, if the WebCart was created through Guest Browsing, this ID is the ID of the GuestBuyerProfile.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "BillingAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The mailing address to which this WebCart is billed.",
         "nullable": true,
         "readOnly": true
@@ -30,7 +30,7 @@
         "nullable": true
       },
       "BillingGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The accuracy rating of the geocode for the billing address. Possible values are: Address Block City County ExtendedZip NearAddress Neighborhood State Street Unknown Zip",
         "format": "enum",
         "enum": [
@@ -74,13 +74,13 @@
         "nullable": true
       },
       "BillingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street of the billing address. Enter up to 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO code for the currency that’s specified on the buyer’s account. Default value is USD. Possible values are:",
         "format": "enum",
         "enum": [
@@ -90,7 +90,7 @@
         "nullable": true
       },
       "GrandTotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Sum of all cart items’ TotalAmount, or WebCart TotalAmount plus WebCart TotalTaxAmount. This value includes all taxes and adjustments.",
         "format": "currency",
         "nullable": true,
@@ -102,7 +102,7 @@
         "description": "Company name associated with a delivery for a guest customer. This field is available in API version 59.0 and later."
       },
       "GuestEmailAddress": {
-        "type": "email",
+        "type": "string",
         "description": "The email address of a guest buyer."
       },
       "GuestFirstName": {
@@ -114,7 +114,7 @@
         "description": "The last name (or surname) of a guest buyer."
       },
       "GuestPhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "The phone number of a guest buyer."
       },
       "GuestSecondName": {
@@ -139,7 +139,7 @@
         "description": "Whether the cart is a secondary cart or a primary cart."
       },
       "LastRepricingDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date when the last repricing was done.",
         "format": "date-time",
         "nullable": true
@@ -151,9 +151,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the owner of this WebCart.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -162,17 +162,17 @@
         "nullable": false
       },
       "PaymentGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the WebCart payment group.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentGroup",
         "maxLength": 18,
         "nullable": true
       },
       "PaymentMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "The method of payment for this WebCart.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "CardPaymentMethod",
           "DigitalWallet"
@@ -187,7 +187,7 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of this WebCart. Possible values are: Active—Cart is created and available for modifications, like adding or removing products or promotions. Checkout—Cart is in checkout. If the customer modifies the cart, the current checkout session is canceled. Closed—Checkout is complete and an order was created. The cart cannot be modified. PendingClosed—Cart is marked to be closed, but the request isn't completed yet. The cart can’t be modified. This value is available in API version 57.0 and later. PendingDelete—Cart is marked for delete, but the request isn't completed yet. The cart can’t be modified. Processing—Cart is processing. For example, taxes are being calculated. The cart can’t be modified.",
         "format": "enum",
         "enum": [
@@ -202,19 +202,22 @@
         "nullable": true
       },
       "TaxLocaleType": {
-        "type": "picklist",
-        "description": "The type of tax locale. Possible values are: Net Gross"
+        "type": "string",
+        "description": "The type of tax locale. Possible values are: Net Gross",
+        "enum": []
       },
       "TaxType": {
-        "type": "picklist",
-        "description": "The type of tax policy. Possible values are: Automatic Net Gross"
+        "type": "string",
+        "description": "The type of tax policy. Possible values are: Automatic Net Gross",
+        "enum": []
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
-        "description": "A calculated field that reflects the total of all adjustments to the cart subtotal. Adjustments include item, tier, and cart level discounts."
+        "type": "number",
+        "description": "A calculated field that reflects the total of all adjustments to the cart subtotal. Adjustments include item, tier, and cart level discounts.",
+        "format": "currency"
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all cart items’ TotalPrice, or TotalProductAmount plus TotalChargeAmount. If the store tax type is Gross, the sum includes taxes.",
         "format": "currency",
         "nullable": true,
@@ -222,15 +225,17 @@
         "multipleOf": 0.01
       },
       "TotalAmountAfterAllAdjustments": {
-        "type": "currency",
-        "description": "The sum of all cart items after all price adjustments are applied. Adjustments include various types of discounts."
+        "type": "number",
+        "description": "The sum of all cart items after all price adjustments are applied. Adjustments include various types of discounts.",
+        "format": "currency"
       },
       "TotalCartLevelAdjAmount": {
-        "type": "currency",
-        "description": "Total cart level discount amount for the cart."
+        "type": "number",
+        "description": "Total cart level discount amount for the cart.",
+        "format": "currency"
       },
       "TotalChargeAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all cart items’ TotalPrice for cart items of the type Charge.",
         "format": "currency",
         "nullable": true,
@@ -238,7 +243,7 @@
         "multipleOf": 0.01
       },
       "TotalChargeTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all the cart items’ TotalTaxAmount for cart items of the type Charge.",
         "format": "currency",
         "nullable": true,
@@ -246,13 +251,13 @@
         "multipleOf": 0.01
       },
       "TotalLineItemsWithErrors": {
-        "type": "int",
+        "type": "number",
         "description": "A calculated field that shows the total number of cart line items of type Product with errors.",
         "nullable": true,
         "readOnly": true
       },
       "TotalListAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Sum of all the cart items’ TotalListPrice.",
         "format": "currency",
         "nullable": true,
@@ -260,7 +265,7 @@
         "multipleOf": 0.01
       },
       "TotalProductAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all the cart items’ TotalPrice for cart items of the type Product.",
         "format": "currency",
         "nullable": true,
@@ -274,19 +279,21 @@
         "readOnly": true
       },
       "TotalProductItemAdjAmount": {
-        "type": "currency",
-        "description": "Total item level discount amount for the cart."
+        "type": "number",
+        "description": "Total item level discount amount for the cart.",
+        "format": "currency"
       },
       "TotalProductLineItemCount": {
-        "type": "int",
+        "type": "number",
         "description": "A calculated field that shows the total number of cart line items of type Product."
       },
       "TotalProductListAmount": {
-        "type": "currency",
-        "description": "The sum of all the cart items’ TotalListAmount for the CartItem type Product."
+        "type": "number",
+        "description": "The sum of all the cart items’ TotalListAmount for the CartItem type Product.",
+        "format": "currency"
       },
       "TotalProductTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all the cart items’ TotalTaxAmount for the CartItem type Product.",
         "format": "currency",
         "nullable": true,
@@ -294,15 +301,17 @@
         "multipleOf": 0.01
       },
       "TotalPromoAdjustmentAmount": {
-        "type": "currency",
-        "description": "The total of all item discounts related to product promotions."
+        "type": "number",
+        "description": "The total of all item discounts related to product promotions.",
+        "format": "currency"
       },
       "TotalPromoAdjustmentTaxAmount": {
-        "type": "currency",
-        "description": "The total tax adjustment for all item discounts related to product promotions."
+        "type": "number",
+        "description": "The total tax adjustment for all item discounts related to product promotions.",
+        "format": "currency"
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all cart items’ TotalTaxAmount, or TotalProductTaxAmount plus TotalDeliveryTaxAmount.",
         "format": "currency",
         "nullable": true,
@@ -310,7 +319,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The WebCart type. Default value is Cart. Possible values are: Cart PayNowReadOnly ReadOnly Template",
         "format": "enum",
         "enum": [
@@ -323,15 +332,15 @@
         "nullable": true
       },
       "UniqueProductCount": {
-        "type": "int",
+        "type": "number",
         "description": "The count of unique product SKUs in the WebCart.",
         "nullable": true,
         "readOnly": true
       },
       "WebStoreId": {
-        "type": "reference",
+        "type": "string",
         "description": "The store ID related to this WebCart.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WebStore",
         "maxLength": 18,
         "nullable": false
@@ -772,7 +781,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_webcart.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_webcart.htm",
     "keyPrefix": "0a6",
     "createable": true,
     "updateable": true,
@@ -892,6 +901,7 @@
     "accessRules": "The WebCart object is available only if the B2B Commerce or D2C Commerce license is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "49.0"
   }
 }

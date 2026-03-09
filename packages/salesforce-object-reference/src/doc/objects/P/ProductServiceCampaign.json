@@ -1,42 +1,43 @@
 {
   "ProductServiceCampaign": {
     "name": "ProductServiceCampaign",
-    "description": "Represents a set of activities to be performed on a product service campaign asset, such as a product recall for safety issues or product defects.",
+    "description": "Represents a set of activities to be performed for a product service campaign. For example, a recall of products due to potential safety hazards or an upgrade of products to comply with legal regulations.",
     "properties": {
       "ActionableListId": {
-        "type": "reference",
-        "description": "The actionable list of the assets that are a part of a product service campaign."
+        "type": "string",
+        "description": "The actionable list of the assets that are a part of a product service campaign.",
+        "format": "reference"
       },
       "Description": {
-        "type": "textarea",
-        "description": "Description of the product service campaign.",
+        "type": "string",
+        "description": "The description of the product service campaign.",
         "maxLength": 32000,
         "nullable": true
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date on which the product service campaign ends.",
         "format": "date",
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date and time that the asset was last modified. The UI label is Last Modified Date.",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The date and time that the asset was last viewed.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The product service campaign’s owner. By default, the product service campaign owner is the user who created the product service campaign record. The UI label is Product Service Campaign Owner.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the owner of this object.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -45,7 +46,7 @@
         "nullable": false
       },
       "Priority": {
-        "type": "picklist",
+        "type": "string",
         "description": "The priority of the product service campaign.",
         "format": "enum",
         "enum": [
@@ -58,9 +59,9 @@
         "nullable": true
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "ID of the Product2 associated with this campaign. The UI label is Product.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product associated with the product service campaign.",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true
@@ -72,14 +73,14 @@
         "nullable": false
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date on which the product service campaign starts.",
         "format": "date",
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the product service campaign. The picklist includes the following values, which can be customized: New—Product service campaign created, but there hasn’t yet been any activity. In Progress—Product service campaign has begun. On Hold—Work is paused. Completed—Work is complete. Cannot Complete—Work couldn’t be completed. Closed—All work and associated activity is complete. Canceled—Work is canceled, typically before any work began.",
+        "type": "string",
+        "description": "The status of the product service campaign.",
         "format": "enum",
         "enum": [
           "New",
@@ -94,8 +95,8 @@
         "nullable": false
       },
       "StatusCategory": {
-        "type": "picklist",
-        "description": "The category that each Status value falls into. The StatusCategory field has eight default values: seven values that are identical to the default Status values, and None for statuses without a status category.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Waiting for Response value, add it the On Hold category. To learn which processes reference StatusCategory, see How are Status Categories Used?",
+        "type": "string",
+        "description": "The category of a status value. StatusCategory field has eight default values: seven values that are identical to the default Status values, and None for statuses without a status category.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Waiting for Response value, add it the On Hold category.",
         "format": "enum",
         "enum": [
           "New",
@@ -112,8 +113,8 @@
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
-        "description": "The type of the product service campaign. The picklist includes the following values, which can be customized: Modification—The asset requires an on-site alteration. Recall—The asset must be returned to the manufacturer for modification or upgrade. Service—The asset needs to be serviced. Upgrade—The asset needs updating.",
+        "type": "string",
+        "description": "The type of the product service campaign.",
         "format": "enum",
         "enum": [
           "Modification",
@@ -125,9 +126,9 @@
         "nullable": false
       },
       "WorkTypeId": {
-        "type": "reference",
-        "description": "The work type associated with the product service campaign. A customer uses this field as a guide when setting work type for work orders for the product service campaign. Duration, Duration Type, and required skills.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The work type associated with the product service campaign.",
+        "format": "reference",
         "x-object": "WorkType",
         "maxLength": 18,
         "nullable": true
@@ -201,8 +202,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productservicecampaign.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productservicecampaign.htm",
     "keyPrefix": "0iR",
     "createable": true,
     "updateable": true,
@@ -406,9 +407,11 @@
     "accessRules": "Field Service must be enabled.",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/product_service_campaign_120.png",
-    "iconColor": "FF5D2D"
+    "iconColor": "FF5D2D",
+    "x-version": "61.0"
   }
 }

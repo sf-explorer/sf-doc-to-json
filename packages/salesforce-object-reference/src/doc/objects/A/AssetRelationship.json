@@ -1,12 +1,12 @@
 {
   "AssetRelationship": {
     "name": "AssetRelationship",
-    "description": "Represents a non-hierarchical relationship between assets due to an asset modification; for example, a replacement, upgrade, or other circumstance. In Subscription Management and Revenue Lifecycle Management, this object represents an asset or assets grouped in a bundle or set.",
+    "description": "Represents a non-hierarchical relationship between assets due to an asset modification; for example, a replacement, upgrade, or other circumstance. In Revenue Lifecycle Management, this object represents an asset or assets grouped in a bundle or set.",
     "properties": {
       "AssetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the new asset, which is the asset that is taking the place of the existing asset.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": false,
@@ -20,11 +20,12 @@
         "readOnly": true
       },
       "AssetRole": {
-        "type": "picklist",
-        "description": "Describes the position of the main asset relative to the other assets in the relationship."
+        "type": "string",
+        "description": "Describes the position of the main asset relative to the other assets in the relationship.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Three-letter ISO 4217 currency code associated with the asset. The default value is USD.",
         "format": "enum",
         "enum": [
@@ -34,7 +35,7 @@
         "nullable": true
       },
       "FromDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the new asset was installed.",
         "format": "date-time",
         "nullable": true
@@ -44,35 +45,40 @@
         "description": "Read-only field used to indicate the bundle that an asset belongs to. For example, if two assets have the same GroupingKey value, then it means that the assets are bundled together."
       },
       "ProductRelationshipTypeId": {
-        "type": "reference",
-        "description": "The unique identifier of the record that describes the relationship between the main and associated assets."
+        "type": "string",
+        "description": "The unique identifier of the record that describes the relationship between the main and associated assets.",
+        "format": "reference"
       },
       "ProductRelatedComponent": {
-        "type": "reference",
-        "description": "The product related component that’s associated with the asset relationship."
+        "type": "string",
+        "description": "The product related component that’s associated with the asset relationship.",
+        "format": "reference"
       },
       "RelatedAssetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The existing asset that is being modified.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": false
       },
       "RelatedAssetPricing": {
-        "type": "picklist",
-        "description": "Specifies whether the price of the related asset is included in the bundle price. Valid values are: IncludedInBundlePrice NotIncludedInBundlePrice"
+        "type": "string",
+        "description": "Specifies whether the price of the related asset is included in the bundle price. Valid values are: IncludedInBundlePrice NotIncludedInBundlePrice",
+        "enum": []
       },
       "RelatedAssetQtyScaleMethod": {
-        "type": "picklist",
-        "description": "Specifies how the quantity of the related asset changes relative to the quantity of the parent asset. Valid values are: Constant Proportional"
+        "type": "string",
+        "description": "Specifies how the quantity of the related asset changes relative to the quantity of the parent asset. Valid values are: Constant Proportional",
+        "enum": []
       },
       "RelatedAssetRole": {
-        "type": "picklist",
-        "description": "Describes the position of the associated asset relative to other assets in the relationship."
+        "type": "string",
+        "description": "Describes the position of the associated asset relative to other assets in the relationship.",
+        "enum": []
       },
       "RelationshipType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of relationship between the existing asset and the new asset. This field comes with three values—Replacement, Upgrade, and Crossgrade—, but you can create more values in Setup.",
         "format": "enum",
         "enum": [
@@ -84,7 +90,7 @@
         "nullable": true
       },
       "ToDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the modified asset is uninstalled.",
         "format": "date-time",
         "nullable": true
@@ -161,7 +167,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetrelationship.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_assetrelationship.htm",
     "keyPrefix": "1AR",
     "iconUrl": "standard/asset_relationship_120.png",
     "iconColor": "FF5D2D",
@@ -346,10 +352,12 @@
         "cascadeDelete": false
       }
     ],
-    "accessRules": "Subscription Management and Revenue Cloud",
+    "accessRules": "Revenue Cloud",
     "clouds": [
       "Revenue Lifecycle Management",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Field Service Lightning"
+    ],
+    "x-version": "41.0"
   }
 }

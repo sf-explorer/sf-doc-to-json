@@ -4,7 +4,7 @@
     "description": "Represents the securities associated with an insurance policy.",
     "properties": {
       "AssetCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "The subcategory of asset type.",
         "format": "enum",
         "enum": [
@@ -21,7 +21,7 @@
         "nullable": true
       },
       "AssetCategoryName": {
-        "type": "picklist",
+        "type": "string",
         "description": "The market capitalization and investing style.",
         "format": "enum",
         "enum": [
@@ -39,7 +39,7 @@
         "nullable": true
       },
       "AssetClass": {
-        "type": "picklist",
+        "type": "string",
         "description": "The major category of asset type.",
         "format": "enum",
         "enum": [
@@ -52,66 +52,70 @@
         "nullable": true
       },
       "FinancialAccountId": {
-        "type": "reference",
-        "description": "The financial account associated with the securities holding."
+        "type": "string",
+        "description": "The financial account associated with the securities holding.",
+        "format": "reference"
       },
       "FinancialSecurityId": {
-        "type": "reference",
-        "description": "The financial security associated with the securities holding."
+        "type": "string",
+        "description": "The financial security associated with the securities holding.",
+        "format": "reference"
       },
       "GainLoss": {
-        "type": "currency",
+        "type": "number",
         "description": "Change in the value of this holding since its purchase.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "HouseholdId": {
-        "type": "reference",
+        "type": "string",
         "description": "The household this holding rolls up to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "InsurancePolicyId": {
-        "type": "reference",
+        "type": "string",
         "description": "The insurance policy this holding is related to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InsurancePolicy",
         "maxLength": 18,
         "nullable": true
       },
       "InvestmentEndDate": {
-        "type": "date",
-        "description": "End date of the investment."
+        "type": "string",
+        "description": "End date of the investment.",
+        "format": "date"
       },
       "InvestmentStartDate": {
-        "type": "date",
-        "description": "Start date of the investment."
+        "type": "string",
+        "description": "Start date of the investment.",
+        "format": "date"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastUpdated": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when data for this holding was last updated by an external data source.",
         "format": "date-time",
         "nullable": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MarketValue": {
-        "type": "currency",
+        "type": "number",
         "description": "The current market value of this holding.",
         "format": "currency",
         "nullable": true,
@@ -124,9 +128,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the record owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -135,37 +139,38 @@
         "nullable": false
       },
       "PercentChange": {
-        "type": "percent",
+        "type": "number",
         "description": "The percent change in the value of this holding since its purchase.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "Price": {
-        "type": "currency",
+        "type": "number",
         "description": "Current price per share.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.00009999999999999999
       },
       "PrimaryOwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The primary owner of this holding.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "PurchasePrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Price per share at the time of purchase.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.00009999999999999999
       },
       "Sector": {
-        "type": "picklist",
-        "description": "Group of related or common stocks."
+        "type": "string",
+        "description": "Group of related or common stocks.",
+        "enum": []
       },
       "Shares": {
         "type": "double",
@@ -262,7 +267,7 @@
       }
     },
     "module": "Financial Services Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_securitiesholding.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_securitiesholding.htm",
     "clouds": [
       "Financial Services Cloud"
     ],
@@ -461,6 +466,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "47.0"
   }
 }

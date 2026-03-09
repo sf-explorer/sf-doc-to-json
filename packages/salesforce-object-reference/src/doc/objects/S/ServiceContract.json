@@ -4,25 +4,25 @@
     "description": "Represents a customer support contract (business agreement).",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the account associated with the service contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ActivationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The initial day the service contract went into effect (whereas StartDate may include a renewal date).",
         "format": "date-time",
         "nullable": true
       },
       "AdditionalDiscount": {
-        "type": "percent",
+        "type": "number",
         "description": "Extra discount percentage for the service contract. Available in API version 55.0 and later."
       },
       "ApprovalStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Approval status of the service contract.",
         "format": "enum",
         "enum": [
@@ -34,7 +34,7 @@
         "nullable": true
       },
       "BillingAddress (beta)": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the billing address. Read-only. See Address Compound Fields for details on compound address fields."
       },
       "BillingCity": {
@@ -50,7 +50,7 @@
         "nullable": true
       },
       "BillingCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code for the service contract’s billing address.",
         "format": "enum",
         "enum": [
@@ -322,7 +322,7 @@
         "nullable": true
       },
       "BillingStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code for the service contract’s billing address.",
         "format": "enum",
         "enum": [
@@ -443,15 +443,15 @@
         "nullable": true
       },
       "BillingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Street address for the billing address.",
         "maxLength": 255,
         "nullable": true
       },
       "ContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the Contact associated with the service contract. Must be a valid ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
@@ -464,13 +464,13 @@
         "readOnly": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the service contract.",
         "maxLength": 32000,
         "nullable": true
       },
       "Discount": {
-        "type": "percent",
+        "type": "number",
         "description": "Discount percentage for the service contract.",
         "format": "percent",
         "nullable": true,
@@ -478,13 +478,13 @@
         "multipleOf": 0.01
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "The last day the service contract is in effect.",
         "format": "date",
         "nullable": true
       },
       "GrandTotal": {
-        "type": "currency",
+        "type": "number",
         "description": "Total price of the service contract plus shipping and taxes.",
         "format": "currency",
         "nullable": true,
@@ -498,21 +498,21 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LineItemCount": {
-        "type": "int",
+        "type": "number",
         "description": "Number of ContractLineItem records associated with the service contract.",
         "nullable": true,
         "readOnly": true
@@ -524,9 +524,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who currently owns the service contract.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -535,32 +535,32 @@
         "nullable": false
       },
       "ParentServiceContractId": {
-        "type": "reference",
+        "type": "string",
         "description": "The service contract’s parent service contract, if it has one.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceContract",
         "maxLength": 18,
         "nullable": true
       },
       "Pricebook2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Pricebook2 associated with the service contract. Must be a valid ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Pricebook2",
         "maxLength": 18,
         "nullable": true
       },
       "RootServiceContractId": {
-        "type": "reference",
+        "type": "string",
         "description": "(Read only) The top-level service contract in a service contract hierarchy. Depending on where a service contract lies in the hierarchy, its root could be the same as its parent.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceContract",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ShippingAddress (beta)": {
-        "type": "address",
+        "type": "string",
         "description": "The compound form of the shipping address. Read-only. See Address Compound Fields for details on compound address fields."
       },
       "ShippingCity": {
@@ -576,7 +576,7 @@
         "nullable": true
       },
       "ShippingCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO country code for the service contract’s shipping address.",
         "format": "enum",
         "enum": [
@@ -848,7 +848,7 @@
         "nullable": true
       },
       "ShippingStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The ISO state code for the service contract’s shipping address.",
         "format": "enum",
         "enum": [
@@ -969,25 +969,25 @@
         "nullable": true
       },
       "ShippingStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street address of the shipping address. Maximum of 255 characters.",
         "maxLength": 255,
         "nullable": true
       },
       "SpecialTerms": {
-        "type": "textarea",
+        "type": "string",
         "description": "Any terms specifically agreed to and tracked in the service contract.",
         "maxLength": 32000,
         "nullable": true
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "The first day the service contract is in effect.",
         "format": "date",
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the service contract, such as Inactive.",
         "format": "enum",
         "enum": [
@@ -1000,7 +1000,7 @@
         "readOnly": true
       },
       "Subtotal": {
-        "type": "currency",
+        "type": "number",
         "description": "Total of the service contract line items (products) before discounts, taxes, and shipping are applied.",
         "format": "currency",
         "nullable": true,
@@ -1008,19 +1008,19 @@
         "multipleOf": 0.01
       },
       "Tax": {
-        "type": "currency",
+        "type": "number",
         "description": "Total taxes for the service contract.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "Term": {
-        "type": "int",
+        "type": "number",
         "description": "Number of months that the service contract is valid.",
         "nullable": true
       },
       "TotalPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Total of the contract line items (products) after discounts and before taxes and shipping.",
         "format": "currency",
         "nullable": true,
@@ -1156,8 +1156,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_servicecontract.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_servicecontract.htm",
     "keyPrefix": "810",
     "iconUrl": "standard/service_contract_120.png",
     "iconColor": "5867E8",

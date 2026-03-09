@@ -4,7 +4,7 @@
     "description": "Represents a record of a communication with an external tax engine following a tax calculation request.",
     "properties": {
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional details about the tax engine interaction log."
       },
       "DocumentCode": {
@@ -12,39 +12,44 @@
         "description": "Document code of the transaction for which the tax engine integration log was captured."
       },
       "EffectiveDate": {
-        "type": "dateTime",
-        "description": "The date that the tax engine request takes effect. This date is available for reference and bookkeeping only and doesn’t have any impact on tax calculation."
+        "type": "string",
+        "description": "The date that the tax engine request takes effect. This date is available for reference and bookkeeping only and doesn’t have any impact on tax calculation.",
+        "format": "date-time"
       },
       "InteractionHttpStatusCode": {
-        "type": "int",
+        "type": "number",
         "description": "The HHTP result code of the external callout made to a third-party tax engine provider. Refer to your third-party tax engine provider’s documentation for details about the specific codes returned."
       },
       "InteractionType": {
-        "type": "picklist",
-        "description": "Indicates the type of request made to the tax engine."
+        "type": "string",
+        "description": "Indicates the type of request made to the tax engine.",
+        "enum": []
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last accessed a tax engine interaction log record indirectly, for example, through a list view or related record."
+        "type": "string",
+        "description": "The timestamp when the current user last accessed a tax engine interaction log record indirectly, for example, through a list view or related record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed a tax engine interaction log record. If this value is null, it’s possible that the user only accessed the tax engine interaction log record or a related list view (LastReferencedDate), but not viewed the tax engine interaction log record itself."
+        "type": "string",
+        "description": "The timestamp when the current user last viewed a tax engine interaction log record. If this value is null, it’s possible that the user only accessed the tax engine interaction log record or a related list view (LastReferencedDate), but not viewed the tax engine interaction log record itself.",
+        "format": "date-time"
       },
       "ReferenceEntity": {
         "type": "string",
         "description": "The record on which tax was calculated."
       },
       "RequestBody": {
-        "type": "base64",
+        "type": "string",
         "description": "The content of the tax calculation API request."
       },
       "RequestContentType": {
-        "type": "picklist",
-        "description": "The type of data passed in the request. For example, application/html or text/csv."
+        "type": "string",
+        "description": "The type of data passed in the request. For example, application/html or text/csv.",
+        "enum": []
       },
       "RequestLength": {
-        "type": "int",
+        "type": "number",
         "description": "The character length of text within the request body."
       },
       "RequestName": {
@@ -52,15 +57,17 @@
         "description": "The name of the request."
       },
       "RequestTaxTransactionType": {
-        "type": "picklist",
-        "description": "The type of tax transaction request sent to the tax engine provider. Available in API version 65.0 and later."
+        "type": "string",
+        "description": "The type of tax transaction request sent to the tax engine provider. Available in API version 65.0 and later.",
+        "enum": []
       },
       "ResponseContentType": {
-        "type": "picklist",
-        "description": "The method used to deliver the tax calculation API response, such as application/html or text/vnd.salesforce.quip-template."
+        "type": "string",
+        "description": "The method used to deliver the tax calculation API response, such as application/html or text/vnd.salesforce.quip-template.",
+        "enum": []
       },
       "ResponseLength": {
-        "type": "int",
+        "type": "number",
         "description": "The character length of text within the response body."
       },
       "ResponseName": {
@@ -68,32 +75,36 @@
         "description": "The name of the response from the tax engine."
       },
       "ResponseTaxTransactionType": {
-        "type": "picklist",
-        "description": "The type of tax transaction response received from the tax engine provider. Available in API version 65.0 and later."
+        "type": "string",
+        "description": "The type of tax transaction response received from the tax engine provider. Available in API version 65.0 and later.",
+        "enum": []
       },
       "ResultCode": {
-        "type": "picklist",
-        "description": "The code describing the result of the request."
+        "type": "string",
+        "description": "The code describing the result of the request.",
+        "enum": []
       },
       "TaxEngineId": {
-        "type": "reference",
-        "description": "The ID of the tax engine used in the tax calculation process."
+        "type": "string",
+        "description": "The ID of the tax engine used in the tax calculation process.",
+        "format": "reference"
       },
       "TaxEngineInteractionLogNumber": {
         "type": "string",
         "description": "A system-generated number for a log entry."
       },
       "ResponseBody": {
-        "type": "base64",
+        "type": "string",
         "description": "Contains the content of the tax calculation API response."
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_taxengineinteractionlog.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_taxengineinteractionlog.htm",
     "accessRules": "the Tax Admin permission set to access this object",
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "62.0"
   }
 }

@@ -4,13 +4,13 @@
     "description": "This object is automatically created for each Live Agent chat session and stores information about the session.",
     "properties": {
       "Abandoned": {
-        "type": "int",
+        "type": "number",
         "description": "The amount of time in seconds an incoming chat request remained unanswered by an agent before the chat was disconnected by the customer.",
         "nullable": true,
         "readOnly": true
       },
       "AccountId": {
-        "type": "ID",
+        "type": "string",
         "description": "ID of the account associated with the chat transcript.",
         "format": "salesforce-id",
         "x-object": "Account",
@@ -18,17 +18,17 @@
         "nullable": true
       },
       "AverageResponseTimeOperator": {
-        "type": "int",
+        "type": "number",
         "description": "The agent’s average response time (in seconds) to chat messages from the visitor.",
         "nullable": true
       },
       "AverageResponseTimeVisitor": {
-        "type": "int",
+        "type": "number",
         "description": "The visitor’s average response time (in seconds) to chat messages from the agent.",
         "nullable": true
       },
       "Body": {
-        "type": "textarea",
+        "type": "string",
         "description": "The contents of the chat.",
         "maxLength": 131072,
         "nullable": true
@@ -46,11 +46,12 @@
         "nullable": true
       },
       "CaseID": {
-        "type": "reference",
-        "description": "The ID of the case associated with the chat transcript."
+        "type": "string",
+        "description": "The ID of the case associated with the chat transcript.",
+        "format": "reference"
       },
       "ChatDuration": {
-        "type": "int",
+        "type": "number",
         "description": "The total duration of the chat in seconds.",
         "nullable": true,
         "readOnly": true
@@ -63,11 +64,12 @@
         "readOnly": true
       },
       "ContactID": {
-        "type": "reference",
-        "description": "The ID of the contact associated with the chat transcript."
+        "type": "string",
+        "description": "The ID of the contact associated with the chat transcript.",
+        "format": "reference"
       },
       "EndedBy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The way the chat was ended: by the operator, the visitor, or the system.",
         "format": "enum",
         "enum": [
@@ -79,7 +81,7 @@
         "nullable": true
       },
       "EndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time the chat ended.",
         "format": "date-time",
         "nullable": true
@@ -97,34 +99,38 @@
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "date",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
-        "format": "date-time",
+        "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LeadID": {
-        "type": "reference",
-        "description": "The ID of the lead associated with the chat transcript."
+        "type": "string",
+        "description": "The ID of the lead associated with the chat transcript.",
+        "format": "reference"
       },
       "LiveChatButtonID": {
-        "type": "reference",
-        "description": "The ID of the LiveChatButton the chat session originated from."
+        "type": "string",
+        "description": "The ID of the LiveChatButton the chat session originated from.",
+        "format": "reference"
       },
       "LiveChatDeploymentID": {
-        "type": "reference",
-        "description": "The ID of the LiveChatDeployment the chat session originated from."
+        "type": "string",
+        "description": "The ID of the LiveChatDeployment the chat session originated from.",
+        "format": "reference"
       },
       "LiveChatVisitorID": {
-        "type": "reference",
-        "description": "The ID of the visitor associated with the chat transcript."
+        "type": "string",
+        "description": "The ID of the visitor associated with the chat transcript.",
+        "format": "reference"
       },
       "Location": {
         "type": "string",
@@ -133,12 +139,12 @@
         "nullable": true
       },
       "MaxResponseTimeOperator": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum time in seconds it took an agent to respond to a chat visitor’s message.",
         "nullable": true
       },
       "MaxResponseTimeVisitor": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum time in seconds it took a customer to respond to an agent’s message.",
         "nullable": true
       },
@@ -150,13 +156,14 @@
         "readOnly": true
       },
       "OperatorMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages sent by one or more agents during the chat.",
         "nullable": true
       },
       "OwnerID": {
-        "type": "reference",
-        "description": "The ID of the operator who participated in the chat last; for missed chats, this is a system user."
+        "type": "string",
+        "description": "The ID of the operator who participated in the chat last; for missed chats, this is a system user.",
+        "format": "reference"
       },
       "Platform": {
         "type": "string",
@@ -171,7 +178,7 @@
         "nullable": true
       },
       "RequestTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time the visitor requested the chat.",
         "format": "date-time",
         "nullable": true
@@ -183,21 +190,21 @@
         "nullable": true
       },
       "SkillId": {
-        "type": "reference",
+        "type": "string",
         "description": "The auto-populated record ID of the primary Skill associated with the LiveChatButton the chat session originated from. Do not edit. To associate multiple skills with a LiveChatTranscript, use LiveChatTranscriptSkill junction objects.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Skill",
         "maxLength": 18,
         "nullable": true
       },
       "StartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time the chat started.",
         "format": "date-time",
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The final status of the chat: completed, missed, or blocked.",
         "format": "enum",
         "enum": [
@@ -212,7 +219,7 @@
         "nullable": true
       },
       "SupervisorTranscriptBody": {
-        "type": "textarea",
+        "type": "string",
         "description": "The text body of the supervisor’s chat transcript.",
         "maxLength": 131072,
         "nullable": true
@@ -224,7 +231,7 @@
         "nullable": true
       },
       "VisitorMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages sent by the visitor during the chat.",
         "nullable": true
       },
@@ -235,7 +242,7 @@
         "nullable": true
       },
       "WaitTime": {
-        "type": "int",
+        "type": "number",
         "description": "The total amount of time in seconds a chat request was waiting to be accepted by an agent.",
         "nullable": true,
         "readOnly": true
@@ -366,7 +373,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechattranscript.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_livechattranscript.htm",
     "keyPrefix": "570",
     "createable": true,
     "updateable": true,
@@ -641,6 +648,7 @@
     ],
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "24.0"
   }
 }

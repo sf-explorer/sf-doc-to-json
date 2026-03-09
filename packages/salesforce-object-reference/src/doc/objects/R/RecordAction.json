@@ -4,7 +4,7 @@
     "description": "Represents a relationship between a record and an action, such as a flow. Create a RecordAction for every action that you want to associate with a particular record.",
     "properties": {
       "ActionDefinition": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required in Lightning Flow for Service implementations that use version 44.0 or later of the API. The API name of the action to associate with the record; for example, the API name of a flow. Use this field rather than FlowDefinition. To distinguish a quick action from a flow with the same API name, we prepend \"QuickAction\" to the API name of every quick action.",
         "format": "enum",
         "enum": [
@@ -175,7 +175,7 @@
         "nullable": true
       },
       "ActionType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required in Lightning Flow for Service implementations that use version 46.0 or later of the API. The type of action. Possible values are: Flow (default) QuickAction For versions of the API prior to version 46.0, this field is set to Flow.",
         "format": "enum",
         "enum": [
@@ -190,7 +190,7 @@
         "nullable": true
       },
       "FlowDefinition": {
-        "type": "picklist",
+        "type": "string",
         "description": "Optional in Lightning Flow for Service implementations using version 42.0 or 43.0 of the API. An upgrade to Winter '19 or later, which uses API version 44.0 or later, copies FlowDefinition to ActionDefinition. For versions 42.0 and 43.0, this field is the API name of the flow that’s associated with the record.",
         "format": "enum",
         "enum": [
@@ -319,9 +319,9 @@
         "nullable": true
       },
       "FlowInterviewId": {
-        "type": "reference",
+        "type": "string",
         "description": "Optional. The flow interview ID of the paused or completed flow. This field can’t be set in Process Builder.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "FlowInterview",
         "maxLength": 18,
         "nullable": true
@@ -337,16 +337,17 @@
         "nullable": false
       },
       "Order": {
-        "type": "int",
+        "type": "number",
         "description": "Required. The order of the action among all actions associated with this record.",
         "nullable": false
       },
       "ParticipantRoleId": {
-        "type": "reference",
-        "description": "The participant role that's associated with the record action."
+        "type": "string",
+        "description": "The participant role that's associated with the record action.",
+        "format": "reference"
       },
       "Pinned": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. Specifies whether the action is pinned to the top or bottom of the component. If an action is pinned, users see the Remove option in the UI unless IsUiRemoveHidden is set to true. Possible values are: None (default) Top Bottom",
         "format": "enum",
         "enum": [
@@ -358,9 +359,9 @@
         "nullable": true
       },
       "RecordId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. Record associated with the action. In version 46.0 and above, we support most object types. To learn about supported objects, see the Lightning Flow for Service Developer’s Guide.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account",
@@ -442,7 +443,7 @@
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. The current state of the action. Possible values are: New (default) Paused Complete Started Unlinked—The action was unlinked because the flow was paused and the current record for the flow interview changed. Paused and unlinked statuses do not apply to quick actions. This field can’t be set in Process Builder.",
         "format": "enum",
         "enum": [
@@ -532,7 +533,7 @@
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_recordaction.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_recordaction.htm",
     "keyPrefix": "0Rw",
     "createable": true,
     "updateable": true,
@@ -581,6 +582,7 @@
     "clouds": [
       "Health Cloud",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "42.0"
   }
 }

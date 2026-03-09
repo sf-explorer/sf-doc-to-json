@@ -1,22 +1,22 @@
 {
   "ServiceAppointment": {
     "name": "ServiceAppointment",
-    "description": "Represents an appointment to complete work for a customer in Field Service, Lightning Scheduler,Intelligent Appointment Management, and Virtual Care.",
+    "description": "Represents a service appointment booked through Automotive Scheduler, for test drives or vehicle services.",
     "properties": {
       "ActualDuration": {
         "type": "double",
-        "description": "The number of minutes that it took the resource to complete the appointment after arriving at the address. When values are first added to the Actual Start and Actual End fields, the Actual Duration is automatically populated to list the difference between the Actual Start and Actual End. If the Actual Start and Actual End fields are subsequently updated, the Actual Duration field doesn’t re-update, but you can manually update it.",
+        "description": "The number of minutes that it took the resource to complete the appointment. When values are first added to the Actual Start and Actual End fields, the Actual Duration is automatically populated to list the difference between the Actual Start and Actual End. If the Actual Start and Actual End fields are subsequently updated, the Actual Duration field doesn’t re-update, but you can manually update it.",
         "nullable": true,
         "multipleOf": 0.01
       },
       "ActualEndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The actual date and time the appointment ended.",
         "format": "date-time",
         "nullable": true
       },
       "ActualStartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The actual date and time the appointment started.",
         "format": "date-time",
         "nullable": true
@@ -28,8 +28,8 @@
         "nullable": true
       },
       "Address": {
-        "type": "address",
-        "description": "The address where the appointment is taking place. The address is inherited from the parent record if the parent record is a work order or work order line item.",
+        "type": "string",
+        "description": "The address where the appointment is taking place.",
         "nullable": false,
         "readOnly": true
       },
@@ -41,14 +41,14 @@
         "readOnly": true
       },
       "ArrivalWindowEndTime": {
-        "type": "dateTime",
-        "description": "The end of the window of time in which the technician is scheduled to arrive at the site. This window is typically larger than the Scheduled Start and End window to allow time for delays and scheduling changes. You may choose to share the Arrival Window Start and End with the customer, but keep the Scheduled Start and End internal-only.",
+        "type": "string",
+        "description": "The end of the window of time in which the technician is scheduled to arrive at the site.",
         "format": "date-time",
         "nullable": true
       },
       "ArrivalWindowStartTime": {
-        "type": "dateTime",
-        "description": "The beginning of the window of time in which the technician is scheduled to arrive at the site. This window is typically larger than the Scheduled Start and End window to allow time for delays and scheduling changes. You may choose to share the Arrival Window Start and End with the customer, but keep the Scheduled Start and End internal-only.",
+        "type": "string",
+        "description": "The beginning of the window of time in which the technician is scheduled to arrive at the site.",
         "format": "date-time",
         "nullable": true
       },
@@ -72,31 +72,31 @@
       },
       "Country": {
         "type": "string",
-        "description": "The country where the work order is completed. Maximum length is 80 characters.",
+        "description": "The country where the appointment is completed. Maximum length is 80 characters.",
         "maxLength": 80,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the appointment.",
         "maxLength": 32000,
         "nullable": true
       },
       "DueDate": {
-        "type": "dateTime",
-        "description": "The date by which the appointment must be completed. Earliest Start Permitted and Due Date typically reflect terms in the customer’s service-level agreement.",
+        "type": "string",
+        "description": "The date by which the appointment must be completed.",
         "format": "date-time",
         "nullable": false
       },
       "Duration": {
         "type": "double",
-        "description": "The estimated length of the appointment. If the parent record is work order or work order line item, the appointment inherits its parent’s duration, but it can be manually updated. The duration is in minutes or hours based on the value selected in the Duration Type field.",
+        "description": "The estimated length of the appointment as derived from the associated work type. The duration is in minutes or hours based on the value selected in the Duration Type field.",
         "nullable": true,
         "multipleOf": 0.01
       },
       "DurationType": {
-        "type": "picklist",
-        "description": "The unit of the Duration: Minutes or Hours.",
+        "type": "string",
+        "description": "The unit of duration as specified for the associated work type.",
         "format": "enum",
         "enum": [
           "Hours",
@@ -106,14 +106,14 @@
         "nullable": true
       },
       "EarliestStartTime": {
-        "type": "dateTime",
-        "description": "The date after which the appointment must be completed. Earliest Start Permitted and Due Date typically reflect terms in the customer’s service-level agreement.",
+        "type": "string",
+        "description": "The date after which the appointment must be completed.",
         "format": "date-time",
         "nullable": false
       },
       "GeocodeAccuracy": {
-        "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only.",
+        "type": "string",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates.",
         "format": "enum",
         "enum": [
           "Address",
@@ -132,14 +132,14 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the service appointment was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The date when the service appointment was last modified.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the service appointment was last viewed.",
         "format": "date-time",
         "nullable": true,
@@ -147,20 +147,20 @@
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the service appointments is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. To integrate data from an external data source for latitude, map your data to the ServiceAppointment.Latitude and not the ServiceAppointment.FSL__InternalSLRGeolocation__Latitude__s field. Note This field is available in the API only.",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the service appointments is completed. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the service appointment is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. To integrate data from an external data source for longitude, map your data to the ServiceAppointment.Longitude and not the ServiceAppointment.FSL__InternalSLRGeolocation__Longitude__s field. Note This field is available in the API only.",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the service appointment is completed. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The owner of the service appointment.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The owner of the appointment.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -169,9 +169,9 @@
         "nullable": false
       },
       "ParentRecordId": {
-        "type": "reference",
-        "description": "The parent record associated with the appointment. The parent record can’t be updated after the service appointment is created.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The parent record related to the appointment. The parent record can’t be updated after the service appointment is created. For test drive appointments, the parent record is a lead or an opportunity. For vehicle service appointments, theparent record is an asset that’s related to the vehicle.",
+        "format": "reference",
         "x-objects": [
           "Account",
           "Asset",
@@ -188,33 +188,33 @@
       },
       "ParentRecordType": {
         "type": "string",
-        "description": "(Read only) The type of parent record: Account, Asset, Lead, Opportunity, Work Order, or Work Order Line Item.",
+        "description": "(Read only) The type of parent record that provides context for the appointment, such as Asset, Lead, or Opportunity.",
         "maxLength": 50,
         "nullable": true,
         "readOnly": true
       },
       "PostalCode": {
         "type": "string",
-        "description": "The postal code where the work order is completed. Maximum length is 20 characters.",
+        "description": "The postal code where the appointment is completed. Maximum length is 20 characters.",
         "maxLength": 20,
         "nullable": true
       },
       "SchedEndTime": {
-        "type": "dateTime",
-        "description": "The time at which the appointment is scheduled to end. If you are using the Field Service managed package with the scheduling optimizer, this field is populated once the appointment is assigned to a resource. Scheduled End – Scheduled Start = Estimated Duration.",
+        "type": "string",
+        "description": "The time at which the appointment is scheduled to end.",
         "format": "date-time",
         "nullable": true
       },
       "SchedStartTime": {
-        "type": "dateTime",
-        "description": "The time at which the appointment is scheduled to start. If you are using the Field Service managed package with the scheduling optimizer, this field is populated once the appointment is assigned to a resource.",
+        "type": "string",
+        "description": "The time at which the appointment is scheduled to start.",
         "format": "date-time",
         "nullable": true
       },
       "ServiceTerritoryId": {
-        "type": "reference",
-        "description": "The service territory associated with the appointment. If the parent record is a work order or work order line item, the appointment inherits its parent’s service territory.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The service territory associated with the appointment.",
+        "format": "reference",
         "x-object": "ServiceTerritory",
         "maxLength": 18,
         "nullable": true
@@ -226,8 +226,8 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the appointment. The picklist includes the following values, which can be customized: None—Default value. Scheduled—Appointment has been assigned to a service resource. Dispatched—Assigned service resource has been notified about their assignment. In Progress—Work has begun. Completed—Work is complete. Cannot Complete—Work could not be completed. Canceled—Work is canceled, typically before any work began While you can set the status to null via the API, setting the status to null returns an error. To prevent errors, use one of the picklist values.",
+        "type": "string",
+        "description": "The status of the appointment. The picklist values can be customized.",
         "format": "enum",
         "enum": [
           "None",
@@ -244,8 +244,8 @@
         "nullable": true
       },
       "StatusCategory": {
-        "type": "picklist",
-        "description": "The category that each Status value falls into. The Status Category field’s values are identical to the default Status values.If you create custom Status values, you must indicate which category it belongs to. For example, if you create a Customer Absent value, you may decide that it belongs in the Cannot Complete category. To learn which processes reference StatusCategory, see How are Status Categories Used?",
+        "type": "string",
+        "description": "The category that each Status value falls into. The Status Category field’s values are identical to the default Status values.",
         "format": "enum",
         "enum": [
           "None",
@@ -262,21 +262,21 @@
         "readOnly": true
       },
       "Street": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street number and name where the service appointment is completed.",
         "maxLength": 255,
         "nullable": true
       },
       "Subject": {
         "type": "string",
-        "description": "A short phrase describing the appointment.",
+        "description": "An autopopulated phrase describing the type of appointment, such as Test Drive Appointment or Vehicle Service Appointment.",
         "maxLength": 255,
         "nullable": true
       },
       "WorkTypeId": {
-        "type": "reference",
-        "description": "The work type associated with the service appointment. The work type is inherited from the appointment’s parent record if the parent is a work order or work order line item. Note If Lightning Scheduler is also in use, this field is editable. However, users see an error if they update it to list a different work type than the parent record’s work type.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The work type associated with the service appointment.",
+        "format": "reference",
         "x-object": "WorkType",
         "maxLength": 18,
         "nullable": true
@@ -347,18 +347,18 @@
         "readOnly": true
       },
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "(Read only) The account associated with the appointment. If the parent record is a work order or work order line item, this field’s value is inherited from the parent. Otherwise, it remains blank.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "The contact associated with the parent record. If needed, you can manually update the service appointment contact.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
@@ -371,7 +371,7 @@
         "multipleOf": 0.01
       },
       "ParentRecordStatusCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "(Read only) The Status Category of the parent record. If the parent record is a work order or work order line item, this field is populated; otherwise, it remains blank.",
         "format": "enum",
         "enum": [
@@ -396,7 +396,7 @@
       },
       "AppointmentType": {
         "type": "string",
-        "description": "Appointment Type",
+        "description": "The type of appointment.",
         "format": "enum",
         "enum": [
           "video",
@@ -407,14 +407,14 @@
       },
       "Email": {
         "type": "string",
-        "description": "Email",
+        "description": "The email address.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "Phone": {
         "type": "string",
-        "description": "Phone",
+        "description": "The phone number.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
@@ -435,8 +435,9 @@
         "nullable": true
       },
       "BundlePolicyId": {
-        "type": "reference",
-        "description": "Reference to the bundle policy associated with this service appointment."
+        "type": "string",
+        "description": "Reference to the bundle policy associated with this service appointment.",
+        "format": "reference"
       },
       "IsBundle": {
         "type": "boolean",
@@ -455,8 +456,9 @@
         "description": "Any type of work that can be done remotely."
       },
       "RelatedBundleId": {
-        "type": "reference",
-        "description": "The bundle that this service appointment is a member of."
+        "type": "string",
+        "description": "The bundle that this service appointment is a member of.",
+        "format": "reference"
       },
       "ServiceDocumentTemplate": {
         "type": "string",
@@ -844,10 +846,52 @@
         ],
         "maxLength": 10,
         "nullable": true
+      },
+      "AppointmentCategoryId": {
+        "type": "string",
+        "description": "The ID of the appointment category related to the service appointment. For example, for customers who visit the branch without an appointment, the drop in category is applicable. For pre-booked appointments, the scheduled category is applicable. This field is available in API version 58.0 and later.",
+        "format": "reference"
+      },
+      "AppointmentInvitationId": {
+        "type": "string",
+        "description": "The ID of the appointment invitation related to the appointment. This field is available in API version 55.0 and later.",
+        "format": "reference"
+      },
+      "AppointmentMode": {
+        "type": "string",
+        "description": "The mode of the service appointment.. This field is available in API version 60.0 and later.",
+        "enum": []
+      },
+      "ApptBookingInfoUrl": {
+        "type": "string",
+        "description": "The appointment booking URL related to the appointment. This field is available in API version 57.0 and later."
+      },
+      "AttendeeCount": {
+        "type": "number",
+        "description": "The number of attendees associated with the service appointment. This field is available in API version 60.0 and later."
+      },
+      "AttendeeLimit": {
+        "type": "number",
+        "description": "The maximum number of customers allowed to attend the service appointment. This field is considered when the appointment mode is Group. This field is available in API version 60.0 and later."
+      },
+      "CheckedInTime": {
+        "type": "string",
+        "description": "The date and time when the service appointment status changed to CheckedIn. This field is available in API version 60.0 and later.",
+        "format": "date-time"
+      },
+      "EngagementChannelTypeId": {
+        "type": "string",
+        "description": "The engagement channel type that's associated with the service appointment. This field is available in API version 56.0 and later.",
+        "format": "reference"
+      },
+      "GroupAppointmentAccessType": {
+        "type": "string",
+        "description": "The users who can access the group service appointment. Valid values are: AddedAndExperienceSiteAndInvitedUsers—Added, Experience Site, and Invited Users AddedAndExperienceSiteUsers—Added and Experience Site Users AddedUsers—Added Users",
+        "enum": []
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_serviceappointment.htm",
+    "module": "Automotive Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.automotive_cloud.meta/automotive_cloud/sforce_api_objects_serviceappointment.htm",
     "keyPrefix": "08p",
     "createable": true,
     "updateable": true,
@@ -1111,9 +1155,12 @@
     "accessRules": "Field Service must be enabled.",
     "clouds": [
       "Automotive Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/service_appointment_120.png",
-    "iconColor": "5867E8"
+    "iconColor": "5867E8",
+    "x-version": "58.0"
   }
 }

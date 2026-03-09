@@ -16,7 +16,7 @@
         "description": "The screen of the observed fingerprint that deviates from the previous fingerprint. The difference between the current and previous values is one indicator that a session hijacking attack has occurred. If the screen didn’t contribute to the observed fingerprint deviation, the value of this field is the same as the PreviousScreen field."
       },
       "CurrentUserAgent": {
-        "type": "textarea",
+        "type": "string",
         "description": "The user agent of the observed fingerprint that deviates from the previous fingerprint. The difference between the current and previous values is one indicator that a session hijacking attack has occurred. If the user agent didn’t contribute to the observed fingerprint deviation, the value of this field is the same as the PreviousUserAgent field."
       },
       "CurrentWindow": {
@@ -28,8 +28,9 @@
         "description": "The ID of the individual detail record. This field is unique within your org."
       },
       "EventDate": {
-        "type": "dateTime",
-        "description": "The date when the hijacking event was reported. For example, 2020-01-20T19:12:26.965Z. The most granular setting is milliseconds."
+        "type": "string",
+        "description": "The date when the hijacking event was reported. For example, 2020-01-20T19:12:26.965Z. The most granular setting is milliseconds.",
+        "format": "date-time"
       },
       "EventIdentifier": {
         "type": "string",
@@ -44,8 +45,9 @@
         "description": "The ID of the type of metric that was counted."
       },
       "MetricsType": {
-        "type": "picklist",
-        "description": "The type of data being collected."
+        "type": "string",
+        "description": "The type of data being collected.",
+        "enum": []
       },
       "Name": {
         "type": "string",
@@ -64,7 +66,7 @@
         "description": "The screen of the previous fingerprint. The difference between the current and previous values is one indicator that a session hijacking attack has occurred. See the CurrentScreen field for the newly observed screen."
       },
       "PreviousUserAgent": {
-        "type": "textarea",
+        "type": "string",
         "description": "The user agent of the previous fingerprint. The difference between the current and previous values is one indicator that a session hijacking attack has occurred. See the CurrentUserAgent field for the newly observed user agent."
       },
       "PreviousWindow": {
@@ -76,11 +78,11 @@
         "description": "Specifies how much the new fingerprint deviates from the previous one. The score is from 6.0 through 21.0. The event exposes five field pairs (such as CurrentIp and PreviousIp) to view the before and after data for browser features that contributed to this anomaly. See the SecurityEventData field for all contributing features in JSON format. A large deviation score (6.0 or more) between two intra-session fingerprints indicates that two different browsers are active in the same session. The presence of two active browsers usually means that session hijacking has occurred."
       },
       "SecurityEventData": {
-        "type": "textarea",
+        "type": "string",
         "description": "The set of browser fingerprint features that triggered this event. See the Threat Detection documentation for the possible features. For example, a user’s current browser fingerprint diverges from the previously known fingerprint. If Salesforce concludes the user’s session was hijacked, it fires this event, and the contributing features are captured in this field in JSON format. Each feature describes a browser fingerprint property, such as the browser user agent, window, or platform. The data includes the current and previous values for each feature."
       },
       "Summary": {
-        "type": "textarea",
+        "type": "string",
         "description": "A text summary of the threat that caused this event. The summary lists the browser fingerprint features that most contributed to the threat detection, along with their contribution to the total score."
       },
       "Tenant": {
@@ -101,11 +103,12 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_tenantsecuritysessionhijacking.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_tenantsecuritysessionhijacking.htm",
     "accessRules": "This object is read-only.",
     "clouds": [
       "Core Salesforce",
       "Shield"
-    ]
+    ],
+    "x-version": "53.0"
   }
 }

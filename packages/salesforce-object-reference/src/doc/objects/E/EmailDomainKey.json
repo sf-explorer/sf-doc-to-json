@@ -4,7 +4,7 @@
     "description": "Represents a domain key for an organization’s domain, used to authenticate outbound email that Salesforce sends on the organization’s behalf.",
     "properties": {
       "AlternatePublicKey": {
-        "type": "textarea",
+        "type": "string",
         "description": "Read-only. Alternate public keys are used by Salesforce to auto-rotate domain keys. This field is available in API version 44.0 and later after activating the Critical Update.",
         "maxLength": 32000,
         "nullable": true,
@@ -30,7 +30,7 @@
         "nullable": false
       },
       "DomainMatch": {
-        "type": "picklist",
+        "type": "string",
         "description": "The specificity of match required on the sending domain name before signing with this DKIM key. Valid values are: DomainOnly—Sign if sending domain matches at the domain level only (example.com but not mail.example.com) SubdomainsOnly—Sign if sending domain matches at the subdomain level only (mail.example.com but not example.com) DomainAndSubdomains—Sign if sending domain matches at the domain and subdomain levels (example.com and mail.example.com)",
         "format": "enum",
         "enum": [
@@ -47,17 +47,17 @@
         "nullable": false
       },
       "KeySize": {
-        "type": "int",
+        "type": "number",
         "description": "Indicates the RSA key size, in bits. The possible values are: 1024 2048 This field is available in API version 45.0 and later.",
         "nullable": true,
         "readOnly": true
       },
       "PrivateKey": {
-        "type": "textarea",
+        "type": "string",
         "description": "Once you activate the Critical Update, this field is no longer visible. The private portion of the DKIM key pair used to encrypt mail headers from your domain. Salesforce generates an encrypted PrivateKey if you don’t specify a value when creating the DKIM key. If you do specify a value, it must be an existing valid PrivateKey from another EmailDomainKey object. This field doesn’t contain the actual private key, but a value that represents the key in our system. Therefore: The actual private key can’t be leaked. You can’t use the value to do your own email signing."
       },
       "PublicKey": {
-        "type": "textarea",
+        "type": "string",
         "description": "Part of the domain key pair that mail recipients retrieve to decrypt the DKIM header and verify your domain. Add the PublicKey value to your domain’s DNS records before you start signing with this domain key.",
         "maxLength": 32000,
         "nullable": true
@@ -76,7 +76,7 @@
         "readOnly": true
       },
       "TxtRecordsPublishState": {
-        "type": "picklist",
+        "type": "string",
         "description": "The possible values are: Published Publishing in progress Publishing failed This field is available in API version 44.0 and later after activating the Critical Update.",
         "format": "enum",
         "enum": [
@@ -139,7 +139,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emaildomainkey.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_emaildomainkey.htm",
     "keyPrefix": "09P",
     "createable": true,
     "updateable": true,

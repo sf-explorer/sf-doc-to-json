@@ -4,9 +4,9 @@
     "description": "Represents a message or event in a voice call or a standard or enhanced messaging session.",
     "properties": {
       "ActorId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the author. The possible values can be null or any ID in the following domain set: BotDefinition LiveChatVisitor MessagingEndUser User",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "ConversationParticipant",
           "MessagingEndUser",
@@ -24,7 +24,7 @@
         "readOnly": true
       },
       "ActorType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The author of this entry in the chat history. The valid values include: Agent Bot EndUser Supervisor System",
         "format": "enum",
         "enum": [
@@ -39,17 +39,18 @@
         "readOnly": true
       },
       "ClientDuration": {
-        "type": "int",
+        "type": "number",
         "description": "The length in milliseconds for the entry. This field is used with voice messages and other applicable use cases. This value may be 0 if not set by the client. This field is available in API version 51.0 and later."
       },
       "ClientTimestamp": {
-        "type": "dateTime",
-        "description": "The timestamp sent by the client when it generated the entry. This field is available in API version 51.0 and later."
+        "type": "string",
+        "description": "The timestamp sent by the client when it generated the entry. This field is available in API version 51.0 and later.",
+        "format": "date-time"
       },
       "ConversationId": {
-        "type": "reference",
+        "type": "string",
         "description": "The MessagingSession ID this entry belongs to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Conversation",
           "MessagingSession"
@@ -59,25 +60,25 @@
         "readOnly": true
       },
       "EntryEndTime": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp that this entry ended in the chat history. This field is available in API version 48.0 and later.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "EntryTime": {
-        "type": "datetime",
+        "type": "string",
         "description": "The timestamp of this entry in the chat history.",
         "format": "date-time",
         "nullable": false,
         "readOnly": true
       },
       "EntryTimeMilliSecs": {
-        "type": "int",
+        "type": "number",
         "description": "The milliseconds value for the time when an entry was received by the server. Note that the related EntryTime field does not provide millisecond accuracy. This field is available in API version 51.0 and later."
       },
       "EntryType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of entry in the chat history. Can be a message (text) or an event. The possible values include: Text AdminOptedIn AdminOptedOut BotEscalated ChatbotClosedIdleSession ChatbotEndedChatByAction—Conversation ended by automated action ChatbotEndedTransferNotConfigured—Conversation ended because transfer fail is not configured ChatbotEstablished ChatbotNotEstablished EndUserOptedIn EndUserOptedOut",
         "format": "enum",
         "enum": [
@@ -105,14 +106,14 @@
         "readOnly": true
       },
       "Message": {
-        "type": "textarea",
+        "type": "string",
         "description": "The message or event sent by the author. In ConversationEntry records for enhanced Messaging channels or Messaging for In-App and Web, the Message field is blank due to data storage differences from standard channels.",
         "maxLength": 131072,
         "nullable": true,
         "readOnly": true
       },
       "MessageDeliverTime": {
-        "type": "datetime",
+        "type": "string",
         "description": "Unused field reserved for future use.",
         "format": "date-time",
         "nullable": true,
@@ -126,21 +127,21 @@
         "readOnly": true
       },
       "MessageReadTime": {
-        "type": "datetime",
+        "type": "string",
         "description": "Unused field reserved for future use.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MessageSendTime": {
-        "type": "datetime",
+        "type": "string",
         "description": "Unused field reserved for future use.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MessageStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the message sent by the author. The valid values include: Delivered Error Pending Read Sent",
         "format": "enum",
         "enum": [
@@ -161,14 +162,15 @@
         "nullable": true
       },
       "Seq": {
-        "type": "int",
+        "type": "number",
         "description": "The sequence position of this entry in the chat history.",
         "nullable": false,
         "readOnly": true
       },
       "ServerReceivedTimestamp": {
-        "type": "dateTime",
-        "description": "The timestamp recorded when the server received the entry. This is a unique value and is used for ordering. This value can also be referred to as the “transcripted timestamp.” This field is available in API version 51.0 and later."
+        "type": "string",
+        "description": "The timestamp recorded when the server received the entry. This is a unique value and is used for ordering. This value can also be referred to as the “transcripted timestamp.” This field is available in API version 51.0 and later.",
+        "format": "date-time"
       },
       "Id": {
         "type": "string",
@@ -228,7 +230,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_conversationentry.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_conversationentry.htm",
     "keyPrefix": "0Zy",
     "createable": true,
     "updateable": true,
@@ -282,6 +284,7 @@
     "accessRules": "ConversationEntry object, enable the Access Conversation Entries",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "43.0"
   }
 }

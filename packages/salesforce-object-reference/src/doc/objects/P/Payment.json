@@ -4,22 +4,22 @@
     "description": "Represents a single event when a shopper makes a payment. For credit cards, this event is a payment capture or payment sale, but it doesn't appear on the shopper's credit card statement.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The account of the customer who made the payment.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "The amount to be debited or captured.",
         "format": "currency",
         "nullable": false,
         "multipleOf": 0.01
       },
       "Balance": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount – the net applied amount.",
         "format": "currency",
         "nullable": true,
@@ -27,19 +27,19 @@
         "multipleOf": 0.01
       },
       "CancellationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date that the payment was voided.",
         "format": "date-time",
         "nullable": true
       },
       "CancellationEffectiveDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the cancellation of this payment takes effect.",
         "format": "date-time",
         "nullable": true
       },
       "CancellationGatewayDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The gateway provides this date following a successful cancellation request.",
         "format": "date-time",
         "nullable": true
@@ -63,20 +63,20 @@
         "nullable": true
       },
       "ClientContext": {
-        "type": "textarea",
+        "type": "string",
         "description": "Contains caller context for payment APIs. Useful for re-establishing context during an asynchronous payment transaction.",
         "maxLength": 2000,
         "nullable": true,
         "readOnly": true
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Users can provide additional details about the payment record. Supports a maximum of 1000 characters.",
         "maxLength": 1000,
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Three-letter ISO 4217 currency code associated with the payment group record.",
         "format": "enum",
         "enum": [
@@ -86,32 +86,32 @@
         "nullable": true
       },
       "Date": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when this payment record was created.",
         "format": "date-time",
         "nullable": true
       },
       "EffectiveDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date that this payment takes effect.",
         "format": "date-time",
         "nullable": true
       },
       "Email": {
-        "type": "email",
+        "type": "string",
         "description": "Email address of the user who initiated the payment.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "GatewayDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The gateway provides this date for reference following a successful gateway communication.",
         "format": "date-time",
         "nullable": true
       },
       "GatewayRefDetails": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional data that can’t be stored in other fields on the payment record. You can use this field for transactions following the initial transaction that creates the payment record. You can use any data that isn’t normalized in financial entities. This field has a maximum length of 1000 characters and can store data as JSON or XML.",
         "maxLength": 1000,
         "nullable": true
@@ -135,7 +135,7 @@
         "nullable": true
       },
       "ImpactAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Shows the payment’s financial impact against the customer’s accounts receivable. If the payment is valid, this value is the negative of the payment amount. If the payment is voided, this value is 0.",
         "format": "currency",
         "nullable": true,
@@ -149,14 +149,14 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record is possibly referenced (LastReferencedDate) but not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -169,7 +169,7 @@
         "nullable": true
       },
       "NetApplied": {
-        "type": "currency",
+        "type": "number",
         "description": "Total payment amount that has been applied, including adjustments.",
         "format": "currency",
         "nullable": true,
@@ -177,11 +177,12 @@
         "multipleOf": 0.01
       },
       "NetPaymentCreditApplied": {
-        "type": "currency",
-        "description": "Total payment amount that has been credited. This amount is equal to TotalPaymentCreditApplied - TotalPaymentCreditUnapplied. This field is a calculated field."
+        "type": "number",
+        "description": "Total payment amount that has been credited. This amount is equal to TotalPaymentCreditApplied - TotalPaymentCreditUnapplied. This field is a calculated field.",
+        "format": "currency"
       },
       "NetRefundApplied": {
-        "type": "currency",
+        "type": "number",
         "description": "Total refund amount that has been applied to the payment, including adjustments.",
         "format": "currency",
         "nullable": true,
@@ -189,33 +190,33 @@
         "multipleOf": 0.01
       },
       "OrderPaymentSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "Order payment summaries show the balances of each authorization, capture, and refund made against an order.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderPaymentSummary",
         "maxLength": 18,
         "nullable": true
       },
       "PaymentAuthorizationId": {
-        "type": "reference",
+        "type": "string",
         "description": "The authorization record for this payment. If there's a delayed capture (when the capture occurs after the authorization), all captures must be made against a previously successful authorization transaction.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentAuthorization",
         "maxLength": 18,
         "nullable": true
       },
       "PaymentGatewayId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the payment gateway that processed the payment. If there’s a delayed payment, the field is populated from the authorization record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentGateway",
         "maxLength": 18,
         "nullable": true
       },
       "PaymentGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "Payment groups organize all the payment transactions that have been made against a record such as an account or contract. If there’s a delayed payment, the field is populated from the authorization record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentGroup",
         "maxLength": 18,
         "nullable": true
@@ -229,9 +230,9 @@
         "description": "ID of the payment intent record."
       },
       "PaymentMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "The payment method that the customer used to provide this payment information.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PaymentMethod",
         "maxLength": 18,
         "nullable": true
@@ -244,14 +245,14 @@
         "readOnly": true
       },
       "Phone": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number of the customer who initiated the payment.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "ProcessingMode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Defines whether the payment has been made outside of the payment platform.",
         "format": "enum",
         "enum": [
@@ -263,7 +264,7 @@
         "readOnly": true
       },
       "SfResultCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Salesforce-specific result code that can map to one or more gateway result codes. We recommend configuring the payment gateway adapter layer to map gateway result codes to the appropriate Salesforce result code.",
         "format": "enum",
         "enum": [
@@ -279,7 +280,7 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Defines the state of this payment.",
         "format": "enum",
         "enum": [
@@ -293,7 +294,7 @@
         "nullable": false
       },
       "TotalApplied": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount of this payment’s balance that has been applied against an invoice.",
         "format": "currency",
         "nullable": true,
@@ -301,15 +302,17 @@
         "multipleOf": 0.01
       },
       "TotalPaymentCreditApplied": {
-        "type": "currency",
-        "description": "The total amount of all credit types that have been applied against this payment. This field is a calculated field."
+        "type": "number",
+        "description": "The total amount of all credit types that have been applied against this payment. This field is a calculated field.",
+        "format": "currency"
       },
       "TotalPaymentCreditUnapplied": {
-        "type": "currency",
-        "description": "The total amount of all credit types that haven't been applied against this payment. This field is a calculated field."
+        "type": "number",
+        "description": "The total amount of all credit types that haven't been applied against this payment. This field is a calculated field.",
+        "format": "currency"
       },
       "TotalRefundApplied": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount of a refund that has been applied against this payment.",
         "format": "currency",
         "nullable": true,
@@ -317,7 +320,7 @@
         "multipleOf": 0.01
       },
       "TotalRefundUnapplied": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount of a previously applied refund that has since been unapplied from this payment.",
         "format": "currency",
         "nullable": true,
@@ -325,7 +328,7 @@
         "multipleOf": 0.01
       },
       "TotalUnapplied": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount of this payment that was previously applied and then unapplied.",
         "format": "currency",
         "nullable": true,
@@ -333,7 +336,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Defines how the customer used this payment.",
         "format": "enum",
         "enum": [
@@ -400,10 +403,28 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "CorporateCurrencyCvsnDate": {
+        "type": "string",
+        "description": "The date on which the invoiceʼs total amount with tax was converted to the corporate currency. Available in API version 63.0 and later.",
+        "format": "date"
+      },
+      "CorporateCurrencyCvsnRate": {
+        "type": "double",
+        "description": "The exchange rate thatʼs used to convert the invoiceʼs total amount with tax to the corporate currency. Available in version 63.0 and later."
+      },
+      "CorporateCurrencyISOCode": {
+        "type": "string",
+        "description": "The currency ISO code of the corporate currency. Available in version 63.0 and later."
+      },
+      "LegalEntityId": {
+        "type": "string",
+        "description": "The legal entity used in this invoice. Available in API version 65.0 and later. This field is a relationship field.",
+        "format": "reference"
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_payment.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_payment.htm",
     "keyPrefix": "0aQ",
     "createable": true,
     "updateable": true,
@@ -583,6 +604,7 @@
     "accessRules": "Salesforce Payments, Salesforce Order Management, B2B Commerce, D2C Commerce, Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

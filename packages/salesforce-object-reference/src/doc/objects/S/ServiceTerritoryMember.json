@@ -1,11 +1,11 @@
 {
   "ServiceTerritoryMember": {
     "name": "ServiceTerritoryMember",
-    "description": "Represents a service resource who can be assigned in a service territory in Field Service, Salesforce Scheduler, or Workforce Engagement.",
+    "description": "Represents a service resource who can be assigned to an appointment in a service territory.",
     "properties": {
       "Address": {
-        "type": "address",
-        "description": "The member’s address. You may want to list the related service resource’s address in this field.",
+        "type": "string",
+        "description": "The member’s address.",
         "nullable": true,
         "readOnly": true
       },
@@ -22,20 +22,20 @@
         "nullable": true
       },
       "EffectiveEndDate": {
-        "type": "datetime",
-        "description": "The date when the service resource is no longer a member of the territory. If the resource will be working in the territory for the foreseeable future, leave this field blank. This field is mainly useful for indicating when a temporary relocation ends.",
+        "type": "string",
+        "description": "The date when the service resource is no longer a member of the territory.",
         "format": "date-time",
         "nullable": true
       },
       "EffectiveStartDate": {
-        "type": "datetime",
+        "type": "string",
         "description": "The date when the service resource becomes a member of the service territory.",
         "format": "date-time",
         "nullable": false
       },
       "GeocodeAccuracy": {
-        "type": "picklist",
-        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates. Note This field is available in the API only.",
+        "type": "string",
+        "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. Usually provided by a geocoding service based on the address’s latitude and longitude coordinates.",
         "format": "enum",
         "enum": [
           "Address",
@@ -54,14 +54,14 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the territory member was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The date when the territory member was last modified.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the territory member was last viewed.",
         "format": "date-time",
         "nullable": true,
@@ -69,13 +69,13 @@
       },
       "Latitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. Note This field is available in the API only.",
+        "description": "Used with Longitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "Longitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. Note This field is available in the API only.",
+        "description": "Used with Latitude to specify the precise geolocation of the member’s address. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -87,9 +87,9 @@
         "readOnly": true
       },
       "OperatingHoursId": {
-        "type": "reference",
+        "type": "string",
         "description": "The operating hours assigned to the service territory member. If no operating hours are specified, the member is assumed to use their parent service territory’s operating hours. If a member needs special operating hours, create them in Setup and select them in the Operating Hours lookup field on the member’s detail page.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OperatingHours",
         "maxLength": 18,
         "nullable": true
@@ -101,17 +101,17 @@
         "nullable": true
       },
       "ServiceResourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "The service resource assigned to the service territory.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceResource",
         "maxLength": 18,
         "nullable": false
       },
       "ServiceTerritoryId": {
-        "type": "reference",
+        "type": "string",
         "description": "The service territory that the service resource is assigned to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceTerritory",
         "maxLength": 18,
         "nullable": false,
@@ -124,14 +124,14 @@
         "nullable": true
       },
       "Street": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street number and name of the member’s address.",
         "maxLength": 255,
         "nullable": true
       },
       "TerritoryType": {
-        "type": "picklist",
-        "description": "Primary, Secondary, or Relocation. The primary territory is typically the territory where the resource works most often—for example, near their home base. Service resources can only have one primary territory. Secondary territories are territories where the resource can be assigned to appointments if needed. Service resources can have multiple secondary territories. Relocation territories represent temporary moves for service resources. If you’re using the Field Service managed packages with the scheduling optimizer, resources with relocation territories are always assigned to services within their relocation territories during the specified relocation dates; if they don’t have a relocation territory, the primary territories are favored over the secondary. For example, a service resource might have the following territories: Primary territory: West Chicago Secondary territories: East Chicago South Chicago Relocation territory: Manhattan, for a three-month period",
+        "type": "string",
+        "description": "Specifies the type of the territory in relation to the resource who is a member.",
         "format": "enum",
         "enum": [
           "P",
@@ -208,10 +208,11 @@
       },
       "Role": {
         "type": "string",
-        "description": "Role",
+        "description": "The role associated with the service resource.",
         "format": "enum",
         "maxLength": 40,
-        "nullable": true
+        "nullable": true,
+        "enum": []
       },
       "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": {
         "type": "number",
@@ -234,8 +235,9 @@
         "nullable": true
       },
       "TravelModeId": {
-        "type": "reference",
-        "description": "ID of the TravelMode used for travel time calculations. The travel mode includes information about the type of transportation, such as a car or walking, whether a vehicle can take toll roads, and whether a vehicle is transporting hazardous materials."
+        "type": "string",
+        "description": "ID of the TravelMode used for travel time calculations. The travel mode includes information about the type of transportation, such as a car or walking, whether a vehicle can take toll roads, and whether a vehicle is transporting hazardous materials.",
+        "format": "reference"
       },
       "CurrencyIsoCode": {
         "type": "string",
@@ -615,10 +617,15 @@
         ],
         "maxLength": 10,
         "nullable": true
+      },
+      "LocationId": {
+        "type": "string",
+        "description": "The location where the service resource takes appointments.",
+        "format": "reference"
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_serviceterritorymember.htm",
+    "module": "Automotive Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.automotive_cloud.meta/automotive_cloud/sforce_api_objects_serviceterritorymember.htm",
     "keyPrefix": "0Hu",
     "createable": true,
     "updateable": true,
@@ -744,9 +751,13 @@
     "accessRules": "Field Service or Workforce Engagement must be enabled.",
     "clouds": [
       "Automotive Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning",
+      "Education Cloud"
     ],
     "iconUrl": "standard/service_territory_member_120.png",
-    "iconColor": "5867E8"
+    "iconColor": "5867E8",
+    "x-version": "58.0"
   }
 }

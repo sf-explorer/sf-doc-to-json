@@ -4,23 +4,26 @@
     "description": "Indicates the calculated price adjustment that is applied to the quote line, for example, a calculated volume discount or the prorated value of a manual discount. Use the quote line price adjustment to inform potential customers about the type, value, and total amount of their discounts.",
     "properties": {
       "AdjustmentAmountScope": {
-        "type": "picklist",
-        "description": "Used with AdjustmentValue to determine the amount of the adjustment."
+        "type": "string",
+        "description": "Used with AdjustmentValue to determine the amount of the adjustment.",
+        "enum": []
       },
       "AdjustmentSource": {
-        "type": "picklist",
-        "description": "The source of the adjustment."
+        "type": "string",
+        "description": "The source of the adjustment.",
+        "enum": []
       },
       "AdjustmentType": {
-        "type": "picklist",
-        "description": "The type of adjustment to apply to a quote line."
+        "type": "string",
+        "description": "The type of adjustment to apply to a quote line.",
+        "enum": []
       },
       "AdjustmentValue": {
         "type": "double",
         "description": "The value of the adjustment. Used together with AdjustmentAmountScope to determine the amount of the adjustment."
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The system-entered description of the quote line price adjustment."
       },
       "Name": {
@@ -28,30 +31,43 @@
         "description": "The system-entered name of the quote line price adjustment."
       },
       "PriceAdjustmentCauseId": {
-        "type": "reference",
-        "description": "The ID of the record that caused the adjustment. Null if AdjustmentSource is Discretionary, indicating a manual adjustment.For example, if the price adjustment is due to a price adjustment tier, this field contains the ID of the PriceAdjustmentTier record."
+        "type": "string",
+        "description": "The ID of the record that caused the adjustment. Null if AdjustmentSource is Discretionary, indicating a manual adjustment.For example, if the price adjustment is due to a price adjustment tier, this field contains the ID of the PriceAdjustmentTier record.",
+        "format": "reference"
       },
       "Priority": {
-        "type": "int",
+        "type": "number",
         "description": "Reserved for future use."
       },
       "QuoteAdjustmentGroupId": {
-        "type": "int",
+        "type": "number",
         "description": "The ID of the quote adjustment group, which totals all price adjustments for the quote."
       },
       "QuoteLineItemId": {
-        "type": "reference",
-        "description": "The ID of the quote line item that this price adjustment applies to."
+        "type": "string",
+        "description": "The ID of the quote line item that this price adjustment applies to.",
+        "format": "reference"
       },
       "TotalAmount": {
-        "type": "currency",
-        "description": "The total amount of the adjustment that applies to the quote line item, inclusive of quantity, prorated for the duration of the subscription."
+        "type": "number",
+        "description": "The total amount of the adjustment that applies to the quote line item, inclusive of quantity, prorated for the duration of the subscription.",
+        "format": "currency"
+      },
+      "AppliedPromotionDate": {
+        "type": "string",
+        "description": "The date and time on which the promotion was applied to the asset.",
+        "format": "date-time"
+      },
+      "CouponCode": {
+        "type": "string",
+        "description": "The ID of the coupon code that was applied."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_quotelinepriceadjustment.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_quotelinepriceadjustment.htm",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "56.0"
   }
 }

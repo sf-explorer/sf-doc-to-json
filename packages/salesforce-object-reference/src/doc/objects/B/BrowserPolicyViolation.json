@@ -8,8 +8,9 @@
         "description": "The developer name of the violation."
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language for the blocked request."
+        "type": "string",
+        "description": "The language for the blocked request.",
+        "enum": []
       },
       "MasterLabel": {
         "type": "string",
@@ -24,19 +25,26 @@
         "description": "The URL associated with the blocked request, without the path. For example, if a blocked requested resource is an image with the URL https://www.example.com/images/image1.png, the UntrustedUrl is https://www.example.com."
       },
       "ViolationContext": {
-        "type": "picklist",
-        "description": "If the ViolationType is img-src (image), font-src (fonts), or frame-src (iframe content), the content security policy (CSP) context for the request. The CSP context controls which pages can load content from a CspTrustedSite."
+        "type": "string",
+        "description": "If the ViolationType is img-src (image), font-src (fonts), or frame-src (iframe content), the content security policy (CSP) context for the request. The CSP context controls which pages can load content from a CspTrustedSite.",
+        "enum": []
       },
       "ViolationType": {
-        "type": "picklist",
-        "description": "The violation type. Possible values are: img-src–At least one request to load an image file from the URL was blocked because the UntrustedUrl isn’t a CspTrustedSite object with this CSP directive. font-src–At least one request to load a font from the URL was blocked because the UntrustedUrl isn’t a CspTrustedSite object with this CSP directive. frame-src–At least one request to load content in an iframe that originated from the URL was blocked because the UntrustedUrl isn’t a CspTrustedSite object with this CSP directive. MalformedUrl–At least one redirection to this URL failed because the UntrustedUrl is malformed. Redirect–At least one redirection to this URL was blocked because the UntrustedUrl isn’t a RedirectWhitelistUrl object."
+        "type": "string",
+        "description": "The violation type. Possible values are: img-src–At least one request to load an image file from the URL was blocked because the UntrustedUrl isn’t a CspTrustedSite object with this CSP directive. font-src–At least one request to load a font from the URL was blocked because the UntrustedUrl isn’t a CspTrustedSite object with this CSP directive. frame-src–At least one request to load content in an iframe that originated from the URL was blocked because the UntrustedUrl isn’t a CspTrustedSite object with this CSP directive. MalformedUrl–At least one redirection to this URL failed because the UntrustedUrl is malformed. Redirect–At least one redirection to this URL was blocked because the UntrustedUrl isn’t a RedirectWhitelistUrl object.",
+        "enum": []
+      },
+      "ViolationImpact": {
+        "type": "string",
+        "description": "The impact of this violation. Possible values are: Blocked–The policy was enforced and prevented the resource from loading. The impact of blocked redirections and malformed URLs is always Blocked. Reported–This violation is blocked only after stricter CSP settings are configured.For example, some resource requests associated with the frame-src, font-src, and img-src ViolationType are blocked only when the Adopt updated CSP directives setting is enabled in Session Settings."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_browserpolicyviolation.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_browserpolicyviolation.htm",
     "accessRules": "Only users with the Customize Application and Modify All Data permissions can access this object.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "61.0"
   }
 }

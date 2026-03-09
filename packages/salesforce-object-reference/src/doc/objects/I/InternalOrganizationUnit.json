@@ -10,14 +10,14 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -36,9 +36,9 @@
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who currently owns this record. Default value is the user logged in to the API to perform the create operation.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -47,16 +47,17 @@
         "nullable": false
       },
       "ParentOrganizationId": {
-        "type": "reference",
+        "type": "string",
         "description": "A reference to the parent organization.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InternalOrganizationUnit",
         "maxLength": 18,
         "nullable": true
       },
       "Type": {
-        "type": "picklist",
-        "description": "Specifies whether the record is for an internal or an external organization. This field is available in API version 60.0 and later."
+        "type": "string",
+        "description": "Specifies whether the record is for an internal or an external organization. This field is available in API version 60.0 and later.",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -136,15 +137,33 @@
       "AccountId": {
         "type": "string",
         "description": "The account associated with this record.",
+        "format": "reference",
         "x-cloud": "Automotive Cloud"
+      },
+      "BusinessUsage": {
+        "type": "string",
+        "description": "The business purpose of the record.",
+        "enum": [],
+        "x-cloud": "Loyalty Management"
+      },
+      "EmailConfiguration": {
+        "type": "string",
+        "description": "The send classification that’s used by the connected Marketing Cloud business unit to send emails.",
+        "x-cloud": "Loyalty Management"
+      },
+      "OrganizationIdentifier": {
+        "type": "string",
+        "description": "The name of the company’s Marketing Cloud business unit that Global Promotions Management is connected to.",
+        "x-cloud": "Loyalty Management"
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_internalorganizationunit.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_internalorganizationunit.htm",
     "accessRules": "To access this object, you have either a Workplace Command Center permission set license and the Provides access to Workplace Command Center features system permission, or the Employee Management and Employee User add-on licenses. This object is also available with the Referral Marketing license.",
     "clouds": [
       "Automotive Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Loyalty Management"
     ],
     "keyPrefix": "0gJ",
     "iconUrl": "custom/custom68_120.png",
@@ -233,6 +252,7 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

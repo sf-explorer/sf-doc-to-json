@@ -4,17 +4,18 @@
     "description": "Represents business-level details about the healthcare organization or the practitioner.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "Account that this healthcare provider is associated with. This field is a relationship field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Classification": {
-        "type": "picklist",
-        "description": "Specifies the classification of the healthcare provider. This field is available in API version 63.0 and later when Site Management is enabled."
+        "type": "string",
+        "description": "Specifies the classification of the healthcare provider. This field is available in API version 63.0 and later when Site Management is enabled.",
+        "enum": []
       },
       "DoesParticipateInRsrchStudy": {
         "type": "boolean",
@@ -25,42 +26,42 @@
         "description": "Indicates whether the healthcare provider uses Electronic Data Capture (EDC) system (true) or not (false). This field is available in API version 62.0 and later when Site Management is enabled."
       },
       "EffectiveFrom": {
-        "type": "date",
+        "type": "string",
         "description": "Specifies the date from which the provider becomes effective.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "EffectiveTo": {
-        "type": "date",
+        "type": "string",
         "description": "Specifies the date from which the provider is no longer effective.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "EhrSystem": {
-        "type": "textarea",
+        "type": "string",
         "description": "Name of the EHR system used at this facility or organization.",
         "maxLength": 32000,
         "nullable": true,
         "readOnly": true
       },
       "InitialStartDate": {
-        "type": "date",
+        "type": "string",
         "description": "Specifies the date when the facility first became operational or the practitioner first began practicing.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last referenced a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -74,9 +75,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns this record. This field is a polymorphic relationship field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -86,16 +87,16 @@
         "readOnly": true
       },
       "PractitionerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The practitioner that this healthcare provider record is associated with. This field is a relationship field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ProviderClass": {
-        "type": "picklist",
+        "type": "string",
         "description": "The class of facility, such as an IPA, medical group, or solo practitioner.",
         "format": "enum",
         "enum": [
@@ -108,11 +109,12 @@
         "readOnly": true
       },
       "ProviderPhotoId": {
-        "type": "reference",
-        "description": "The Content Document file that is a photo of the Healthcare Provider. This field is a relationship field."
+        "type": "string",
+        "description": "The Content Document file that is a photo of the Healthcare Provider. This field is a relationship field.",
+        "format": "reference"
       },
       "ProviderType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of provider or facility. For example, pharmacist or ambulatory care facility.",
         "format": "enum",
         "enum": [
@@ -129,8 +131,9 @@
         "readOnly": true
       },
       "RelatedUserId": {
-        "type": "reference",
-        "description": "The User record that relates to the Healthcare Provider record. This field is a relationship field."
+        "type": "string",
+        "description": "The User record that relates to the Healthcare Provider record. This field is a relationship field.",
+        "format": "reference"
       },
       "SourceSystem": {
         "type": "string",
@@ -147,7 +150,7 @@
         "readOnly": true
       },
       "TerminationDate": {
-        "type": "date",
+        "type": "string",
         "description": "Termination date for this provider.",
         "format": "date",
         "nullable": true,
@@ -161,7 +164,7 @@
         "readOnly": true
       },
       "TotalLicensedBeds": {
-        "type": "int",
+        "type": "number",
         "description": "Total number of licensed beds at this facility, if applicable.",
         "nullable": true,
         "readOnly": true
@@ -250,7 +253,7 @@
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_healthcareprovider.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_healthcareprovider.htm",
     "clouds": [
       "Health Cloud"
     ],
@@ -533,6 +536,7 @@
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
       }
-    ]
+    ],
+    "x-version": "63.0"
   }
 }

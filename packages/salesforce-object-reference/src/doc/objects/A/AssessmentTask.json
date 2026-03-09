@@ -1,43 +1,43 @@
 {
   "AssessmentTask": {
     "name": "AssessmentTask",
-    "description": "Perform activities such as patient registration or order authorization to capture information.",
+    "description": "Perform activities such as planogram check, inventory check, promotion check, in-store survey, or custom task in stores to capture information.",
     "properties": {
       "AssessmentTaskDefinitionId": {
-        "type": "reference",
-        "description": "The assessment task definition that is referenced for the task. This field is a relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The assessment task definition that is referenced for the task. This field is available in API version 48.0 and later.",
+        "format": "reference",
         "x-object": "AssessmentTaskDefinition",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of task that has to be performed at the store.",
         "maxLength": 1000,
         "nullable": true
       },
       "EndTime": {
-        "type": "dateTime",
-        "description": "The date and time when the assessment task is completed.",
+        "type": "string",
+        "description": "Time when the task is completed by a field rep. This field is available in API version 49.0 and later.",
         "format": "date-time",
         "nullable": true
       },
       "IsRequired": {
         "type": "boolean",
-        "description": "Indicate whether a task must be completed to complete a visit. The default value is False.",
+        "description": "Indicate whether a task must be completed to complete a visit. The default value is False. This field is available in API version 48.0 and later.",
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
+        "type": "string",
+        "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -49,9 +49,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The ID of the user who owns this assessment template. This field is a polymorphic relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the assessment task record owner.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -60,27 +60,27 @@
         "nullable": false
       },
       "ParentId": {
-        "type": "reference",
-        "description": "The visit associated with an assessment task. This field is a relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The visit associated with an assessment task.This field is available in API version 48.0 and later.",
+        "format": "reference",
         "x-object": "Visit",
         "maxLength": 18,
         "nullable": true
       },
       "SequenceNumber": {
-        "type": "int",
-        "description": "The sequence in which the tasks must be performed.",
+        "type": "number",
+        "description": "The sequence in which the tasks must be performed. This field is available in API version 48.0 and later.",
         "nullable": true
       },
       "StartTime": {
-        "type": "dateTime",
-        "description": "Time when the task was started by a field rep.",
+        "type": "string",
+        "description": "Time when the task is started by a field rep. This field is available in API version 49.0 and later.",
         "format": "date-time",
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "View the status of a task.",
+        "type": "string",
+        "description": "View the status of a task. This field is available in API version 48.0 and later.",
         "format": "enum",
         "enum": [
           "NotStarted",
@@ -91,9 +91,9 @@
         "nullable": false
       },
       "TaskDefinitionId": {
-        "type": "reference",
+        "type": "string",
         "description": "Reference to related records such as signature task, delivery task, other Component task, flow, and SFDC task. This field is a polymorphic relationship field. This field is available in API version 48.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "RecordAction",
           "Task"
@@ -102,8 +102,8 @@
         "nullable": true
       },
       "TaskType": {
-        "type": "picklist",
-        "description": "Type of a task that the sales rep can perform during the visit.",
+        "type": "string",
+        "description": "Type of a task that the sales rep can perform during the visit. The task type must match the task type of the assessment task definition.",
         "format": "enum",
         "enum": [
           "RecordAction",
@@ -174,12 +174,14 @@
         "readOnly": true
       },
       "AssignedToId": {
-        "type": "reference",
-        "description": "Represents the user that's assigned the task. This field is a polymorphic relationship field."
+        "type": "string",
+        "description": "Represents the user that's assigned the task. This field is a polymorphic relationship field.",
+        "format": "reference"
       },
       "ReferenceRecordId": {
-        "type": "reference",
-        "description": "Represents the record with which the associated task is related. This field is a polymorphic relationship field."
+        "type": "string",
+        "description": "Represents the record with which the associated task is related. This field is a polymorphic relationship field.",
+        "format": "reference"
       },
       "CurrencyIsoCode": {
         "type": "string",
@@ -190,10 +192,20 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "End Time": {
+        "type": "string",
+        "description": "Time when the task was completed by the inspector.",
+        "format": "date-time"
+      },
+      "Start Time": {
+        "type": "string",
+        "description": "Time when the task was started by a inspector.",
+        "format": "date-time"
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_assessmenttask.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_assessmenttask.htm",
     "keyPrefix": "0eg",
     "iconUrl": "standard/maintenance_plan_120.png",
     "iconColor": "0176D3",
@@ -423,7 +435,9 @@
     "accessRules": "In Health Cloud, this object is available in API version 46.0 and later.",
     "clouds": [
       "Consumer Goods Cloud",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Public Sector Cloud"
+    ],
+    "x-version": "47.0"
   }
 }

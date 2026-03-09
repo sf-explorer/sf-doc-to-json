@@ -1,10 +1,10 @@
 {
   "TimeSlot": {
     "name": "TimeSlot",
-    "description": "Represents a period of time on a specified day of the week during which work can be performed in Field Service, Salesforce Scheduler, or Workforce Engagement. Operating hours consist of one or more time slots.",
+    "description": "Represents a period of time on a specified day of the week during which an appointment can be scheduled.",
     "properties": {
       "DayOfWeek": {
-        "type": "picklist",
+        "type": "string",
         "description": "The day of the week when the time slot takes place.",
         "format": "enum",
         "enum": [
@@ -20,56 +20,56 @@
         "nullable": false
       },
       "EndTime": {
-        "type": "time",
+        "type": "string",
         "description": "The time when the time slot ends.",
         "format": "time",
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MaxAppointments": {
-        "type": "int",
-        "description": "Maximum number of appointments for a single time slot. Available in API version 47.0 and later.",
+        "type": "number",
+        "description": "Maximum number of appointments for a single time slot.",
         "nullable": true
       },
       "OperatingHoursId": {
-        "type": "reference",
+        "type": "string",
         "description": "The operating hours that the time slot belongs to. An operating hours’ time slots appear in the Operating Hours related list.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OperatingHours",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "StartTime": {
-        "type": "time",
+        "type": "string",
         "description": "The time when the time slot starts.",
         "format": "time",
         "nullable": false
       },
       "TimeSlotNumber": {
         "type": "string",
-        "description": "The name of the time slot. The name is auto-populated to a day and time format—for example, Monday 9:00 AM - 10:00 PM—but you can manually update it if you wish.",
+        "description": "The name of the time slot. The name is auto-populated to a day and time format—for example, Monday 9:00 AM - 10:00 PM—but you can manually update it.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "WorkTypeGroupId": {
-        "type": "reference",
-        "description": "Work type group assigned to the time slot. Available in API version 47.0 and later.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Work type group assigned to the time slot.",
+        "format": "reference",
         "x-object": "WorkTypeGroup",
         "maxLength": 18,
         "nullable": true
@@ -140,7 +140,7 @@
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of time slot. Possible values are Normal and Extended. You may choose to use Extended to represent overtime shifts.",
         "format": "enum",
         "enum": [
@@ -151,8 +151,9 @@
         "nullable": false
       },
       "RecordSetFilterCriteriaId": {
-        "type": "reference",
-        "description": "The ID of the recordset filter criteria selected for the time slot."
+        "type": "string",
+        "description": "The ID of the recordset filter criteria selected for the time slot.",
+        "format": "reference"
       },
       "CurrencyIsoCode": {
         "type": "string",
@@ -165,8 +166,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_timeslot.htm",
+    "module": "Automotive Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.automotive_cloud.meta/automotive_cloud/sforce_api_objects_timeslot.htm",
     "keyPrefix": "0Gj",
     "createable": true,
     "updateable": true,
@@ -213,9 +214,13 @@
     ],
     "clouds": [
       "Automotive Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/timeslot_120.png",
-    "iconColor": "FF5D2D"
+    "iconColor": "FF5D2D",
+    "x-version": "58.0",
+    "accessRules": "Salesforce Scheduler must be enabled."
   }
 }

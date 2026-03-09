@@ -1,260 +1,59 @@
 {
-  "PricebookEntry": {
-    "name": "PricebookEntry",
-    "description": "Entrées au catalogue de prix - PricebookEntry",
+  "PriceBookEntry": {
+    "name": "PriceBookEntry",
+    "description": "Represents a product entry (an association between a Pricebook2 and Product2) in a price book.",
     "properties": {
-      "Id": {
+      "CurrencyIsoCode": {
         "type": "string",
-        "description": "ID d'entrée au catalogue de prix",
-        "format": "salesforce-id",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "Name": {
-        "type": "string",
-        "description": "Nom du produit",
-        "maxLength": 255,
-        "nullable": true,
-        "readOnly": true
-      },
-      "Pricebook2Id": {
-        "type": "string",
-        "description": "ID du catalogue de prix",
-        "format": "salesforce-id",
-        "x-object": "Pricebook2",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "Product2Id": {
-        "type": "string",
-        "description": "ID produit",
-        "format": "salesforce-id",
-        "x-object": "Product2",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "UnitPrice": {
-        "type": "number",
-        "description": "Prix catalogue",
-        "format": "currency",
-        "nullable": false,
-        "multipleOf": 0.01
+        "description": "Available only for organizations with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the organization.",
+        "enum": []
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Actif",
-        "nullable": false
-      },
-      "UseStandardPrice": {
-        "type": "boolean",
-        "description": "Utiliser le Prix standard",
-        "nullable": false
-      },
-      "CreatedDate": {
-        "type": "string",
-        "description": "Date de création",
-        "format": "date-time",
-        "nullable": false,
-        "readOnly": true
-      },
-      "CreatedById": {
-        "type": "string",
-        "description": "ID créé par",
-        "format": "salesforce-id",
-        "x-object": "User",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "LastModifiedDate": {
-        "type": "string",
-        "description": "Date de dernière modification",
-        "format": "date-time",
-        "nullable": false,
-        "readOnly": true
-      },
-      "LastModifiedById": {
-        "type": "string",
-        "description": "ID dernière modification par",
-        "format": "salesforce-id",
-        "x-object": "User",
-        "maxLength": 18,
-        "nullable": false,
-        "readOnly": true
-      },
-      "SystemModstamp": {
-        "type": "string",
-        "description": "Horodateur des modifications du système",
-        "format": "date-time",
-        "nullable": false,
-        "readOnly": true
-      },
-      "ProductCode": {
-        "type": "string",
-        "description": "Code du produit",
-        "maxLength": 255,
-        "nullable": true,
-        "readOnly": true
-      },
-      "IsDeleted": {
-        "type": "boolean",
-        "description": "Supprimé",
-        "nullable": false,
-        "readOnly": true
+        "description": "Indicates whether this price book entry is active (true) or not (false). Although you can never delete PricebookEntry records, your client application can set this flag to false. Inactive PricebookEntry records are hidden in many areas in the user interface. You can change this flag on a PricebookEntry record as often as necessary."
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Archivé",
-        "nullable": false,
-        "readOnly": true
+        "description": "Indicates whether the PricebookEntry has been archived (true) or not (false). This field is set to true when the Product2 record it’s associated with is archived, or when the Pricebook2 record is archived. This field is read only."
       },
-      "CurrencyIsoCode": {
+      "Name": {
         "type": "string",
-        "description": "CurrencyIsoCode field",
-        "format": "enum",
-        "enum": [
-          "USD"
-        ],
-        "maxLength": 3,
-        "nullable": false,
-        "readOnly": true
+        "description": "Name of this price book entry record. This read-only field references the value in the Name field of the Product2 record."
       },
-      "ActivePriceAdjustmentQuantity": {
-        "type": "integer",
-        "description": "ActivePriceAdjustmentQuantity field",
-        "nullable": true,
-        "readOnly": true
+      "Pricebook2Id": {
+        "type": "string",
+        "description": "Required. ID of the Pricebook2 record with which this record is associated. This field must be specified when creating Pricebook2 records. It can’t be changed in an update.",
+        "format": "reference"
+      },
+      "Product2Id": {
+        "type": "string",
+        "description": "Required. ID of the Product2 record with which this record is associated. This field must be specified when creating Product2 records. It can’t be changed in an update.",
+        "format": "reference"
+      },
+      "ProductCode": {
+        "type": "string",
+        "description": "Product code for this record. This read-only field references the value in the ProductCode field of the associated Product2 record."
+      },
+      "ProductSellingModelId": {
+        "type": "string",
+        "description": "The ID of the related product selling model.",
+        "format": "reference"
+      },
+      "UnitPrice": {
+        "type": "number",
+        "description": "Required. Unit price for this price book entry. You can specify a value only if UseStandardPrice is set to false.",
+        "format": "currency"
+      },
+      "UseStandardPrice": {
+        "type": "boolean",
+        "description": "Indicates whether this price book entry uses the standard price defined in the standard Pricebook2 record (true) or not (false). If set to true, then the UnitPrice field is read-only, and the value is the same as the UnitPrice value in the corresponding PricebookEntry in the standard price book (that is, the PricebookEntry record whose Pricebook2Id refers to the standard price book and whose Product2Id and CurrencyIsoCode are the same as this record). For PricebookEntry records associated with the standard Pricebook2 record, this field must be set to true."
       }
     },
-    "module": "N/A",
-    "keyPrefix": "01u",
-    "label": "Entrée au catalogue de prix",
-    "iconUrl": "standard/price_book_entries_120.png",
-    "iconColor": "396547",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/",
-    "createable": true,
-    "updateable": true,
-    "deletable": true,
-    "queryable": true,
-    "searchable": false,
-    "childRelationships": [
-      {
-        "childObject": "AIInsightValue",
-        "field": "SobjectLookupValueId",
-        "relationshipName": null,
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "AIRecordInsight",
-        "field": "TargetId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ContractLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "ContractLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ContractLineItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "FlowExecutionErrorEvent",
-        "field": "ContextRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "FlowRecordRelation",
-        "field": "RelatedRecordId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OpportunityLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "OpportunityLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "OrderItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "OrderItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PricebookEntryAdjustment",
-        "field": "PricebookEntryId",
-        "relationshipName": "PricebookEntryAdjustments",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "PricebookEntryHistory",
-        "field": "PricebookEntryId",
-        "relationshipName": "Histories",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "ProductConsumed",
-        "field": "PricebookEntryId",
-        "relationshipName": "ProductsConsumed",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "ProductConsumedChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "QuoteLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "QuoteLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "QuoteLineItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "RecordAction",
-        "field": "RecordId",
-        "relationshipName": "RecordActions",
-        "cascadeDelete": true
-      },
-      {
-        "childObject": "RecordActionHistory",
-        "field": "ParentRecordId",
-        "relationshipName": "RecordActionHistories",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkOrderLineItem",
-        "field": "PricebookEntryId",
-        "relationshipName": "WorkOrderLineItems",
-        "cascadeDelete": false
-      },
-      {
-        "childObject": "WorkOrderLineItemChangeEvent",
-        "field": "PricebookEntryId",
-        "relationshipName": null,
-        "cascadeDelete": false
-      }
+    "module": "Revenue Lifecycle Management",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_pricebookentry.htm",
+    "x-version": "60.0",
+    "clouds": [
+      "Revenue Lifecycle Management"
     ]
   }
 }

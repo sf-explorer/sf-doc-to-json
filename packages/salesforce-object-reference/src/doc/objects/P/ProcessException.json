@@ -4,9 +4,9 @@
     "description": "Represents a business exception, such as a processing failure on an order summary. A separate process is required to resolve the failure that caused the process exception before processing can continue.",
     "properties": {
       "AttachedToId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the object associated with the ProcessException.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account_Opportunity_Junction__c",
@@ -55,15 +55,15 @@
         "nullable": false
       },
       "CaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the case associated with the ProcessException.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
       },
       "Category": {
-        "type": "picklist",
+        "type": "string",
         "description": "ProcessingException type. You can customize the category picklist to represent your business processes.",
         "format": "enum",
         "enum": [
@@ -85,7 +85,7 @@
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the OrderSummary associated with the ProcessException.",
         "format": "enum",
         "enum": [
@@ -95,7 +95,7 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Detailed description of the ProcessException.",
         "maxLength": 2000,
         "nullable": true
@@ -107,22 +107,24 @@
         "nullable": true
       },
       "FlowOrchestrationInstRelaObj": {
-        "type": "reference",
-        "description": "The flow orchestration instance related object associated with this record."
+        "type": "string",
+        "description": "The flow orchestration instance related object associated with this record.",
+        "format": "reference"
       },
       "GroupById": {
-        "type": "reference",
-        "description": "ID used in the entity to group exceptions, such as the Async Operation Tracker."
+        "type": "string",
+        "description": "ID used in the entity to group exceptions, such as the Async Operation Tracker.",
+        "format": "reference"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Timestamp for when the current user last viewed this record. A null value can mean that this record has only been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -135,17 +137,17 @@
         "nullable": false
       },
       "OrderSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the OrderSummary associated with the ProcessException. The ProcessException component is displayed on this OrderSummary.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderSummary",
         "maxLength": 18,
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the User who currently owns this ProcessException. Default value is the User who created the record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -154,7 +156,7 @@
         "nullable": false
       },
       "Priority": {
-        "type": "picklist",
+        "type": "string",
         "description": "Resolution priority for the ProcessException. You can customize the priority picklist to represent your business processes.",
         "format": "enum",
         "enum": [
@@ -172,7 +174,7 @@
         "readOnly": true
       },
       "Severity": {
-        "type": "picklist",
+        "type": "string",
         "description": "Severity of the ProcessException. Each severity value corresponds to one severity category. You can customize the severity picklist to represent your business processes. If you customize the severity picklist, include at least one severity value for each severity category.",
         "format": "enum",
         "enum": [
@@ -183,7 +185,7 @@
         "nullable": true
       },
       "SeverityCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "Severity category of the ProcessException. Each severity category corresponds to one or more severity values. The severity category is used to show the severity icon in the ProcessException list view.",
         "format": "enum",
         "enum": [
@@ -196,7 +198,7 @@
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status of the ProcessException. Each status corresponds to one status category, shown here in parentheses. You can customize the status picklist to represent your business processes. If you customize the status picklist, include at least one status value for each status category.",
         "format": "enum",
         "enum": [
@@ -211,7 +213,7 @@
         "nullable": false
       },
       "StatusCategory": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status category of the ProcessException. Each status category corresponds to one or more statuses.",
         "format": "enum",
         "enum": [
@@ -283,7 +285,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_processexception.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_processexception.htm",
     "keyPrefix": "2Pe",
     "createable": true,
     "updateable": true,
@@ -402,6 +404,7 @@
     ],
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "50.0"
   }
 }

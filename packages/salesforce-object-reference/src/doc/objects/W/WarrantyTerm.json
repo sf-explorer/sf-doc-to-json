@@ -10,14 +10,14 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
-        "description": "Description of the warranty term.",
+        "type": "string",
+        "description": "The description of the warranty term.",
         "maxLength": 32000,
         "nullable": true
       },
       "EffectiveStartDate": {
-        "type": "picklist",
-        "description": "Date on which the warranty term became available for use.",
+        "type": "string",
+        "description": "The date on which the warranty term became available for use.",
         "format": "enum",
         "enum": [
           "Install Date",
@@ -28,7 +28,7 @@
         "nullable": false
       },
       "ExchangeType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of exchange offered.",
         "format": "enum",
         "enum": [
@@ -40,25 +40,25 @@
         "nullable": true
       },
       "Exclusions": {
-        "type": "textarea",
-        "description": "Description of any exclusions.",
+        "type": "string",
+        "description": "The description of any exclusions.",
         "maxLength": 32000,
         "nullable": true
       },
       "ExpensesCovered": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of expenses covered.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "ExpensesCoveredDuration": {
-        "type": "int",
+        "type": "number",
         "description": "The duration for which expenses are covered.",
         "nullable": true
       },
       "ExpensesCoveredUnitOfTime": {
-        "type": "picklist",
+        "type": "string",
         "description": "The unit in which expenses covered duration is measured.",
         "format": "enum",
         "enum": [
@@ -72,28 +72,28 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Defines whether the warranty term is active.",
+        "description": "Indicates whether the warranty term is active (true) or not (false).",
         "nullable": false
       },
       "IsTransferable": {
         "type": "boolean",
-        "description": "Defines whether the warranty can be transferred to a new owner.",
+        "description": "Indicates whether the warranty can be transferred to a new owner (true) or not (false).",
         "nullable": false
       },
       "LaborCovered": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of labor covered.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "LaborCoveredDuration": {
-        "type": "int",
+        "type": "number",
         "description": "The duration for which labor is covered.",
         "nullable": true
       },
       "LaborCoveredUnitOfTime": {
-        "type": "picklist",
+        "type": "string",
         "description": "The unit in which labor covered duration is measured.",
         "format": "enum",
         "enum": [
@@ -106,23 +106,23 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the warranty term was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The date when the warranty term was last modified.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the warranty term was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The warranty term’s assigned owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -131,19 +131,19 @@
         "nullable": false
       },
       "PartsCovered": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage of parts covered.",
         "format": "percent",
         "nullable": true,
         "multipleOf": 0.01
       },
       "PartsCoveredDuration": {
-        "type": "int",
+        "type": "number",
         "description": "The duration for which parts are covered.",
         "nullable": true
       },
       "PartsCoveredUnitOfTime": {
-        "type": "picklist",
+        "type": "string",
         "description": "The unit in which parts covered duration is measured.",
         "format": "enum",
         "enum": [
@@ -156,23 +156,24 @@
         "nullable": true
       },
       "Pricebook2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the price book item associated with this warranty term.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Pricebook2",
         "maxLength": 18,
         "nullable": true
       },
       "UsageCovered": {
-        "type": "int",
+        "type": "number",
         "description": "The product usage that's covered in the warranty term."
       },
       "UsageCoveredUomId": {
-        "type": "reference",
-        "description": "The unit of measure for the product usage."
+        "type": "string",
+        "description": "The unit of measure for the product usage.",
+        "format": "reference"
       },
       "WarrantyDuration": {
-        "type": "int",
+        "type": "number",
         "description": "The duration of the warranty offered by this term.",
         "nullable": false
       },
@@ -183,7 +184,7 @@
         "nullable": false
       },
       "WarrantyType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of warranty.",
         "format": "enum",
         "enum": [
@@ -195,7 +196,7 @@
         "nullable": false
       },
       "WarrantyUnitOfTime": {
-        "type": "picklist",
+        "type": "string",
         "description": "The unit in which the warranty duration is measured.",
         "format": "enum",
         "enum": [
@@ -283,8 +284,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_warrantyterm.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_warrantyterm.htm",
     "keyPrefix": "4V3",
     "createable": true,
     "updateable": true,
@@ -511,9 +512,12 @@
     ],
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Field Service Lightning",
+      "Automotive Cloud"
     ],
     "iconUrl": "standard/warranty_term_120.png",
-    "iconColor": "0176D3"
+    "iconColor": "0176D3",
+    "x-version": "55.0"
   }
 }

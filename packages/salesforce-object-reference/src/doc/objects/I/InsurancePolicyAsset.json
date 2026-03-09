@@ -12,25 +12,27 @@
         "description": "The insured customer property. This field is available from API version 51.0 and later."
       },
       "CustomerPropertyId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the insured customer property.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CustomerProperty",
         "maxLength": 18,
         "nullable": true
       },
       "EffectiveFromDate": {
-        "type": "date",
-        "description": "The date from when the asset becomes active on the policy."
+        "type": "string",
+        "description": "The date from when the asset becomes active on the policy.",
+        "format": "date"
       },
       "EffectiveToDate": {
-        "type": "date",
-        "description": "The date after when the asset becomes inactive on the policy."
+        "type": "string",
+        "description": "The date after when the asset becomes inactive on the policy.",
+        "format": "date"
       },
       "InsurancePolicyId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the insurance policy that covers this customer property.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "InsurancePolicy",
         "maxLength": 18,
         "nullable": false
@@ -40,14 +42,14 @@
         "description": "Indicates whether the insurance policy asset is active."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, it’s possible that this record was referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -61,9 +63,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -72,16 +74,19 @@
         "nullable": false
       },
       "PrimaryPolicyParticipantId": {
-        "type": "reference",
-        "description": "The ID of the primary participant on the insurance policy. This field is available from API version 51.0 and later."
+        "type": "string",
+        "description": "The ID of the primary participant on the insurance policy. This field is available from API version 51.0 and later.",
+        "format": "reference"
       },
       "ProductId": {
-        "type": "reference",
-        "description": "The product associated with the asset."
+        "type": "string",
+        "description": "The product associated with the asset.",
+        "format": "reference"
       },
       "RelatedInsurancePolicyAssetId": {
-        "type": "reference",
-        "description": "The related insurance policy asset id associated with the insurance policy asset. This field is available from API version 54.0 and later."
+        "type": "string",
+        "description": "The related insurance policy asset id associated with the insurance policy asset. This field is available from API version 54.0 and later.",
+        "format": "reference"
       },
       "SourceSystem": {
         "type": "string",
@@ -96,36 +101,44 @@
         "nullable": true
       },
       "StandardFeeAmount": {
-        "type": "currency",
-        "description": "The expected fee for the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected fee for the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "StandardPremiumAmount": {
-        "type": "currency",
-        "description": "The expected premium for the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected premium for the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "StandardTaxAmount": {
-        "type": "currency",
-        "description": "The expected tax on the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected tax on the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TermFeeAmount": {
-        "type": "currency",
-        "description": "The expected fee for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected fee for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TermPremiumAmount": {
-        "type": "currency",
-        "description": "The expected premium for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected premium for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TermTaxAmount": {
-        "type": "currency",
-        "description": "The expected tax on the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The expected tax on the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TotalStandardAmount": {
-        "type": "currency",
-        "description": "The sum of the expected premium, fee, and tax for the policy over the policy period. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The sum of the expected premium, fee, and tax for the policy over the policy period. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "TotalTermAmount": {
-        "type": "currency",
-        "description": "The sum of the expected premium, tax, and fee for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later."
+        "type": "number",
+        "description": "The sum of the expected premium, tax, and fee for the policy over the policy period, prorated based on the policy's effective dates. This field is available from API version 51.0 and later.",
+        "format": "currency"
       },
       "Id": {
         "type": "string",
@@ -204,7 +217,7 @@
       }
     },
     "module": "Financial Services Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_insurancepolicyasset.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_insurancepolicyasset.htm",
     "clouds": [
       "Financial Services Cloud"
     ],
@@ -427,6 +440,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "51.0"
   }
 }

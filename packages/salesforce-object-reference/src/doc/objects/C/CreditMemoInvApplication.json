@@ -4,7 +4,7 @@
     "description": "Represents information about the application of a credit memo to an invoice.",
     "properties": {
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "Required. The amount of the credit memo that was applied to or unapplied from the invoice.",
         "format": "currency",
         "nullable": false,
@@ -12,24 +12,26 @@
         "multipleOf": 0.01
       },
       "AppliedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the credit memo was applied. If the credit memo invoice application's type is Unapplied, this value is inherited from the Applied date of the credit memo referenced in the AssociatedLineId field.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "AssociatedLineId": {
-        "type": "reference",
-        "description": "ID of the original credit memo invoice application for a credit memo invoice application that represents an unapplied credit memo."
+        "type": "string",
+        "description": "ID of the original credit memo invoice application for a credit memo invoice application that represents an unapplied credit memo.",
+        "format": "reference"
       },
       "CreditMemoBalance": {
-        "type": "currency",
-        "description": "The balance of a credit memo after it's applied or unapplied. This field is a snapshot of the credit memo's balance after the action. This field isn't updated after further changes to the credit memo balance."
+        "type": "number",
+        "description": "The balance of a credit memo after it's applied or unapplied. This field is a snapshot of the credit memo's balance after the action. This field isn't updated after further changes to the credit memo balance.",
+        "format": "currency"
       },
       "CreditMemoId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. The credit memo that was applied or unapplied.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "CreditMemo",
         "maxLength": 18,
         "nullable": false,
@@ -43,7 +45,7 @@
         "readOnly": true
       },
       "Date": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the credit memo amount was applied to the invoice.",
         "format": "date-time",
         "nullable": true,
@@ -56,35 +58,38 @@
         "nullable": true
       },
       "EffectiveDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The effective date of the application or unapplication of credit. You can provide this value when applying or unapplying the credit memo. This field is optional and provided only for reporting purposes. It doesn't affect the credit memo invoice application's other fields.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "HasBeenUnapplied": {
-        "type": "picklist",
-        "description": "Specifies whether this credit memo application has been unapplied from the target invoice."
+        "type": "string",
+        "description": "Specifies whether this credit memo application has been unapplied from the target invoice.",
+        "enum": []
       },
       "ImpactAmount": {
-        "type": "currency",
-        "description": "The net adjustment to the invoice's balance after a credit memo is applied or unapplied. If a credit memo was applied, this value is the negative version of the credit memo invoice application's Amount field. If a credit memo was unapplied, this value is the positive version of the credit memo invoice application's Amount field."
+        "type": "number",
+        "description": "The net adjustment to the invoice's balance after a credit memo is applied or unapplied. If a credit memo was applied, this value is the negative version of the credit memo invoice application's Amount field. If a credit memo was unapplied, this value is the positive version of the credit memo invoice application's Amount field.",
+        "format": "currency"
       },
       "InvoiceBalance": {
-        "type": "currency",
-        "description": "The balance of the credit memo after a credit memo is applied or unapplied. This field is a snapshot of the credit memo's balance after the action. This field isn't updated after further changes to the credit memo balance."
+        "type": "number",
+        "description": "The balance of the credit memo after a credit memo is applied or unapplied. This field is a snapshot of the credit memo's balance after the action. This field isn't updated after further changes to the credit memo balance.",
+        "format": "currency"
       },
       "InvoiceId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. The invoice to which the credit memo is applied.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Invoice",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. Specifies whether the credit memo line application was generated because of an apply action (application) or an unapply action (unapplication).",
         "format": "enum",
         "enum": [
@@ -96,7 +101,7 @@
         "readOnly": true
       },
       "UnappliedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when this application was unapplied from the target invoice.",
         "format": "date-time",
         "nullable": true,
@@ -173,7 +178,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoinvapplication.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_creditmemoinvapplication.htm",
     "keyPrefix": "4sF",
     "createable": false,
     "updateable": true,
@@ -336,6 +341,7 @@
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "62.0"
   }
 }

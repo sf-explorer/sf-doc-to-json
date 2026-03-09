@@ -98,7 +98,8 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
                 fields: null,
                 module: 'Data Cloud - SSOT',
                 source: 'ssot',
-                sourceUrl: metadata.sourceUrl
+                sourceUrl: metadata.sourceUrl,
+                'x-version': metadata['x-version'] || '30.0'
               });
             }
           }
@@ -168,7 +169,8 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
           const updatedObject = {
             ...object,
             fields: fullObjectData.properties || {},
-            childRelationships: fullObjectData.childRelationships || []
+            childRelationships: fullObjectData.childRelationships || [],
+            'x-version': fullObjectData['x-version'] || object['x-version'] || '30.0'
           };
           
           setSelectedObject(updatedObject);

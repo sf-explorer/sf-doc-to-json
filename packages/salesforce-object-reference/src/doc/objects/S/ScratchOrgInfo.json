@@ -4,7 +4,7 @@
     "description": "Represents a scratch org and its audit log. Use this object to create a scratch org and keep a log of its creation and deletion.",
     "properties": {
       "AdminEmail": {
-        "type": "email",
+        "type": "string",
         "description": "The email address of the scratch org’s Administration user. The read only SignupEmail field is populated with this value. If you don't provide a value for AdminEmail, the field is left blank and the SignupEmail is populated with the email address of the org user who is creating this object."
       },
       "AuthCode": {
@@ -12,7 +12,7 @@
         "description": "A one-time authorization code that can be exchanged for an OAuth access token and refresh token using standard Salesforce APIs. It’s used with ConnectedAppCallbackUrl and ConnectedAppConsumerKey, when the specified connected app hasn't been configured with an X.509 certificate. This field is read only."
       },
       "ConnectedAppCallbackUrl": {
-        "type": "textarea",
+        "type": "string",
         "description": "Required. When used with ConnectedAppConsumerKey, it specifies the callback URL used for OAuth. If using Salesforce CLI, the default is http://localhost:1717/OauthRedirect."
       },
       "ConnectedAppConsumerKey": {
@@ -28,31 +28,34 @@
         "description": "The user who requested that the scratch org be deleted. This field is read only."
       },
       "DeletedDate": {
-        "type": "date",
-        "description": "The date when the DeletedBy user requested that the scratch org be deleted. This field is read only."
+        "type": "string",
+        "description": "The date when the DeletedBy user requested that the scratch org be deleted. This field is read only.",
+        "format": "date"
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "A free-form text field for you to enter a description of this scratch org."
       },
       "DurationDays": {
-        "type": "int",
+        "type": "number",
         "description": "Number of days after which the scratch org expires. Valid values are 1–30. The default is 7."
       },
       "Edition": {
-        "type": "picklist",
-        "description": "Required if you don’t provide Snapshot or SourceOrg. The org edition of this scratch org. Valid values are Group, Developer, Enterprise, and Professional."
+        "type": "string",
+        "description": "Required if you don’t provide Snapshot or SourceOrg. The org edition of this scratch org. Valid values are Group, Developer, Enterprise, and Professional.",
+        "enum": []
       },
       "ErrorCode": {
         "type": "string",
         "description": "The error code if the scratch org creation isn’t successful. This field is read only."
       },
       "ExpirationDate": {
-        "type": "date",
-        "description": "Date when the scratch org expires. This field is read only."
+        "type": "string",
+        "description": "Date when the scratch org expires. This field is read only.",
+        "format": "date"
       },
       "Features": {
-        "type": "textarea",
+        "type": "string",
         "description": "A semi-colon delimited list of the features enabled in this scratch org, such as MultiCurrency. See the Salesforce DX Developer Guide for the full list of valid features."
       },
       "HasSampleData": {
@@ -60,23 +63,27 @@
         "description": "Specifies whether the scratch org contains sample data. If set to true, the sample data is similar to the data in a Salesforce free trial org."
       },
       "Language": {
-        "type": "picklist",
-        "description": "The language of the scratch org being created. Specify the language using a language code listed under \"Supported Languages\" in Salesforce Help. For example, use zh_CN for simplified Chinese. The value you select overrides the language set by locale."
+        "type": "string",
+        "description": "The language of the scratch org being created. Specify the language using a language code listed under \"Supported Languages\" in Salesforce Help. For example, use zh_CN for simplified Chinese. The value you select overrides the language set by locale.",
+        "enum": []
       },
       "LastLoginDate": {
-        "type": "date",
-        "description": "The date of the last user login to the scratch org. This field is read only."
+        "type": "string",
+        "description": "The date of the last user login to the scratch org. This field is read only.",
+        "format": "date"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record. This field is read only."
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record. This field is read only.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly. This field is read only."
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly. This field is read only.",
+        "format": "date-time"
       },
       "LoginUrl": {
-        "type": "textarea",
+        "type": "string",
         "description": "A URL that logs you in to the scratch org. This field is read only."
       },
       "Name": {
@@ -92,12 +99,14 @@
         "description": "Required. The name of the scratch org. This name appears as the Organization Name in the Company Information Setup page."
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The ID of the user who created this scratch org."
+        "type": "string",
+        "description": "The ID of the user who created this scratch org.",
+        "format": "reference"
       },
       "Release": {
-        "type": "picklist",
-        "description": "The release of the scratch org. During Salesforce's major release transitions, this field allows you to select the Salesforce release version, based on the version of your Dev Hub. This field is available in API version 46.0 and later. Valid values are: Current Preview Previous"
+        "type": "string",
+        "description": "The release of the scratch org. During Salesforce's major release transitions, this field allows you to select the Salesforce release version, based on the version of your Dev Hub. This field is available in API version 46.0 and later. Valid values are: Current Preview Previous",
+        "enum": []
       },
       "ScratchOrg": {
         "type": "string",
@@ -108,7 +117,7 @@
         "description": "The country code of the scratch org. This field is populated with the value of the Country field. If you didn’t provide a value for Country, it’s the country code of the Dev Hub. This field is read only."
       },
       "SignupEmail": {
-        "type": "email",
+        "type": "string",
         "description": "The email address of the scratch org’s Administration user. This field is populated with the value of the AdminEmail field. If you didn't provide a value for AdminEmail, it's the email address of your user in the Dev Hub. This field is read only."
       },
       "SignupInstance": {
@@ -116,11 +125,12 @@
         "description": "The Salesforce instance on which this scratch org resides. This field is read only."
       },
       "SignupLanguage": {
-        "type": "picklist",
-        "description": "The language of the scratch org. This field is populated with the value of the Language field. If you didn’t provide a value for Language, it’s the language of the Dev Hub. This field is read only."
+        "type": "string",
+        "description": "The language of the scratch org. This field is populated with the value of the Language field. If you didn’t provide a value for Language, it’s the language of the Dev Hub. This field is read only.",
+        "enum": []
       },
       "SignupTrialDays": {
-        "type": "int",
+        "type": "number",
         "description": "The number of days between the scratch org's creation and expiration. This field is read only."
       },
       "SignupUsername": {
@@ -136,8 +146,9 @@
         "description": "The ID of the org whose shape (features, settings, limits, and licenses) information is used for creating scratch orgs. If you specify SourceOrg, you can’t specify Edition or Snapshot."
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the scratch org, such as active, expired, or deleted. This field is read only."
+        "type": "string",
+        "description": "The status of the scratch org, such as active, expired, or deleted. This field is read only.",
+        "enum": []
       },
       "Username": {
         "type": "string",
@@ -145,9 +156,10 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_scratchorginfo.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_scratchorginfo.htm",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "41.0"
   }
 }

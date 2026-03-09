@@ -4,9 +4,9 @@
     "description": "Represents the details of a Batch Management job.",
     "properties": {
       "BatchJobDefinitionId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the associated batch job definition.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BatchJobDefinition",
         "maxLength": 18,
         "nullable": true,
@@ -20,12 +20,12 @@
         "readOnly": true
       },
       "BatchSize": {
-        "type": "int",
+        "type": "number",
         "description": "Required. The number of records that each Batch Management job part can process. The maximum number of transaction journal records that a batch management job can process for flow or loyalty program process is 2000.",
         "nullable": false
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the Batch Management job.",
         "maxLength": 255,
         "nullable": true,
@@ -38,15 +38,16 @@
         "nullable": false
       },
       "FlowDefinitionId": {
-        "type": "reference",
-        "description": "The input variable of the associated flow that uniquely identifies each record that the Batch Management job processes."
+        "type": "string",
+        "description": "The input variable of the associated flow that uniquely identifies each record that the Batch Management job processes.",
+        "format": "reference"
       },
       "FullName": {
         "type": "string",
         "description": "The name of the Batch Management job."
       },
       "Language": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language in which the batch job is created.",
         "format": "enum",
         "enum": [
@@ -57,7 +58,7 @@
         "nullable": true
       },
       "ManageableState": {
-        "type": "ManageableState enumerated list",
+        "type": "string",
         "description": "Indicates the manageable state of the specified component that is contained in a package: beta deleted deprecated deprecatedEditable installed installedEditable released unmanaged"
       },
       "MasterLabel": {
@@ -67,7 +68,7 @@
         "nullable": false
       },
       "Metadata": {
-        "type": "complexvalue",
+        "type": "string",
         "description": "The Batch Management job's metadata."
       },
       "NamespacePrefix": {
@@ -91,17 +92,17 @@
         "nullable": true
       },
       "RetryCount": {
-        "type": "int",
+        "type": "number",
         "description": "Required. The number of times this Batch Management job must be rerun in case it fails.",
         "nullable": false
       },
       "RetryInterval": {
-        "type": "int",
+        "type": "number",
         "description": "Required. The number of milliseconds after which the Batch Management job must be rerun in case it fails. A retry interval can be 1,000–10,000 milliseconds.",
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the Batch Management job.",
         "format": "enum",
         "enum": [
@@ -113,8 +114,9 @@
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
-        "description": "The type of process for which the Batch Management job processes records."
+        "type": "string",
+        "description": "The type of process for which the Batch Management job processes records.",
+        "enum": []
       },
       "TypeInstance": {
         "type": "string",
@@ -172,7 +174,7 @@
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/tooling_api_objects_batchprocessjobdefinition.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.loyalty.meta/loyalty/tooling_api_objects_batchprocessjobdefinition.htm",
     "keyPrefix": "0mh",
     "createable": true,
     "updateable": true,
@@ -186,6 +188,10 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
+    ],
+    "x-version": "51.0",
+    "clouds": [
+      "Loyalty"
     ]
   }
 }

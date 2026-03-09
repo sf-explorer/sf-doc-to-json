@@ -4,7 +4,7 @@
     "description": "Represents an order product that your organization sells.",
     "properties": {
       "AdjustedLineAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Line amount following line adjustments, excluding tax.",
         "format": "currency",
         "nullable": true,
@@ -12,22 +12,24 @@
         "multipleOf": 0.01
       },
       "AdjustedLineAmtWithTax": {
-        "type": "currency",
-        "description": "Line amount following line adjustments, including tax."
+        "type": "number",
+        "description": "Line amount following line adjustments, including tax.",
+        "format": "currency"
       },
       "AvailableQuantity": {
         "type": "double",
-        "description": "Amount of an order product that is available to be reduced. Value must be greater than or equal to 0. An order product is reducible only if AvailableQuantity is greater than 0. Value is always 0 if the order product’s parent order is a reduction order.",
+        "description": "The amount of an order product that is available to be reduced. Value must be greater than or equal to 0. An order product is reducible only if AvailableQuantity is greater than 0. Value is always 0 if the order product’s parent order is a reduction order.",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "BillingFrequency2": {
-        "type": "picklist",
-        "description": "The time period that indicates how often the order item is billed. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The time period that indicates how often the order item is billed. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the OrderItem.",
         "format": "enum",
         "enum": [
@@ -42,8 +44,9 @@
         "description": "Unique reference ID for the delivery estimation."
       },
       "DeliveryEstimationTimeZone": {
-        "type": "picklist",
-        "description": "Timezone in which the estimated delivery times are based."
+        "type": "string",
+        "description": "Time zone in which the estimated delivery times are based.",
+        "enum": []
       },
       "Description": {
         "type": "string",
@@ -52,77 +55,84 @@
         "nullable": true
       },
       "EarliestEstimatedDeliveryDate": {
-        "type": "date",
-        "description": "Earliest date when the item is estimated to be delivered."
+        "type": "string",
+        "description": "Earliest estimated date for the item to be delivered.",
+        "format": "date"
       },
       "EarliestEstimatedDeliveryTime": {
-        "type": "timeOnly",
-        "description": "Earliest time of the day when the item is estimated to be delivered."
+        "type": "string",
+        "description": "Earliest estimated time of the day for the item to be delivered."
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "Optional. Last day the order product is available.",
         "format": "date",
         "nullable": true
       },
       "EndDateTime": {
-        "type": "datetime",
-        "description": "The end date and time of the order item, which is derived from the End Date and End Time fields in the time zone specified in the Start and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC)."
+        "type": "string",
+        "description": "The end date and time of the order item, derived from the End Date and End Time fields in the time zone specified in the Start and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC).",
+        "format": "date-time"
       },
       "EndTime": {
-        "type": "timeOnly",
+        "type": "string",
         "description": "The end time of the order item."
       },
       "GrossUnitPrice": {
-        "type": "currency",
-        "description": "Unit price including tax."
+        "type": "number",
+        "description": "Unit price including tax.",
+        "format": "currency"
       },
       "LastEstimatedDeliveryDate": {
-        "type": "date",
-        "description": "Latest date when the item is estimated to be delivered."
+        "type": "string",
+        "description": "Latest estimated date for the item to be delivered.",
+        "format": "date"
       },
       "LastEstimatedDeliveryTime": {
-        "type": "timeOnly",
-        "description": "Latest time of the day when the item is estimated to be delivered."
+        "type": "string",
+        "description": "Latest estimated time of the day for the item to be delivered."
       },
       "LineNumber": {
-        "type": "int",
-        "description": "Used to organize lines on the order.",
+        "type": "number",
+        "description": "The number used to organize lines on the order.",
         "nullable": true,
         "readOnly": true
       },
       "ListPrice": {
-        "type": "currency",
-        "description": "List price for the order product. Value is inherited from the associated PriceBookEntry upon order product creation.",
+        "type": "number",
+        "description": "List price for the order product. Inherited value from the associated PriceBookEntry upon order product creation.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "ListPriceTotal": {
-        "type": "currency",
-        "description": "The ListPrice times the Quantity. This field is a calculated field.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The ListPrice times the Quantity. This field is a calculated field.This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "NetUnitPrice": {
-        "type": "currency",
-        "description": "The unit price after all price adjustments are applied. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The unit price after all price adjustments are applied. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "OrderActionId": {
-        "type": "reference",
-        "description": "The ID of the related order action. The order action indicates the type of order; for example, a new sale or a cancellation.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The ID of the related order action. The order action indicates the type of order; for example, a new sale or a cancellation.This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "reference"
       },
       "OrderDeliveryGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The delivery group for the order product.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderDeliveryGroup",
         "maxLength": 18,
         "nullable": true
       },
       "OrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the order that this order product is a child of.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": false,
@@ -136,67 +146,74 @@
         "readOnly": true
       },
       "OriginalOrderItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required if isReductionOrder on the parent order is true.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "PeriodBoundary": {
-        "type": "picklist",
-        "description": "The period boundary helps determine the start and end date of the billing periods.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The period boundary helps determine the start and end date of the billing periods.This field is available in API version 55.0 and later. This field is available with Subscription Management and Revenue Cloud.",
+        "enum": []
       },
       "PeriodBoundaryDay": {
-        "type": "int",
-        "description": "Required when PeriodBoundary is DayOfPeriod. Indicates day of the week or month that marks the period boundary. Must be an integer from 1 through 31.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "Required when PeriodBoundary is DayOfPeriod. Indicates the day of the week or month that marks the period boundary. Must be an integer from 1 through 31.This field is available in API version 55.0 and later. This field is available with Subscription Management and Revenue Cloud. Keep these considerations in mind for amendment, renewal, and cancellations of assets in Revenue Cloud. The value of the PeriodBoundary field is copied from the AssetActionSource (initial sale), by default. When PeriodBoundary field value is converted from Anniversary to DayOfPeriod for termed selling models, the value of the PeriodBoundaryDay field is automatically populated with the day value from AssetActionSource.StartDate. Start date adjustment operation on an asset preserves the original value without conversion."
       },
       "PeriodBoundaryStartMonth": {
-        "type": "picklist",
-        "description": "Field is populated based on input in the StartDate, PeriodBoundary, and PeriodBoundaryDay when BillingFrequency2 is Annual or by manual user entry. Possible values are: 1-January 2-February 3-March 4-April 5-May 6-June 7-July 8-August 9-September 10-October 11-November 12-December"
+        "type": "string",
+        "description": "The field is populated based on input in the StartDate, PeriodBoundary, and PeriodBoundaryDay when BillingFrequency2 is Annual or by manual user entry. Possible values are: 1-January 2-February 3-March 4-April 5-May 6-June 7-July 8-August 9-September 10-October 11-November 12-December Keep these considerations in mind for amendment, renewal, and cancellations of assets in Revenue Cloud. The value of the PeriodBoundary field is copied from the AssetActionSource (initial sale), by default. For termed selling models where PeriodBoundary field value is Anniversary and PricingTermUnit field value is ANNUAL, SEMI_ANNUAL, or QUARTERLY, the value of the PeriodBoundaryStartMonth field is automatically recalculated by using AssetActionSource.StartDate.month. Start date adjustment operation on an asset preserves the original value without conversion.",
+        "enum": []
       },
       "PricebookEntryId": {
-        "type": "reference",
-        "description": "Required. ID of the associated PricebookEntry. This field must be specified when creating OrderItem records. It can’t be changed in an update.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Required. ID of the associated PricebookEntry. Specify this field when creating OrderItem records. It can’t be changed in an update.",
+        "format": "reference",
         "x-object": "PricebookEntry",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "PriceRevisionPolicyId": {
-        "type": "reference",
-        "description": "The price uplift policy associated with this order item."
+        "type": "string",
+        "description": "The price uplift policy associated with this order item.",
+        "format": "reference"
       },
       "PricingTermCount": {
         "type": "double",
         "description": "A calculated field indicating the number of pricing terms in the subscription. This field is available in API version 55.0 and later. This field is available with Subscription Management."
       },
       "PricingTransactionType": {
-        "type": "picklist",
-        "description": "Indicates the type of pricing transaction. For example, a new sale, a cancellation, an amendment, or a renewal."
+        "type": "string",
+        "description": "Indicates the type of pricing transaction. For example, a new sale, a cancellation, an amendment, or a renewal.",
+        "enum": []
       },
       "ProFormaBillingPeriodAmount": {
-        "type": "currency",
-        "description": "The initial amount for the billing period. The final amount for the billing period can include subsequent amendments, discounts, or charges. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The initial amount for the billing period. The final amount for the billing period can include subsequent amendments, discounts, or charges. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "Product2Id": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the Product2 associated with this OrderItem.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ProductSellingModelId": {
-        "type": "reference",
-        "description": "The ID of the related product selling model. The product selling model defines one method by which a product can be sold; for example, as a one-time sale, an evergreen subscription, or a termed subscription.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The ID of the related product selling model. The product selling model defines one method by which a product is sold; for example, as a one-time sale, an evergreen subscription, or a termed subscription.This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "reference"
       },
       "ProrationPolicyId": {
-        "type": "reference",
-        "description": "The ID of the related proration policy. The proration policy defines how the price is calculated for each subscription period; for example, whether partial periods are allowed, and how remainder amounts are handled.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The ID of the related proration policy. The proration policy defines how the price is calculated for each subscription period. For example, whether partial periods are allowed, and how the remainder amounts are handled.This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "reference"
       },
       "Quantity": {
         "type": "double",
@@ -205,65 +222,72 @@
         "multipleOf": 0.01
       },
       "QuoteLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the associated quote line item.If this field is specified, the quote line item’s QuoteId must match the QuoteId for the order product’s parent order.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "QuoteLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "ReferencePrice": {
-        "type": "currency",
-        "description": "The original or reference price of the order product."
+        "type": "number",
+        "description": "The original or reference price of the order product.",
+        "format": "currency"
       },
       "RelatedOrderItemID": {
-        "type": "reference",
-        "description": "Required for change orders, shows the original order product."
+        "type": "string",
+        "description": "Required for change orders, shows the original order product.",
+        "format": "reference"
       },
       "RoundedLineAmount": {
-        "type": "currency",
-        "description": "The rounded line amount, before tax and adjustments. Currency with decimal values of 0.5 and higher are rounded to the next-highest whole unit of currency.",
+        "type": "number",
+        "description": "The rounded line amount, before tax and adjustments. Currency with decimal values of 0.5 and higher round to the next-highest whole unit of currency.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "RoundedLineAmtWithTax": {
-        "type": "currency",
-        "description": "The rounded line amount, including tax. Currency with decimal values of 0.5 and higher are rounded to the next-highest whole unit of currency."
+        "type": "number",
+        "description": "The rounded line amount, including tax. Currency with decimal values of 0.5 and higher round to the next-highest whole unit of currency.",
+        "format": "currency"
       },
       "ServiceDate": {
-        "type": "date",
+        "type": "string",
         "description": "Start date for the order product.",
         "format": "date",
         "nullable": true
       },
       "ServiceDateTime": {
-        "type": "datetime",
-        "description": "The service date and time of the order item, which is derived from the Service Date and Service Time fields in the time zone specified in the Service and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC)."
+        "type": "string",
+        "description": "The service date and time of the order item, which is derived from the Service Date and Service Time fields in the time zone specified in the Service and End Time Zone field. If the time zone isn't specified, the default is Coordinated Universal Time (UTC).",
+        "format": "date-time"
       },
       "ServiceEndTimeZone": {
-        "type": "timeOnly",
+        "type": "string",
         "description": "Specifies the time zone for the order item's service and end dates, times, and datetimes."
       },
       "ServiceTime": {
-        "type": "timeOnly",
+        "type": "string",
         "description": "The service time of the order item."
       },
       "StartingPriceTotal": {
-        "type": "currency",
-        "description": "The starting unit price times the quantity.This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "number",
+        "description": "The starting unit price times the quantity.This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "currency"
       },
       "StartingUnitPriceSource": {
-        "type": "picklist",
-        "description": "Indicates whether the starting unit price was entered manually or calculated. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "Indicates whether the starting unit price was entered manually or calculated. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "enum": []
       },
       "TaxTreatmentId": {
-        "type": "reference",
-        "description": "The ID of the related tax treatment. This field is available in API version 55.0 and later. This field is available with Subscription Management."
+        "type": "string",
+        "description": "The ID of the related tax treatment. This field is available in API version 55.0 and later. This field is available with Subscription Management.",
+        "format": "reference"
       },
       "TotalAdjustedLineTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Sum of line tax amount and line adjustment tax amounts.",
         "format": "currency",
         "nullable": false,
@@ -271,47 +295,49 @@
         "multipleOf": 0.01
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
-        "description": "Roll-up of all the order product’s price adjustments.",
+        "type": "number",
+        "description": "Roll up of the order product’s price adjustments.",
         "format": "currency",
         "nullable": false,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalAdjustmentAmtWithTax": {
-        "type": "currency",
-        "description": "Roll-up of all the order product’s price adjustments, including tax."
+        "type": "number",
+        "description": "Roll up of the order product’s price adjustments, including tax.",
+        "format": "currency"
       },
       "TotalAdjustmentDistAmount": {
-        "type": "currency",
-        "description": "Roll-up of all adjustments on the order. Used only if the OrderAdjustmentGroup has a Type value of Header.",
+        "type": "number",
+        "description": "Roll up of all adjustments on the order. Used only if the OrderAdjustmentGroup has a Type value of Header.",
         "format": "currency",
         "nullable": false,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalAdjustmentDistTaxAmount": {
-        "type": "currency",
-        "description": "Roll-up of all adjustment tax amounts on the order. Used only if the OrderAdjustmentGroup has a Type value of Header."
+        "type": "number",
+        "description": "Roll up of all adjustment tax amounts on the order. Used only if the OrderAdjustmentGroup has a Type value of Header.",
+        "format": "currency"
       },
       "TotalAdjustmentDistAmtWithTax": {
-        "type": "currency",
-        "description": "Roll-up of all adjustment tax amounts on the order, including tax. Used only if the OrderAdjustmentGroup has a Type value of Header.",
+        "type": "number",
+        "description": "Roll up of all adjustment tax amounts on the order, including tax. Used only if the OrderAdjustmentGroup has a Type value of Header.",
         "format": "currency",
         "nullable": true,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalAdjustmentTaxAmount": {
-        "type": "currency",
-        "description": "Sum of all the order product’s tax adjustments.",
+        "type": "number",
+        "description": "Sum of the order product’s tax adjustments.",
         "format": "currency",
         "nullable": false,
         "readOnly": true,
         "multipleOf": 0.01
       },
       "TotalAmtWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "Equals TotalPrice + TotalTaxAmount for the order item.",
         "format": "currency",
         "nullable": true,
@@ -319,7 +345,7 @@
         "multipleOf": 0.01
       },
       "TotalLineAdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of line-level adjustments for the order product.",
         "format": "currency",
         "nullable": false,
@@ -327,26 +353,29 @@
         "multipleOf": 0.01
       },
       "TotalLineAdjustmentAmtWithTax": {
-        "type": "currency",
-        "description": "The sum of line-level adjustments for the order product, including tax."
+        "type": "number",
+        "description": "The sum of line-level adjustments for the order product, including tax.",
+        "format": "currency"
       },
       "TotalLineAdjustmentTaxAmount": {
-        "type": "currency",
-        "description": "Total tax amount for adjustments made to the order product."
+        "type": "number",
+        "description": "Total tax amount for adjustments made to the order product.",
+        "format": "currency"
       },
       "TotalLineAmount": {
-        "type": "currency",
-        "description": "The net total price of the order product, before price adjustments, inclusive of quantity.",
+        "type": "number",
+        "description": "The line amount of the order product, before price adjustments, inclusive of quantity, and pricing term count for subscription.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TotalLineTaxAmount": {
-        "type": "currency",
-        "description": "Total tax amount for this order product, excluding tax on adjustments."
+        "type": "number",
+        "description": "Total tax amount for this order product, excluding tax on adjustments.",
+        "format": "currency"
       },
       "TotalPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Total price for this order product. The calculations for this field’s value are different if Commerce Orders are enabled.",
         "format": "currency",
         "nullable": true,
@@ -354,7 +383,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Sum of the order product’s tax and any adjustments.",
         "format": "currency",
         "nullable": false,
@@ -362,7 +391,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Describes what the order item represents. Each value is associated with one type code, shown here in parentheses.",
         "format": "enum",
         "enum": [
@@ -374,7 +403,7 @@
         "nullable": true
       },
       "TypeCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The category associated with the type. A type code can be associated with one or more types.",
         "format": "enum",
         "enum": [
@@ -386,7 +415,7 @@
         "readOnly": true
       },
       "UnitPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Unit price for the order product.",
         "format": "currency",
         "nullable": true,
@@ -458,10 +487,35 @@
         "type": "boolean",
         "nullable": false,
         "readOnly": true
+      },
+      "AggregatedQuantity": {
+        "type": "double",
+        "description": "The quantity of a order item's grouped transaction lines or the products that have been sold and converted to assets."
+      },
+      "BatchIdentifier": {
+        "type": "string",
+        "description": "Identifies a product bundle in a transaction processing batch to ensure that order items from the same bundles are processed together."
+      },
+      "DoesAutomaticallyRenew": {
+        "type": "boolean",
+        "description": "Indicates that the order item is set to automatically renew (true) or not (false)."
+      },
+      "IsOrderItemLocked": {
+        "type": "boolean",
+        "description": "Indicates whether the order item and its children are locked (true) or not (false). Locked order items and their children cannot be modified, added, or deleted."
+      },
+      "RelatedChangeIdentifier": {
+        "type": "string",
+        "description": "The identifier used to group all related order items in the same change order."
+      },
+      "SupplementalChangeType": {
+        "type": "string",
+        "description": "Specifies the order item change type in the supplemental order.",
+        "enum": []
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderitem.htm",
     "keyPrefix": "802",
     "iconUrl": "standard/orders_120.png",
     "iconColor": "0B5CAB",
@@ -697,6 +751,7 @@
     "accessRules": "The user must have Edit permission on Order records to create or update order products on an order. The user must have Edit permission on Order records to delete an order product.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "64.0"
   }
 }

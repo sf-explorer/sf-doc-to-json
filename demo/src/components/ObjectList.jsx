@@ -32,6 +32,39 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         size: 180,
       },
       {
+        id: 'x-version',
+        accessorFn: (row) => row['x-version'] || '30.0',
+        header: 'API Ver',
+        size: 70,
+        enableHiding: true,
+        sortDescFirst: true, // Newest API versions first
+        sortingFn: (rowA, rowB, columnId) => {
+          const a = parseFloat(rowA.original['x-version'] || '30') || 30;
+          const b = parseFloat(rowB.original['x-version'] || '30') || 30;
+          return a - b; // ascending order; table inverts for desc
+        },
+        Cell: ({ cell }) => {
+          const version = cell.getValue() || '30.0';
+          return (
+            <Box
+              sx={{
+                fontFamily: 'monospace',
+                fontSize: '0.75rem',
+                fontWeight: 500,
+                color: '#706e6b',
+                backgroundColor: '#f3f2f2',
+                padding: '2px 6px',
+                borderRadius: '3px',
+                display: 'inline-block'
+              }}
+              title={`Available from API version ${version}`}
+            >
+              {version}
+            </Box>
+          );
+        },
+      },
+      {
         accessorKey: 'keyPrefix',
         header: 'Prefix',
         size: 80,
@@ -220,6 +253,7 @@ const ObjectList = ({ objects, loading, onObjectSelect, selectedObject, cloudMet
         isLoading: loading,
         rowSelection: selectedObject ? { [objects.indexOf(selectedObject)]: true } : {},
         columnVisibility: isMobile ? {
+          'x-version': false,
           keyPrefix: false,
           description: false,
           fieldCount: false,

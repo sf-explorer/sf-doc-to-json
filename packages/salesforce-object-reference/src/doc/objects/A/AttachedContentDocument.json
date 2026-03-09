@@ -4,22 +4,22 @@
     "description": "This read-only object contains all ContentDocument objects associated with an object.",
     "properties": {
       "ContentDocumentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the attached ContentDocument.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ContentDocument",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ContentSize": {
-        "type": "int",
-        "description": "Size of the document in bytes.",
+        "type": "number",
+        "description": "The size of the document in bytes for notes smaller than 2 GB. In API version 66.0 and later, we recommend that you use the ContentSizeLong field even for notes smaller than 2 GB.",
         "nullable": true,
         "readOnly": true
       },
       "ContentUrl": {
-        "type": "url",
+        "type": "string",
         "description": "URL for links and Google Docs. This field is set only for links and Google Docs, and is one of the fields that determine the FileType. This field is available in API version 31.0 and later.",
         "format": "uri",
         "maxLength": 255,
@@ -34,7 +34,7 @@
         "readOnly": true
       },
       "ExternalDataSourceType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of external data source in which the document is stored. This field is set only for external documents that are connected to Salesforce.This field is available in APIAPI version 35.0 and later.",
         "format": "enum",
         "enum": [
@@ -67,9 +67,9 @@
         "readOnly": true
       },
       "LinkedEntityId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the record the ContentDocument is attached to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account",
@@ -207,7 +207,7 @@
         "readOnly": true
       },
       "SharingOption": {
-        "type": "picklist",
+        "type": "string",
         "description": "Controls whether or not sharing is frozen for a file. Only administrators and file owners with Collaborator access to the file can modify this field. Default is Allowed, which means that new shares are allowed. When set to Restricted, new shares are prevented without affecting existing shares.This field is available in API versions 35.0 and later.",
         "format": "enum",
         "enum": [
@@ -268,10 +268,14 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "ContentSizeLong": {
+        "type": "number",
+        "description": "The size of the note in bytes up to 10 GB. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_attachedcontentdocument.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_attachedcontentdocument.htm",
     "createable": false,
     "updateable": false,
     "deletable": false,
@@ -279,6 +283,7 @@
     "searchable": false,
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "66.0"
   }
 }

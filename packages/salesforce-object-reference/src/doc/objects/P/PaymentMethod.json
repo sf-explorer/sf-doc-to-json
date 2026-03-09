@@ -4,16 +4,16 @@
     "description": "Represents the method that a buyer uses to compensate the seller of a good or service. Common payment methods include cash, checks, credit or debit cards, money orders, bank transfers, and online payment services.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The account entity linked to this payment method.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Users can add comments to provide additional details about a record. Maximum of 1000 characters.",
         "maxLength": 32000,
         "nullable": true,
@@ -52,7 +52,7 @@
         "readOnly": true
       },
       "PaymentMethodAddress": {
-        "type": "address",
+        "type": "string",
         "description": "Full address related to the alternative payment method. For more information about address fields, see Address Compound Fields.",
         "nullable": true,
         "readOnly": true
@@ -76,7 +76,7 @@
         "description": "Optional information about the payment method type. This field is available in API version 57.0 and later."
       },
       "PaymentMethodGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "Accuracy level of the geocode for the payment method address. An accuracy level contains information about the location of a latitude and longitude. For more information about geolocation fields, see Geolocation Compound Field.",
         "format": "enum",
         "enum": [
@@ -125,7 +125,7 @@
         "readOnly": true
       },
       "PaymentMethodStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Payment method address details.",
         "maxLength": 255,
         "nullable": true,
@@ -136,15 +136,17 @@
         "description": "More information about the payment method. For example, if the PaymentMethodType is Visa, this field can be a digital wallet. This field is available in API version 57.0 and later."
       },
       "PaymentMethodType": {
-        "type": "picklist",
-        "description": "The payment method used for the transaction, such as Visa, Mastercard, EPS, SepaDebit, UnionPay, and Klarna. Method types can also be direct debit payments like ACH, Becs, and BACS. This field is available in API version 57.0 and later."
+        "type": "string",
+        "description": "The payment method used for the transaction, such as Visa, Mastercard, EPS, SepaDebit, UnionPay, and Klarna. Method types can also be direct debit payments like ACH, Becs, and BACS. This field is available in API version 57.0 and later.",
+        "enum": []
       },
       "SavedPaymentMethodId": {
-        "type": "reference",
-        "description": "The ID of the saved payment method record."
+        "type": "string",
+        "description": "The ID of the saved payment method record.",
+        "format": "reference"
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The state of the payment method.",
         "format": "enum",
         "enum": [
@@ -581,7 +583,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_paymentmethod.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_paymentmethod.htm",
     "keyPrefix": "0aa",
     "createable": false,
     "updateable": false,
@@ -617,6 +619,7 @@
     "accessRules": "Salesforce Payments, Salesforce Order Management, B2B Commerce, D2C Commerce, Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

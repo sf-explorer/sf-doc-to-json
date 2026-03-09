@@ -4,8 +4,9 @@
     "description": "Represents an Einstein prediction insight.",
     "properties": {
       "AiApplicationId": {
-        "type": "reference",
-        "description": "The unique ID of the AiApplication that generated this prediction."
+        "type": "string",
+        "description": "The unique ID of the AiApplication that generated this prediction.",
+        "format": "reference"
       },
       "Confidence": {
         "type": "double",
@@ -15,18 +16,18 @@
         "multipleOf": 0.01
       },
       "MlPredictionDefinitionId": {
-        "type": "reference",
+        "type": "string",
         "description": "This field is a relationship field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "MLPredictionDefinition",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ModelId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the model to use when generating the insight.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "DiscoveryDeployedModel",
         "maxLength": 18,
         "nullable": true,
@@ -54,14 +55,14 @@
         "readOnly": true
       },
       "RunStartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time the Einstein prediction process was started.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of this insight. Possible values are: Defunct—The insight has been consumed by the Einstein feature that owns the prediction. For example, Case Classification marks an insight as defunct if a predicted recommendation was presented to a user and the user either accepted or ignored the recommendation. This behavior ensures that the same recommendation isn’t presented multiple times to the user. New—The insight hasn’t been consumed by the Einstein feature.",
         "format": "enum",
         "enum": [
@@ -73,7 +74,7 @@
         "readOnly": true
       },
       "TargetField": {
-        "type": "picklist",
+        "type": "string",
         "description": "The field to which prediction results are written. Case Classification doesn’t use this field.",
         "format": "enum",
         "enum": [
@@ -26208,9 +26209,9 @@
         "readOnly": true
       },
       "TargetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique ID of the record Einstein is making predictions for.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "AD2C_propagerAffaireDistributeur__c",
           "Account",
@@ -26360,7 +26361,7 @@
         "readOnly": true
       },
       "TargetSobjectType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of the target object, such as Account or Case.",
         "format": "enum",
         "enum": [
@@ -27609,7 +27610,7 @@
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of insight. Possible values are: Action—An insight that indicates a suggested action, such as sending an email. Lookup—An insight that indicates a related value not directly related to the target object and field. MultiValue—An insight with multiple values, such as a multi-class classification. SimilarRecord—An insight that indicates similar or duplicate records. SingleValue—A single value insight, such as a regression number or a score.",
         "format": "enum",
         "enum": [
@@ -27624,7 +27625,7 @@
         "readOnly": true
       },
       "ValidUntil": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The day and time this insight is valid until. After this day and time, the insight might no longer be valid due to new prediction results from new or changed data. If this field is null, this insight never expires.",
         "format": "date-time",
         "nullable": true,
@@ -27690,7 +27691,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_airecordinsight.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_airecordinsight.htm",
     "keyPrefix": "9qb",
     "createable": false,
     "updateable": false,
@@ -27720,6 +27721,7 @@
     "accessRules": "Einstein features, such as Prediction Builder or Case Classification,",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "47.0"
   }
 }

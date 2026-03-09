@@ -4,9 +4,9 @@
     "description": "Represents the sales reps performing visits.",
     "properties": {
       "AssigneeId": {
-        "type": "reference",
-        "description": "Lookup to the person assigned as the visitor.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Lookup to the person assigned as the visitor. This fields references the User, ServiceResource, and Contact objects.",
+        "format": "reference",
         "x-objects": [
           "Contact",
           "User"
@@ -26,15 +26,15 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
+        "type": "string",
+        "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -46,9 +46,9 @@
         "nullable": false
       },
       "VisitId": {
-        "type": "reference",
-        "description": "Lookup to the Visit record this visitor is associated with. This field is a relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Lookup to the Visit record this visitor is associated with.",
+        "format": "reference",
         "x-object": "Visit",
         "maxLength": 18,
         "nullable": false
@@ -129,8 +129,8 @@
         "nullable": true
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_visitor.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_retail_visitor.htm",
     "keyPrefix": "0eW",
     "iconUrl": "standard/visits_120.png",
     "iconColor": "3BA755",
@@ -258,7 +258,9 @@
     "accessRules": "In Health Cloud, this object is available in API version 49.0 and later.",
     "clouds": [
       "Consumer Goods Cloud",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Public Sector Cloud"
+    ],
+    "x-version": "49.0"
   }
 }

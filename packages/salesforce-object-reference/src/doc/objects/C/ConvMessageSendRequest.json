@@ -4,31 +4,34 @@
     "description": "Represents a request to send a template-based messaging component to a series of messaging users in an enhanced messaging channel or Messaging for In-App.",
     "properties": {
       "AllowExistingSessionStatus": {
-        "type": "picklist",
-        "description": "Indicates whether the message can be sent only at certain times."
+        "type": "string",
+        "description": "Indicates whether the message can be sent only at certain times.",
+        "enum": []
       },
       "CommSubscriptionId": {
-        "type": "reference",
-        "description": "The related communication subscription, if applicable. This field is a relationship field that refers to CommSubscription."
+        "type": "string",
+        "description": "The ID of the related communication subscription, if applicable. This field is a relationship field that refers to CommSubscription.",
+        "format": "reference"
       },
       "CompletedDate": {
-        "type": "dateTime",
-        "description": "Date and time when the request is completed and all messages associated with the request are processed, meaning they were sent or failed to be sent."
+        "type": "string",
+        "description": "Date and time when the request completes and all messages associated with the request are sent or failed to be sent.",
+        "format": "date-time"
       },
       "FailedMessageCount": {
-        "type": "int",
-        "description": "The number of messages that failed to be delivered to a messaging user. For example, if a flow sends the message to a series of 50 messaging users and 4 don’t receive the message, this value is 4."
+        "type": "number",
+        "description": "The number of messages that failed to be delivered to a messaging user. For example, if a flow sends the message to 50 messaging users and 4 don’t receive the message, this value is 4."
       },
       "FailedMessageErrorReasons": {
-        "type": "textarea",
+        "type": "string",
         "description": "The error reason for each of the failed messages. For example, if 4 messages fail to send, this field shows the error reason for each failed message."
       },
       "FailedMessageIdentifiers": {
-        "type": "textarea",
+        "type": "string",
         "description": "The IDs of the messages that failed to send. For example, if 4 messages fail to send, this field shows 4 message IDs."
       },
       "InProgressMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages in the process of being sent."
       },
       "InProgressMessageIdentifiers": {
@@ -44,50 +47,87 @@
         "description": "An auto-generated ID for the request that uses the format MSJ-{00000000}."
       },
       "PendingMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages that haven’t yet been sent."
       },
       "PendingMessageIdentifiers": {
-        "type": "textarea",
+        "type": "string",
         "description": "A list of IDs of the pending messages."
       },
       "RequestConsentType": {
-        "type": "picklist",
-        "description": "Indicates whether the flow applies the consent settings of the messaging end user or the communication subscription."
+        "type": "string",
+        "description": "Indicates whether the flow applies the consent settings of the messaging end user or the communication subscription.",
+        "enum": []
       },
       "RequestStatus": {
-        "type": "picklist",
-        "description": "The status of the request."
+        "type": "string",
+        "description": "The status of the request.",
+        "enum": []
       },
       "RequestType": {
-        "type": "picklist",
-        "description": "The type of request."
+        "type": "string",
+        "description": "The type of request.",
+        "enum": []
       },
       "SessionLongevityPreference": {
-        "type": "picklist",
-        "description": "Indicates whether to end the session after the message is sent."
+        "type": "string",
+        "description": "Indicates whether to end the session after the message is sent.",
+        "enum": []
       },
       "ShouldEnforceChannelConsent": {
         "type": "boolean",
         "description": "Indicates whether the existing Messaging channel consent preferences are applied when determining who receives the message. Setting this value to true is the most common approach. The default value, false, allows you to add custom consent logic—for example, to customize a flow to send the message to both implicitly opted-in users and explicitly opted-in users."
       },
       "SuccessMessageCount": {
-        "type": "int",
-        "description": "The number of messages that were successfully sent to messaging users. Delivery may occur much later than sending, depending on factors such as the connectivity status of the recipient. Delivery is reflected in the messaging session transcript."
+        "type": "number",
+        "description": "The number of messages that were successfully sent to messaging users. Delivery can occur much later than sending, depending on factors such as the connectivity status of the recipient. Delivery is reflected in the messaging session transcript."
       },
       "SuccessMessageIdentifiers": {
-        "type": "textarea",
+        "type": "string",
         "description": "A list of IDs of the messages that were sent."
       },
       "TotalMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages that the related flow attempted to send."
+      },
+      "FailedMeuPlatformKeys": {
+        "type": "string",
+        "description": "A list of platform keys for messaging end users with messages that failed to send. Available in API version 65.0 and later."
+      },
+      "InProgressMessagingEndUserIds": {
+        "type": "string",
+        "description": "A list of IDs of messaging end users with messages that are being sent. Available in API version 65.0 and later."
+      },
+      "InProgressMessagingSessionIds": {
+        "type": "string",
+        "description": "A list of IDs of messaging sessions with messages that are being sent. Available in API version 65.0 and later."
+      },
+      "InProgressMeuPlatformKeys": {
+        "type": "string",
+        "description": "A list of platform keys for messaging end users with messages that are being sent. Available in API version 65.0 and later."
+      },
+      "MessageDefinitionParameters": {
+        "type": "string",
+        "description": "A list of parameters used to dynamically construct the message that is being sent. Available in API version 65.0 and later."
+      },
+      "PendingMessageEndUserIds": {
+        "type": "string",
+        "description": "A list of IDs of the messaging end users with pending messages. Available in API version 65.0 and later."
+      },
+      "PendingMeuPlatformKeys": {
+        "type": "string",
+        "description": "A list of platform keys of the messaging end users with pending messages. Available in API version 65.0 and later."
+      },
+      "SuccessMeuPlatformKeys": {
+        "type": "string",
+        "description": "A list of platform keys for messaging end users with messages that were sent. Available in API version 65.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_convmessagesendrequest.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_convmessagesendrequest.htm",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "60.0"
   }
 }

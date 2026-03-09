@@ -4,24 +4,27 @@
     "description": "Object representing a B2C Commerce order ingested via High Scale Orders before an OrderSummary is created for it. Optimized for online transaction processing (OLTP).",
     "properties": {
       "AccountId": {
-        "type": "reference",
-        "description": "ID of the account or person account associated with the PendingOrderSummary. It represents the shopper in the storefront."
+        "type": "string",
+        "description": "ID of the account or person account associated with the PendingOrderSummary. It represents the shopper in the storefront.",
+        "format": "reference"
       },
       "BillToContactId": {
-        "type": "reference",
-        "description": "ID of the Contact associated with the PendingOrderSummary. It represents the shopper in the storefront when not using person accounts."
+        "type": "string",
+        "description": "ID of the Contact associated with the PendingOrderSummary. It represents the shopper in the storefront when not using person accounts.",
+        "format": "reference"
       },
       "BillingEmailAddress": {
-        "type": "email",
+        "type": "string",
         "description": "Email address on the billing address."
       },
       "BillingPhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number of the billing address."
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
-        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the PendingOrderSummary."
+        "type": "string",
+        "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the PendingOrderSummary.",
+        "enum": []
       },
       "Description": {
         "type": "string",
@@ -36,36 +39,41 @@
         "description": "Used internally to prevent duplicate records. This value is case-sensitive. On creation, this value is set to B2C realm ID + \"_\" + B2C instance ID + \"@\" + B2C Commerce catalog/domain ID + \"@\" + B2C Commerce order number."
       },
       "GrandTotalAmount": {
-        "type": "currency",
-        "description": "Total amount, including adjustments and tax, of the PendingOrderSummary."
+        "type": "number",
+        "description": "Total amount, including adjustments and tax, of the PendingOrderSummary.",
+        "format": "currency"
       },
       "OrderNumber": {
         "type": "string",
         "description": "Name of the PendingOrderSummary."
       },
       "OrderedDate": {
-        "type": "dateTime",
-        "description": "Date of the original order associated with this PendingOrderSummary."
+        "type": "string",
+        "description": "Date of the original order associated with this PendingOrderSummary.",
+        "format": "date-time"
       },
       "Payload": {
-        "type": "textarea",
+        "type": "string",
         "description": ""
       },
       "PayloadType": {
-        "type": "picklist",
-        "description": "The datatype of the Payload."
+        "type": "string",
+        "description": "The datatype of the Payload.",
+        "enum": []
       },
       "ProcessingInstructions": {
-        "type": "textarea",
+        "type": "string",
         "description": "Instructions about how the HSOI service should create the order summary. Options include using the default without customizations or using a custom flow."
       },
       "SalesChannelId": {
-        "type": "reference",
-        "description": "ID of the SalesChannel associated with this PendingOrderSummary. The SalesChannel Name matches the B2C Commerce catalog/domain ID."
+        "type": "string",
+        "description": "ID of the SalesChannel associated with this PendingOrderSummary. The SalesChannel Name matches the B2C Commerce catalog/domain ID.",
+        "format": "reference"
       },
       "SalesStoreId": {
-        "type": "reference",
-        "description": "ID of the RetailStore or WebStore associated with this PendingOrderSummary."
+        "type": "string",
+        "description": "ID of the RetailStore or WebStore associated with this PendingOrderSummary.",
+        "format": "reference"
       },
       "ShopperName": {
         "type": "string",
@@ -73,9 +81,10 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_pendingordersummary.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_pendingordersummary.htm",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "55.0"
   }
 }

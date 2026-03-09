@@ -1,62 +1,62 @@
 {
   "ProductRequest": {
     "name": "ProductRequest",
-    "description": "Represents an order for a part or parts in field service.",
+    "description": "Represents a request or an order for products to and from specific inventory locations.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The account associated with the product request.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "CaseId": {
-        "type": "reference",
-        "description": "The case associated with the product request.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The case associated with the product request. For example, this may be the case because of which the product is requested.",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
-        "description": "A text field for details not recorded in the provided fields.",
+        "type": "string",
+        "description": "The description of the product request.",
         "maxLength": 32000,
         "nullable": true
       },
       "DestinationLocationId": {
-        "type": "reference",
-        "description": "Where the product is delivered.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The location where the product is delivered.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the product request was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The date when the product request was last viewed.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "NeedByDate": {
-        "type": "dateTime",
-        "description": "Date the product must be delivered by.",
+        "type": "string",
+        "description": "The date by which the product must be delivered to fulfill the request.",
         "format": "date-time",
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The owner of the shipment.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The owner of the product request.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -66,13 +66,13 @@
       },
       "ProductRequestNumber": {
         "type": "string",
-        "description": "An auto-assigned number that identifies the shipment.",
+        "description": "An auto-generated number identifying the product request.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "ShipToAddress": {
-        "type": "address",
+        "type": "string",
         "description": "The address that the product is to be delivered to.",
         "nullable": true,
         "readOnly": true
@@ -90,7 +90,7 @@
         "nullable": true
       },
       "ShipToGeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The accuracy of the geocode for the shipping address.",
         "format": "enum",
         "enum": [
@@ -134,13 +134,13 @@
         "nullable": true
       },
       "ShipToStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street address where the product is to be delivered to.",
         "maxLength": 255,
         "nullable": true
       },
       "ShipmentType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of shipment. The picklist includes the following values by default: None Rush Overnight Next Business Day Pick Up",
         "format": "enum",
         "maxLength": 40,
@@ -153,16 +153,16 @@
         ]
       },
       "SourceLocationId": {
-        "type": "reference",
-        "description": "The location the product is shipped from.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The location from which the product is shipped.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "Status of the product transfer.",
+        "type": "string",
+        "description": "The status of the product transfer.",
         "format": "enum",
         "maxLength": 40,
         "nullable": true,
@@ -173,17 +173,17 @@
         ]
       },
       "WorkOrderId": {
-        "type": "reference",
-        "description": "The work order that the product request is related to.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The work order that’s associated with the product request.",
+        "format": "reference",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": true
       },
       "WorkOrderLineItemId": {
-        "type": "reference",
-        "description": "The work order line item that the product request is related to.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The work order line item that’s associated with the product request.",
+        "format": "reference",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
@@ -256,7 +256,7 @@
         "nullable": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code.",
         "format": "enum",
         "enum": [
@@ -266,7 +266,7 @@
         "nullable": true
       },
       "ShipToCountryCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "A two letter uppercase country code conforming to the ISO 3166-1 alpha-2 standard.",
         "format": "enum",
         "enum": [
@@ -514,7 +514,7 @@
         "nullable": true
       },
       "ShipToStateCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "A two letter uppercase state code conforming to the ISO 3166-1 alpha-2 standard.",
         "format": "enum",
         "enum": [
@@ -635,8 +635,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productrequest.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_productrequest.htm",
     "keyPrefix": "0TS",
     "createable": true,
     "updateable": true,
@@ -882,7 +882,9 @@
     "accessRules": "Field Service must be enabled.",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Field Service Lightning"
+    ],
+    "x-version": "60.0"
   }
 }

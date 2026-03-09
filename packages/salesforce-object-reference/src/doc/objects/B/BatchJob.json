@@ -4,9 +4,9 @@
     "description": "Represents an instance of a batch job that is either running and has been run.",
     "properties": {
       "BatchJobDefinitionId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the associated batch job definition.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BatchJobDefinition",
         "maxLength": 18,
         "nullable": true
@@ -18,7 +18,7 @@
         "nullable": false
       },
       "EndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the batch job run was completed.",
         "format": "date-time",
         "nullable": true
@@ -37,21 +37,21 @@
       },
       "IsDebugOn": {
         "type": "boolean",
-        "description": ""
+        "description": "Indicates whether debug mode was turned on (true) or not (false) when a definition was run."
       },
       "IsDebugRecipeDeleted": {
         "type": "boolean",
-        "description": ""
+        "description": "Indicates whether debug recipes and datasets were deleted (true) or not (false)."
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed the batch job.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this item.",
         "format": "date-time",
         "nullable": true,
@@ -64,9 +64,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Unique identifier of the user who initiated the batch job run.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -81,24 +81,24 @@
         "nullable": false
       },
       "RetryCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of times the batch job run is automatically rerun in case it fails.",
         "nullable": true
       },
       "RuntimeParameter": {
-        "type": "textarea",
+        "type": "string",
         "description": "The values of the input variables that are used as filter criteria in a Batch Management job.",
         "maxLength": 100000,
         "nullable": true
       },
       "StartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the batch job run was started.",
         "format": "date-time",
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the batch job run.",
         "format": "enum",
         "enum": [
@@ -115,7 +115,7 @@
         "nullable": false
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of batch job that is run.",
         "format": "enum",
         "enum": [
@@ -192,10 +192,35 @@
         ],
         "maxLength": 3,
         "nullable": true
+      },
+      "AdditionalInformation": {
+        "type": "string",
+        "description": "A JSON that contains additional context about the batch jon."
+      },
+      "ExecutionStage": {
+        "type": "string",
+        "description": "Specifies the stage at which the batch job's run failed. This field is available in API version 66.0 and later.",
+        "enum": []
+      },
+      "TotalInputRecordCount": {
+        "type": "number",
+        "description": "The total number of records that were provided as input to the batch job. This field is available in API version 66.0 and later."
+      },
+      "TotalProcessedRecordCount": {
+        "type": "number",
+        "description": "The total number of records that were processed by all the batch job parts associated with the batch job. This field is available in API version 66.0 and later."
+      },
+      "UtilisedExecutionLimit": {
+        "type": "string",
+        "description": "The CRM Analytics or Data 360 execution capacity utilized by Data Processing Engine batch jobs before the current run started. This field is available in API version 66.0 and later."
+      },
+      "UtilisedWritebackLimit": {
+        "type": "string",
+        "description": "The CRM Analytics or Data 360 writeback capacity utilized by Data Processing Engine batch jobs before the current run started. This field is available in API version 66.0 and later."
       }
     },
     "module": "Loyalty",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.loyalty.meta/loyalty/sforce_api_objects_batchjob.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.loyalty.meta/loyalty/sforce_api_objects_batchjob.htm",
     "keyPrefix": "0md",
     "createable": true,
     "updateable": true,
@@ -305,6 +330,10 @@
         "relationshipName": "ProcessSteps",
         "cascadeDelete": false
       }
+    ],
+    "x-version": "51.0",
+    "clouds": [
+      "Loyalty"
     ]
   }
 }

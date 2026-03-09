@@ -4,9 +4,9 @@
     "description": "Represents a rule that specifies records for a briefcase definition.",
     "properties": {
       "BriefcaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "Required. ID of the briefcase definition. Label is Briefcase Definition ID.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "BriefcaseDefinition",
         "maxLength": 18,
         "nullable": false,
@@ -30,7 +30,7 @@
         "description": "Indicates whether the briefcase rule is part of a hierarchical set of rules that configure the offline priming of file attachments. Available only for the Offline App (Salesforce Mobile App Plus)."
       },
       "OrderBy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The field to order the records by, which determines how the records can be sorted. For example, AccountName or CreatedBy. Label is Order By.",
         "format": "enum",
         "enum": [
@@ -1364,11 +1364,12 @@
         "readOnly": true
       },
       "ParentRuleId": {
-        "type": "reference",
-        "description": "The ID of the parent rule of this briefcase rule. This field is a relationship field."
+        "type": "string",
+        "description": "The ID of the parent rule of this briefcase rule. This field is a relationship field.",
+        "format": "reference"
       },
       "QueryScope": {
-        "type": "picklist",
+        "type": "string",
         "description": "Required. A group of records to restrict the scope of this rule.",
         "format": "enum",
         "enum": [
@@ -1381,21 +1382,23 @@
         "readOnly": true
       },
       "RecordLimit": {
-        "type": "int",
+        "type": "number",
         "description": "The record limit for the object. The recommended number for record limit is up to 500 records per object for optimal performance. The maximum number is 2000. Label is Limit.",
         "nullable": true,
         "readOnly": true
       },
       "RelationshipField": {
-        "type": "picklist",
-        "description": "The Salesforce object field that relates the briefcase rule to another briefcase rule. For example, an Account rule can be related to a Contact rule using the Account ID object field. In this example, the value for the briefcase rule's RelationshipField is AccountID."
+        "type": "string",
+        "description": "The Salesforce object field that relates the briefcase rule to another briefcase rule. For example, an Account rule can be related to a Contact rule using the Account ID object field. In this example, the value for the briefcase rule's RelationshipField is AccountID.",
+        "enum": []
       },
       "RelationshipType": {
-        "type": "picklist",
-        "description": "The relationship of the briefcase rule to another briefcase rule. Possible values are:"
+        "type": "string",
+        "description": "The relationship of the briefcase rule to another briefcase rule. Possible values are:",
+        "enum": []
       },
       "TargetEntity": {
-        "type": "picklist",
+        "type": "string",
         "description": "The standard object, custom object, or custom metadata type that the briefcase rule selects records from. The UI label is Target Object.",
         "format": "enum",
         "enum": [
@@ -1573,7 +1576,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_briefcaserule.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_briefcaserule.htm",
     "keyPrefix": "1rX",
     "createable": false,
     "updateable": false,
@@ -1591,6 +1594,7 @@
     "accessRules": "This object is read-only.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "50.0"
   }
 }

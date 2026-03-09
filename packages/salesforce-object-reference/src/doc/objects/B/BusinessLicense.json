@@ -4,30 +4,30 @@
     "description": "Represents the licenses of a party role like healthcare provider or producer.",
     "properties": {
       "AccountId": {
-        "type": "reference",
-        "description": "The ID of the organization holding the license. This field is a relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the organization holding the license.",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true
       },
       "ContactId": {
-        "type": "reference",
-        "description": "The ID of the person who holds the license and is listed as a contact. This field is a relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "ID of the person who holds the license and is listed as a contact.",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "Identifier": {
         "type": "string",
-        "description": "Issuer's ID for the licensee. This field is unique within your organization.",
+        "description": "Issuer's ID for the licensee.",
         "maxLength": 255,
         "nullable": true
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether the license is active (true) or not (false). The default value is false.",
+        "description": "Indicates whether the license is active.",
         "nullable": false
       },
       "Issuer": {
@@ -55,8 +55,8 @@
         "nullable": true
       },
       "JurisdictionType": {
-        "type": "picklist",
-        "description": "Jurisdiction for the license.",
+        "type": "string",
+        "description": "Jurisdiction for the license. Example values: State County Province Country",
         "format": "enum",
         "enum": [
           "STATE",
@@ -68,22 +68,22 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LicenseClass": {
-        "type": "picklist",
-        "description": "The class that the distributor’s license belongs to.",
+        "type": "string",
+        "description": "The class that the distributor’s license belongs to. This field is available from API version 48.0 and later.",
         "format": "enum",
         "enum": [
           "APN - Advanced Practice Nurse",
@@ -96,7 +96,7 @@
         "nullable": true
       },
       "LineOfAuthority": {
-        "type": "picklist",
+        "type": "string",
         "description": "The line of authority that the distributor is licensed for. This field is available from API version 48.0 and later.",
         "format": "enum",
         "enum": [
@@ -116,9 +116,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
-        "description": "The ID of the user who owns this record. This field is a polymorphic relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The ID of the user who owns this record.",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -127,19 +127,19 @@
         "nullable": false
       },
       "PeriodEnd": {
-        "type": "dateTime",
+        "type": "string",
         "description": "License's expiration date.",
         "format": "date-time",
         "nullable": true
       },
       "PeriodStart": {
-        "type": "dateTime",
+        "type": "string",
         "description": "License's effective start date.",
         "format": "date-time",
         "nullable": true
       },
       "ResidenceStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Residence status of the producer. This field is available from API version 48.0 and later.",
         "format": "enum",
         "enum": [
@@ -150,8 +150,8 @@
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "Current status of the license.",
+        "type": "string",
+        "description": "Current status of the license. Example values: Inactive Revoked Draft Verified",
         "format": "enum",
         "enum": [
           "Inactive",
@@ -164,16 +164,16 @@
         "nullable": true
       },
       "UserId": {
-        "type": "reference",
-        "description": "The person who holds the license and is listed as a user. This field is a relationship field.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "Person who holds the license and is listed as a user.",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "VerificationStatus": {
-        "type": "picklist",
-        "description": "Current status for the license.",
+        "type": "string",
+        "description": "Current status for the license. Example values: Authorized Pending Unverified",
         "format": "enum",
         "enum": [
           "Authorized"
@@ -182,7 +182,7 @@
         "nullable": true
       },
       "VerifiedDate": {
-        "type": "date",
+        "type": "string",
         "description": "License was validated on this date.",
         "format": "date",
         "nullable": true
@@ -245,9 +245,9 @@
         "description": "Description of the license."
       },
       "HealthcareProviderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the Healthcare Provider who holds this license. This field is a relationship field. This field is a lookup to HealthcareProvider.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "HealthcareProvider",
         "maxLength": 18,
         "nullable": true
@@ -257,16 +257,18 @@
         "description": "Indicates if the license is the primary license. The default value is false."
       },
       "IssueDate": {
-        "type": "date",
-        "description": "The date the license or certification was issued."
+        "type": "string",
+        "description": "The date the license or certification was issued.",
+        "format": "date"
       },
       "LicenseNumber": {
         "type": "string",
         "description": "The number of the license."
       },
       "SourceSystemUpdateDate": {
-        "type": "date",
-        "description": "Represents the date when the record was last updated in the source system."
+        "type": "string",
+        "description": "Represents the date when the record was last updated in the source system.",
+        "format": "date"
       },
       "CurrencyIsoCode": {
         "type": "string",
@@ -291,8 +293,8 @@
         "readOnly": true
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_businesslicense.htm",
+    "module": "Financial Services Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_businesslicense.htm",
     "keyPrefix": "0cE",
     "iconUrl": "standard/contact_120.png",
     "iconColor": "FF538A",
@@ -523,6 +525,7 @@
       "Financial Services Cloud",
       "Health Cloud"
     ],
-    "accessRules": "In Health Cloud, this object is available in API version 46.0 and later."
+    "accessRules": "In Health Cloud, this object is available in API version 46.0 and later.",
+    "x-version": "48.0"
   }
 }

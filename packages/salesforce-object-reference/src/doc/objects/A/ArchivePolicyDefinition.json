@@ -4,11 +4,11 @@
     "description": "Represents a data lifecycle policy that, in each row, defines the scope, frequency, and rules for automated archiving or purging of records from a root entity, such as Contact or Lead.",
     "properties": {
       "DataProtectionThreshold": {
-        "type": "int",
+        "type": "number",
         "description": "Specifies a retention buffer, in days, during which recently updated or sensitive records must not be archived or deleted. Enforces data protection compliance."
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The purpose or scope of the policy."
       },
       "IsActive": {
@@ -20,15 +20,16 @@
         "description": "The unique name assigned to the policy."
       },
       "Type": {
-        "type": "picklist",
-        "description": "Process type that the policy executes. Valid values are: Archive Import Purge"
+        "type": "string",
+        "description": "Process type that the policy executes. Valid values are: Archive Import Purge",
+        "enum": []
       },
       "Query": {
         "type": "string",
         "description": "A complete SOQL or custom query defining the set of records to archive or purge, based on policy rules. Determines which records are eligible for processing."
       },
       "QueryLimit": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum number of root records this policy can process in a single run. Used to throttle execution for scalability and control."
       },
       "RootEntityName": {
@@ -36,15 +37,17 @@
         "description": "The API name of the Salesforce object targeted by the policy. Determines which object’s records are queried and processed."
       },
       "RunFrequency": {
-        "type": "picklist",
-        "description": "Specifies how often the policy is executed—manually or on a regular interval. Enables automation for recurring data lifecycle operations.Valid values are: NoneThis option is specifically for manual policy runs. Daily Weekly Monthly"
+        "type": "string",
+        "description": "Specifies how often the policy is executed—manually or on a regular interval. Enables automation for recurring data lifecycle operations.Valid values are: NoneThis option is specifically for manual policy runs. Daily Weekly Monthly",
+        "enum": []
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_archivepolicydefinition.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_archivepolicydefinition.htm",
     "accessRules": "Create, Update, and Delete operations are restricted to the Archive Admin profile. All other profiles have Read-Only access.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "65.0"
   }
 }

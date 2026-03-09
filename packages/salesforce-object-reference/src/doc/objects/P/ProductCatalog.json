@@ -4,15 +4,16 @@
     "description": "The container that holds a Product Category hierarchy.",
     "properties": {
       "CatalogCode": {
-        "type": "text",
+        "type": "string",
         "description": "A unique ID associated with the catalog. Maximum size is 80 alphanumeric characters."
       },
       "CatalogType": {
-        "type": "picklist",
-        "description": "The category of an entry in the catalog. These categories can be customized. Examples include: sellable products, services, parts, technical services, or technical resources."
+        "type": "string",
+        "description": "The category of an entry in the catalog. These categories can be customized. Examples include: sellable products, services, parts, technical services, or technical resources.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Possible values are: EUR—Euro USD—U.S. Dollar",
         "format": "enum",
         "enum": [
@@ -22,26 +23,28 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "The description of the category."
       },
       "EffectiveEndDate": {
-        "type": "dateTime",
-        "description": "The date after which the catalog is unavailable to end users."
+        "type": "string",
+        "description": "The date after which the catalog is unavailable to end users.",
+        "format": "date-time"
       },
       "EffectiveStartDate": {
-        "type": "dateTime",
-        "description": "The date on which the catalog is available to end users."
+        "type": "string",
+        "description": "The date on which the catalog is available to end users.",
+        "format": "date-time"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -54,15 +57,15 @@
         "nullable": false
       },
       "NumberOfCategories": {
-        "type": "int",
+        "type": "number",
         "description": "Number of ProductCategory records assigned to this ProductCatalog record.",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -71,8 +74,9 @@
         "nullable": false
       },
       "Status": {
-        "type": "picklist",
-        "description": "The lifecycle state of the catalog. Possible values include: Draft, Active, Inactive"
+        "type": "string",
+        "description": "The lifecycle state of the catalog. Possible values include: Draft, Active, Inactive",
+        "enum": []
       },
       "Id": {
         "type": "string",
@@ -134,7 +138,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_productcatalog.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_productcatalog.htm",
     "keyPrefix": "0ZS",
     "iconUrl": "standard/catalog_120.png",
     "iconColor": "22683E",
@@ -340,6 +344,7 @@
     "accessRules": "You must have the Industries, Retail, or B2B Commerce license.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "55.0"
   }
 }

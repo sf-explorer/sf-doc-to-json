@@ -4,7 +4,7 @@
     "description": "Represents a customer’s data privacy and protection preferences. Data privacy records based on the Individual object store your customers’ preferences. Data privacy records are associated with related leads, contacts, person accounts, and users.",
     "properties": {
       "BirthDate": {
-        "type": "date",
+        "type": "string",
         "description": "The customer’s birthdate.",
         "format": "date",
         "nullable": true
@@ -15,12 +15,12 @@
         "nullable": false
       },
       "ChildrenCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of children the customer has.",
         "nullable": true
       },
       "ConsumerCreditScore": {
-        "type": "int",
+        "type": "number",
         "description": "The person's credit score (for example, 740).",
         "nullable": true
       },
@@ -31,12 +31,12 @@
         "nullable": true
       },
       "ConvictionsCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of convictions for the customer.",
         "nullable": true
       },
       "DeathDate": {
-        "type": "date",
+        "type": "string",
         "description": "The customer’s death date.",
         "format": "date",
         "nullable": true
@@ -73,7 +73,7 @@
         "nullable": false
       },
       "IndividualsAge": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates whether the customer is considered to be a minor.",
         "format": "enum",
         "enum": [
@@ -84,7 +84,7 @@
         "nullable": true
       },
       "InfluencerRating": {
-        "type": "int",
+        "type": "number",
         "description": "A measure of the person's influence, irrespective of how we do business with them.",
         "nullable": true
       },
@@ -100,23 +100,23 @@
         "nullable": false
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MasterRecordId": {
-        "type": "reference",
+        "type": "string",
         "description": "If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or hasn’t been deleted, the value is null.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Individual",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "MilitaryService": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates whether the customer has served in the military.",
         "format": "enum",
         "enum": [
@@ -141,15 +141,15 @@
         "nullable": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the owner of the account associated with this customer.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": false
       },
       "Salutation": {
-        "type": "picklist",
+        "type": "string",
         "description": "The title for addressing the customer, such as Dr. or Mrs.",
         "format": "enum",
         "enum": [
@@ -170,7 +170,7 @@
         "nullable": false
       },
       "Website": {
-        "type": "url",
+        "type": "string",
         "description": "The URL for the customer’s website.",
         "format": "uri",
         "maxLength": 255,
@@ -223,10 +223,14 @@
         "format": "date-time",
         "nullable": false,
         "readOnly": true
+      },
+      "HasPrivacyHold": {
+        "type": "boolean",
+        "description": "Indicates the Privacy Hold status."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_individual.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_individual.htm",
     "keyPrefix": "0PK",
     "iconUrl": "standard/individual_120.png",
     "iconColor": "1B96FF",
@@ -426,6 +430,7 @@
     "accessRules": "This object is available if Data Protection and Privacy is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "42.0"
   }
 }

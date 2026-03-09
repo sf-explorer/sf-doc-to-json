@@ -4,61 +4,61 @@
     "description": "Provides a global view of standard article fields across all types of articles depending on their version.",
     "properties": {
       "ArchivedById": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who archived the article.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ArchivedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the article version was archived.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ArticleArchivedById": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who archived the article.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ArticleArchivedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the article was archived.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ArticleCaseAttachCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of cases where this article is attached.",
         "nullable": true,
         "readOnly": true
       },
       "ArticleCreatedById": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who created the article.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ArticleCreatedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the article was created.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ArticleMasterLanguage": {
-        "type": "picklist",
+        "type": "string",
         "description": "The article's original language. Only accessible if your knowledge base supports multiple languages.",
         "format": "enum",
         "enum": [
@@ -82,7 +82,7 @@
         "readOnly": true
       },
       "ArticleTotalViewCount": {
-        "type": "int",
+        "type": "number",
         "description": "Total number of views for the article.",
         "nullable": true,
         "readOnly": true
@@ -92,18 +92,18 @@
         "description": "Indicates the API Name of the article type. The ArticleType is assigned to the article when it's created. You can't change the value of this field. This field is available in orgs using Knowledge in Salesforce Classic in API version 26.0 and later."
       },
       "AssignedById": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who assigned the article.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "AssignedToId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user assigned to the article.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -113,28 +113,28 @@
         "readOnly": true
       },
       "AssignmentDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the article was assigned to a user.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "AssignmentDueDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The due date when an article is assigned.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "AssignmentNote": {
-        "type": "textarea",
+        "type": "string",
         "description": "Notes to the assignee from the user who assigned the article.",
         "maxLength": 1000,
         "nullable": true,
         "readOnly": true
       },
       "FirstPublishedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the article was first published.",
         "format": "date-time",
         "nullable": true,
@@ -183,16 +183,16 @@
         "readOnly": true
       },
       "KnowledgeArticleId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the article independent from its version. The value for this field is retrieved from the Id field of the KnowledgeArticle object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "KnowledgeArticle",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Language": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language that the article is written in, such as French or Chinese (Traditional).Querying or searching articles in SOSL require that you specify the Language field in the WHERE clause. The language must be the same for all article types. Before API version 47.0, you must include the Language field to filter queries on Knowledge article versions. In API version 47.0 and later, you can filter queries on Knowledge article versions with or without Language depending on what you are querying.",
         "format": "enum",
         "enum": [
@@ -207,16 +207,16 @@
         "description": "Shows the LLM used to create an article version. This object is available in API version 59.0 and later."
       },
       "LastPublishedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the article was last published.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "MasterVersionId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the source article, if the article is the translation of a source article. Only accessible if your knowledge base supports multiple languages.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "KnowledgeArticleVersion",
         "maxLength": 18,
         "nullable": true,
@@ -230,13 +230,14 @@
         "readOnly": true
       },
       "NextReviewDate": {
-        "type": "dateTime",
-        "description": "The date when the article must next be reviewed for accuracy. Available in API version 58.0 and later."
+        "type": "string",
+        "description": "The date when the article must next be reviewed for accuracy. Available in API version 58.0 and later.",
+        "format": "date-time"
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the article's owner.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -246,7 +247,7 @@
         "readOnly": true
       },
       "PublishStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "The publication status for the article: Draft: any draft articles. Online: articles published in Salesforce Knowledge. Archived: archived articles. A user must have the “Manage Articles” permission enabled to use Online. Article queries and searches in SOQL or SOSL require that you specify either the PublishStatus or the Id field in the WHERE clause. You can search for only one publication status per article type in a single SOSL query. When searching for articles with a PublishStatus of Archived, also check that IsLatestVersion equals false in your WHERE clause.",
         "format": "enum",
         "enum": [
@@ -259,16 +260,16 @@
         "readOnly": true
       },
       "SourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the source from which the article was created (Case or Reply).",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Summary": {
-        "type": "textarea",
+        "type": "string",
         "description": "Summary of the article. Maximum size is 1000 characters.",
         "maxLength": 1000,
         "nullable": true,
@@ -282,21 +283,21 @@
         "readOnly": true
       },
       "TranslationCompletedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date and time when the article was last translated. Only accessible if your knowledge base supports multiple languages.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "TranslationExportedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date and time when the article was last exported for translation. Only accessible if your knowledge base supports multiple languages.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "TranslationImportedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date and time when the article was last imported for translation. Only accessible if your knowledge base supports multiple languages.",
         "format": "date-time",
         "nullable": true,
@@ -310,7 +311,7 @@
         "readOnly": true
       },
       "ValidationStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Shows whether the content of the article has been validated. Possible values are Validated and Not Validated. The default value is Not Validated. This field is available in API version 24.0 or later.",
         "format": "enum",
         "enum": [
@@ -322,7 +323,7 @@
         "readOnly": true
       },
       "VersionNumber": {
-        "type": "int",
+        "type": "number",
         "description": "The number assigned to a version of an article. This field is available in API version 24.0 and later.",
         "nullable": false,
         "readOnly": true
@@ -387,7 +388,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_knowledgearticleversion.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_knowledgearticleversion.htm",
     "keyPrefix": "ka#",
     "iconUrl": "standard/article_120.png",
     "iconColor": "CB65FF",
@@ -491,6 +492,7 @@
     "accessRules": "Knowledge must be enabled in your org. A user must have the View Articles permission enabled. Salesforce Knowledge users, unlike customer and partner users, must also be granted the Knowledge User feature license.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "18.0"
   }
 }

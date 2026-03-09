@@ -1,18 +1,18 @@
 {
   "Shipment": {
     "name": "Shipment",
-    "description": "Represents the transport of inventory in field service or a shipment of order items in Order Management.",
+    "description": "Represents a product item that’s in transit between two inventory locations.",
     "properties": {
       "ActualDeliveryDate": {
-        "type": "dateTime",
-        "description": "Date the product was delivered.",
+        "type": "string",
+        "description": "The date when the product was delivered.",
         "format": "date-time",
         "nullable": true
       },
       "DeliveredToId": {
-        "type": "reference",
+        "type": "string",
         "description": "The person or entity the product was delivered to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -21,43 +21,43 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
-        "description": "Details not recorded in the provided fields",
+        "type": "string",
+        "description": "The description of the shipment.",
         "maxLength": 32000,
         "nullable": true
       },
       "DestinationLocationId": {
-        "type": "reference",
+        "type": "string",
         "description": "The place the product is to be delivered.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "ExpectedDeliveryDate": {
-        "type": "dateTime",
-        "description": "Date the product is expected to be delivered.",
+        "type": "string",
+        "description": "The date when the product is expected to be delivered.",
         "format": "date-time",
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The owner of the shipment.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -66,12 +66,13 @@
         "nullable": false
       },
       "ReturnOrderId": {
-        "type": "reference",
-        "description": "For a return Shipment, the associated ReturnOrder."
+        "type": "string",
+        "description": "The return order associated with a return shipment.",
+        "format": "reference"
       },
       "ShipFromAddress": {
-        "type": "address",
-        "description": "The place the product is coming from. The compound form of the ship to address. Read-only. For details on compound address fields, see Address Compound Fields.",
+        "type": "string",
+        "description": "The place the product is coming from.",
         "nullable": true,
         "readOnly": true
       },
@@ -88,8 +89,8 @@
         "nullable": true
       },
       "ShipFromGeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the shipment originates. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "type": "string",
+        "description": "Accuracy level of the geocode for the address where the shipment originates.",
         "format": "enum",
         "enum": [
           "Address",
@@ -109,13 +110,13 @@
       },
       "ShipFromLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShipFromLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment originates. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -132,14 +133,14 @@
         "nullable": true
       },
       "ShipFromStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street of the address where the shipment originates.",
         "maxLength": 255,
         "nullable": true
       },
       "ShipToAddress": {
-        "type": "address",
-        "description": "The physical address where the shipment is delivered. The compound form of the ship to address. Read-only. For details on compound address fields, see Address Compound Fields.",
+        "type": "string",
+        "description": "The physical address where the shipment is delivered.",
         "nullable": true,
         "readOnly": true
       },
@@ -156,8 +157,8 @@
         "nullable": true
       },
       "ShipToGeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy level of the geocode for the address where the shipment is delivered. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "type": "string",
+        "description": "Accuracy level of the geocode for the address where the shipment is delivered.",
         "format": "enum",
         "enum": [
           "Address",
@@ -177,13 +178,13 @@
       },
       "ShipToLatitude": {
         "type": "double",
-        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –90 and 90 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "description": "Used with Longitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –90 and 90 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
       "ShipToLongitude": {
         "type": "double",
-        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –180 and 180 with up to 15 decimal places. See Compound Field Considerations and Limitations for details on geolocation compound fields. Note This field is available in the API only.",
+        "description": "Used with Latitude to specify the precise geolocation of the address where the shipment is delivered. Acceptable values are numbers between –180 and 180 with up to 15 decimal places.",
         "nullable": true,
         "multipleOf": 1e-15
       },
@@ -206,7 +207,7 @@
         "nullable": true
       },
       "ShipToStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "The street of the address where the shipment is delivered.",
         "maxLength": 255,
         "nullable": true
@@ -219,16 +220,16 @@
         "readOnly": true
       },
       "SourceLocationId": {
-        "type": "reference",
-        "description": "The field service location where the shipment originates.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The location where the shipment originates.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
-        "description": "The status of the shipment. The picklist includes the following values, which can be customized: Created—Shipment has been created. Delivered—Shipment has been delivered. In Transit—Shipment is in transit. Shipped—Order has been shipped. Voided—Shipment has been cancelled.",
+        "type": "string",
+        "description": "The status of the shipment. The picklist includes the following values, which can be customized: Shipped—The product is in transit. Delivered—The product is at the source location.",
         "format": "enum",
         "enum": [
           "Shipped",
@@ -246,13 +247,13 @@
       },
       "TrackingNumber": {
         "type": "string",
-        "description": "Tracking number for the shipment.",
+        "description": "The tracking number for the shipment.",
         "maxLength": 255,
         "nullable": true
       },
       "TrackingUrl": {
-        "type": "url",
-        "description": "URL of website used for tracking the shipment.",
+        "type": "string",
+        "description": "The URL of the website used for tracking the shipment.",
         "format": "uri",
         "maxLength": 255,
         "nullable": true
@@ -323,7 +324,7 @@
         "readOnly": true
       },
       "Provider": {
-        "type": "picklist",
+        "type": "string",
         "description": "The company or person making the transfer.",
         "format": "enum",
         "enum": [
@@ -335,20 +336,22 @@
         "nullable": true
       },
       "FulfillmentOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The fulfillment order that the shipment belongs to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "FulfillmentOrder",
         "maxLength": 18,
         "nullable": true
       },
       "DeliveryMethodId": {
-        "type": "reference",
-        "description": "The delivery method used for the shipment."
+        "type": "string",
+        "description": "The delivery method used for the shipment.",
+        "format": "reference"
       },
       "OrderSummaryId": {
-        "type": "reference",
-        "description": "The order summary associated with the shipment."
+        "type": "string",
+        "description": "The order summary associated with the shipment.",
+        "format": "reference"
       },
       "CurrencyIsoCode": {
         "type": "string",
@@ -1099,8 +1102,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_shipment.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_shipment.htm",
     "keyPrefix": "0OB",
     "createable": true,
     "updateable": true,
@@ -1310,9 +1313,11 @@
     "accessRules": "At least one of these features must be enabled:",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/shipment_120.png",
-    "iconColor": "5867E8"
+    "iconColor": "5867E8",
+    "x-version": "60.0"
   }
 }

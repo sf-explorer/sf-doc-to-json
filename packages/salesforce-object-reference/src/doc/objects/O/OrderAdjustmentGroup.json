@@ -4,27 +4,31 @@
     "description": "Group containing a set of adjustments applied to an order.",
     "properties": {
       "AdjustmentBasisReferenceId": {
-        "type": "reference",
-        "description": "References the specific coupon applied."
+        "type": "string",
+        "description": "References the specific coupon applied.",
+        "format": "reference"
       },
       "AdjustmentCauseId": {
-        "type": "reference",
-        "description": "References the specific promotions applied."
+        "type": "string",
+        "description": "References the specific promotions applied.",
+        "format": "reference"
       },
       "AdjustmentSource": {
-        "type": "picklist",
-        "description": "Indicates the origin of the adjustment."
+        "type": "string",
+        "description": "Indicates the origin of the adjustment.",
+        "enum": []
       },
       "AdjustmentType": {
-        "type": "picklist",
-        "description": "Indicates the type of mathematical adjustment to be applied to the order."
+        "type": "string",
+        "description": "Indicates the type of mathematical adjustment to be applied to the order.",
+        "enum": []
       },
       "AdjustmentValue": {
         "type": "double",
         "description": "The specified AdjustmentType’s amount to be applied to the order."
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "The currency used for the checkout session. Default value is USD.",
         "format": "enum",
         "enum": [
@@ -35,13 +39,13 @@
         "readOnly": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "User-entered information about the order adjustment group.",
         "maxLength": 2000,
         "nullable": true
       },
       "GrandTotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The sum of all total amounts of all adjustments in this group, including tax.",
         "format": "currency",
         "nullable": true,
@@ -55,29 +59,29 @@
         "nullable": false
       },
       "OrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the order related to the adjustments in this order adjustment group.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Priority": {
-        "type": "int",
+        "type": "number",
         "description": "A numeric value that represents the order of precedence of the order adjustment group."
       },
       "RelatedAdjustmentGroupId": {
-        "type": "reference",
+        "type": "string",
         "description": "The unique identifier of the original order’s adjustment group. This field is a useful reference in change order scenarios.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderAdjustmentGroup",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The total of all order adjustments in this order adjustment group, excluding tax.",
         "format": "currency",
         "nullable": true,
@@ -85,7 +89,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "The total tax for all order adjustments in this order adjustment group.",
         "format": "currency",
         "nullable": true,
@@ -93,7 +97,7 @@
         "multipleOf": 0.01
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Indicates how the adjustment was applied to the order.",
         "format": "enum",
         "enum": [
@@ -163,7 +167,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderadjustmentgroup.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderadjustmentgroup.htm",
     "keyPrefix": "0az",
     "createable": true,
     "updateable": true,
@@ -301,6 +305,7 @@
     "accessRules": "Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

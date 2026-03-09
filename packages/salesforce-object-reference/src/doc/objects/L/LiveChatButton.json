@@ -24,7 +24,7 @@
         "description": "The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores. In managed packages, this field prevents naming conflicts on package installations. With this field, a developer can change the object’s name in a managed package and the changes are reflected in a subscriber’s organization. Note When creating large sets of data, always specify a unique DeveloperName for each record. If no DeveloperName is specified, performance may slow while Salesforce generates one for each record."
       },
       "Language": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language of the chat.",
         "format": "enum",
         "enum": [
@@ -108,49 +108,49 @@
         "readOnly": true
       },
       "SkillId": {
-        "type": "reference",
-        "format": "salesforce-id",
+        "type": "string",
+        "format": "reference",
         "x-object": "Skill",
         "maxLength": 18,
         "nullable": true,
         "description": "The record ID of the skill used to route incoming chat requests. To associate multiple skills with a chat button, reference one skill in the SkillId field and use LiveChatButtonSkill junction objects for the remaining skills."
       },
       "SiteId": {
-        "type": "reference",
-        "format": "salesforce-id",
+        "type": "string",
+        "format": "reference",
         "x-object": "Site",
         "maxLength": 18,
         "nullable": true,
         "description": "The record ID of the site used for loading static resources and custom VisualForce pages."
       },
       "OnlineImageId": {
-        "type": "reference",
+        "type": "string",
         "description": "The record ID of the static image resource that is displayed when the button is online (active).",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "StaticResource",
         "maxLength": 18,
         "nullable": true
       },
       "OfflineImageId": {
-        "type": "reference",
+        "type": "string",
         "description": "The record ID of the static image resource that is displayed when the button is offline (inactive).",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "StaticResource",
         "maxLength": 18,
         "nullable": true
       },
       "ChatPageId": {
-        "type": "reference",
+        "type": "string",
         "description": "The record ID of the custom VisualForce page that contains the custom chat window code.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ApexPage",
         "maxLength": 18,
         "nullable": true
       },
       "PrechatFormPageId": {
-        "type": "reference",
+        "type": "string",
         "description": "The record ID of the custom VisualForce page displayed before the chat begins.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ApexPage",
         "maxLength": 18,
         "nullable": true
@@ -162,9 +162,9 @@
         "description": "The URL the user is directed to before the chat begins."
       },
       "PostchatPageId": {
-        "type": "reference",
+        "type": "string",
         "description": "The record ID of the custom VisualForce page displayed when the chat ends.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ApexPage",
         "maxLength": 18,
         "nullable": true
@@ -176,7 +176,7 @@
         "nullable": true
       },
       "RoutingType": {
-        "type": "picklist",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Choice",
@@ -190,7 +190,7 @@
         "description": "How chat requests are routed to agents. The values are: Choice—Incoming chat requests are added to the queue in Live Agent in the Salesforce console and are available to any agent with the required skill. Least Active—Incoming chats are routed to the agent with the required skill who has the fewest active chats. Most Available—Incoming chats are routed to the agent with the required skill and the greatest difference between chat capacity and active chat sessions. For example, if Agent A and Agent B each have a chat capacity of five, and Agent A has three active chat sessions while Agent B has one, incoming chats will be routed to Agent B. Omni—Incoming chats are routed using Omni-Channel queues."
       },
       "PushTimeout": {
-        "type": "int",
+        "type": "number",
         "description": "The number of seconds an agent has to answer a chat request before it’s routed to the next available agent.",
         "nullable": true
       },
@@ -200,17 +200,17 @@
         "nullable": false
       },
       "PerAgentQueueLength": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum number of chat requests allowed to queue for each agent with the required skill.",
         "nullable": true
       },
       "OverallQueueLength": {
-        "type": "int",
+        "type": "number",
         "description": "The maximum number of chat requests allowed to queue.",
         "nullable": true
       },
       "WindowLanguage": {
-        "type": "picklist",
+        "type": "string",
         "description": "The language used for standard chat windows. Custom chat windows use the language of the user’s browser.",
         "format": "enum",
         "enum": [
@@ -254,7 +254,7 @@
         "nullable": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Standard",
@@ -300,12 +300,12 @@
         "nullable": false
       },
       "TimeToRemoveInvite": {
-        "type": "int",
+        "type": "number",
         "description": "The number of seconds an automated invitation stays on-screen before it is automatically removed. For automated chat invitations only. Available in API version 29.0 and later.",
         "nullable": true
       },
       "Animation": {
-        "type": "picklist",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Slide",
@@ -318,7 +318,7 @@
         "description": "The type of animation used when an automated chat invitation appears on-screen. For automated chat invitations only. Available in API version 29.0 and later."
       },
       "InviteStartPosition": {
-        "type": "picklist",
+        "type": "string",
         "description": "The position on screen where an automated chat invitation’s animation begins. Note You don’t need to select a start position for your automated chat invitation if you use a custom animation. For automated chat invitations only. Available in API version 29.0 and later.",
         "format": "enum",
         "enum": [
@@ -343,7 +343,7 @@
         "nullable": true
       },
       "InviteEndPosition": {
-        "type": "picklist",
+        "type": "string",
         "description": "The position on screen where an automated chat invitation’s animation ends. Note You don’t need to select an end position for your automated chat invitation if you use a custom animation. For automated chat invitations only. Available in API version 29.0 and later.",
         "format": "enum",
         "enum": [
@@ -361,15 +361,15 @@
         "nullable": true
       },
       "InviteImageId": {
-        "type": "reference",
+        "type": "string",
         "description": "The record ID of the static image resource displayed on your automated chat invitation. For automated chat invitations only. Available in API version 29.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "StaticResource",
         "maxLength": 18,
         "nullable": true
       },
       "AutoGreeting": {
-        "type": "textarea",
+        "type": "string",
         "maxLength": 1000,
         "nullable": true,
         "description": "The text that is automatically sent from an agent to a visitor when a chat session starts. Note A greeting message in the AutoGreeting field of the LiveChatButton object overrides individual users’ greeting messages in the AutoGreeting field in the LiveChatUserConfig object."
@@ -381,31 +381,31 @@
         "description": "The custom name of the agent associated with the button. Available in API version 29.0 and later. Note A custom agent name in the CustomAgentName field of the LiveChatButton object overrides individual users’ custom agent name in the CustomAgentName field in the LiveChatUserConfig object."
       },
       "NumberOfReroutingAttempts": {
-        "type": "int",
+        "type": "number",
         "nullable": true,
         "description": "Specifies the number of times a chat request can be rerouted to available agents if all agents reject the chat request."
       },
       "ChasitorIdleTimeout": {
-        "type": "int",
+        "type": "number",
         "description": "The amount of time a customer has to respond to an agent message before the chat times out.",
         "nullable": true
       },
       "ChasitorIdleTimeoutWarning": {
-        "type": "int",
+        "type": "number",
         "description": "The amount of time a customer has to respond to an agent message before a warning appears and a timer begins a countdown. This value must be shorter than the ChasitorIdleTimeout value. We recommend at least 30 seconds shorter.",
         "nullable": true
       },
       "QueueId": {
-        "type": "reference",
-        "format": "salesforce-id",
+        "type": "string",
+        "format": "reference",
         "x-object": "Group",
         "maxLength": 18,
         "nullable": true,
         "description": "The record ID of the queue used for this chat button."
       },
       "RoutingConfigurationId": {
-        "type": "reference",
-        "format": "salesforce-id",
+        "type": "string",
+        "format": "reference",
         "x-object": "QueueRoutingConfig",
         "maxLength": 18,
         "nullable": true,
@@ -419,7 +419,7 @@
     "module": "Core Salesforce",
     "keyPrefix": "573",
     "label": "Chat Button",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_livechatbutton.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_livechatbutton.htm",
     "createable": true,
     "updateable": true,
     "deletable": false,
@@ -464,8 +464,8 @@
       }
     ],
     "clouds": [
-      "Core Salesforce",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "24.0"
   }
 }

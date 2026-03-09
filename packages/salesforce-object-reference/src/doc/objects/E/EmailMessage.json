@@ -4,9 +4,9 @@
     "description": "Represents an email in Salesforce.",
     "properties": {
       "ActivityId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the activity that is associated with the email. Usually represents an open task that is created for the case owner when a new unread email message is received. ActivityId can only be specified for emails on cases. It’s auto-created for other entities.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Task",
         "maxLength": 18,
         "nullable": true,
@@ -17,8 +17,9 @@
         "description": "A comma-separated list of email attachments. This is used by the Send Email quick action when you use Salesforce Classic email templates. Maximum length is 32, 768 characters."
       },
       "AutomationType": {
-        "type": "picklist",
-        "description": "A picklist value that determines if an outgoing email was manually created or AI-generated."
+        "type": "string",
+        "description": "A picklist value that determines if an outgoing email was manually created or AI-generated.",
+        "enum": []
       },
       "BccAddress": {
         "type": "string",
@@ -27,7 +28,7 @@
         "nullable": true
       },
       "BccIds": {
-        "type": "JunctionIdList",
+        "type": "string",
         "description": "A string array of IDs for contacts, leads, and users who were sent a visually impaired carbon copy of the email message. Each ID is linked to an EmailMessageRelation record, which represents the relationship between an email message and a Contact, Lead, or User record. For an Experience Cloud site user who isn’t the sender of the email, this list is empty.Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
       },
       "CcAddress": {
@@ -37,7 +38,7 @@
         "nullable": true
       },
       "CcIds": {
-        "type": "JunctionIdList",
+        "type": "string",
         "description": "A string array of IDs for contacts, leads, and users who were sent a carbon copy of the email message. Each ID is linked to an EmailMessageRelation record, which represents the relationship between an email message and a Contact, Lead, or User record. Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
       },
       "ClientThreadIdentifier": {
@@ -45,41 +46,44 @@
         "description": "A value used by third-party email clients to identify which thread an email belongs to. See Email-to-Case Threading for more information.Available in API versions 56.0 and later."
       },
       "ContentDocumentIds": {
-        "type": "JunctionIdList",
+        "type": "string",
         "description": "A string array of IDs for content documents such as files and attachments that are associated with an email. Each ID is linked to a ContentDocumentLink record, which represents the relationship between an email message and a content document record.Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
       },
       "Division": {
-        "type": "picklist",
-        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as “North America,” “Healthcare,” or “Consulting.” Available only if the organization has the Division permission enabled."
+        "type": "string",
+        "description": "A logical segment of your organization's data. For example, if your company is organized into different business units, you could create a division for each business unit, such as “North America,” “Healthcare,” or “Consulting.” Available only if the organization has the Division permission enabled.",
+        "enum": []
       },
       "EmailRoutingAddressId": {
-        "type": "reference",
-        "description": "Stores the ID of the email routing address used to create the email. This value is set when the email is processed by Email-to-Case service. When this field is set, EmailMessage.Incoming cannot be false."
+        "type": "string",
+        "description": "Stores the ID of the email routing address used to create the email. This value is set when the email is processed by Email-to-Case service. When this field is set, EmailMessage.Incoming cannot be false.",
+        "format": "reference"
       },
       "EmailTemplateId": {
-        "type": "reference",
+        "type": "string",
         "description": "The email template, if any, that was chosen for the email. This field is populated in Lightning Experience only.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailTemplate",
         "maxLength": 18,
         "nullable": true
       },
       "FirstOpenedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the email was first opened.",
         "format": "date-time",
         "nullable": true
       },
       "FromAddress": {
-        "type": "email",
+        "type": "string",
         "description": "The address that originated the email. When using this field, specify an email address that exists in EmailMessageRelation, with a RelationType of FromAddress.",
         "format": "email",
         "maxLength": 1000,
         "nullable": true
       },
       "FromId": {
-        "type": "reference",
-        "description": "The contact, lead, or user who sent the email. Maximum length is 18 characters."
+        "type": "string",
+        "description": "The contact, lead, or user who sent the email. Maximum length is 18 characters.",
+        "format": "reference"
       },
       "FromName": {
         "type": "string",
@@ -94,13 +98,13 @@
         "readOnly": true
       },
       "Headers": {
-        "type": "textarea",
+        "type": "string",
         "description": "The Internet message headers of the incoming email. Used for debugging and tracing purposes. Doesn’t apply to outgoing emails.",
         "maxLength": 32000,
         "nullable": true
       },
       "HtmlBody": {
-        "type": "textarea",
+        "type": "string",
         "description": "The body of the email in HTML format.",
         "maxLength": 131072,
         "nullable": true
@@ -152,13 +156,13 @@
         "nullable": false
       },
       "LastOpenedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the email was last opened.",
         "format": "date-time",
         "nullable": true
       },
       "MessageDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date the email was created.",
         "format": "date-time",
         "nullable": true
@@ -174,18 +178,18 @@
         "description": "A name for the email message that's derived from the first 255 characters of the Subject field. If the Subject field is empty, a localized string of [No Subject] is used. This field is read-only and can’t be created or updated. Available in API versions 56.0 and later."
       },
       "ParentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the case that’s associated with the email.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "RelatedToId": {
-        "type": "reference",
+        "type": "string",
         "description": "The RelatedToId represents nonhuman objects such as accounts, opportunities, campaigns, cases, or custom objects. RelatedToIds are polymorphic. Polymorphic means a RelatedToId is equivalent to the ID of a related object. You must have access to at least one entity listed under Refers To to access RelatedToId. You can update RelatedToId when IsClientManaged is set to true. RelatedtoId and ParentId should have the same value when ParentId is set. You might see unexpected results otherwise.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Account",
           "AssessmentIndicatorDefinition",
@@ -239,19 +243,20 @@
         "nullable": true
       },
       "ReplyToEmailMessageId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the inbound or outbound email message the current email message is a reply to. It’s not possible to reply to a message whose Status is Draft.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "EmailMessage",
         "maxLength": 18,
         "nullable": true
       },
       "Source": {
-        "type": "picklist",
-        "description": "When Sync Email as Salesforce Activity is enabled, this value reflects from where the email was captured automatically. Available in API version 64.0 and later."
+        "type": "string",
+        "description": "When Sync Email as Salesforce Activity is enabled, this value reflects from where the email was captured automatically. Available in API version 64.0 and later.",
+        "enum": []
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the email. The Status field is mostly read-only. You can change the status only from New to Read. Possible values are: 0 (New) 1 (Read) 2 (Replied) 3 (Sent) 4 (Forwarded) 5 (Draft)",
         "format": "enum",
         "enum": [
@@ -272,7 +277,7 @@
         "nullable": true
       },
       "TextBody": {
-        "type": "textarea",
+        "type": "string",
         "description": "The body of the email, in plain text format. If TextBody isn’t set, then it’s extracted from HtmlBody.",
         "maxLength": 131072,
         "nullable": true
@@ -290,11 +295,11 @@
         "nullable": true
       },
       "ToIds": {
-        "type": "JunctionIdList",
+        "type": "string",
         "description": "A string array of IDs for contacts, leads, and users who were sent a carbon copy of the email message. Each ID is linked to an EmailMessageRelation record, which represents the relationship between an email message and a Contact, Lead, or User record. Adding a JunctionIdList field name to the fieldsToNull property deletes all related junction records. This action can’t be undone."
       },
       "ValidatedFromAddress": {
-        "type": "picklist",
+        "type": "string",
         "description": "A picklist value with either the sender's address, org-wide email addresses, or Email-to-Case routing address. The email address must be verified. If the sender’s email address is used, the sender must be the current user. ValidatedFromAddress isn’t suitable for use in Group By or Sort By statements. Use FromAddress instead.",
         "format": "enum",
         "enum": [
@@ -347,7 +352,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_emailmessage.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_emailmessage.htm",
     "keyPrefix": "02s",
     "createable": true,
     "updateable": true,
@@ -479,6 +484,7 @@
     "accessRules": "EmailMessage is only available for orgs that use Email-to-Case or Enhanced Email, which is automatically enabled for most customers.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "64.0"
   }
 }

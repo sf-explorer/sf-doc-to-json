@@ -1,55 +1,55 @@
 {
   "ReturnOrderLineItem": {
     "name": "ReturnOrderLineItem",
-    "description": "Represents a specific product that is returned or repaired as part of a return order in Field service, or a specific order item that is returned as part of a return order in Order Management.",
+    "description": "Represents a product that is returned, recalled, or repaired as part of a return order.",
     "properties": {
       "AssetId": {
-        "type": "reference",
-        "description": "The asset associated with the return order line item. One or more of the following fields must be filled out: AssetId, OrderItemId, Product2Id, ProductItemId, and ProductRequestLineItemId.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The asset associated with the return order line item.",
+        "format": "reference",
         "x-object": "Asset",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
-        "description": "Notes or context about the return order line item.",
+        "type": "string",
+        "description": "The description of the return order line item.",
         "maxLength": 32000,
         "nullable": true
       },
       "DestinationLocationId": {
-        "type": "reference",
-        "description": "The location where the items are being returned to. For example, if the return order tracks the return of products from a technician’s van to a warehouse, the warehouse is the destination location.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The location where the items are being returned to. For example, if the return order tracks the return of products from a technician center to a warehouse, the warehouse is the destination location.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The date when the return order line item was last modified. Its label in the user interface is Last Modified Date.",
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The date when the return order line item was last viewed.",
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate isn’t null, the user accessed this record or list view indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "OrderItemId": {
-        "type": "reference",
-        "description": "The order product associated with the return order line item. One or more of the following fields must be filled out: AssetId, OrderItemId, Product2Id, ProductItemId, and ProductRequestLineItemId.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The order product associated with the return order line item.",
+        "format": "reference",
         "x-object": "OrderItem",
         "maxLength": 18,
         "nullable": true
       },
       "ProcessingPlan": {
-        "type": "picklist",
-        "description": "Indicates the preferred fate of the items following their return. Available values are: Repair—Repair the items and return them to the owner Discard—Discard the items Salvage—Salvage the items’ working parts Restock—Return the items to your inventory",
+        "type": "string",
+        "description": "Specifies the preferred fate of the items after their return. Available values are: Repair—Repair the items and return them to the owner Discard—Discard the items Salvage—Salvage the items’ working parts Restock—Return the items to your inventory",
         "format": "enum",
         "enum": [
           "Repair",
@@ -61,25 +61,25 @@
         "nullable": true
       },
       "Product2Id": {
-        "type": "reference",
-        "description": "The product associated with the return order line item. One or more of the following fields must be filled out: AssetId, OrderItemId, Product2Id, ProductItemId, and ProductRequestLineItemId.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product associated with the return order line item.",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true
       },
       "ProductItemId": {
-        "type": "reference",
-        "description": "The product item representing the location of the product at the start of the return. One or more of the following fields must be filled out: AssetId, OrderItemId, Product2Id, ProductItemId, and ProductRequestLineItemId.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product item representing the location of the product at the start of the return.",
+        "format": "reference",
         "x-object": "ProductItem",
         "maxLength": 18,
         "nullable": true
       },
       "ProductRequestLineItemId": {
-        "type": "reference",
-        "description": "The product request line item associated with the return order line item. One or more of the following fields must be filled out: AssetId, OrderItemId, Product2Id, ProductItemId, and ProductRequestLineItemId.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The product request line item associated with the return order line item.",
+        "format": "reference",
         "x-object": "ProductRequestLineItem",
         "maxLength": 18,
         "nullable": true
@@ -106,8 +106,8 @@
         "multipleOf": 0.01
       },
       "QuantityUnitOfMeasure": {
-        "type": "picklist",
-        "description": "Units of the returned items; for example, kilograms or liters. Quantity Unit of Measure picklist values are inherited from the Quantity Unit of Measure field on products.",
+        "type": "string",
+        "description": "Units of the returned items. For example, kilograms or liters. Quantity Unit of Measure picklist values are inherited from the Quantity Unit of Measure field on products.",
         "format": "enum",
         "enum": [
           "Each"
@@ -116,7 +116,7 @@
         "nullable": true
       },
       "ReasonForRejection": {
-        "type": "picklist",
+        "type": "string",
         "description": "Reason for rejecting returned items on this return order line item.",
         "format": "enum",
         "enum": [
@@ -129,7 +129,7 @@
         "nullable": true
       },
       "ReasonForReturn": {
-        "type": "picklist",
+        "type": "string",
         "description": "The reason the items are being returned. Available values are: Damaged Defective Duplicate Order Wrong Item Wrong Quantity Not Satisfied Outdated Other",
         "format": "enum",
         "enum": [
@@ -147,10 +147,10 @@
       },
       "ReasonForChangeText": {
         "type": "string",
-        "description": "Details about the reason for return change"
+        "description": "The details about the reason for the return change"
       },
       "RepaymentMethod": {
-        "type": "picklist",
+        "type": "string",
         "description": "The method by which the customer or owner will be reimbursed for the items being returned. Available values are: Replace—The items will be replaced Refund—The items will be returned and the owner will be refunded Credit—The items will be returned and the owner will receive credit for them Return—The items will be returned to the owner (for example, following their repair)",
         "format": "enum",
         "enum": [
@@ -163,9 +163,9 @@
         "nullable": true
       },
       "ReturnOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The return order that the return order line item belongs to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ReturnOrder",
         "maxLength": 18,
         "nullable": false,
@@ -173,15 +173,15 @@
       },
       "ReturnOrderLineItemNumber": {
         "type": "string",
-        "description": "(Read only) Auto-generated number that identifies the return order line item.",
+        "description": "The auto-generated number that identifies the return order line item.",
         "maxLength": 255,
         "nullable": false,
         "readOnly": true
       },
       "SourceLocationId": {
-        "type": "reference",
-        "description": "The items’ location at the start of the return or repair. For example, if the return order tracks the return of products from a technician’s service vehicle to a warehouse, the service vehicle is the source location.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The items’ location at the start of the return or repair. For example, if the return order tracks the return of products from a technician’s service center to a warehouse, the service vehicle is the source location.",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": true
@@ -252,25 +252,25 @@
         "readOnly": true
       },
       "OrderItemSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the order item summary associated with the return order line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItemSummary",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ChangeOrderItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the change order item associated with the return order line item.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type of the return order line item. Matches the type of the associated order item summary. Delivery Charge indicates that the return order line item represents a delivery charge. Fee indicates that it represents another type of fee, such as a return fee. Order Product indicates that it represents any other type of product, service, or charge. Each type corresponds to one type code, shown here in parentheses.",
         "format": "enum",
         "enum": [
@@ -282,7 +282,7 @@
         "nullable": true
       },
       "TypeCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Type code of the return order line item. Matches the type code of the associated order item summary. Processing depends on this value. Charge indicates that the return order line item represents a delivery charge. Product indicates that it represents an other type of product, service, or charge. Each type category corresponds to one or more types.",
         "format": "enum",
         "enum": [
@@ -293,28 +293,28 @@
         "nullable": true
       },
       "UnitPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Unit price of the return order line item.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "GrossUnitPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Unit price, including tax, of the product represented by the associated order item summary.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TotalLineAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, not including adjustments or tax, of the return order line item.",
         "format": "currency",
         "nullable": true,
         "multipleOf": 0.01
       },
       "TotalLineTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalLineAmount.",
         "format": "currency",
         "nullable": true,
@@ -322,7 +322,7 @@
         "multipleOf": 0.01
       },
       "TotalAdjustmentTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalAdjustmentAmount.",
         "format": "currency",
         "nullable": true,
@@ -330,7 +330,7 @@
         "multipleOf": 0.01
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total of all price adjustments applied to the return order line item.",
         "format": "currency",
         "nullable": true,
@@ -338,7 +338,7 @@
         "multipleOf": 0.01
       },
       "TotalLineAmountWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "Total price of the return order line item, inclusive of tax. This amount is equal to TotalLineAmount + TotalLineTaxAmount.",
         "format": "currency",
         "nullable": true,
@@ -346,7 +346,7 @@
         "multipleOf": 0.01
       },
       "TotalAdjustmentAmountWithTax": {
-        "type": "currency",
+        "type": "number",
         "description": "Total amount of the price adjustments applied to the return order line item, inclusive of tax. This amount is equal to TotalAdjustmentAmount + TotalAdjustmentTaxAmount.",
         "format": "currency",
         "nullable": true,
@@ -354,7 +354,7 @@
         "multipleOf": 0.01
       },
       "TotalPrice": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, including adjustments but not tax, of the return order line item. Equal to UnitPrice times Quantity.",
         "format": "currency",
         "nullable": true,
@@ -362,7 +362,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalAmount.",
         "format": "currency",
         "nullable": true,
@@ -370,7 +370,7 @@
         "multipleOf": 0.01
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, including adjustments and tax, of the return order line item.",
         "format": "currency",
         "nullable": true,
@@ -378,7 +378,7 @@
         "multipleOf": 0.01
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for the currency of the original Order associated with the ReturnOrderLineItem.",
         "format": "enum",
         "enum": [
@@ -389,16 +389,18 @@
         "readOnly": true
       },
       "ProductServiceCampaignId": {
-        "type": "reference",
-        "description": "The product service campaign associated with the return order line item."
+        "type": "string",
+        "description": "The product service campaign associated with the return order line item.",
+        "format": "reference"
       },
       "ProductServiceCampaignItemId": {
-        "type": "reference",
-        "description": "The product service campaign item associated with the return order line item."
+        "type": "string",
+        "description": "The product service campaign item associated with the return order line item.",
+        "format": "reference"
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_returnorderlineitem.htm",
+    "module": "Manufacturing Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_returnorderlineitem.htm",
     "keyPrefix": "0Sn",
     "createable": true,
     "updateable": true,
@@ -656,9 +658,11 @@
     "accessRules": "Field Service or Order Management must be enabled.",
     "clouds": [
       "Manufacturing Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/return_order_line_item_120.png",
-    "iconColor": "06A59A"
+    "iconColor": "06A59A",
+    "x-version": "60.0"
   }
 }

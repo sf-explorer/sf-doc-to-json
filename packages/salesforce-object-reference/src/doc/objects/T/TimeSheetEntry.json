@@ -4,39 +4,46 @@
     "description": "Represents a span of time that a service resource spends on a field service task.",
     "properties": {
       "Category": {
-        "type": "picklist",
-        "description": "The time sheet entry category associated with a work order, work order line item, or a time sheet record."
+        "type": "string",
+        "description": "The time sheet entry category associated with a work order, work order line item, or a time sheet record.",
+        "enum": []
       },
       "CostCenterId": {
-        "type": "reference",
-        "description": "The cost center associated with the time sheet entry, if work order and work order line items are not available."
+        "type": "string",
+        "description": "The cost center associated with the time sheet entry, if work order and work order line items are not available.",
+        "format": "reference"
       },
       "JobExpenseTypeId": {
-        "type": "reference",
-        "description": "The job expense type associated with the time sheet entry."
+        "type": "string",
+        "description": "The job expense type associated with the time sheet entry.",
+        "format": "reference"
       },
       "UnavailableReason": {
-        "type": "picklist",
-        "description": "Specifies the reason that the service resource is unavailable."
+        "type": "string",
+        "description": "Specifies the reason that the service resource is unavailable.",
+        "enum": []
       },
       "VacationType": {
-        "type": "picklist",
-        "description": "Specifies the type of vacation time."
+        "type": "string",
+        "description": "Specifies the type of vacation time.",
+        "enum": []
       },
       "VehicleDefinitionId": {
-        "type": "reference",
-        "description": "The type of vehicle used by the field service technician, if it is different from the one in the Time Sheet record."
+        "type": "string",
+        "description": "The type of vehicle used by the field service technician, if it is different from the one in the Time Sheet record.",
+        "format": "reference"
       },
       "VehicleId": {
-        "type": "reference",
-        "description": "The service resource's vehicle associated with the time sheet entry."
+        "type": "string",
+        "description": "The service resource's vehicle associated with the time sheet entry.",
+        "format": "reference"
       },
       "": {
-        "type": "",
+        "type": "string",
         "description": ""
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the time sheet entry. The picklist includes the following values, which can be customized: New Submitted Approved",
         "format": "enum",
         "enum": [
@@ -52,7 +59,7 @@
         "description": "The comment added with a status change to a time sheet entry."
       },
       "TimeBlockSequence": {
-        "type": "int",
+        "type": "number",
         "description": "The order number of the time sheet entry relative to other time sheet entries, determining the sequence in which the entries are processed or displayed."
       },
       "Id": {
@@ -128,42 +135,42 @@
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp when the current user last viewed this record or list view. If this value is null, it’s possible that the user only accessed this record or list view (LastReferencedDate), but not viewed it.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last interacted with this record, directly or indirectly. Some sample scenarios are:",
+        "type": "string",
+        "description": "The timestamp when the current user last interacted with this record, directly or indirectly.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "TimeSheetId": {
-        "type": "reference",
+        "type": "string",
         "description": "The time sheet associated with the time sheet entry.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "TimeSheet",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "StartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time the activity began.",
         "format": "date-time",
         "nullable": true
       },
       "EndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date and time the activity finished.",
         "format": "date-time",
         "nullable": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of work performed. The picklist includes the following values, which can be customized: Direct Indirect",
         "format": "enum",
         "enum": [
@@ -175,23 +182,23 @@
         "nullable": true
       },
       "WorkOrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "The work order related to the time sheet entry. Work orders are searchable by their content.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrder",
         "maxLength": 18,
         "nullable": true
       },
       "WorkOrderLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The work order line item related to the time sheet entry. Work order line items are searchable by their content.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "WorkOrderLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Notes on how the time was spent. For example, “This service took longer than normal because the machine was jammed.”",
         "maxLength": 32000,
         "nullable": true
@@ -203,13 +210,13 @@
         "nullable": true
       },
       "DurationInMinutes": {
-        "type": "int",
+        "type": "number",
         "description": "Minutes recorded on the time sheet entry.",
         "nullable": true,
         "readOnly": true
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only if the multicurrency feature is enabled. Contains the ISO code for any currency allowed by the organization. The label in the user interface is Currency ISO Code.Time sheet entries inherit their time sheet’s currency code. Updates to a time sheet’s currency code aren’t reflected in existing time sheet entries’ currency code.",
         "format": "enum",
         "enum": [
@@ -220,7 +227,7 @@
         "readOnly": true
       },
       "LocationTimeZone": {
-        "type": "picklist",
+        "type": "string",
         "description": "Time zone of the location where the activity occurred.",
         "format": "enum",
         "enum": [
@@ -325,10 +332,15 @@
         ],
         "maxLength": 255,
         "nullable": true
+      },
+      "ReferenceRecord": {
+        "type": "string",
+        "description": "The reference for which the time was captured.",
+        "format": "reference"
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_timesheetentry.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_cg_timesheetentry.htm",
     "keyPrefix": "1te",
     "createable": true,
     "updateable": true,
@@ -517,12 +529,15 @@
         "cascadeDelete": true
       }
     ],
-    "accessRules": "Field Service must be enabled.",
+    "accessRules": "Consumer Goods Cloud must be enabled.",
     "clouds": [
       "Energy and Utilities Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Field Service Lightning",
+      "Consumer Goods Cloud"
     ],
     "iconUrl": "standard/timesheet_entry_120.png",
-    "iconColor": "3BA755"
+    "iconColor": "3BA755",
+    "x-version": "65.0"
   }
 }

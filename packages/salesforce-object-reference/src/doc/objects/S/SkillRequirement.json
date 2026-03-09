@@ -1,26 +1,26 @@
 {
   "SkillRequirement": {
     "name": "SkillRequirement",
-    "description": "Represents a skill that is required to complete a particular task in Field Service, Omni-Channel, Salesforce Scheduler, or Workforce Engagement. Skill requirements can be added to pending service routing objects in Omni-Channel. They can be added to work types, work orders, and work order line items in Field Service and Lightning Scheduler. And they can be added to job profiles in Workforce Engagement.",
+    "description": "Represents a skill that is required to complete a particular work type.",
     "properties": {
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "RelatedRecordId": {
-        "type": "reference",
-        "description": "The record that the skill is required for. The related record can be a work order, work order line item, work type, or pending service routing record.",
-        "format": "salesforce-id",
+        "type": "string",
+        "description": "The record that the skill is required for. The related record is a work type in Automotive Cloud.",
+        "format": "reference",
         "x-objects": [
           "JobProfile",
           "PendingServiceRouting",
@@ -33,16 +33,16 @@
         "readOnly": true
       },
       "SkillId": {
-        "type": "reference",
+        "type": "string",
         "description": "The skill that is required.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Skill",
         "maxLength": 18,
         "nullable": false
       },
       "SkillLevel": {
         "type": "double",
-        "description": "The level of the skill required. Skill levels can range from zero to 99.99. Depending on your business needs, you can have the skill level to reflect years of experience, certification levels, or license classes.",
+        "description": "he level of the skill required. Skill levels can range from zero to 99.99.",
         "nullable": true,
         "multipleOf": 0.01
       },
@@ -124,7 +124,7 @@
         "nullable": false
       },
       "SkillPriority": {
-        "type": "int",
+        "type": "number",
         "description": "For additional skills, specify the order in which skills are dropped if after the specified timeout no agent with that skill is available. Higher priority-value skills are dropped first. Lower priority-value skills, for example 0, are dropped last. Skills with the same priority value are dropped as a group. You can set skill priority using skills-based routing rules or Apex code.",
         "nullable": true
       },
@@ -139,8 +139,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_skillrequirement.htm",
+    "module": "Automotive Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.automotive_cloud.meta/automotive_cloud/sforce_api_objects_skillrequirement.htm",
     "keyPrefix": "0Hx",
     "createable": true,
     "updateable": true,
@@ -260,9 +260,12 @@
     "accessRules": "If you want to use SkillRequirement for Field Service use cases, then Field Service must be enabled.",
     "clouds": [
       "Automotive Cloud",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/skill_requirement_120.png",
-    "iconColor": "FF5D2D"
+    "iconColor": "FF5D2D",
+    "x-version": "58.0"
   }
 }

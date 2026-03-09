@@ -4,19 +4,19 @@
     "description": "Represents a session on a Messaging channel.",
     "properties": {
       "AcceptTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time when an agent accepts an incoming Messaging session.",
         "format": "date-time",
         "nullable": true
       },
       "AgentMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages sent by the agent during the session.",
         "nullable": true,
         "readOnly": true
       },
       "AgentType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of agent that is assigned to the Messaging session. Possible values are: Agent Bot BotToAgent—Bot & Agent System—Used for triggered outbound messages",
         "format": "enum",
         "enum": [
@@ -30,9 +30,9 @@
         "readOnly": true
       },
       "CaseId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the case associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Case",
         "maxLength": 18,
         "nullable": true
@@ -45,7 +45,7 @@
         "readOnly": true
       },
       "": {
-        "type": "",
+        "type": "string",
         "description": ""
       },
       "ChannelKey": {
@@ -69,7 +69,7 @@
         "readOnly": true
       },
       "ChannelType": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of the associated Messaging channel. Possible values are: Alexa AppleBusinessChat—Represents Apple Messages for Business. EmbeddedMessaging—Available in API version 55.0 and later. Facebook GoogleHome Line Omega Phone Text Voice WeChat WebChat WhatsApp",
         "format": "enum",
         "enum": [
@@ -98,83 +98,86 @@
         "readOnly": true
       },
       "ConversationId": {
-        "type": "reference",
-        "description": "The ID of the related conversation. Available in API version 55.0 and later."
+        "type": "string",
+        "description": "The ID of the related conversation. Available in API version 55.0 and later.",
+        "format": "reference"
       },
       "EndedByType": {
-        "type": "picklist",
-        "description": "Who or what ended the enhanced messaging session. Possible values are: Agent Bot EndUser System: The session is inactive for a while, so the session ends. An automation ends the session. The session ended because of an error."
+        "type": "string",
+        "description": "Who or what ended the enhanced messaging session. Possible values are: Agent Bot EndUser System: The session is inactive for a while, so the session ends. An automation ends the session. The session ended because of an error.",
+        "enum": []
       },
       "EndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time when the Messaging session ended.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "EndUserAccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the end user's account record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "EndUserContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the end user's contact record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "EndUserLanguage": {
-        "type": "picklist",
-        "description": "The preferred language of the messaging user who participated in the messaging session."
+        "type": "string",
+        "description": "The preferred language of the messaging user who participated in the messaging session.",
+        "enum": []
       },
       "EndUserMessageCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of messages sent by the Messaging end user.",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LeadId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the Lead associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Lead",
         "maxLength": 18,
         "nullable": true
       },
       "MessagingChannelId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the Messaging channel associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "MessagingChannel",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "MessagingEndUserId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the Messaging end user associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "MessagingEndUser",
         "maxLength": 18,
         "nullable": false,
@@ -188,15 +191,15 @@
         "readOnly": true
       },
       "OpportunityId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the opportunity record associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Opportunity",
         "maxLength": 18,
         "nullable": true
       },
       "Origin": {
-        "type": "picklist",
+        "type": "string",
         "description": "The origin of this Messaging session. Possible values are: AgentInitiated ConversationClose—Messaging user deleted the conversation in Apple Messages ConversationControlLost—Third-party bot resumes control from Salesforce bot or agent Help InboundInitiated OptIn—Opt In Status Change OptOut—Opt Out Status Change TriggeredOutbound Messaging sessions can’t be created using Apex code. They can be created only through customer initiation or by using Process Builder, flows, or the Start Conversation action.",
         "format": "enum",
         "enum": [
@@ -214,9 +217,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the owner associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -239,14 +242,14 @@
         "readOnly": true
       },
       "StartTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time when the Messaging session started.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the Messaging session. Possible values are: New (standard channels only) Active Consent (enhanced channels only) Waiting Paused (enhanced channels only) Inactive (enhanced channels only) Ended Error (enhanced channels only) To learn more about these statuses, see Lifecycle of a Messaging Session in Salesforce Help.",
         "format": "enum",
         "enum": [
@@ -264,9 +267,9 @@
         "readOnly": true
       },
       "TargetUserId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the target user associated with this Messaging session.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
@@ -353,7 +356,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_messagingsession.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_messagingsession.htm",
     "keyPrefix": "0Mw",
     "iconUrl": "standard/messaging_session_120.png",
     "iconColor": "06A59A",
@@ -510,6 +513,7 @@
     ],
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "47.0"
   }
 }

@@ -1,24 +1,24 @@
 {
   "PersonEducation": {
     "name": "PersonEducation",
-    "description": "Represents information about professional education for a person in a provider role.",
+    "description": "Represents information about professional education for a person in a party role.",
     "properties": {
       "CompletionDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Education's completion date.",
         "format": "date-time",
         "nullable": true
       },
       "ContactId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the person who earned the degree and is listed as a contact.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Contact",
         "maxLength": 18,
         "nullable": true
       },
       "EducationLevel": {
-        "type": "picklist",
+        "type": "string",
         "description": "Level of education achieved. Example values: Undergraduate degree Medical school Internship Residency Fellowship",
         "format": "enum",
         "enum": [
@@ -32,7 +32,7 @@
         "nullable": true
       },
       "GraduationDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Graduation date from institution.",
         "format": "date-time",
         "nullable": true
@@ -50,9 +50,9 @@
         "nullable": true
       },
       "IndividualId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the person who earned the degree and is listed as an individual.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Individual",
         "maxLength": 18,
         "nullable": true
@@ -63,14 +63,14 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user referenced this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which a user viewed this record.",
         "format": "date-time",
         "nullable": true,
@@ -83,9 +83,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID of the user who owns this record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -94,13 +94,13 @@
         "nullable": false
       },
       "StartDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Education's start date.",
         "format": "date-time",
         "nullable": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Current status of education. Valid values: Inactive Revoked Draft Verified",
         "format": "enum",
         "enum": [
@@ -113,15 +113,15 @@
         "nullable": true
       },
       "UserId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the person who earned the degree and is listed as a user.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "VerificationStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "Current educational status. Valid values: Authorized None The default value is None.",
         "format": "enum",
         "enum": [
@@ -131,7 +131,7 @@
         "nullable": true
       },
       "VerifiedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Education was validated on this date.",
         "format": "date-time",
         "nullable": true
@@ -213,18 +213,71 @@
       },
       "HealthcareProviderId": {
         "type": "string",
-        "description": "HealthcareProviderId field",
-        "format": "salesforce-id",
+        "description": "The person in a provider role whose education details are represented by this record.",
+        "format": "reference",
         "x-object": "HealthcareProvider",
         "maxLength": 18,
         "nullable": true
+      },
+      "AccountId": {
+        "type": "string",
+        "description": "The Account associated with the Person Education.",
+        "format": "reference"
+      },
+      "ClassRank": {
+        "type": "string",
+        "description": "The measure of the applicant's academic performance compared to the other students in their class. This rank is based on the class rank reporting format that's followed by the institute, such as a number or percentage."
+      },
+      "ClassRankReportingFormat": {
+        "type": "string",
+        "description": "Specifies the class rank reporting format followed by the institution to report the applicant's performance.",
+        "enum": []
+      },
+      "ClassRankWeightingType": {
+        "type": "string",
+        "description": "Specifies the GPA weighting type that’s used to calculate the applicant’s class rank.",
+        "enum": []
+      },
+      "Comment": {
+        "type": "string",
+        "description": "Comments on the applicant’s education details.",
+        "format": "reference"
+      },
+      "CumulativeGpa": {
+        "type": "double",
+        "description": "The grade point average of all the grades earned by an applicant in all the semesters or terms."
+      },
+      "EndDate": {
+        "type": "string",
+        "description": "The end date of the individual’s education.",
+        "format": "date"
+      },
+      "GpaScale": {
+        "type": "number",
+        "description": "The scale used when calculating the applicant's grade point average."
+      },
+      "GpaWeightingType": {
+        "type": "string",
+        "description": "Specifies the type of weightage given to the applicant's grades when calculating their grade point average.",
+        "enum": []
+      },
+      "GraduationClassSize": {
+        "type": "number",
+        "description": "The number of students who graduated from the same school, in the same academic year, as the applicant."
+      },
+      "InstitutionAccountId": {
+        "type": "string",
+        "description": "The institution associated with the applicant’s education.",
+        "format": "reference"
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_personeducation.htm",
+    "module": "Financial Services Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.financial_services_cloud_object_reference.meta/financial_services_cloud_object_reference/sforce_api_objects_personeducation.htm",
     "clouds": [
       "Financial Services Cloud",
-      "Health Cloud"
+      "Health Cloud",
+      "Public Sector Cloud",
+      "Education Cloud"
     ],
     "keyPrefix": "0Sr",
     "iconUrl": "custom/custom51_120.png",
@@ -427,6 +480,7 @@
         "relationshipName": null,
         "cascadeDelete": false
       }
-    ]
+    ],
+    "x-version": "58.0"
   }
 }

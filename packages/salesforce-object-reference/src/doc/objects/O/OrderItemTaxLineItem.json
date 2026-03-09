@@ -4,7 +4,7 @@
     "description": "The tax amount that has been applied to an order item.",
     "properties": {
       "Amount": {
-        "type": "currency",
+        "type": "number",
         "description": "The total amount of the tax line. The value is rounded to the nearest possible amount associated with the currency of the order item.",
         "format": "currency",
         "nullable": false,
@@ -15,7 +15,7 @@
         "description": "Reference number provided by the tax provider, such as Stripe, in the tax calculation API response."
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Users can add a custom description to the record to provide additional detail.",
         "maxLength": 2000,
         "nullable": true
@@ -27,33 +27,33 @@
         "nullable": false
       },
       "OrderId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the parent order for the order item related to the tax line",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Order",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "OrderItemAdjustmentLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The order item adjustment line item that the tax line applies to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItemAdjustmentLineItem",
         "maxLength": 18,
         "nullable": true
       },
       "OrderItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The order item that the tax line applies to.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItem",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "Rate": {
-        "type": "percent",
+        "type": "number",
         "description": "The percentage value of the tax. Null if the tax is a flat amount.",
         "format": "percent",
         "nullable": true,
@@ -64,22 +64,22 @@
         "description": "Reference number provided by the tax provider (like Stripe) for each line item in the tax calculation API call. Use this unique ID to revert taxes during cancellation or return of an order."
       },
       "RelatedTaxLineItemId": {
-        "type": "reference",
+        "type": "string",
         "description": "The original order item tax line. Useful for reference in change order scenarios.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderItemTaxLineItem",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "TaxEffectiveDate": {
-        "type": "date",
+        "type": "string",
         "description": "The date used to calculate the effective tax rate. This field may require an update to accommodate different buyer time zones.",
         "format": "date",
         "nullable": false
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "Shows whether the amount on the tax line is an estimate or the final calculated amount. Doesn’t set a value by default. Users can define automation to set and change the value as needed.",
         "format": "enum",
         "enum": [
@@ -160,7 +160,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderitemtaxlineitem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderitemtaxlineitem.htm",
     "keyPrefix": "0au",
     "createable": true,
     "updateable": true,
@@ -292,6 +292,7 @@
     "accessRules": "Lightning Experience",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

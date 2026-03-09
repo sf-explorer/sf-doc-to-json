@@ -1,78 +1,90 @@
 {
   "GoalAssignment": {
     "name": "GoalAssignment",
-    "description": "Represents the goals that are part of a care plan.",
+    "description": "Represents the assignment of a goal.",
     "properties": {
       "CompletionDate": {
-        "type": "date",
-        "description": "The date when the goal is completed."
+        "type": "string",
+        "description": "The date when the goal is completed.",
+        "format": "date"
       },
       "CompletionPercentage": {
-        "type": "percent",
-        "description": "Records the progress of the goal with a percentage value."
+        "type": "number",
+        "description": "Indicates the progress made on the assigned goal in percentage."
       },
       "CustomGoalName": {
         "type": "string",
         "description": "A custom name that can be defined for the goal assignment. If this field is empty, the goal definition name is used for the goal assignment."
       },
       "Description": {
-        "type": "textarea",
-        "description": "The description of the goal."
+        "type": "string",
+        "description": "The description of the goal assignment record."
       },
       "GoalAssigneeId": {
-        "type": "Polymorphic lookup",
-        "description": "The person to whom the goal is assigned."
+        "type": "string",
+        "description": "The assigees associated with the goal assignment.",
+        "format": "reference"
       },
       "GoalDefinitionId": {
-        "type": "Lookup",
-        "description": "References the goal definition in the PGI library that defines the details of the goal."
+        "type": "string",
+        "description": "The goal definition associated with the goal assignment.",
+        "format": "reference"
       },
       "DescriptionCodeId": {
-        "type": "Polymorphic lookup",
-        "description": "The system-defined code that represents the description of a standardized goal."
+        "type": "string",
+        "description": "The system-defined code that represents the description of a standardized goal.",
+        "format": "reference"
       },
       "GoalType": {
-        "type": "String",
-        "description": "Specifies the type of the goal."
+        "type": "string",
+        "description": "Specifies if the goal applies to a group or an individual."
       },
       "LastReferencedDate": {
-        "type": "DateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "type": "string",
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "DateTime",
-        "description": "The date and time when the record was last viewed."
+        "type": "string",
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time"
       },
       "Name": {
-        "type": "String",
+        "type": "string",
         "description": "The name of the goal assignment record."
       },
       "OwnerId": {
-        "type": "Polymorphic lookup",
-        "description": "The ID of the owner of this goal assignment record."
+        "type": "string",
+        "description": "ID of the goal assignment record owner.",
+        "format": "reference"
       },
       "ParentRecordId": {
-        "type": "Polymorphic lookup",
-        "description": "The parent record that the goal is associated with."
+        "type": "string",
+        "description": "The care plan or benefit assignment object associated with the goal assignment.",
+        "format": "reference"
       },
       "Priority": {
-        "type": "picklist",
-        "description": "Specifies the priority of the goal."
+        "type": "string",
+        "description": "Specifies the priority of the goal assignment.",
+        "enum": []
       },
       "StartDate": {
-        "type": "date",
-        "description": "The date when the goal is intended to start."
+        "type": "string",
+        "description": "The start date of the assigned goal.",
+        "format": "date"
       },
       "Status": {
-        "type": "picklist",
-        "description": "Specifies the status of the goal."
+        "type": "string",
+        "description": "Specifies the status of the assigned goal.",
+        "enum": []
       },
       "TargetCompletionDate": {
-        "type": "date",
-        "description": "The date when the goal is targeted to be completed."
+        "type": "string",
+        "description": "The date by when the assigned goal is targeted to be completed.",
+        "format": "date"
       },
       "AssignedById": {
-        "type": "Polymorphic lookup",
+        "type": "string",
         "description": "References the person who assigned the goal."
       },
       "ExtlGoalDefIdentifier": {
@@ -80,12 +92,13 @@
         "description": "The ID of the goal in an external source system."
       },
       "IsContinuousGoal": {
-        "type": "Boolean",
+        "type": "boolean",
         "description": "Indicates whether the goal is a continuous goal (true) or not (false). For instance, setting a goal to quit smoking."
       },
       "ProgressionStatus": {
-        "type": "picklist",
-        "description": "Specifies the progression status of the goal."
+        "type": "string",
+        "description": "Specifies the progression status of the goal.",
+        "enum": []
       },
       "SortOrder": {
         "type": "double",
@@ -96,40 +109,51 @@
         "description": "The identifier of the record in its source system."
       },
       "SourceSystemModifiedDateTime": {
-        "type": "dateTime",
-        "description": "The date on which this item was last changed on the source system."
+        "type": "string",
+        "description": "The date on which this item was last changed on the source system.",
+        "format": "date-time"
       },
       "SourceSystemName": {
         "type": "string",
         "description": "The name of the system this record came from."
       },
       "StartEventCodeId": {
-        "type": "Polymorphic lookup",
+        "type": "string",
         "description": "The system-defined code that represents the event that initiates progression towards the goal."
       },
       "StatusDate": {
-        "type": "dateTime",
-        "description": "Records the date and time when the current status was set."
+        "type": "string",
+        "description": "Records the date and time when the current status was set.",
+        "format": "date-time"
       },
       "StatusReason": {
         "type": "string",
         "description": "Describes the reason for the current status."
       },
       "TaskJobStatus": {
-        "type": "picklist",
-        "description": "This field is not used in Integrated Care Management."
+        "type": "string",
+        "description": "This field is not used in Integrated Care Management.",
+        "enum": []
       },
       "TaskJobStatusMessage": {
-        "type": "textarea",
+        "type": "string",
         "description": "This field is not used in Integrated Care Management."
+      },
+      "Category": {
+        "type": "string",
+        "description": "The category of the goal assignment.",
+        "enum": []
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_goalassignment.htm",
-    "accessRules": "In Health Cloud, this object is available in API version 57.0 and later.",
+    "module": "Nonprofit Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.nonprofit_cloud.meta/nonprofit_cloud/sforce_api_objects_goalassignment.htm",
+    "accessRules": "the Program and Benefit Management Access permission set or the Program and Benefit Management permission set license",
     "clouds": [
       "Nonprofit Cloud",
-      "Health Cloud"
-    ]
+      "Health Cloud",
+      "Public Sector Cloud",
+      "Education Cloud"
+    ],
+    "x-version": "55.0"
   }
 }

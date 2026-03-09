@@ -4,16 +4,16 @@
     "description": "Represents the rolling forecast record of a particular account. The forecast is prepared using data directly from sales agreements, orders, and opportunities.",
     "properties": {
       "AccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the account for which forecast is generated.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Account",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "DefaultAccountGrowthPercentage": {
-        "type": "percent",
+        "type": "number",
         "description": "Default value of the account growth metric used to calculate forecast for the first time. The default value is zero.",
         "format": "percent",
         "nullable": true,
@@ -21,7 +21,7 @@
         "multipleOf": 0.01
       },
       "DefaultMarketGrowthPercentage": {
-        "type": "percent",
+        "type": "number",
         "description": "Default value of the market growth metric used to calculate forecast for the first time. The default value is zero.",
         "format": "percent",
         "nullable": true,
@@ -29,28 +29,28 @@
         "multipleOf": 0.01
       },
       "EndDate": {
-        "type": "date",
+        "type": "string",
         "description": "Date till which forecast is generated and displayed for this account.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "LastCalculatedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Date on which forecast was last calculated, either automatically or manually.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which this record was referenced.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The most recent date on which this record was viewed.",
         "format": "date-time",
         "nullable": true,
@@ -64,9 +64,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Owner of the account.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -76,14 +76,14 @@
         "readOnly": true
       },
       "StartDate": {
-        "type": "date",
+        "type": "string",
         "description": "Date from which forecast is generated and displayed for this account. It is automatically created in active status.",
         "format": "date",
         "nullable": true,
         "readOnly": true
       },
       "Status": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status of the forecast record.",
         "format": "enum",
         "enum": [
@@ -192,7 +192,7 @@
       }
     },
     "module": "Manufacturing Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_accountforecast.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.mfg_api_devguide.meta/mfg_api_devguide/sforce_api_objects_accountforecast.htm",
     "keyPrefix": "0yA",
     "iconUrl": "standard/partners_120.png",
     "iconColor": "3BA755",
@@ -406,6 +406,10 @@
         "relationshipName": "TopicAssignments",
         "cascadeDelete": true
       }
+    ],
+    "x-version": "47.0",
+    "clouds": [
+      "Manufacturing Cloud"
     ]
   }
 }

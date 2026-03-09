@@ -4,100 +4,138 @@
     "description": "Represents information about a payment to be processed. Each schedule item can have different payment configuration fields, such as payment methods, payment dates, and payment accounts. When a payment scheduler launches a payment run, the run evaluates active payment schedule items, and picks them up for payment processing if they match the scheduler’s payment criteria.",
     "properties": {
       "AppliedAmount": {
-        "type": "currency",
-        "description": "The amount of a credit memo or payment that's applied to the parent reference entity and is excluded for payment collection."
+        "type": "number",
+        "description": "The amount of a credit memo or payment that’s applied to the parent reference entity and is excluded for payment collection.",
+        "format": "currency"
       },
       "Comments": {
-        "type": "textarea",
+        "type": "string",
         "description": "Additional details about the payment schedule item."
       },
       "LastPaymentGatewayLogId": {
-        "type": "reference",
-        "description": "The most recent payment gateway log created after a payment gateway request is sent to process a payment based on the payment schedule item."
+        "type": "string",
+        "description": "The most recent payment gateway log created after a payment gateway request is sent to process a payment based on the payment schedule item.",
+        "format": "reference"
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record."
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly."
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
+        "format": "date-time"
       },
       "PaymentAccountId": {
-        "type": "reference",
-        "description": "The account assigned to payments made from the payment schedule item. When a payment schedule item is created, its PaymentAccountId inherits the payment schedule’s DefaultPaymentAccountId. However, you can provide a new PaymentAccountId at any time. If you change the PaymentAccountId, only payments made after the change use the new account."
+        "type": "string",
+        "description": "The account assigned to payments made from the payment schedule item. When a payment schedule item is created, its PaymentAccountId inherits the payment schedule’s DefaultPaymentAccountId. However, you can provide a new PaymentAccountId at any time. If you change the PaymentAccountId, only payments made after the change use the new account.",
+        "format": "reference"
       },
       "PaymentBatchRunId": {
-        "type": "reference",
-        "description": "The payment batch run that evaluated the payment schedule item for payment processing."
+        "type": "string",
+        "description": "The payment batch run that evaluated the payment schedule item for payment processing.",
+        "format": "reference"
       },
       "PaymentGatewayRespStatus": {
-        "type": "picklist",
-        "description": "The status of the payment gateway response when the payment schedule item is processed."
+        "type": "string",
+        "description": "The status of the payment gateway response when the payment schedule item is processed.",
+        "enum": []
       },
       "PaymentId": {
-        "type": "reference",
-        "description": "The payment that a payment run created for the payment schedule item after picking up the parent payment schedule. This field is unique within your organization."
+        "type": "string",
+        "description": "The payment that a payment run created for the payment schedule item after picking up the parent payment schedule. This field is unique within your organization.",
+        "format": "reference"
       },
       "PaymentMethodId": {
-        "type": "reference",
-        "description": "The payment method assigned to payments created from the payment schedule item. When a payment schedule item is created, its PaymentMethodId inherits the payment schedule’s DefaultPaymentMethodId. However, you can provide a new PaymentMethodId at any time. If you change the PaymentMethodId, only payments made after the change use the new account."
+        "type": "string",
+        "description": "The payment method assigned to payments created from the payment schedule item. When a payment schedule item is created, its PaymentMethodId inherits the payment schedule’s DefaultPaymentMethodId. However, you can provide a new PaymentMethodId at any time. If you change the PaymentMethodId, only payments made after the change use the new account.",
+        "format": "reference"
       },
       "PaymentProcessingMessage": {
         "type": "string",
         "description": "Information about whether the payment creation process has completed."
       },
       "PaymentRunMatchingValue": {
-        "type": "picklist",
-        "description": "The value used to match a payment schedule item to a payment run based on the payment run’s matching criteria."
+        "type": "string",
+        "description": "The value used to match a payment schedule item to a payment run based on the payment run’s matching criteria.",
+        "enum": []
       },
       "PaymentScheduleId": {
-        "type": "reference",
-        "description": "Required. The parent payment schedule for the payment schedule item."
+        "type": "string",
+        "description": "Required. The parent payment schedule for the payment schedule item.",
+        "format": "reference"
       },
       "PaymentScheduleItemNumber": {
         "type": "string",
         "description": "Required. The auto-generated reference number for the payment schedule item."
       },
       "PaymentSource": {
-        "type": "picklist",
-        "description": "The process that created a payment based on the payment schedule item."
+        "type": "string",
+        "description": "The process that created a payment based on the payment schedule item.",
+        "enum": []
       },
       "PaymentsReceived": {
-        "type": "currency",
-        "description": "The amount that's been received for the payment created for the payment schedule item."
+        "type": "number",
+        "description": "The amount that's been received for the payment created for the payment schedule item.",
+        "format": "currency"
       },
       "ProcessedAmount": {
-        "type": "currency",
-        "description": "The amount of the payment schedule item that has been processed for payment and converted to a payment record."
+        "type": "number",
+        "description": "The amount of the payment schedule item that has been processed for payment and converted to a payment record.",
+        "format": "currency"
       },
       "RequestedAmount": {
-        "type": "currency",
-        "description": "Required. The initial amount of the payment schedule item upon creation."
+        "type": "number",
+        "description": "Required. The initial amount of the payment schedule item upon creation.",
+        "format": "currency"
       },
       "Status": {
-        "type": "picklist",
-        "description": "Required. The status of the payment schedule item."
+        "type": "string",
+        "description": "Required. The status of the payment schedule item.",
+        "enum": []
       },
       "TargetPaymentProcessingDate": {
-        "type": "date",
-        "description": "Required. The date when the payment run makes a payment request to the payment gateway for the payment schedule item."
+        "type": "string",
+        "description": "Required. The date when the payment run makes a payment request to the payment gateway for the payment schedule item.",
+        "format": "date"
       },
       "UsageType": {
-        "type": "picklist",
-        "description": "The feature using the payment schedule item."
+        "type": "string",
+        "description": "The feature using the payment schedule item.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
-        "description": "Three-letter ISO 4217 currency code associated with the payment schedule item record."
+        "type": "string",
+        "description": "Three-letter ISO 4217 currency code associated with the payment schedule item record.",
+        "enum": []
+      },
+      "NextPaymentRetryTime": {
+        "type": "string",
+        "description": "The slated time of the next payment retry for the payment schedule item. Available in API version 66.0 and later.",
+        "format": "date-time"
+      },
+      "PaymentGatewayErrorCategory": {
+        "type": "string",
+        "description": "The category of payment gateway errors for the payment schedule item.",
+        "enum": []
+      },
+      "PaymentGatewayErrorCode": {
+        "type": "string",
+        "description": "The raw error code from the payment gateway for the payment schedule item. Available in API version 66.0 and later."
+      },
+      "PaymentRetryCount": {
+        "type": "number",
+        "description": "The number of payment retries that were attempted on the payment schedule item. Available in API version 66.0 and later."
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_paymentscheduleitem.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_paymentscheduleitem.htm",
     "accessRules": "Revenue Cloud Billing license, and the Payment Admin permission set or the Payment Operations",
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "64.0"
   }
 }

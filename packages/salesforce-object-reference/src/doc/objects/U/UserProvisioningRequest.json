@@ -10,7 +10,7 @@
         "nullable": true
       },
       "ApprovalStatus": {
-        "type": "picklist",
+        "type": "string",
         "description": "The status of the approval for the current request. If the user provisioning setup for the connected app does not have an approval process enabled, the status is Not Required. If an approval process is enabled, supported values are: Required— An approval process is enabled in the user provisioning setup for the associated connected app, but there is no response to the request yet. Not Required— An approval process is not enabled in the user provisioning setup for the associated connected app. Approved Denied",
         "format": "enum",
         "enum": [
@@ -23,9 +23,9 @@
         "nullable": false
       },
       "ConnectedAppId": {
-        "type": "reference",
+        "type": "string",
         "description": "The 18-digit application ID for the connected app.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ConnectedApplication",
         "maxLength": 18,
         "nullable": true
@@ -37,9 +37,9 @@
         "nullable": true
       },
       "ManagerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Salesforce ID of the user who manages the user specified in the SalesforceUserId field. If an approval process is configured for the user provisioning request. this value allows the manager to approve the request. Available in API version 34.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
@@ -52,7 +52,7 @@
         "readOnly": true
       },
       "Operation": {
-        "type": "picklist",
+        "type": "string",
         "description": "The Apex method called by the trigger associated with the provisioning request (typically a change to the User object). Supported values are: Create Read Update Deactivate Activate Freeze Unfreeze Reconcile Linking For example, when the User object field isActive is set to false, the UPR object Operation field value is set to Deactivate.",
         "format": "enum",
         "enum": [
@@ -70,9 +70,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "Salesforce ID of the Group or User who owns this object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -81,29 +81,30 @@
         "nullable": false
       },
       "ParentID": {
-        "type": "reference",
-        "description": "When a retry event is created, the failed UPR is cloned and resubmitted. This field contains a lookup to the failed UPR that was cloned to create the current record."
+        "type": "string",
+        "description": "When a retry event is created, the failed UPR is cloned and resubmitted. This field contains a lookup to the failed UPR that was cloned to create the current record.",
+        "format": "reference"
       },
       "Retry Count": {
-        "type": "int",
+        "type": "number",
         "description": "Number of retry attempts performed on a UPR. Retry Count enables custom business logic such as “Retry 5 times then stop and notify your admin.”"
       },
       "SalesforceUserId": {
-        "type": "reference",
+        "type": "string",
         "description": "Salesforce ID of the user making the request.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true
       },
       "ScheduleDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "When to send this request to the service provider. Note Scheduling is not implemented yet. Currently, provisioning changes are queued immediately to be sent to the service provider.",
         "format": "date-time",
         "nullable": true
       },
       "State": {
-        "type": "picklist",
+        "type": "string",
         "description": "Status of this request. Supported values are: New Requested Completed Failed Collecting Collected Analyzing Analyzed Committing Retried Manually Completed The State goes from New to Requested to Completed or Failed, unless a reconciliation process is occurring. For details about the reconciliation process State value changes, see Usage. The State goes from Failed to Retried or Manually Completed when troubleshooting UPR failures. For details about handling failures, see State Values for Managing Provisioning Failures.",
         "format": "enum",
         "enum": [
@@ -123,17 +124,17 @@
         "nullable": false
       },
       "UserProvAccountId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID value of the associated UserProvAccount object.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "UserProvAccount",
         "maxLength": 18,
         "nullable": true
       },
       "UserProvConfigId": {
-        "type": "reference",
+        "type": "string",
         "description": "The ID value of the associated UserProvisioningConfig object. Available in API version 34.0 and later.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "UserProvisioningConfig",
         "maxLength": 18,
         "nullable": true
@@ -218,7 +219,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_userprovisioningrequest.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_userprovisioningrequest.htm",
     "keyPrefix": "0HP",
     "createable": true,
     "updateable": true,
@@ -283,6 +284,7 @@
     ],
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "33.0"
   }
 }

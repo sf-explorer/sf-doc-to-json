@@ -7,92 +7,77 @@
 npm test
 ```
 
-### Watch mode (re-runs tests on file changes)
+### Run tests for a specific package
 ```bash
-npm run test:watch
+npm test --workspace=@sf-explorer/salesforce-object-reference
+npm test --workspace=@sf-explorer/salesforce-metadata-reference
+npm test --workspace=@sf-explorer/salesforce-object-ssot-reference
+npm test --workspace=@sf-explorer/salesforce-agentforce-actions-reference
 ```
 
-### Generate coverage report
+### Run integration tests
 ```bash
-npm run test:coverage
+npm test -- tests/integration.test.ts
 ```
 
 ## Test Structure
 
-### Test Files
+### Package Tests
 
-- `tests/index.test.ts` - Tests for main API functions
-- `tests/config.test.ts` - Tests for configuration
-- `tests/types.test.ts` - Tests for TypeScript types
+Each package has its own test suite in `packages/<package>/tests/`:
+
+- `index.test.ts` - Tests for main API functions
+
+### Root Integration Tests
+
+- `tests/integration.test.ts` - Cross-package integration tests
 
 ### What's Tested
 
-#### API Functions
-- ✅ `loadIndex()` - Loading and validating index structure
-- ✅ `getObject()` - Retrieving specific objects
-- ✅ `searchObjects()` - Searching with strings and regex
-- ✅ `getObjectsByCloud()` - Filtering objects by cloud
-- ✅ `getAvailableClouds()` - Listing available clouds
-- ✅ `loadCloud()` - Loading entire cloud data
-
-#### Configuration
-- ✅ CONFIGURATION object structure
-- ✅ Valid documentation IDs
-- ✅ Unique labels
-- ✅ CHUNK_SIZE validation
-
-#### TypeScript Types
-- ✅ Type definitions compile correctly
-- ✅ All interfaces are usable
+#### API Functions (per package)
+- `loadIndex()` - Loading and validating index structure
+- `getObject()` / `getAction()` - Retrieving specific items
+- `searchObjects()` / `searchActions()` - Searching with patterns
+- `getAllObjectNames()` / `getAllActionNames()` - Listing all items
+- `getObjectDescription()` / `getActionDescription()` - Lightweight descriptions
+- `clearCache()` - Cache management
 
 #### Integration Tests
-- ✅ Consistency between index and cloud files
-- ✅ Same objects accessible via different methods
-- ✅ Search results match getObject results
+- Cross-package imports work correctly
+- Consistent data structures
+- API compatibility
 
 ## Prerequisites
 
-Before running tests, make sure you have:
+Before running tests:
 
-1. **Built the project:**
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Build all packages:**
    ```bash
    npm run build
    ```
 
-2. **Fetched documentation** (at least one cloud):
-   ```bash
-   npm run fetch:fsc
-   # or
-   npm run fetch:all
-   ```
-
-Tests will skip if no documentation data is available.
-
-## Test Coverage
-
-After running `npm run test:coverage`, you'll find:
-- Terminal summary of coverage
-- HTML report in `coverage/lcov-report/index.html`
-
-### Expected Coverage
-
-| Type | Coverage |
-|------|----------|
-| Statements | > 80% |
-| Branches | > 70% |
-| Functions | > 80% |
-| Lines | > 80% |
+Tests should pass as long as packages are built and contain valid documentation data.
 
 ## Writing New Tests
 
 ### Example Test
 
 ```typescript
-import { getObject } from '../src/index';
+import { describe, it, expect, beforeEach } from '@jest/globals';
+import { getObject, clearCache } from '../src/index.js';
 
-describe('My New Feature', () => {
-    it('should do something', () => {
-        const result = getObject('Account');
+describe('My Feature', () => {
+    beforeEach(() => {
+        clearCache();
+    });
+
+    it('should do something', async () => {
+        const result = await getObject('Account');
         expect(result).not.toBeNull();
         expect(result?.name).toBe('Account');
     });
@@ -101,45 +86,37 @@ describe('My New Feature', () => {
 
 ### Best Practices
 
-1. **Descriptive test names** - Use clear, specific descriptions
-2. **Arrange-Act-Assert** - Structure tests clearly
-3. **Guard against missing data** - Tests check if data exists first
-4. **Test edge cases** - Include null checks, empty arrays, etc.
-5. **Independent tests** - Each test should run independently
+1. **Clear cache between tests** - Use `beforeEach(() => clearCache())`
+2. **Guard against missing data** - Check if data exists before assertions
+3. **Test edge cases** - Include null checks, empty arrays, invalid inputs
+4. **Keep tests independent** - Each test should run in isolation
 
 ## CI/CD Integration
 
-### GitHub Actions Example
+Tests run automatically on:
+- Push to `main` or `develop`
+- Pull requests to `main` or `develop`
 
-```yaml
-name: Tests
+See `.github/workflows/ci.yml` for the full configuration.
 
-on: [push, pull_request]
+### CI Test Matrix
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: npm run build
-      - run: npm run fetch:fsc
-      - run: npm test
-      - run: npm run test:coverage
-```
+Tests run on:
+- Node.js 18.x
+- Node.js 20.x
 
 ## Troubleshooting
 
 ### Tests Fail: "Index file not found"
-**Solution:** Run `npm run fetch:all` to generate documentation first.
+**Solution:** Make sure packages are built and contain documentation data.
+```bash
+npm run build
+```
 
 ### Tests Timeout
-**Solution:** Increase Jest timeout in `jest.config.js`:
-```javascript
-testTimeout: 30000
+**Solution:** Increase Jest timeout in the test file:
+```typescript
+jest.setTimeout(30000);
 ```
 
 ### Type Errors in Tests
@@ -148,38 +125,11 @@ testTimeout: 30000
 npm run build
 ```
 
-## Mock Data for Tests
-
-If you want to test without fetching real documentation, create mock data in `tests/fixtures/`:
-
-```typescript
-// tests/fixtures/mock-index.ts
-export const mockIndex = {
-  generated: '2025-11-07T12:00:00.000Z',
-  version: '264.0',
-  totalObjects: 2,
-  totalClouds: 1,
-  objects: {
-    'TestObject': {
-      cloud: 'Core Salesforce',
-      file: 'core-salesforce.json'
-    }
-  }
-};
-```
-
-Then use in tests:
-```typescript
-jest.mock('../src/index', () => ({
-  loadIndex: () => mockIndex
-}));
-```
-
 ## Running Specific Tests
 
 ```bash
 # Run specific test file
-npm test -- tests/config.test.ts
+npm test -- --testPathPattern="integration"
 
 # Run tests matching pattern
 npm test -- --testNamePattern="loadIndex"
@@ -187,14 +137,3 @@ npm test -- --testNamePattern="loadIndex"
 # Run in verbose mode
 npm test -- --verbose
 ```
-
-## Continuous Testing During Development
-
-```bash
-# Watch mode with coverage
-npm run test:watch -- --coverage
-
-# Watch only changed files
-npm run test:watch -- --onlyChanged
-```
-

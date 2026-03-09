@@ -4,13 +4,13 @@
     "description": "Represents a mailing, billing, or home address.",
     "properties": {
       "Address": {
-        "type": "address",
+        "type": "string",
         "description": "The full address.",
         "nullable": true,
         "readOnly": true
       },
       "AddressType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Picklist of address types. The values are: Mailing Shipping Billing Home",
         "format": "enum",
         "enum": [
@@ -47,7 +47,7 @@
         "nullable": true
       },
       "GeocodeAccuracy": {
-        "type": "picklist",
+        "type": "string",
         "description": "The level of accuracy of a location’s geographical coordinates compared with its physical address. A geocoding service typically provides this value based on the address’s latitude and longitude coordinates.",
         "format": "enum",
         "enum": [
@@ -67,12 +67,14 @@
         "nullable": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "The most recent date on which a user referenced this record."
+        "type": "string",
+        "description": "The most recent date on which a user referenced this record.",
+        "format": "date-time"
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "The most recent date on which a user viewed this record."
+        "type": "string",
+        "description": "The most recent date on which a user viewed this record.",
+        "format": "date-time"
       },
       "Latitude": {
         "type": "double",
@@ -81,7 +83,7 @@
         "multipleOf": 1e-15
       },
       "LocationType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Picklist of location types. The available values are: Warehouse (default) Site Van Plant",
         "format": "enum",
         "enum": [
@@ -111,9 +113,9 @@
         "readOnly": true
       },
       "ParentId": {
-        "type": "reference",
+        "type": "string",
         "description": "A lookup field to the parent location.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Location",
         "maxLength": 18,
         "nullable": false,
@@ -132,13 +134,13 @@
         "nullable": true
       },
       "Street": {
-        "type": "textarea",
+        "type": "string",
         "description": "The address street.",
         "maxLength": 255,
         "nullable": true
       },
       "TimeZone": {
-        "type": "picklist",
+        "type": "string",
         "description": "Picklist of available time zones.",
         "format": "enum",
         "enum": [
@@ -680,10 +682,30 @@
         ],
         "maxLength": 10,
         "nullable": true
+      },
+      "Floor": {
+        "type": "string",
+        "description": "The floor number in the address"
+      },
+      "HouseNumberSupplement": {
+        "type": "string",
+        "description": "The house number in a street or apartment block in the address"
+      },
+      "StreetSupplement1": {
+        "type": "string",
+        "description": "The first line of the street address"
+      },
+      "StreetSupplement2": {
+        "type": "string",
+        "description": "The second line of the street address"
+      },
+      "UnitNumber": {
+        "type": "string",
+        "description": "The second line of the street address"
       }
     },
     "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_address.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_address.htm",
     "keyPrefix": "130",
     "iconUrl": "standard/address_120.png",
     "iconColor": "3BA755",
@@ -781,7 +803,10 @@
     "accessRules": "The following access checks must be enabled:",
     "clouds": [
       "Health Cloud",
-      "Core Salesforce"
-    ]
+      "Core Salesforce",
+      "Field Service Lightning",
+      "Energy and Utilities Cloud"
+    ],
+    "x-version": "62.0"
   }
 }

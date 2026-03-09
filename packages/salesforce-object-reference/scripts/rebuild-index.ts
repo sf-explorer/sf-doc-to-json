@@ -28,6 +28,7 @@ interface SalesforceObject {
     nameField?: string;
     keyPrefix?: string;
     label?: string;
+    'x-version'?: string;
 }
 
 interface ObjectIndexEntry {
@@ -41,6 +42,7 @@ interface ObjectIndexEntry {
     icon?: string;
     clouds?: string[];
     accessRules?: string;
+    'x-version'?: string;
 }
 
 interface DocumentIndex {
@@ -141,9 +143,10 @@ async function rebuildIndex() {
                         fieldCount: Object.keys(objectData.properties || {}).length,
                         clouds: objectData.clouds || existingEntry?.clouds || [cloudName],
                         accessRules: objectData.accessRules || existingEntry?.accessRules,
-                        // Update keyPrefix and label from object file if available
+                        // Update keyPrefix, label, and x-version from object file if available
                         ...(objectData.keyPrefix && { keyPrefix: objectData.keyPrefix }),
-                        ...(objectData.label && { label: objectData.label })
+                        ...(objectData.label && { label: objectData.label }),
+                        ...(objectData['x-version'] && { 'x-version': objectData['x-version'] })
                     };
                     
                     if (objectData.accessRules) {

@@ -4,7 +4,7 @@
     "description": "Represents the current properties and state of a group of OrderItemSummaries, belonging to one OrderSummary, to be fulfilled using the same delivery method and delivered to the same address. A single shipment can include them all, but that isn’t guaranteed. Corresponds to one or more order delivery group objects, consisting of an original object and any change objects applicable to it.",
     "properties": {
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "ISO code for the currency of the OrderSummary associated with the OrderDeliveryGroupSummary. The default value is USD.",
         "format": "enum",
         "enum": [
@@ -15,7 +15,7 @@
         "readOnly": true
       },
       "DeliverToAddress": {
-        "type": "address",
+        "type": "string",
         "description": "Address of the recipient. Users with the Edit Delivery Information user permission can modify this field.",
         "nullable": true,
         "readOnly": true
@@ -49,12 +49,14 @@
         "description": ""
       },
       "DeliverToFullSalutation": {
-        "type": "picklist",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "enum": []
       },
       "DeliverTo​GeocodeAccuracy": {
-        "type": "picklist",
-        "description": "Accuracy of the geocode for the recipient address."
+        "type": "string",
+        "description": "Accuracy of the geocode for the recipient address.",
+        "enum": []
       },
       "DeliverToLatitude": {
         "type": "double",
@@ -87,44 +89,44 @@
         "nullable": true
       },
       "DeliverToStreet": {
-        "type": "textarea",
+        "type": "string",
         "description": "Recipient address street.",
         "maxLength": 255,
         "nullable": true
       },
       "DeliveryInstructions": {
-        "type": "textarea",
+        "type": "string",
         "description": "Special instructions for the delivery. Users with the Edit Delivery Information user permission can modify this field.",
         "maxLength": 2000,
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the OrderDeliveryGroupSummary.",
         "maxLength": 2000,
         "nullable": true
       },
       "DesiredDeliveryDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Desired date for delivery. This field is informational, available for customizations. Users with the Edit Delivery Information user permission can modify this field.",
         "format": "date-time",
         "nullable": true
       },
       "EmailAddress": {
-        "type": "email",
+        "type": "string",
         "description": "Email address of the recipient. Users with the Edit Delivery Information user permission can modify this field.",
         "format": "email",
         "maxLength": 80,
         "nullable": true
       },
       "GiftMessage": {
-        "type": "textarea",
+        "type": "string",
         "description": "Gift message to include. Users with the Edit Delivery Information user permission can modify this field.",
         "maxLength": 2000,
         "nullable": true
       },
       "GrandTotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, including adjustments and tax, of the delivery charges associated with the OrderDeliveryGroupSummary. This value only includes OrderItemSummaries of type code Charge.",
         "format": "currency",
         "nullable": true,
@@ -141,41 +143,42 @@
         "description": "ID of the OrderDeliveryGroupSummary."
       },
       "OrderDeliveryMethodId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the order delivery method specified for the OrderDeliveryGroupSummary. Users with the Edit Delivery Information user permission can modify this field.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderDeliveryMethod",
         "maxLength": 18,
         "nullable": false
       },
       "OrderSummaryId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the OrderSummary associated with the OrderDeliveryGroupSummary.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "OrderSummary",
         "maxLength": 18,
         "nullable": false,
         "readOnly": true
       },
       "OriginalOrderDelivery​GroupId": {
-        "type": "reference",
-        "description": "ID of the original order delivery group associated with this summary object. Nillable=true only if the associated order summary is unmanaged. For managed order summaries, nillable=false."
+        "type": "string",
+        "description": "ID of the original order delivery group associated with this summary object. Nillable=true only if the associated order summary is unmanaged. For managed order summaries, nillable=false.",
+        "format": "reference"
       },
       "PhoneNumber": {
-        "type": "phone",
+        "type": "string",
         "description": "Phone number of the recipient. Users with the Edit Delivery Information user permission can modify this field.",
         "format": "phone",
         "maxLength": 40,
         "nullable": true
       },
       "PromisedDeliveryDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "Promised date for delivery. This field is informational, available for customizations. Users with the Edit Delivery Information user permission can modify this field.",
         "format": "date-time",
         "nullable": true
       },
       "TotalAdjustmentAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total price adjustments applied to delivery charges associated with the OrderDeliveryGroupSummary. This value only includes adjustments to OrderItemSummaries of type code Charge.",
         "format": "currency",
         "nullable": true,
@@ -183,15 +186,17 @@
         "multipleOf": 0.01
       },
       "TotalAdjustment​AmtWithTax": {
-        "type": "currency",
-        "description": "Total amount of the price adjustments applied to the delivery charges associated with the OrderDeliveryGroupSummary, inclusive of tax. This amount is equal to TotalAdjustmentAmount + TotalAdjustmentTaxAmount."
+        "type": "number",
+        "description": "Total amount of the price adjustments applied to the delivery charges associated with the OrderDeliveryGroupSummary, inclusive of tax. This amount is equal to TotalAdjustmentAmount + TotalAdjustmentTaxAmount.",
+        "format": "currency"
       },
       "TotalAdjustment​TaxAmount": {
-        "type": "currency",
-        "description": "Tax on the TotalAdjustmentAmount."
+        "type": "number",
+        "description": "Tax on the TotalAdjustmentAmount.",
+        "format": "currency"
       },
       "TotalAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, including adjustments but not tax, of the delivery charges associated with the OrderDeliveryGroupSummary. This value only includes adjustments to OrderItemSummaries of type code Charge.",
         "format": "currency",
         "nullable": true,
@@ -199,7 +204,7 @@
         "multipleOf": 0.01
       },
       "TotalLineAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Total, not including adjustments or tax, of the delivery charges associated with the OrderDeliveryGroupSummary.",
         "format": "currency",
         "nullable": true,
@@ -207,11 +212,12 @@
         "multipleOf": 0.01
       },
       "TotalLineAmt​WithTax": {
-        "type": "currency",
-        "description": "Total of the delivery charges associated with the OrderDeliveryGroupSummary, inclusive of tax. This amount is equal to TotalLineAmount + TotalLineTaxAmount."
+        "type": "number",
+        "description": "Total of the delivery charges associated with the OrderDeliveryGroupSummary, inclusive of tax. This amount is equal to TotalLineAmount + TotalLineTaxAmount.",
+        "format": "currency"
       },
       "TotalLineTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalLineAmount.",
         "format": "currency",
         "nullable": true,
@@ -219,7 +225,7 @@
         "multipleOf": 0.01
       },
       "TotalTaxAmount": {
-        "type": "currency",
+        "type": "number",
         "description": "Tax on the TotalAmount.",
         "format": "currency",
         "nullable": true,
@@ -715,7 +721,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_orderdeliverygroupsummary.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_orderdeliverygroupsummary.htm",
     "keyPrefix": "0ag",
     "createable": true,
     "updateable": true,
@@ -811,6 +817,7 @@
     "accessRules": "This object is only available in Salesforce Order Management orgs or if the B2B Commerce license is enabled.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

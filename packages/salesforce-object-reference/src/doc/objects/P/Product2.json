@@ -1,25 +1,25 @@
 {
   "Product2": {
     "name": "Product2",
-    "description": "Represents a product that your org sells.",
+    "description": "Represents a product that your company sells. Custom fields extend the standard Product object for use in Consumer Goods Cloud.",
     "properties": {
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "A text description of this record. Label is Product Description.",
         "maxLength": 4000,
         "nullable": true
       },
       "DisplayUrl": {
-        "type": "url",
+        "type": "string",
         "description": "URL leading to a specific version of a record in the linked external data source.",
         "format": "uri",
         "maxLength": 1000,
         "nullable": true
       },
       "ExternalDataSourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the related external data source.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ExternalDataSource",
         "maxLength": 18,
         "nullable": true
@@ -31,8 +31,8 @@
         "nullable": true
       },
       "Family": {
-        "type": "picklist",
-        "description": "Name of the product family associated with this record. Product families are configured as picklists in the user interface. Label is Product Family.",
+        "type": "string",
+        "description": "Name of the product family associated with this record.",
         "format": "enum",
         "enum": [
           "Internet",
@@ -57,25 +57,25 @@
       },
       "IsActive": {
         "type": "boolean",
-        "description": "Indicates whether this record is active.",
+        "description": "Indicates whether this record is active (true) or not (false). Inactive Product2 records are hidden in many areas in the user interface. You can change the IsActive flag on a Product2 object as often as necessary. Label is Active.",
         "nullable": false
       },
       "IsArchived": {
         "type": "boolean",
-        "description": "Indicated whether the product is archived.",
+        "description": "Indicates whether the product is archived.",
         "nullable": false,
         "readOnly": true
       },
       "LastReferencedDate": {
-        "type": "dateTime",
-        "description": "Time stamp for the last time this record was referenced.",
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed a record related to this object.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
-        "description": "",
+        "type": "string",
+        "description": "The timestamp for when the current user last viewed this object.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
@@ -93,8 +93,8 @@
         "nullable": true
       },
       "QuantityUnitOfMeasure": {
-        "type": "picklist",
-        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value, Each, so you may want to create your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values.",
+        "type": "string",
+        "description": "Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value (Each) so consider creating your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values.",
         "format": "enum",
         "enum": [
           "Each"
@@ -103,9 +103,9 @@
         "nullable": true
       },
       "RecordTypeId": {
-        "type": "reference",
+        "type": "string",
         "description": "Indicates the record type of the record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "RecordType",
         "maxLength": 18,
         "nullable": true
@@ -125,7 +125,7 @@
         "readOnly": true
       },
       "QuantityScheduleType": {
-        "type": "",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Divide",
@@ -136,7 +136,7 @@
         "description": ""
       },
       "QuantityInstallmentPeriod": {
-        "type": "",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Daily",
@@ -150,12 +150,12 @@
         "description": ""
       },
       "NumberOfQuantityInstallments": {
-        "type": "",
+        "type": "string",
         "nullable": true,
         "description": ""
       },
       "RevenueScheduleType": {
-        "type": "",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Divide",
@@ -166,7 +166,7 @@
         "description": ""
       },
       "RevenueInstallmentPeriod": {
-        "type": "",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Daily",
@@ -180,7 +180,7 @@
         "description": ""
       },
       "NumberOfRevenueInstallments": {
-        "type": "",
+        "type": "string",
         "nullable": true,
         "description": ""
       },
@@ -250,25 +250,25 @@
         "readOnly": true
       },
       "ConnectionReceivedId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the PartnerNetworkConnection that shared this record with your org. This field is available when Salesforce to Salesforce is enabled.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "ConnectionSentId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the PartnerNetworkConnection that this record is shared with. This field is available Salesforce to Salesforce is enabled. In API version 16.0 and later, this value is null. Use PartnerNetworkRecordConnection object to forward records to connections.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "PartnerNetworkConnection",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "Type": {
-        "type": "picklist",
+        "type": "string",
         "description": "The type of product. This field's value affects the read-only value of the ProductClassfield on the Product2 object. field. Base—When Type = Base, then ProductClass = VariationParent. Null—When Type = Null, then ProductClass = Simple. This field is available when B2B or B2C Commerce is enabled. This field is available in API version 50.0 and later.",
         "format": "enum",
         "enum": [
@@ -281,7 +281,7 @@
         "readOnly": true
       },
       "ProductClass": {
-        "type": "picklist",
+        "type": "string",
         "format": "enum",
         "enum": [
           "Simple",
@@ -296,15 +296,17 @@
         "description": "This field is read-only. Its value is determined by the value of the Type field and whether the product is associated with a ProductAttribute record. It describes whether a product is a bundle, set, or simple product, a variation parent, or a product variation. Possible values are: Bundle—This product is a parent or component in a product bundle. Set—This product is included in a product set. Simple—This product has no variations VariationParent—This product is a variation parent. It’s the base product for one or more product variations and, though it has its own stock-keeping unit (SKU), isn’t a sellable entity. Instead, it’s the parent of sellable entities—its variations. Variation—This product is a variation of a parent product. Each variation has its own SKU. When the value of ProductClass = VariationParent, it never changes. The value of ProductClass changes between Simple and Variation when you attach or detach a ProductAttribute record to the product. If you attach a ProductAttribute record to a product, then the product’s ProductClass value changes to Variation. Conversely, when you detach all ProductAttribute records from a product, the ProductClass value changes to Simple. The default value is Simple. This field is available in API version 50.0 and later. It was introduced to support of B2B and B2C Commerce implementations."
       },
       "BillingPolicyId": {
-        "type": "reference",
-        "description": "The ID of the related billing policy. This field is available when Subscription Management is enabled. This field is available in API version 55.0 and later."
+        "type": "string",
+        "description": "The ID of the related billing policy. This field is available when Subscription Management is enabled. This field is available in API version 55.0 and later.",
+        "format": "reference"
       },
       "ConfigureDuringSale": {
-        "type": "picklist",
-        "description": "Determines whether a user can edit a configuration when creating a bundle order or quote."
+        "type": "string",
+        "description": "Determines whether a user can edit a configuration when creating a bundle order or quote.",
+        "enum": []
       },
       "CurrencyIsoCode": {
-        "type": "picklist",
+        "type": "string",
         "description": "Available only for orgs with the multicurrency feature enabled. Contains the ISO code for any currency allowed by the org.",
         "format": "enum",
         "enum": [
@@ -322,49 +324,56 @@
         "description": "Changes behavior of OpportunityLineItem calculations when a line item has child schedule rows for the Quantity value. When enabled, if the rollup quantity changes, then the quantity rollup value is multiplied against the sales price to change the total price."
       },
       "StockCheckMethod": {
-        "type": "picklist",
-        "description": "The method for how a product's inventory is checked. Stock checks on parent products are common when bundles are prepackaged and individual child components can't be sold separately. Stock checks on child products are common when bundles aren't prepackaged and must be put together during fulfillment. If bundles aren’t prepackaged, child components can usually be sold separately."
+        "type": "string",
+        "description": "The method for how a product's inventory is checked. Stock checks on parent products are common when bundles are prepackaged and individual child components can't be sold separately. Stock checks on child products are common when bundles aren't prepackaged and must be put together during fulfillment. If bundles aren’t prepackaged, child components can usually be sold separately.",
+        "enum": []
       },
       "TaxPolicyId": {
-        "type": "reference",
-        "description": "The ID of the related tax policy."
+        "type": "string",
+        "description": "The ID of the related tax policy.",
+        "format": "reference"
       },
       "TransferRecordMode": {
-        "type": "picklist",
-        "description": "If serialized, indicates when the serial number is recorded. This field is visible based on field-level security."
+        "type": "string",
+        "description": "If serialized, indicates when the serial number is recorded. This field is visible based on field-level security.",
+        "enum": []
       },
       "UnitOfMeasureId": {
-        "type": "reference",
-        "description": "The ID of the unit of measure associated with the product."
+        "type": "string",
+        "description": "The ID of the unit of measure associated with the product.",
+        "format": "reference"
       },
       "AvailabilityDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the part is used in the vehicle or is made available for sale. This field is available in API version 56.0 and later.",
+        "format": "date-time",
         "x-cloud": "Automotive Cloud"
       },
       "BusinessBrandId": {
         "type": "string",
         "description": "The brand associated with this vehicle. This field is available in API version 56.0 and later.",
+        "format": "reference",
         "x-cloud": "Automotive Cloud"
       },
       "DiscontinuedDate": {
-        "type": "dateTime",
-        "description": "The date from when the part can't be used in the vehicle or sold. This field is available in API version 56.0 and later.",
+        "type": "string",
+        "description": "The date from when the part can’t be used in the vehicle or sold. This field is available in API version 56.0 and later.",
+        "format": "date-time",
         "x-cloud": "Automotive Cloud"
       },
       "HarmonizedSystemCode": {
         "type": "string",
-        "description": "The harmonized system code that's assigned to the vehicle or a part used in the vehicle. This field is available in API version 56.0 and later.",
+        "description": "The harmonized system code that’s assigned to the vehicle or a part used in the vehicle. This field is available in API version 56.0 and later.",
         "x-cloud": "Automotive Cloud"
       },
       "HarmonizedTariffSchedCode": {
         "type": "string",
-        "description": "The harmonized tariff schedule code that's assigned to the vehicle or a part used in the vehicle. This field is available in API version 56.0 and later.",
+        "description": "The harmonized tariff schedule code that’s assigned to the vehicle or a part used in the vehicle. This field is available in API version 56.0 and later.",
         "x-cloud": "Automotive Cloud"
       },
       "IsCertified": {
         "type": "boolean",
-        "description": "Indicates whether the part that's installed as an accessory in the vehicle is certified (true) or not (false). This field is available in API version 56.0 and later.",
+        "description": "Indicates whether the part that’s installed as an accessory in the vehicle is certified (true) or not (false). This field is available in API version 56.0 and later.",
         "x-cloud": "Automotive Cloud"
       },
       "IsEnvrPrtcRegCompliant": {
@@ -421,10 +430,399 @@
         "type": "string",
         "description": "The version name associated with the vehicle model. This field is available in API version 56.0 and later.",
         "x-cloud": "Automotive Cloud"
+      },
+      "ModelYearVersion": {
+        "type": "number",
+        "description": "The specific iteration of a product introduced in a given model year.",
+        "x-cloud": "Automotive Cloud"
+      },
+      "cgcloud__Asset_Template__c": {
+        "type": "string",
+        "description": "References to asset template.",
+        "format": "reference"
+      },
+      "cgcloud__Bill_Of_Material_Header_Code__c": {
+        "type": "string",
+        "description": "Holds the Header code of the product, if it is a BOM component. For standard products the field will be empty."
+      },
+      "cgcloud__Category__c": {
+        "type": "string",
+        "description": "Indicates the product category that this product record is referring to.",
+        "enum": []
+      },
+      "cgcloud__Competitive_Product__c": {
+        "type": "boolean",
+        "description": "Marks a product as a competitor's product."
+      },
+      "cgcloud__Consumer_Goods_External_Product_Id__c": {
+        "type": "string",
+        "description": "Holds the unique external id."
+      },
+      "cgcloud__Consumer_Goods_Product_Code__c": {
+        "type": "string",
+        "description": "Stores the unique identification of a product."
+      },
+      "cgcloud__Container_Size_Unit__c": {
+        "type": "string",
+        "description": "Describes the unit of a container size.",
+        "enum": []
+      },
+      "cgcloud__Container_Size__c": {
+        "type": "double",
+        "description": "Describes the numeric value for container size."
+      },
+      "cgcloud__Container_Type__c": {
+        "type": "string",
+        "description": "Describes the type of container of the product.",
+        "enum": []
+      },
+      "cgcloud__Criteria_Text_0__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_1__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_2__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_3__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_4__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_5__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_6__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_7__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_8__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criteria_Text_9__c": {
+        "type": "string",
+        "description": "Holds the Criteria in a text form."
+      },
+      "cgcloud__Criterion_1_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_1_Product."
+      },
+      "cgcloud__Criterion_1_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_1_Product."
+      },
+      "cgcloud__Criterion_1_Product__c": {
+        "type": "string",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Category'.",
+        "format": "reference"
+      },
+      "cgcloud__Criterion_2_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_2_Product."
+      },
+      "cgcloud__Criterion_2_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_2_Product."
+      },
+      "cgcloud__Criterion_2_Product__c": {
+        "type": "string",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'SubCategory'.",
+        "format": "reference"
+      },
+      "cgcloud__Criterion_3_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_3_Product."
+      },
+      "cgcloud__Criterion_3_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_3_Product."
+      },
+      "cgcloud__Criterion_3_Product__c": {
+        "type": "string",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Brand'.",
+        "format": "reference"
+      },
+      "cgcloud__Criterion_4_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_4_Product."
+      },
+      "cgcloud__Criterion_4_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_4_Product."
+      },
+      "cgcloud__Criterion_4_Product__c": {
+        "type": "string",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Flavor'.",
+        "format": "reference"
+      },
+      "cgcloud__Criterion_5_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_5_Product."
+      },
+      "cgcloud__Criterion_5_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_5_Product."
+      },
+      "cgcloud__Criterion_5_Product__c": {
+        "type": "string",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Package'.",
+        "format": "reference"
+      },
+      "cgcloud__Criterion_6_Product_Code__c": {
+        "type": "string",
+        "description": "Product code belonging to Criterion_6_Product."
+      },
+      "cgcloud__Criterion_6_Product_Description__c": {
+        "type": "string",
+        "description": "Product description belonging to Criterion_6_Product."
+      },
+      "cgcloud__Criterion_6_Product__c": {
+        "type": "string",
+        "description": "References the product in the hierarchy of the product which is on Product_Level 'Product'.",
+        "format": "reference"
+      },
+      "cgcloud__Custom_Sort__c": {
+        "type": "string",
+        "description": "Use to customize the sorting order of the products. Is unique."
+      },
+      "cgcloud__Delivery_Valid_From__c": {
+        "type": "string",
+        "description": "Delivery status valid from date.",
+        "format": "date"
+      },
+      "cgcloud__Delivery_Valid_Thru__c": {
+        "type": "string",
+        "description": "Delivery status valid thru date.",
+        "format": "date"
+      },
+      "cgcloud__Description_1_Language_1__c": {
+        "type": "string",
+        "description": "Holds the first description of language 1."
+      },
+      "cgcloud__Description_1_Language_2__c": {
+        "type": "string",
+        "description": "Holds the first description of language 2."
+      },
+      "cgcloud__Description_1_Language_3__c": {
+        "type": "string",
+        "description": "Holds the first description of language 3."
+      },
+      "cgcloud__Description_1_Language_4__c": {
+        "type": "string",
+        "description": "Holds the first description of language 4."
+      },
+      "cgcloud__Description_1__c": {
+        "type": "string",
+        "description": "Description 1 based on the user specific language."
+      },
+      "cgcloud__Description_2_Language_1__c": {
+        "type": "string",
+        "description": "Holds the second description of language 1."
+      },
+      "cgcloud__Description_2_Language_2__c": {
+        "type": "string",
+        "description": "Holds the second description of language 2."
+      },
+      "cgcloud__Description_2_Language_3__c": {
+        "type": "string",
+        "description": "Holds the second description of language 3."
+      },
+      "cgcloud__Description_2_Language_4__c": {
+        "type": "string",
+        "description": "Holds the second description of language 4."
+      },
+      "cgcloud__Description_2__c": {
+        "type": "string",
+        "description": "Description 2 based on the user specific language."
+      },
+      "cgcloud__Estimated_Value__c": {
+        "type": "string",
+        "description": "Holds the estimated value of the asset."
+      },
+      "cgcloud__Field_Valid_From__c": {
+        "type": "string",
+        "description": "Field status valid from date.",
+        "format": "date"
+      },
+      "cgcloud__Field_Valid_Thru__c": {
+        "type": "string",
+        "description": "Field status valid thru date.",
+        "format": "date"
+      },
+      "cgcloud__Fund_Valid_From__c": {
+        "type": "string",
+        "description": "Fund Role status valid from date.",
+        "format": "date"
+      },
+      "cgcloud__Fund_Valid_Thru__c": {
+        "type": "string",
+        "description": "Fund Role status valid thru date.",
+        "format": "date"
+      },
+      "cgcloud__GTIN__c": {
+        "type": "string",
+        "description": "Universal Product Number (UPC) number of the product."
+      },
+      "cgcloud__Height__c": {
+        "type": "string",
+        "description": "Holds the height of the asset."
+      },
+      "cgcloud__Is_Bill_Of_Material_Label__c": {
+        "type": "boolean",
+        "description": "Defines a secondary label for the Is_Bill_Of_Material__c field."
+      },
+      "cgcloud__Is_Bill_Of_Material__c": {
+        "type": "boolean",
+        "description": "Boolean flag to identify BOM products."
+      },
+      "cgcloud__KAM_Product__c": {
+        "type": "string",
+        "description": "References to the specifics for a product on the lowest level of the product hierarchy, which is the corresponding product on planning level (Product Price Group level).",
+        "format": "reference"
+      },
+      "cgcloud__KAM_Valid_From__c": {
+        "type": "string",
+        "description": "KAM status valid from date.",
+        "format": "date"
+      },
+      "cgcloud__KAM_Valid_Thru__c": {
+        "type": "string",
+        "description": "KAM status valid thru date.",
+        "format": "date"
+      },
+      "cgcloud__Manufacturer_Item_Number__c": {
+        "type": "string",
+        "description": "Number assigned to the manufacturer."
+      },
+      "cgcloud__Manufacturer__c": {
+        "type": "string",
+        "description": "Name of the manufacturer."
+      },
+      "cgcloud__New_Item_Valid_From__c": {
+        "type": "string",
+        "description": "New Item status valid from date.",
+        "format": "date"
+      },
+      "cgcloud__New_Item_Valid_Thru__c": {
+        "type": "string",
+        "description": "New Item status valid thru date.",
+        "format": "date"
+      },
+      "cgcloud__Order_Ability__c": {
+        "type": "double",
+        "description": "This is an \"apex roll up summary field\" to identify the Order able products only. Order Able products are identified by the units of measure which have Order Ability set to true."
+      },
+      "cgcloud__Pack_Size_Unit__c": {
+        "type": "string",
+        "description": "Unit of the product pack size.",
+        "enum": []
+      },
+      "cgcloud__Pack_Size__c": {
+        "type": "double",
+        "description": "Numeric value for the product pack size."
+      },
+      "cgcloud__Power_Supply_Connected__c": {
+        "type": "boolean",
+        "description": "Specifies whether the asset requires connection to a power supply."
+      },
+      "cgcloud__Product_Form__c": {
+        "type": "string",
+        "description": "Defines the state of the product.",
+        "enum": []
+      },
+      "cgcloud__Product_Level__c": {
+        "type": "string",
+        "description": "Describes the Product Level.",
+        "enum": []
+      },
+      "cgcloud__Product_Short_Code__c": {
+        "type": "string",
+        "description": "Additional short product identifier."
+      },
+      "cgcloud__Product_Template__c": {
+        "type": "string",
+        "description": "References to product template.",
+        "format": "reference"
+      },
+      "cgcloud__Product_Type__c": {
+        "type": "string",
+        "description": "The type of the product.",
+        "enum": []
+      },
+      "cgcloud__Rounding_Rule_Validation__c": {
+        "type": "double",
+        "description": "This is an \"apex roll up summary field\". Internally required."
+      },
+      "cgcloud__Sales_Org__c": {
+        "type": "string",
+        "description": "Describes the sales org which the product belongs to."
+      },
+      "cgcloud__Sell_In_Code__c": {
+        "type": "string",
+        "description": "Holds the Sell In Code of the product."
+      },
+      "cgcloud__Sell_Out_Code__c": {
+        "type": "string",
+        "description": "Holds the Sell Out Code of the product."
+      },
+      "cgcloud__Short_Description_Language_1__c": {
+        "type": "string",
+        "description": "Holds the short description of language 1."
+      },
+      "cgcloud__Short_Description_Language_2__c": {
+        "type": "string",
+        "description": "Holds the short description of language 2."
+      },
+      "cgcloud__Short_Description_Language_3__c": {
+        "type": "string",
+        "description": "Holds the short description of language 3."
+      },
+      "cgcloud__Short_Description_Language_4__c": {
+        "type": "string",
+        "description": "Holds the short description of language 4."
+      },
+      "cgcloud__Short_Description__c": {
+        "type": "string",
+        "description": "Short description based on the user specific language."
+      },
+      "cgcloud__Size__c": {
+        "type": "string",
+        "description": "Holds the size of the asset."
+      },
+      "cgcloud__State__c": {
+        "type": "string",
+        "description": "State of the product.",
+        "enum": []
+      },
+      "cgcloud__Tax_Classification__c": {
+        "type": "string",
+        "description": "Tax classification of the product.",
+        "enum": []
+      },
+      "cgcloud__Transfer_Record_Identifier__c": {
+        "type": "string",
+        "description": "Identifies the products for the promotion transfer process."
+      },
+      "cgcloud__Weight__c": {
+        "type": "string",
+        "description": "Holds the weight of the asset."
       }
     },
-    "module": "Health Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.health_cloud_object_reference.meta/health_cloud_object_reference/sforce_api_objects_hc_product2.htm",
+    "module": "Consumer Goods Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm",
     "keyPrefix": "01t",
     "createable": true,
     "updateable": true,
@@ -960,9 +1358,11 @@
       "Automotive Cloud",
       "Consumer Goods Cloud",
       "Core Salesforce",
-      "Health Cloud"
+      "Health Cloud",
+      "Field Service Lightning"
     ],
     "iconUrl": "standard/product_120.png",
-    "iconColor": "5A1BA9"
+    "iconColor": "5A1BA9",
+    "x-version": "55.0"
   }
 }

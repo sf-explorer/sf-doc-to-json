@@ -4,7 +4,7 @@
     "description": "Shows the customizations and options that a buyer selected for their delivery method.",
     "properties": {
       "Carrier": {
-        "type": "picklist",
+        "type": "string",
         "description": "The carrier that the buyer chose for their delivery method. Developers must add values to this field.",
         "format": "enum",
         "enum": [
@@ -16,7 +16,7 @@
         "nullable": true
       },
       "ClassOfService": {
-        "type": "picklist",
+        "type": "string",
         "description": "The carrier class of service that the buyer chose for their delivery method. Developers must add values to this field.",
         "format": "enum",
         "enum": [
@@ -28,7 +28,7 @@
         "nullable": true
       },
       "Description": {
-        "type": "textarea",
+        "type": "string",
         "description": "Description of the delivery method.",
         "maxLength": 2000,
         "nullable": true
@@ -39,14 +39,14 @@
         "nullable": false
       },
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed a record related to this record.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.",
         "format": "date-time",
         "nullable": true,
@@ -59,9 +59,9 @@
         "nullable": false
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "The user who owns an order delivery method record.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -70,9 +70,9 @@
         "nullable": false
       },
       "ProductId": {
-        "type": "reference",
+        "type": "string",
         "description": "Optional. This product represents a delivery charge order product for a delivery using this delivery method. For example, you could create a product that represents an overnight express charge and assign it to an overnight express delivery method.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Product2",
         "maxLength": 18,
         "nullable": true
@@ -84,8 +84,9 @@
         "nullable": true
       },
       "ShippingCarrierMethod": {
-        "type": "reference",
-        "description": "Optional. A specific shipping service provided by a shipping carrier, such as Ground, 2Day, and NextDay. Depends on the range of transit times available for each carrier."
+        "type": "string",
+        "description": "Optional. A specific shipping service provided by a shipping carrier, such as Ground, 2Day, and NextDay. Depends on the range of transit times available for each carrier.",
+        "format": "reference"
       },
       "Id": {
         "type": "string",
@@ -157,7 +158,7 @@
       }
     },
     "module": "Revenue Lifecycle Management",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_orderdeliverymethod.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.revenue_lifecycle_management_dev_guide.meta/revenue_lifecycle_management_dev_guide/sforce_api_objects_orderdeliverymethod.htm",
     "keyPrefix": "2Dm",
     "createable": true,
     "updateable": true,
@@ -302,6 +303,7 @@
     "clouds": [
       "Revenue Lifecycle Management",
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "48.0"
   }
 }

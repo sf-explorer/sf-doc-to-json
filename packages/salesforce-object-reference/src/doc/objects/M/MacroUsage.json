@@ -4,7 +4,7 @@
     "description": "Represents macro usage on a record, including which macro was used, who used it, and how they used it.",
     "properties": {
       "AppContext": {
-        "type": "picklist",
+        "type": "string",
         "description": "Context in which the macro was run. Possible values are: Aloha—Salesforce Classic Lightning—Lightning Experience Unknown",
         "format": "enum",
         "enum": [
@@ -17,7 +17,7 @@
         "readOnly": true
       },
       "ConditionCount": {
-        "type": "int",
+        "type": "number",
         "description": "Number of conditional instructions contained in the macro at execution.",
         "nullable": true,
         "readOnly": true
@@ -30,26 +30,26 @@
         "readOnly": true
       },
       "DurationInMs": {
-        "type": "int",
+        "type": "number",
         "description": "The execution time, in milliseconds, for the macro.",
         "nullable": true,
         "readOnly": true
       },
       "ExecutedInstructionCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of macro instructions that ran successfully. If the macro completed successfully, this value is the same as InstructionCount.",
         "nullable": true,
         "readOnly": true
       },
       "ExecutionEndTime": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The time at which macro execution completed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "ExecutionState": {
-        "type": "picklist",
+        "type": "string",
         "description": "The end state of macro execution. Possible values are SUCCESS FAILURE CANCELED",
         "format": "enum",
         "enum": [
@@ -62,7 +62,7 @@
         "readOnly": true
       },
       "FailureReason": {
-        "type": "picklist",
+        "type": "string",
         "description": "If ExecutionState is failure, this field stores the reason for the failure. Possible values are: ACCESS GENERIC TIMEOUT UNSUPPORTED",
         "format": "enum",
         "enum": [
@@ -76,16 +76,16 @@
         "readOnly": true
       },
       "FolderId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the folder containing the macro at the time it was used.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "Folder",
         "maxLength": 18,
         "nullable": true,
         "readOnly": true
       },
       "InstructionCount": {
-        "type": "int",
+        "type": "number",
         "description": "The number of instructions in the macro at the start of execution.",
         "nullable": true,
         "readOnly": true
@@ -97,8 +97,9 @@
         "readOnly": true
       },
       "MacroID": {
-        "type": "reference",
-        "description": "ID of the macro."
+        "type": "string",
+        "description": "ID of the macro.",
+        "format": "reference"
       },
       "Name": {
         "type": "string",
@@ -108,9 +109,9 @@
         "readOnly": true
       },
       "OwnerId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the group or user that owns the macro.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Group",
           "User"
@@ -120,9 +121,9 @@
         "readOnly": true
       },
       "UserId": {
-        "type": "reference",
+        "type": "string",
         "description": "ID of the user that ran the macro.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "User",
         "maxLength": 18,
         "nullable": true,
@@ -207,7 +208,7 @@
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_macrousage.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_macrousage.htm",
     "keyPrefix": "5ML",
     "createable": false,
     "updateable": false,
@@ -249,6 +250,7 @@
     "accessRules": "This object is always read-only. Only users with “Modify All Data” permission can delete MacroUsage records.",
     "clouds": [
       "Core Salesforce"
-    ]
+    ],
+    "x-version": "47.0"
   }
 }

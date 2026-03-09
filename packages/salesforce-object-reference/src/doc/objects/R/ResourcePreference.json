@@ -4,21 +4,21 @@
     "description": "Represents an account’s preference for a specified service resource on field service work.",
     "properties": {
       "LastReferencedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the resource preference was last modified.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "LastViewedDate": {
-        "type": "dateTime",
+        "type": "string",
         "description": "The date when the resource preference was last viewed.",
         "format": "date-time",
         "nullable": true,
         "readOnly": true
       },
       "PreferenceType": {
-        "type": "picklist",
+        "type": "string",
         "description": "Resource preference type. Values include: Preferred: Indicates that the customer would like their field service work assigned to the resource. Required: Indicates that the resource must be assigned to the customer’s field service work. Excluded: Indicates that the customer doesn’t want their field service work assigned to the resource. Resource preferences serve more as a suggestion than a requirement. You can still assign a service appointment to any resource regardless of the related work order’s resource preferences.",
         "format": "enum",
         "enum": [
@@ -30,9 +30,9 @@
         "nullable": false
       },
       "RelatedRecordId": {
-        "type": "reference",
+        "type": "string",
         "description": "The work order or account with the resource preference.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-objects": [
           "Account",
           "WorkOrder"
@@ -49,9 +49,9 @@
         "readOnly": true
       },
       "ServiceResourceId": {
-        "type": "reference",
+        "type": "string",
         "description": "The service resource that is preferred, required, or excluded.",
-        "format": "salesforce-id",
+        "format": "reference",
         "x-object": "ServiceResource",
         "maxLength": 18,
         "nullable": false
@@ -132,8 +132,8 @@
         "nullable": true
       }
     },
-    "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_resourcepreference.htm",
+    "module": "Field Service Lightning",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.field_service_dev.meta/field_service_dev/sforce_api_objects_resourcepreference.htm",
     "keyPrefix": "0Kz",
     "createable": true,
     "updateable": true,
@@ -259,9 +259,11 @@
     "accessRules": "Field Service must be enabled.",
     "clouds": [
       "Field Service Lightning",
-      "Core Salesforce"
+      "Core Salesforce",
+      "Scheduler"
     ],
     "iconUrl": "standard/resource_preference_120.png",
-    "iconColor": "3BA755"
+    "iconColor": "3BA755",
+    "x-version": "54.0"
   }
 }
