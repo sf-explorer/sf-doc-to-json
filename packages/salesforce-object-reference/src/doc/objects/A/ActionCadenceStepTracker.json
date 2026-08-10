@@ -49,7 +49,7 @@
       },
       "ErrorCode": {
         "type": "string",
-        "description": "Possible values are: AUTO_EMAIL_DAILY_LIMIT_REACHED AUTO_EMAIL_ORG_SETTING_OFF AUTO_LIST_MQ_MAX_RETRIES_FAILED BCC_NOT_ALLOWED_IF_BCC_COMPLIANCE_ENABLED EAC_GLOBAL_DATA_SOURCE_ERROR—EAC data source error EMAIL_ORG_SETTING_OFF EXCHANGE_MAX_MAILBOX_SIZE—Max Exchange mailbox size reached EXCHANGE_SEND_AS_DENIED FIX_WITH_RECONNECT—Data connection failed GOOGLE_MAIL_SERVICE_NOT_ENABLED—Gmail service not enabled INVALID_DRAFT—Invalid email draft INVALID_TARGET_EMAIL INVALID_TEMPLATE_ID INVALID_USER_EMAIL MAIL_PROVIDER_RATE_LIMIT_REACHED—Email provider rate limit reached NON_EMAIL_UNKNOWN_ERROR—Unknown error NO_ATTACHMENT_ACCESS NO_CONTENT_VERSION_ACCESS NO_LIST_EMAIL_PERMISSION NO_TARGET_ACCESS ORG_WIDE_AUTO_EMAIL_LIMIT_REACHED ORG_WIDE_DAILY_EMAIL_LIMIT_REACHED OTHER_REQ_FIELD_MISSING—Other required field missing PARDOT_MERGE_FIELD_RENDERING_ERROR POST_SEND_EXCEPTION RETRIES_MAX_EXCEEDED—Maximum retries exceeded RETRY_LATER SCHEDULED_EMAIL_FAILED—Unknown error SENDER_MAILBOX_NOT_FOUND TARGET_DO_NOT_CONTACT_ON—Target has Do Not Contact on TARGET_EMAIL_BOUNCED TARGET_EMAIL_EMPTY TEMPLATE_DELETED TEMPLATE_EMPTY—Email subject or body missing TEMPLATE_HAS_INVALID_MERGE_FIELD TEMPLATE_MERGE_FIELD_RENDERING_ERROR TEMPLATE_NOT_PUBLIC—No access to template TEMPLATE_TOO_LARGE UNKNOWN—Email unknown error USER_HAS_LOST_HVS_ACCESS USER_IS_INACTIVE",
+        "description": "Possible values are: AUTO_EMAIL_DAILY_LIMIT_REACHED AUTO_EMAIL_ORG_SETTING_OFF AUTO_LIST_MQ_MAX_RETRIES_FAILED BCC_NOT_ALLOWED_IF_BCC_COMPLIANCE_ENABLED EAC_CONFIG_EMAIL_CAPTURE_OFF—Available in API version 66.0 and later. EAC_CONFIG_IS_NOT_ACTIVE—Available in API version 66.0 and later. EAC_CONFIG_LIMITED_CAPTURE—Available in API version 66.0 and later. EAC_GLOBAL_DATA_SOURCE_ERROR—EAC data source error EMAIL_ORG_SETTING_OFF EXCHANGE_MAX_MAILBOX_SIZE—Max Exchange mailbox size reached EXCHANGE_SEND_AS_DENIED FETCH_EMAIL_THREAD_FAILED FIX_WITH_RECONNECT—Data connection failed FROM_ADDRESS_FIELD_IS_ENCRYPTED—FromAddress field is encrypted GOOGLE_MAIL_SERVICE_NOT_ENABLED—Gmail service not enabled INITIAL_OUTREACH_ACCOUNT_DEACTIVATED—Available in API version 66.0 and later. INSUFFICIENT_ACCESS_ON_TARGET—Available in API version 67.0 and later. INVALID_DRAFT—Invalid email draft INVALID_FROM_ADDRESS INVALID_TARGET_EMAIL INVALID_TEMPLATE_ID INVALID_USER_EMAIL MAIL_PROVIDER_RATE_LIMIT_REACHED—Email provider rate limit reached MALFORMED_QUERY MAX_OUT_EMAIL_THREAD_RETRY MAX_OUT_LLMG_RETRY NON_EMAIL_UNKNOWN_ERROR—Unknown error NO_ACTIVE_ASDR_AGENT NO_ATTACHMENT_ACCESS NO_CONTENT_VERSION_ACCESS NO_LIST_EMAIL_PERMISSION NO_TARGET_ACCESS NO_TOS_SIQ ORG_WIDE_AUTO_EMAIL_LIMIT_REACHED ORG_WIDE_DAILY_EMAIL_LIMIT_REACHED OTHER_REQ_FIELD_MISSING—Other required field missing PARDOT_MERGE_FIELD_RENDERING_ERROR POST_SEND_EXCEPTION RETRIES_MAX_EXCEEDED—Maximum retries exceeded REVIEW_CRITERIA_FLOW_EXECUTION_FAILED—Available in API version 67.0 and later. RETRY_LATER SCHEDULED_EMAIL_FAILED—Unknown error SENDER_MAILBOX_NOT_FOUND SHARE_LIMIT_EXCEEDED SOBO_MEETING_LINK_GENERATION_FAIL— Send as Seller (in Agentforce Lead Nurturing) can’t generate a meeting link. Available in API version 66.0 and later. SOBO_QNA_NO_ANSWER— Send as Seller (in Agentforce Lead Nurturing) can’t answer the prospect’s question. Available in API version 66.0 and later. STORAGE_LIMIT_EXCEEDED—Available in API version 66.0 and later. TARGET_DO_NOT_CONTACT_ON—Target has Do Not Contact on TARGET_EMAIL_BOUNCED TARGET_EMAIL_EMPTY TARGET_HAS_INVALID_ID TARGET_HAS_OPT_OUT_EMAIL TEMPLATE_DELETED TEMPLATE_EMPTY—Email subject or body missing TEMPLATE_HAS_INVALID_MERGE_FIELD TEMPLATE_IS_INACTIVE TEMPLATE_MERGE_FIELD_RENDERING_ERROR TEMPLATE_NOT_PUBLIC—No access to template TEMPLATE_TOO_LARGE UNAUTHORIZED_EMAIL_DOMAIN—Available in API version 66.0 and later. UNKNOWN—Email unknown error USER_HAS_LOST_HVS_ACCESS USER_IS_INACTIVE USER_NOT_IN_EAC_CONFIG—Available in API version 66.0 and later.",
         "enum": []
       },
       "GoToStepIterationCount": {
@@ -80,7 +80,7 @@
       },
       "StepType": {
         "type": "string",
-        "description": "The type of step to execute. Possible values are: AutoSendAnEmail Branch CreateTask DaisyChain LinkedInConnection LinkedInMail ListenerBranch MakeACall PlatformScreenFlow Root SendAnEmail SubRoot Wait",
+        "description": "The type of step to execute. Possible values are: AutoSendAnEmail Branch Copilot CreateTask DaisyChain LinkedInConnection LinkedInMail ListenerBranch MakeACall PlatformScreenFlow Root SendAMessage SendAnEmail SubRoot Terminal Wait",
         "enum": []
       },
       "TargetId": {
@@ -91,10 +91,34 @@
       "WasEverPaused": {
         "type": "boolean",
         "description": "Indicates whether the sales rep had ever paused this step (true), or not (false). This field is available in API version 50.0 and later."
+      },
+      "BranchIterationCount": {
+        "type": "number",
+        "description": "The number of times a target has entered a specific branch within the cadence. This field is available in API version 62.0 and later."
+      },
+      "Channel": {
+        "type": "string",
+        "description": "The communication medium used for this step in an active cadence. This field is available in API version 62.0 and later.",
+        "enum": []
+      },
+      "MessageType": {
+        "type": "string",
+        "description": "The type of messaging channel for this step. Available in API version 67.0 and later. Possible values are: Text— SMS Message",
+        "enum": []
+      },
+      "ReviewCriteriaFlowStatus": {
+        "type": "string",
+        "description": "The execution status of the flow run to evaluate if a review is required for an email. Available in API version 67.0 and later. Possible values are: Failed NotExecuted Success",
+        "enum": []
+      },
+      "ReviewDisposition": {
+        "type": "string",
+        "description": "Determines what happens to an email when review before send is enabled and the review time duration has expired. Available in API version 67.0 and later. Possible values are: CancelOutreach SendAnyway",
+        "enum": []
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_actioncadencesteptracker.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.262.0.object_reference.meta/object_reference/sforce_api_objects_actioncadencesteptracker.htm",
     "clouds": [
       "Core Salesforce"
     ],

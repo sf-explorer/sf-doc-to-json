@@ -1,0 +1,72 @@
+{
+  "PaymentInstruction": {
+    "name": "PaymentInstruction",
+    "description": "Represents a payment instruction that specifies an amount to be paid using a particular payment instrument. Contains payment status information and links to the source of the instruction and the payment instrument to be used.",
+    "properties": {
+      "Amount": {
+        "type": "number",
+        "description": "The payment amount for this instruction.",
+        "format": "currency"
+      },
+      "ExpectedPaymentDate": {
+        "type": "string",
+        "description": "The date the payment is expected to be complete.",
+        "format": "date-time"
+      },
+      "InstructionIdentifier": {
+        "type": "string",
+        "description": "An external identifier for the payment instruction, assigned by the external payment system."
+      },
+      "InstructionSourceId": {
+        "type": "string",
+        "description": "Polymorphic foreign key linking to PaymentRequest, BenefitDisbursement, or Claim.",
+        "format": "reference"
+      },
+      "LastReferencedDate": {
+        "type": "string",
+        "description": "The timestamp when the current user last accessed this record indirectly, for example, through a list view or related record.",
+        "format": "date-time"
+      },
+      "LastViewedDate": {
+        "type": "string",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, and LastReferenceDate is not null, the user accessed this record or list view indirectly.",
+        "format": "date-time"
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the payment instruction."
+      },
+      "OwnerId": {
+        "type": "string",
+        "description": "ID of the owner of this record.",
+        "format": "reference"
+      },
+      "PaymentInstrumentId": {
+        "type": "string",
+        "description": "The payment instrument used for this payment instruction.",
+        "format": "reference"
+      },
+      "PaymentStatus": {
+        "type": "string",
+        "description": "Payment status calculated from Amount and PaidAmount comparison. Automatically mirrored to source entity.",
+        "enum": []
+      },
+      "ProcessedAmount": {
+        "type": "number",
+        "description": "The sum of all PaymentInstructionPayment amounts.",
+        "format": "currency"
+      },
+      "Type": {
+        "type": "string",
+        "description": "Type of payment instruction. For outbound payments, the type must be set to Outbound.",
+        "enum": []
+      }
+    },
+    "module": "Public Sector Cloud",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.262.0.psc_api.meta/psc_api/sforce_api_objects_paymentinstruction.htm",
+    "accessRules": "This object is available only if Outbound Payments is enabled in your org and users have access to Outbound Payments.",
+    "clouds": [
+      "Public Sector Cloud"
+    ]
+  }
+}

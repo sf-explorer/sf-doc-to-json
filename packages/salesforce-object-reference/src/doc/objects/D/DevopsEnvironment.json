@@ -1,0 +1,84 @@
+{
+  "DevopsEnvironment": {
+    "name": "DevopsEnvironment",
+    "description": "Represents a connection from DevOps Center to an environment, which currently can be only a Salesforce org. Developers use development environments to do their work. Each pipeline stage has an associated environment.",
+    "properties": {
+      "CanTrackChanges": {
+        "type": "boolean",
+        "description": "Indicates whether source tracking is enabled for this environment."
+      },
+      "DoceHubType": {
+        "type": "string",
+        "description": "Possible values are: CORE",
+        "enum": []
+      },
+      "IsDevEnvironment": {
+        "type": "boolean",
+        "description": "Indicates whether the environment is a development environment."
+      },
+      "IsExpired": {
+        "type": "boolean",
+        "description": "Indicates if the connection to the environment is invalid or the environment has expired. For example, a deleted or expired scratch org, or a refreshed sandbox whose org ID no longer matches OrgIdentifier."
+      },
+      "IsTestEnvironment": {
+        "type": "boolean",
+        "description": "Indicates whether DevOps Center uses test.salesforce.com for login. When false, DevOps Center uses login.salesforce.com."
+      },
+      "IsVibeEnvironment": {
+        "type": "boolean",
+        "description": "Indicates whether this pipeline is associated with a Code Builder (Agentforce Vibes) environment."
+      },
+      "LastRevisionCounter": {
+        "type": "number",
+        "description": "Tracks the last revision or sync point for source control to determine changes. DevOps Center uses this value to ensure that it doesn't pull duplicate records."
+      },
+      "Name": {
+        "type": "string",
+        "description": "The name of the environment."
+      },
+      "NamedCredential": {
+        "type": "string",
+        "description": "The unique name of the named credential that DevOps Center uses to authenticate and connect to the org referenced by this environment."
+      },
+      "OrgIdentifier": {
+        "type": "string",
+        "description": "The 18-character ID of the Salesforce org that this environment is connected to. DevOps Center connects to an org using a URL. When it connects, it compares its org ID with the value in this field. If the two IDs differ, DevOps Center determines that the connected org is a refreshed sandbox."
+      },
+      "OrgType": {
+        "type": "string",
+        "description": "Classifies the connected Salesforce org.",
+        "enum": []
+      },
+      "OrgUrl": {
+        "type": "string",
+        "description": "The login URL DevOps Center uses to connect to the org."
+      },
+      "OwnerId": {
+        "type": "string",
+        "description": "The ID of the owner of this record.",
+        "format": "reference"
+      },
+      "RefreshDate": {
+        "type": "string",
+        "description": "The date and time that this sandbox was last refreshed from its parent org. DevOps Center uses this field with Refresh Source ID to determine post-refresh state. For example, work items that are missing from a recently swapped environment.",
+        "format": "date-time"
+      },
+      "RefreshSourceId": {
+        "type": "string",
+        "description": "The ID of the environment that this sandbox was cloned from. DevOps Center uses this field and Refresh Date to determine which work items are missing from a recently swapped environment.",
+        "format": "reference"
+      },
+      "ReplacesId": {
+        "type": "string",
+        "description": "The ID of the environment that this one replaces during reconnection or sandbox swap.",
+        "format": "reference"
+      }
+    },
+    "module": "Core Salesforce",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.262.0.object_reference.meta/object_reference/sforce_api_objects_devopsenvironment.htm",
+    "x-version": "66.0",
+    "clouds": [
+      "Core Salesforce"
+    ]
+  }
+}

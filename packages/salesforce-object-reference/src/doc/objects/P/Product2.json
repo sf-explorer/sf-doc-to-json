@@ -269,7 +269,7 @@
       },
       "Type": {
         "type": "string",
-        "description": "The type of product. This field's value affects the read-only value of the ProductClassfield on the Product2 object. field. Base—When Type = Base, then ProductClass = VariationParent. Null—When Type = Null, then ProductClass = Simple. This field is available when B2B or B2C Commerce is enabled. This field is available in API version 50.0 and later.",
+        "description": "The type of product. This field's value affects the read-only value of the ProductClassfield on the Product2 object. The following mappings define how the Type selection updates the ProductClass. Base—When Type = Base, then ProductClass = VariationParent. Null—When Type = Null, then ProductClass = Simple for standalone products. Null—When Type = Null, then ProductClass = Variation for variation products. Bundle—When Type = Bundle, then ProductClass = Bundle. Set—When Type = Set, then ProductClass = Set. Note Revenue Cloud doesn't support products with these specific combinations: Type = Base and ProductClass = VariationParent or Type = Null and ProductClass = Variation. Values Null, Base, Bundle, and Set are available in environments where both Commerce and Revenue Cloud co-exist. The Type field can only be updated from Null to Bundle for products with a Simple ProductClass This field is available when Revenue Cloud, B2B Commerce, B2C Commerce, or other clouds with PCM add-on is enabled. This field is available in API version 50.0 and later.",
         "format": "enum",
         "enum": [
           "Base",
@@ -317,7 +317,7 @@
       },
       "IsSoldOnlyWithOtherProds": {
         "type": "boolean",
-        "description": "Determines whether the product can be sold independently or only as part of a bundle."
+        "description": "Determines whether the product can be sold independently or only as part of a bundle. This field is available in API version 58.0 and later. This field is available when Industries Automotive or Subscription Management is enabled. The default value is false, which means that the product can be sold independently."
       },
       "RecalculateTotalPrice": {
         "type": "boolean",
@@ -819,10 +819,14 @@
       "cgcloud__Weight__c": {
         "type": "string",
         "description": "Holds the weight of the asset."
+      },
+      "IsAssetizable": {
+        "type": "boolean",
+        "description": "Indicates whether a product can be converted into an asset when a subscription order is placed. The default value is true."
       }
     },
     "module": "Consumer Goods Cloud",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.262.0.retail_api.meta/retail_api/sforce_api_objects_product2_custom_objects.htm",
     "keyPrefix": "01t",
     "createable": true,
     "updateable": true,

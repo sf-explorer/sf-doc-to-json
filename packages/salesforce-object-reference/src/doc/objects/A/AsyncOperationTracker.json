@@ -1,11 +1,11 @@
 {
   "AsyncOperationTracker": {
     "name": "AsyncOperationTracker",
-    "description": "Represents the status of an asynchronous request initiated from the Quote, Order, and CreditMemo entities.",
+    "description": "Represents the status of an asynchronous request initiated from the Quote, Order, and CreditMemo objects.",
     "properties": {
       "AsyncOperationNumber": {
         "type": "string",
-        "description": "A string that identifies the operation being tracked in AsyncOperationTracker."
+        "description": "A string that identifies the operation tracked in AsyncOperationTracker."
       },
       "CorrelationIdentifier": {
         "type": "string",
@@ -37,12 +37,12 @@
       },
       "LastViewedDate": {
         "type": "string",
-        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.",
+        "description": "The timestamp when the current user last viewed this record or list view. If this value is null, the user only accessed this record or list view (LastReferencedDate) but not viewed it.",
         "format": "date-time"
       },
       "OwnerId": {
         "type": "string",
-        "description": "The ID of the user or group that owns the job.,",
+        "description": "The ID of the user or group that owns the job.",
         "format": "reference"
       },
       "ParentOperationId": {
@@ -67,7 +67,7 @@
       },
       "StepName": {
         "type": "string",
-        "description": "Possible values are: AssetizationAsyncJob AutomatedNegativeInvoiceLineConversion—Automated Negative Invoice Line Conversion AutomaticRefunds—Automatic Refunds CommerceVariationsUpsert ContextPersistence CreateCPQContractsJob DeltaCatalogSyndicationAsyncJob FullCatalogSyndicationAsyncJob InvoiceDocgenJob InvoiceDocgenPostProcessJob InvoiceDocgenRetryJob InvoiceDraftToPosted PSTCommonSyncStep PSTConfigAndPersist PSTOrderTaxAsync PSTPriceAndPersist PSTQuoteTaxAsync PearAmendQtyAssets—Initiate Amend Quantity PearCancelAssets—Initiate Cancellation PearRenewAssets—Initiate Renewal PlaceOrder PlaceOrderPersistSync PlaceOrderPriceAsync PlaceOrderTaxAsync PlaceQuote—Place Quote PlaceQuotePersistAndPriceSync PlaceQuotePersistSync PlaceQuotePriceAsync PlaceQuoteTaxAsync PriceRuleDeployment—Price Rule Deployment PriceSheetDeployJob QuoteToOrderJob RuleLibraryDeployment TransactionLineBom—Create Material Lines",
+        "description": "Possible values are: ASMAdServerCheckAvailability. This field is available in API version 66.0 and later. ASMAdServerIntegration. This field is available in API version 66.0 and later. ASMAddRelatedEntityToAQL. This field is available in API version 66.0 and later. ASMApplyMediaPlanTemplateJob. This field is available in API version 66.0 and later. ASMApplyTargetingTemplateJob. This field is available in API version 66.0 and later. ASMBulkEditLineItemDetail. This field is available in API version 67.0 and later. ASMCalcLinearMediaSpotPrc. This field is available in API version 66.0 and later. ASMCreateAmendQuoteJob. This field is available in API version 66.0 and later. ASMFileProcessorJob ASMLinearSpotGenerationJob. This field is available in API version 67.0 and later. ASMMediaPlanAsTemplate. This field is available in API version 66.0 and later. ASMMediaPlanClone. This field is available in API version 66.0 and later. ASMMediaPlanCopyJob. This field is available in API version 66.0 and later. AbandonedCart. This field is available in API version 67.0 and later. AssetizationAsyncJob AutomatedNegativeInvoiceLineConversion AutomaticRefunds CommerceVariationsUpsert ContextPersistence CreateCPQContractsJob CreditMemoDraftToPosted. This field is available in API version 66.0 and later. CreditMemoRecovery. This field is available in API version 66.0 and later. DeltaCatalogSyndicationAsyncJob energyAgreementSetup. This field is available in API version 66.0 and later. FullCatalogSyndicationAsyncJob InvoiceBatchRunEmailJob. This field is available in API version 66.0 and later. InvoiceDocgenJob InvoiceDocgenPostProcessJob InvoiceDocgenRetryJob InvoiceDraftToPosted InvoiceEstimatedTaxCallout. This field is available in API version 66.0 and later. LoadSalesRecipientData. This field is available in API version 66.0 and later. MultisiteAutoQuote. This field is available in API version 66.0 and later. PearAmendQtyAssets—Initiate Amend Quantity PearCancelAssets—Initiate Cancellation PearRenewAssets—Initiate Renewal PersonalizationRecommender. This field is available in API version 67.0 and later. PlaceOrder PlaceOrderPersistSync PlaceOrderPriceAsync PlaceOrderTaxAsync PlaceQuote PlaceQuotePersistAndPriceSync PlaceQuotePersistSync PlaceQuotePriceAsync PlaceQuoteTaxAsync PostOrderCampaign. This field is available in API version 67.0 and later. PreprocessOrder. This field is available in API version 66.0 and later. PriceRuleDeployment PriceSheetDeployJob PSTBaseJob—Top-Level. This field is available in API version 66.0 and later. PSTCommonSyncStep PSTConfig. This field is available in API version 66.0 and later. PSTConfigAndPersist. This field is available in API version 66.0 and later. PSTOrderTaxAsync. This field is available in API version 66.0 and later. PSTPersist—Save. This field is available in API version 66.0 and later. PSTPrice. This field is available in API version 66.0 and later. PSTPriceAndPersist. This field is available in API version 66.0 and later. PSTQuoteTaxAsync. This field is available in API version 66.0 and later. QuoteToOrderJob RuleLibraryDeployment SmsDltTemplateIngestion. This field is available in API version 66.0 and later. StandaloneBillingSchedulesCreation. This field is available in API version 66.0 and later. StatementOfAccountGeneration. This field is available in API version 66.0 and later. StoreRetrieveSyncJob. This field is available in API version 66.0 and later. TestSerialMessageStepJob. This field is available in API version 66.0 and later. TransactionLineBom—Create Material Lines VoidCreditMemo",
         "enum": []
       },
       "SubmittedAt": {
@@ -82,10 +82,22 @@
       "TotalJobItems": {
         "type": "number",
         "description": "Total number of items in this job."
+      },
+      "Request": {
+        "type": "string",
+        "description": "The payload required to process the async request that’s populated by internal Salesforce services that use the async framework. This field is available in API version 66.0 and later."
+      },
+      "Response": {
+        "type": "string",
+        "description": "Stores the response for each step in the async flow, used in the next steps of the flow until its completion. This field is available in API version 66.0 and later."
+      },
+      "SequenceNumber": {
+        "type": "number",
+        "description": "The sequence number associated with each step of a multiple step job, to define the execution order for the async job flow. This field is available in API version 66.0 and later."
       }
     },
     "module": "Core Salesforce",
-    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.260.0.object_reference.meta/object_reference/sforce_api_objects_asyncoperationtracker.htm",
+    "sourceUrl": "https://developer.salesforce.com/docs/atlas.en-us.262.0.object_reference.meta/object_reference/sforce_api_objects_asyncoperationtracker.htm",
     "clouds": [
       "Core Salesforce"
     ],
