@@ -22,6 +22,34 @@ const CloudDetailView = ({ cloudName, cloudMetadata, onBack, allObjects }) => {
     navigate('/');
   };
 
+  const normalizeCloudName = (name) => {
+    if (!name) return '';
+    return String(name)
+      .toLowerCase()
+      .replace(/[_\s]+/g, '-')
+      .replace(/[^a-z0-9-]/g, '');
+  };
+
+  const objectBelongsToCloud = (obj, selectedCloudName) => {
+    if (selectedCloudName === 'all') return true;
+
+    const selectedNormalized = normalizeCloudName(selectedCloudName);
+    const cloudAliases = {
+      'field-service': 'field-service-lightning',
+      'financial-services': 'financial-services-cloud',
+    };
+    const canonicalSelected = cloudAliases[selectedNormalized] || selectedNormalized;
+    const objectClouds = Array.isArray(obj.clouds) && obj.clouds.length > 0
+      ? obj.clouds
+      : [obj.cloud].filter(Boolean);
+
+    return objectClouds.some((objectCloudName) => {
+      const normalizedObjectCloud = normalizeCloudName(objectCloudName);
+      const canonicalObjectCloud = cloudAliases[normalizedObjectCloud] || normalizedObjectCloud;
+      return canonicalObjectCloud === canonicalSelected;
+    });
+  };
+
   // Load actions for this cloud
   useEffect(() => {
     const loadActions = async () => {
@@ -167,10 +195,7 @@ const CloudDetailView = ({ cloudName, cloudMetadata, onBack, allObjects }) => {
   const stats = useMemo(() => {
     const cloudObjects = cloudName === 'all' 
       ? allObjects 
-      : allObjects.filter(obj => {
-          const objectClouds = obj.clouds || [obj.cloud];
-          return objectClouds.includes(cloudName);
-        });
+      : allObjects.filter(obj => objectBelongsToCloud(obj, cloudName));
     
     const totalFields = cloudObjects.reduce((sum, obj) => sum + (obj.fieldCount || 0), 0);
     const totalActionParams = cloudActions.reduce((sum, action) => sum + (action.propertyCount || 0), 0);
@@ -231,10 +256,7 @@ const CloudDetailView = ({ cloudName, cloudMetadata, onBack, allObjects }) => {
   // Filter objects by cloud (or show all if cloudName is 'all')
   const filteredObjects = cloudName === 'all' 
     ? allObjects 
-    : allObjects.filter(obj => {
-        const objectClouds = obj.clouds || [obj.cloud];
-        return objectClouds.includes(cloudName);
-      });
+    : allObjects.filter(obj => objectBelongsToCloud(obj, cloudName));
 
   return (
     <Box>

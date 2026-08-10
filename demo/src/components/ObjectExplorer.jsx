@@ -11,10 +11,11 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
   const navigate = useNavigate();
   const { cloudName: urlCloudName, objectName: urlObjectName } = useParams();
   const location = useLocation();
+  const isControlledObjects = initialObjects !== undefined;
   
   const [selectedObject, setSelectedObject] = useState(null);
-  const [objects, setObjects] = useState(initialObjects || []);
-  const [loading, setLoading] = useState(!initialObjects);
+  const [objects, setObjects] = useState(initialObjects ?? []);
+  const [loading, setLoading] = useState(!isControlledObjects);
   const [loadingObjectDetails, setLoadingObjectDetails] = useState(false);
   const [cloudMetadata, setCloudMetadata] = useState(externalCloudMetadata || {});
   const [navigationHistory, setNavigationHistory] = useState([]);
@@ -23,8 +24,15 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
   const selectedCloud = urlCloudName || externalCloudName || null;
 
   useEffect(() => {
+    if (isControlledObjects) {
+      setObjects(initialObjects);
+      setLoading(false);
+    }
+  }, [initialObjects, isControlledObjects]);
+
+  useEffect(() => {
     // Skip loading if initialObjects provided (used when called from CloudDetailView)
-    if (initialObjects) {
+    if (isControlledObjects) {
       return;
     }
 
@@ -117,7 +125,7 @@ const ObjectExplorer = ({ initialObjects, cloudMetadata: externalCloudMetadata, 
     };
 
     loadObjects();
-  }, [initialObjects]);
+  }, [isControlledObjects]);
 
   // Load object details when URL changes
   useEffect(() => {
